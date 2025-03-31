@@ -1,0 +1,15 @@
+{
+    "name": "typescript-castai-multi-cloud",
+    "version": "0.1.0",
+    "devDependencies": {
+        "@types/node": "^18.0.0",
+        "typescript": "^4.9.0"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.0.0",
+        "@castai/pulumi-castai": "file:../../../sdk/nodejs"
+    },
+    "scripts": {
+        "build": "tsc"
+    }
+} 

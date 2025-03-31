@@ -1,0 +1,67 @@
+{
+  "name": "@castai/pulumi-castai-repo",
+  "version": "0.1.2",
+  "description": "Pulumi provider for CAST AI",
+  "private": true,
+  "scripts": {
+    "build": "npm run build:sdk && npm run build:examples",
+    "build:provider": "cd provider && go build -o ../bin/pulumi-resource-castai cmd/pulumi-resource-castai/main.go",
+    "build:sdk": "cd sdk/nodejs && npm run build",
+    "install:provider": "mkdir -p ~/.pulumi/plugins/resource-castai-${npm_package_version} && cp bin/pulumi-resource-castai ~/.pulumi/plugins/resource-castai-${npm_package_version}/",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "cd tests && ./run_tests.sh",
+    "test:typescript": "cd tests && ./run_tests.sh --sdk typescript",
+    "test:python": "cd tests && ./run_tests.sh --sdk python",
+    "test:go": "cd tests && ./run_tests.sh --sdk go",
+    "test:aws": "cd tests && ./run_tests.sh --cloud aws",
+    "test:gcp": "cd tests && ./run_tests.sh --cloud gcp",
+    "test:azure": "cd tests && ./run_tests.sh --cloud azure",
+    "cleanup": "cd tests && ./run_tests.sh --mode cleanup",
+    "ts:test": "cd tests/typescript && npm test",
+    "ts:test:aws": "cd tests/typescript && npm run test:aws",
+    "ts:test:gcp": "cd tests/typescript && npm run test:gcp",
+    "ts:test:azure": "cd tests/typescript && npm run test:azure",
+    "ts:cleanup:aws": "cd tests/typescript && npm run cleanup:aws",
+    "ts:cleanup:gcp": "cd tests/typescript && npm run cleanup:gcp",
+    "ts:cleanup:azure": "cd tests/typescript && npm run cleanup:azure",
+    "ts:cleanup": "cd tests/typescript && npm run cleanup",
+    "build:examples": "cd examples/typescript && npm run build",
+    "install-workspaces": "npm install --workspaces"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@types/node": "^18.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.3.1",
+    "jest": "^29.6.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.0.0",
+    "eslint": "^7.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cast-ai/pulumi-castai.git"
+  },
+  "keywords": [
+    "pulumi",
+    "castai",
+    "kubernetes",
+    "cloud",
+    "aws",
+    "gcp",
+    "azure"
+  ],
+  "author": "CAST AI",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/cast-ai/pulumi-castai/issues"
+  },
+  "homepage": "https://github.com/cast-ai/pulumi-castai#readme",
+  "workspaces": [
+    "sdk/nodejs",
+    "tests/typescript",
+    "examples/typescript"
+  ]
+}

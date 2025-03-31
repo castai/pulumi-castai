@@ -1,0 +1,9 @@
+{
+  "python.analysis.extraPaths": ["./sdk/python"],
+  "python.linting.enabled": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "cSpell.words": [
+    "castai",
+    "parver"
+  ]
+} 

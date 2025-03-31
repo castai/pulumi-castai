@@ -1,0 +1,17 @@
+{
+    "name": "typescript-castai-examples",
+    "version": "0.1.0",
+    "description": "TypeScript examples for the CAST AI Pulumi provider",
+    "devDependencies": {
+        "@types/node": "^18.16.0",
+        "typescript": "^5.1.6"
+    },
+    "dependencies": {
+        "@castai/pulumi-castai": "file:../../sdk/nodejs",
+        "@pulumi/castai": "/workspaces/pulumi-castai/examples/typescript/../../sdk/nodejs",
+        "@pulumi/pulumi": "^3.0.0"
+    },
+    "scripts": {
+        "build": "tsc"
+    }
+}
