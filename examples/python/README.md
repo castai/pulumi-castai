@@ -23,6 +23,33 @@ pip install -r requirements.txt
 export CASTAI_API_TOKEN=your-api-token
 ```
 
+## Pydantic Models
+
+These examples use Pydantic for strong typing and validation. The `models.py` file contains Pydantic models for all CAST AI resources supported by the provider. Using these models offers several benefits:
+
+- Type checking and IDE completion
+- Data validation before resource creation
+- Cleaner code organization
+- Better documentation through Python type hints
+
+Example usage:
+
+```python
+from models import EksClusterConfig
+
+# Create a typed configuration
+config = EksClusterConfig(
+    account_id="123456789012",
+    region="us-west-2",
+    eks_cluster_name="my-cluster",
+    delete_nodes_on_disconnect=True
+)
+
+# Convert to keyword arguments for Pulumi resource
+args = config.dict(exclude_none=True)
+cluster = castai.EksCluster("my-cluster", **args)
+```
+
 ## Examples
 
 ### Basic Example

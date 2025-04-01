@@ -19,11 +19,11 @@ func resourceGKEClusterCreate(ctx context.Context, d *schema.ResourceData, m int
 	name := d.Get("name").(string)
 	projectID := d.Get("project_id").(string)
 	location := d.Get("location").(string)
-	
+
 	// Create a unique ID based on the required properties
 	id := fmt.Sprintf("gke-%s-%s-%s", projectID, location, name)
 	d.SetId(id)
-	
+
 	// Set dummy cluster token for testing
 	if err := d.Set("cluster_token", "sample-cluster-token"); err != nil {
 		return diag.FromErr(fmt.Errorf("error setting cluster token: %v", err))
@@ -33,7 +33,7 @@ func resourceGKEClusterCreate(ctx context.Context, d *schema.ResourceData, m int
 	if err := d.Set("credentials_id", "sample-credentials-id"); err != nil {
 		return diag.FromErr(fmt.Errorf("error setting credentials ID: %v", err))
 	}
-	
+
 	return nil
 }
 
@@ -111,6 +111,143 @@ func Provider() *schema.Provider {
 		DeleteContext: resourceGKEClusterDelete,
 	}
 
+	// Create the autoscaler resource schema
+	autoscalerResource := &schema.Resource{
+		Schema: map[string]*schema.Schema{
+			"cluster_id": {
+				Type:        schema.TypeString,
+				Required:    true,
+				Description: "ID of the cluster to configure autoscaling for",
+			},
+			"enabled": {
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Default:     true,
+				Description: "Whether autoscaling is enabled",
+			},
+			"is_scoped_mode": {
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Default:     false,
+				Description: "Whether autoscaler only considers nodes with specific labels",
+			},
+			"unschedulable_pods": {
+				Type:        schema.TypeSet,
+				Optional:    true,
+				Description: "Settings for handling unschedulable pods",
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"enabled": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Default:  true,
+						},
+						"headroom": {
+							Type:     schema.TypeSet,
+							Optional: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"enabled": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Default:  true,
+									},
+									"cpu_percentage": {
+										Type:     schema.TypeInt,
+										Optional: true,
+										Default:  10,
+									},
+									"memory_percentage": {
+										Type:     schema.TypeInt,
+										Optional: true,
+										Default:  10,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			"cluster_limits": {
+				Type:        schema.TypeSet,
+				Optional:    true,
+				Description: "Overall cluster resource limits for autoscaling",
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"enabled": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Default:  true,
+						},
+						"cpu": {
+							Type:     schema.TypeSet,
+							Optional: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"min_cores": {
+										Type:     schema.TypeInt,
+										Optional: true,
+										Default:  1,
+									},
+									"max_cores": {
+										Type:     schema.TypeInt,
+										Optional: true,
+										Default:  50,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			"node_downscaler": {
+				Type:        schema.TypeSet,
+				Optional:    true,
+				Description: "Settings for node downscaling",
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"enabled": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Default:  true,
+						},
+						"empty_nodes": {
+							Type:     schema.TypeSet,
+							Optional: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"enabled": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Default:  true,
+									},
+									"delay_seconds": {
+										Type:     schema.TypeInt,
+										Optional: true,
+										Default:  180,
+									},
+								},
+							},
+						},
+						"evictor": {
+							Type:     schema.TypeSet,
+							Optional: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"enabled": {
+										Type:     schema.TypeBool,
+										Optional: true,
+										Default:  true,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
 	// Fallback implementation with empty schemas
 	// This will be replaced by the actual implementation when properly imported
 	return &schema.Provider{
@@ -135,7 +272,7 @@ func Provider() *schema.Provider {
 			"castai_gke_cluster":                gkeClusterResource, // Use our defined schema
 			"castai_gke_cluster_id":             {},
 			"castai_aks_cluster":                {},
-			"castai_autoscaler":                 {},
+			"castai_autoscaler":                 autoscalerResource, // Use our defined schema
 			"castai_evictor_advanced_config":    {},
 			"castai_node_template":              {},
 			"castai_node_configuration":         {},
