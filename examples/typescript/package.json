@@ -7,7 +7,7 @@
         "typescript": "^5.1.6"
     },
     "dependencies": {
-        "@pulumi/castai": "../../sdk/nodejs",
+        "@pulumi/castai": "file:../../sdk/nodejs",
         "@pulumi/pulumi": "^3.0.0"
     },
     "scripts": {

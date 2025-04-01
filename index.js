@@ -1,5 +1,7 @@
-import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@pulumi/castai";
+"use strict";
+
+const pulumi = require("@pulumi/pulumi");
+const castai = require("@pulumi/castai");
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai-provider", {
@@ -11,8 +13,6 @@ const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
     projectId: "my-gcp-project-id",  // Replace with your GCP project ID
     location: "us-central1",         // Replace with your GCP location
     name: "my-gke-cluster",          // Replace with your GKE cluster name
-    // Optional: provide credentials JSON directly
-    // credentialsJson: "{ ... }",
 }, { provider });
 
 // Create a node configuration
@@ -55,6 +55,6 @@ const serviceAccount = new castai.ServiceAccount("cast-ai-service-account", {
 }, { provider });
 
 // Export relevant IDs
-export const clusterId = gkeCluster.id;
-export const nodeConfigId = nodeConfig.id;
-export const serviceAccountId = serviceAccount.id;
+exports.clusterId = gkeCluster.id;
+exports.nodeConfigId = nodeConfig.id;
+exports.serviceAccountId = serviceAccount.id;

@@ -2,24 +2,39 @@ import * as pulumi from "@pulumi/pulumi";
 import * as castai from "@pulumi/castai";
 
 // Initialize the CAST AI provider
-const provider = new castai.Provider("castai", {
-    // API token will be read from the environment variable CASTAI_API_TOKEN
+const provider = new castai.Provider("castai-provider", {
+    // API token will be read from environment variable CASTAI_API_TOKEN
 });
 
-// Example EKS cluster configuration
-const eksCluster = new castai.EksCluster("example-eks-cluster", {
-    accountId: "123456789012", // Replace with your AWS account ID
-    region: "us-west-2",       // Replace with your AWS region
-    eksClusterName: "my-eks-cluster", // Replace with your EKS cluster name
-    
-    // The following values need to be replaced with actual values from your AWS account
-    securityGroupId: "sg-12345678", 
-    subnetIds: ["subnet-12345678", "subnet-87654321"],
-});
+// Create a connection to a GKE cluster
+const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
+    projectId: "my-gcp-project-id",  // Replace with your GCP project ID
+    location: "us-central1",         // Replace with your GCP location
+    name: "my-gke-cluster",          // Replace with your GKE cluster name
+    // Optional: provide credentials JSON directly
+    // credentialsJson: "{ ... }",
+}, { provider });
+
+// Create a node configuration
+const nodeConfig = new castai.NodeConfiguration("gke-node-config", {
+    clusterId: gkeCluster.id,
+    constraints: {
+        spotInstances: {
+            enabled: true,
+        },
+        onDemandInstances: {
+            enabled: true,
+        },
+    },
+    tags: {
+        Environment: "Development",
+        ManagedBy: "CAST AI",
+    },
+}, { provider });
 
 // Configure autoscaling
-const autoscaler = new castai.Autoscaler("example-autoscaler", {
-    clusterId: eksCluster.id,
+const autoscaler = new castai.Autoscaler("gke-autoscaler", {
+    clusterId: gkeCluster.id,
     enabled: true,
     unschedulablePods: [{
         enabled: true,
@@ -30,7 +45,16 @@ const autoscaler = new castai.Autoscaler("example-autoscaler", {
             delaySeconds: 300,
         }],
     }],
-});
+}, { provider });
 
-// Export the cluster ID
-export const clusterId = eksCluster.id;
+// Create a service account for CAST AI
+const serviceAccount = new castai.ServiceAccount("cast-ai-service-account", {
+    name: "gke-service-account",
+    description: "Service account for GKE integration",
+    roles: ["admin"],
+}, { provider });
+
+// Export relevant IDs
+export const clusterId = gkeCluster.id;
+export const nodeConfigId = nodeConfig.id;
+export const serviceAccountId = serviceAccount.id;

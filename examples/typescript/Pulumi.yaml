@@ -1,3 +1,4 @@
 name: typescript-castai-example
 runtime: nodejs
 description: A simple example of using the CAST AI provider for Pulumi
+main: index.js
