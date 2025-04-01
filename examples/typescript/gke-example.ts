@@ -7,7 +7,7 @@ const provider = new castai.Provider("castai-provider", {
 });
 
 // Create a connection to a GKE cluster
-const gkeCluster = new castai.gcp.GkeCluster("gke-cluster-connection", {
+const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
     projectId: "my-gcp-project-id",  // Replace with your GCP project ID
     location: "us-central1",         // Replace with your GCP location
     name: "my-gke-cluster",          // Replace with your GKE cluster name
@@ -16,7 +16,7 @@ const gkeCluster = new castai.gcp.GkeCluster("gke-cluster-connection", {
 }, { provider });
 
 // Create a node configuration
-const nodeConfig = new castai.nodeconfig.NodeConfiguration("gke-node-config", {
+const nodeConfig = new castai.NodeConfiguration("gke-node-config", {
     clusterId: gkeCluster.id,
     constraints: {
         spotInstances: {
@@ -33,7 +33,7 @@ const nodeConfig = new castai.nodeconfig.NodeConfiguration("gke-node-config", {
 }, { provider });
 
 // Configure autoscaling
-const autoscaler = new castai.autoscaling.Autoscaler("gke-autoscaler", {
+const autoscaler = new castai.Autoscaler("gke-autoscaler", {
     clusterId: gkeCluster.id,
     enabled: true,
     unschedulablePods: {
@@ -50,7 +50,7 @@ const autoscaler = new castai.autoscaling.Autoscaler("gke-autoscaler", {
 }, { provider });
 
 // Create a GCP service account for CAST AI
-const gcpServiceAccount = new castai.iam.GcpServiceAccount("cast-ai-service-account", {
+const gcpServiceAccount = new castai.GcpServiceAccount("cast-ai-service-account", {
     projectId: "my-gcp-project-id", // Replace with your GCP project ID
 }, { provider });
 

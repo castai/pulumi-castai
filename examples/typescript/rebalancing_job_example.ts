@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai"; // Use your actual package name
+import * as castai from "@pulumi/castai"; // Use your actual package name
 
 // Placeholder: Assume these IDs are obtained from other resources
 // e.g., from castai.Cluster and castai.RebalancingSchedule resources

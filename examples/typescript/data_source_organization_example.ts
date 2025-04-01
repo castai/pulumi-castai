@@ -1,13 +1,12 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai"; // Use your actual package name if different
+import * as castai from "@pulumi/castai"; // Use your actual package name if different
 
 // Placeholder: Replace with the actual name of the organization you want to fetch.
 // This might come from config or be hardcoded for the example.
 const organizationName = "my-castai-organization-name";
 
-// Using castai.organization.getOrganization based on the pattern from resources.
-// This function likely takes an object with the 'name' property.
-const orgInfo = castai.organization.getOrganization({
+// Use the correct data source function based on the SDK
+const orgInfo = castai.getOrganizationDataSource({
     name: organizationName,
 });
 

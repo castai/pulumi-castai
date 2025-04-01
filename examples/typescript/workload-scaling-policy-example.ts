@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai";
+import * as castai from "@pulumi/castai";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai", {
@@ -7,7 +7,7 @@ const provider = new castai.Provider("castai", {
 });
 
 // Reference an existing EKS cluster (you can use any cluster type)
-const eksCluster = new castai.aws.EksCluster("example-eks-cluster", {
+const eksCluster = new castai.EksCluster("example-eks-cluster", {
     accountId: "123456789012", // Replace with your AWS account ID
     region: "us-west-2",       // Replace with your AWS region
     eksClusterName: "my-eks-cluster", // Replace with your EKS cluster name
@@ -16,7 +16,7 @@ const eksCluster = new castai.aws.EksCluster("example-eks-cluster", {
 });
 
 // Create a workload scaling policy
-const scalingPolicy = new castai.workload.ScalingPolicy("example-scaling-policy", {
+const scalingPolicy = new castai.ScalingPolicy("example-scaling-policy", {
     clusterId: eksCluster.id,
     name: "web-services-scaling",
     enabled: true,

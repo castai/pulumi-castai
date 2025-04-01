@@ -1,0 +1,13 @@
+{
+    "name": "castai-e2e-aws-test",
+    "version": "1.0.0",
+    "description": "E2E test for CAST AI AWS (EKS) integration",
+    "main": "index.js",
+    "dependencies": {
+        "@castai/pulumi-castai": "file:../../../sdk/nodejs",
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/aws": "^6.0.0",
+        "@pulumi/eks": "^2.0.0",
+        "@pulumi/kubernetes": "^4.0.0"
+    }
+} 

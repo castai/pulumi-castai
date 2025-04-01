@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai"; // Use your actual package name
+import * as castai from "@pulumi/castai"; // Use your actual package name
 
 // Placeholder: Replace with actual Azure AD application details
 // These would typically come from Pulumi config or other resources
@@ -10,8 +10,8 @@ const azureAdClientSecret = config.requireSecret("azureAdClientSecret");
 const azureAdDomain = "your-organization.onmicrosoft.com";
 const primaryEmailDomain = "your-organization.com"; // Your org's email domain
 
-// Assuming the resource is castai.organization.SSOConnection
-const ssoConnection = new castai.organization.SSOConnection("example-azure-sso", {
+// Assuming the resource is castai.SSOConnection
+const ssoConnection = new castai.SSOConnection("example-azure-sso", {
     name: "AzureAD-SSO", // A descriptive name for the connection in CAST AI
     emailDomain: primaryEmailDomain,
     // Optional: Add other domains if needed

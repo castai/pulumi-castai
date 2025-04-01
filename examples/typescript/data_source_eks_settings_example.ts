@@ -1,25 +1,15 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai"; // Use your actual package name
-import * as aws from "@pulumi/aws"; // Need AWS provider to get details like account ID
+import * as castai from "@pulumi/castai"; // Use your actual package name if different
 
-// Placeholder: Replace with actual values or fetch dynamically
-const clusterRegion = "us-east-1";
-const clusterName = "my-eks-cluster";
-const vpcId = "vpc-12345678";
+// Placeholder: Replace with the actual cluster ID you want to fetch settings for.
+// This might come from another resource, config, or be hardcoded for the example.
+const clusterId = "your-cast-ai-cluster-id";
 
-// Get current AWS Account ID
-const callerIdentity = aws.getCallerIdentity({});
-const accountId = callerIdentity.then(id => id.accountId);
+// Using the correct data source function to fetch EKS settings
+const eksSettings = pulumi.output(castai.getEksSettingsDataSource());
 
-// Assuming the invoke is directly under castai
-const eksSettings = castai.getEksSettings({
-    accountId: accountId,
-    region: clusterRegion,
-    cluster: clusterName,
-    vpc: vpcId,
-});
+// Export only properties that exist on the result
+export const eksDetails = eksSettings.apply(settings => settings.id);
 
-// Export details retrieved from the data source.
-// Adjust exported properties based on the actual return value.
-export const retrievedSettingsAccountId = eksSettings.then(s => s.accountId);
-// Example: export const retrievedIamRoleArn = eksSettings.then(s => s.iamRoleArn); 
+// Use simple exports to demonstrate the concept
+export const eksOutput = eksSettings; 

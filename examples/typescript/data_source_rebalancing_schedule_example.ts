@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai"; // Use your actual package name
+import * as castai from "@pulumi/castai"; // Use your actual package name
 
 // Placeholder: Replace with the actual name of the rebalancing schedule to fetch.
 const scheduleName = "my-existing-rebalancing-schedule";

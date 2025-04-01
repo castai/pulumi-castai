@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai";
+import * as castai from "@pulumi/castai";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai", {
@@ -7,7 +7,7 @@ const provider = new castai.Provider("castai", {
 });
 
 // Example EKS cluster configuration
-const eksCluster = new castai.aws.EksCluster("example-eks-cluster", {
+const eksCluster = new castai.EksCluster("example-eks-cluster", {
     accountId: "123456789012", // Replace with your AWS account ID
     region: "us-west-2",       // Replace with your AWS region
     eksClusterName: "my-eks-cluster", // Replace with your EKS cluster name
@@ -18,20 +18,18 @@ const eksCluster = new castai.aws.EksCluster("example-eks-cluster", {
 });
 
 // Configure autoscaling
-const autoscaler = new castai.autoscaling.Autoscaler("example-autoscaler", {
+const autoscaler = new castai.Autoscaler("example-autoscaler", {
     clusterId: eksCluster.id,
     enabled: true,
-    unschedulablePods: {
+    unschedulablePods: [{
         enabled: true,
-        dryRun: false,
-    },
-    nodeDownscaler: {
+    }],
+    nodeDownscaler: [{
         enabled: true,
-        emptyNodes: {
-            enabled: true,
+        emptyNodes: [{
             delaySeconds: 300,
-        },
-    },
+        }],
+    }],
 });
 
 // Export the cluster ID

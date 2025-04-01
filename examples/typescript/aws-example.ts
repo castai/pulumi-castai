@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai";
+import * as castai from "@pulumi/castai";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai", {
@@ -7,7 +7,7 @@ const provider = new castai.Provider("castai", {
 });
 
 // Example EKS cluster configuration
-const eksCluster = new castai.aws.EksCluster("example-eks-cluster", {
+const eksCluster = new castai.EksCluster("example-eks-cluster", {
     accountId: "123456789012", // Replace with your AWS account ID
     region: "us-west-2",       // Replace with your AWS region
     eksClusterName: "my-eks-cluster", // Replace with your EKS cluster name
@@ -18,24 +18,22 @@ const eksCluster = new castai.aws.EksCluster("example-eks-cluster", {
 });
 
 // Configure autoscaling for the EKS cluster
-const autoscaler = new castai.autoscaling.Autoscaler("eks-autoscaler", {
+const autoscaler = new castai.Autoscaler("eks-autoscaler", {
     clusterId: eksCluster.id,
     enabled: true,
-    unschedulablePods: {
+    unschedulablePods: [{
         enabled: true,
-        dryRun: false,
-    },
-    nodeDownscaler: {
+    }],
+    nodeDownscaler: [{
         enabled: true,
-        emptyNodes: {
-            enabled: true,
+        emptyNodes: [{
             delaySeconds: 300,
-        },
-    },
+        }],
+    }],
 });
 
 // Example of configuring a node template for EKS
-const nodeTemplate = new castai.nodeconfig.NodeTemplate("eks-node-template", {
+const nodeTemplate = new castai.NodeTemplate("eks-node-template", {
     clusterId: eksCluster.id,
     name: "eks-optimized-nodes",
     enabled: true,
@@ -57,7 +55,7 @@ const nodeTemplate = new castai.nodeconfig.NodeTemplate("eks-node-template", {
 });
 
 // Setup node configuration for EKS
-const nodeConfiguration = new castai.nodeconfig.NodeConfiguration("eks-node-configuration", {
+const nodeConfiguration = new castai.NodeConfiguration("eks-node-configuration", {
     clusterId: eksCluster.id,
     subnets: [
         {
@@ -77,8 +75,10 @@ const nodeConfiguration = new castai.nodeconfig.NodeConfiguration("eks-node-conf
     },
 });
 
+// Comment out unsupported AWS IAM resources
+/*
 // Configure AWS IAM policy and role
-const awsIamPolicy = new castai.iam.AwsIamPolicy("eks-iam-policy", {
+const awsIamPolicy = new castai.AwsIamPolicy("eks-iam-policy", {
     accountId: "123456789012", // Your AWS account ID
     policyDocument: JSON.stringify({
         Version: "2012-10-17",
@@ -102,7 +102,7 @@ const awsIamPolicy = new castai.iam.AwsIamPolicy("eks-iam-policy", {
     })
 });
 
-const awsIamRole = new castai.iam.AwsIamRole("eks-iam-role", {
+const awsIamRole = new castai.AwsIamRole("eks-iam-role", {
     accountId: "123456789012", // Your AWS account ID
     assumeRolePolicyDocument: JSON.stringify({
         Version: "2012-10-17",
@@ -110,7 +110,7 @@ const awsIamRole = new castai.iam.AwsIamRole("eks-iam-role", {
             {
                 Effect: "Allow",
                 Principal: {
-                    Service: "castai.amazonaws.com"
+                    Service: "castai.com"
                 },
                 Action: "sts:AssumeRole",
                 Condition: {
@@ -123,9 +123,10 @@ const awsIamRole = new castai.iam.AwsIamRole("eks-iam-role", {
     }),
     attachedPolicies: [awsIamPolicy.arn]
 });
+*/
 
 // Set up a rebalancing schedule
-const rebalancingSchedule = new castai.rebalancing.RebalancingSchedule("eks-rebalancing-schedule", {
+const rebalancingSchedule = new castai.RebalancingSchedule("eks-rebalancing-schedule", {
     clusterId: eksCluster.id,
     enabled: true,
     schedule: {
@@ -143,4 +144,4 @@ const rebalancingSchedule = new castai.rebalancing.RebalancingSchedule("eks-reba
 // Export relevant resources
 export const clusterId = eksCluster.id;
 export const nodeTemplateId = nodeTemplate.id;
-export const awsRoleArn = awsIamRole.arn; 
+// export const awsRoleArn = awsIamRole.arn; 

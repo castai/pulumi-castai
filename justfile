@@ -196,4 +196,24 @@ install-all-deps: setup-deps
 # Install dependencies for examples
 install-examples-deps:
     @echo "Running install-examples-deps script..."
-    @./scripts/install-examples-deps.sh 
+    @./scripts/install-examples-deps.sh
+
+# Run end-to-end tests
+run-e2e-tests test_pattern="*": setup-e2e-tests
+    @echo "Running end-to-end tests (pattern: {{test_pattern}})..."
+    @./scripts/run-e2e-tests.sh "{{test_pattern}}"
+
+# Run specific e2e test
+run-e2e-test test_name:
+    @echo "Running specific e2e test: {{test_name}}..."
+    @./scripts/run-e2e-tests.sh "{{test_name}}"
+
+# Create e2e test environment
+setup-e2e-tests:
+    @echo "Setting up e2e test environment..."
+    @./scripts/setup-e2e-tests.sh
+
+# Clean e2e test resources
+clean-e2e-tests:
+    @echo "Cleaning e2e test resources..."
+    @./scripts/clean-e2e-tests.sh 

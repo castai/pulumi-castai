@@ -1,22 +1,22 @@
 import * as pulumi from '@pulumi/pulumi';
-import * as castai from '@castai/pulumi-castai';
+import * as castai from '@pulumi/castai';
 
 // AWS EKS cluster connection
-const eksCluster = new castai.aws.EksClusterConnection("eks-cluster", {
+const eksCluster = new castai.EksCluster("eks-cluster", {
     region: "us-east-1",
     accountId: "123456789012",
     eksClusterName: "my-eks-cluster",
 });
 
 // GCP GKE cluster connection
-const gkeCluster = new castai.gcp.GkeClusterConnection("gke-cluster", {
+const gkeCluster = new castai.GkeCluster("gke-cluster", {
     projectId: "my-gcp-project",
     location: "us-central1",
-    gkeClusterName: "my-gke-cluster",
+    name: "my-gke-cluster",
 });
 
 // Azure AKS cluster connection
-const aksCluster = new castai.azure.AksClusterConnection("aks-cluster", {
+const aksCluster = new castai.AksCluster("aks-cluster", {
     tenantId: "tenant-id",
     subscriptionId: "subscription-id",
     resourceGroupName: "resource-group",
@@ -28,8 +28,8 @@ function createNodeConfig(
     name: string, 
     clusterId: pulumi.Output<string>,
     provider: string
-): castai.nodeconfig.NodeConfiguration {
-    return new castai.nodeconfig.NodeConfiguration(name, {
+): castai.NodeConfiguration {
+    return new castai.NodeConfiguration(name, {
         clusterId: clusterId,
         constraints: {
             spotInstances: {
@@ -69,35 +69,19 @@ const aksNodeConfig = createNodeConfig(
 function createAutoscaler(
     name: string, 
     clusterId: pulumi.Output<string>
-): castai.autoscaling.Autoscaler {
-    return new castai.autoscaling.Autoscaler(name, {
+): castai.Autoscaler {
+    return new castai.Autoscaler(name, {
         clusterId: clusterId,
-        unschedulablePods: {
+        enabled: true,
+        unschedulablePods: [{
             enabled: true,
-        },
-        nodeDownscaler: {
+        }],
+        nodeDownscaler: [{
             enabled: true,
-            params: {
-                emptyNodes: {
-                    enabled: true,
-                },
-            },
-        },
-        clusterLimits: {
-            cpu: {
-                maxCores: 100,
-                minCores: 10,
-                maxCorePct: 80.0,
-                minCorePct: 20.0,
-                coresPerVcpu: 1.0,
-            },
-            memory: {
-                maxGb: 400,
-                minGb: 40,
-                maxGbPct: 80.0,
-                minGbPct: 20.0,
-            }
-        },
+            emptyNodes: [{
+                delaySeconds: 300,
+            }],
+        }],
     });
 }
 
@@ -106,32 +90,8 @@ const eksAutoscaler = createAutoscaler("eks-autoscaler", eksCluster.id);
 const gkeAutoscaler = createAutoscaler("gke-autoscaler", gkeCluster.id);
 const aksAutoscaler = createAutoscaler("aks-autoscaler", aksCluster.id);
 
-// IAM setup for AWS
-const awsPolicy = new castai.iam.AwsIamPolicy("eks-policy", {
-    accountId: "123456789012",
-    eksClusterName: "my-eks-cluster",
-    name: "castai-eks-policy",
-});
-
-const awsRole = new castai.iam.AwsIamRole("eks-role", {
-    accountId: "123456789012",
-    name: "castai-eks-role",
-    externalId: "castai-eks",
-    policyARNs: [awsPolicy.arn],
-});
-
-// IAM setup for GCP
-const gcpServiceAccount = new castai.iam.GcpServiceAccount("gke-sa", {
-    projectId: "my-gcp-project",
-    name: "castai-gke-sa",
-});
-
-// IAM setup for Azure
-const azureServicePrincipal = new castai.iam.AzureServicePrincipal("aks-sp", {
-    tenantId: "tenant-id",
-    subscriptionId: "subscription-id",
-    name: "castai-aks-sp",
-});
+// Note: IAM setup sections (AwsIamPolicy, AwsIamRole, GcpServiceAccount, AzureServicePrincipal)
+// were removed as these resources are not available in the current SDK
 
 // Export cluster IDs
 export const eksClusterId = eksCluster.id;

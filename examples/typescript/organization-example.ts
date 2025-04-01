@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai";
+import * as castai from "@pulumi/castai";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai", {
@@ -7,7 +7,7 @@ const provider = new castai.Provider("castai", {
 });
 
 // Create a service account for programmatic access
-const serviceAccount = new castai.organization.ServiceAccount("example-service-account", {
+const serviceAccount = new castai.ServiceAccount("example-service-account", {
     name: "ci-cd-automation",
     description: "Service account for CI/CD pipeline automation",
     roles: ["admin", "viewer"],  // Roles to assign to the service account
@@ -15,14 +15,14 @@ const serviceAccount = new castai.organization.ServiceAccount("example-service-a
 });
 
 // Create a service account API key
-const serviceAccountKey = new castai.organization.ServiceAccountKey("example-sa-key", {
+const serviceAccountKey = new castai.ServiceAccountKey("example-sa-key", {
     serviceAccountId: serviceAccount.id,
     description: "API key for CI/CD integration",
     // The token will be generated and available as an output
 });
 
 // Configure SSO for organization access
-const ssoConnection = new castai.organization.SSOConnection("example-sso", {
+const ssoConnection = new castai.SSOConnection("example-sso", {
     idpMetadataUrl: "https://login.microsoftonline.com/tenant-id/federationmetadata/2007-06/federationmetadata.xml",
     // Or use idpMetadataXml: "...",
     
@@ -52,7 +52,7 @@ const ssoConnection = new castai.organization.SSOConnection("example-sso", {
 });
 
 // Manage organization members
-const orgMembers = new castai.organization.Members("example-org-members", {
+const orgMembers = new castai.Members("example-org-members", {
     // Add members with specific roles
     members: [
         {
@@ -71,7 +71,7 @@ const orgMembers = new castai.organization.Members("example-org-members", {
 });
 
 // Create an organization group
-const orgGroup = new castai.organization.Group("example-org-group", {
+const orgGroup = new castai.Group("example-org-group", {
     name: "DevOps Team",
     description: "Group for DevOps engineers",
     memberEmails: [
@@ -81,7 +81,7 @@ const orgGroup = new castai.organization.Group("example-org-group", {
 });
 
 // Configure role bindings for the group
-const roleBindings = new castai.organization.RoleBindings("example-role-bindings", {
+const roleBindings = new castai.RoleBindings("example-role-bindings", {
     bindings: [
         {
             role: "editor",

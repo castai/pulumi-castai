@@ -11,7 +11,7 @@ const eksCluster = new aws.eks.Cluster("my-cluster", {
 });
 
 // Connect the EKS cluster to CAST AI
-const castaiCluster = new castai.aws.EksCluster("castai-eks-cluster", {
+const castaiCluster = new castai.EksCluster("castai-eks-cluster", {
     accountId: "12345678901",
     region: "us-west-2",
     eksClusterName: eksCluster.name,

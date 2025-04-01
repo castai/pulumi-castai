@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai";
+import * as castai from "@pulumi/castai";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai", {
@@ -7,33 +7,34 @@ const provider = new castai.Provider("castai", {
 });
 
 // Example AKS cluster configuration
-const aksCluster = new castai.azure.AksCluster("example-aks-cluster", {
-    subscriptionId: "00000000-0000-0000-0000-000000000000", // Replace with your Azure subscription ID
-    resourceGroupName: "my-resource-group",                 // Replace with your Azure resource group
-    clusterName: "my-aks-cluster",                          // Replace with your AKS cluster name
-    location: "eastus",                                      // Replace with your Azure region
-    tenantId: "00000000-0000-0000-0000-000000000000",       // Replace with your Azure tenant ID
+const aksCluster = new castai.AksCluster("example-aks-cluster", {
+    // Replace with your Azure subscription ID
+    subscriptionId: "00000000-0000-0000-0000-000000000000",
+    // Replace with your Azure resource group name
+    resourceGroupName: "my-resource-group",
+    // Replace with your AKS cluster name
+    aksClusterName: "my-aks-cluster",
+    // Replace with your Azure tenant ID
+    tenantId: "00000000-0000-0000-0000-000000000000",
 });
 
 // Configure autoscaling for the AKS cluster
-const autoscaler = new castai.autoscaling.Autoscaler("aks-autoscaler", {
+const autoscaler = new castai.Autoscaler("aks-autoscaler", {
     clusterId: aksCluster.id,
     enabled: true,
-    unschedulablePods: {
+    unschedulablePods: [{
         enabled: true,
-        dryRun: false,
-    },
-    nodeDownscaler: {
+    }],
+    nodeDownscaler: [{
         enabled: true,
-        emptyNodes: {
-            enabled: true,
+        emptyNodes: [{
             delaySeconds: 300,
-        },
-    },
+        }],
+    }],
 });
 
 // Example of configuring a node template for AKS
-const nodeTemplate = new castai.nodeconfig.NodeTemplate("aks-node-template", {
+const nodeTemplate = new castai.NodeTemplate("aks-node-template", {
     clusterId: aksCluster.id,
     name: "aks-optimized-nodes",
     enabled: true,
@@ -43,23 +44,35 @@ const nodeTemplate = new castai.nodeconfig.NodeTemplate("aks-node-template", {
     },
     labels: {
         "environment": "production",
-        "app": "my-application"
+        "service": "backend"
     },
     taints: [
         {
-            key: "workload_type",
-            value: "webservice",
+            key: "dedicated",
+            value: "backend",
             effect: "NoSchedule",
         },
     ],
 });
 
-// Configure Azure IAM role (example based on IAM requirements)
-const azureIamRole = new castai.iam.AzureIamRole("aks-iam-role", {
-    subscriptionId: "00000000-0000-0000-0000-000000000000", // Your Azure subscription ID
+// Configure Azure service principal for CAST AI
+const azureAuth = new castai.ClusterToken("aks-auth", {
+    clusterId: aksCluster.id,
+    // Remove client-specific properties that don't exist on ClusterToken
+});
+
+// Export relevant resources
+export const clusterId = aksCluster.id;
+export const nodeTemplateId = nodeTemplate.id;
+export const azureAuthId = azureAuth.id;
+
+/* 
+// Azure IAM role configuration is not currently supported in the SDK
+// This is a placeholder for future implementation
+const azureIamRole = new castai.AzureIamRole("aks-iam-role", {
+    subscriptionId: "00000000-0000-0000-0000-000000000000", 
     roleName: "CastAIClusterManager",
     roleDefinition: JSON.stringify({
-        // Your Azure role definition here
         name: "CAST AI Cluster Manager",
         description: "Allows CAST AI to manage AKS clusters",
         assignableScopes: [
@@ -78,7 +91,4 @@ const azureIamRole = new castai.iam.AzureIamRole("aks-iam-role", {
         ],
     }),
 });
-
-// Export cluster ID and other useful outputs
-export const clusterId = aksCluster.id;
-export const nodeTemplateId = nodeTemplate.id; 
+*/ 

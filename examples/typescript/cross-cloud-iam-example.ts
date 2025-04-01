@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai";
+import * as castai from "@pulumi/castai";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai", {
@@ -7,7 +7,7 @@ const provider = new castai.Provider("castai", {
 });
 
 // Create AWS resources
-const eksCluster = new castai.aws.EksCluster("aws-cluster", {
+const eksCluster = new castai.EksCluster("aws-cluster", {
     accountId: "123456789012",
     region: "us-west-2",
     eksClusterName: "eks-cluster",
@@ -16,14 +16,14 @@ const eksCluster = new castai.aws.EksCluster("aws-cluster", {
 });
 
 // Create GCP resources
-const gkeCluster = new castai.gcp.GkeCluster("gcp-cluster", {
+const gkeCluster = new castai.GkeCluster("gcp-cluster", {
     projectId: "my-gcp-project",
     location: "us-central1",
     clusterName: "gke-cluster",
 });
 
 // Create Azure resources
-const aksCluster = new castai.azure.AksCluster("azure-cluster", {
+const aksCluster = new castai.AksCluster("azure-cluster", {
     subscriptionId: "00000000-0000-0000-0000-000000000000",
     resourceGroupName: "my-resource-group",
     clusterName: "aks-cluster",
@@ -32,7 +32,7 @@ const aksCluster = new castai.azure.AksCluster("azure-cluster", {
 });
 
 // Configure AWS IAM
-const awsIamPolicy = new castai.iam.AwsIamPolicy("aws-iam-policy", {
+const awsIamPolicy = new castai.AwsIamPolicy("aws-iam-policy", {
     accountId: "123456789012",
     policyDocument: JSON.stringify({
         Version: "2012-10-17",
@@ -53,7 +53,7 @@ const awsIamPolicy = new castai.iam.AwsIamPolicy("aws-iam-policy", {
     })
 });
 
-const awsIamRole = new castai.iam.AwsIamRole("aws-iam-role", {
+const awsIamRole = new castai.AwsIamRole("aws-iam-role", {
     accountId: "123456789012",
     assumeRolePolicyDocument: JSON.stringify({
         Version: "2012-10-17",
@@ -61,7 +61,7 @@ const awsIamRole = new castai.iam.AwsIamRole("aws-iam-role", {
             {
                 Effect: "Allow",
                 Principal: {
-                    Service: "castai.amazonaws.com"
+                    Service: "castai.com"
                 },
                 Action: "sts:AssumeRole",
                 Condition: {
@@ -76,21 +76,21 @@ const awsIamRole = new castai.iam.AwsIamRole("aws-iam-role", {
 });
 
 // Configure AWS IAM User (alternative approach)
-const awsIamUser = new castai.iam.AwsIamUser("aws-iam-user", {
+const awsIamUser = new castai.AwsIamUser("aws-iam-user", {
     accountId: "123456789012",
     username: "castai-automation",
     policyArns: [awsIamPolicy.arn],
 });
 
 // Configure GCP IAM
-const gcpServiceAccount = new castai.iam.GcpServiceAccount("gcp-service-account", {
+const gcpServiceAccount = new castai.GcpServiceAccount("gcp-service-account", {
     projectId: "my-gcp-project",
     serviceAccountId: "castai-service-account",
     serviceAccountName: "CAST AI Service Account",
     description: "Service account for CAST AI integration",
 });
 
-const gcpIamRole = new castai.iam.GcpIamRole("gcp-iam-role", {
+const gcpIamRole = new castai.GcpIamRole("gcp-iam-role", {
     projectId: "my-gcp-project",
     roleName: "castai.clusterManager",
     title: "CAST AI Cluster Manager",
@@ -110,7 +110,7 @@ const gcpIamRole = new castai.iam.GcpIamRole("gcp-iam-role", {
     ]
 });
 
-const gcpIamPolicy = new castai.iam.GcpIamPolicy("gcp-iam-policy", {
+const gcpIamPolicy = new castai.GcpIamPolicy("gcp-iam-policy", {
     projectId: "my-gcp-project",
     policyJson: JSON.stringify({
         bindings: [
@@ -125,7 +125,7 @@ const gcpIamPolicy = new castai.iam.GcpIamPolicy("gcp-iam-policy", {
 });
 
 // Configure Azure IAM
-const azureIamRole = new castai.iam.AzureIamRole("azure-iam-role", {
+const azureIamRole = new castai.AzureIamRole("azure-iam-role", {
     subscriptionId: "00000000-0000-0000-0000-000000000000",
     roleName: "CastAIClusterManager",
     roleDefinition: JSON.stringify({
@@ -157,14 +157,14 @@ const azureIamRole = new castai.iam.AzureIamRole("azure-iam-role", {
     }),
 });
 
-const azureIamPolicy = new castai.iam.AzureIamPolicy("azure-iam-policy", {
+const azureIamPolicy = new castai.AzureIamPolicy("azure-iam-policy", {
     subscriptionId: "00000000-0000-0000-0000-000000000000",
     policyJson: JSON.stringify({
         // Azure policy configuration
     }),
 });
 
-const azureServicePrincipal = new castai.iam.AzureServicePrincipal("azure-service-principal", {
+const azureServicePrincipal = new castai.AzureServicePrincipal("azure-service-principal", {
     tenantId: "00000000-0000-0000-0000-000000000000",
     clientId: "00000000-0000-0000-0000-000000000000",
     clientSecret: "client-secret", // In practice, use pulumi.secret() or environment variables

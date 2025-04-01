@@ -1,0 +1,3 @@
+name: castai-e2e-gcp-test-py
+runtime: python
+description: E2E test for CAST AI GCP (GKE) integration in Python 

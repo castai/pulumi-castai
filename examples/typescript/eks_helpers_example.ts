@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai"; // Use your actual package name
+import * as castai from "@pulumi/castai"; // Use your actual package name
 import * as aws from "@pulumi/aws"; // To get caller identity
 
 // Placeholder values

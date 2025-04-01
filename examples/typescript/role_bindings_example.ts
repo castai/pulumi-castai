@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi-castai"; // Use your actual package name
+import * as castai from "@pulumi/castai"; // Use your actual package name
 
 // Placeholder: Replace with actual IDs
 const orgId = "your-castai-org-id"; // Can be fetched using getOrganization data source
@@ -11,8 +11,8 @@ const userId2 = "user-id-2";
 const groupId = "group-id-1";
 const serviceAccountId = "service-account-id-1";
 
-// Assuming the resource is castai.organization.RoleBindings
-const orgOwnerBinding = new castai.organization.RoleBindings("org-owner-binding", {
+// Assuming the resource is castai.RoleBindings
+const orgOwnerBinding = new castai.RoleBindings("org-owner-binding", {
     organizationId: orgId,
     name: "Organization Owner Binding",
     description: "Assigns Owner role at the organization scope",
@@ -28,7 +28,7 @@ const orgOwnerBinding = new castai.organization.RoleBindings("org-owner-binding"
     ],
 });
 
-const clusterViewerBinding = new castai.organization.RoleBindings("cluster-viewer-binding", {
+const clusterViewerBinding = new castai.RoleBindings("cluster-viewer-binding", {
     organizationId: orgId, // Still need org ID context
     name: "Cluster Viewer Binding",
     description: `Assigns Viewer role scoped to cluster ${clusterId}`,
