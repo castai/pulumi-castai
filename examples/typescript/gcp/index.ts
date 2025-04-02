@@ -42,6 +42,10 @@ const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
     deleteNodesOnDisconnect: true,   // Clean up nodes when disconnecting
     // Optional: provide credentials JSON directly from environment
     credentialsJson: process.env.GOOGLE_CREDENTIALS,
+
+    // Agent configuration
+    agentMode: "read-only",          // Use "read-only" or "full-access"
+    installAgent: true,              // Whether to install the agent
 }, { provider });
 
 // For testing purposes, we're only creating the GKE cluster connection

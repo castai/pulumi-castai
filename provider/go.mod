@@ -4,6 +4,7 @@ go 1.22.3
 
 require (
 	github.com/castai/terraform-provider-castai v0.24.3
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.35.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.105.0
 	github.com/pulumi/pulumi/sdk/v3 v3.156.0
 )
@@ -86,7 +87,6 @@ require (
 	github.com/hashicorp/terraform-json v0.24.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.26.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.9.0 // indirect
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.35.0 // indirect
 	github.com/hashicorp/terraform-registry-address v0.2.4 // indirect
 	github.com/hashicorp/terraform-svchost v0.1.1 // indirect
 	github.com/hashicorp/yamux v0.1.1 // indirect

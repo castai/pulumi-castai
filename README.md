@@ -84,25 +84,62 @@ export CASTAI_API_URL=https://api.cast.ai
 
 ## Using the Provider
 
+The CAST AI provider allows you to connect your Kubernetes clusters to CAST AI for cost optimization and management. We provide examples for connecting GKE, EKS, and AKS clusters in TypeScript, Python, and Go.
+
+### Running the Examples
+
+We provide a set of `just` commands to run the examples:
+
+```bash
+# Set up your environment
+just clean && just dev
+
+# Run TypeScript examples
+just run-typescript-gcp-example
+just run-typescript-aws-example
+just run-typescript-azure-example
+
+# Run Python examples
+just run-python-gcp-example
+just run-python-aws-example
+just run-python-azure-example
+
+# Run Go examples
+just run-go-gcp-example
+just run-go-aws-example
+just run-go-azure-example
+
+# Run all examples for a specific language
+just run-typescript-examples
+just run-python-examples
+just run-go-examples
+
+# Run all examples
+just run-all-language-examples
+```
+
 ### Python Example
 
 ```python
 import pulumi
-from pulumi_castai import Provider, gcp
+import os
+from pulumi_castai import Provider, GkeCluster
 
-# Create a CAST AI provider instance
-castai_provider = Provider("castai-provider",
-    api_token="your-castai-api-token", # Or omit to use CASTAI_API_TOKEN env var
-    api_url="https://api.cast.ai"      # Optional
-)
+# Initialize the CAST AI provider
+api_token = os.environ.get("CASTAI_API_TOKEN", "your-api-token-here")
+provider = Provider("castai-provider", api_token=api_token)
 
-# Register an existing GKE cluster with CAST AI
-gke_cluster = gcp.GkeCluster("my-gke-cluster",
-    project_id="my-gcp-project",
-    location="us-central1-a",
-    name="my-gke-cluster",
-    credentials_json="...", # Optional: GCP credentials JSON
-    opts=pulumi.ResourceOptions(provider=castai_provider)
+# Get GCP values from environment variables or use defaults
+project_id = os.environ.get("GCP_PROJECT_ID", "my-gcp-project-id")
+cluster_name = os.environ.get("GKE_CLUSTER_NAME", "cast_ai_test_cluster")
+
+# Create a connection to a GKE cluster
+gke_cluster = GkeCluster("gke-cluster-connection",
+    project_id=project_id,           # GCP project ID
+    location="us-central1",          # GCP location
+    name=cluster_name,               # GKE cluster name
+    delete_nodes_on_disconnect=True, # Remove nodes on disconnect
+    opts=pulumi.ResourceOptions(provider=provider)
 )
 
 # Export the cluster ID
@@ -111,35 +148,110 @@ pulumi.export("cluster_id", gke_cluster.id)
 
 ### TypeScript Example
 
-```bash
-cd examples/typescript
-npm install
-pulumi stack init dev
-pulumi up
+```typescript
+import * as pulumi from "@pulumi/pulumi";
+import * as castai from "@pulumi/castai";
+
+// Get GCP project ID from environment variable or use a default value
+const projectId = process.env.GCP_PROJECT_ID || "my-gcp-project-id";
+
+// Get GKE cluster name from environment variable or use a default value
+const clusterName = process.env.GKE_CLUSTER_NAME || "cast_ai_test_cluster";
+
+// Initialize the CAST AI provider
+const provider = new castai.Provider("castai-provider", {
+    apiToken: process.env.CASTAI_API_TOKEN,
+    apiUrl: process.env.CASTAI_API_URL || "https://api.cast.ai",
+});
+
+// Create a connection to a GKE cluster
+const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
+    projectId: projectId,              // GCP project ID
+    location: "us-central1",           // GCP location
+    name: clusterName,                 // GKE cluster name
+    deleteNodesOnDisconnect: true,     // Remove nodes on disconnect
+}, { provider });
+
+// Export the cluster ID
+export const clusterId = gkeCluster.id;
 ```
 
-### Go Examples
+### Go Example
 
-```bash
-cd examples/go
-go mod tidy
-pulumi stack init dev
-pulumi up
+```go
+package main
+
+import (
+	"os"
+
+	"github.com/cast-ai/pulumi-castai/sdk/go/castai"
+	"github.com/cast-ai/pulumi-castai/sdk/go/castai/gcp"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+
+func main() {
+	pulumi.Run(func(ctx *pulumi.Context) error {
+		// Initialize the provider
+		provider, err := castai.NewProvider(ctx, "castai-provider", nil)
+		if err != nil {
+			return err
+		}
+
+		// Get GCP project ID from environment variable or use a default value
+		projectID := os.Getenv("GCP_PROJECT_ID")
+		if projectID == "" {
+			projectID = "my-gcp-project-id"
+		}
+
+		// Get GKE cluster name from environment variable or use a default value
+		clusterName := os.Getenv("GKE_CLUSTER_NAME")
+		if clusterName == "" {
+			clusterName = "cast_ai_test_cluster"
+		}
+
+		// Create a connection to a GKE cluster
+		gkeArgs := &gcp.GkeClusterArgs{
+			ProjectId:              pulumi.String(projectID),
+			Location:               pulumi.String("us-central1"),
+			Name:                   pulumi.String(clusterName),
+			DeleteNodesOnDisconnect: pulumi.Bool(true),
+		}
+
+		gkeCluster, err := gcp.NewGkeCluster(ctx, "gke-cluster-connection", gkeArgs, pulumi.Provider(provider))
+		if err != nil {
+			return err
+		}
+
+		// Export the cluster ID
+		ctx.Export("clusterId", gkeCluster.ID())
+
+		return nil
+	})
+}
 ```
 
 ## Available Resources
 
 The CAST AI provider supports the following resources:
 
-- AWS EKS clusters: `castai.aws.EksCluster`
-- GCP GKE clusters: `castai.gcp.GkeCluster` 
-- Azure AKS clusters: `castai.azure.AksCluster`
-- Autoscaling: `castai.autoscaling.Autoscaler`
-- Node Configuration: `castai.nodeconfig.NodeConfiguration`
-- Rebalancing: `castai.rebalancing.RebalancingSchedule`, `castai.rebalancing.RebalancingJob`
-- Organization Management: `castai.organization.*`
+### Cloud Provider Resources
+- AWS EKS clusters: `castai:aws:EksCluster`
+- GCP GKE clusters: `castai:gcp:GkeCluster`
+- Azure AKS clusters: `castai:azure:AksCluster`
 
-For a complete list of resources and data sources, see the [API documentation](https://www.pulumi.com/registry/packages/castai/).
+### Core Resources
+- Cluster: `castai:index:Cluster`
+- Credentials: `castai:index:Credentials`
+- Cluster Token: `castai:index:ClusterToken`
+
+### Autoscaling Resources
+- Autoscaler: `castai:autoscaling:Autoscaler`
+
+### Organization Resources
+- Service Account: `castai:organization:ServiceAccount`
+- Service Account Key: `castai:organization:ServiceAccountKey`
+
+For a complete list of resources and data sources, see the [CAST AI Terraform Provider documentation](https://registry.terraform.io/providers/castai/castai/latest/docs).
 
 ## Contributing
 
@@ -171,6 +283,26 @@ This will ensure the version is consistent across:
 This project is licensed under the Apache 2.0 License.
 
 ## Troubleshooting
+
+### Running End-to-End Tests
+
+To test the provider with real cloud resources, you can use the provided examples. Make sure you have the necessary credentials for the cloud provider you want to test:
+
+```bash
+# Set up your environment
+just clean && just dev
+
+# Run the TypeScript GCP example
+just run-typescript-gcp-example
+
+# Run the Python AWS example
+just run-python-aws-example
+
+# Run the Go Azure example
+just run-go-azure-example
+```
+
+Note that these examples require actual cloud resources to exist. If you see an error like `no cluster found for name "cast_ai_test_cluster"`, it means the provider is working correctly but the cluster doesn't exist in your cloud account.
 
 ### Missing PulumiPlugin.yaml
 
@@ -211,3 +343,96 @@ pip install --upgrade pulumi_castai
 # For Go:
 go get -u github.com/cast-ai/pulumi-castai/sdk/go
 ```
+
+### Stuck or Hanging Operations
+
+If a Pulumi operation seems to be stuck or hanging, it might be because:
+
+1. The provider is waiting for a response from the CAST AI API
+2. There's a lock on the stack from a previous run
+3. The cluster specified in your environment variables doesn't exist or isn't accessible
+
+To fix this:
+
+```bash
+# Cancel the current operation
+pulumi cancel
+
+# Remove any locks
+find ~/.pulumi/locks -name "*.json" | xargs rm -f
+
+# Remove the stack and start fresh
+pulumi stack rm <stack-name> --force --yes
+```
+
+### Agent Installation Modes
+
+The CAST AI provider supports two modes for the agent installation:
+
+1. **Read-only mode**: The CAST AI agent only collects information about the cluster but doesn't make any changes. This is useful for initial assessment and security scanning.
+
+2. **Full-access mode**: The CAST AI agent can both collect information and make changes to the cluster (like scaling nodes). This is the default mode and enables all CAST AI features.
+
+You can specify the mode when connecting your cluster:
+
+```typescript
+const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
+    // ... other properties
+    agentMode: "read-only",  // or "full-access"
+    installAgent: true,      // set to false to skip agent installation
+});
+```
+
+### Common Error Messages
+
+#### "No cluster found for name"
+
+If you see an error like `persistent error: no cluster found for name "cast_ai_test_cluster"`, it means that CAST AI cannot find the cluster specified in your environment variables. Make sure:
+
+1. The cluster exists in your cloud provider account
+2. The credentials provided have access to the cluster
+3. The cluster name is correct
+
+For example, if you're using GKE, make sure the cluster exists in the GCP project specified by `GCP_PROJECT_ID` and the cluster name matches `GKE_CLUSTER_NAME`.
+
+#### "Failed to install CAST AI agent"
+
+If you see a warning like `WARNING: Failed to install CAST AI agent`, it means the provider was able to register the cluster with CAST AI but couldn't install the agent. This could be due to:
+
+1. Helm is not installed or not in the PATH
+2. The Kubernetes cluster is not accessible from the machine running Pulumi
+3. The Kubernetes credentials are not properly configured
+
+You can still install the agent manually using the Helm chart:
+
+```bash
+helm repo add castai-helm https://castai.github.io/helm-charts
+helm repo update
+helm install castai-agent castai-helm/castai-agent \
+  --namespace castai-agent \
+  --create-namespace \
+  --set apiKey=<your-castai-api-token> \
+  --set clusterID=<your-cluster-id> \
+  --set readOnlyMode=true  # for read-only mode
+```
+
+#### Missing CAST AI Agent Namespace
+
+After connecting your cluster to CAST AI, you need to install the CAST AI agent Helm chart to create the namespace and deploy the agent. The Pulumi provider only registers the cluster with CAST AI, but doesn't install the agent.
+
+To install the CAST AI agent, run the following commands:
+
+```bash
+# Add the CAST AI Helm repository
+helm repo add castai-helm https://castai.github.io/helm-charts
+helm repo update
+
+# Install the CAST AI agent
+helm install castai-agent castai-helm/castai-agent \
+  --namespace castai-agent \
+  --create-namespace \
+  --set apiKey=<your-castai-api-token> \
+  --set clusterID=<your-cluster-id>
+```
+
+Replace `<your-castai-api-token>` with your CAST AI API token and `<your-cluster-id>` with the cluster ID returned by the Pulumi provider.

@@ -230,6 +230,11 @@ run-typescript-examples: run-typescript-gcp-example run-typescript-aws-example r
 run-all-language-examples: run-python-examples run-go-examples run-typescript-examples
     @echo "Examples for all languages have been run."
 
+# Run end-to-end tests
+run-e2e-tests:
+    @echo "Running end-to-end tests..."
+    @./scripts/run-e2e-tests.sh
+
 # Install all system dependencies
 install-all-deps: setup-deps
     @echo "Running install-all-deps script..."
@@ -240,61 +245,48 @@ install-examples-deps:
     @echo "Running install-examples-deps script..."
     @./scripts/install-examples-deps.sh
 
-# Run end-to-end tests
-run-e2e-tests test_pattern="*": setup-e2e-tests
-    @echo "Running end-to-end tests (pattern: {{test_pattern}})..."
-    @./scripts/run-e2e-tests.sh "{{test_pattern}}"
-
 # Run specific e2e test
 run-e2e-test test_name:
     @echo "Running specific e2e test: {{test_name}}..."
     @./scripts/run-e2e-tests.sh "{{test_name}}"
 
 # Run all e2e tests for all languages and cloud providers
-run-all-e2e-tests: setup-e2e-tests
+run-all-e2e-tests:
     @echo "Running all e2e tests for all languages and cloud providers..."
-    @./scripts/run-all-e2e-tests.sh
+    @./scripts/run-e2e-tests.sh
 
 # Run e2e tests for a specific language
-run-e2e-tests-language language: setup-e2e-tests
+run-e2e-tests-language language:
     @echo "Running e2e tests for {{language}}..."
     @if [ "{{language}}" = "go" ]; then \
-        ./scripts/run-e2e-tests.sh "Test.*"; \
+        just run-go-examples; \
     elif [ "{{language}}" = "python" ]; then \
-        find ./e2e/python -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; ; \
+        just run-python-examples; \
     elif [ "{{language}}" = "typescript" ]; then \
-        find ./e2e/typescript -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; ; \
+        just run-typescript-examples; \
     else \
         echo "Unknown language: {{language}}. Supported languages: go, python, typescript"; \
         exit 1; \
     fi
 
 # Run e2e tests for a specific cloud provider
-run-e2e-tests-provider provider: setup-e2e-tests
+run-e2e-tests-provider provider:
     @echo "Running e2e tests for {{provider}}..."
     @if [ "{{provider}}" = "aws" ]; then \
-        ./scripts/run-e2e-tests.sh ".*Aws.*"; \
-        find ./e2e/python/aws -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
-        find ./e2e/typescript/aws -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+        just run-typescript-aws-example; \
+        just run-python-aws-example; \
+        just run-go-aws-example; \
     elif [ "{{provider}}" = "gcp" ]; then \
-        ./scripts/run-e2e-tests.sh ".*Gcp.*"; \
-        find ./e2e/python/gcp -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
-        find ./e2e/typescript/gcp -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+        just run-typescript-gcp-example; \
+        just run-python-gcp-example; \
+        just run-go-gcp-example; \
     elif [ "{{provider}}" = "azure" ]; then \
-        ./scripts/run-e2e-tests.sh ".*Azure.*"; \
-        find ./e2e/python/azure -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
-        find ./e2e/typescript/azure -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+        just run-typescript-azure-example; \
+        just run-python-azure-example; \
+        just run-go-azure-example; \
     else \
         echo "Unknown provider: {{provider}}. Supported providers: aws, gcp, azure"; \
         exit 1; \
     fi
 
-# Create e2e test environment
-setup-e2e-tests:
-    @echo "Setting up e2e test environment..."
-    @./scripts/setup-e2e-tests.sh
-
-# Clean e2e test resources
-clean-e2e-tests:
-    @echo "Cleaning e2e test resources..."
-    @./scripts/clean-e2e-tests.sh
+# No setup or cleanup needed for e2e tests

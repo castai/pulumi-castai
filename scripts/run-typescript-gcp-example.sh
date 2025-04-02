@@ -38,7 +38,7 @@ if [ -f .env ]; then
     PULUMI_DEBUG=1 \
     PULUMI_DEBUG_PROVIDERS=1 \
     TF_LOG=DEBUG \
-    pulumi up --yes -s gcp-example
+    timeout 30 pulumi preview -s gcp-example
 else
     echo "Error: .env file not found"
     exit 1
