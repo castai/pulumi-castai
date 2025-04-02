@@ -6,7 +6,7 @@ python -m pip install --upgrade pip
 python -m pip install build twine pytest pytest-cov mypy ruff black
 # Install Node.js dependencies
 echo "Installing Node.js dependencies..."
-yarn global add typescript @types/node
+npm install -g typescript @types/node
 # Install Go dependencies
 echo "Installing Go dependencies..."
 # Clean any existing Go installation
@@ -41,4 +41,4 @@ echo "Installing Pulumi dependencies..."
 pulumi plugin ls
 pulumi plugin install resource aws
 pulumi plugin install resource azure
-pulumi plugin install resource gcp 
+pulumi plugin install resource gcp

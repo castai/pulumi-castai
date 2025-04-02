@@ -90,4 +90,4 @@ require (
 	sourcegraph.com/sourcegraph/appdash v0.0.0-20211028080628-e2786a622600 // indirect
 )
 
-replace github.com/cast-ai/pulumi-castai/sdk/go/castai => ../../sdk/go/castai
+replace github.com/cast-ai/pulumi-castai/sdk/go => ../../sdk/go

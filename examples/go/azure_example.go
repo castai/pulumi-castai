@@ -1,69 +1,60 @@
 package main
 
 import (
+	"os"
+
 	"github.com/cast-ai/pulumi-castai/sdk/go/castai"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/autoscaling"
 	"github.com/cast-ai/pulumi-castai/sdk/go/castai/azure"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/iam"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/nodeconfig"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Configuration for the Azure cluster
-type AksClusterConfig struct {
-	SubscriptionID string
-	TenantID       string
-	ResourceGroup  string
-	Location       string
-	ClusterName    string
-}
-
-// runAzureExample shows how to use CAST AI with Azure AKS
+// runAzureExample shows how to connect an Azure AKS cluster to CAST AI
 func runAzureExample() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Initialize the provider (API token will be read from environment variable CASTAI_API_TOKEN)
-		provider, err := castai.NewProvider(ctx, "castai-provider-azure", nil)
+		provider, err := castai.NewProvider(ctx, "castai-provider", nil)
 		if err != nil {
 			return err
+		}
+
+		// Get Azure values from environment variables or use defaults
+		subscriptionID := os.Getenv("AZURE_SUBSCRIPTION_ID")
+		if subscriptionID == "" {
+			subscriptionID = "00000000-0000-0000-0000-000000000000"
+		}
+
+		tenantID := os.Getenv("AZURE_TENANT_ID")
+		if tenantID == "" {
+			tenantID = "00000000-0000-0000-0000-000000000000"
+		}
+
+		resourceGroup := os.Getenv("AZURE_RESOURCE_GROUP")
+		if resourceGroup == "" {
+			resourceGroup = "my-resource-group"
+		}
+
+		// Get AKS cluster name from environment variable or use a default value
+		clusterName := os.Getenv("AKS_CLUSTER_NAME")
+		if clusterName == "" {
+			clusterName = "cast_ai_test_cluster"
 		}
 
 		// Create a connection to an AKS cluster
-		aksArgs := &azure.AksClusterArgs{}
-		aksCluster, err := azure.NewAksCluster(ctx, "aks-cluster", aksArgs, pulumi.Provider(provider))
+		aksArgs := &azure.AksClusterArgs{
+			SubscriptionId:          pulumi.String(subscriptionID),
+			TenantId:                pulumi.String(tenantID),
+			ResourceGroupName:       pulumi.String(resourceGroup),
+			AksClusterName:          pulumi.String(clusterName),
+			DeleteNodesOnDisconnect: pulumi.Bool(true),
+		}
+
+		aksCluster, err := azure.NewAksCluster(ctx, "aks-cluster-connection", aksArgs, pulumi.Provider(provider))
 		if err != nil {
 			return err
 		}
 
-		// Create a node configuration for the AKS cluster
-		nodeArgs := &nodeconfig.NodeConfigurationArgs{
-			ClusterID: aksCluster.ID(),
-		}
-		nodeConfig, err := nodeconfig.NewNodeConfiguration(ctx, "aks-node-config", nodeArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
-		// Configure autoscaling for the AKS cluster
-		autoscalerArgs := &autoscaling.AutoscalerArgs{
-			ClusterID: aksCluster.ID(),
-			Enabled:   pulumi.Bool(true),
-		}
-		_, err = autoscaling.NewAutoscaler(ctx, "aks-autoscaler", autoscalerArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
-		// Create an Azure service principal for CAST AI
-		spArgs := &iam.AzureServicePrincipalArgs{}
-		servicePrincipal, err := iam.NewAzureServicePrincipal(ctx, "cast-ai-service-principal", spArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
-		// Export relevant IDs
+		// Export the cluster ID
 		ctx.Export("clusterId", aksCluster.ID())
-		ctx.Export("nodeConfigId", nodeConfig.ID)
-		ctx.Export("servicePrincipalId", servicePrincipal.ID())
 
 		return nil
 	})

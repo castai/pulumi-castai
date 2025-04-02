@@ -19,7 +19,7 @@ import (
 	"path/filepath"
 	"unicode"
 
-	"github.com/castai/terraform-provider-castai/shim"
+	"github.com/castai/terraform-provider-castai/castai"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -54,8 +54,8 @@ func preConfigureCallback(vars resource.PropertyMap, c interface{}) error {
 
 // Provider returns additional overlaid schema and metadata associated with the provider.
 func Provider() tfbridge.ProviderInfo {
-	// Instantiate the Terraform provider using our shim
-	p := shimv2.NewProvider(shim.Provider())
+	// Instantiate the Terraform provider
+	p := shimv2.NewProvider(castai.Provider())
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
@@ -91,10 +91,11 @@ func Provider() tfbridge.ProviderInfo {
 		Resources: map[string]*tfbridge.ResourceInfo{
 			// Core Resources
 			"castai_eks_cluster":    {Tok: awsResource(awsMod, "EksCluster")},
-			"castai_eks_clusterid":  {Tok: awsResource(awsMod, "EksClusterId")},
 			"castai_gke_cluster":    {Tok: gcpResource(gcpMod, "GkeCluster")},
-			"castai_gke_cluster_id": {Tok: gcpResource(gcpMod, "GkeClusterId")},
 			"castai_aks_cluster":    {Tok: azureResource(azureMod, "AksCluster")},
+			"castai_cluster":        {Tok: castaiResource(mainMod, "Cluster")},
+			"castai_credentials":    {Tok: castaiResource(mainMod, "Credentials")},
+			"castai_cluster_token":  {Tok: castaiResource(mainMod, "ClusterToken")},
 
 			// Autoscaling resources
 			"castai_autoscaler": {
@@ -103,66 +104,21 @@ func Provider() tfbridge.ProviderInfo {
 					"cluster_id": {
 						Name: "clusterId",
 					},
-					"enabled": {
-						Name: "enabled",
-					},
-					"is_scoped_mode": {
-						Name: "isScopedMode",
-					},
-					"unschedulable_pods": {
-						Name: "unschedulablePods",
-					},
-					"cluster_limits": {
-						Name: "clusterLimits",
-					},
-					"node_downscaler": {
-						Name: "nodeDownscaler",
-					},
 				},
 			},
-			"castai_evictor_advanced_config": {Tok: castaiResource(autoscalingMod, "EvictorConfig")},
-
-			// Node configuration resources
-			"castai_node_template":              {Tok: castaiResource(nodeConfigMod, "NodeTemplate")},
-			"castai_node_configuration":         {Tok: castaiResource(nodeConfigMod, "NodeConfiguration")},
-			"castai_node_configuration_default": {Tok: castaiResource(nodeConfigMod, "NodeConfigurationDefault")},
-
-			// AWS specific resources
-			"castai_eks_user_arn": {Tok: awsResource(awsMod, "EksUserArn")},
-
-			// Rebalancing resources
-			"castai_rebalancing_schedule": {Tok: castaiResource(rebalancingMod, "RebalancingSchedule")},
-			"castai_rebalancing_job":      {Tok: castaiResource(rebalancingMod, "RebalancingJob")},
-
-			// Core resources
-			"castai_reservations":  {Tok: castaiResource(mainMod, "Reservations")},
-			"castai_commitments":   {Tok: castaiResource(mainMod, "Commitments")},
-			"castai_cluster_token": {Tok: castaiResource(mainMod, "ClusterToken")},
-
-			// Organization resources
-			"castai_organization_members": {Tok: castaiResource(organizationMod, "Members")},
-			"castai_sso_connection":       {Tok: castaiResource(organizationMod, "SSOConnection")},
-			"castai_service_account":      {Tok: castaiResource(organizationMod, "ServiceAccount")},
-			"castai_service_account_key":  {Tok: castaiResource(organizationMod, "ServiceAccountKey")},
-			"castai_organization_group":   {Tok: castaiResource(organizationMod, "Group")},
-			"castai_role_bindings":        {Tok: castaiResource(organizationMod, "RoleBindings")},
-
-			// Workload resources
-			"castai_workload_scaling_policy": {Tok: castaiResource(workloadMod, "ScalingPolicy")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// AWS Data Sources
-			"castai_eks_settings": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksSettings"))},
-			"castai_eks_user_arn": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksUserArn"))},
+			"castai_eks_settings":  {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksSettings"))},
+			"castai_eks_clusterid": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksClusterId"))},
+			"castai_eks_user_arn":  {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksUserArn"))},
 
 			// GCP Data Sources
 			"castai_gke_user_policies": {Tok: tokens.ModuleMember(gcpDataSource(gcpMod, "getGkePolicies"))},
 
-			// Organization Data Sources
-			"castai_organization": {Tok: tokens.ModuleMember(castaiDataSource(organizationMod, "getOrganization"))},
-
-			// Rebalancing Data Sources
-			"castai_rebalancing_schedule": {Tok: tokens.ModuleMember(castaiDataSource(rebalancingMod, "getRebalancingSchedule"))},
+			// Core Data Sources
+			"castai_cluster":     {Tok: tokens.ModuleMember(castaiDataSource(mainMod, "getCluster"))},
+			"castai_credentials": {Tok: tokens.ModuleMember(castaiDataSource(mainMod, "getCredentials"))},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			Dependencies: map[string]string{

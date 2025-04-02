@@ -76,7 +76,7 @@ build-go:
 install-provider: build-provider
     @echo "Installing provider plugin..."
     # Use pulumi plugin install consistently
-    pulumi plugin install resource castai {{VERSION}} --file ./bin/pulumi-resource-castai --reinstall 
+    pulumi plugin install resource castai {{VERSION}} --file ./bin/pulumi-resource-castai --reinstall
     @echo "Provider plugin installed successfully."
 
 # Install SDKs locally
@@ -169,24 +169,66 @@ build-sdk-go: build-provider
     @echo "Running build-sdk-go script..."
     @./scripts/build-sdk-go.sh {{VERSION}}
 
-# Run GCP example
-run-gcp-example:
-    @echo "Running run-gcp-example script..."
-    @./scripts/run-gcp-example.sh
+# Run Python GCP example
+run-python-gcp-example:
+    @echo "Running Python GCP example..."
+    @./scripts/run-python-gcp-example.sh
 
-# Run AWS example
-run-aws-example:
-    @echo "Running run-aws-example script..."
-    @./scripts/run-aws-example.sh
+# Run Python AWS example
+run-python-aws-example:
+    @echo "Running Python AWS example..."
+    @./scripts/run-python-aws-example.sh
 
-# Run Azure example
-run-azure-example:
-    @echo "Running run-azure-example script..."
-    @./scripts/run-azure-example.sh
+# Run Python Azure example
+run-python-azure-example:
+    @echo "Running Python Azure example..."
+    @./scripts/run-python-azure-example.sh
 
-# Run all cloud examples
-run-all-examples: run-gcp-example run-aws-example run-azure-example
-    @echo "All cloud examples have been run."
+# Run Go GCP example
+run-go-gcp-example:
+    @echo "Running Go GCP example..."
+    @./scripts/run-go-gcp-example.sh
+
+# Run Go AWS example
+run-go-aws-example:
+    @echo "Running Go AWS example..."
+    @./scripts/run-go-aws-example.sh
+
+# Run Go Azure example
+run-go-azure-example:
+    @echo "Running Go Azure example..."
+    @./scripts/run-go-azure-example.sh
+
+# Run TypeScript GCP example
+run-typescript-gcp-example:
+    @echo "Running TypeScript GCP example..."
+    @./scripts/run-typescript-gcp-example.sh
+
+# Run TypeScript AWS example
+run-typescript-aws-example:
+    @echo "Running TypeScript AWS example..."
+    @./scripts/run-typescript-aws-example.sh
+
+# Run TypeScript Azure example
+run-typescript-azure-example:
+    @echo "Running TypeScript Azure example..."
+    @./scripts/run-typescript-azure-example.sh
+
+# Run all Python examples
+run-python-examples: run-python-gcp-example run-python-aws-example run-python-azure-example
+    @echo "All Python examples have been run."
+
+# Run all Go examples
+run-go-examples: run-go-gcp-example run-go-aws-example run-go-azure-example
+    @echo "All Go examples have been run."
+
+# Run all TypeScript examples
+run-typescript-examples: run-typescript-gcp-example run-typescript-aws-example run-typescript-azure-example
+    @echo "All TypeScript examples have been run."
+
+# Run examples for all languages
+run-all-language-examples: run-python-examples run-go-examples run-typescript-examples
+    @echo "Examples for all languages have been run."
 
 # Install all system dependencies
 install-all-deps: setup-deps
@@ -208,6 +250,45 @@ run-e2e-test test_name:
     @echo "Running specific e2e test: {{test_name}}..."
     @./scripts/run-e2e-tests.sh "{{test_name}}"
 
+# Run all e2e tests for all languages and cloud providers
+run-all-e2e-tests: setup-e2e-tests
+    @echo "Running all e2e tests for all languages and cloud providers..."
+    @./scripts/run-all-e2e-tests.sh
+
+# Run e2e tests for a specific language
+run-e2e-tests-language language: setup-e2e-tests
+    @echo "Running e2e tests for {{language}}..."
+    @if [ "{{language}}" = "go" ]; then \
+        ./scripts/run-e2e-tests.sh "Test.*"; \
+    elif [ "{{language}}" = "python" ]; then \
+        find ./e2e/python -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; ; \
+    elif [ "{{language}}" = "typescript" ]; then \
+        find ./e2e/typescript -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; ; \
+    else \
+        echo "Unknown language: {{language}}. Supported languages: go, python, typescript"; \
+        exit 1; \
+    fi
+
+# Run e2e tests for a specific cloud provider
+run-e2e-tests-provider provider: setup-e2e-tests
+    @echo "Running e2e tests for {{provider}}..."
+    @if [ "{{provider}}" = "aws" ]; then \
+        ./scripts/run-e2e-tests.sh ".*Aws.*"; \
+        find ./e2e/python/aws -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+        find ./e2e/typescript/aws -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+    elif [ "{{provider}}" = "gcp" ]; then \
+        ./scripts/run-e2e-tests.sh ".*Gcp.*"; \
+        find ./e2e/python/gcp -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+        find ./e2e/typescript/gcp -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+    elif [ "{{provider}}" = "azure" ]; then \
+        ./scripts/run-e2e-tests.sh ".*Azure.*"; \
+        find ./e2e/python/azure -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+        find ./e2e/typescript/azure -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd {} && pulumi preview --yes' \; 2>/dev/null || true; \
+    else \
+        echo "Unknown provider: {{provider}}. Supported providers: aws, gcp, azure"; \
+        exit 1; \
+    fi
+
 # Create e2e test environment
 setup-e2e-tests:
     @echo "Setting up e2e test environment..."
@@ -216,4 +297,4 @@ setup-e2e-tests:
 # Clean e2e test resources
 clean-e2e-tests:
     @echo "Cleaning e2e test resources..."
-    @./scripts/clean-e2e-tests.sh 
+    @./scripts/clean-e2e-tests.sh

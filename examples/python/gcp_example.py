@@ -7,6 +7,18 @@ import pulumi
 import os
 from pulumi_castai import Provider, GkeCluster
 
+# Check for required GCP credentials
+required_vars = [
+    "GOOGLE_CREDENTIALS",
+    "GCP_PROJECT_ID",
+    "CASTAI_API_TOKEN"
+]
+
+missing_vars = [var for var in required_vars if not os.environ.get(var)]
+if missing_vars:
+    print(f"Warning: Missing required GCP credentials: {', '.join(missing_vars)}")
+    print("This is a simulation only - not creating actual resources.")
+
 # Initialize the CAST AI provider
 # You can set these via environment variables CASTAI_API_TOKEN and CASTAI_API_URL
 api_token = os.environ.get("CASTAI_API_TOKEN", "your-api-token-here")

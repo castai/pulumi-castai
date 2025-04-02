@@ -1,69 +1,59 @@
 package main
 
 import (
+	"os"
+
 	"github.com/cast-ai/pulumi-castai/sdk/go/castai"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/autoscaling"
 	"github.com/cast-ai/pulumi-castai/sdk/go/castai/aws"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/iam"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/nodeconfig"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// runAwsExample shows how to use CAST AI with AWS EKS
+// runAwsExample shows how to connect an AWS EKS cluster to CAST AI
 func runAwsExample() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		// Initialize the provider
+		// Initialize the provider (API token will be read from environment variable CASTAI_API_TOKEN)
 		provider, err := castai.NewProvider(ctx, "castai-provider", nil)
 		if err != nil {
 			return err
 		}
 
+		// Get AWS account ID from environment variable or use a default value
+		accountID := os.Getenv("AWS_ACCOUNT_ID")
+		if accountID == "" {
+			accountID = "123456789012"
+		}
+
+		// Get AWS region from environment variable or use a default value
+		region := os.Getenv("AWS_REGION")
+		if region == "" {
+			region = "us-west-2"
+		}
+
+		// Get EKS cluster name from environment variable or use a default value
+		clusterName := os.Getenv("EKS_CLUSTER_NAME")
+		if clusterName == "" {
+			clusterName = "cast_ai_test_cluster"
+		}
+
 		// Create a connection to an EKS cluster
-		eksArgs := &aws.EksClusterArgs{}
-		eksCluster, err := aws.NewEksCluster(ctx, "eks-cluster", eksArgs, pulumi.Provider(provider))
+		eksArgs := &aws.EksClusterArgs{
+			AccountId:              pulumi.String(accountID),
+			Region:                 pulumi.String(region),
+			EksClusterName:         pulumi.String(clusterName),
+			DeleteNodesOnDisconnect: pulumi.Bool(true),
+			// The following values need to be replaced with actual values from your AWS account
+			// For demo purposes, we're using placeholder values
+			SecurityGroupId:        pulumi.String("sg-12345678"),
+			SubnetIds:              pulumi.StringArray{pulumi.String("subnet-12345678"), pulumi.String("subnet-87654321")},
+		}
+
+		eksCluster, err := aws.NewEksCluster(ctx, "eks-cluster-connection", eksArgs, pulumi.Provider(provider))
 		if err != nil {
 			return err
 		}
 
-		// Create a node configuration
-		nodeArgs := &nodeconfig.NodeConfigurationArgs{
-			ClusterID: eksCluster.ID(),
-		}
-		nodeConfig, err := nodeconfig.NewNodeConfiguration(ctx, "node-config", nodeArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
-		// Configure autoscaling
-		autoscalerArgs := &autoscaling.AutoscalerArgs{
-			ClusterID: eksCluster.ID(),
-			Enabled:   pulumi.Bool(true),
-		}
-		_, err = autoscaling.NewAutoscaler(ctx, "autoscaler", autoscalerArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
-		// Create AWS IAM policies
-		policyArgs := &iam.AwsIamPolicyArgs{}
-		awsIamPolicy, err := iam.NewAwsIamPolicy(ctx, "cast-ai-policy", policyArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
-		// Create AWS IAM role
-		roleArgs := &iam.AwsIamRoleArgs{}
-		awsIamRole, err := iam.NewAwsIamRole(ctx, "cast-ai-role", roleArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
-		// Export relevant IDs and ARNs
+		// Export the cluster ID
 		ctx.Export("clusterId", eksCluster.ID())
-		// Use ID field directly
-		ctx.Export("nodeConfigId", nodeConfig.ID)
-		ctx.Export("policyArn", awsIamPolicy.Arn)
-		ctx.Export("roleArn", awsIamRole.Arn)
 
 		return nil
 	})

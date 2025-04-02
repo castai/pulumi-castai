@@ -1,10 +1,13 @@
 module github.com/cast-ai/pulumi-castai/e2e
 
-go 1.20
+go 1.22.0
+
+toolchain go1.22.3
 
 require (
-	github.com/pulumi/pulumi/sdk/v3 v3.96.2
-	github.com/stretchr/testify v1.8.4
+	github.com/joho/godotenv v1.5.1
+	github.com/pulumi/pulumi/sdk/v3 v3.131.0
+	github.com/stretchr/testify v1.10.0
 )
 
 require (
@@ -42,7 +45,6 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl/v2 v2.23.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/iwdgo/sigintwindows v0.2.2 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
