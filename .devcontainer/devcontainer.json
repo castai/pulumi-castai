@@ -17,6 +17,10 @@
 			"version": "lts" // Installs Node.js LTS, which includes npm
 		},
 		"ghcr.io/devcontainers/features/aws-cli:1": {},
+		"ghcr.io/devcontainers/features/gcloud:2": {
+			"version": "latest",
+			"install_components": "gke-gcloud-auth-plugin,kubectl,helm"
+		},
 		"ghcr.io/devcontainers-extra/features/typescript:2": {} // Installs TypeScript
 	},
 	// Use this environment variable if you need to bind mount your local source code into a new container.
@@ -62,7 +66,7 @@
 				"streetsidesoftware.code-spell-checker",
 				"danields761.dracula-theme-from-intellij-pythoned",
 				"cweijan.vscode-database-client2",
-				"janisdd.vscode-edit-csv",	
+				"janisdd.vscode-edit-csv",
 				"eamodio.gitlens",
 				"streetsidesoftware.code-spell-checker-hebrew",
 				"toolsai.vscode-jupyter-cell-tags",

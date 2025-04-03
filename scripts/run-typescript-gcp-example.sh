@@ -168,23 +168,11 @@ npm install --no-fund --no-audit || {
     npm install --no-fund --no-audit --force
 }
 
-# Install the Google Cloud SDK and GKE auth plugin if they're not already installed
-if ! command -v gcloud &> /dev/null; then
-    echo "Installing Google Cloud SDK..."
-    apt-get update && apt-get install -y apt-transport-https ca-certificates gnupg curl
-    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-    apt-get update && apt-get install -y google-cloud-sdk kubectl
-
-    # Also install the GKE auth plugin
-    apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
-
-    # Authenticate with service account credentials
-    if [ -n "$GOOGLE_CREDENTIALS" ]; then
-        echo "Authenticating with service account credentials..."
-        echo "$GOOGLE_CREDENTIALS" > /tmp/gcp-credentials.json
-        gcloud auth activate-service-account --key-file=/tmp/gcp-credentials.json
-    fi
+# Authenticate with service account credentials if available
+if [ -n "$GOOGLE_CREDENTIALS" ]; then
+    echo "Authenticating with service account credentials..."
+    echo "$GOOGLE_CREDENTIALS" > /tmp/gcp-credentials.json
+    gcloud auth activate-service-account --key-file=/tmp/gcp-credentials.json
 fi
 
 # Connect to the GKE cluster to ensure the kubeconfig is set up correctly
