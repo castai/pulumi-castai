@@ -1,18 +1,15 @@
 {
-    "name": "typescript-castai-examples",
+    "name": "typescript-castai-gcp-example",
     "version": "0.1.0",
-    "description": "TypeScript examples for the CAST AI Pulumi provider",
+    "description": "TypeScript GCP example for the CAST AI Pulumi provider",
     "devDependencies": {
         "@types/node": "^18.16.0",
         "typescript": "^5.1.6"
     },
     "dependencies": {
-        "@pulumi/castai": "file:../../sdk/nodejs",
+        "@pulumi/castai": "file:../../../sdk/nodejs",
         "@pulumi/pulumi": "^3.0.0",
         "@pulumi/kubernetes": "^4.0.0",
         "@pulumi/gcp": "^7.0.0"
-    },
-    "scripts": {
-        "build": "tsc"
     }
 }

@@ -54,8 +54,6 @@ func preConfigureCallback(vars resource.PropertyMap, c interface{}) error {
 
 // Provider returns additional overlaid schema and metadata associated with the provider.
 func Provider() tfbridge.ProviderInfo {
-	// Instantiate the Terraform provider
-	fmt.Println("Using the actual Terraform CAST AI provider")
 	p := shimv2.NewProvider(castai.Provider())
 
 	// Create a Pulumi provider mapping

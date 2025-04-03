@@ -51,3 +51,7 @@ gcp-credentials.json
 *.gz
 *.zip
 *.tar
+
+bin/*
+
+google-cloud-sdk/
