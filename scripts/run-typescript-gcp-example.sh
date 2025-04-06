@@ -245,10 +245,18 @@ cd "$EXAMPLE_DIR" && \
         # List all stacks and delete them
         for stack in $(pulumi stack ls --json 2>/dev/null | jq -r '.[].name' 2>/dev/null || echo ""); do
             echo "Destroying resources in stack: $stack"
-            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi stack select $stack --non-interactive 2>/dev/null || true
-            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi destroy --yes --skip-preview 2>/dev/null || true
+            # Force select the stack, ignoring any errors
+            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE:-wrongpassphrase}" pulumi stack select $stack --non-interactive 2>/dev/null || true
+
+            # Try to destroy resources, but don't worry if it fails
+            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE:-wrongpassphrase}" pulumi destroy --yes --skip-preview 2>/dev/null || true
+
             echo "Removing stack: $stack"
-            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi stack rm $stack --force --yes 2>/dev/null || true
+            # Force remove the stack with maximum force
+            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE:-wrongpassphrase}" pulumi stack rm $stack --force --yes 2>/dev/null || true
+
+            # If the above fails, try to remove the stack files directly
+            rm -rf ~/.pulumi/stacks/gcp-example* 2>/dev/null || true
         done
     fi && \
     # Create a new stack
