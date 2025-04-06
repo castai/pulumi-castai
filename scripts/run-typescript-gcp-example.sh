@@ -98,11 +98,20 @@ pulumi plugin install resource castai 0.1.2 --file ./bin/pulumi-resource-castai 
 
 # Install dependencies for the SDK
 echo "Installing SDK dependencies..."
-cd "sdk/nodejs"
 
-# Create a temporary package.json with all required dependencies
-TMP_PACKAGE_JSON="package.json.tmp"
-cp package.json "$TMP_PACKAGE_JSON"
+# Check if the SDK directory exists
+if [ -d "sdk/nodejs" ]; then
+    cd "sdk/nodejs"
+
+    # Create a temporary package.json with all required dependencies
+    TMP_PACKAGE_JSON="package.json.tmp"
+    cp package.json "$TMP_PACKAGE_JSON"
+
+    # Return to the original directory
+    cd "$SCRIPT_DIR/.."
+else
+    echo "SDK directory not found. Make sure to run 'just dev' first."
+fi
 
 # Update the dependencies in the temporary package.json
 cat > package.json << 'EOL'
@@ -144,14 +153,17 @@ npm install --no-fund --no-audit || {
     npm install --no-fund --no-audit --force
 }
 
-# Restore the original package.json
-mv "$TMP_PACKAGE_JSON" package.json
+# Restore the original package.json if it exists
+if [ -f "$TMP_PACKAGE_JSON" ]; then
+    mv "$TMP_PACKAGE_JSON" package.json
+fi
 
-cd ../../
+# Get the absolute path to the project root
+PROJECT_ROOT="/workspaces/pulumi-castai"
 
 # Install dependencies for the GCP example
 echo "Installing example dependencies..."
-cd "$EXAMPLE_DIR"
+cd "$PROJECT_ROOT/$EXAMPLE_DIR"
 
 # Create node_modules directory if it doesn't exist
 mkdir -p node_modules
@@ -160,7 +172,7 @@ mkdir -p node_modules
 echo "Creating symlink to SDK..."
 mkdir -p node_modules/@pulumi
 rm -rf node_modules/@pulumi/castai
-ln -sf ../../../../sdk/nodejs node_modules/@pulumi/castai
+ln -sf "$PROJECT_ROOT/sdk/nodejs" node_modules/@pulumi/castai
 
 # Install dependencies
 npm install --no-fund --no-audit || {
