@@ -237,8 +237,20 @@ cd ../../..
 # Navigate to the example directory
 cd "$EXAMPLE_DIR" && \
     PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi login --local && \
-    # Remove the stack if it exists to avoid cached state issues
-    PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi stack rm gcp-example --force --yes 2>/dev/null || true && \
+    # Clean up any previous stacks
+    echo "Cleaning up previous Pulumi stacks..."
+
+    # Check if there are any existing stacks
+    if pulumi stack ls &>/dev/null; then
+        # List all stacks and delete them
+        for stack in $(pulumi stack ls --json 2>/dev/null | jq -r '.[].name' 2>/dev/null || echo ""); do
+            echo "Destroying resources in stack: $stack"
+            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi stack select $stack --non-interactive 2>/dev/null || true
+            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi destroy --yes --skip-preview 2>/dev/null || true
+            echo "Removing stack: $stack"
+            PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi stack rm $stack --force --yes 2>/dev/null || true
+        done
+    fi && \
     # Create a new stack
     PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi stack init gcp-example && \
     # Run the deployment with more debugging
