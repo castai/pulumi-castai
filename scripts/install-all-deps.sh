@@ -36,6 +36,14 @@ echo "Installing Go tools..."
 # Fix any go.mod files that require Go 1.23 (which doesn't exist yet)
 echo "Fixing any go.mod files that require Go 1.23..."
 find . -name "go.mod" -exec sed -i 's/go 1.23/go 1.22/g' {} \;
+# Check if Pulumi is installed, if not install it
+if ! command -v pulumi &> /dev/null; then
+    echo "Installing Pulumi..."
+    curl -fsSL https://get.pulumi.com | sh
+    export PATH=$PATH:$HOME/.pulumi/bin
+    echo 'export PATH=$PATH:$HOME/.pulumi/bin' >> ~/.bashrc
+fi
+
 # Install Pulumi dependencies
 echo "Installing Pulumi dependencies..."
 pulumi plugin ls
