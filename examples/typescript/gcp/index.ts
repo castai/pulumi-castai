@@ -200,8 +200,62 @@ const clusterController = new k8s.helm.v3.Release("cluster-controller", {
     },
 });
 
+// Install the CAST AI evictor
+const castaiEvictor = new k8s.helm.v3.Release("castai-evictor", {
+    chart: "castai-evictor",
+    repositoryOpts: {
+        repo: "https://castai.github.io/helm-charts",
+    },
+    namespace: "castai-agent",
+    createNamespace: true,
+    cleanupOnFail: true,
+    timeout: 300, // 5 minutes timeout
+    skipAwait: true,
+    values: {
+        replicaCount: 1,
+    },
+}, {
+    provider: k8sProvider,
+    dependsOn: [castaiAgent, clusterController],
+    customTimeouts: {
+        create: "1m",  // Reduced timeout since we're not waiting
+        update: "1m",  // Reduced timeout since we're not waiting
+        delete: "5m",
+    },
+});
+
+// Install the CAST AI pod pinner
+const castaiPodPinner = new k8s.helm.v3.Release("castai-pod-pinner", {
+    chart: "castai-pod-pinner",
+    repositoryOpts: {
+        repo: "https://castai.github.io/helm-charts",
+    },
+    namespace: "castai-agent",
+    createNamespace: true,
+    cleanupOnFail: true,
+    timeout: 300, // 5 minutes timeout
+    skipAwait: true,
+    values: {
+        castai: {
+            apiKey: castaiApiToken,
+            clusterID: gkeCluster.id,
+        },
+        replicaCount: 0,
+    },
+}, {
+    provider: k8sProvider,
+    dependsOn: [castaiAgent, clusterController],
+    customTimeouts: {
+        create: "1m",  // Reduced timeout since we're not waiting
+        update: "1m",  // Reduced timeout since we're not waiting
+        delete: "5m",
+    },
+});
+
 // Export the cluster name and other useful information
 export const clusterName = gkeClusterName;
 export const clusterId = gkeCluster.id;
 export const agentHelmRelease = castaiAgent.name;
 export const controllerHelmRelease = clusterController.name;
+export const evictorHelmRelease = castaiEvictor.name;
+export const podPinnerHelmRelease = castaiPodPinner.name;
