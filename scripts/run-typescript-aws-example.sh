@@ -1,22 +1,23 @@
 #!/usr/bin/env bash
+set -e
 echo "Running AWS TypeScript example..."
-if [ -f .env ]; then
-    # Load environment variables from .env file
-    set -a
-    source .env
-    set +a
-    # Install dependencies if needed
-    if [ ! -d "examples/typescript/node_modules" ]; then
-        cd examples/typescript && npm install && cd ../..
-    fi
 
-    # Copy node_modules to the AWS example directory
-    if [ ! -d "examples/typescript/aws/node_modules" ]; then
-        mkdir -p examples/typescript/aws/node_modules
-        cp -r examples/typescript/node_modules/* examples/typescript/aws/node_modules/
-    fi
+# Check if .env file exists
+if [ ! -f .env ]; then
+    echo "Error: .env file not found"
+    exit 1
+fi
 
-    cd examples/typescript/aws && \
+# Load environment variables from .env file
+set -a
+source .env
+set +a
+
+# Define example directory
+EXAMPLE_DIR="examples/typescript/aws"
+
+# Navigate to the example directory
+cd "$EXAMPLE_DIR" && \
     PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi login --local && \
     # Remove the stack if it exists to avoid cached state issues
     PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi stack rm aws-example --force --yes 2>/dev/null || true && \

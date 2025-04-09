@@ -62,7 +62,7 @@ func Provider() tfbridge.ProviderInfo {
 		Name:              "castai",
 		DisplayName:       "CAST AI",
 		Publisher:         "CAST AI",
-		LogoURL:           "",
+		LogoURL:           "https://raw.githubusercontent.com/castai/pulumi-castai/main/docs/images/castai-logo.svg"",
 		PluginDownloadURL: "github://api.github.com/cast-ai",
 		Description:       "A Pulumi package for creating and managing CAST AI cloud resources.",
 		Keywords:          []string{"pulumi", "castai", "kubernetes", "category/cloud"},

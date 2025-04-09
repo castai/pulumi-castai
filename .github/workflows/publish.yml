@@ -1,0 +1,116 @@
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+  PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.18'
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Install Pulumi CLI
+        run: |
+          curl -fsSL https://get.pulumi.com | sh
+          export PATH=$PATH:$HOME/.pulumi/bin
+          echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
+
+      - name: Get Version
+        id: get-version
+        run: |
+          VERSION=$(cat version.txt)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Verify Versions Match
+        run: |
+          if [ "$VERSION" != "$TAG_VERSION" ]; then
+            echo "Error: Version in version.txt ($VERSION) does not match tag version ($TAG_VERSION)"
+            exit 1
+          fi
+
+      - name: Build Provider
+        run: make provider
+
+      - name: Build SDKs
+        run: make build_sdks
+
+      - name: Create Release Assets
+        run: |
+          mkdir -p release/
+          for ARCH in amd64 arm64; do
+            for OS in darwin linux windows; do
+              FILENAME=pulumi-resource-castai-v${VERSION}-${OS}-${ARCH}.tar.gz
+              if [ "$OS" = "windows" ]; then
+                tar -czf release/${FILENAME} -C bin pulumi-resource-castai.exe
+              else
+                tar -czf release/${FILENAME} -C bin pulumi-resource-castai
+              fi
+            done
+          done
+
+      - name: Create GitHub Release
+        id: create-release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*
+          draft: false
+          prerelease: false
+
+      - name: Publish Node.js Package
+        run: |
+          cd sdk/nodejs
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish Python Package
+        run: |
+          cd sdk/python
+          pip install build twine
+          python -m build
+          twine upload dist/* -u __token__ -p ${{ secrets.PYPI_PASSWORD }}
+
+      - name: Publish .NET Package
+        run: |
+          cd sdk/dotnet
+          dotnet pack -c Release
+          dotnet nuget push bin/Release/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
+
+      - name: Publish Go Module
+        run: |
+          # Go modules are published via Git tags, which we've already done
+          echo "Go module published via Git tag"

@@ -10,8 +10,8 @@ export WORKING_DIR := justfile_directory()
 # Read version directly from version.txt - central source of truth
 export VERSION := `cat version.txt | tr -d '\n'`
 
-# Complete development workflow - cleans and rebuilds everything
-dev: clean setup-env install-all-deps build-sdk-python build-sdk-typescript build-sdk-go install-provider install-examples-deps
+# Development workflow - builds and installs everything without cleaning first
+dev: setup-env install-all-deps build-sdk-python build-sdk-typescript build-sdk-go install-provider install-examples-deps
     @echo "✅ Provider and SDKs successfully built and installed."
     @echo ""
     @echo "SDKs available at:"
@@ -25,6 +25,9 @@ dev: clean setup-env install-all-deps build-sdk-python build-sdk-typescript buil
     @echo "  - Go:         Add to go.mod:"
     @echo "                require github.com/cast-ai/pulumi-castai/sdk/go v{{VERSION}}"
     @echo "                replace github.com/cast-ai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go"
+
+# Full rebuild - cleans everything and then rebuilds
+rebuild: clean dev
 
 # Setup environment variables
 setup-env:
@@ -199,17 +202,17 @@ run-go-azure-example:
     @echo "Running Go Azure example..."
     @./scripts/run-go-azure-example.sh
 
-# Run TypeScript GCP example
+# Run TypeScript GCP example without rebuilding the provider
 run-typescript-gcp-example:
     @echo "Running TypeScript GCP example..."
     @./scripts/run-typescript-gcp-example.sh
 
-# Run TypeScript AWS example
+# Run TypeScript AWS example without rebuilding the provider
 run-typescript-aws-example:
     @echo "Running TypeScript AWS example..."
     @./scripts/run-typescript-aws-example.sh
 
-# Run TypeScript Azure example
+# Run TypeScript Azure example without rebuilding the provider
 run-typescript-azure-example:
     @echo "Running TypeScript Azure example..."
     @./scripts/run-typescript-azure-example.sh
@@ -222,9 +225,11 @@ run-python-examples: run-python-gcp-example run-python-aws-example run-python-az
 run-go-examples: run-go-gcp-example run-go-aws-example run-go-azure-example
     @echo "All Go examples have been run."
 
-# Run all TypeScript examples
+# Run all TypeScript examples without rebuilding
 run-typescript-examples: run-typescript-gcp-example run-typescript-aws-example run-typescript-azure-example
     @echo "All TypeScript examples have been run."
+
+# This command has been removed as we're separating build and run operations
 
 # Run examples for all languages
 run-all-language-examples: run-python-examples run-go-examples run-typescript-examples
@@ -244,6 +249,11 @@ install-all-deps: setup-deps
 install-examples-deps:
     @echo "Running install-examples-deps script..."
     @./scripts/install-examples-deps.sh
+
+# Install dependencies for TypeScript examples only
+install-typescript-examples-deps:
+    @echo "Installing TypeScript example dependencies..."
+    @./scripts/install-examples-deps.sh typescript
 
 # Run specific e2e test
 run-e2e-test test_name:

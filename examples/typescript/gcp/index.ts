@@ -1,9 +1,25 @@
+/**
+ * CAST AI GCP Example
+ *
+ * This example demonstrates how to connect an existing GKE cluster to CAST AI
+ * and install all necessary components using the Pulumi CAST AI provider.
+ *
+ * Required environment variables:
+ * - CASTAI_API_TOKEN: Your CAST AI API token
+ * - GCP_PROJECT_ID: Your GCP project ID
+ * - GOOGLE_CREDENTIALS: GCP credentials JSON
+ *
+ * Optional environment variables:
+ * - GKE_CLUSTER_NAME: Name of your GKE cluster (default: cast_ai_test_cluster)
+ * - GKE_LOCATION: GCP region where your cluster is located (default: us-central1)
+ * - CASTAI_API_URL: Custom CAST AI API URL (default: https://api.cast.ai)
+ */
+
 import * as pulumi from "@pulumi/pulumi";
 import * as castai from "@pulumi/castai";
 import * as gcp from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
 
-// Check for required GCP credentials
 const requiredVars = [
     "GOOGLE_CREDENTIALS",
     "GCP_PROJECT_ID",
@@ -16,30 +32,22 @@ if (missingVars.length > 0) {
     console.warn("This is a simulation only - not creating actual resources.");
 }
 
-// Get CAST AI API token from environment variable
 const castaiApiToken = process.env.CASTAI_API_TOKEN;
 if (!castaiApiToken) {
     console.error("ERROR: CASTAI_API_TOKEN environment variable is required");
     process.exit(1);
 }
 
-// Initialize the CAST AI provider with explicit API token
 const provider = new castai.Provider("castai-provider", {
     apiToken: castaiApiToken,
-    // Optional: specify API URL if using a non-default endpoint
     apiUrl: process.env.CASTAI_API_URL || "https://api.cast.ai",
 });
 
-// Get GCP project ID from environment variable or use a default value
 const gcpProjectId = process.env.GCP_PROJECT_ID || "my-gcp-project-id";
-
-// Get GKE cluster name from environment variable or use a default value
 const gkeClusterName = process.env.GKE_CLUSTER_NAME || "cast_ai_test_cluster";
-
 const gkeLocation = process.env.GKE_LOCATION || "us-central1";
 
 // Get the existing GKE cluster details
-// Use apply to properly handle the Pulumi Output type
 const gkeClusterInfo = pulumi.output(gcp.container.getCluster({
     name: gkeClusterName,
     location: gkeLocation,
@@ -47,31 +55,24 @@ const gkeClusterInfo = pulumi.output(gcp.container.getCluster({
 }));
 
 // Create a connection to a GKE cluster
-// This follows the same pattern as the Terraform provider
 const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
-    projectId: gcpProjectId,         // Use GCP project ID from environment
-    location: gkeLocation,           // Use GCP location from environment
-    name: gkeClusterName,            // Use GKE cluster name from environment
-    deleteNodesOnDisconnect: true,   // Clean up nodes when disconnecting
-    // Optional: provide credentials JSON directly from environment
+    projectId: gcpProjectId,
+    location: gkeLocation,
+    name: gkeClusterName,
+    deleteNodesOnDisconnect: true,
     credentialsJson: process.env.GOOGLE_CREDENTIALS,
 }, {
     provider,
-    // Set a custom timeout to prevent hanging
     customTimeouts: {
-        create: "2m",  // Only wait 2 minutes for creation
-        update: "2m",  // Only wait 2 minutes for updates
-        delete: "5m",  // Give a bit more time for deletion
+        create: "2m",
+        update: "2m",
+        delete: "5m",
     },
 });
 
 // Create a Kubernetes provider to interact with the GKE cluster
-// Use the same approach that worked with the gcloud command
 const k8sProvider = new k8s.Provider("gke-k8s", {
-    // Use the GCP project ID, location, and cluster name to create the kubeconfig
     kubeconfig: gkeClusterInfo.apply(info => {
-        // This kubeconfig uses the gke-gcloud-auth-plugin which is the recommended approach
-        // for authenticating with GKE clusters
         return `apiVersion: v1
 kind: Config
 clusters:
@@ -97,48 +98,40 @@ users:
 });
 
 // Install the CAST AI agent using Helm
-// This follows the same pattern as the Terraform provider
 const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
     chart: "castai-agent",
-    version: "0.97.4", // Use a specific version
+    version: "0.97.4",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
     namespace: "castai-agent",
     createNamespace: true,
     cleanupOnFail: true,
-    // Set timeout to ensure the Helm installation doesn't hang
-    timeout: 300, // 5 minutes timeout
-    // Don't wait for the Helm chart to be ready
+    timeout: 300,
     skipAwait: true,
     values: {
-        // These values match what the Terraform provider sets
-        replicaCount: 1, // Reduced from 2 to avoid memory issues
+        replicaCount: 1,
         provider: "gke",
         additionalEnv: {
-            // Use the cluster ID from the CAST AI GKE cluster
-            // We use apply to properly handle the Pulumi Output type
             STATIC_CLUSTER_ID: gkeCluster.id,
         },
         createNamespace: false,
         apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
-        // Note: In a production environment, you should use a more secure method
         apiKey: castaiApiToken,
-        // Reduce resource requirements to avoid scheduling issues
         resources: {
             agent: {
                 requests: {
-                    memory: "512Mi", // Reduced from 2Gi
+                    memory: "512Mi",
                     cpu: "100m",
                 },
                 limits: {
-                    memory: "1Gi", // Reduced from 2Gi
+                    memory: "1Gi",
                     cpu: "500m",
                 },
             },
             monitor: {
                 requests: {
-                    memory: "64Mi", // Reduced from 128Mi
+                    memory: "64Mi",
                     cpu: "50m",
                 },
             },
@@ -148,37 +141,30 @@ const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
     provider: k8sProvider,
     dependsOn: [gkeCluster],
     customTimeouts: {
-        create: "1m",  // Reduced timeout since we're not waiting
-        update: "1m",  // Reduced timeout since we're not waiting
+        create: "1m",
+        update: "1m",
         delete: "5m",
     },
 });
 
 // Install the CAST AI cluster controller
-// This follows the same pattern as the Terraform provider
 const clusterController = new k8s.helm.v3.Release("cluster-controller", {
     chart: "castai-cluster-controller",
-    version: "0.81.4", // Use a specific version
+    version: "0.81.4",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
     namespace: "castai-agent",
     createNamespace: true,
     cleanupOnFail: true,
-    // Set timeout to ensure the Helm installation doesn't hang
-    timeout: 300, // 5 minutes timeout
-    // Don't wait for the Helm chart to be ready
+    timeout: 300,
     skipAwait: true,
     values: {
         castai: {
-            // Use the cluster ID from the CAST AI GKE cluster
-            // We use apply to properly handle the Pulumi Output type
             clusterID: gkeCluster.id,
             apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
-            // Note: In a production environment, you should use a more secure method
             apiKey: castaiApiToken,
         },
-        // Reduce resource requirements to avoid scheduling issues
         resources: {
             requests: {
                 memory: "128Mi",
@@ -194,8 +180,8 @@ const clusterController = new k8s.helm.v3.Release("cluster-controller", {
     provider: k8sProvider,
     dependsOn: [castaiAgent, gkeCluster],
     customTimeouts: {
-        create: "1m",  // Reduced timeout since we're not waiting
-        update: "1m",  // Reduced timeout since we're not waiting
+        create: "1m",
+        update: "1m",
         delete: "5m",
     },
 });
@@ -209,7 +195,7 @@ const castaiEvictor = new k8s.helm.v3.Release("castai-evictor", {
     namespace: "castai-agent",
     createNamespace: true,
     cleanupOnFail: true,
-    timeout: 300, // 5 minutes timeout
+    timeout: 300,
     skipAwait: true,
     values: {
         replicaCount: 1,
@@ -218,8 +204,8 @@ const castaiEvictor = new k8s.helm.v3.Release("castai-evictor", {
     provider: k8sProvider,
     dependsOn: [castaiAgent, clusterController],
     customTimeouts: {
-        create: "1m",  // Reduced timeout since we're not waiting
-        update: "1m",  // Reduced timeout since we're not waiting
+        create: "1m",
+        update: "1m",
         delete: "5m",
     },
 });
@@ -233,7 +219,7 @@ const castaiPodPinner = new k8s.helm.v3.Release("castai-pod-pinner", {
     namespace: "castai-agent",
     createNamespace: true,
     cleanupOnFail: true,
-    timeout: 300, // 5 minutes timeout
+    timeout: 300,
     skipAwait: true,
     values: {
         castai: {
@@ -246,13 +232,13 @@ const castaiPodPinner = new k8s.helm.v3.Release("castai-pod-pinner", {
     provider: k8sProvider,
     dependsOn: [castaiAgent, clusterController],
     customTimeouts: {
-        create: "1m",  // Reduced timeout since we're not waiting
-        update: "1m",  // Reduced timeout since we're not waiting
+        create: "1m",
+        update: "1m",
         delete: "5m",
     },
 });
 
-// Export the cluster name and other useful information
+// Export useful information
 export const clusterName = gkeClusterName;
 export const clusterId = gkeCluster.id;
 export const agentHelmRelease = castaiAgent.name;
