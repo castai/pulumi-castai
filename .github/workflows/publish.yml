@@ -39,7 +39,7 @@ jobs:
           check-latest: true
 
       - name: Setup GitHub CLI
-        uses: cli/cli-action@v2
+        uses: github/cli-action@v1
 
       - name: Setup Python
         uses: actions/setup-python@v4
