@@ -27,9 +27,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Setup Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
-          go-version: '1.18'
+          go-version: '1.22.x'
+          check-latest: true
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -63,7 +64,17 @@ jobs:
           fi
 
       - name: Build Provider
-        run: make provider
+        run: |
+          # Debug Go installation
+          which go || echo "Go not found"
+          go version || echo "Go version command failed"
+
+          # Make sure GO is in the path
+          export PATH=$PATH:$(go env GOPATH)/bin
+          echo "$PATH" >> $GITHUB_PATH
+
+          # Build the provider
+          make provider
 
       - name: Build SDKs
         run: make build_sdks

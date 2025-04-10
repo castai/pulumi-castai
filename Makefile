@@ -25,8 +25,8 @@ WORKING_DIR    := $(shell pwd)
 OS := $(shell uname)
 EMPTY_TO_AVOID_SED := ""
 
-# Use absolute path to the correct go binary
-GO_EXECUTABLE := /usr/local/go/bin/go
+# Use go from PATH
+GO_EXECUTABLE := go
 
 .PHONY: development provider build_sdks build_nodejs build_dotnet build_go build_python install_provider cleanup build_schema build_examples ensure publish_packages publish publish_nodejs publish_python publish_go build_codegen check_schema create_docs test clean help
 
