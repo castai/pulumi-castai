@@ -10,7 +10,7 @@ The CAST AI Provider for Pulumi enables you to manage [CAST AI](https://cast.ai/
 
 ## Example
 
-{{< chooser language "typescript,python,go" >}}
+{{< chooser language "typescript,python,go,csharp" >}}
 {{% choosable language typescript %}}
 
 ```typescript
@@ -110,6 +110,45 @@ func main() {
 		ctx.Export("clusterId", gkeCluster.ID())
 		return nil
 	})
+}
+```
+
+{{% /choosable %}}
+{{% choosable language csharp %}}
+
+```csharp
+using System;
+using Pulumi;
+using Pulumi.CastAI;
+
+class MyStack : Stack
+{
+    public MyStack()
+    {
+        // Initialize the CAST AI provider
+        var provider = new Provider("castai-provider", new ProviderArgs
+        {
+            ApiToken = Environment.GetEnvironmentVariable("CASTAI_API_TOKEN"),
+            ApiUrl = Environment.GetEnvironmentVariable("CASTAI_API_URL") ?? "https://api.cast.ai"
+        });
+
+        // Connect a GKE cluster to CAST AI
+        var gkeCluster = new GkeCluster("gke-cluster-connection", new GkeClusterArgs
+        {
+            ProjectId = Environment.GetEnvironmentVariable("GCP_PROJECT_ID") ?? "my-gcp-project-id",
+            Location = "us-central1",
+            Name = Environment.GetEnvironmentVariable("GKE_CLUSTER_NAME") ?? "cast_ai_test_cluster",
+            DeleteNodesOnDisconnect = true
+        }, new CustomResourceOptions
+        {
+            Provider = provider
+        });
+
+        // Export the cluster ID
+        this.ClusterId = gkeCluster.Id;
+    }
+
+    [Output] public Output<string> ClusterId { get; set; }
 }
 ```
 
