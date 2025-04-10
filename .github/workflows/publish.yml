@@ -37,11 +37,6 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-
       - name: Install Pulumi CLI
         run: |
           curl -fsSL https://get.pulumi.com | sh
@@ -95,16 +90,12 @@ jobs:
       - name: Create Release Assets
         run: |
           mkdir -p release/
-          for ARCH in amd64 arm64; do
-            for OS in darwin linux windows; do
-              FILENAME=pulumi-resource-castai-v${VERSION}-${OS}-${ARCH}.tar.gz
-              if [ "$OS" = "windows" ]; then
-                tar -czf release/${FILENAME} -C bin pulumi-resource-castai.exe
-              else
-                tar -czf release/${FILENAME} -C bin pulumi-resource-castai
-              fi
-            done
-          done
+          # Only create a release asset for the current platform (Linux)
+          FILENAME=pulumi-resource-castai-v${VERSION}-linux-amd64.tar.gz
+          tar -czf release/${FILENAME} -C bin pulumi-resource-castai
+
+          # For a complete provider, you would need to build for all platforms
+          # This would require cross-compilation or using GitHub Actions matrix
 
       - name: Create GitHub Release
         id: create-release
