@@ -55,15 +55,28 @@ jobs:
         run: |
           VERSION=$(cat version.txt)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+          # Check if this is a tag push or a branch push
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            echo "Running from tag push"
+            echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+            IS_TAG=true
+          else
+            echo "Running from branch push"
+            echo "TAG_VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+            IS_TAG=false
+          fi
+          echo "IS_TAG=$IS_TAG" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Verify Versions Match
         run: |
-          if [ "$VERSION" != "$TAG_VERSION" ]; then
+          if [[ "$IS_TAG" == "true" && "$VERSION" != "$TAG_VERSION" ]]; then
             echo "Error: Version in version.txt ($VERSION) does not match tag version ($TAG_VERSION)"
             exit 1
           fi
+
+          echo "Using version: $VERSION"
 
       - name: Build Provider
         run: |

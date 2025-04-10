@@ -70,9 +70,9 @@ build_sdks:: install_dependencies provider build_nodejs build_python build_go # 
 
 build_nodejs:: install_dependencies # build the node sdk
 	rm -rf sdk/nodejs
-	$(WORKING_DIR)/bin/${TFGEN} nodejs --schema ${SCHEMA} --overlays provider/overlays/nodejs --out sdk/nodejs/
+	$(WORKING_DIR)/bin/${TFGEN} nodejs --out sdk/nodejs/ --overlays provider/overlays/nodejs
 	cd sdk/nodejs && \
-		sed -i '' 's/${VERSION}/$(VERSION)/g' package.json && \
+		sed -i.bak 's/${VERSION}/$(VERSION)/g' package.json && rm -f package.json.bak && \
 		yarn install && \
 		yarn run tsc && \
 		cp ../../README.md ../../LICENSE package.json ./bin/ && \
@@ -80,14 +80,14 @@ build_nodejs:: install_dependencies # build the node sdk
 
 build_python:: install_dependencies # build the python sdk
 	rm -rf sdk/python
-	$(WORKING_DIR)/bin/${TFGEN} python --schema ${SCHEMA} --overlays provider/overlays/python --out sdk/python/
+	$(WORKING_DIR)/bin/${TFGEN} python --out sdk/python/ --overlays provider/overlays/python
 	cd sdk/python && \
 		cp ../../README.md . && \
 		python -m pip install build && python -m build ."
 
 build_go:: install_dependencies # build the go sdk
 	rm -rf sdk/go
-	$(WORKING_DIR)/bin/${TFGEN} go --schema ${SCHEMA} --overlays provider/overlays/go --out sdk/go/
+	$(WORKING_DIR)/bin/${TFGEN} go --out sdk/go/ --overlays provider/overlays/go
 
 install_dependencies:: # install dependencies for the provider and code generator
 	@echo "Ensure pulumi is installed"
