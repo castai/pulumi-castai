@@ -1,9 +1,11 @@
 name: Publish Package
-
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
+
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
