@@ -100,7 +100,6 @@ users:
 // Install the CAST AI agent using Helm
 const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
     chart: "castai-agent",
-    version: "0.97.4",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
@@ -150,7 +149,6 @@ const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
 // Install the CAST AI cluster controller
 const clusterController = new k8s.helm.v3.Release("cluster-controller", {
     chart: "castai-cluster-controller",
-    version: "0.81.4",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
@@ -199,6 +197,7 @@ const castaiEvictor = new k8s.helm.v3.Release("castai-evictor", {
     skipAwait: true,
     values: {
         replicaCount: 1,
+        managedByCASTAI: true,
     },
 }, {
     provider: k8sProvider,
