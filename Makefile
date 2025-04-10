@@ -72,7 +72,7 @@ build_nodejs:: install_dependencies # build the node sdk
 	rm -rf sdk/nodejs
 	$(WORKING_DIR)/bin/${TFGEN} nodejs --out sdk/nodejs/ --overlays provider/overlays/nodejs
 	cd sdk/nodejs && \
-		sed -i.bak 's/${VERSION}/$(VERSION)/g' package.json && rm -f package.json.bak && \
+		sed -i.bak 's/\$${VERSION}/$(VERSION)/g' package.json && rm -f package.json.bak && \
 		yarn install && \
 		yarn run tsc && \
 		cp ../../README.md ../../LICENSE package.json ./bin/ && \
