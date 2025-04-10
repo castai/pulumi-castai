@@ -1,8 +1,6 @@
 name: Publish Package
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*'
 
@@ -25,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Setup Go
@@ -127,20 +125,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish Python Package
-        run: |
-          cd sdk/python
-          pip install build twine
-          python -m build
-          twine upload dist/* -u __token__ -p ${{ secrets.PYPI_PASSWORD }}
-
-      - name: Publish .NET Package
-        run: |
-          cd sdk/dotnet
-          dotnet pack -c Release
-          dotnet nuget push bin/Release/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
-
-      - name: Publish Go Module
-        run: |
-          # Go modules are published via Git tags, which we've already done
-          echo "Go module published via Git tag"
