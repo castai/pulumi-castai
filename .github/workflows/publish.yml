@@ -1,4 +1,4 @@
-name: Publish Package
+name: Release and Publish
 on:
   push:
     tags:
@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to publish (without v prefix)'
-        required: true
+        description: 'Version to publish (without v prefix, leave empty for auto-bump)'
+        required: false
         default: ''
 
 
@@ -38,6 +38,9 @@ jobs:
           go-version: '1.22.x'
           check-latest: true
 
+      - name: Setup GitHub CLI
+        uses: cli/cli-action@v2
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -52,33 +55,58 @@ jobs:
       - name: Get Version
         id: get-version
         run: |
-          VERSION=$(cat version.txt)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          CURRENT_VERSION=$(cat version.txt)
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
 
-          # Check if this is a tag push, branch push, or manual trigger
+          # Check if this is a tag push or manual trigger
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             echo "Running from tag push"
-            echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+            TAG_VERSION=${GITHUB_REF#refs/tags/v}
+            echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
             IS_TAG=true
+
+            # Auto-bump patch version for next release
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$TAG_VERSION"
+            NEXT_PATCH=$((PATCH + 1))
+            NEXT_VERSION="$MAJOR.$MINOR.$NEXT_PATCH"
+            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+
+            # Use the tag version for this release
+            VERSION="$TAG_VERSION"
           elif [[ -n "${{ github.event.inputs.version }}" ]]; then
-            echo "Running from manual trigger"
-            echo "TAG_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
-            # Update VERSION to match the input version
+            echo "Running from manual trigger with specified version"
             VERSION="${{ github.event.inputs.version }}"
-            echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "TAG_VERSION=$VERSION" >> $GITHUB_ENV
             IS_TAG=true
+
+            # Calculate next version
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+            NEXT_PATCH=$((PATCH + 1))
+            NEXT_VERSION="$MAJOR.$MINOR.$NEXT_PATCH"
+            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
           else
-            echo "Running from branch push"
-            echo "TAG_VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-            IS_TAG=false
+            echo "Running from manual trigger with auto-bump"
+            # Auto-bump patch version
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+            PATCH=$((PATCH + 1))
+            VERSION="$MAJOR.$MINOR.$PATCH"
+            echo "TAG_VERSION=$VERSION" >> $GITHUB_ENV
+            IS_TAG=true
+
+            # Calculate next version
+            NEXT_PATCH=$((PATCH + 1))
+            NEXT_VERSION="$MAJOR.$MINOR.$NEXT_PATCH"
+            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
           fi
+
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "IS_TAG=$IS_TAG" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Verify Versions Match
+      - name: Verify and Update Version
         run: |
-          if [[ "$IS_TAG" == "true" && "$VERSION" != "$TAG_VERSION" && -z "${{ github.event.inputs.version }}" ]]; then
-            echo "Error: Version in version.txt ($VERSION) does not match tag version ($TAG_VERSION)"
+          if [[ "$IS_TAG" == "true" && "$VERSION" != "$TAG_VERSION" && -z "${{ github.event.inputs.version }}" && $GITHUB_REF == refs/tags/* ]]; then
+            echo "Error: Version in version.txt ($CURRENT_VERSION) does not match tag version ($TAG_VERSION)"
             exit 1
           fi
 
@@ -90,6 +118,37 @@ jobs:
             echo "PACKAGE_EXISTS=true" >> $GITHUB_ENV
           else
             echo "PACKAGE_EXISTS=false" >> $GITHUB_ENV
+          fi
+
+          # Update version.txt with the current version
+          echo "$VERSION" > version.txt
+
+          # If this is a tag push, create a new branch for the next version
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            # Configure Git
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+
+            # Create a new branch for the next version
+            git checkout -b bump-version-to-$NEXT_VERSION
+
+            # Update version.txt with the next version
+            echo "$NEXT_VERSION" > version.txt
+
+            # Commit and push the changes
+            git add version.txt
+            git commit -m "Bump version to $NEXT_VERSION"
+            git push origin bump-version-to-$NEXT_VERSION
+
+            # Create a pull request
+            gh pr create --title "Bump version to $NEXT_VERSION" \
+                        --body "Automatically bumped version after release $VERSION" \
+                        --base main \
+                        --head bump-version-to-$NEXT_VERSION
+
+            # Switch back to the original branch/tag for the rest of the workflow
+            git checkout ${GITHUB_REF#refs/tags/}
+            echo "$VERSION" > version.txt
           fi
 
       - name: Build Provider
@@ -125,6 +184,30 @@ jobs:
           files: release/*
           draft: false
           prerelease: false
+          body: |
+            # CAST AI Provider v${{ env.VERSION }}
+
+            This release includes the latest updates to the CAST AI Pulumi provider.
+
+            ## Installation
+
+            ### TypeScript/JavaScript
+            ```bash
+            npm install @castai/pulumi
+            ```
+
+            ### Python
+            ```bash
+            pip install pulumi-castai
+            ```
+
+            ### Go
+            ```bash
+            go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}
+            ```
+
+            ## Next Version
+            A PR has been automatically created to bump the version to ${{ env.NEXT_VERSION }} for the next release.
 
       - name: Publish Node.js Package
         run: |
@@ -164,4 +247,36 @@ jobs:
           # when the tag is pushed. No additional steps are needed.
           echo "Go package is published to GitHub automatically."
           echo "Users can install it with: go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}"
+
+      # - name: Setup .NET
+      #   uses: actions/setup-dotnet@v3
+      #   with:
+      #     dotnet-version: '6.0.x'
+
+      # - name: Build .NET SDK
+      #   run: |
+      #     # Add .NET SDK build step to Makefile
+      #     cat >> Makefile << 'EOF'
+
+      #     build_dotnet:: install_dependencies
+      #       rm -rf sdk/dotnet
+      #       $(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
+      #       cd sdk/dotnet && \
+      #         dotnet build /p:Version=${VERSION}
+      #     EOF
+
+      #     # Build .NET SDK
+      #     make build_dotnet
+
+      # - name: Publish .NET Package
+      #   run: |
+      #     if [[ "$PACKAGE_EXISTS" == "true" ]]; then
+      #       echo "Version ${{ env.VERSION }} may already exist in NuGet registry. Skipping publish."
+      #     else
+      #       cd sdk/dotnet
+      #       dotnet pack -o nupkg -p:Version=${VERSION} --no-build
+      #       dotnet nuget push nupkg/*.nupkg --api-key ${NUGET_AUTH_TOKEN} --source https://api.nuget.org/v3/index.json
+      #     fi
+      #   env:
+      #     NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
