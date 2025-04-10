@@ -62,9 +62,6 @@ func Provider() tfbridge.ProviderInfo {
 		Name:              "castai",
 		DisplayName:       "CAST AI",
 		Publisher:         "CAST AI",
-		JavaScript:        &tfbridge.JavaScriptInfo{
-			PackageName: "@castai/pulumi",
-		},
 		LogoURL:           "https://raw.githubusercontent.com/castai/pulumi-castai/main/docs/images/castai-logo.svg",
 		PluginDownloadURL: "github://api.github.com/cast-ai",
 		Description:       "A Pulumi package for creating and managing CAST AI cloud resources.",
@@ -123,6 +120,7 @@ func Provider() tfbridge.ProviderInfo {
 			"castai_credentials": {Tok: tokens.ModuleMember(castaiDataSource(mainMod, "getCredentials"))},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
+			PackageName: "@castai/pulumi",
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
 			},
