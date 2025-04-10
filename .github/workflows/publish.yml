@@ -71,6 +71,14 @@ jobs:
 
           echo "Using version: $VERSION"
 
+          # Check if this version already exists in npm
+          if npm view @castai/pulumi@$VERSION version &> /dev/null; then
+            echo "Warning: Version $VERSION already exists in npm registry."
+            echo "PACKAGE_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "PACKAGE_EXISTS=false" >> $GITHUB_ENV
+          fi
+
       - name: Build Provider
         run: |
           # Debug Go installation
@@ -112,7 +120,13 @@ jobs:
           sed -i 's/"@pulumi\/castai"/"@castai\/pulumi"/g' package.json
           sed -i 's/"\${VERSION}"/"${{ env.VERSION }}"/g' package.json
           cat package.json
-          npm publish --access public
+
+          # Check if the version already exists
+          if [[ "$PACKAGE_EXISTS" == "true" ]]; then
+            echo "Version ${{ env.VERSION }} already exists in npm registry. Skipping publish."
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
