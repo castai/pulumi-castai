@@ -84,7 +84,7 @@ build_python:: install_dependencies # build the python sdk
 	$(WORKING_DIR)/bin/${TFGEN} python --out sdk/python/ --overlays provider/overlays/python
 	cd sdk/python && \
 		cp ../../README.md . && \
-		python -m pip install build && python -m build ."
+		python -m pip install build && python -m build .
 
 build_go:: install_dependencies # build the go sdk
 	rm -rf sdk/go
