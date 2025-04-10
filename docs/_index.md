@@ -15,7 +15,7 @@ The CAST AI Provider for Pulumi enables you to manage [CAST AI](https://cast.ai/
 
 ```typescript
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@pulumi/castai";
+import * as castai from "@castai/pulumi";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai-provider", {

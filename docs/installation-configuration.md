@@ -8,7 +8,7 @@ layout: installation
 
 The Pulumi CAST AI provider is available as a package in all Pulumi languages:
 
-* JavaScript/TypeScript: [`@pulumi/castai`](https://www.npmjs.com/package/@pulumi/castai)
+* JavaScript/TypeScript: [`@castai/pulumi`](https://www.npmjs.com/package/@castai/pulumi)
 * Python: [`pulumi-castai`](https://pypi.org/project/pulumi-castai/)
 * Go: [`github.com/castai/pulumi-castai/sdk/go/castai`](https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai)
 * .NET: [`Pulumi.CastAI`](https://www.nuget.org/packages/Pulumi.CastAI)
@@ -16,7 +16,7 @@ The Pulumi CAST AI provider is available as a package in all Pulumi languages:
 ### Node.js (JavaScript/TypeScript)
 
 ```bash
-npm install @pulumi/castai
+npm install @castai/pulumi
 ```
 
 ### Python
@@ -57,7 +57,7 @@ export CASTAI_API_TOKEN=your-api-token-here
 {{% choosable language typescript %}}
 
 ```typescript
-import * as castai from "@pulumi/castai";
+import * as castai from "@castai/pulumi";
 
 const provider = new castai.Provider("castai-provider", {
     apiToken: "your-api-token-here",
@@ -171,7 +171,7 @@ Here are examples of connecting different types of Kubernetes clusters to CAST A
 
 ```typescript
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@pulumi/castai";
+import * as castai from "@castai/pulumi";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai-provider", {
@@ -368,7 +368,7 @@ func main() {
 
 ```typescript
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@pulumi/castai";
+import * as castai from "@castai/pulumi";
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai-provider", {

@@ -119,6 +119,8 @@ jobs:
       - name: Publish Node.js Package
         run: |
           cd sdk/nodejs
+          # Make sure package.json has the correct name (@castai/pulumi)
+          sed -i 's/"@pulumi\/castai"/"@castai\/pulumi"/g' package.json
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
