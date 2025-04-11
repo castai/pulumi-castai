@@ -196,10 +196,10 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Build .NET SDK
-        run: ./scripts/build_dotnet_sdk.sh "$VERSION"
+        run: make build_dotnet
 
       - name: Publish .NET Package
-        run: ./scripts/publish_dotnet_package.sh "$VERSION" "${{ secrets.NUGET_TOKEN }}"
+        run: make publish_dotnet
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 

@@ -66,7 +66,7 @@ build_examples: ensure # build the examples
 build_test:: # build just the test directory
 	cd tests && go test -v -c -o $(WORKING_DIR)/bin/tests .
 
-build_sdks:: install_dependencies provider build_nodejs build_python build_go # build all the SDKs
+build_sdks:: install_dependencies provider build_nodejs build_python build_go build_dotnet # build all the SDKs
 
 build_nodejs:: install_dependencies # build the node sdk
 	rm -rf sdk/nodejs
@@ -89,6 +89,13 @@ build_python:: install_dependencies # build the python sdk
 build_go:: install_dependencies # build the go sdk
 	rm -rf sdk/go
 	$(WORKING_DIR)/bin/${TFGEN} go --out sdk/go/ --overlays provider/overlays/go
+
+build_dotnet:: install_dependencies # build the dotnet sdk
+	rm -rf sdk/dotnet
+	$(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
+	./scripts/fix_dotnet_naming.sh
+	cd sdk/dotnet && \
+		dotnet build /p:Version=${VERSION} -v detailed
 
 install_dependencies:: # install dependencies for the provider and code generator
 	@echo "Ensure pulumi is installed"
@@ -134,7 +141,7 @@ check_schema:: build_schema # check if the schema has changed from what is commi
 # Publishing Targets
 publish:: provider build_sdks install_provider create_docs publish_packages # build and publish all SDK's
 
-publish_packages:: publish_nodejs publish_python publish_go # publish all SDK packages
+publish_packages:: publish_nodejs publish_python publish_go publish_dotnet # publish all SDK packages
 
 publish_nodejs:: # publish to NPM
 	cd sdk/nodejs/bin && \
@@ -153,3 +160,8 @@ publish_go:: # publish to GitHub
 		go mod tidy && \
 		git tag v$(VERSION) && \
 		git push origin v$(VERSION)
+
+publish_dotnet:: # publish to NuGet
+	cd sdk/dotnet && \
+		dotnet pack -o nupkg -p:Version=${VERSION} --no-build && \
+		dotnet nuget push nupkg/*.nupkg --api-key ${NUGET_AUTH_TOKEN} --source https://api.nuget.org/v3/index.json
