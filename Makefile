@@ -167,6 +167,8 @@ publish_go:: # publish to GitHub
 		git push origin v$(VERSION)
 
 publish_dotnet:: # publish to NuGet
+	@echo "Publishing .NET package with version ${VERSION}"
 	cd sdk/dotnet && \
 		dotnet pack -o nupkg -p:Version=${VERSION} --no-build && \
-		dotnet nuget push nupkg/*.nupkg --api-key ${NUGET_AUTH_TOKEN} --source https://api.nuget.org/v3/index.json
+		dotnet nuget push nupkg/*.nupkg --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json || \
+		echo "Warning: Failed to publish to NuGet. See error message above."
