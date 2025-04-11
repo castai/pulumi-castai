@@ -226,6 +226,10 @@ jobs:
       - name: Publish Python Package
         run: |
           cd sdk/python
+
+          # Update version in setup.py
+          sed -i "s/VERSION = \"0.0.0\"/VERSION = \"$VERSION\"/g" setup.py
+
           pip install build twine
           python -m build
 
