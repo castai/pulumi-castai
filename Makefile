@@ -56,6 +56,8 @@ build_schema:: tfgen # build the schema
 	# Inject the version line after the 'publisher' line using sed
 	@sed -i.bak '/"publisher":/a \
     "version": "${VERSION}",' $(WORKING_DIR)/${SCHEMA} && rm -f $(WORKING_DIR)/${SCHEMA}.bak
+	@echo "Fixing ClusterToken naming conflict in schema..."
+	./scripts/fix_schema.sh
 	@echo "Verifying version in schema file:"
 	@grep '"version":' $(WORKING_DIR)/${SCHEMA}
 
