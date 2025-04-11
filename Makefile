@@ -96,6 +96,8 @@ build_dotnet:: install_dependencies # build the dotnet sdk
 	$(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
 	@echo "Fixing .NET SDK naming conflicts"
 	./scripts/fix_dotnet_naming.sh
+	@echo "Creating version.txt file"
+	echo "${VERSION}" > sdk/dotnet/version.txt
 	@echo "Building .NET SDK"
 	cd sdk/dotnet && \
 		dotnet build /p:Version=${VERSION} -v detailed
