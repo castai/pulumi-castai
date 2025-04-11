@@ -6,56 +6,48 @@ export function applyOverlays(docs: schema.DoctorOptions): schema.DoctorOptions 
     // Fix the ClusterToken naming conflict
     docs.renames = docs.renames || [];
 
-    // Try multiple approaches to fix the naming conflict
+    // Add a rename for the ClusterToken property in the ClusterToken resource
     docs.renames.push({
         from: "castai:index:ClusterToken/clusterToken",
         to: "TokenValue",
     });
 
-    // Alternative approach with property path
-    docs.renames.push({
-        from: "castai:index:ClusterToken.clusterToken",
-        to: "TokenValue",
-    });
-
-    // Try with full resource path
-    docs.renames.push({
-        from: "castai:index/clusterToken:ClusterToken.clusterToken",
-        to: "TokenValue",
-    });
-
-    // Try with just the property name
-    docs.renames.push({
-        from: "clusterToken",
-        to: "TokenValue",
-    });
-
-    // Direct schema modification approach
+    // Modify the schema directly
     if (docs.schema && docs.schema.resources) {
         // Find the ClusterToken resource
-        const resourceValues = Object.keys(docs.schema.resources).map(key => docs.schema.resources[key]);
-        const clusterTokenResource = resourceValues.find(
-            (resource: any) => resource.token === "castai:index:ClusterToken" ||
-                       resource.token === "castai:index/clusterToken:ClusterToken"
-        );
+        const clusterTokenResource = docs.schema.resources["castai:index:ClusterToken"];
 
-        // If found, rename the property in its properties
-        if (clusterTokenResource && clusterTokenResource.properties) {
-            // If there's a property named clusterToken, rename it to tokenValue
-            if (clusterTokenResource.properties.clusterToken) {
-                clusterTokenResource.properties.tokenValue = clusterTokenResource.properties.clusterToken;
-                delete clusterTokenResource.properties.clusterToken;
+        if (clusterTokenResource && clusterTokenResource.properties && clusterTokenResource.properties.clusterToken) {
+            console.log("Found ClusterToken resource, renaming property");
 
-                // Also update any required properties
-                if (clusterTokenResource.required) {
-                    const index = clusterTokenResource.required.indexOf("clusterToken");
-                    if (index !== -1) {
-                        clusterTokenResource.required[index] = "tokenValue";
-                    }
+            // Rename the property
+            clusterTokenResource.properties.tokenValue = clusterTokenResource.properties.clusterToken;
+            delete clusterTokenResource.properties.clusterToken;
+
+            // Update required properties
+            if (clusterTokenResource.required) {
+                const index = clusterTokenResource.required.indexOf("clusterToken");
+                if (index !== -1) {
+                    clusterTokenResource.required[index] = "tokenValue";
                 }
-
-                console.log("Successfully renamed ClusterToken property in schema");
             }
+
+            // Update input properties
+            if (clusterTokenResource.inputProperties && clusterTokenResource.inputProperties.clusterToken) {
+                clusterTokenResource.inputProperties.tokenValue = clusterTokenResource.inputProperties.clusterToken;
+                delete clusterTokenResource.inputProperties.clusterToken;
+            }
+
+            // Update state inputs
+            if (clusterTokenResource.stateInputs &&
+                clusterTokenResource.stateInputs.properties &&
+                clusterTokenResource.stateInputs.properties.clusterToken) {
+                clusterTokenResource.stateInputs.properties.tokenValue =
+                    clusterTokenResource.stateInputs.properties.clusterToken;
+                delete clusterTokenResource.stateInputs.properties.clusterToken;
+            }
+
+            console.log("Successfully renamed ClusterToken property in schema");
         }
     }
 
