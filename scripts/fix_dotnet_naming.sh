@@ -37,6 +37,28 @@ if ! grep -q "<PackageId>CASTAI.Pulumi</PackageId>" "$PROJECT_FILE"; then
   sed -i 's/<PropertyGroup>/<PropertyGroup>\n    <PackageId>CASTAI.Pulumi<\/PackageId>/g' "$PROJECT_FILE"
 fi
 
+# Ensure the logo file is correctly referenced
+if grep -q "<PackageIcon>logo.png</PackageIcon>" "$PROJECT_FILE"; then
+  echo "Updating logo reference in $PROJECT_FILE"
+  sed -i 's/<PackageIcon>logo.png<\/PackageIcon>/<PackageIcon>castai-logo.png<\/PackageIcon>/g' "$PROJECT_FILE"
+fi
+
+# Also update the None Include section for the logo
+if grep -q "<None Include=\"logo.png\">" "$PROJECT_FILE"; then
+  echo "Updating logo reference in None Include section"
+  sed -i 's/<None Include="logo.png">/<None Include="castai-logo.png">/g' "$PROJECT_FILE"
+fi
+
+# Copy the correct logo file to the SDK directory
+LOGO_SOURCE="docs/images/castai-logo.png"
+LOGO_DEST="sdk/dotnet/castai-logo.png"
+if [ -f "$LOGO_SOURCE" ]; then
+  echo "Copying logo file from $LOGO_SOURCE to $LOGO_DEST"
+  cp "$LOGO_SOURCE" "$LOGO_DEST"
+else
+  echo "WARNING: Logo file not found at $LOGO_SOURCE"
+fi
+
 # Show the original file content
 echo "Original ClusterToken.cs content:"
 head -n 30 "$CLUSTER_TOKEN_FILE"
