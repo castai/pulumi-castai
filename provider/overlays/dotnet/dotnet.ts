@@ -3,7 +3,13 @@ import * as schema from "@pulumi/pulumi/schema";
 
 // Apply .NET-specific overlays
 export function applyOverlays(docs: schema.DoctorOptions): schema.DoctorOptions {
-    // We're now fixing the ClusterToken naming conflict at the schema level
-    // No need for additional overlays here
+    // Set the correct package ID for the .NET SDK
+    docs.packageName = "CASTAI.Pulumi";
+
+    // Fix the ClusterToken naming conflict
+    docs.csharpSpecific = docs.csharpSpecific || {};
+    docs.csharpSpecific.propertyNames = docs.csharpSpecific.propertyNames || {};
+    docs.csharpSpecific.propertyNames["castai:index:ClusterToken.clusterToken"] = "TokenValue";
+
     return docs;
 }
