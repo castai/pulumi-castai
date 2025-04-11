@@ -69,10 +69,13 @@ python -m build
 echo "Built packages:"
 ls -la dist/
 
-# Check if the package exists (passed as environment variable)
-if [[ "$PACKAGE_EXISTS" == "true" ]]; then
-  echo "Version $VERSION may already exist in PyPI registry. Skipping publish."
+# Check if this version already exists in PyPI
+echo "Checking if Python package version $VERSION already exists on PyPI..."
+if pip install --index-url https://pypi.org/simple/ --only-binary=:all: pulumi_castai==$VERSION 2>/dev/null; then
+  echo "Version $VERSION already exists in PyPI registry. Skipping publish."
+  pip uninstall -y pulumi_castai
 else
+  echo "Version $VERSION does not exist in PyPI registry. Publishing..."
   # Only upload the correct version
   twine upload dist/pulumi_castai-${VERSION}* -u __token__ -p $PYPI_PASSWORD
 fi

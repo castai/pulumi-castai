@@ -230,11 +230,7 @@ jobs:
           PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 
       - name: Publish Go Package
-        run: |
-          # Go packages are published to GitHub, which happens automatically
-          # when the tag is pushed. No additional steps are needed.
-          echo "Go package is published to GitHub automatically."
-          echo "Users can install it with: go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}"
+        run: ./scripts/publish_go_package.sh "$VERSION"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
