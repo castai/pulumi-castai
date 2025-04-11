@@ -225,21 +225,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish Python Package
-        run: |
-          cd sdk/python
-
-          # Update version in setup.py
-          sed -i "s/VERSION = \"0.0.0\"/VERSION = \"$VERSION\"/g" setup.py
-
-          pip install build twine
-          python -m build
-
-          # Check if this version already exists in PyPI
-          if [[ "$PACKAGE_EXISTS" == "true" ]]; then
-            echo "Version ${{ env.VERSION }} may already exist in PyPI registry. Skipping publish."
-          else
-            twine upload dist/* -u __token__ -p ${{ secrets.PYPI_PASSWORD }}
-          fi
+        run: ./scripts/update_python_version.sh "$VERSION" "${{ secrets.PYPI_PASSWORD }}"
         env:
           PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 
@@ -256,29 +242,10 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Build .NET SDK
-        run: |
-          # Add .NET SDK build step to Makefile
-          cat >> Makefile << 'EOF'
-
-          build_dotnet:: install_dependencies
-            rm -rf sdk/dotnet
-            $(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
-            cd sdk/dotnet && \
-              dotnet build /p:Version=${VERSION}
-          EOF
-
-          # Build .NET SDK
-          make build_dotnet
+        run: ./scripts/build_dotnet_sdk.sh "$VERSION"
 
       - name: Publish .NET Package
-        run: |
-          if [[ "$PACKAGE_EXISTS" == "true" ]]; then
-            echo "Version ${{ env.VERSION }} may already exist in NuGet registry. Skipping publish."
-          else
-            cd sdk/dotnet
-            dotnet pack -o nupkg -p:Version=${VERSION} --no-build
-            dotnet nuget push nupkg/*.nupkg --api-key ${NUGET_AUTH_TOKEN} --source https://api.nuget.org/v3/index.json
-          fi
+        run: ./scripts/publish_dotnet_package.sh "$VERSION" "${{ secrets.NUGET_TOKEN }}"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
