@@ -3,6 +3,7 @@ set -e
 
 # This script fixes the ClusterToken.cs file in the .NET SDK
 # to avoid the naming conflict between the class and property
+# and ensures the correct package ID is used
 
 # Check if the .NET SDK directory exists
 if [ ! -d "sdk/dotnet" ]; then
@@ -20,7 +21,20 @@ fi
 # Check if the file contains the naming conflict
 if ! grep -q "public Output<string> ClusterToken" "$CLUSTER_TOKEN_FILE"; then
   echo "No naming conflict found in $CLUSTER_TOKEN_FILE"
-  exit 0
+  # exit 0 # Continue to check package ID
+fi
+
+# Check the project file for the correct package ID
+PROJECT_FILE="sdk/dotnet/Pulumi.CastAI.csproj"
+if [ ! -f "$PROJECT_FILE" ]; then
+  echo "ERROR: $PROJECT_FILE does not exist"
+  exit 1
+fi
+
+# Check if the project file has the correct package ID
+if ! grep -q "<PackageId>CASTAI.Pulumi</PackageId>" "$PROJECT_FILE"; then
+  echo "Setting correct package ID in $PROJECT_FILE"
+  sed -i 's/<PropertyGroup>/<PropertyGroup>\n    <PackageId>CASTAI.Pulumi<\/PackageId>/g' "$PROJECT_FILE"
 fi
 
 # Show the original file content
