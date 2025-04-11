@@ -26,11 +26,11 @@
 		"HOST_IP": "host.docker.internal"
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [
-		9000,
-		3000,
-		5173
-	],
+	// "forwardPorts": [
+	// 	9000,
+	// 	3000,
+	// 	5173
+	// ],
 	// Configure networking for proper port forwarding
 	"runArgs": [
 		"--add-host=host.docker.internal:host-gateway"
