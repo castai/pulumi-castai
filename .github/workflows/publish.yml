@@ -245,35 +245,35 @@ jobs:
           echo "Go package is published to GitHub automatically."
           echo "Users can install it with: go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}"
 
-      # - name: Setup .NET
-      #   uses: actions/setup-dotnet@v3
-      #   with:
-      #     dotnet-version: '6.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
 
-      # - name: Build .NET SDK
-      #   run: |
-      #     # Add .NET SDK build step to Makefile
-      #     cat >> Makefile << 'EOF'
+      - name: Build .NET SDK
+        run: |
+          # Add .NET SDK build step to Makefile
+          cat >> Makefile << 'EOF'
 
-      #     build_dotnet:: install_dependencies
-      #       rm -rf sdk/dotnet
-      #       $(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
-      #       cd sdk/dotnet && \
-      #         dotnet build /p:Version=${VERSION}
-      #     EOF
+          build_dotnet:: install_dependencies
+            rm -rf sdk/dotnet
+            $(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
+            cd sdk/dotnet && \
+              dotnet build /p:Version=${VERSION}
+          EOF
 
-      #     # Build .NET SDK
-      #     make build_dotnet
+          # Build .NET SDK
+          make build_dotnet
 
-      # - name: Publish .NET Package
-      #   run: |
-      #     if [[ "$PACKAGE_EXISTS" == "true" ]]; then
-      #       echo "Version ${{ env.VERSION }} may already exist in NuGet registry. Skipping publish."
-      #     else
-      #       cd sdk/dotnet
-      #       dotnet pack -o nupkg -p:Version=${VERSION} --no-build
-      #       dotnet nuget push nupkg/*.nupkg --api-key ${NUGET_AUTH_TOKEN} --source https://api.nuget.org/v3/index.json
-      #     fi
-      #   env:
-      #     NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+      - name: Publish .NET Package
+        run: |
+          if [[ "$PACKAGE_EXISTS" == "true" ]]; then
+            echo "Version ${{ env.VERSION }} may already exist in NuGet registry. Skipping publish."
+          else
+            cd sdk/dotnet
+            dotnet pack -o nupkg -p:Version=${VERSION} --no-build
+            dotnet nuget push nupkg/*.nupkg --api-key ${NUGET_AUTH_TOKEN} --source https://api.nuget.org/v3/index.json
+          fi
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
