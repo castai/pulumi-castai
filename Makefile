@@ -91,9 +91,10 @@ build_go:: install_dependencies # build the go sdk
 	$(WORKING_DIR)/bin/${TFGEN} go --out sdk/go/ --overlays provider/overlays/go
 
 build_dotnet:: install_dependencies # build the dotnet sdk
+	@echo "Building .NET SDK with version ${VERSION}"
 	rm -rf sdk/dotnet
 	$(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
-	./scripts/fix_dotnet_naming.sh
+	@echo "Building .NET SDK"
 	cd sdk/dotnet && \
 		dotnet build /p:Version=${VERSION} -v detailed
 

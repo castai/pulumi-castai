@@ -19,10 +19,22 @@ EOF
 
 # Build .NET SDK
 echo "Building .NET SDK with version $VERSION"
-make build_dotnet
+
+# First, generate the .NET SDK
+rm -rf sdk/dotnet
+${WORKING_DIR:-$(pwd)}/bin/pulumi-tfgen-castai dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
+
+# Apply post-processing fixes to the generated code
+echo "Applying post-processing fixes to .NET SDK"
+./scripts/fix_dotnet_naming.sh
+
+# Build the fixed .NET SDK
+cd sdk/dotnet && dotnet build /p:Version=${VERSION} -v detailed
+BUILD_RESULT=$?
+cd ../..
 
 # Verify the build succeeded
-if [ $? -ne 0 ]; then
+if [ $BUILD_RESULT -ne 0 ]; then
     echo "ERROR: .NET SDK build failed"
     exit 1
 fi
