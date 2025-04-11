@@ -181,6 +181,7 @@ jobs:
           files: release/*
           draft: false
           prerelease: false
+          tag_name: v${{ env.VERSION }}
           body: |
             # CAST AI Provider v${{ env.VERSION }}
 
