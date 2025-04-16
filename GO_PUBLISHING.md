@@ -32,8 +32,8 @@ We've updated the CI/CD pipeline to address these issues:
    - Added a test step that verifies the Go SDK can be imported correctly
 
 3. **Clarified Import Path**:
-   - The correct import path for the Go SDK is `github.com/cast-ai/pulumi-castai/sdk/go/castai`
-   - The module path in go.mod is `github.com/cast-ai/pulumi-castai/sdk/go`
+   - The correct import path for the Go SDK is `github.com/castai/pulumi-castai/sdk/go/castai`
+   - The module path in go.mod is `github.com/castai/pulumi-castai/sdk/go`
 
 ## Manual Troubleshooting
 
@@ -46,11 +46,11 @@ If the package is still not showing up on pkg.go.dev after a release, you can tr
 2. **Manually trigger pkg.go.dev indexing**:
    ```bash
    # Replace VERSION with the actual version
-   GOPROXY=https://proxy.golang.org go get github.com/cast-ai/pulumi-castai/sdk/go/castai@vVERSION
+   GOPROXY=https://proxy.golang.org go get github.com/castai/pulumi-castai/sdk/go/castai@vVERSION
    ```
 
 3. **Directly request the package from pkg.go.dev**:
-   - Visit `https://pkg.go.dev/github.com/cast-ai/pulumi-castai/sdk/go/castai@vVERSION?tab=doc` in your browser
+   - Visit `https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@vVERSION?tab=doc` in your browser
 
 4. **Check the Go module structure**:
    - Ensure the module path in go.mod matches the repository path

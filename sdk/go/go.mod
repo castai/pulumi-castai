@@ -1,3 +1,3 @@
-module github.com/cast-ai/pulumi-castai/sdk/go
+module github.com/castai/pulumi-castai/sdk/go
 
 go 1.18

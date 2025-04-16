@@ -11,7 +11,7 @@ This document provides guidance on using the Go SDK for the CAST AI Pulumi provi
 To use the CAST AI Pulumi Go SDK in your Go project, add it as a dependency:
 
 ```bash
-go get github.com/cast-ai/pulumi-castai/sdk/go/castai@v0.1.14
+go get github.com/castai/pulumi-castai/sdk/go/castai@v0.1.14
 ```
 
 Replace `0.1.14` with the actual version you want to use.
@@ -22,11 +22,11 @@ In your Go code, import the SDK:
 
 ```go
 import (
-    "github.com/cast-ai/pulumi-castai/sdk/go/castai"
+    "github.com/castai/pulumi-castai/sdk/go/castai"
 )
 ```
 
-**Important Note**: The module path in go.mod is `github.com/cast-ai/pulumi-castai/sdk/go`, but the import path for the SDK is `github.com/cast-ai/pulumi-castai/sdk/go/castai`. This is the standard pattern for Pulumi Go SDKs.
+**Important Note**: The module path in go.mod is `github.com/castai/pulumi-castai/sdk/go`, but the import path for the SDK is `github.com/castai/pulumi-castai/sdk/go/castai`. This is the standard pattern for Pulumi Go SDKs.
 
 ## Example Usage
 
@@ -36,7 +36,7 @@ Here's a simple example of using the SDK to create a CAST AI resource:
 package main
 
 import (
-    "github.com/cast-ai/pulumi-castai/sdk/go/castai"
+    "github.com/castai/pulumi-castai/sdk/go/castai"
     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -64,12 +64,12 @@ If you encounter issues with the Go SDK:
    Make sure you're using the latest version of the SDK.
 
 2. **Check pkg.go.dev**:
-   Visit `https://pkg.go.dev/github.com/cast-ai/pulumi-castai/sdk/go/castai` to see if the package is properly indexed.
+   Visit `https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai` to see if the package is properly indexed.
 
 3. **Try a specific version**:
    If the latest version isn't working, try a specific version:
    ```bash
-   go get github.com/cast-ai/pulumi-castai/sdk/go/castai@v0.1.14
+   go get github.com/castai/pulumi-castai/sdk/go/castai@v0.1.14
    ```
 
 4. **Update Go modules**:

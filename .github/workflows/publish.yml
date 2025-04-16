@@ -417,11 +417,11 @@ jobs:
 
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-          curl -s "https://pkg.go.dev/github.com/cast-ai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
+          curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
 
           # Force the Go proxy to fetch the module
           echo "Forcing the Go proxy to fetch the module..."
-          GOPROXY=https://proxy.golang.org go install github.com/cast-ai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Test importing the Go SDK
           echo "Testing Go SDK import..."
@@ -431,7 +431,7 @@ jobs:
 
           go 1.18
 
-          require github.com/cast-ai/pulumi-castai/sdk/go v$VERSION
+          require github.com/castai/pulumi-castai/sdk/go v$VERSION
           EOF
 
           cat > /tmp/go-sdk-test/main.go << EOF
@@ -439,11 +439,11 @@ jobs:
 
           import (
             "fmt"
-            "github.com/cast-ai/pulumi-castai/sdk/go/castai"
+            "github.com/castai/pulumi-castai/sdk/go/castai"
           )
 
           func main() {
-            fmt.Println("Testing import of github.com/cast-ai/pulumi-castai/sdk/go/castai")
+            fmt.Println("Testing import of github.com/castai/pulumi-castai/sdk/go/castai")
           }
           EOF
 
@@ -451,7 +451,7 @@ jobs:
           go mod tidy || echo "Note: It's normal to see an error above if the module isn't fully published yet."
           go build || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
-          echo "The Go package should be available at https://pkg.go.dev/github.com/cast-ai/pulumi-castai/sdk/go/castai@v$VERSION after indexing (which may take some time)."
+          echo "The Go package should be available at https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION after indexing (which may take some time)."
           echo "If the package is still not available after some time, please check that the repository is public and the module structure is correct."
 
       - name: Setup .NET
