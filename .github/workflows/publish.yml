@@ -269,6 +269,40 @@ jobs:
       - name: Build SDKs
         run: make build_sdks
 
+      - name: Commit SDK to repository
+        run: |
+          # Configure Git with token-based authentication
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          # Use the GITHUB_TOKEN for authentication
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+
+          # Check if there are changes to the SDK
+          if [[ -n "$(git status --porcelain sdk/)" ]]; then
+            echo "Changes detected in SDK directory. Committing..."
+
+            # Add and commit the changes
+            git add sdk/
+            git commit -m "Update SDK for version v${VERSION}"
+
+            # Push the changes
+            if [[ $GITHUB_REF == refs/tags/* ]]; then
+              # If triggered by a tag, push to the default branch (main or master)
+              DEFAULT_BRANCH=$(git remote show origin | grep "HEAD branch" | cut -d ":" -f 2 | xargs)
+              echo "Triggered by tag. Pushing to default branch: $DEFAULT_BRANCH"
+              git push origin HEAD:$DEFAULT_BRANCH
+            else
+              # If triggered by a branch push, push to the same branch
+              echo "Pushing to branch: ${GITHUB_REF#refs/heads/}"
+              git push origin HEAD:${GITHUB_REF#refs/heads/}
+            fi
+
+            echo "SDK committed and pushed successfully."
+          else
+            echo "No changes detected in SDK directory. Skipping commit."
+          fi
+
       - name: Prepare Release Assets
         run: |
           mkdir -p release/
