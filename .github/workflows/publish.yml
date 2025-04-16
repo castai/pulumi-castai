@@ -131,6 +131,15 @@ jobs:
             echo "BINARY_EXT=" >> $GITHUB_ENV
           fi
 
+      - name: Fix version placeholders
+        run: |
+          # Fix version placeholder in resources.go and version.go
+          echo "Fixing version placeholders..."
+          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
+
+          # Run go mod tidy in the provider directory first
+          cd provider && go mod tidy
+
       - name: Build Provider Binary
         run: |
           # Debug Go installation
@@ -141,18 +150,32 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           echo "$PATH" >> $GITHUB_PATH
 
-          # Fix version placeholder in resources.go and version.go
-          echo "Fixing version placeholders..."
-          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
-
-          # Run go mod tidy in the provider directory first
-          cd provider && go mod tidy
-
           # Build the provider with cross-compilation
           echo "Building provider for $GOOS-$GOARCH..."
-          cd cmd/pulumi-resource-castai && \
+          cd provider/cmd/pulumi-resource-castai && \
           GOOS=$GOOS GOARCH=$GOARCH go build -o $(pwd)/../../../bin/pulumi-resource-castai${BINARY_EXT} \
           -ldflags "-X github.com/cast-ai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+
+      # For Linux amd64 only, also build the tfgen binary needed for SDK generation
+      - name: Build tfgen binary (Linux amd64 only)
+        if: matrix.os == 'linux' && matrix.arch == 'amd64'
+        run: |
+          echo "Building tfgen binary for SDK generation..."
+          cd provider/cmd/pulumi-tfgen-castai && \
+          go build -o $(pwd)/../../../bin/pulumi-tfgen-castai \
+          -ldflags "-X github.com/cast-ai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+
+          # Create a separate artifact for the tfgen binary
+          mkdir -p tfgen-release/
+          tar -czf tfgen-release/pulumi-tfgen-castai-v${VERSION}.tar.gz -C $(pwd)/../../../bin pulumi-tfgen-castai
+
+      - name: Upload tfgen binary (Linux amd64 only)
+        if: matrix.os == 'linux' && matrix.arch == 'amd64'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfgen-binary
+          path: tfgen-release/
+          retention-days: 1
 
       - name: Create Release Asset
         run: |
@@ -211,27 +234,54 @@ jobs:
           export PATH=$PATH:$HOME/.pulumi/bin
           echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
 
-      - name: Build Provider (for SDK generation)
-        run: |
-          # Fix version placeholder in resources.go and version.go
-          echo "Fixing version placeholders..."
-          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
-
-          # Build the provider
-          make provider
-
-      - name: Build SDKs
-        run: make build_sdks
-
       - name: Download All Release Assets
         uses: actions/download-artifact@v4
         with:
           path: release-artifacts/
 
+      - name: Prepare for SDK generation
+        run: |
+          # Fix version placeholder in resources.go and version.go
+          echo "Fixing version placeholders..."
+          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
+
+          # Create bin directory if it doesn't exist
+          mkdir -p bin
+
+          # We'll use the linux-amd64 build for SDK generation
+          # This is just for generating the SDKs, not for the final release assets
+          echo "Using linux-amd64 build for SDK generation..."
+
+      - name: Extract tfgen binary for SDK generation
+        run: |
+          # Extract the tfgen binary from the artifact
+          echo "Extracting tfgen binary for SDK generation..."
+          if [ -f "release-artifacts/tfgen-binary/pulumi-tfgen-castai-v${VERSION}.tar.gz" ]; then
+            tar -xzf release-artifacts/tfgen-binary/pulumi-tfgen-castai-v${VERSION}.tar.gz -C bin/
+            chmod +x bin/pulumi-tfgen-castai
+            echo "tfgen binary extracted successfully."
+            ls -la bin/
+          else
+            echo "Warning: tfgen binary not found. SDK generation might fail."
+            ls -la release-artifacts/
+          fi
+
+      - name: Build SDKs
+        run: make build_sdks
+
       - name: Prepare Release Assets
         run: |
           mkdir -p release/
           cp -r release-artifacts/*/* release/
+
+          # Extract the linux-amd64 binary if needed
+          if [ ! -f "bin/pulumi-resource-castai" ] && [ -f "release-artifacts/provider-linux-amd64/pulumi-resource-castai-v${VERSION}-linux-amd64.tar.gz" ]; then
+            echo "Extracting linux-amd64 binary as backup..."
+            tar -xzf release-artifacts/provider-linux-amd64/pulumi-resource-castai-v${VERSION}-linux-amd64.tar.gz -C bin/
+            chmod +x bin/pulumi-resource-castai
+            echo "Binary extracted successfully."
+          fi
+
           ls -la release/
 
       - name: Create GitHub Release
