@@ -1,6 +1,6 @@
 PROJECT_NAME := castai
 PACK           := castai
-ORG            := cast-ai
+ORG            := castai
 PROJECT        := github.com/${ORG}/pulumi-${PACK}
 NODE_MODULE_NAME := @castai/pulumi-${PACK}
 TF_NAME        := ${PACK}
