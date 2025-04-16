@@ -23,6 +23,23 @@ module github.com/castai/pulumi-castai/sdk/go
 go 1.18
 EOF
 
+# Create a castai subdirectory if it doesn't exist
+echo "Creating castai subdirectory..."
+mkdir -p sdk/go/castai
+
+# Create a doc.go file in the castai directory
+echo "Creating doc.go file..."
+cat > sdk/go/castai/doc.go << EOF
+// Package castai provides a Pulumi Go SDK for creating and managing CAST AI cloud resources.
+//
+// This package is meant for use with the Pulumi resource manager in order to
+// provision CAST AI cloud resources.
+//
+// To use this package, you need to have a CAST AI account and API key.
+// See https://docs.cast.ai/ for more information.
+package castai
+EOF
+
 # We don't run go mod tidy here to avoid dependency resolution issues
 # The dependencies will be resolved when the user imports the package
 

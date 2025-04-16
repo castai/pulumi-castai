@@ -4,6 +4,8 @@
 
 This document provides guidance on publishing the Go SDK for the CAST AI Pulumi provider to pkg.go.dev.
 
+**Important Note**: The SDK directory is now committed to the GitHub repository during the release process. This means that the SDK is directly browsable on GitHub after a release, which should help with pkg.go.dev indexing.
+
 ## Common Issues
 
 ### Package Not Indexed on pkg.go.dev
@@ -27,6 +29,11 @@ We've updated the CI/CD pipeline to address these issues:
 2. **Enhanced Publishing Process**:
    - Added explicit requests to pkg.go.dev to trigger indexing
    - Added commands to force the Go proxy to fetch the module
+   - Added a test step that verifies the Go SDK can be imported correctly
+
+3. **Clarified Import Path**:
+   - The correct import path for the Go SDK is `github.com/castai/pulumi-castai/sdk/go/castai`
+   - The module path in go.mod is `github.com/castai/pulumi-castai/sdk/go`
 
 ## Manual Troubleshooting
 
@@ -34,7 +41,7 @@ If the package is still not showing up on pkg.go.dev after a release, you can tr
 
 1. **Check if the repository is public**:
    - Make sure the GitHub repository is public
-   - Check that the Go module is in the correct location
+   - Note that you won't be able to browse the SDK directory on GitHub since it's in `.gitignore`
 
 2. **Manually trigger pkg.go.dev indexing**:
    ```bash
