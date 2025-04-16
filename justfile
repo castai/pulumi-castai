@@ -327,3 +327,30 @@ run-e2e-tests-provider provider:
     fi
 
 # No setup or cleanup needed for e2e tests
+
+# Update all dependencies
+update-deps:
+    @echo "Updating all dependencies..."
+    @cd provider && go get -u ./...
+    @cd provider && go mod tidy
+    @cd examples/go && go get -u ./...
+    @cd examples/go && go mod tidy
+    @cd e2e && go get -u ./...
+    @cd e2e && go mod tidy
+    @echo "All dependencies updated."
+
+# Update the golang.org/x/crypto dependency to the latest version
+update-crypto-deps:
+    @echo "Updating golang.org/x/crypto dependency to the latest version..."
+    @./scripts/update-crypto-dependency.sh
+    @echo "golang.org/x/crypto dependency updated."
+
+# Fix npm package.json and sync with version.txt
+fix-npm-package version="":
+    @echo "Fixing npm package.json and syncing with version.txt..."
+    @if [ -z "{{version}}" ]; then \
+        ./scripts/fix-npm-package.sh; \
+    else \
+        ./scripts/fix-npm-package.sh "{{version}}"; \
+    fi
+    @echo "Note: If you're providing a new version, both version.txt and package.json will be updated."

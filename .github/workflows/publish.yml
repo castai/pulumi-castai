@@ -324,20 +324,50 @@ jobs:
             ## Next Version
             A PR has been automatically created to bump the version to ${{ env.NEXT_VERSION }} for the next release.
 
+      - name: Fix npm package.json
+        run: |
+          # Make the fix-npm-package.sh script executable
+          chmod +x ./scripts/fix-npm-package.sh
+
+          # Run the script to fix package.json and ensure version consistency
+          ./scripts/fix-npm-package.sh "$VERSION"
+
+          # Check the updated package.json
+          cd sdk/nodejs
+          cat package.json
+          cd ../..
+
       - name: Publish Node.js Package
         run: |
           cd sdk/nodejs
-          # Make sure package.json has the correct name (@castai/pulumi) and version
-          sed -i 's/"@pulumi\/castai"/"@castai\/pulumi"/g' package.json
-          sed -i 's/"\${VERSION}"/"${{ env.VERSION }}"/g' package.json
-          cat package.json
 
-          # Check if the version already exists
-          if [[ "$PACKAGE_EXISTS" == "true" ]]; then
-            echo "Version ${{ env.VERSION }} already exists in npm registry. Skipping publish."
-          else
-            npm publish --access public
+          # Check if the package with this version already exists in npm registry
+          NPM_VERSION=$(npm view @castai/pulumi version 2>/dev/null || echo "not found")
+          if [[ "$NPM_VERSION" == "$VERSION" ]]; then
+            echo "Version $VERSION already exists in npm registry. Incrementing patch version..."
+
+            # Split the version into major, minor, and patch
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+            # Increment the patch version
+            PATCH=$((PATCH + 1))
+
+            # Create the new version
+            NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+
+            echo "New version: $NEW_VERSION"
+
+            # Update package.json with the new version
+            sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/g" package.json
+
+            # Update version.txt with the new version (for future builds)
+            echo -n "$NEW_VERSION" > ../../version.txt
+
+            echo "Updated package.json and version.txt to version $NEW_VERSION"
           fi
+
+          # Publish the package
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
