@@ -28,7 +28,7 @@ jobs:
       next_version: ${{ env.NEXT_VERSION }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get Version
         id: get-version
@@ -104,7 +104,7 @@ jobs:
       VERSION: ${{ needs.prepare.outputs.version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Go
         uses: actions/setup-go@v4
@@ -170,7 +170,7 @@ jobs:
           echo "Created release asset: ${FILENAME}"
 
       - name: Upload Release Asset
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: provider-${{ matrix.os }}-${{ matrix.arch }}
           path: release/
@@ -186,10 +186,10 @@ jobs:
       NEXT_VERSION: ${{ needs.prepare.outputs.next_version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
@@ -201,7 +201,7 @@ jobs:
           check-latest: true
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
@@ -224,7 +224,7 @@ jobs:
         run: make build_sdks
 
       - name: Download All Release Assets
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: release-artifacts/
 
@@ -300,7 +300,7 @@ jobs:
         run: ./scripts/publish_go_package.sh "$VERSION"
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.0.x'
 
