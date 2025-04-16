@@ -16,20 +16,21 @@ echo "Preparing Go SDK for publishing version v$VERSION..."
 # Navigate to the Go SDK directory
 cd sdk/go
 
-# Create go.mod file if it doesn't exist
-if [ ! -f "go.mod" ]; then
-  echo "Creating go.mod file..."
-  cat > go.mod << EOF
+# Ensure the directory structure is correct
+echo "Ensuring correct directory structure..."
+mkdir -p castai
+
+# Create go.mod file with the correct module path
+echo "Creating go.mod file..."
+cat > go.mod << EOF
 module github.com/castai/pulumi-castai/sdk/go
 
 go 1.18
 EOF
-fi
 
-# Create a temporary README.md file if it doesn't exist
-if [ ! -f "README.md" ]; then
-  echo "Creating README.md file..."
-  cat > README.md << EOF
+# Create a README.md file
+echo "Creating README.md file..."
+cat > README.md << EOF
 # CAST AI Pulumi Provider - Go SDK
 
 This package provides Go bindings for the CAST AI Pulumi provider.
@@ -43,6 +44,20 @@ go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
 ## Usage
 
 See the [documentation](https://www.pulumi.com/registry/packages/castai/) for usage examples.
+EOF
+
+# Create a simple Go file in the castai directory to ensure it's indexed
+echo "Creating a simple Go file in the castai directory..."
+if [ ! -f "castai/doc.go" ]; then
+  cat > castai/doc.go << EOF
+// Package castai provides a Pulumi Go SDK for creating and managing CAST AI cloud resources.
+//
+// This package is meant for use with the Pulumi resource manager in order to
+// provision CAST AI cloud resources.
+//
+// To use this package, you need to have a CAST AI account and API key.
+// See https://docs.cast.ai/ for more information.
+package castai
 EOF
 fi
 
