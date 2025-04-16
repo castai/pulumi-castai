@@ -10,17 +10,17 @@ schema.json
 **/cmd/pulumi-resource-*/schema.json
 
 # SDKs
-sdk/*
-sdk/*/bin
-sdk/dotnet/bin
-sdk/dotnet/obj
-sdk/nodejs/node_modules
-sdk/python/bin
-sdk/python/build
-sdk/python/dist
-sdk/python/*.egg-info
-sdk/python/.venv
-sdk/go/bin
+# sdk/*
+# sdk/*/bin
+# sdk/dotnet/bin
+# sdk/dotnet/obj
+# sdk/nodejs/node_modules
+# sdk/python/bin
+# sdk/python/build
+# sdk/python/dist
+# sdk/python/*.egg-info
+# sdk/python/.venv
+# sdk/go/bin
 
 # Dependencies
 **/node_modules/
