@@ -42,23 +42,23 @@ install_go_deps() {
     if [ -d "examples/go" ] && [ -d "sdk/go" ]; then \
         echo "Setting up Go SDK module..."; \
         if [ ! -f "sdk/go/go.mod" ]; then \
-            cd sdk/go && /usr/local/go/bin/go mod init github.com/cast-ai/pulumi-castai/sdk/go && /usr/local/go/bin/go mod tidy; \
+            cd sdk/go && /usr/local/go/bin/go mod init github.com/castai/pulumi-castai/sdk/go && /usr/local/go/bin/go mod tidy; \
         fi; \
         echo "Setting up Go example..."; \
         cd examples/go && \
         # Update imports in all Go files
         for file in *.go; do \
             if [ -f "$file" ]; then \
-                if grep -q "github.com/cast-ai/pulumi-castai/sdk/go/castai" "$file"; then \
+                if grep -q "github.com/castai/pulumi-castai/sdk/go/castai" "$file"; then \
                     echo "Updating imports in $file"; \
                     # No change needed as the import path is already correct \
                 fi; \
             fi; \
         done; \
         if [ ! -f "go.mod" ]; then \
-            /usr/local/go/bin/go mod init github.com/cast-ai/pulumi-castai/examples/go; \
+            /usr/local/go/bin/go mod init github.com/castai/pulumi-castai/examples/go; \
         fi; \
-        /usr/local/go/bin/go mod edit -replace github.com/cast-ai/pulumi-castai/sdk/go=../../sdk/go && \
+        /usr/local/go/bin/go mod edit -replace github.com/castai/pulumi-castai/sdk/go=../../sdk/go && \
         /usr/local/go/bin/go mod tidy; \
     else \
         echo "Skipping Go example dependencies as directories don't exist."; \

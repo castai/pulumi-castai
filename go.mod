@@ -1,15 +1,15 @@
-module github.com/cast-ai/pulumi-castai
+module github.com/castai/pulumi-castai
 
 go 1.23.1
 
 toolchain go1.24.1
 
 // Our modules
-replace github.com/cast-ai/pulumi-castai/provider => ./provider
+replace github.com/castai/pulumi-castai/provider => ./provider
 
-replace github.com/cast-ai/pulumi-castai/sdk/go/castai => ./sdk/go/castai
+replace github.com/castai/pulumi-castai/sdk/go/castai => ./sdk/go/castai
 
-replace github.com/cast-ai/pulumi-castai/tests/go => ./tests/go
+replace github.com/castai/pulumi-castai/tests/go => ./tests/go
 
 // External replacements
 // replace github.com/castai/terraform-provider-castai => ./terraform-provider-castai-reference
@@ -30,7 +30,7 @@ require (
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
-	github.com/cast-ai/pulumi-castai/sdk/go/castai v0.1.18 // indirect
+	github.com/castai/pulumi-castai/sdk/go/castai v0.1.18 // indirect
 	github.com/charmbracelet/bubbles v0.20.0 // indirect
 	github.com/charmbracelet/bubbletea v1.3.4 // indirect
 	github.com/charmbracelet/colorprofile v0.3.0 // indirect

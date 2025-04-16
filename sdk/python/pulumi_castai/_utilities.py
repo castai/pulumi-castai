@@ -325,7 +325,7 @@ def deprecated(message: str) -> typing.Callable[[C], C]:
     return decorator
 
 def get_plugin_download_url():
-	return "github://api.github.com/cast-ai"
+	return "github://api.github.com/castai"
 
 def get_version():
      return _version_str

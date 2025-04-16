@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/blang/semver"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/internal"
+	"github.com/castai/pulumi-castai/sdk/go/castai/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 

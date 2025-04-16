@@ -25,7 +25,7 @@ npm may also warn about format issues in your package.json file:
 npm warn publish npm auto-corrected some errors in your package.json when publishing.
 npm warn publish errors corrected:
 npm warn publish "repository" was changed from a string to an object
-npm warn publish "repository.url" was normalized to "git+https://github.com/cast-ai/pulumi-castai.git"
+npm warn publish "repository.url" was normalized to "git+https://github.com/castai/pulumi-castai.git"
 ```
 
 ## How to Fix
@@ -60,7 +60,7 @@ If you prefer to fix the issues manually:
    ```json
    "repository": {
      "type": "git",
-     "url": "https://github.com/cast-ai/pulumi-castai.git"
+     "url": "https://github.com/castai/pulumi-castai.git"
    }
    ```
 

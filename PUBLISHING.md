@@ -113,7 +113,7 @@ After publishing, verify that:
    - npm: https://www.npmjs.com/package/@pulumi/castai
    - PyPI: https://pypi.org/project/pulumi-castai/
    - NuGet: https://www.nuget.org/packages/Pulumi.CastAI
-   - Go: `go get github.com/cast-ai/pulumi-castai/sdk/go/castai@v<new-version>`
+   - Go: `go get github.com/castai/pulumi-castai/sdk/go/castai@v<new-version>`
 3. The Pulumi Registry shows the updated package: https://www.pulumi.com/registry/packages/castai/
 
 ## Troubleshooting

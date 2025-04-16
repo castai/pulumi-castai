@@ -4,7 +4,7 @@ Version: 0.0.0
 Summary: A Pulumi package for creating and managing CAST AI cloud resources.
 Home-page: https://cast.ai
 License: Apache-2.0
-Project-URL: Repository, https://github.com/cast-ai/pulumi-castai
+Project-URL: Repository, https://github.com/castai/pulumi-castai
 Keywords: pulumi castai kubernetes category/cloud
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown

@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/aws"
+	"github.com/castai/pulumi-castai/sdk/go/castai"
+	"github.com/castai/pulumi-castai/sdk/go/castai/aws"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 

@@ -25,7 +25,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 
-	"github.com/cast-ai/pulumi-castai/provider/pkg/version"
+	"github.com/castai/pulumi-castai/provider/pkg/version"
 )
 
 // all of the token components used below.
@@ -63,12 +63,12 @@ func Provider() tfbridge.ProviderInfo {
 		DisplayName:       "CAST AI",
 		Publisher:         "CAST AI",
 		LogoURL:           "https://raw.githubusercontent.com/castai/pulumi-castai/main/docs/images/castai-logo.png",
-		PluginDownloadURL: "github://api.github.com/cast-ai",
+		PluginDownloadURL: "github://api.github.com/castai",
 		Description:       "A Pulumi package for creating and managing CAST AI cloud resources.",
 		Keywords:          []string{"pulumi", "castai", "kubernetes", "category/cloud"},
 		License:           "Apache-2.0",
 		Homepage:          "https://cast.ai",
-		Repository:        "https://github.com/cast-ai/pulumi-castai",
+		Repository:        "https://github.com/castai/pulumi-castai",
 		GitHubOrg:         "castai",
 		Version:           version.Version,
 		Config: map[string]*tfbridge.SchemaInfo{
@@ -136,7 +136,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/cast-ai/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/castai/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,

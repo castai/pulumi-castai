@@ -61,6 +61,15 @@ package castai
 EOF
 fi
 
+# Run go mod tidy to generate go.sum files
+echo "Running go mod tidy in sdk/go..."
+go mod tidy
+
+echo "Running go mod tidy in sdk/go/castai..."
+cd castai
+go mod tidy
+cd ..
+
 # Check if this version already exists in Go package registry
 echo "Checking if Go package version v$VERSION already exists..."
 if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION" | grep -q "404 page not found"; then

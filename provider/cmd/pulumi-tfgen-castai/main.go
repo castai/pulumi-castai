@@ -15,8 +15,8 @@
 package main
 
 import (
-	castai "github.com/cast-ai/pulumi-castai/provider"
-	"github.com/cast-ai/pulumi-castai/provider/pkg/version"
+	castai "github.com/castai/pulumi-castai/provider"
+	"github.com/castai/pulumi-castai/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfgen"
 )
 

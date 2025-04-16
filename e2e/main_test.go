@@ -7,7 +7,7 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"github.com/cast-ai/pulumi-castai/e2e/config"
+	"github.com/castai/pulumi-castai/e2e/config"
 )
 
 var (

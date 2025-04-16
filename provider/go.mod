@@ -1,4 +1,4 @@
-module github.com/cast-ai/pulumi-castai/provider
+module github.com/castai/pulumi-castai/provider
 
 go 1.22.3
 

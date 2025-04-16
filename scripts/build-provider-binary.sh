@@ -33,7 +33,7 @@ cd provider && go mod tidy
 echo "Building provider for $GOOS-$GOARCH..."
 cd cmd/pulumi-resource-castai && \
 GOOS=$GOOS GOARCH=$GOARCH go build -o $(pwd)/../../../bin/pulumi-resource-castai${BINARY_EXT} \
--ldflags "-X github.com/cast-ai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+-ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
 
 cd ../../../
 

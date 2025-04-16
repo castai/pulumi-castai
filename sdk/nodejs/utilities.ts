@@ -53,7 +53,7 @@ export function getVersion(): string {
 
 /** @internal */
 export function resourceOptsDefaults(): any {
-    return { version: getVersion(), pluginDownloadURL: "github://api.github.com/cast-ai" };
+    return { version: getVersion(), pluginDownloadURL: "github://api.github.com/castai" };
 }
 
 /** @internal */

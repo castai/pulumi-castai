@@ -1,4 +1,4 @@
-module github.com/cast-ai/pulumi-castai/e2e
+module github.com/castai/pulumi-castai/e2e
 
 go 1.22.0
 
@@ -100,4 +100,4 @@ require (
 	lukechampine.com/frand v1.4.2 // indirect
 )
 
-replace github.com/cast-ai/pulumi-castai/provider => ../provider
+replace github.com/castai/pulumi-castai/provider => ../provider

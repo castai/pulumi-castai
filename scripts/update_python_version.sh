@@ -41,7 +41,7 @@ setup(name='pulumi_castai',
       keywords='pulumi castai kubernetes category/cloud',
       url='https://cast.ai',
       project_urls={
-          'Repository': 'https://github.com/cast-ai/pulumi-castai'
+          'Repository': 'https://github.com/castai/pulumi-castai'
       },
       license='Apache-2.0',
       packages=find_packages(),

@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cast-ai/pulumi-castai.git"
+    "url": "git+https://github.com/castai/pulumi-castai.git"
   },
   "keywords": [
     "pulumi",
@@ -56,9 +56,9 @@
   "author": "CAST AI",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/cast-ai/pulumi-castai/issues"
+    "url": "https://github.com/castai/pulumi-castai/issues"
   },
-  "homepage": "https://github.com/cast-ai/pulumi-castai#readme",
+  "homepage": "https://github.com/castai/pulumi-castai#readme",
   "workspaces": [
     "sdk/nodejs",
     "tests/typescript",

@@ -23,8 +23,8 @@ dev: setup-env install-all-deps build-sdk-python build-sdk-typescript build-sdk-
     @echo "  - Python:     pip install -e ./sdk/python"
     @echo "  - TypeScript: npm install ./sdk/nodejs"
     @echo "  - Go:         Add to go.mod:"
-    @echo "                require github.com/cast-ai/pulumi-castai/sdk/go v{{VERSION}}"
-    @echo "                replace github.com/cast-ai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go"
+    @echo "                require github.com/castai/pulumi-castai/sdk/go v{{VERSION}}"
+    @echo "                replace github.com/castai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go"
 
 # Full rebuild - cleans everything and then rebuilds
 rebuild: clean dev

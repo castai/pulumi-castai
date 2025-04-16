@@ -49,13 +49,13 @@ Use this checklist when preparing a new release of the CAST AI Pulumi Provider.
   - [ ] npm: https://www.npmjs.com/package/@pulumi/castai
   - [ ] PyPI: https://pypi.org/project/pulumi-castai/
   - [ ] NuGet: https://www.nuget.org/packages/Pulumi.CastAI
-  - [ ] Go: `go get github.com/cast-ai/pulumi-castai/sdk/go/castai@v<new-version>`
+  - [ ] Go: `go get github.com/castai/pulumi-castai/sdk/go/castai@v<new-version>`
 - [ ] Verify Pulumi Registry shows the updated package
 - [ ] Test installation from package managers:
   - [ ] `npm install @pulumi/castai`
   - [ ] `pip install pulumi-castai`
   - [ ] `dotnet add package Pulumi.CastAI`
-  - [ ] `go get github.com/cast-ai/pulumi-castai/sdk/go/castai@v<new-version>`
+  - [ ] `go get github.com/castai/pulumi-castai/sdk/go/castai@v<new-version>`
 - [ ] Run examples with the published package
 
 ## Announcement

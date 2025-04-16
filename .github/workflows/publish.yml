@@ -154,7 +154,7 @@ jobs:
           echo "Building provider for $GOOS-$GOARCH..."
           cd provider/cmd/pulumi-resource-castai && \
           GOOS=$GOOS GOARCH=$GOARCH go build -o $(pwd)/../../../bin/pulumi-resource-castai${BINARY_EXT} \
-          -ldflags "-X github.com/cast-ai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+          -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
 
       # For Linux amd64 only, also build the tfgen binary needed for SDK generation
       - name: Build tfgen binary (Linux amd64 only)
@@ -163,7 +163,7 @@ jobs:
           echo "Building tfgen binary for SDK generation..."
           cd provider/cmd/pulumi-tfgen-castai && \
           go build -o $(pwd)/../../../bin/pulumi-tfgen-castai \
-          -ldflags "-X github.com/cast-ai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+          -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
 
           # Create a separate artifact for the tfgen binary
           mkdir -p tfgen-release/
@@ -268,6 +268,15 @@ jobs:
 
       - name: Build SDKs
         run: make build_sdks
+
+      - name: Generate go.sum files
+        run: |
+          echo "Generating go.sum files for Go SDK..."
+          cd sdk/go
+          go mod tidy
+          cd castai
+          go mod tidy
+          cd ../../..
 
       - name: Commit SDK to repository
         run: |
@@ -449,6 +458,13 @@ jobs:
 
           cd /tmp/go-sdk-test
           go mod tidy || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+          # Check if go.sum was created
+          if [ ! -f "go.sum" ]; then
+            echo "Warning: go.sum was not created. Creating it manually..."
+            touch go.sum
+          fi
+
           go build || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           echo "The Go package should be available at https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION after indexing (which may take some time)."

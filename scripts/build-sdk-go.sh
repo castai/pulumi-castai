@@ -40,8 +40,17 @@ cat > sdk/go/castai/doc.go << EOF
 package castai
 EOF
 
-# We don't run go mod tidy here to avoid dependency resolution issues
-# The dependencies will be resolved when the user imports the package
+# Run go mod tidy to generate go.sum files
+echo "Running go mod tidy in sdk/go..."
+cd sdk/go
+go mod tidy
+
+echo "Running go mod tidy in sdk/go/castai..."
+cd castai
+go mod tidy
+
+# Return to the original directory
+cd ../../..
 
 # Create README.md file
 echo "Creating README.md file..."
@@ -64,4 +73,4 @@ EOF
 echo "Go SDK built successfully in sdk/go/"
 echo "To use: Add this to your go.mod file:"
 echo "    require github.com/castai/pulumi-castai/sdk/go v${VERSION}"
-echo "    replace github.com/cast-ai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go"
+echo "    replace github.com/castai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go"

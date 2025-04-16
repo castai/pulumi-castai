@@ -20,7 +20,7 @@ The Pulumi CASTAI provider allows users to interact with CAST AI resources using
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/cast-ai/pulumi-castai.git
+   git clone https://github.com/castai/pulumi-castai.git
    cd pulumi-castai
    ```
 
@@ -48,8 +48,8 @@ The Pulumi CASTAI provider allows users to interact with CAST AI resources using
    **For Go:**
    ```bash
    # Add this to your go.mod file:
-   require github.com/cast-ai/pulumi-castai/sdk/go v0.0.0
-   replace github.com/cast-ai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go
+   require github.com/castai/pulumi-castai/sdk/go v0.0.0
+   replace github.com/castai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go
    ```
 
 ### Quick Installation for Testing
@@ -184,8 +184,8 @@ package main
 import (
 	"os"
 
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai"
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai/gcp"
+	"github.com/castai/pulumi-castai/sdk/go/castai"
+	"github.com/castai/pulumi-castai/sdk/go/castai/gcp"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -341,7 +341,7 @@ npm update @pulumi/castai
 pip install --upgrade pulumi_castai
 
 # For Go:
-go get -u github.com/cast-ai/pulumi-castai/sdk/go
+go get -u github.com/castai/pulumi-castai/sdk/go
 ```
 
 ### Stuck or Hanging Operations

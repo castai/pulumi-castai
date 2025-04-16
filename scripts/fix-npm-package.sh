@@ -57,7 +57,7 @@ node -e "
   // Fix repository field
   pkg.repository = {
     type: 'git',
-    url: 'https://github.com/cast-ai/pulumi-castai.git'
+    url: 'https://github.com/castai/pulumi-castai.git'
   };
 
   // Update version

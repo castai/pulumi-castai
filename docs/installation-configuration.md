@@ -78,7 +78,7 @@ provider = castai.Provider("castai-provider", api_token="your-api-token-here")
 
 ```go
 import (
-    "github.com/cast-ai/pulumi-castai/sdk/go/castai"
+    "github.com/castai/pulumi-castai/sdk/go/castai"
     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -227,7 +227,7 @@ package main
 import (
 	"os"
 
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai"
+	"github.com/castai/pulumi-castai/sdk/go/castai"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -325,7 +325,7 @@ package main
 import (
 	"os"
 
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai"
+	"github.com/castai/pulumi-castai/sdk/go/castai"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -422,7 +422,7 @@ package main
 import (
 	"os"
 
-	"github.com/cast-ai/pulumi-castai/sdk/go/castai"
+	"github.com/castai/pulumi-castai/sdk/go/castai"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 

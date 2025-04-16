@@ -1,9 +1,9 @@
-module github.com/cast-ai/pulumi-castai/examples/go
+module github.com/castai/pulumi-castai/examples/go
 
 go 1.21
 
 require (
-	github.com/cast-ai/pulumi-castai/sdk/go/castai v0.0.0
+	github.com/castai/pulumi-castai/sdk/go/castai v0.0.0
 	github.com/pulumi/pulumi/sdk/v3 v3.94.2
 )
 
@@ -90,4 +90,4 @@ require (
 	sourcegraph.com/sourcegraph/appdash v0.0.0-20211028080628-e2786a622600 // indirect
 )
 
-replace github.com/cast-ai/pulumi-castai/sdk/go => ../../sdk/go
+replace github.com/castai/pulumi-castai/sdk/go => ../../sdk/go
