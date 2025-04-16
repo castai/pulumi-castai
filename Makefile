@@ -49,15 +49,8 @@ build_schema:: tfgen # build the schema
 	(cd ${PROVIDER_PATH} && ${GO_EXECUTABLE} build -o $(WORKING_DIR)/bin/${TFGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}.Version=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/${TFGEN})
 	@echo "Checking for version string '${VERSION}' in compiled tfgen binary:"
 	@strings $(WORKING_DIR)/bin/${TFGEN} | grep -q "${VERSION}" && echo "✅ Version string found in tfgen binary." || (echo "❌ Version string NOT found in tfgen binary! Ldflags might not be working." && exit 1)
-	# Ensure schema path is clean and generate schema from within the provider dir
-	rm -rf $(WORKING_DIR)/${SCHEMA}
-	(cd ${PROVIDER_PATH} && $(WORKING_DIR)/bin/${TFGEN} schema > $(WORKING_DIR)/${SCHEMA})
-	@echo "Injecting version into schema file..."
-	# Inject the version line after the 'publisher' line using sed
-	@sed -i.bak '/"publisher":/a \
-    "version": "${VERSION}",' $(WORKING_DIR)/${SCHEMA} && rm -f $(WORKING_DIR)/${SCHEMA}.bak
-	@echo "Verifying version in schema file:"
-	@grep '"version":' $(WORKING_DIR)/${SCHEMA}
+	# Generate schema using the script
+	./scripts/generate_schema.sh
 
 build_examples: ensure # build the examples
 	@echo "Building Node.js SDK examples"

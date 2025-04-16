@@ -1,0 +1,1744 @@
+{
+    "name": "castai",
+    "displayName": "CAST AI",
+    "description": "A Pulumi package for creating and managing CAST AI cloud resources.",
+    "keywords": [
+        "pulumi",
+        "castai",
+        "kubernetes",
+        "category/cloud"
+    ],
+    "homepage": "https://cast.ai",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`castai` Terraform Provider](https://github.com/castai/terraform-provider-castai).",
+    "repository": "https://github.com/castai/pulumi-castai",
+    "logoUrl": "https://raw.githubusercontent.com/castai/pulumi-castai/main/docs/images/castai-logo.png",
+    "pluginDownloadURL": "github://api.github.com/castai",
+    "publisher": "CAST AI",
+    "version": "0.1.28",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
+            "namespaces": {
+                "castai": "CastAI"
+            },
+            "compatibility": "tfbridge20"
+        },
+        "go": {
+            "importBasePath": "github.com/castai/pulumi-castai/sdk/go/castai",
+            "generateResourceContainerTypes": true,
+            "generateExtraInputTypes": true
+        },
+        "nodejs": {
+            "packageName": "@castai/pulumi",
+            "packageDescription": "A Pulumi package for creating and managing CAST AI cloud resources.",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/castai/terraform-provider-castai)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-castai` repo](https://github.com/castai/pulumi-castai/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-castai` repo](https://github.com/castai/terraform-provider-castai/issues).",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "compatibility": "tfbridge20",
+            "disableUnionOutputTypes": true
+        },
+        "python": {
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            },
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/castai/terraform-provider-castai)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-castai` repo](https://github.com/castai/pulumi-castai/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-castai` repo](https://github.com/castai/terraform-provider-castai/issues).",
+            "compatibility": "tfbridge20",
+            "pyproject": {}
+        }
+    },
+    "config": {
+        "variables": {
+            "apiToken": {
+                "type": "string",
+                "description": "The token used to connect to CAST AI API.\n",
+                "defaultInfo": {
+                    "environment": [
+                        "CASTAI_API_TOKEN"
+                    ]
+                },
+                "secret": true
+            },
+            "apiUrl": {
+                "type": "string",
+                "description": "CAST.AI API url.\n",
+                "default": "https://api.cast.ai",
+                "defaultInfo": {
+                    "environment": [
+                        "CASTAI_API_URL"
+                    ]
+                }
+            }
+        },
+        "defaults": [
+            "apiToken",
+            "apiUrl"
+        ]
+    },
+    "types": {
+        "castai:index/ClusterAutoscalerPolicies:ClusterAutoscalerPolicies": {
+            "properties": {
+                "clusterLimits": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPoliciesClusterLimits:ClusterAutoscalerPoliciesClusterLimits"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "nodeDownscaler": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPoliciesNodeDownscaler:ClusterAutoscalerPoliciesNodeDownscaler"
+                },
+                "spotInstances": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPoliciesSpotInstances:ClusterAutoscalerPoliciesSpotInstances"
+                },
+                "unschedulablePods": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPoliciesUnschedulablePods:ClusterAutoscalerPoliciesUnschedulablePods"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterAutoscalerPoliciesClusterLimits:ClusterAutoscalerPoliciesClusterLimits": {
+            "properties": {
+                "cpu": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPoliciesClusterLimitsCpu:ClusterAutoscalerPoliciesClusterLimitsCpu"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterAutoscalerPoliciesClusterLimitsCpu:ClusterAutoscalerPoliciesClusterLimitsCpu": {
+            "properties": {
+                "maxCores": {
+                    "type": "integer"
+                },
+                "minCores": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterAutoscalerPoliciesNodeDownscaler:ClusterAutoscalerPoliciesNodeDownscaler": {
+            "properties": {
+                "emptyNodes": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPoliciesNodeDownscalerEmptyNodes:ClusterAutoscalerPoliciesNodeDownscalerEmptyNodes"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterAutoscalerPoliciesNodeDownscalerEmptyNodes:ClusterAutoscalerPoliciesNodeDownscalerEmptyNodes": {
+            "properties": {
+                "delaySeconds": {
+                    "type": "integer"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterAutoscalerPoliciesSpotInstances:ClusterAutoscalerPoliciesSpotInstances": {
+            "properties": {
+                "clouds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterAutoscalerPoliciesUnschedulablePods:ClusterAutoscalerPoliciesUnschedulablePods": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "headroom": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPoliciesUnschedulablePodsHeadroom:ClusterAutoscalerPoliciesUnschedulablePodsHeadroom"
+                },
+                "nodeConstraints": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPoliciesUnschedulablePodsNodeConstraints:ClusterAutoscalerPoliciesUnschedulablePodsNodeConstraints"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterAutoscalerPoliciesUnschedulablePodsHeadroom:ClusterAutoscalerPoliciesUnschedulablePodsHeadroom": {
+            "properties": {
+                "cpuPercentage": {
+                    "type": "integer"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "memoryPercentage": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterAutoscalerPoliciesUnschedulablePodsNodeConstraints:ClusterAutoscalerPoliciesUnschedulablePodsNodeConstraints": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "maxNodeCpuCores": {
+                    "type": "integer"
+                },
+                "maxNodeRamGib": {
+                    "type": "integer"
+                },
+                "minNodeCpuCores": {
+                    "type": "integer"
+                },
+                "minNodeRamGib": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "castai:index/ClusterInitializeParams:ClusterInitializeParams": {
+            "properties": {
+                "nodes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/ClusterInitializeParamsNode:ClusterInitializeParamsNode"
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "nodes"
+            ]
+        },
+        "castai:index/ClusterInitializeParamsNode:ClusterInitializeParamsNode": {
+            "properties": {
+                "cloud": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "shape": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "cloud",
+                "role",
+                "shape"
+            ]
+        },
+        "castai:index/ClusterKubeconfig:ClusterKubeconfig": {
+            "properties": {
+                "clientCertificate": {
+                    "type": "string"
+                },
+                "clientKey": {
+                    "type": "string",
+                    "secret": true
+                },
+                "clusterCaCertificate": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "rawConfig": {
+                    "type": "string",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "clientCertificate",
+                        "clientKey",
+                        "clusterCaCertificate",
+                        "host",
+                        "rawConfig"
+                    ]
+                }
+            }
+        },
+        "castai:index/CredentialsAws:CredentialsAws": {
+            "properties": {
+                "accessKeyId": {
+                    "type": "string",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                },
+                "secretAccessKey": {
+                    "type": "string",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "accessKeyId",
+                "secretAccessKey"
+            ]
+        },
+        "castai:index/CredentialsAzure:CredentialsAzure": {
+            "properties": {
+                "servicePrincipalJson": {
+                    "type": "string",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "servicePrincipalJson"
+            ]
+        },
+        "castai:index/CredentialsDo:CredentialsDo": {
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "token"
+            ]
+        },
+        "castai:index/CredentialsGcp:CredentialsGcp": {
+            "properties": {
+                "serviceAccountJson": {
+                    "type": "string",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "serviceAccountJson"
+            ]
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicy:GetClusterDataSourceAutoscalerPolicy": {
+            "properties": {
+                "clusterLimits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicyClusterLimit:GetClusterDataSourceAutoscalerPolicyClusterLimit"
+                    }
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "nodeDownscalers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicyNodeDownscaler:GetClusterDataSourceAutoscalerPolicyNodeDownscaler"
+                    }
+                },
+                "spotInstances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicySpotInstance:GetClusterDataSourceAutoscalerPolicySpotInstance"
+                    }
+                },
+                "unschedulablePods": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicyUnschedulablePod:GetClusterDataSourceAutoscalerPolicyUnschedulablePod"
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "clusterLimits",
+                "enabled",
+                "nodeDownscalers",
+                "spotInstances",
+                "unschedulablePods"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicyClusterLimit:GetClusterDataSourceAutoscalerPolicyClusterLimit": {
+            "properties": {
+                "cpus": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicyClusterLimitCpus:GetClusterDataSourceAutoscalerPolicyClusterLimitCpus"
+                    }
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "cpus",
+                "enabled"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicyClusterLimitCpus:GetClusterDataSourceAutoscalerPolicyClusterLimitCpus": {
+            "properties": {
+                "maxCores": {
+                    "type": "integer"
+                },
+                "minCores": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "required": [
+                "maxCores",
+                "minCores"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicyNodeDownscaler:GetClusterDataSourceAutoscalerPolicyNodeDownscaler": {
+            "properties": {
+                "emptyNodes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicyNodeDownscalerEmptyNode:GetClusterDataSourceAutoscalerPolicyNodeDownscalerEmptyNode"
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "emptyNodes"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicyNodeDownscalerEmptyNode:GetClusterDataSourceAutoscalerPolicyNodeDownscalerEmptyNode": {
+            "properties": {
+                "delaySeconds": {
+                    "type": "integer"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "delaySeconds",
+                "enabled"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicySpotInstance:GetClusterDataSourceAutoscalerPolicySpotInstance": {
+            "properties": {
+                "clouds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "required": [
+                "clouds",
+                "enabled"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicyUnschedulablePod:GetClusterDataSourceAutoscalerPolicyUnschedulablePod": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "headrooms": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicyUnschedulablePodHeadroom:GetClusterDataSourceAutoscalerPolicyUnschedulablePodHeadroom"
+                    }
+                },
+                "nodeConstraints": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicyUnschedulablePodNodeConstraint:GetClusterDataSourceAutoscalerPolicyUnschedulablePodNodeConstraint"
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled",
+                "headrooms",
+                "nodeConstraints"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicyUnschedulablePodHeadroom:GetClusterDataSourceAutoscalerPolicyUnschedulablePodHeadroom": {
+            "properties": {
+                "cpuPercentage": {
+                    "type": "integer"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "memoryPercentage": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "required": [
+                "cpuPercentage",
+                "enabled",
+                "memoryPercentage"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceAutoscalerPolicyUnschedulablePodNodeConstraint:GetClusterDataSourceAutoscalerPolicyUnschedulablePodNodeConstraint": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "maxNodeCpuCores": {
+                    "type": "integer"
+                },
+                "maxNodeRamGib": {
+                    "type": "integer"
+                },
+                "minNodeCpuCores": {
+                    "type": "integer"
+                },
+                "minNodeRamGib": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled",
+                "maxNodeCpuCores",
+                "maxNodeRamGib",
+                "minNodeCpuCores",
+                "minNodeRamGib"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "castai:index/GetClusterDataSourceKubeconfig:GetClusterDataSourceKubeconfig": {
+            "properties": {
+                "clientCertificate": {
+                    "type": "string"
+                },
+                "clientKey": {
+                    "type": "string",
+                    "secret": true
+                },
+                "clusterCaCertificate": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "rawConfig": {
+                    "type": "string",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "clientCertificate",
+                "clientKey",
+                "clusterCaCertificate",
+                "host",
+                "rawConfig"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        }
+    },
+    "provider": {
+        "description": "The provider type for the castai package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "apiToken": {
+                "type": "string",
+                "description": "The token used to connect to CAST AI API.\n",
+                "secret": true
+            },
+            "apiUrl": {
+                "type": "string",
+                "description": "CAST.AI API url.\n"
+            }
+        },
+        "inputProperties": {
+            "apiToken": {
+                "type": "string",
+                "description": "The token used to connect to CAST AI API.\n",
+                "defaultInfo": {
+                    "environment": [
+                        "CASTAI_API_TOKEN"
+                    ]
+                },
+                "secret": true
+            },
+            "apiUrl": {
+                "type": "string",
+                "description": "CAST.AI API url.\n",
+                "default": "https://api.cast.ai",
+                "defaultInfo": {
+                    "environment": [
+                        "CASTAI_API_URL"
+                    ]
+                }
+            }
+        }
+    },
+    "resources": {
+        "castai:autoscaling:Autoscaler": {
+            "description": "CAST AI autoscaler resource to manage autoscaler settings\n",
+            "properties": {
+                "autoscalerPolicies": {
+                    "type": "string",
+                    "description": "computed value to store full policies configuration\n"
+                },
+                "autoscalerPoliciesJson": {
+                    "type": "string",
+                    "description": "autoscaler policies JSON string to override current autoscaler settings\n"
+                },
+                "clusterId": {
+                    "type": "string",
+                    "description": "CAST AI cluster id\n"
+                }
+            },
+            "required": [
+                "autoscalerPolicies"
+            ],
+            "inputProperties": {
+                "autoscalerPoliciesJson": {
+                    "type": "string",
+                    "description": "autoscaler policies JSON string to override current autoscaler settings\n"
+                },
+                "clusterId": {
+                    "type": "string",
+                    "description": "CAST AI cluster id\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Autoscaler resources.\n",
+                "properties": {
+                    "autoscalerPolicies": {
+                        "type": "string",
+                        "description": "computed value to store full policies configuration\n"
+                    },
+                    "autoscalerPoliciesJson": {
+                        "type": "string",
+                        "description": "autoscaler policies JSON string to override current autoscaler settings\n"
+                    },
+                    "clusterId": {
+                        "type": "string",
+                        "description": "CAST AI cluster id\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "castai:aws:EksCluster": {
+            "description": "EKS cluster resource allows connecting an existing EKS cluster to CAST AI.\n",
+            "properties": {
+                "accessKeyId": {
+                    "type": "string",
+                    "description": "AWS access key ID of the CAST AI IAM account\n",
+                    "secret": true
+                },
+                "accountId": {
+                    "type": "string",
+                    "description": "ID of AWS account\n"
+                },
+                "agentToken": {
+                    "type": "string",
+                    "deprecationMessage": "agent_token is deprecated, use cluster_token instead",
+                    "secret": true
+                },
+                "assumeRoleArn": {
+                    "type": "string",
+                    "description": "AWS ARN for assume role that should be used instead of IAM account\n"
+                },
+                "credentialsId": {
+                    "type": "string",
+                    "description": "CAST AI internal credentials ID\n"
+                },
+                "deleteNodesOnDisconnect": {
+                    "type": "boolean",
+                    "description": "Should CAST AI remove nodes managed by CAST AI on disconnect\n"
+                },
+                "dnsClusterIp": {
+                    "type": "string",
+                    "description": "Overrides the IP address to use for DNS queries within the cluster. Defaults to 10.100.0.10 or 172.20.0.10 based on the IP address of the primary interface\n"
+                },
+                "instanceProfileArn": {
+                    "type": "string",
+                    "description": "AWS ARN of the instance profile to be used by CAST AI\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "name of your EKS cluster\n"
+                },
+                "overrideSecurityGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Optional custom security groups for the cluster. If not set security groups from the EKS cluster configuration are used.\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "AWS region where the cluster is placed\n"
+                },
+                "secretAccessKey": {
+                    "type": "string",
+                    "description": "AWS secret access key of the CAST AI IAM account\n",
+                    "secret": true
+                },
+                "securityGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IDs of security groups that are used by CAST AI\n"
+                },
+                "sshPublicKey": {
+                    "type": "string",
+                    "description": "Accepted values are base64 encoded SSH public key or AWS key pair ID.\n"
+                },
+                "subnets": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Custom subnets for the cluster. If not set subnets from the EKS cluster configuration are used.\n"
+                },
+                "tags": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Tags which should be added to CAST AI nodes\n"
+                }
+            },
+            "required": [
+                "accountId",
+                "agentToken",
+                "credentialsId",
+                "name",
+                "region",
+                "securityGroups"
+            ],
+            "inputProperties": {
+                "accessKeyId": {
+                    "type": "string",
+                    "description": "AWS access key ID of the CAST AI IAM account\n",
+                    "secret": true
+                },
+                "accountId": {
+                    "type": "string",
+                    "description": "ID of AWS account\n",
+                    "willReplaceOnChanges": true
+                },
+                "assumeRoleArn": {
+                    "type": "string",
+                    "description": "AWS ARN for assume role that should be used instead of IAM account\n"
+                },
+                "deleteNodesOnDisconnect": {
+                    "type": "boolean",
+                    "description": "Should CAST AI remove nodes managed by CAST AI on disconnect\n"
+                },
+                "dnsClusterIp": {
+                    "type": "string",
+                    "description": "Overrides the IP address to use for DNS queries within the cluster. Defaults to 10.100.0.10 or 172.20.0.10 based on the IP address of the primary interface\n"
+                },
+                "instanceProfileArn": {
+                    "type": "string",
+                    "description": "AWS ARN of the instance profile to be used by CAST AI\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "name of your EKS cluster\n",
+                    "willReplaceOnChanges": true
+                },
+                "overrideSecurityGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Optional custom security groups for the cluster. If not set security groups from the EKS cluster configuration are used.\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "AWS region where the cluster is placed\n",
+                    "willReplaceOnChanges": true
+                },
+                "secretAccessKey": {
+                    "type": "string",
+                    "description": "AWS secret access key of the CAST AI IAM account\n",
+                    "secret": true
+                },
+                "sshPublicKey": {
+                    "type": "string",
+                    "description": "Accepted values are base64 encoded SSH public key or AWS key pair ID.\n"
+                },
+                "subnets": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Custom subnets for the cluster. If not set subnets from the EKS cluster configuration are used.\n"
+                },
+                "tags": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Tags which should be added to CAST AI nodes\n"
+                }
+            },
+            "requiredInputs": [
+                "accountId",
+                "region"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering EksCluster resources.\n",
+                "properties": {
+                    "accessKeyId": {
+                        "type": "string",
+                        "description": "AWS access key ID of the CAST AI IAM account\n",
+                        "secret": true
+                    },
+                    "accountId": {
+                        "type": "string",
+                        "description": "ID of AWS account\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "agentToken": {
+                        "type": "string",
+                        "deprecationMessage": "agent_token is deprecated, use cluster_token instead",
+                        "secret": true
+                    },
+                    "assumeRoleArn": {
+                        "type": "string",
+                        "description": "AWS ARN for assume role that should be used instead of IAM account\n"
+                    },
+                    "credentialsId": {
+                        "type": "string",
+                        "description": "CAST AI internal credentials ID\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "deleteNodesOnDisconnect": {
+                        "type": "boolean",
+                        "description": "Should CAST AI remove nodes managed by CAST AI on disconnect\n"
+                    },
+                    "dnsClusterIp": {
+                        "type": "string",
+                        "description": "Overrides the IP address to use for DNS queries within the cluster. Defaults to 10.100.0.10 or 172.20.0.10 based on the IP address of the primary interface\n"
+                    },
+                    "instanceProfileArn": {
+                        "type": "string",
+                        "description": "AWS ARN of the instance profile to be used by CAST AI\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "name of your EKS cluster\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "overrideSecurityGroups": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Optional custom security groups for the cluster. If not set security groups from the EKS cluster configuration are used.\n"
+                    },
+                    "region": {
+                        "type": "string",
+                        "description": "AWS region where the cluster is placed\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "secretAccessKey": {
+                        "type": "string",
+                        "description": "AWS secret access key of the CAST AI IAM account\n",
+                        "secret": true
+                    },
+                    "securityGroups": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "IDs of security groups that are used by CAST AI\n"
+                    },
+                    "sshPublicKey": {
+                        "type": "string",
+                        "description": "Accepted values are base64 encoded SSH public key or AWS key pair ID.\n"
+                    },
+                    "subnets": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Custom subnets for the cluster. If not set subnets from the EKS cluster configuration are used.\n"
+                    },
+                    "tags": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Tags which should be added to CAST AI nodes\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "castai:azure:AksCluster": {
+            "description": "AKS cluster resource allows connecting an existing EKS cluster to CAST AI.\n",
+            "properties": {
+                "clientId": {
+                    "type": "string",
+                    "description": "Azure AD application ID that is created and used by CAST AI.\n"
+                },
+                "clientSecret": {
+                    "type": "string",
+                    "description": "Azure AD application password that will be used by CAST AI.\n",
+                    "secret": true
+                },
+                "clusterToken": {
+                    "type": "string",
+                    "description": "CAST AI cluster token.\n",
+                    "secret": true
+                },
+                "deleteNodesOnDisconnect": {
+                    "type": "boolean",
+                    "description": "Should CAST AI remove nodes managed by CAST.AI on disconnect.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "AKS cluster name.\n"
+                },
+                "nodeResourceGroup": {
+                    "type": "string",
+                    "description": "Azure resource group in which nodes are and will be created.\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "AKS cluster region.\n"
+                },
+                "subscriptionId": {
+                    "type": "string",
+                    "description": "ID of the Azure subscription.\n"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "description": "Azure AD tenant ID from the used subscription.\n"
+                }
+            },
+            "required": [
+                "clientId",
+                "clientSecret",
+                "clusterToken",
+                "name",
+                "nodeResourceGroup",
+                "region",
+                "subscriptionId",
+                "tenantId"
+            ],
+            "inputProperties": {
+                "clientId": {
+                    "type": "string",
+                    "description": "Azure AD application ID that is created and used by CAST AI.\n"
+                },
+                "clientSecret": {
+                    "type": "string",
+                    "description": "Azure AD application password that will be used by CAST AI.\n",
+                    "secret": true
+                },
+                "deleteNodesOnDisconnect": {
+                    "type": "boolean",
+                    "description": "Should CAST AI remove nodes managed by CAST.AI on disconnect.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "AKS cluster name.\n",
+                    "willReplaceOnChanges": true
+                },
+                "nodeResourceGroup": {
+                    "type": "string",
+                    "description": "Azure resource group in which nodes are and will be created.\n"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "AKS cluster region.\n",
+                    "willReplaceOnChanges": true
+                },
+                "subscriptionId": {
+                    "type": "string",
+                    "description": "ID of the Azure subscription.\n"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "description": "Azure AD tenant ID from the used subscription.\n"
+                }
+            },
+            "requiredInputs": [
+                "clientId",
+                "clientSecret",
+                "nodeResourceGroup",
+                "region",
+                "subscriptionId",
+                "tenantId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AksCluster resources.\n",
+                "properties": {
+                    "clientId": {
+                        "type": "string",
+                        "description": "Azure AD application ID that is created and used by CAST AI.\n"
+                    },
+                    "clientSecret": {
+                        "type": "string",
+                        "description": "Azure AD application password that will be used by CAST AI.\n",
+                        "secret": true
+                    },
+                    "clusterToken": {
+                        "type": "string",
+                        "description": "CAST AI cluster token.\n",
+                        "secret": true
+                    },
+                    "deleteNodesOnDisconnect": {
+                        "type": "boolean",
+                        "description": "Should CAST AI remove nodes managed by CAST.AI on disconnect.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "AKS cluster name.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "nodeResourceGroup": {
+                        "type": "string",
+                        "description": "Azure resource group in which nodes are and will be created.\n"
+                    },
+                    "region": {
+                        "type": "string",
+                        "description": "AKS cluster region.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "subscriptionId": {
+                        "type": "string",
+                        "description": "ID of the Azure subscription.\n"
+                    },
+                    "tenantId": {
+                        "type": "string",
+                        "description": "Azure AD tenant ID from the used subscription.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "castai:gcp:GkeCluster": {
+            "description": "GKE cluster resource allows connecting an existing GEK cluster to CAST AI.\n",
+            "properties": {
+                "clusterToken": {
+                    "type": "string",
+                    "description": "CAST.AI agent cluster token\n",
+                    "secret": true
+                },
+                "credentialsId": {
+                    "type": "string",
+                    "description": "CAST AI credentials id for cluster\n"
+                },
+                "credentialsJson": {
+                    "type": "string",
+                    "description": "GCP credentials.json from ServiceAccount with credentials for CAST AI\n",
+                    "secret": true
+                },
+                "deleteNodesOnDisconnect": {
+                    "type": "boolean",
+                    "description": "Should CAST AI remove nodes managed by CAST.AI on disconnect\n"
+                },
+                "location": {
+                    "type": "string",
+                    "description": "GCP cluster zone in case of zonal or region in case of regional cluster\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "GKE cluster name\n"
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "GCP project id\n"
+                },
+                "sshPublicKey": {
+                    "type": "string",
+                    "description": "SSHPublicKey for nodes\n"
+                }
+            },
+            "required": [
+                "clusterToken",
+                "credentialsId",
+                "location",
+                "name",
+                "projectId"
+            ],
+            "inputProperties": {
+                "credentialsJson": {
+                    "type": "string",
+                    "description": "GCP credentials.json from ServiceAccount with credentials for CAST AI\n",
+                    "secret": true
+                },
+                "deleteNodesOnDisconnect": {
+                    "type": "boolean",
+                    "description": "Should CAST AI remove nodes managed by CAST.AI on disconnect\n"
+                },
+                "location": {
+                    "type": "string",
+                    "description": "GCP cluster zone in case of zonal or region in case of regional cluster\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "GKE cluster name\n",
+                    "willReplaceOnChanges": true
+                },
+                "projectId": {
+                    "type": "string",
+                    "description": "GCP project id\n",
+                    "willReplaceOnChanges": true
+                },
+                "sshPublicKey": {
+                    "type": "string",
+                    "description": "SSHPublicKey for nodes\n"
+                }
+            },
+            "requiredInputs": [
+                "location",
+                "projectId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering GkeCluster resources.\n",
+                "properties": {
+                    "clusterToken": {
+                        "type": "string",
+                        "description": "CAST.AI agent cluster token\n",
+                        "secret": true
+                    },
+                    "credentialsId": {
+                        "type": "string",
+                        "description": "CAST AI credentials id for cluster\n"
+                    },
+                    "credentialsJson": {
+                        "type": "string",
+                        "description": "GCP credentials.json from ServiceAccount with credentials for CAST AI\n",
+                        "secret": true
+                    },
+                    "deleteNodesOnDisconnect": {
+                        "type": "boolean",
+                        "description": "Should CAST AI remove nodes managed by CAST.AI on disconnect\n"
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "GCP cluster zone in case of zonal or region in case of regional cluster\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "GKE cluster name\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "projectId": {
+                        "type": "string",
+                        "description": "GCP project id\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sshPublicKey": {
+                        "type": "string",
+                        "description": "SSHPublicKey for nodes\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "castai:index:Cluster": {
+            "properties": {
+                "autoscalerPolicies": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPolicies:ClusterAutoscalerPolicies"
+                },
+                "credentials": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "initializeParams": {
+                    "$ref": "#/types/castai:index/ClusterInitializeParams:ClusterInitializeParams"
+                },
+                "kubeconfigs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/castai:index/ClusterKubeconfig:ClusterKubeconfig"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "vpnType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "credentials",
+                "initializeParams",
+                "kubeconfigs",
+                "name",
+                "region",
+                "status"
+            ],
+            "inputProperties": {
+                "autoscalerPolicies": {
+                    "$ref": "#/types/castai:index/ClusterAutoscalerPolicies:ClusterAutoscalerPolicies"
+                },
+                "credentials": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "initializeParams": {
+                    "$ref": "#/types/castai:index/ClusterInitializeParams:ClusterInitializeParams",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "willReplaceOnChanges": true
+                },
+                "region": {
+                    "type": "string",
+                    "willReplaceOnChanges": true
+                },
+                "status": {
+                    "type": "string"
+                },
+                "vpnType": {
+                    "type": "string"
+                }
+            },
+            "requiredInputs": [
+                "credentials",
+                "initializeParams",
+                "region"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Cluster resources.\n",
+                "properties": {
+                    "autoscalerPolicies": {
+                        "$ref": "#/types/castai:index/ClusterAutoscalerPolicies:ClusterAutoscalerPolicies"
+                    },
+                    "credentials": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "initializeParams": {
+                        "$ref": "#/types/castai:index/ClusterInitializeParams:ClusterInitializeParams",
+                        "willReplaceOnChanges": true
+                    },
+                    "kubeconfigs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/castai:index/ClusterKubeconfig:ClusterKubeconfig"
+                        }
+                    },
+                    "name": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "region": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "vpnType": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "castai:index:ClusterToken": {
+            "properties": {
+                "clusterId": {
+                    "type": "string",
+                    "description": "CAST AI cluster id\n"
+                },
+                "clusterToken": {
+                    "type": "string",
+                    "description": "computed value to store cluster token\n",
+                    "secret": true
+                }
+            },
+            "required": [
+                "clusterId",
+                "clusterToken"
+            ],
+            "inputProperties": {
+                "clusterId": {
+                    "type": "string",
+                    "description": "CAST AI cluster id\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "clusterId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ClusterToken resources.\n",
+                "properties": {
+                    "clusterId": {
+                        "type": "string",
+                        "description": "CAST AI cluster id\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "clusterToken": {
+                        "type": "string",
+                        "description": "computed value to store cluster token\n",
+                        "secret": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "castai:index:Credentials": {
+            "properties": {
+                "aws": {
+                    "$ref": "#/types/castai:index/CredentialsAws:CredentialsAws",
+                    "secret": true
+                },
+                "azure": {
+                    "$ref": "#/types/castai:index/CredentialsAzure:CredentialsAzure",
+                    "secret": true
+                },
+                "cloud": {
+                    "type": "string"
+                },
+                "do": {
+                    "$ref": "#/types/castai:index/CredentialsDo:CredentialsDo",
+                    "secret": true
+                },
+                "gcp": {
+                    "$ref": "#/types/castai:index/CredentialsGcp:CredentialsGcp",
+                    "secret": true
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cloud",
+                "name"
+            ],
+            "inputProperties": {
+                "aws": {
+                    "$ref": "#/types/castai:index/CredentialsAws:CredentialsAws",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                },
+                "azure": {
+                    "$ref": "#/types/castai:index/CredentialsAzure:CredentialsAzure",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                },
+                "do": {
+                    "$ref": "#/types/castai:index/CredentialsDo:CredentialsDo",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                },
+                "gcp": {
+                    "$ref": "#/types/castai:index/CredentialsGcp:CredentialsGcp",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Credentials resources.\n",
+                "properties": {
+                    "aws": {
+                        "$ref": "#/types/castai:index/CredentialsAws:CredentialsAws",
+                        "secret": true,
+                        "willReplaceOnChanges": true
+                    },
+                    "azure": {
+                        "$ref": "#/types/castai:index/CredentialsAzure:CredentialsAzure",
+                        "secret": true,
+                        "willReplaceOnChanges": true
+                    },
+                    "cloud": {
+                        "type": "string"
+                    },
+                    "do": {
+                        "$ref": "#/types/castai:index/CredentialsDo:CredentialsDo",
+                        "secret": true,
+                        "willReplaceOnChanges": true
+                    },
+                    "gcp": {
+                        "$ref": "#/types/castai:index/CredentialsGcp:CredentialsGcp",
+                        "secret": true,
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "functions": {
+        "castai:aws:GetEksClusterIdDataSource": {
+            "inputs": {
+                "description": "A collection of arguments for invoking GetEksClusterIdDataSource.\n",
+                "properties": {
+                    "accountId": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "clusterName": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "region": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accountId",
+                    "clusterName",
+                    "region"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by GetEksClusterIdDataSource.\n",
+                "properties": {
+                    "accountId": {
+                        "type": "string"
+                    },
+                    "clusterName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "region": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accountId",
+                    "clusterName",
+                    "region",
+                    "id"
+                ]
+            }
+        },
+        "castai:aws:GetEksSettingsDataSource": {
+            "inputs": {
+                "description": "A collection of arguments for invoking GetEksSettingsDataSource.\n",
+                "properties": {
+                    "accountId": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "cluster": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "region": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "vpc": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accountId",
+                    "cluster",
+                    "region",
+                    "vpc"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by GetEksSettingsDataSource.\n",
+                "properties": {
+                    "accountId": {
+                        "type": "string"
+                    },
+                    "cluster": {
+                        "type": "string"
+                    },
+                    "iamManagedPolicies": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "iamPolicyJson": {
+                        "type": "string"
+                    },
+                    "iamUserPolicyJson": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "instanceProfilePolicies": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "region": {
+                        "type": "string"
+                    },
+                    "vpc": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accountId",
+                    "cluster",
+                    "iamManagedPolicies",
+                    "iamPolicyJson",
+                    "iamUserPolicyJson",
+                    "instanceProfilePolicies",
+                    "region",
+                    "vpc",
+                    "id"
+                ]
+            }
+        },
+        "castai:aws:GetEksUserArnDataSource": {
+            "inputs": {
+                "description": "A collection of arguments for invoking GetEksUserArnDataSource.\n",
+                "properties": {
+                    "clusterId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "clusterId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by GetEksUserArnDataSource.\n",
+                "properties": {
+                    "arn": {
+                        "type": "string"
+                    },
+                    "clusterId": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "arn",
+                    "clusterId",
+                    "id"
+                ]
+            }
+        },
+        "castai:gcp:GetGkePoliciesDataSource": {
+            "outputs": {
+                "description": "A collection of values returned by GetGkePoliciesDataSource.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "policies": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "policies",
+                    "id"
+                ]
+            }
+        },
+        "castai:index:GetClusterDataSource": {
+            "inputs": {
+                "description": "A collection of arguments for invoking GetClusterDataSource.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by GetClusterDataSource.\n",
+                "properties": {
+                    "autoscalerPolicies": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/castai:index/GetClusterDataSourceAutoscalerPolicy:GetClusterDataSourceAutoscalerPolicy"
+                        }
+                    },
+                    "credentials": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "kubeconfigs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/castai:index/GetClusterDataSourceKubeconfig:GetClusterDataSourceKubeconfig"
+                        }
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "region": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "autoscalerPolicies",
+                    "credentials",
+                    "id",
+                    "kubeconfigs",
+                    "name",
+                    "region",
+                    "status"
+                ]
+            }
+        },
+        "castai:index:GetCredentialsDataSource": {
+            "inputs": {
+                "description": "A collection of arguments for invoking GetCredentialsDataSource.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "outputs": {
+                "description": "A collection of values returned by GetCredentialsDataSource.\n",
+                "properties": {
+                    "cloud": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this resource.\n"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cloud"
+                ]
+            }
+        }
+    }
+}

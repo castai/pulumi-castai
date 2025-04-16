@@ -5,9 +5,13 @@ terraform-provider-castai-master/*
 
 # Build artifacts
 bin/
-schema.json
-**/pulumiSchema.*
-**/cmd/pulumi-resource-*/schema.json
+# Allow schema files to be committed
+# schema.json
+# **/pulumiSchema.*
+# **/cmd/pulumi-resource-*/schema.json
+
+# Explicitly allow the schema file needed for the Pulumi registry
+!provider/sdk/schema/schema.json
 
 # SDKs
 # sdk/*
