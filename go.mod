@@ -16,7 +16,7 @@ replace github.com/castai/pulumi-castai/tests/go => ./tests/go
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
-	github.com/pulumi/pulumi/sdk/v3 v3.160.0
+	github.com/pulumi/pulumi/sdk/v3 v3.162.0
 )
 
 require (
@@ -30,7 +30,7 @@ require (
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
-	github.com/castai/pulumi-castai/sdk/go/castai v0.1.18 // indirect
+	github.com/castai/pulumi-castai/sdk/go/castai v0.1.28 // indirect
 	github.com/charmbracelet/bubbles v0.20.0 // indirect
 	github.com/charmbracelet/bubbletea v1.3.4 // indirect
 	github.com/charmbracelet/colorprofile v0.3.0 // indirect

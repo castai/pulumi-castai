@@ -48,9 +48,11 @@ The Pulumi CASTAI provider allows users to interact with CAST AI resources using
    **For Go:**
    ```bash
    # Add this to your go.mod file:
-   require github.com/castai/pulumi-castai/sdk/go v0.0.0
-   replace github.com/castai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go
+   require github.com/castai/pulumi-castai/sdk/go/castai v0.1.28
+   replace github.com/castai/pulumi-castai/sdk/go/castai => github.com/castai/pulumi-castai v0.1.28
    ```
+
+   See [sdk/go/README.md](sdk/go/README.md) for more details on using the Go SDK.
 
 ### Quick Installation for Testing
 
@@ -178,6 +180,12 @@ export const clusterId = gkeCluster.id;
 
 ### Go Example
 
+> **Note**: To use this example, you need to add the following to your go.mod file:
+> ```
+> require github.com/castai/pulumi-castai/sdk/go/castai v0.1.28
+> replace github.com/castai/pulumi-castai/sdk/go/castai => github.com/castai/pulumi-castai v0.1.28
+> ```
+
 ```go
 package main
 
@@ -185,7 +193,6 @@ import (
 	"os"
 
 	"github.com/castai/pulumi-castai/sdk/go/castai"
-	"github.com/castai/pulumi-castai/sdk/go/castai/gcp"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -210,14 +217,14 @@ func main() {
 		}
 
 		// Create a connection to a GKE cluster
-		gkeArgs := &gcp.GkeClusterArgs{
+		gkeArgs := &castai.GkeClusterArgs{
 			ProjectId:              pulumi.String(projectID),
 			Location:               pulumi.String("us-central1"),
 			Name:                   pulumi.String(clusterName),
 			DeleteNodesOnDisconnect: pulumi.Bool(true),
 		}
 
-		gkeCluster, err := gcp.NewGkeCluster(ctx, "gke-cluster-connection", gkeArgs, pulumi.Provider(provider))
+		gkeCluster, err := castai.NewGkeCluster(ctx, "gke-cluster-connection", gkeArgs, pulumi.Provider(provider))
 		if err != nil {
 			return err
 		}
@@ -341,7 +348,10 @@ npm update @pulumi/castai
 pip install --upgrade pulumi_castai
 
 # For Go:
-go get -u github.com/castai/pulumi-castai/sdk/go
+go get -u github.com/castai/pulumi-castai/sdk/go/castai@v0.1.28
+
+# Add this replace directive to your go.mod file:
+replace github.com/castai/pulumi-castai/sdk/go/castai => github.com/castai/pulumi-castai v0.1.28
 ```
 
 ### Stuck or Hanging Operations

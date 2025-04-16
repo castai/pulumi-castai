@@ -3,12 +3,11 @@ set -e
 
 # This script manually triggers pkg.go.dev to index the Go SDK
 
-# Get the version from the first argument
+# Get the version from the first argument or from version.txt
 VERSION=$1
-
 if [ -z "$VERSION" ]; then
-  echo "Error: VERSION argument is required."
-  exit 1
+  VERSION=$(cat version.txt | tr -d '\n')
+  echo "Using version from version.txt: $VERSION"
 fi
 
 echo "Triggering pkg.go.dev to index the Go SDK for version v$VERSION..."
@@ -42,6 +41,9 @@ import (
 
 func main() {
   fmt.Println("Testing import of github.com/castai/pulumi-castai/sdk/go/castai")
+
+  // Actually use the package to avoid the "imported and not used" error
+  _ = castai.NewProvider
 }
 EOF
 
