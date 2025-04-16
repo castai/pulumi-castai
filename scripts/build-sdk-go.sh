@@ -18,7 +18,7 @@ GO=/usr/local/go/bin/go ./bin/pulumi-tfgen-castai go --out sdk/go/
 # Create go.mod file
 echo "Creating go.mod file..."
 cat > sdk/go/go.mod << EOF
-module github.com/castai/pulumi-castai/sdk/go
+module github.com/cast-ai/pulumi-castai/sdk/go
 
 go 1.18
 EOF
