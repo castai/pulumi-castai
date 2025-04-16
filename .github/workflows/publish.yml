@@ -517,6 +517,10 @@ jobs:
 
           func main() {
             fmt.Println("Testing import of github.com/castai/pulumi-castai/sdk/go/castai")
+
+            // Actually use the package to avoid the "imported and not used" error
+            // Use a function from the package
+            _ = castai.NewProvider
           }
           EOF
 
