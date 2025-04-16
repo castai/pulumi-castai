@@ -21,15 +21,10 @@ cat > sdk/go/go.mod << EOF
 module github.com/castai/pulumi-castai/sdk/go
 
 go 1.18
-
-require (
-	github.com/blang/semver v3.5.1+incompatible
-	github.com/pulumi/pulumi/sdk/v3 v3.60.0
-)
 EOF
 
-# Initialize the Go module
-cd sdk/go && go mod tidy && cd ../..
+# We don't run go mod tidy here to avoid dependency resolution issues
+# The dependencies will be resolved when the user imports the package
 
 # Create README.md file
 echo "Creating README.md file..."

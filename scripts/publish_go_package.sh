@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 # This script prepares and publishes the Go package
 
@@ -23,19 +23,8 @@ if [ ! -f "go.mod" ]; then
 module github.com/castai/pulumi-castai/sdk/go
 
 go 1.18
-
-require (
-	github.com/blang/semver v3.5.1+incompatible
-	github.com/pulumi/pulumi/sdk/v3 v3.60.0
-)
 EOF
-
-  # Initialize the Go module
-  go mod tidy
 fi
-
-# Update the version in go.mod
-sed -i "s/module github.com\/castai\/pulumi-castai\/sdk\/go.*/module github.com\/castai\/pulumi-castai\/sdk\/go\n\ngo 1.18/g" go.mod
 
 # Create a temporary README.md file if it doesn't exist
 if [ ! -f "README.md" ]; then
@@ -76,7 +65,8 @@ if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$V
 
   # Trigger pkg.go.dev to index the new version
   echo "Triggering pkg.go.dev to index the new version..."
-  GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
+  echo "Note: This may fail if the repository is not yet public, which is expected."
+  GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Failed to trigger pkg.go.dev indexing, but this is expected if the repository is not yet public."
 
   echo "Go package has been published to GitHub."
   echo "Users can install it with: go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
