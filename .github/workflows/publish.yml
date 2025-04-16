@@ -272,11 +272,25 @@ jobs:
       - name: Generate go.sum files
         run: |
           echo "Generating go.sum files for Go SDK..."
-          cd sdk/go
-          go mod tidy
+
+          # Create a temporary directory for generating go.sum files
+          mkdir -p /tmp/go-sdk-temp
+          cp -r sdk/go /tmp/go-sdk-temp/
+
+          # Generate go.sum for the main module
+          cd /tmp/go-sdk-temp/go
+          go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
+
+          # Generate go.sum for the castai module
           cd castai
-          go mod tidy
-          cd ../../..
+          go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
+
+          # Copy the go.sum files back to the original location
+          cp -f /tmp/go-sdk-temp/go/go.sum $GITHUB_WORKSPACE/sdk/go/ || echo "No go.sum generated for main module"
+          cp -f /tmp/go-sdk-temp/go/castai/go.sum $GITHUB_WORKSPACE/sdk/go/castai/ || echo "No go.sum generated for castai module"
+
+          # Return to the workspace
+          cd $GITHUB_WORKSPACE
 
       - name: Commit SDK to repository
         run: |

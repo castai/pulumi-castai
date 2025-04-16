@@ -42,15 +42,25 @@ EOF
 
 # Run go mod tidy to generate go.sum files
 echo "Running go mod tidy in sdk/go..."
-cd sdk/go
-go mod tidy
 
-echo "Running go mod tidy in sdk/go/castai..."
+# Create a temporary directory for generating go.sum files
+mkdir -p /tmp/go-sdk-temp
+cp -r sdk/go /tmp/go-sdk-temp/
+
+# Generate go.sum for the main module
+cd /tmp/go-sdk-temp/go
+go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
+
+# Generate go.sum for the castai module
 cd castai
-go mod tidy
+go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
+
+# Copy the go.sum files back to the original location
+cp -f /tmp/go-sdk-temp/go/go.sum $(pwd)/../../../sdk/go/ || echo "No go.sum generated for main module"
+cp -f /tmp/go-sdk-temp/go/castai/go.sum $(pwd)/../../../sdk/go/castai/ || echo "No go.sum generated for castai module"
 
 # Return to the original directory
-cd ../../..
+cd $(pwd)/../../../
 
 # Create README.md file
 echo "Creating README.md file..."

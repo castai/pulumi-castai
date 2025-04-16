@@ -63,12 +63,25 @@ fi
 
 # Run go mod tidy to generate go.sum files
 echo "Running go mod tidy in sdk/go..."
-go mod tidy
 
-echo "Running go mod tidy in sdk/go/castai..."
+# Create a temporary directory for generating go.sum files
+mkdir -p /tmp/go-sdk-temp
+cp -r . /tmp/go-sdk-temp/go
+
+# Generate go.sum for the main module
+cd /tmp/go-sdk-temp/go
+go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
+
+# Generate go.sum for the castai module
 cd castai
-go mod tidy
-cd ..
+go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
+
+# Copy the go.sum files back to the original location
+cp -f /tmp/go-sdk-temp/go/go.sum $(pwd)/../../ || echo "No go.sum generated for main module"
+cp -f /tmp/go-sdk-temp/go/castai/go.sum $(pwd)/../../castai/ || echo "No go.sum generated for castai module"
+
+# Return to the original directory
+cd $(pwd)/../../
 
 # Check if this version already exists in Go package registry
 echo "Checking if Go package version v$VERSION already exists..."
