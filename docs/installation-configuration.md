@@ -11,7 +11,7 @@ The Pulumi CAST AI provider is available as a package in all Pulumi languages:
 * JavaScript/TypeScript: [`@castai/pulumi`](https://www.npmjs.com/package/@castai/pulumi)
 * Python: [`pulumi-castai`](https://pypi.org/project/pulumi-castai/)
 * Go: [`github.com/castai/pulumi-castai/sdk/go/castai`](https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai)
-* .NET: [`Pulumi.CastAI`](https://www.nuget.org/packages/Pulumi.CastAI)
+* .NET: [`Pulumi.CastAI`](https://www.nuget.org/packages/CastAI.Pulumi)
 
 ### Node.js (JavaScript/TypeScript)
 

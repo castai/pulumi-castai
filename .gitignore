@@ -1,5 +1,6 @@
 terraform-provider-castai-reference/*
 pulumi-tf-provider-boilerplate-main/*
+terraform-provider-castai-master/*
 .cursor/*
 
 # Build artifacts

@@ -50,6 +50,17 @@ build-provider: setup-deps
     # Then build the provider
     GO=/usr/local/go/bin/go make provider
 
+# Build the provider for all supported architectures
+build-provider-all-archs: setup-deps
+    @echo "Building provider for all supported architectures..."
+    @mkdir -p bin release
+    @./scripts/build-provider-binary.sh {{VERSION}} darwin amd64
+    @./scripts/build-provider-binary.sh {{VERSION}} darwin arm64
+    @./scripts/build-provider-binary.sh {{VERSION}} linux amd64
+    @./scripts/build-provider-binary.sh {{VERSION}} linux arm64
+    @./scripts/build-provider-binary.sh {{VERSION}} windows amd64
+    @echo "✅ Provider built for all architectures. Release assets available in ./release/"
+
 # Generate schema
 generate-schema:
     @echo "Generating schema..."
@@ -81,6 +92,22 @@ install-provider: build-provider
     # Use pulumi plugin install consistently
     pulumi plugin install resource castai {{VERSION}} --file ./bin/pulumi-resource-castai --reinstall
     @echo "Provider plugin installed successfully."
+
+# Install the provider for a specific architecture
+install-provider-arch GOOS="" GOARCH="":
+    @if [ -z "{{GOOS}}" ] || [ -z "{{GOARCH}}" ]; then \
+        echo "Error: GOOS and GOARCH must be specified."; \
+        echo "Usage: just install-provider-arch <GOOS> <GOARCH>"; \
+        echo "Example: just install-provider-arch darwin arm64"; \
+        exit 1; \
+    fi
+    @echo "Installing provider for {{GOOS}}-{{GOARCH}}..."
+    @./scripts/install-provider-for-arch.sh {{VERSION}} {{GOOS}} {{GOARCH}}
+
+# Install the provider for the current system architecture
+install-provider-current-arch:
+    @echo "Installing provider for the current system architecture..."
+    @GOOS=$(go env GOOS) GOARCH=$(go env GOARCH) ./scripts/install-provider-for-arch.sh {{VERSION}} $(go env GOOS) $(go env GOARCH)
 
 # Install SDKs locally
 install-sdks-local:

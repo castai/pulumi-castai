@@ -161,10 +161,48 @@ publish_python:: # publish to PyPI
 			dist/*
 
 publish_go:: # publish to GitHub
+	@echo "Publishing Go SDK version v$(VERSION)..."
+	@# Ensure go.mod exists and is properly configured
 	cd sdk/go && \
-		go mod tidy && \
-		git tag v$(VERSION) && \
-		git push origin v$(VERSION)
+		if [ ! -f "go.mod" ]; then \
+			echo "Creating go.mod file..."; \
+			echo 'module github.com/castai/pulumi-castai/sdk/go' > go.mod; \
+			echo '' >> go.mod; \
+			echo 'go 1.18' >> go.mod; \
+		fi && \
+		go mod tidy
+	@# Create README.md if it doesn't exist
+	cd sdk/go && \
+		if [ ! -f "README.md" ]; then \
+			echo "Creating README.md file..."; \
+			echo '# CAST AI Pulumi Provider - Go SDK' > README.md; \
+			echo '' >> README.md; \
+			echo 'This package provides Go bindings for the CAST AI Pulumi provider.' >> README.md; \
+			echo '' >> README.md; \
+			echo '## Installation' >> README.md; \
+			echo '' >> README.md; \
+			echo '```bash' >> README.md; \
+			echo 'go get github.com/castai/pulumi-castai/sdk/go/castai@v$(VERSION)' >> README.md; \
+			echo '```' >> README.md; \
+			echo '' >> README.md; \
+			echo '## Usage' >> README.md; \
+			echo '' >> README.md; \
+			echo 'See the [documentation](https://www.pulumi.com/registry/packages/castai/) for usage examples.' >> README.md; \
+		fi
+	@# Check if tag already exists
+	if git rev-parse v$(VERSION) >/dev/null 2>&1; then \
+		echo "Tag v$(VERSION) already exists. Using existing tag."; \
+	else \
+		echo "Creating tag v$(VERSION)..."; \
+		git tag v$(VERSION); \
+		git push origin v$(VERSION); \
+	fi
+	@# Trigger pkg.go.dev to index the new version
+	echo "Triggering pkg.go.dev to index the new version..."
+	GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai/sdk/go/castai@v$(VERSION) || echo "Note: It's normal to see an error above if the module isn't published yet."
+	@echo "Go SDK has been published to GitHub."
+	@echo "The package should be available at: https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$(VERSION)"
+	@echo "Note: It may take a few minutes for pkg.go.dev to index the new version."
 
 publish_dotnet:: # publish to NuGet
 	@echo "Publishing .NET package with version ${VERSION}"

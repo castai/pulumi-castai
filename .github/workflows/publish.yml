@@ -19,35 +19,16 @@ env:
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
 jobs:
-  publish:
-    name: Publish
+  # First job to determine version and update version files
+  prepare:
+    name: Prepare Release
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+      next_version: ${{ env.NEXT_VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Setup Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.22.x'
-          check-latest: true
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Install Pulumi CLI
-        run: |
-          curl -fsSL https://get.pulumi.com | sh
-          export PATH=$PATH:$HOME/.pulumi/bin
-          echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
 
       - name: Get Version
         id: get-version
@@ -106,7 +87,51 @@ jobs:
           MANUAL_VERSION: "${{ github.event.inputs.version }}"
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Provider
+  # Build provider binaries for all supported architectures
+  build-provider:
+    name: Build Provider for ${{ matrix.os }}-${{ matrix.arch }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [darwin, linux, windows]
+        arch: [amd64, arm64]
+        exclude:
+          # Exclude Windows ARM64 as it's not a requested target
+          - os: windows
+            arch: arm64
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22.x'
+          check-latest: true
+
+      - name: Install Pulumi CLI
+        run: |
+          curl -fsSL https://get.pulumi.com | sh
+          export PATH=$PATH:$HOME/.pulumi/bin
+          echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
+
+      - name: Set up environment for cross-compilation
+        run: |
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "GOOS=${{ matrix.os }}" >> $GITHUB_ENV
+          echo "GOARCH=${{ matrix.arch }}" >> $GITHUB_ENV
+
+          # Set file extension for Windows
+          if [[ "${{ matrix.os }}" == "windows" ]]; then
+            echo "BINARY_EXT=.exe" >> $GITHUB_ENV
+          else
+            echo "BINARY_EXT=" >> $GITHUB_ENV
+          fi
+
+      - name: Build Provider Binary
         run: |
           # Debug Go installation
           which go || echo "Go not found"
@@ -116,21 +141,98 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           echo "$PATH" >> $GITHUB_PATH
 
+          # Fix version placeholder in resources.go and version.go
+          echo "Fixing version placeholders..."
+          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
+
+          # Run go mod tidy in the provider directory first
+          cd provider && go mod tidy
+
+          # Build the provider with cross-compilation
+          echo "Building provider for $GOOS-$GOARCH..."
+          cd cmd/pulumi-resource-castai && \
+          GOOS=$GOOS GOARCH=$GOARCH go build -o $(pwd)/../../../bin/pulumi-resource-castai${BINARY_EXT} \
+          -ldflags "-X github.com/cast-ai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+
+      - name: Create Release Asset
+        run: |
+          mkdir -p release/
+          FILENAME=pulumi-resource-castai-v${VERSION}-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
+
+          # For Windows, use zip instead of tar
+          if [[ "${{ matrix.os }}" == "windows" ]]; then
+            FILENAME=pulumi-resource-castai-v${VERSION}-${{ matrix.os }}-${{ matrix.arch }}.zip
+            zip -j release/${FILENAME} bin/pulumi-resource-castai${BINARY_EXT}
+          else
+            tar -czf release/${FILENAME} -C bin pulumi-resource-castai${BINARY_EXT}
+          fi
+
+          echo "Created release asset: ${FILENAME}"
+
+      - name: Upload Release Asset
+        uses: actions/upload-artifact@v3
+        with:
+          name: provider-${{ matrix.os }}-${{ matrix.arch }}
+          path: release/
+          retention-days: 1
+
+  # Build SDKs and publish packages
+  publish:
+    name: Publish SDKs and Release
+    needs: [prepare, build-provider]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+      NEXT_VERSION: ${{ needs.prepare.outputs.next_version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22.x'
+          check-latest: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Pulumi CLI
+        run: |
+          curl -fsSL https://get.pulumi.com | sh
+          export PATH=$PATH:$HOME/.pulumi/bin
+          echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
+
+      - name: Build Provider (for SDK generation)
+        run: |
+          # Fix version placeholder in resources.go and version.go
+          echo "Fixing version placeholders..."
+          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
+
           # Build the provider
           make provider
 
       - name: Build SDKs
         run: make build_sdks
 
-      - name: Create Release Assets
+      - name: Download All Release Assets
+        uses: actions/download-artifact@v3
+        with:
+          path: release-artifacts/
+
+      - name: Prepare Release Assets
         run: |
           mkdir -p release/
-          # Only create a release asset for the current platform (Linux)
-          FILENAME=pulumi-resource-castai-v${VERSION}-linux-amd64.tar.gz
-          tar -czf release/${FILENAME} -C bin pulumi-resource-castai
-
-          # For a complete provider, you would need to build for all platforms
-          # This would require cross-compilation or using GitHub Actions matrix
+          cp -r release-artifacts/*/* release/
+          ls -la release/
 
       - name: Create GitHub Release
         id: create-release
@@ -144,6 +246,13 @@ jobs:
             # CAST AI Provider v${{ env.VERSION }}
 
             This release includes the latest updates to the CAST AI Pulumi provider.
+
+            ## Supported Architectures
+            - darwin-amd64
+            - darwin-arm64
+            - linux-amd64
+            - linux-arm64
+            - windows-amd64
 
             ## Installation
 
