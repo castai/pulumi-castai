@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script creates and pushes Git tags for Go modules in a monorepo
-# It creates tags in the format v0.1.39-sdk.go.castai which are compatible with Go's module system
+# It creates a single tag in the format v0.1.39 which is used for all SDKs
 
 set -e
 
@@ -44,36 +44,25 @@ else
   echo "Main version tag v$VERSION already exists, skipping"
 fi
 
-# Create the Go SDK tag
-GO_TAG="v$VERSION-sdk.go.castai"
-if ! git rev-parse "$GO_TAG" >/dev/null 2>&1; then
-  echo "Creating Go SDK tag $GO_TAG..."
-  if [[ "$DRY_RUN" == "true" ]]; then
-    echo "[DRY RUN] Would run: git tag \"$GO_TAG\""
-  else
-    git tag "$GO_TAG"
-  fi
-  echo "✅ Go SDK tag created"
-else
-  echo "Go SDK tag $GO_TAG already exists, skipping"
-fi
+# We now use a single tag for all SDKs, so no need to create a separate Go SDK tag
+echo "Using the main version tag v$VERSION for all SDKs including Go"
 
-# Ask if the user wants to push the tags
+# Ask if the user wants to push the tag
 if [[ "$DRY_RUN" == "true" ]]; then
-  echo "[DRY RUN] Would ask: Do you want to push the tags now? (y/n)"
-  echo "[DRY RUN] Would run: git push origin \"v$VERSION\" \"$GO_TAG\" (if user answers yes)"
+  echo "[DRY RUN] Would ask: Do you want to push the tag now? (y/n)"
+  echo "[DRY RUN] Would run: git push origin \"v$VERSION\" (if user answers yes)"
 else
-  read -p "Do you want to push the tags now? (y/n): " PUSH_TAGS
+  read -p "Do you want to push the tag now? (y/n): " PUSH_TAGS
   if [[ "$PUSH_TAGS" == "y" || "$PUSH_TAGS" == "Y" ]]; then
-    echo "Pushing tags..."
-    git push origin "v$VERSION" "$GO_TAG"
-    echo "✅ Tags pushed"
+    echo "Pushing tag..."
+    git push origin "v$VERSION"
+    echo "✅ Tag pushed"
 
     echo "The Go SDK should now be available at:"
-    echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@$GO_TAG"
+    echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
   else
-    echo "Tags not pushed. You can push them later with:"
-    echo "git push origin v$VERSION $GO_TAG"
+    echo "Tag not pushed. You can push it later with:"
+    echo "git push origin v$VERSION"
   fi
 fi
 

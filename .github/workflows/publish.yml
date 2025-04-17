@@ -296,42 +296,67 @@ jobs:
           # Skip building SDKs in the workflow - they should already be built and committed
           echo "Skipping SDK build in the workflow - using pre-built SDKs from the repository"
 
-      - name: Generate go.sum files
+          # Verify that the SDKs exist
+          echo "Verifying SDKs exist in the repository..."
+          if [ ! -d "sdk/nodejs" ] || [ ! -d "sdk/python" ] || [ ! -d "sdk/go" ] || [ ! -d "sdk/dotnet" ]; then
+            echo "Error: One or more SDK directories are missing. The SDKs should be built and committed before running this workflow."
+            echo "Missing SDKs:"
+            [ ! -d "sdk/nodejs" ] && echo "- Node.js SDK is missing"
+            [ ! -d "sdk/python" ] && echo "- Python SDK is missing"
+            [ ! -d "sdk/go" ] && echo "- Go SDK is missing"
+            [ ! -d "sdk/dotnet" ] && echo "- .NET SDK is missing"
+            exit 1
+          fi
+
+          echo "✅ All SDKs found in the repository."
+
+      - name: Check go.sum files
         run: |
-          echo "Generating go.sum files for Go SDK..."
+          echo "Checking go.sum files for Go SDK..."
 
-          # Create empty go.sum files as a fallback
-          mkdir -p sdk/go
-          touch sdk/go/go.sum
-          mkdir -p sdk/go/castai
-          touch sdk/go/castai/go.sum
+          # Check if go.sum files already exist
+          if [ -f "sdk/go/go.sum" ] && [ -f "sdk/go/castai/go.sum" ]; then
+            echo "✅ go.sum files already exist, skipping generation."
+            echo "Main module go.sum:"
+            ls -la sdk/go/go.sum
+            echo "Castai module go.sum:"
+            ls -la sdk/go/castai/go.sum
+          else
+            echo "One or more go.sum files are missing. Creating them..."
 
-          # Try to generate proper go.sum files
-          echo "Attempting to generate proper go.sum files..."
+            # Create empty go.sum files as a fallback
+            mkdir -p sdk/go
+            touch sdk/go/go.sum
+            mkdir -p sdk/go/castai
+            touch sdk/go/castai/go.sum
 
-          # Create a temporary directory for generating go.sum files
-          mkdir -p /tmp/go-sdk-temp
-          cp -r sdk/go /tmp/go-sdk-temp/
+            # Try to generate proper go.sum files
+            echo "Attempting to generate proper go.sum files..."
 
-          # Generate go.sum for the main module
-          cd /tmp/go-sdk-temp/go
-          go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
+            # Create a temporary directory for generating go.sum files
+            mkdir -p /tmp/go-sdk-temp
+            cp -r sdk/go /tmp/go-sdk-temp/
 
-          # Generate go.sum for the castai module
-          cd castai
-          go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
+            # Generate go.sum for the main module
+            cd /tmp/go-sdk-temp/go
+            go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
 
-          # Copy the go.sum files back to the original location
-          cp -f /tmp/go-sdk-temp/go/go.sum $GITHUB_WORKSPACE/sdk/go/ || echo "No go.sum generated for main module"
-          cp -f /tmp/go-sdk-temp/go/castai/go.sum $GITHUB_WORKSPACE/sdk/go/castai/ || echo "No go.sum generated for castai module"
+            # Generate go.sum for the castai module
+            cd castai
+            go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
 
-          # Return to the workspace
-          cd $GITHUB_WORKSPACE
+            # Copy the go.sum files back to the original location
+            cp -f /tmp/go-sdk-temp/go/go.sum $GITHUB_WORKSPACE/sdk/go/ || echo "No go.sum generated for main module"
+            cp -f /tmp/go-sdk-temp/go/castai/go.sum $GITHUB_WORKSPACE/sdk/go/castai/ || echo "No go.sum generated for castai module"
 
-          # Verify go.sum files exist
-          echo "Verifying go.sum files exist:"
-          ls -la sdk/go/go.sum
-          ls -la sdk/go/castai/go.sum
+            # Return to the workspace
+            cd $GITHUB_WORKSPACE
+
+            # Verify go.sum files exist
+            echo "Verifying go.sum files exist:"
+            ls -la sdk/go/go.sum
+            ls -la sdk/go/castai/go.sum
+          fi
 
       - name: Commit SDK to repository
         run: |
@@ -506,12 +531,17 @@ jobs:
 
       - name: Publish Go Package
         run: |
-          # Ensure go.sum files exist
-          echo "Ensuring go.sum files exist before publishing..."
-          mkdir -p sdk/go
-          touch sdk/go/go.sum
-          mkdir -p sdk/go/castai
-          touch sdk/go/castai/go.sum
+          # Verify go.sum files exist
+          echo "Verifying go.sum files exist before publishing..."
+          if [ ! -f "sdk/go/go.sum" ] || [ ! -f "sdk/go/castai/go.sum" ]; then
+            echo "Warning: One or more go.sum files are missing. Creating empty ones as fallback."
+            mkdir -p sdk/go
+            touch sdk/go/go.sum
+            mkdir -p sdk/go/castai
+            touch sdk/go/castai/go.sum
+          else
+            echo "✅ go.sum files exist, proceeding with publishing."
+          fi
 
           # Run the publish script
           ./scripts/publish_go_package.sh "$VERSION"
@@ -594,13 +624,36 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
-      - name: Skip Building .NET SDK
+      - name: Verify .NET SDK
         run: |
-          # Skip building .NET SDK in the workflow - it should already be built and committed
-          echo "Skipping .NET SDK build in the workflow - using pre-built SDK from the repository"
+          # Verify that the .NET SDK exists and is ready for publishing
+          echo "Verifying .NET SDK exists in the repository..."
+          if [ ! -d "sdk/dotnet" ]; then
+            echo "Error: .NET SDK directory is missing. The SDK should be built and committed before running this workflow."
+            exit 1
+          fi
+
+          # Check if the .nupkg file exists
+          if [ ! -f "sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg" ]; then
+            echo "Warning: .NET package file not found at expected location. Will attempt to create it."
+          else
+            echo "✅ .NET SDK package found and ready for publishing."
+          fi
 
       - name: Publish .NET Package
-        run: make publish_dotnet
+        run: |
+          # Check if the .nupkg file exists
+          if [ ! -f "sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg" ]; then
+            echo "Building .NET package before publishing..."
+            cd sdk/dotnet && dotnet pack -o nupkg -p:Version=${VERSION}
+            mkdir -p bin/Debug
+            cp nupkg/CASTAI.Pulumi.${VERSION}.nupkg bin/Debug/
+            cd ../..
+          fi
+
+          # Publish the package
+          echo "Publishing .NET package to NuGet..."
+          dotnet nuget push sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
