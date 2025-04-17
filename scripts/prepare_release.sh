@@ -53,9 +53,14 @@ echo "✅ Completed go mod tidy in provider"
 echo "Building provider and generating schema..."
 
 if [[ "$DRY_RUN" == "true" ]]; then
-  echo "[DRY RUN] Would check if provider binary exists and build if needed"
-  echo "[DRY RUN] Would run: make clean, make provider, make build_schema (if needed)"
-  echo "✅ Provider build steps would be executed (dry run)"
+  if [[ "$SKIP_BUILD" == "true" ]]; then
+    echo "[DRY RUN] Would skip provider build steps as requested"
+    echo "✅ Provider build steps would be skipped (dry run)"
+  else
+    echo "[DRY RUN] Would check if provider binary exists and build if needed"
+    echo "[DRY RUN] Would run: make clean, make provider, make build_schema (if needed)"
+    echo "✅ Provider build steps would be executed (dry run)"
+  fi
 elif [[ "$SKIP_BUILD" == "true" ]]; then
   echo "Skipping provider build steps as requested"
   echo "✅ Provider build steps skipped"
@@ -88,9 +93,14 @@ fi
 # Step 4: Build the SDKs
 echo "Building SDKs..."
 if [[ "$DRY_RUN" == "true" ]]; then
-  echo "[DRY RUN] Would check if SDKs exist and build if needed"
-  echo "[DRY RUN] Would run: make build_sdks (if needed)"
-  echo "✅ SDK build steps would be executed (dry run)"
+  if [[ "$SKIP_BUILD" == "true" ]]; then
+    echo "[DRY RUN] Would skip SDK build steps as requested"
+    echo "✅ SDK build steps would be skipped (dry run)"
+  else
+    echo "[DRY RUN] Would check if SDKs exist and build if needed"
+    echo "[DRY RUN] Would run: make build_sdks (if needed)"
+    echo "✅ SDK build steps would be executed (dry run)"
+  fi
 elif [[ "$SKIP_BUILD" == "true" ]]; then
   echo "Skipping SDK build steps as requested"
   echo "✅ SDK build steps skipped"
@@ -116,11 +126,16 @@ fi
 echo "Generating go.sum files for Go SDK..."
 
 if [[ "$DRY_RUN" == "true" ]]; then
-  echo "[DRY RUN] Would generate go.sum files for the Go SDK"
-  echo "[DRY RUN] Would create temporary directory and copy SDK files"
-  echo "[DRY RUN] Would run go mod tidy for main and castai modules"
-  echo "[DRY RUN] Would copy go.sum files back to the original location"
-  echo "✅ Go SDK go.sum files would be generated (dry run)"
+  if [[ "$SKIP_BUILD" == "true" ]]; then
+    echo "[DRY RUN] Would skip go.sum generation as requested"
+    echo "✅ Go SDK go.sum generation would be skipped (dry run)"
+  else
+    echo "[DRY RUN] Would generate go.sum files for the Go SDK"
+    echo "[DRY RUN] Would create temporary directory and copy SDK files"
+    echo "[DRY RUN] Would run go mod tidy for main and castai modules"
+    echo "[DRY RUN] Would copy go.sum files back to the original location"
+    echo "✅ Go SDK go.sum files would be generated (dry run)"
+  fi
 elif [[ "$SKIP_BUILD" == "true" ]]; then
   echo "Skipping go.sum generation as requested"
   echo "✅ Go SDK go.sum generation skipped"
