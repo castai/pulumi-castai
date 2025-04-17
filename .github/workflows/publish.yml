@@ -353,7 +353,21 @@ jobs:
               # If triggered by a tag, push to the default branch (main or master)
               DEFAULT_BRANCH=$(git remote show origin | grep "HEAD branch" | cut -d ":" -f 2 | xargs)
               echo "Triggered by tag. Pushing to default branch: $DEFAULT_BRANCH"
-              git push origin HEAD:$DEFAULT_BRANCH
+
+              # Fetch the latest changes from the default branch
+              git fetch origin $DEFAULT_BRANCH
+
+              # Create a new branch from the latest default branch
+              git checkout -b sdk-update-$VERSION origin/$DEFAULT_BRANCH
+
+              # Apply our changes to the new branch
+              git cherry-pick HEAD@{1}
+
+              # Push the new branch
+              git push origin sdk-update-$VERSION
+
+              # Create a pull request
+              echo "Created branch sdk-update-$VERSION. Please create a pull request to merge these changes."
             else
               # If triggered by a branch push, push to the same branch
               echo "Pushing to branch: ${GITHUB_REF#refs/heads/}"
