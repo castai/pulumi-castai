@@ -88,16 +88,17 @@ echo "Checking if Go package version v$VERSION already exists..."
 if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION" | grep -q "404 page not found"; then
   echo "Version v$VERSION does not exist in Go package registry. Publishing..."
 
-  # Create a git tag for the Go SDK
+  # Use the existing tag for the Go SDK
   cd ../.. # Go back to the root directory
 
   # Check if the tag already exists
   if git rev-parse "v$VERSION" >/dev/null 2>&1; then
     echo "Tag v$VERSION already exists. Using existing tag."
   else
-    echo "Creating tag v$VERSION..."
-    git tag "v$VERSION"
-    git push origin "v$VERSION"
+    echo "Error: Tag v$VERSION does not exist. The tag should be created by the prepare_release.sh script."
+    echo "Available tags:"
+    git tag -l
+    exit 1
   fi
 
   # Trigger pkg.go.dev to index the new version

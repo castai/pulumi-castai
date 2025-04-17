@@ -38,7 +38,7 @@ jobs:
             [ ! -d "sdk/dotnet" ] && echo "- .NET SDK is missing"
             exit 1
           fi
-          
+
           echo "✅ All SDKs found in the repository."
 
       - name: Verify go.sum files
@@ -63,21 +63,21 @@ jobs:
           tag_name: v${{ env.VERSION }}
           body: |
             # CAST AI Provider v${{ env.VERSION }}
-            
+
             This release includes the latest updates to the CAST AI Pulumi provider.
-            
+
             ## Installation
-            
+
             ### TypeScript/JavaScript
             ```bash
             npm install @castai/pulumi
             ```
-            
+
             ### Python
             ```bash
             pip install pulumi-castai
             ```
-            
+
             ### Go
             ```bash
             go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}
@@ -94,10 +94,10 @@ jobs:
         run: |
           # Make the fix-npm-package.sh script executable
           chmod +x ./scripts/fix-npm-package.sh
-          
+
           # Run the script to fix package.json and ensure version consistency
           ./scripts/fix-npm-package.sh "$VERSION"
-          
+
           # Check the updated package.json
           cd sdk/nodejs
           cat package.json
@@ -106,14 +106,14 @@ jobs:
       - name: Publish Node.js Package
         run: |
           cd sdk/nodejs
-          
+
           # Check if the package with this version already exists in npm registry
           NPM_VERSION=$(npm view @castai/pulumi version 2>/dev/null || echo "not found")
           if [[ "$NPM_VERSION" == "$VERSION" ]]; then
             echo "Version $VERSION already exists in npm registry. Skipping publish."
             exit 0
           fi
-          
+
           # Publish the package
           npm publish --access public
         env:
@@ -139,13 +139,67 @@ jobs:
 
       - name: Publish Go Package
         run: |
+          # Ensure the tag exists in the repository
+          echo "Verifying tag v$VERSION exists..."
+          git fetch --tags
+          if ! git tag -l | grep -q "^v$VERSION$"; then
+            echo "Error: Tag v$VERSION does not exist in the repository."
+            echo "Available tags:"
+            git tag -l
+            exit 1
+          fi
+
           # Run the publish script
           ./scripts/publish_go_package.sh "$VERSION"
-          
+
+          # Create a temporary Go module to test the SDK
+          echo "Creating a temporary Go module to test the SDK..."
+          mkdir -p /tmp/go-test
+          cd /tmp/go-test
+
+          # Initialize a new Go module
+          cat > go.mod << EOF
+          module test
+
+          go 1.18
+
+          require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
+          EOF
+
+          # Create a simple Go file that imports the SDK
+          cat > main.go << EOF
+          package main
+
+          import (
+            "fmt"
+            "github.com/castai/pulumi-castai/sdk/go/castai"
+          )
+
+          func main() {
+            fmt.Println("Testing import of github.com/castai/pulumi-castai/sdk/go/castai")
+            _ = castai.NewProvider
+          }
+          EOF
+
+          # Try to download the module
+          echo "Downloading the module..."
+          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+          # Try to tidy the module
+          echo "Running go mod tidy..."
+          GOPROXY=https://proxy.golang.org go mod tidy || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+          # Try to build the module
+          echo "Building the test program..."
+          GOPROXY=https://proxy.golang.org go build || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+          # Return to the original directory
+          cd $GITHUB_WORKSPACE
+
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
           curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
-          
+
           # Force the Go proxy to fetch the module using the version tag
           echo "Forcing the Go proxy to fetch the module using the version tag..."
           GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
@@ -158,22 +212,27 @@ jobs:
 
       - name: Publish .NET Package
         run: |
-          # Find the .nupkg file
-          NUPKG_FILE=$(find sdk/dotnet -name "CASTAI.Pulumi.${VERSION}.nupkg" | head -n 1)
-          
-          if [ -z "$NUPKG_FILE" ]; then
-            echo "Warning: .NET package file not found for version ${VERSION}."
+          # The .nupkg file is always in the same location after running prepare_release.sh
+          NUPKG_FILE="sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg"
+
+          # Check if the file exists
+          if [ ! -f "$NUPKG_FILE" ]; then
+            echo "Error: .NET package file not found at expected location: $NUPKG_FILE"
+            echo "Contents of sdk/dotnet/bin/Debug directory:"
+            ls -la sdk/dotnet/bin/Debug || echo "Directory does not exist"
+
+            # Look for any .nupkg file as a fallback
             echo "Looking for any .nupkg file..."
             NUPKG_FILE=$(find sdk/dotnet -name "*.nupkg" | sort | tail -n 1)
+
+            if [ -z "$NUPKG_FILE" ]; then
+              echo "Error: No .nupkg files found. Cannot publish .NET package."
+              exit 1
+            fi
           fi
-          
-          if [ -z "$NUPKG_FILE" ]; then
-            echo "Error: No .nupkg files found. Cannot publish .NET package."
-            exit 1
-          fi
-          
+
           echo "Found .nupkg file: $NUPKG_FILE"
-          
+
           # Publish the package
           echo "Publishing .NET package to NuGet..."
           dotnet nuget push "$NUPKG_FILE" --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json
