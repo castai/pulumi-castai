@@ -1,6 +1,6 @@
 {
     "name": "@castai/pulumi",
-    "version": "0.1.41",
+    "version": "0.1.42",
     "description": "A Pulumi package for creating and managing CAST AI cloud resources.",
     "keywords": [
         "pulumi",
