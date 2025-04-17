@@ -5,9 +5,11 @@ terraform-provider-castai-master/*
 
 # Build artifacts
 bin/
-schema.json
+# Ignore schema.json in the root directory but not in the provider/sdk/schema directory
+/schema.json
 **/pulumiSchema.*
-**/cmd/pulumi-resource-*/schema.json
+# Don't ignore the schema.json in the provider/sdk/schema directory
+!provider/sdk/schema/schema.json
 
 # SDKs
 # sdk/*
