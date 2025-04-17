@@ -1,0 +1,85 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-outside-of-docker
+{
+	"name": "Docker outside of Docker",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"version": "20.10",
+			"enableNonRootDocker": "true",
+			"moby": "true"
+		},
+		"ghcr.io/devcontainers/features/python:1": {
+			"version": "3.11"
+		},
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "lts" // Installs Node.js LTS, which includes npm
+		},
+		"ghcr.io/devcontainers/features/aws-cli:1": {},
+		"ghcr.io/devcontainers-extra/features/typescript:2": {}, // Installs TypeScript
+		"ghcr.io/devcontainers/features/dotnet:1": {
+			"version": "6.0"
+		}
+	},
+	// Use this environment variable if you need to bind mount your local source code into a new container.
+	"remoteEnv": {
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
+		// Add environment variables to help with host access
+		"HOST_IP": "host.docker.internal"
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [
+	// 	9000,
+	// 	3000,
+	// 	5173
+	// ],
+	// Configure networking for proper port forwarding
+	"runArgs": [
+		"--add-host=host.docker.internal:host-gateway"
+	],
+	"mounts": [
+        "source=${localEnv:HOME}/.ssh/germanilia,target=/tmp/host-germanilia-key,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.ssh/iliagerman,target=/tmp/host-iliagerman-key,type=bind,consistency=cached"
+    ],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "echo 'host.docker.internal host-gateway' >> /etc/hosts && docker --version && sudo apt-get update && (curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin) && sudo apt-get install -y libpq-dev python3-dev gcc curl apt-transport-https ca-certificates gnupg && pip install --user fastapi uvicorn sqlalchemy alembic psycopg2-binary pydantic pydantic-settings && git config --global user.email 'iliagerman@gmail.com' && git config --global user.name 'Ilia German' && echo 'Installing gcloud CLI...' && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg && echo 'deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main' | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && sudo apt-get update && sudo apt-get install -y google-cloud-sdk google-cloud-sdk-gke-gcloud-auth-plugin kubectl && echo 'Installing Helm...' && curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash && echo 'Installing Pulumi...' && curl -fsSL https://get.pulumi.com | sh && echo 'export PATH=$PATH:$HOME/.pulumi/bin' >> ~/.bashrc && echo 'Installing Go...' && curl -OL https://golang.org/dl/go1.22.1.linux-arm64.tar.gz && sudo tar -C /usr/local -xzf go1.22.1.linux-arm64.tar.gz && rm go1.22.1.linux-arm64.tar.gz && echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"python.defaultInterpreterPath": "/usr/local/python/current/bin/python"
+			},
+			"extensions": [
+				"github.copilot-chat",
+				"ms-python.black-formatter",
+				"ms-azuretools.vscode-docker",
+				"dbaeumer.vscode-eslint",
+				"ms-python.vscode-pylance",
+				"ms-python.python",
+				"ms-python.debugpy",
+				"ms-vscode-remote.remote-ssh",
+				"ms-vscode-remote.remote-ssh-edit",
+				"saoudrizwan.claude-dev",
+				"streetsidesoftware.code-spell-checker",
+				"danields761.dracula-theme-from-intellij-pythoned",
+				"cweijan.vscode-database-client2",
+				"janisdd.vscode-edit-csv",
+				"eamodio.gitlens",
+				"streetsidesoftware.code-spell-checker-hebrew",
+				"toolsai.vscode-jupyter-cell-tags",
+				"magicstack.magicpython",
+				"magicstack.magicpython",
+				"mechatroner.rainbow-csv",
+				"bradlc.vscode-tailwindcss",
+				"rangav.vscode-thunder-client",
+				"redhat.vscode-yaml",
+				"redhat.vscode-xml"
+			]
+		}
+	},
+	// Uncomment the next line to run commands as a non-root user. On Linux, you may need to add yourself to the docker group.
+	"remoteUser": "root"
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+}

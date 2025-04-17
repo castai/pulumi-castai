@@ -1,0 +1,76 @@
+terraform-provider-castai-reference/*
+pulumi-tf-provider-boilerplate-main/*
+terraform-provider-castai-master/*
+.cursor/*
+
+# Build artifacts
+bin/
+# Ignore schema.json in the root directory but not in the provider/sdk/schema directory
+/schema.json
+**/pulumiSchema.*
+# Don't ignore the schema.json in the provider/sdk/schema directory
+!provider/sdk/schema/schema.json
+
+# Don't ignore the .NET SDK Release folder and .nupkg files
+!sdk/dotnet/bin/
+!sdk/dotnet/bin/Release/
+!sdk/dotnet/bin/Release/CASTAI.Pulumi.*.nupkg
+
+# But ignore other .NET build artifacts
+sdk/dotnet/bin/Debug/
+sdk/dotnet/bin/Release/net6.0/
+sdk/dotnet/obj/
+
+# SDKs
+# sdk/*
+# sdk/*/bin
+# sdk/dotnet/bin
+# sdk/dotnet/obj
+# sdk/nodejs/node_modules
+# sdk/python/bin
+# sdk/python/build
+# sdk/python/dist
+# sdk/python/*.egg-info
+# sdk/python/.venv
+# sdk/go/bin
+
+# Dependencies
+**/node_modules/
+**/yarn.lock
+**/package-lock.json
+**/vendor/
+
+# IDE files
+.cursor/
+.idea/
+*.iml
+.DS_Store
+
+# Pulumi
+Pulumi.*.yaml
+.pulumi/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.env
+.venv/
+__pycache__/
+gcp-credentials.json
+
+*.gz
+*.zip
+*.tar
+
+# Explicitly include the SDK directories
+!sdk/
+!sdk/go/
+!sdk/go/castai/
+!sdk/nodejs/
+!sdk/python/
+!sdk/dotnet/
+
+google-cloud-sdk/

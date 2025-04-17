@@ -1,0 +1,3 @@
+name: castai-e2e-aws-test
+runtime: nodejs
+description: E2E test for CAST AI AWS (EKS) integration 

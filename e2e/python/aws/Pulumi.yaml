@@ -1,0 +1,3 @@
+name: castai-e2e-aws-test-py
+runtime: python
+description: E2E test for CAST AI AWS (EKS) integration in Python 

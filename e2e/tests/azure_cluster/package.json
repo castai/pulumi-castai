@@ -1,0 +1,12 @@
+{
+    "name": "castai-e2e-azure-test",
+    "version": "1.0.0",
+    "description": "E2E test for CAST AI Azure (AKS) integration",
+    "main": "index.js",
+    "dependencies": {
+        "@castai/pulumi-castai": "file:../../../sdk/nodejs",
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/azure-native": "^2.0.0",
+        "@pulumi/kubernetes": "^4.0.0"
+    }
+} 
