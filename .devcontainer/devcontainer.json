@@ -17,7 +17,10 @@
 			"version": "lts" // Installs Node.js LTS, which includes npm
 		},
 		"ghcr.io/devcontainers/features/aws-cli:1": {},
-		"ghcr.io/devcontainers-extra/features/typescript:2": {} // Installs TypeScript
+		"ghcr.io/devcontainers-extra/features/typescript:2": {}, // Installs TypeScript
+		"ghcr.io/devcontainers/features/dotnet:1": {
+			"version": "6.0"
+		}
 	},
 	// Use this environment variable if you need to bind mount your local source code into a new container.
 	"remoteEnv": {

@@ -1,0 +1,785 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pulumi.CastAI</name>
+    </assembly>
+    <members>
+        <member name="T:Pulumi.CastAI.AksCluster">
+            <summary>
+            AKS cluster resource allows connecting an existing EKS cluster to CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.ClientId">
+            <summary>
+            Azure AD application ID that is created and used by CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.ClientSecret">
+            <summary>
+            Azure AD application password that will be used by CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.ClusterToken">
+            <summary>
+            CAST AI cluster token.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST.AI on disconnect.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.Name">
+            <summary>
+            AKS cluster name.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.NodeResourceGroup">
+            <summary>
+            Azure resource group in which nodes are and will be created.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.Region">
+            <summary>
+            AKS cluster region.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.SubscriptionId">
+            <summary>
+            ID of the Azure subscription.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksCluster.TenantId">
+            <summary>
+            Azure AD tenant ID from the used subscription.
+            </summary>
+        </member>
+        <member name="M:Pulumi.CastAI.AksCluster.#ctor(System.String,Pulumi.CastAI.AksClusterArgs,Pulumi.CustomResourceOptions)">
+             <summary>
+             Create a AksCluster resource with the given unique name, arguments, and options.
+             </summary>
+            
+             <param name="name">The unique name of the resource</param>
+             <param name="args">The arguments used to populate this resource's properties</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="M:Pulumi.CastAI.AksCluster.Get(System.String,Pulumi.Input{System.String},Pulumi.CastAI.AksClusterState,Pulumi.CustomResourceOptions)">
+             <summary>
+             Get an existing AksCluster resource's state with the given name, ID, and optional extra
+             properties used to qualify the lookup.
+             </summary>
+            
+             <param name="name">The unique name of the resulting resource.</param>
+             <param name="id">The unique provider ID of the resource to lookup.</param>
+             <param name="state">Any extra arguments used during the lookup.</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterArgs.ClientId">
+            <summary>
+            Azure AD application ID that is created and used by CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterArgs.ClientSecret">
+            <summary>
+            Azure AD application password that will be used by CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterArgs.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST.AI on disconnect.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterArgs.Name">
+            <summary>
+            AKS cluster name.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterArgs.NodeResourceGroup">
+            <summary>
+            Azure resource group in which nodes are and will be created.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterArgs.Region">
+            <summary>
+            AKS cluster region.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterArgs.SubscriptionId">
+            <summary>
+            ID of the Azure subscription.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterArgs.TenantId">
+            <summary>
+            Azure AD tenant ID from the used subscription.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.ClientId">
+            <summary>
+            Azure AD application ID that is created and used by CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.ClientSecret">
+            <summary>
+            Azure AD application password that will be used by CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.ClusterToken">
+            <summary>
+            CAST AI cluster token.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST.AI on disconnect.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.Name">
+            <summary>
+            AKS cluster name.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.NodeResourceGroup">
+            <summary>
+            Azure resource group in which nodes are and will be created.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.Region">
+            <summary>
+            AKS cluster region.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.SubscriptionId">
+            <summary>
+            ID of the Azure subscription.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AksClusterState.TenantId">
+            <summary>
+            Azure AD tenant ID from the used subscription.
+            </summary>
+        </member>
+        <member name="T:Pulumi.CastAI.Autoscaler">
+            <summary>
+            CAST AI autoscaler resource to manage autoscaler settings
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.Autoscaler.AutoscalerPolicies">
+            <summary>
+            computed value to store full policies configuration
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.Autoscaler.AutoscalerPoliciesJson">
+            <summary>
+            autoscaler policies JSON string to override current autoscaler settings
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.Autoscaler.ClusterId">
+            <summary>
+            CAST AI cluster id
+            </summary>
+        </member>
+        <member name="M:Pulumi.CastAI.Autoscaler.#ctor(System.String,Pulumi.CastAI.AutoscalerArgs,Pulumi.CustomResourceOptions)">
+             <summary>
+             Create a Autoscaler resource with the given unique name, arguments, and options.
+             </summary>
+            
+             <param name="name">The unique name of the resource</param>
+             <param name="args">The arguments used to populate this resource's properties</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="M:Pulumi.CastAI.Autoscaler.Get(System.String,Pulumi.Input{System.String},Pulumi.CastAI.AutoscalerState,Pulumi.CustomResourceOptions)">
+             <summary>
+             Get an existing Autoscaler resource's state with the given name, ID, and optional extra
+             properties used to qualify the lookup.
+             </summary>
+            
+             <param name="name">The unique name of the resulting resource.</param>
+             <param name="id">The unique provider ID of the resource to lookup.</param>
+             <param name="state">Any extra arguments used during the lookup.</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="P:Pulumi.CastAI.AutoscalerArgs.AutoscalerPoliciesJson">
+            <summary>
+            autoscaler policies JSON string to override current autoscaler settings
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AutoscalerArgs.ClusterId">
+            <summary>
+            CAST AI cluster id
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AutoscalerState.AutoscalerPolicies">
+            <summary>
+            computed value to store full policies configuration
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AutoscalerState.AutoscalerPoliciesJson">
+            <summary>
+            autoscaler policies JSON string to override current autoscaler settings
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.AutoscalerState.ClusterId">
+            <summary>
+            CAST AI cluster id
+            </summary>
+        </member>
+        <member name="M:Pulumi.CastAI.Cluster.#ctor(System.String,Pulumi.CastAI.ClusterArgs,Pulumi.CustomResourceOptions)">
+             <summary>
+             Create a Cluster resource with the given unique name, arguments, and options.
+             </summary>
+            
+             <param name="name">The unique name of the resource</param>
+             <param name="args">The arguments used to populate this resource's properties</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="M:Pulumi.CastAI.Cluster.Get(System.String,Pulumi.Input{System.String},Pulumi.CastAI.ClusterState,Pulumi.CustomResourceOptions)">
+             <summary>
+             Get an existing Cluster resource's state with the given name, ID, and optional extra
+             properties used to qualify the lookup.
+             </summary>
+            
+             <param name="name">The unique name of the resulting resource.</param>
+             <param name="id">The unique provider ID of the resource to lookup.</param>
+             <param name="state">Any extra arguments used during the lookup.</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="P:Pulumi.CastAI.ClusterToken.ClusterId">
+            <summary>
+            CAST AI cluster id
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.ClusterToken.TokenValue">
+            <summary>
+            computed value to store cluster token
+            </summary>
+        </member>
+        <member name="M:Pulumi.CastAI.ClusterToken.#ctor(System.String,Pulumi.CastAI.ClusterTokenArgs,Pulumi.CustomResourceOptions)">
+             <summary>
+             Create a ClusterToken resource with the given unique name, arguments, and options.
+             </summary>
+            
+             <param name="name">The unique name of the resource</param>
+             <param name="args">The arguments used to populate this resource's properties</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="M:Pulumi.CastAI.ClusterToken.Get(System.String,Pulumi.Input{System.String},Pulumi.CastAI.ClusterTokenState,Pulumi.CustomResourceOptions)">
+             <summary>
+             Get an existing ClusterToken resource's state with the given name, ID, and optional extra
+             properties used to qualify the lookup.
+             </summary>
+            
+             <param name="name">The unique name of the resulting resource.</param>
+             <param name="id">The unique provider ID of the resource to lookup.</param>
+             <param name="state">Any extra arguments used during the lookup.</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="P:Pulumi.CastAI.ClusterTokenArgs.ClusterId">
+            <summary>
+            CAST AI cluster id
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.ClusterTokenState.ClusterId">
+            <summary>
+            CAST AI cluster id
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.ClusterTokenState.TokenValue">
+            <summary>
+            computed value to store cluster token
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.Config.ApiToken">
+            <summary>
+            The token used to connect to CAST AI API.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.Config.ApiUrl">
+            <summary>
+            CAST.AI API url.
+            </summary>
+        </member>
+        <member name="M:Pulumi.CastAI.Credentials.#ctor(System.String,Pulumi.CastAI.CredentialsArgs,Pulumi.CustomResourceOptions)">
+             <summary>
+             Create a Credentials resource with the given unique name, arguments, and options.
+             </summary>
+            
+             <param name="name">The unique name of the resource</param>
+             <param name="args">The arguments used to populate this resource's properties</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="M:Pulumi.CastAI.Credentials.Get(System.String,Pulumi.Input{System.String},Pulumi.CastAI.CredentialsState,Pulumi.CustomResourceOptions)">
+             <summary>
+             Get an existing Credentials resource's state with the given name, ID, and optional extra
+             properties used to qualify the lookup.
+             </summary>
+            
+             <param name="name">The unique name of the resulting resource.</param>
+             <param name="id">The unique provider ID of the resource to lookup.</param>
+             <param name="state">Any extra arguments used during the lookup.</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="T:Pulumi.CastAI.EksCluster">
+            <summary>
+            EKS cluster resource allows connecting an existing EKS cluster to CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.AccessKeyId">
+            <summary>
+            AWS access key ID of the CAST AI IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.AccountId">
+            <summary>
+            ID of AWS account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.AssumeRoleArn">
+            <summary>
+            AWS ARN for assume role that should be used instead of IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.CredentialsId">
+            <summary>
+            CAST AI internal credentials ID
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST AI on disconnect
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.DnsClusterIp">
+            <summary>
+            Overrides the IP address to use for DNS queries within the cluster. Defaults to 10.100.0.10 or 172.20.0.10 based on the IP address of the primary interface
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.InstanceProfileArn">
+            <summary>
+            AWS ARN of the instance profile to be used by CAST AI
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.Name">
+            <summary>
+            name of your EKS cluster
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.OverrideSecurityGroups">
+            <summary>
+            Optional custom security groups for the cluster. If not set security groups from the EKS cluster configuration are used.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.Region">
+            <summary>
+            AWS region where the cluster is placed
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.SecretAccessKey">
+            <summary>
+            AWS secret access key of the CAST AI IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.SecurityGroups">
+            <summary>
+            IDs of security groups that are used by CAST AI
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.SshPublicKey">
+            <summary>
+            Accepted values are base64 encoded SSH public key or AWS key pair ID.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.Subnets">
+            <summary>
+            Custom subnets for the cluster. If not set subnets from the EKS cluster configuration are used.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksCluster.Tags">
+            <summary>
+            Tags which should be added to CAST AI nodes
+            </summary>
+        </member>
+        <member name="M:Pulumi.CastAI.EksCluster.#ctor(System.String,Pulumi.CastAI.EksClusterArgs,Pulumi.CustomResourceOptions)">
+             <summary>
+             Create a EksCluster resource with the given unique name, arguments, and options.
+             </summary>
+            
+             <param name="name">The unique name of the resource</param>
+             <param name="args">The arguments used to populate this resource's properties</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="M:Pulumi.CastAI.EksCluster.Get(System.String,Pulumi.Input{System.String},Pulumi.CastAI.EksClusterState,Pulumi.CustomResourceOptions)">
+             <summary>
+             Get an existing EksCluster resource's state with the given name, ID, and optional extra
+             properties used to qualify the lookup.
+             </summary>
+            
+             <param name="name">The unique name of the resulting resource.</param>
+             <param name="id">The unique provider ID of the resource to lookup.</param>
+             <param name="state">Any extra arguments used during the lookup.</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.AccessKeyId">
+            <summary>
+            AWS access key ID of the CAST AI IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.AccountId">
+            <summary>
+            ID of AWS account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.AssumeRoleArn">
+            <summary>
+            AWS ARN for assume role that should be used instead of IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST AI on disconnect
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.DnsClusterIp">
+            <summary>
+            Overrides the IP address to use for DNS queries within the cluster. Defaults to 10.100.0.10 or 172.20.0.10 based on the IP address of the primary interface
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.InstanceProfileArn">
+            <summary>
+            AWS ARN of the instance profile to be used by CAST AI
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.Name">
+            <summary>
+            name of your EKS cluster
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.OverrideSecurityGroups">
+            <summary>
+            Optional custom security groups for the cluster. If not set security groups from the EKS cluster configuration are used.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.Region">
+            <summary>
+            AWS region where the cluster is placed
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.SecretAccessKey">
+            <summary>
+            AWS secret access key of the CAST AI IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.SshPublicKey">
+            <summary>
+            Accepted values are base64 encoded SSH public key or AWS key pair ID.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.Subnets">
+            <summary>
+            Custom subnets for the cluster. If not set subnets from the EKS cluster configuration are used.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterArgs.Tags">
+            <summary>
+            Tags which should be added to CAST AI nodes
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.AccessKeyId">
+            <summary>
+            AWS access key ID of the CAST AI IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.AccountId">
+            <summary>
+            ID of AWS account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.AssumeRoleArn">
+            <summary>
+            AWS ARN for assume role that should be used instead of IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.CredentialsId">
+            <summary>
+            CAST AI internal credentials ID
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST AI on disconnect
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.DnsClusterIp">
+            <summary>
+            Overrides the IP address to use for DNS queries within the cluster. Defaults to 10.100.0.10 or 172.20.0.10 based on the IP address of the primary interface
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.InstanceProfileArn">
+            <summary>
+            AWS ARN of the instance profile to be used by CAST AI
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.Name">
+            <summary>
+            name of your EKS cluster
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.OverrideSecurityGroups">
+            <summary>
+            Optional custom security groups for the cluster. If not set security groups from the EKS cluster configuration are used.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.Region">
+            <summary>
+            AWS region where the cluster is placed
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.SecretAccessKey">
+            <summary>
+            AWS secret access key of the CAST AI IAM account
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.SecurityGroups">
+            <summary>
+            IDs of security groups that are used by CAST AI
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.SshPublicKey">
+            <summary>
+            Accepted values are base64 encoded SSH public key or AWS key pair ID.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.Subnets">
+            <summary>
+            Custom subnets for the cluster. If not set subnets from the EKS cluster configuration are used.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.EksClusterState.Tags">
+            <summary>
+            Tags which should be added to CAST AI nodes
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GetClusterDataSourceArgs.Id">
+            <summary>
+            The ID of this resource.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GetClusterDataSourceInvokeArgs.Id">
+            <summary>
+            The ID of this resource.
+            </summary>
+        </member>
+        <member name="F:Pulumi.CastAI.GetClusterDataSourceResult.Id">
+            <summary>
+            The ID of this resource.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GetCredentialsDataSourceArgs.Id">
+            <summary>
+            The ID of this resource.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GetCredentialsDataSourceInvokeArgs.Id">
+            <summary>
+            The ID of this resource.
+            </summary>
+        </member>
+        <member name="F:Pulumi.CastAI.GetCredentialsDataSourceResult.Id">
+            <summary>
+            The ID of this resource.
+            </summary>
+        </member>
+        <member name="F:Pulumi.CastAI.GetEksClusterIdDataSourceResult.Id">
+            <summary>
+            The provider-assigned unique ID for this managed resource.
+            </summary>
+        </member>
+        <member name="F:Pulumi.CastAI.GetEksSettingsDataSourceResult.Id">
+            <summary>
+            The provider-assigned unique ID for this managed resource.
+            </summary>
+        </member>
+        <member name="F:Pulumi.CastAI.GetEksUserArnDataSourceResult.Id">
+            <summary>
+            The provider-assigned unique ID for this managed resource.
+            </summary>
+        </member>
+        <member name="F:Pulumi.CastAI.GetGkePoliciesDataSourceResult.Id">
+            <summary>
+            The provider-assigned unique ID for this managed resource.
+            </summary>
+        </member>
+        <member name="T:Pulumi.CastAI.GkeCluster">
+            <summary>
+            GKE cluster resource allows connecting an existing GEK cluster to CAST AI.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeCluster.ClusterToken">
+            <summary>
+            CAST.AI agent cluster token
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeCluster.CredentialsId">
+            <summary>
+            CAST AI credentials id for cluster
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeCluster.CredentialsJson">
+            <summary>
+            GCP credentials.json from ServiceAccount with credentials for CAST AI
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeCluster.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST.AI on disconnect
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeCluster.Location">
+            <summary>
+            GCP cluster zone in case of zonal or region in case of regional cluster
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeCluster.Name">
+            <summary>
+            GKE cluster name
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeCluster.ProjectId">
+            <summary>
+            GCP project id
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeCluster.SshPublicKey">
+            <summary>
+            SSHPublicKey for nodes
+            </summary>
+        </member>
+        <member name="M:Pulumi.CastAI.GkeCluster.#ctor(System.String,Pulumi.CastAI.GkeClusterArgs,Pulumi.CustomResourceOptions)">
+             <summary>
+             Create a GkeCluster resource with the given unique name, arguments, and options.
+             </summary>
+            
+             <param name="name">The unique name of the resource</param>
+             <param name="args">The arguments used to populate this resource's properties</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="M:Pulumi.CastAI.GkeCluster.Get(System.String,Pulumi.Input{System.String},Pulumi.CastAI.GkeClusterState,Pulumi.CustomResourceOptions)">
+             <summary>
+             Get an existing GkeCluster resource's state with the given name, ID, and optional extra
+             properties used to qualify the lookup.
+             </summary>
+            
+             <param name="name">The unique name of the resulting resource.</param>
+             <param name="id">The unique provider ID of the resource to lookup.</param>
+             <param name="state">Any extra arguments used during the lookup.</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterArgs.CredentialsJson">
+            <summary>
+            GCP credentials.json from ServiceAccount with credentials for CAST AI
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterArgs.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST.AI on disconnect
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterArgs.Location">
+            <summary>
+            GCP cluster zone in case of zonal or region in case of regional cluster
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterArgs.Name">
+            <summary>
+            GKE cluster name
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterArgs.ProjectId">
+            <summary>
+            GCP project id
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterArgs.SshPublicKey">
+            <summary>
+            SSHPublicKey for nodes
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterState.ClusterToken">
+            <summary>
+            CAST.AI agent cluster token
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterState.CredentialsId">
+            <summary>
+            CAST AI credentials id for cluster
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterState.CredentialsJson">
+            <summary>
+            GCP credentials.json from ServiceAccount with credentials for CAST AI
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterState.DeleteNodesOnDisconnect">
+            <summary>
+            Should CAST AI remove nodes managed by CAST.AI on disconnect
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterState.Location">
+            <summary>
+            GCP cluster zone in case of zonal or region in case of regional cluster
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterState.Name">
+            <summary>
+            GKE cluster name
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterState.ProjectId">
+            <summary>
+            GCP project id
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.GkeClusterState.SshPublicKey">
+            <summary>
+            SSHPublicKey for nodes
+            </summary>
+        </member>
+        <member name="T:Pulumi.CastAI.Provider">
+            <summary>
+            The provider type for the castai package. By default, resources use package-wide configuration
+            settings, however an explicit `Provider` instance may be created and passed during resource
+            construction to achieve fine-grained programmatic control over provider settings. See the
+            [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.Provider.ApiToken">
+            <summary>
+            The token used to connect to CAST AI API.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.Provider.ApiUrl">
+            <summary>
+            CAST.AI API url.
+            </summary>
+        </member>
+        <member name="M:Pulumi.CastAI.Provider.#ctor(System.String,Pulumi.CastAI.ProviderArgs,Pulumi.CustomResourceOptions)">
+             <summary>
+             Create a Provider resource with the given unique name, arguments, and options.
+             </summary>
+            
+             <param name="name">The unique name of the resource</param>
+             <param name="args">The arguments used to populate this resource's properties</param>
+             <param name="options">A bag of options that control this resource's behavior</param>
+        </member>
+        <member name="P:Pulumi.CastAI.ProviderArgs.ApiToken">
+            <summary>
+            The token used to connect to CAST AI API.
+            </summary>
+        </member>
+        <member name="P:Pulumi.CastAI.ProviderArgs.ApiUrl">
+            <summary>
+            CAST.AI API url.
+            </summary>
+        </member>
+    </members>
+</doc>

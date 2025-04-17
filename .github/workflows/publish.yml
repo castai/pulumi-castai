@@ -291,11 +291,10 @@ jobs:
             ls -la bin/
           fi
 
-      - name: Build SDKs
+      - name: Skip Building SDKs
         run: |
-          # Always build SDKs in the workflow
-          echo "Building SDKs in the workflow"
-          make build_sdks
+          # Skip building SDKs in the workflow - they should already be built and committed
+          echo "Skipping SDK build in the workflow - using pre-built SDKs from the repository"
 
       - name: Generate go.sum files
         run: |
@@ -595,8 +594,10 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
-      - name: Build .NET SDK
-        run: make build_dotnet
+      - name: Skip Building .NET SDK
+        run: |
+          # Skip building .NET SDK in the workflow - it should already be built and committed
+          echo "Skipping .NET SDK build in the workflow - using pre-built SDK from the repository"
 
       - name: Publish .NET Package
         run: make publish_dotnet
