@@ -130,24 +130,30 @@ else
   fi
 fi
 
-# Step 5: Generate go.sum files for the Go SDK
-echo "Generating go.sum files for Go SDK..."
+# Step 5: Generate go.mod and go.sum files for the Go SDK
+echo "Generating go.mod and go.sum files for Go SDK..."
 
 if [[ "$DRY_RUN" == "true" ]]; then
   if [[ "$SKIP_BUILD" == "true" ]]; then
-    echo "[DRY RUN] Would skip go.sum generation as requested"
-    echo "✅ Go SDK go.sum generation would be skipped (dry run)"
+    echo "[DRY RUN] Would skip go.mod and go.sum generation as requested"
+    echo "✅ Go SDK go.mod and go.sum generation would be skipped (dry run)"
   else
+    echo "[DRY RUN] Would generate go.mod files for the Go SDK"
+    echo "[DRY RUN] Would run: ./scripts/generate_go_mod.sh $VERSION"
     echo "[DRY RUN] Would generate go.sum files for the Go SDK"
     echo "[DRY RUN] Would create temporary directory and copy SDK files"
     echo "[DRY RUN] Would run go mod tidy for main and castai modules"
     echo "[DRY RUN] Would copy go.sum files back to the original location"
-    echo "✅ Go SDK go.sum files would be generated (dry run)"
+    echo "✅ Go SDK go.mod and go.sum files would be generated (dry run)"
   fi
 elif [[ "$SKIP_BUILD" == "true" ]]; then
-  echo "Skipping go.sum generation as requested"
-  echo "✅ Go SDK go.sum generation skipped"
+  echo "Skipping go.mod and go.sum generation as requested"
+  echo "✅ Go SDK go.mod and go.sum generation skipped"
 else
+  # Generate go.mod files
+  echo "Generating go.mod files..."
+  ./scripts/generate_go_mod.sh "$VERSION"
+
   # Create a temporary directory for generating go.sum files
   mkdir -p /tmp/go-sdk-temp
   cp -r sdk/go /tmp/go-sdk-temp/
@@ -172,7 +178,7 @@ else
   ls -la sdk/go/go.sum || echo "Warning: go.sum not found for main module"
   ls -la sdk/go/castai/go.sum || echo "Warning: go.sum not found for castai module"
 
-  echo "✅ Go SDK go.sum files generated"
+  echo "✅ Go SDK go.mod and go.sum files generated"
 fi
 
 # Step 6: Commit changes
@@ -205,22 +211,32 @@ else
 fi
 echo "✅ Changes pushed"
 
-# Step 8: Create and push tags AFTER code changes
-echo "Creating tags for version $VERSION..."
+# Step 8: Create and push tag AFTER code changes
+echo "Creating tag v$VERSION..."
 if [[ "$DRY_RUN" == "true" ]]; then
-  echo "[DRY RUN] Would run: ./scripts/create_go_tags.sh $VERSION"
+  echo "[DRY RUN] Would run: git tag \"v$VERSION\""
 else
-  # Use the create_go_tags.sh script to create both the main version tag and the Go SDK tag
-  ./scripts/create_go_tags.sh "$VERSION"
+  git tag "v$VERSION"
 fi
-echo "✅ Tags created"
+echo "✅ Tag created"
 
-# Note: The create_go_tags.sh script already asks if the user wants to push the tags
+# Ask user if they want to push the tag now
+if [[ "$DRY_RUN" == "true" ]]; then
+  echo "[DRY RUN] Would ask: Do you want to push the tag now to trigger the release pipeline? (y/n)"
+  echo "[DRY RUN] Would run: git push origin \"v$VERSION\" (if user answers yes)"
+else
+  read -p "Do you want to push the tag now to trigger the release pipeline? (y/n): " PUSH_TAG
+  if [[ "$PUSH_TAG" == "y" || "$PUSH_TAG" == "Y" ]]; then
+    echo "Pushing tag v$VERSION..."
+    git push origin "v$VERSION"
+    echo "✅ Tag pushed. The GitHub workflow will now handle the rest of the publishing process."
+  else
+    echo "Tag not pushed. You can push it later with: git push origin v$VERSION"
+  fi
+fi
 
 echo "IMPORTANT: Always push the code changes BEFORE pushing the tag to ensure the pipeline has access to the latest code."
 
 echo "Once the workflow completes, the Go SDK should be available at:"
-echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION (main version tag)"
-echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION-sdk.go.castai (Go SDK tag)"
+echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
 echo "Note: It may take a few minutes for pkg.go.dev to index the new version after the workflow completes."
-echo "The Go SDK tag (v$VERSION-sdk.go.castai) is specifically formatted to work with Go's module system."
