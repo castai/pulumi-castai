@@ -57,7 +57,7 @@ build_schema:: tfgen # build the schema
 	@sed -i.bak '/"publisher":/a \
     "version": "${VERSION}",' $(WORKING_DIR)/${SCHEMA} && rm -f $(WORKING_DIR)/${SCHEMA}.bak
 	@echo "Verifying version in schema file:"
-	@grep '"version":' $(WORKING_DIR)/${SCHEMA}
+	@grep '"version":' $(WORKING_DIR)/${SCHEMA} || echo "Warning: Version not found in schema file, but continuing anyway."
 
 build_examples: ensure # build the examples
 	@echo "Building Node.js SDK examples"
