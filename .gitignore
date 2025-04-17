@@ -16,6 +16,11 @@ bin/
 !sdk/dotnet/bin/Release/
 !sdk/dotnet/bin/Release/CASTAI.Pulumi.*.nupkg
 
+# But ignore other .NET build artifacts
+sdk/dotnet/bin/Debug/
+sdk/dotnet/bin/Release/net6.0/
+sdk/dotnet/obj/
+
 # SDKs
 # sdk/*
 # sdk/*/bin
