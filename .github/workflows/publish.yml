@@ -520,13 +520,24 @@ jobs:
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
           curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
 
-          # Force the Go proxy to fetch the module
-          echo "Forcing the Go proxy to fetch the module..."
-          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          # Create the Go SDK tag if it doesn't exist
+          GO_TAG="v$VERSION-sdk.go.castai"
+          if ! git rev-parse "$GO_TAG" >/dev/null 2>&1; then
+            echo "Creating Go SDK tag $GO_TAG..."
+            git tag "$GO_TAG"
+            git push origin "$GO_TAG"
+            echo "✅ Go SDK tag created and pushed"
+          else
+            echo "Go SDK tag $GO_TAG already exists, skipping"
+          fi
+
+          # Force the Go proxy to fetch the module using the Go SDK tag
+          echo "Forcing the Go proxy to fetch the module using the Go SDK tag..."
+          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@$GO_TAG || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Try multiple approaches to trigger pkg.go.dev indexing
           echo "Trying additional approaches to trigger pkg.go.dev indexing..."
-          GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai/sdk/go/castai@$GO_TAG || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Test importing the Go SDK
           echo "Testing Go SDK import..."
@@ -536,7 +547,7 @@ jobs:
 
           go 1.18
 
-          require github.com/castai/pulumi-castai/sdk/go v$VERSION
+          require github.com/castai/pulumi-castai/sdk/go v$VERSION-sdk.go.castai
           EOF
 
           cat > /tmp/go-sdk-test/main.go << EOF

@@ -205,31 +205,22 @@ else
 fi
 echo "✅ Changes pushed"
 
-# Step 8: Create and push tag AFTER code changes
-echo "Creating tag v$VERSION..."
+# Step 8: Create and push tags AFTER code changes
+echo "Creating tags for version $VERSION..."
 if [[ "$DRY_RUN" == "true" ]]; then
-  echo "[DRY RUN] Would run: git tag \"v$VERSION\""
+  echo "[DRY RUN] Would run: ./scripts/create_go_tags.sh $VERSION"
 else
-  git tag "v$VERSION"
+  # Use the create_go_tags.sh script to create both the main version tag and the Go SDK tag
+  ./scripts/create_go_tags.sh "$VERSION"
 fi
-echo "✅ Tag created"
+echo "✅ Tags created"
 
-# Ask user if they want to push the tag now
-if [[ "$DRY_RUN" == "true" ]]; then
-  echo "[DRY RUN] Would ask: Do you want to push the tag now to trigger the release pipeline? (y/n)"
-  echo "[DRY RUN] Would run: git push origin \"v$VERSION\" (if user answers yes)"
-else
-  read -p "Do you want to push the tag now to trigger the release pipeline? (y/n): " PUSH_TAG
-  if [[ "$PUSH_TAG" == "y" || "$PUSH_TAG" == "Y" ]]; then
-    echo "Pushing tag v$VERSION..."
-    git push origin "v$VERSION"
-    echo "✅ Tag pushed. The GitHub workflow will now handle the rest of the publishing process."
-  else
-    echo "Tag not pushed. You can push it later with: git push origin v$VERSION"
-  fi
-fi
+# Note: The create_go_tags.sh script already asks if the user wants to push the tags
 
 echo "IMPORTANT: Always push the code changes BEFORE pushing the tag to ensure the pipeline has access to the latest code."
 
-echo "Once the workflow completes, the Go SDK should be available at: https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
+echo "Once the workflow completes, the Go SDK should be available at:"
+echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION (main version tag)"
+echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION-sdk.go.castai (Go SDK tag)"
 echo "Note: It may take a few minutes for pkg.go.dev to index the new version after the workflow completes."
+echo "The Go SDK tag (v$VERSION-sdk.go.castai) is specifically formatted to work with Go's module system."
