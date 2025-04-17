@@ -1,302 +1,33 @@
-name: Release and Publish
+name: Publish
+
 on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to publish (without v prefix, leave empty for auto-bump)'
-        required: false
-        default: ''
-
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
-  PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
 jobs:
-  # First job to determine version and update version files
-  prepare:
-    name: Prepare Release
+  publish:
+    name: Publish SDKs
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.get-version.outputs.version }}
-      next_version: ${{ env.NEXT_VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get Version
+      - name: Extract version from tag
         id: get-version
         run: |
-          CURRENT_VERSION=$(cat version.txt)
-          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
-
-          # Check if this is a tag push or manual trigger
-          if [[ $GITHUB_REF == refs/tags/* ]]; then
-            echo "Running from tag push"
-            TAG_VERSION=${GITHUB_REF#refs/tags/v}
-            echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
-            IS_TAG=true
-
-            # Auto-bump patch version for next release
-            IFS='.' read -r MAJOR MINOR PATCH <<< "$TAG_VERSION"
-            NEXT_PATCH=$((PATCH + 1))
-            NEXT_VERSION="$MAJOR.$MINOR.$NEXT_PATCH"
-            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
-
-            # Use the tag version for this release
-            VERSION="$TAG_VERSION"
-          elif [[ -n "${{ github.event.inputs.version }}" ]]; then
-            echo "Running from manual trigger with specified version"
-            VERSION="${{ github.event.inputs.version }}"
-            echo "TAG_VERSION=$VERSION" >> $GITHUB_ENV
-            IS_TAG=true
-
-            # Calculate next version
-            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-            NEXT_PATCH=$((PATCH + 1))
-            NEXT_VERSION="$MAJOR.$MINOR.$NEXT_PATCH"
-            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
-          else
-            echo "Running from manual trigger with auto-bump"
-            # Auto-bump patch version
-            IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
-            PATCH=$((PATCH + 1))
-            VERSION="$MAJOR.$MINOR.$PATCH"
-            echo "TAG_VERSION=$VERSION" >> $GITHUB_ENV
-            IS_TAG=true
-
-            # Calculate next version
-            NEXT_PATCH=$((PATCH + 1))
-            NEXT_VERSION="$MAJOR.$MINOR.$NEXT_PATCH"
-            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
-          fi
-
+          # Extract version from tag (remove 'v' prefix)
+          VERSION=${GITHUB_REF#refs/tags/v}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "IS_TAG=$IS_TAG" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Using version: $VERSION"
 
-      - name: Verify and Update Version
-        run: ./scripts/verify_and_update_version.sh "$VERSION" "$TAG_VERSION" "$CURRENT_VERSION" "$NEXT_VERSION" "$GITHUB_REF" "$IS_TAG" "${{ secrets.GITHUB_TOKEN }}"
-        env:
-          MANUAL_VERSION: "${{ github.event.inputs.version }}"
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # Build provider binaries for all supported architectures
-  build-provider:
-    name: Build Provider for ${{ matrix.os }}-${{ matrix.arch }}
-    needs: prepare
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [darwin, linux, windows]
-        arch: [amd64, arm64]
-        exclude:
-          # Exclude Windows ARM64 as it's not a requested target
-          - os: windows
-            arch: arm64
-    env:
-      VERSION: ${{ needs.prepare.outputs.version }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.22.x'
-          check-latest: true
-
-      - name: Install Pulumi CLI
+      - name: Verify SDKs exist
         run: |
-          curl -fsSL https://get.pulumi.com | sh
-          export PATH=$PATH:$HOME/.pulumi/bin
-          echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
-
-      - name: Set up environment for cross-compilation
-        run: |
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "GOOS=${{ matrix.os }}" >> $GITHUB_ENV
-          echo "GOARCH=${{ matrix.arch }}" >> $GITHUB_ENV
-
-          # Set file extension for Windows
-          if [[ "${{ matrix.os }}" == "windows" ]]; then
-            echo "BINARY_EXT=.exe" >> $GITHUB_ENV
-          else
-            echo "BINARY_EXT=" >> $GITHUB_ENV
-          fi
-
-      - name: Fix version placeholders
-        run: |
-          # Fix version placeholder in resources.go and version.go
-          echo "Fixing version placeholders..."
-          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
-
-          # Run go mod tidy in the provider directory first
-          cd provider && go mod tidy
-
-      - name: Build Provider Binary
-        run: |
-          # Debug Go installation
-          which go || echo "Go not found"
-          go version || echo "Go version command failed"
-
-          # Make sure GO is in the path
-          export PATH=$PATH:$(go env GOPATH)/bin
-          echo "$PATH" >> $GITHUB_PATH
-
-          # Build the provider with cross-compilation
-          echo "Building provider for $GOOS-$GOARCH..."
-          cd provider/cmd/pulumi-resource-castai && \
-          GOOS=$GOOS GOARCH=$GOARCH go build -o $(pwd)/../../../bin/pulumi-resource-castai${BINARY_EXT} \
-          -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
-
-      # For Linux amd64 only, also build the tfgen binary needed for SDK generation
-      - name: Build tfgen binary (Linux amd64 only)
-        if: matrix.os == 'linux' && matrix.arch == 'amd64'
-        run: |
-          echo "Building tfgen binary for SDK generation..."
-          cd provider/cmd/pulumi-tfgen-castai && \
-          go build -o $(pwd)/../../../bin/pulumi-tfgen-castai \
-          -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
-
-          # Create a separate artifact for the tfgen binary
-          mkdir -p tfgen-release/
-          tar -czf tfgen-release/pulumi-tfgen-castai-v${VERSION}.tar.gz -C $(pwd)/../../../bin pulumi-tfgen-castai
-
-          # Verify the artifact was created
-          echo "Verifying tfgen artifact was created:"
-          ls -la tfgen-release/
-
-      - name: Upload tfgen binary (Linux amd64 only)
-        if: matrix.os == 'linux' && matrix.arch == 'amd64'
-        uses: actions/upload-artifact@v4
-        with:
-          name: tfgen-binary
-          path: tfgen-release/
-          retention-days: 1
-          if-no-files-found: warn  # Don't fail if no files are found
-
-      - name: Create Release Asset
-        run: |
-          mkdir -p release/
-          FILENAME=pulumi-resource-castai-v${VERSION}-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
-
-          # For Windows, use zip instead of tar
-          if [[ "${{ matrix.os }}" == "windows" ]]; then
-            FILENAME=pulumi-resource-castai-v${VERSION}-${{ matrix.os }}-${{ matrix.arch }}.zip
-            zip -j release/${FILENAME} bin/pulumi-resource-castai${BINARY_EXT}
-          else
-            tar -czf release/${FILENAME} -C bin pulumi-resource-castai${BINARY_EXT}
-          fi
-
-          echo "Created release asset: ${FILENAME}"
-
-      - name: Upload Release Asset
-        uses: actions/upload-artifact@v4
-        with:
-          name: provider-${{ matrix.os }}-${{ matrix.arch }}
-          path: release/
-          retention-days: 1
-          if-no-files-found: warn  # Don't fail if no files are found
-
-  # Build SDKs and publish packages
-  publish:
-    name: Publish SDKs and Release
-    needs: [prepare, build-provider]
-    runs-on: ubuntu-latest
-    env:
-      VERSION: ${{ needs.prepare.outputs.version }}
-      NEXT_VERSION: ${{ needs.prepare.outputs.next_version }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Setup Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.22.x'
-          check-latest: true
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-
-      - name: Install Pulumi CLI
-        run: |
-          curl -fsSL https://get.pulumi.com | sh
-          export PATH=$PATH:$HOME/.pulumi/bin
-          echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
-
-      - name: Download All Release Assets
-        uses: actions/download-artifact@v4
-        with:
-          path: release-artifacts/
-
-      - name: Prepare for SDK generation
-        run: |
-          # Fix version placeholder in resources.go and version.go
-          echo "Fixing version placeholders..."
-          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
-
-          # Create bin directory if it doesn't exist
-          mkdir -p bin
-
-          # We'll use the linux-amd64 build for SDK generation
-          # This is just for generating the SDKs, not for the final release assets
-          echo "Using linux-amd64 build for SDK generation..."
-
-      - name: Extract tfgen binary for SDK generation
-        run: |
-          # Extract the tfgen binary from the artifact
-          echo "Extracting tfgen binary for SDK generation..."
-
-          # List all artifacts to debug
-          echo "Available artifacts:"
-          find release-artifacts -type f | sort
-
-          # Try to find the tfgen binary in any of the artifacts
-          TFGEN_ARCHIVE=$(find release-artifacts -name "pulumi-tfgen-castai-v${VERSION}.tar.gz" -type f | head -n 1)
-
-          if [ -n "$TFGEN_ARCHIVE" ]; then
-            echo "Found tfgen binary at $TFGEN_ARCHIVE"
-            tar -xzf "$TFGEN_ARCHIVE" -C bin/
-            chmod +x bin/pulumi-tfgen-castai
-            echo "tfgen binary extracted successfully."
-            ls -la bin/
-          else
-            echo "Warning: tfgen binary not found in artifacts. Building it locally..."
-
-            # Build the tfgen binary locally as a fallback
-            echo "Building tfgen binary locally..."
-            cd provider/cmd/pulumi-tfgen-castai && \
-            go build -o $(pwd)/../../../bin/pulumi-tfgen-castai \
-            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
-
-            cd $(pwd)/../../../
-            chmod +x bin/pulumi-tfgen-castai
-            echo "tfgen binary built successfully."
-            ls -la bin/
-          fi
-
-      - name: Skip Building SDKs
-        run: |
-          # Skip building SDKs in the workflow - they should already be built and committed
-          echo "Skipping SDK build in the workflow - using pre-built SDKs from the repository"
-
-          # Verify that the SDKs exist
+          # Verify that the SDKs exist in the repository
           echo "Verifying SDKs exist in the repository..."
           if [ ! -d "sdk/nodejs" ] || [ ! -d "sdk/python" ] || [ ! -d "sdk/go" ] || [ ! -d "sdk/dotnet" ]; then
             echo "Error: One or more SDK directories are missing. The SDKs should be built and committed before running this workflow."
@@ -307,232 +38,12 @@ jobs:
             [ ! -d "sdk/dotnet" ] && echo "- .NET SDK is missing"
             exit 1
           fi
-
+          
           echo "✅ All SDKs found in the repository."
 
-      - name: Check go.sum files
+      - name: Verify go.sum files
         run: |
-          echo "Checking go.sum files for Go SDK..."
-
-          # Check if go.sum files already exist
-          if [ -f "sdk/go/go.sum" ] && [ -f "sdk/go/castai/go.sum" ]; then
-            echo "✅ go.sum files already exist, skipping generation."
-            echo "Main module go.sum:"
-            ls -la sdk/go/go.sum
-            echo "Castai module go.sum:"
-            ls -la sdk/go/castai/go.sum
-          else
-            echo "One or more go.sum files are missing. Creating them..."
-
-            # Create empty go.sum files as a fallback
-            mkdir -p sdk/go
-            touch sdk/go/go.sum
-            mkdir -p sdk/go/castai
-            touch sdk/go/castai/go.sum
-
-            # Try to generate proper go.sum files
-            echo "Attempting to generate proper go.sum files..."
-
-            # Create a temporary directory for generating go.sum files
-            mkdir -p /tmp/go-sdk-temp
-            cp -r sdk/go /tmp/go-sdk-temp/
-
-            # Generate go.sum for the main module
-            cd /tmp/go-sdk-temp/go
-            go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
-
-            # Generate go.sum for the castai module
-            cd castai
-            go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
-
-            # Copy the go.sum files back to the original location
-            cp -f /tmp/go-sdk-temp/go/go.sum $GITHUB_WORKSPACE/sdk/go/ || echo "No go.sum generated for main module"
-            cp -f /tmp/go-sdk-temp/go/castai/go.sum $GITHUB_WORKSPACE/sdk/go/castai/ || echo "No go.sum generated for castai module"
-
-            # Return to the workspace
-            cd $GITHUB_WORKSPACE
-
-            # Verify go.sum files exist
-            echo "Verifying go.sum files exist:"
-            ls -la sdk/go/go.sum
-            ls -la sdk/go/castai/go.sum
-          fi
-
-      - name: Commit SDK to repository
-        run: |
-          # Configure Git with token-based authentication
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-          # Use the GITHUB_TOKEN for authentication
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-
-          # Check if there are changes to the SDK
-          if [[ -n "$(git status --porcelain sdk/)" ]]; then
-            echo "Changes detected in SDK directory. Committing..."
-
-            # Add and commit the changes
-            git add sdk/
-            git commit -m "Update SDK for version v${VERSION}"
-
-            # Push the changes
-            if [[ $GITHUB_REF == refs/tags/* ]]; then
-              # If triggered by a tag, push to the default branch (main or master)
-              DEFAULT_BRANCH=$(git remote show origin | grep "HEAD branch" | cut -d ":" -f 2 | xargs)
-              echo "Triggered by tag. Pushing to default branch: $DEFAULT_BRANCH"
-
-              # Save the SDK directory to a temporary location
-              echo "Saving SDK directory to temporary location"
-              mkdir -p /tmp/sdk-backup
-              cp -r sdk /tmp/sdk-backup/ || echo "No SDK directory to backup"
-
-              # Remove the untracked schema.json file that causes issues
-              rm -f provider/cmd/pulumi-resource-castai/schema.json
-
-              # Fetch and pull the latest changes from the default branch
-              git fetch origin $DEFAULT_BRANCH
-              git checkout $DEFAULT_BRANCH
-              git pull origin $DEFAULT_BRANCH
-
-              # Restore the SDK directory from the temporary location
-              echo "Restoring SDK directory from temporary location"
-              if [ -d "/tmp/sdk-backup/sdk" ]; then
-                rm -rf sdk || true
-                cp -r /tmp/sdk-backup/sdk .
-
-                # Add and commit the SDK changes
-                git add sdk/
-                git commit -m "Update SDK for version v${VERSION}"
-
-                # Force push to the default branch
-                git push -f origin $DEFAULT_BRANCH
-
-                echo "SDK changes pushed to $DEFAULT_BRANCH"
-              else
-                echo "No SDK directory found in backup, skipping SDK update"
-              fi
-            else
-              # If triggered by a branch push, push to the same branch
-              echo "Pushing to branch: ${GITHUB_REF#refs/heads/}"
-              git push origin HEAD:${GITHUB_REF#refs/heads/}
-            fi
-
-            echo "SDK committed and pushed successfully."
-          else
-            echo "No changes detected in SDK directory. Skipping commit."
-          fi
-
-      - name: Prepare Release Assets
-        run: |
-          mkdir -p release/
-          cp -r release-artifacts/*/* release/
-
-          # Extract the linux-amd64 binary if needed
-          if [ ! -f "bin/pulumi-resource-castai" ] && [ -f "release-artifacts/provider-linux-amd64/pulumi-resource-castai-v${VERSION}-linux-amd64.tar.gz" ]; then
-            echo "Extracting linux-amd64 binary as backup..."
-            tar -xzf release-artifacts/provider-linux-amd64/pulumi-resource-castai-v${VERSION}-linux-amd64.tar.gz -C bin/
-            chmod +x bin/pulumi-resource-castai
-            echo "Binary extracted successfully."
-          fi
-
-          ls -la release/
-
-      - name: Create GitHub Release
-        id: create-release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: release/*
-          draft: false
-          prerelease: false
-          tag_name: v${{ env.VERSION }}
-          body: |
-            # CAST AI Provider v${{ env.VERSION }}
-
-            This release includes the latest updates to the CAST AI Pulumi provider.
-
-            ## Supported Architectures
-            - darwin-amd64
-            - darwin-arm64
-            - linux-amd64
-            - linux-arm64
-            - windows-amd64
-
-            ## Installation
-
-            ### TypeScript/JavaScript
-            ```bash
-            npm install @castai/pulumi
-            ```
-
-            ### Python
-            ```bash
-            pip install pulumi-castai
-            ```
-
-            ### Go
-            ```bash
-            go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}
-            ```
-
-            ## Next Version
-            A PR has been automatically created to bump the version to ${{ env.NEXT_VERSION }} for the next release.
-
-      - name: Fix npm package.json
-        run: |
-          # Make the fix-npm-package.sh script executable
-          chmod +x ./scripts/fix-npm-package.sh
-
-          # Run the script to fix package.json and ensure version consistency
-          ./scripts/fix-npm-package.sh "$VERSION"
-
-          # Check the updated package.json
-          cd sdk/nodejs
-          cat package.json
-          cd ../..
-
-      - name: Publish Node.js Package
-        run: |
-          cd sdk/nodejs
-
-          # Check if the package with this version already exists in npm registry
-          NPM_VERSION=$(npm view @castai/pulumi version 2>/dev/null || echo "not found")
-          if [[ "$NPM_VERSION" == "$VERSION" ]]; then
-            echo "Version $VERSION already exists in npm registry. Incrementing patch version..."
-
-            # Split the version into major, minor, and patch
-            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-
-            # Increment the patch version
-            PATCH=$((PATCH + 1))
-
-            # Create the new version
-            NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-
-            echo "New version: $NEW_VERSION"
-
-            # Update package.json with the new version
-            sed -i "s/\"version\": \"$VERSION\"/\"version\": \"$NEW_VERSION\"/g" package.json
-
-            # Update version.txt with the new version (for future builds)
-            echo -n "$NEW_VERSION" > ../../version.txt
-
-            echo "Updated package.json and version.txt to version $NEW_VERSION"
-          fi
-
-          # Publish the package
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish Python Package
-        run: ./scripts/update_python_version.sh "$VERSION" "${{ secrets.PYPI_PASSWORD }}"
-        env:
-          PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-
-      - name: Publish Go Package
-        run: |
-          # Verify go.sum files exist
-          echo "Verifying go.sum files exist before publishing..."
+          echo "Verifying go.sum files exist..."
           if [ ! -f "sdk/go/go.sum" ] || [ ! -f "sdk/go/castai/go.sum" ]; then
             echo "Warning: One or more go.sum files are missing. Creating empty ones as fallback."
             mkdir -p sdk/go
@@ -543,117 +54,128 @@ jobs:
             echo "✅ go.sum files exist, proceeding with publishing."
           fi
 
+      - name: Create GitHub Release
+        id: create-release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: false
+          prerelease: false
+          tag_name: v${{ env.VERSION }}
+          body: |
+            # CAST AI Provider v${{ env.VERSION }}
+            
+            This release includes the latest updates to the CAST AI Pulumi provider.
+            
+            ## Installation
+            
+            ### TypeScript/JavaScript
+            ```bash
+            npm install @castai/pulumi
+            ```
+            
+            ### Python
+            ```bash
+            pip install pulumi-castai
+            ```
+            
+            ### Go
+            ```bash
+            go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}
+            ```
+
+      # Publish Node.js Package
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Fix npm package.json
+        run: |
+          # Make the fix-npm-package.sh script executable
+          chmod +x ./scripts/fix-npm-package.sh
+          
+          # Run the script to fix package.json and ensure version consistency
+          ./scripts/fix-npm-package.sh "$VERSION"
+          
+          # Check the updated package.json
+          cd sdk/nodejs
+          cat package.json
+          cd ../..
+
+      - name: Publish Node.js Package
+        run: |
+          cd sdk/nodejs
+          
+          # Check if the package with this version already exists in npm registry
+          NPM_VERSION=$(npm view @castai/pulumi version 2>/dev/null || echo "not found")
+          if [[ "$NPM_VERSION" == "$VERSION" ]]; then
+            echo "Version $VERSION already exists in npm registry. Skipping publish."
+            exit 0
+          fi
+          
+          # Publish the package
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Publish Python Package
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Publish Python Package
+        run: ./scripts/update_python_version.sh "$VERSION" "${{ secrets.PYPI_PASSWORD }}"
+        env:
+          PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+
+      # Publish Go Package
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22.x'
+          check-latest: true
+
+      - name: Publish Go Package
+        run: |
           # Run the publish script
           ./scripts/publish_go_package.sh "$VERSION"
-
+          
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
           curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
-
+          
           # Force the Go proxy to fetch the module using the version tag
           echo "Forcing the Go proxy to fetch the module using the version tag..."
           GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
-          # Try multiple approaches to trigger pkg.go.dev indexing
-          echo "Trying additional approaches to trigger pkg.go.dev indexing..."
-          GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
-
-          # Test importing the Go SDK
-          echo "Testing Go SDK import..."
-          mkdir -p /tmp/go-sdk-test
-          cat > /tmp/go-sdk-test/go.mod << EOF
-          module test
-
-          go 1.18
-
-          require github.com/castai/pulumi-castai/sdk/go v$VERSION
-          EOF
-
-          cat > /tmp/go-sdk-test/main.go << EOF
-          package main
-
-          import (
-            "fmt"
-            "github.com/castai/pulumi-castai/sdk/go/castai"
-          )
-
-          func main() {
-            fmt.Println("Testing import of github.com/castai/pulumi-castai/sdk/go/castai")
-
-            // Actually use the package to avoid the "imported and not used" error
-            // Use a function from the package
-            _ = castai.NewProvider
-          }
-          EOF
-
-          # Create an empty go.sum file first
-          touch /tmp/go-sdk-test/go.sum
-
-          cd /tmp/go-sdk-test
-
-          # Try different approaches to resolve dependencies
-          echo "Trying different approaches to resolve dependencies..."
-
-          # Approach 1: Standard go mod tidy
-          go mod tidy || echo "Note: Standard go mod tidy failed, but we'll continue"
-
-          # Approach 2: Use GOPROXY
-          GOPROXY=https://proxy.golang.org go mod tidy || echo "Note: go mod tidy with GOPROXY failed, but we'll continue"
-
-          # Approach 3: Use direct replacement
-          echo "replace github.com/castai/pulumi-castai/sdk/go => $GITHUB_WORKSPACE/sdk/go" >> go.mod
-          go mod tidy || echo "Note: go mod tidy with replacement failed, but we'll continue"
-
-          # Ensure go.sum exists
-          if [ ! -f "go.sum" ]; then
-            echo "Warning: go.sum was not created. Creating it manually..."
-            touch go.sum
-          fi
-
-          # Try to build with various approaches
-          go build || echo "Note: Standard build failed, but we'll continue"
-          GOPROXY=https://proxy.golang.org go build || echo "Note: Build with GOPROXY failed, but we'll continue"
-
-          # Even if the build fails, we'll continue with the workflow
-
-          echo "The Go package should be available at https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION after indexing (which may take some time)."
-          echo "If the package is still not available after some time, please check that the repository is public and the module structure is correct."
-
+      # Publish .NET Package
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.0.x'
 
-      - name: Verify .NET SDK
-        run: |
-          # Verify that the .NET SDK exists and is ready for publishing
-          echo "Verifying .NET SDK exists in the repository..."
-          if [ ! -d "sdk/dotnet" ]; then
-            echo "Error: .NET SDK directory is missing. The SDK should be built and committed before running this workflow."
-            exit 1
-          fi
-
-          # Check if the .nupkg file exists
-          if [ ! -f "sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg" ]; then
-            echo "Warning: .NET package file not found at expected location. Will attempt to create it."
-          else
-            echo "✅ .NET SDK package found and ready for publishing."
-          fi
-
       - name: Publish .NET Package
         run: |
-          # Check if the .nupkg file exists
-          if [ ! -f "sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg" ]; then
-            echo "Building .NET package before publishing..."
-            cd sdk/dotnet && dotnet pack -o nupkg -p:Version=${VERSION}
-            mkdir -p bin/Debug
-            cp nupkg/CASTAI.Pulumi.${VERSION}.nupkg bin/Debug/
-            cd ../..
+          # Find the .nupkg file
+          NUPKG_FILE=$(find sdk/dotnet -name "CASTAI.Pulumi.${VERSION}.nupkg" | head -n 1)
+          
+          if [ -z "$NUPKG_FILE" ]; then
+            echo "Warning: .NET package file not found for version ${VERSION}."
+            echo "Looking for any .nupkg file..."
+            NUPKG_FILE=$(find sdk/dotnet -name "*.nupkg" | sort | tail -n 1)
           fi
-
+          
+          if [ -z "$NUPKG_FILE" ]; then
+            echo "Error: No .nupkg files found. Cannot publish .NET package."
+            exit 1
+          fi
+          
+          echo "Found .nupkg file: $NUPKG_FILE"
+          
           # Publish the package
           echo "Publishing .NET package to NuGet..."
-          dotnet nuget push sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json
+          dotnet nuget push "$NUPKG_FILE" --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
-
