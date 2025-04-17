@@ -55,21 +55,29 @@ echo "Building provider and generating schema..."
 if [[ "$DRY_RUN" == "true" ]]; then
   if [[ "$SKIP_BUILD" == "true" ]]; then
     echo "[DRY RUN] Would skip provider build steps as requested"
+    echo "[DRY RUN] Would still ensure schema.json is copied to provider/sdk/schema"
     echo "✅ Provider build steps would be skipped (dry run)"
   else
     echo "[DRY RUN] Would check if provider binary exists and build if needed"
     echo "[DRY RUN] Would run: make clean, make provider, make build_schema (if needed)"
+    echo "[DRY RUN] Would ensure schema.json is copied to provider/sdk/schema"
     echo "✅ Provider build steps would be executed (dry run)"
   fi
 elif [[ "$SKIP_BUILD" == "true" ]]; then
   echo "Skipping provider build steps as requested"
-  echo "✅ Provider build steps skipped"
+  # Even when skipping build, always ensure schema.json is copied to provider/sdk/schema
+  echo "Ensuring schema.json is copied to provider/sdk/schema..."
+  ./scripts/copy_schema.sh
+  echo "✅ Provider build steps skipped, but schema.json copied"
 else
   # Check if the provider binary already exists
   if [ -f "bin/pulumi-resource-castai" ] && [ -f "schema.json" ]; then
     echo "Provider binary and schema already exist, checking if they match the current version"
     if grep -q "$VERSION" bin/pulumi-resource-castai; then
       echo "Provider binary matches current version, skipping build"
+      # Even when skipping build, always ensure schema.json is copied to provider/sdk/schema
+      echo "Ensuring schema.json is copied to provider/sdk/schema..."
+      ./scripts/copy_schema.sh
     else
       echo "Provider binary does not match current version, rebuilding"
       make clean
@@ -171,10 +179,15 @@ fi
 echo "Committing changes..."
 if [[ "$DRY_RUN" == "true" ]]; then
   echo "[DRY RUN] Would run: git add version.txt provider/pkg/version/version.go"
+  echo "[DRY RUN] Would run: git add provider/sdk/schema/schema.json (if it exists)"
   echo "[DRY RUN] Would run: git add sdk/ (if it exists)"
   echo "[DRY RUN] Would run: git commit -m \"Prepare release v$VERSION\""
 else
   git add version.txt provider/pkg/version/version.go
+  # Add the schema.json file if it exists
+  if [ -f "provider/sdk/schema/schema.json" ]; then
+    git add provider/sdk/schema/schema.json
+  fi
   # Only add sdk/ if it exists
   if [ -d "sdk" ]; then
     git add sdk/
