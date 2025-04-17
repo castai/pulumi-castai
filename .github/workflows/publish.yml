@@ -292,7 +292,10 @@ jobs:
           fi
 
       - name: Build SDKs
-        run: make build_sdks
+        run: |
+          # Always build SDKs in the workflow
+          echo "Building SDKs in the workflow"
+          make build_sdks
 
       - name: Generate go.sum files
         run: |
@@ -354,9 +357,10 @@ jobs:
               DEFAULT_BRANCH=$(git remote show origin | grep "HEAD branch" | cut -d ":" -f 2 | xargs)
               echo "Triggered by tag. Pushing to default branch: $DEFAULT_BRANCH"
 
-              # Stash the SDK changes
-              git add sdk/
-              git stash
+              # Save the SDK directory to a temporary location
+              echo "Saving SDK directory to temporary location"
+              mkdir -p /tmp/sdk-backup
+              cp -r sdk /tmp/sdk-backup/ || echo "No SDK directory to backup"
 
               # Remove the untracked schema.json file that causes issues
               rm -f provider/cmd/pulumi-resource-castai/schema.json
@@ -366,23 +370,23 @@ jobs:
               git checkout $DEFAULT_BRANCH
               git pull origin $DEFAULT_BRANCH
 
-              # Apply the stashed changes, overwriting any conflicts
-              git stash apply --index
+              # Restore the SDK directory from the temporary location
+              echo "Restoring SDK directory from temporary location"
+              if [ -d "/tmp/sdk-backup/sdk" ]; then
+                rm -rf sdk || true
+                cp -r /tmp/sdk-backup/sdk .
 
-              # If there are conflicts, resolve them by taking our version
-              if git diff --name-only --diff-filter=U | grep -q .; then
-                echo "Conflicts detected, resolving by taking our version"
-                git checkout --theirs .
+                # Add and commit the SDK changes
                 git add sdk/
+                git commit -m "Update SDK for version v${VERSION}"
+
+                # Force push to the default branch
+                git push -f origin $DEFAULT_BRANCH
+
+                echo "SDK changes pushed to $DEFAULT_BRANCH"
+              else
+                echo "No SDK directory found in backup, skipping SDK update"
               fi
-
-              # Commit the changes
-              git commit -m "Update SDK for version v${VERSION}"
-
-              # Force push to the default branch
-              git push -f origin $DEFAULT_BRANCH
-
-              echo "SDK changes pushed to $DEFAULT_BRANCH"
             else
               # If triggered by a branch push, push to the same branch
               echo "Pushing to branch: ${GITHUB_REF#refs/heads/}"
