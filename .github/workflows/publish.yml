@@ -212,14 +212,22 @@ jobs:
 
       - name: Publish .NET Package
         run: |
-          # The .nupkg file is always in the same location after running prepare_release.sh
-          NUPKG_FILE="sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg"
+          # Check for the .nupkg file in both Debug and Release directories
+          DEBUG_NUPKG="sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg"
+          RELEASE_NUPKG="sdk/dotnet/bin/Release/CASTAI.Pulumi.${VERSION}.nupkg"
 
-          # Check if the file exists
-          if [ ! -f "$NUPKG_FILE" ]; then
-            echo "Error: .NET package file not found at expected location: $NUPKG_FILE"
-            echo "Contents of sdk/dotnet/bin/Debug directory:"
-            ls -la sdk/dotnet/bin/Debug || echo "Directory does not exist"
+          # First check Debug directory
+          if [ -f "$DEBUG_NUPKG" ]; then
+            NUPKG_FILE="$DEBUG_NUPKG"
+            echo "Found .NET package in Debug directory"
+          # Then check Release directory
+          elif [ -f "$RELEASE_NUPKG" ]; then
+            NUPKG_FILE="$RELEASE_NUPKG"
+            echo "Found .NET package in Release directory"
+          else
+            echo "Error: .NET package file not found in Debug or Release directories"
+            echo "Contents of sdk/dotnet/bin directory:"
+            find sdk/dotnet/bin -type d -exec ls -la {} \; || echo "Directory does not exist"
 
             # Look for any .nupkg file as a fallback
             echo "Looking for any .nupkg file..."

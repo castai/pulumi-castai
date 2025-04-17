@@ -102,7 +102,7 @@ build_dotnet:: install_dependencies # build the dotnet sdk
 	echo "${VERSION}" > sdk/dotnet/version.txt
 	@echo "Building .NET SDK"
 	cd sdk/dotnet && \
-		dotnet build /p:Version=${VERSION} -v detailed
+		dotnet build /p:Version=${VERSION} -c Release -v detailed
 
 install_dependencies:: # install dependencies for the provider and code generator
 	@echo "Ensure pulumi is installed"
@@ -172,6 +172,6 @@ publish_go:: # publish to GitHub
 publish_dotnet:: # publish to NuGet
 	@echo "Publishing .NET package with version ${VERSION}"
 	cd sdk/dotnet && \
-		dotnet pack -o nupkg -p:Version=${VERSION} --no-build && \
+		dotnet pack -o nupkg -p:Version=${VERSION} -c Release --no-build && \
 		dotnet nuget push nupkg/*.nupkg --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json || \
 		echo "Warning: Failed to publish to NuGet. See error message above."

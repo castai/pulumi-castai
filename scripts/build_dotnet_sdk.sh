@@ -14,7 +14,7 @@ build_dotnet:: install_dependencies
 	rm -rf sdk/dotnet
 	$(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
 	cd sdk/dotnet && \
-		dotnet build /p:Version=${VERSION} -v detailed
+		dotnet build /p:Version=${VERSION} -c Release -v detailed
 EOF
 
 # Build .NET SDK
@@ -29,7 +29,7 @@ echo "Applying post-processing fixes to .NET SDK"
 ./scripts/fix_dotnet_naming.sh
 
 # Build the fixed .NET SDK
-cd sdk/dotnet && dotnet build /p:Version=${VERSION} -v detailed
+cd sdk/dotnet && dotnet build /p:Version=${VERSION} -c Release -v detailed
 BUILD_RESULT=$?
 cd ../..
 
@@ -41,4 +41,4 @@ fi
 
 # List the built files to verify
 echo "Listing built .NET SDK files:"
-ls -la sdk/dotnet/bin/Debug/
+ls -la sdk/dotnet/bin/Release/

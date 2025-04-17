@@ -26,7 +26,7 @@ else
 
   # Pack the .NET SDK
   echo "Packing .NET SDK"
-  dotnet pack -o nupkg -p:Version=${VERSION} --no-build -v detailed
+  dotnet pack -o nupkg -p:Version=${VERSION} -c Release --no-build -v detailed
 
   # Verify the package was created
   echo "Verifying package was created"
