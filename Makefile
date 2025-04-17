@@ -56,7 +56,8 @@ build_schema:: tfgen # build the schema
 	# Inject the version line after the 'publisher' line using sed
 	@echo "Injecting version into schema file..."
 	# Use the fix_schema.sh script to add/update the version field
-	@./scripts/fix_schema.sh "${VERSION}" "$(WORKING_DIR)/${SCHEMA}"
+	@./scripts/fix_schema.sh "${VERSION}" "$(WORKING_DIR)/provider/cmd/pulumi-resource-castai/schema.json"
+	@cp "$(WORKING_DIR)/provider/cmd/pulumi-resource-castai/schema.json" "$(WORKING_DIR)/${SCHEMA}"
 	@echo "Verifying version in schema file:"
 	@grep '"version":' $(WORKING_DIR)/${SCHEMA} || echo "Warning: Version not found in schema file, but continuing anyway."
 
