@@ -4,7 +4,7 @@ terraform-provider-castai-master/*
 .cursor/*
 
 # Build artifacts
-bin/
+/bin/
 # Ignore schema.json in the root directory but not in the provider/sdk/schema directory
 /schema.json
 **/pulumiSchema.*
@@ -55,6 +55,12 @@ gcp-credentials.json
 *.zip
 *.tar
 
-bin/*
+# Explicitly include the SDK directories
+!sdk/
+!sdk/go/
+!sdk/go/castai/
+!sdk/nodejs/
+!sdk/python/
+!sdk/dotnet/
 
 google-cloud-sdk/
