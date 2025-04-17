@@ -358,6 +358,9 @@ jobs:
               git add sdk/
               git stash
 
+              # Remove the untracked schema.json file that causes issues
+              rm -f provider/cmd/pulumi-resource-castai/schema.json
+
               # Fetch and pull the latest changes from the default branch
               git fetch origin $DEFAULT_BRANCH
               git checkout $DEFAULT_BRANCH
