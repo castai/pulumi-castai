@@ -80,7 +80,7 @@ jobs:
 
             ### Go
             ```bash
-            go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}
+            go get github.com/castai/pulumi-castai@v${{ env.VERSION }}
             ```
 
       # Publish Node.js Package
@@ -163,7 +163,7 @@ jobs:
 
           go 1.18
 
-          require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
+          require github.com/castai/pulumi-castai v$VERSION
           EOF
 
           # Create a simple Go file that imports the SDK
@@ -183,7 +183,7 @@ jobs:
 
           # Try to download the module
           echo "Downloading the module..."
-          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Try to tidy the module
           echo "Running go mod tidy..."
@@ -198,11 +198,11 @@ jobs:
 
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-          curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
+          curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=doc"
 
           # Force the Go proxy to fetch the module using the version tag
           echo "Forcing the Go proxy to fetch the module using the version tag..."
-          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
       # Publish .NET Package
       - name: Setup .NET

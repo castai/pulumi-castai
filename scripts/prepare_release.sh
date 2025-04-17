@@ -263,5 +263,5 @@ fi
 echo "IMPORTANT: Always push the code changes BEFORE pushing the tag to ensure the pipeline has access to the latest code."
 
 echo "Once the workflow completes, the Go SDK should be available at:"
-echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
+echo "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
 echo "Note: It may take a few minutes for pkg.go.dev to index the new version after the workflow completes."
