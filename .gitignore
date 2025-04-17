@@ -4,12 +4,17 @@ terraform-provider-castai-master/*
 .cursor/*
 
 # Build artifacts
-/bin/
+bin/
 # Ignore schema.json in the root directory but not in the provider/sdk/schema directory
 /schema.json
 **/pulumiSchema.*
 # Don't ignore the schema.json in the provider/sdk/schema directory
 !provider/sdk/schema/schema.json
+
+# Don't ignore the .NET SDK Release folder and .nupkg files
+!sdk/dotnet/bin/
+!sdk/dotnet/bin/Release/
+!sdk/dotnet/bin/Release/CASTAI.Pulumi.*.nupkg
 
 # SDKs
 # sdk/*
