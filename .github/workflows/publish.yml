@@ -131,16 +131,24 @@ jobs:
             echo "BINARY_EXT=" >> $GITHUB_ENV
           fi
 
-      - name: Fix version placeholders
+      - name: Check if version.go is already updated
+        id: check-version
         run: |
-          # Fix version placeholder in resources.go and version.go
-          echo "Fixing version placeholders..."
-          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
+          # Check if version.go already has the correct version
+          if grep -q "${VERSION}" ./provider/pkg/version/version.go; then
+            echo "Version already set in version.go, skipping placeholder replacement"
+            echo "skip_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "Fixing version placeholders..."
+            find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
+            echo "skip_build=false" >> $GITHUB_OUTPUT
 
-          # Run go mod tidy in the provider directory first
-          cd provider && go mod tidy
+            # Run go mod tidy in the provider directory
+            cd provider && go mod tidy
+          fi
 
       - name: Build Provider Binary
+        if: steps.check-version.outputs.skip_build != 'true'
         run: |
           # Debug Go installation
           which go || echo "Go not found"
@@ -150,6 +158,12 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           echo "$PATH" >> $GITHUB_PATH
 
+          # Check if go.work references non-existent SDK directories and fix it if needed
+          if grep -q "sdk/go" go.work; then
+            echo "Fixing go.work file to remove references to non-existent SDK directories..."
+            sed -i '/sdk\/go/d' go.work
+          fi
+
           # Build the provider with cross-compilation
           echo "Building provider for $GOOS-$GOARCH..."
           cd provider/cmd/pulumi-resource-castai && \
@@ -158,9 +172,16 @@ jobs:
 
       # For Linux amd64 only, also build the tfgen binary needed for SDK generation
       - name: Build tfgen binary (Linux amd64 only)
-        if: matrix.os == 'linux' && matrix.arch == 'amd64'
+        if: matrix.os == 'linux' && matrix.arch == 'amd64' && steps.check-version.outputs.skip_build != 'true'
         run: |
           echo "Building tfgen binary for SDK generation..."
+
+          # Check if go.work references non-existent SDK directories and fix it if needed
+          if grep -q "sdk/go" go.work; then
+            echo "Fixing go.work file to remove references to non-existent SDK directories..."
+            sed -i '/sdk\/go/d' go.work
+          fi
+
           cd provider/cmd/pulumi-tfgen-castai && \
           go build -o $(pwd)/../../../bin/pulumi-tfgen-castai \
           -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
@@ -172,6 +193,37 @@ jobs:
           # Verify the artifact was created
           echo "Verifying tfgen artifact was created:"
           ls -la tfgen-release/
+
+      # For Linux amd64 only, check if tfgen binary already exists
+      - name: Check for existing tfgen binary (Linux amd64 only)
+        if: matrix.os == 'linux' && matrix.arch == 'amd64' && steps.check-version.outputs.skip_build == 'true'
+        run: |
+          echo "Checking for existing tfgen binary..."
+
+          # Check if go.work references non-existent SDK directories and fix it if needed
+          if grep -q "sdk/go" go.work; then
+            echo "Fixing go.work file to remove references to non-existent SDK directories..."
+            sed -i '/sdk\/go/d' go.work
+          fi
+
+          if [ -f "bin/pulumi-tfgen-castai" ]; then
+            echo "Found existing tfgen binary"
+            mkdir -p tfgen-release/
+            tar -czf tfgen-release/pulumi-tfgen-castai-v${VERSION}.tar.gz -C bin pulumi-tfgen-castai
+            echo "Created tfgen artifact from existing binary"
+            ls -la tfgen-release/
+          else
+            echo "No existing tfgen binary found, building it..."
+            cd provider/cmd/pulumi-tfgen-castai && \
+            go build -o $(pwd)/../../../bin/pulumi-tfgen-castai \
+            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+
+            cd $(pwd)/../../../
+            mkdir -p tfgen-release/
+            tar -czf tfgen-release/pulumi-tfgen-castai-v${VERSION}.tar.gz -C bin pulumi-tfgen-castai
+            echo "Created tfgen artifact from newly built binary"
+            ls -la tfgen-release/
+          fi
 
       - name: Upload tfgen binary (Linux amd64 only)
         if: matrix.os == 'linux' && matrix.arch == 'amd64'
@@ -186,6 +238,13 @@ jobs:
         run: |
           mkdir -p release/
           FILENAME=pulumi-resource-castai-v${VERSION}-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
+
+          # Check if we need to build the binary or if it already exists
+          if [[ "${{ steps.check-version.outputs.skip_build }}" == "true" ]]; then
+            echo "Using existing binary for release asset"
+          else
+            echo "Using newly built binary for release asset"
+          fi
 
           # For Windows, use zip instead of tar
           if [[ "${{ matrix.os }}" == "windows" ]]; then
@@ -247,9 +306,13 @@ jobs:
 
       - name: Prepare for SDK generation
         run: |
-          # Fix version placeholder in resources.go and version.go
-          echo "Fixing version placeholders..."
-          find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
+          # Check if version.go already has the correct version
+          if grep -q "${VERSION}" ./provider/pkg/version/version.go; then
+            echo "Version already set in version.go, skipping placeholder replacement"
+          else
+            echo "Fixing version placeholders..."
+            find ./provider -type f -name "*.go" -exec sed -i 's/__VERSION__/${VERSION}/g' {} \;
+          fi
 
           # Create bin directory if it doesn't exist
           mkdir -p bin
@@ -291,8 +354,33 @@ jobs:
             ls -la bin/
           fi
 
+      - name: Check if SDKs already exist
+        id: check-sdks
+        run: |
+          if [ -d "sdk/go/castai" ] && [ -d "sdk/nodejs" ] && [ -d "sdk/python" ]; then
+            echo "SDKs already exist, checking if they match the current version"
+            if grep -q "\"version\": \"${VERSION}\"" sdk/nodejs/package.json; then
+              echo "SDK version matches current version, skipping SDK build"
+              echo "skip_sdk_build=true" >> $GITHUB_OUTPUT
+            else
+              echo "SDK version does not match current version, rebuilding SDKs"
+              echo "skip_sdk_build=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "SDKs do not exist, building them"
+            echo "skip_sdk_build=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build SDKs
-        run: make build_sdks
+        if: steps.check-sdks.outputs.skip_sdk_build != 'true'
+        run: |
+          # Check if go.work references non-existent SDK directories and fix it if needed
+          if grep -q "sdk/go" go.work; then
+            echo "Fixing go.work file to remove references to non-existent SDK directories..."
+            sed -i '/sdk\/go/d' go.work
+          fi
+
+          make build_sdks
 
       - name: Generate go.sum files
         run: |
