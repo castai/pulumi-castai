@@ -24,6 +24,10 @@ set -e
 # The actual publishing is handled by the GitHub workflow
 
 # Get the version from version.txt
+# Save the original directory
+ORIGINAL_DIR=$(pwd)
+
+# Set the version from version.txt
 VERSION=$(cat version.txt | tr -d '\n')
 echo "Using version from version.txt: $VERSION"
 
@@ -158,6 +162,9 @@ else
   mkdir -p /tmp/go-sdk-temp
   cp -r sdk/go /tmp/go-sdk-temp/
 
+  # Save the current directory
+  ORIGINAL_DIR=$(pwd)
+
   # Generate go.sum for the main module
   cd /tmp/go-sdk-temp/go
   go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
@@ -166,12 +173,12 @@ else
   cd castai
   go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
 
-  # Copy the go.sum files back to the original location
-  cp -f /tmp/go-sdk-temp/go/go.sum $(pwd)/../../../sdk/go/ || echo "No go.sum generated for main module"
-  cp -f /tmp/go-sdk-temp/go/castai/go.sum $(pwd)/../../../sdk/go/castai/ || echo "No go.sum generated for castai module"
-
   # Return to the original directory
-  cd $(pwd)/../../../
+  cd "$ORIGINAL_DIR"
+
+  # Copy the go.sum files back to the original location
+  cp -f /tmp/go-sdk-temp/go/go.sum sdk/go/ || echo "No go.sum generated for main module"
+  cp -f /tmp/go-sdk-temp/go/castai/go.sum sdk/go/castai/ || echo "No go.sum generated for castai module"
 
   # Verify go.sum files exist
   echo "Verifying go.sum files exist:"
@@ -189,6 +196,15 @@ if [[ "$DRY_RUN" == "true" ]]; then
   echo "[DRY RUN] Would run: git add sdk/ (if it exists)"
   echo "[DRY RUN] Would run: git commit -m \"Prepare release v$VERSION\""
 else
+  # Make sure we're in the repository root
+  cd "$ORIGINAL_DIR"
+
+  # Check if this is a Git repository
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: Not in a Git repository. Make sure you're running this script from the repository root."
+    exit 1
+  fi
+
   git add version.txt provider/pkg/version/version.go
   # Add the schema.json file if it exists
   if [ -f "provider/sdk/schema/schema.json" ]; then
@@ -207,6 +223,9 @@ echo "Pushing changes to repository..."
 if [[ "$DRY_RUN" == "true" ]]; then
   echo "[DRY RUN] Would run: git push origin HEAD"
 else
+  # Make sure we're in the repository root
+  cd "$ORIGINAL_DIR"
+
   git push origin HEAD
 fi
 echo "✅ Changes pushed"
@@ -216,6 +235,9 @@ echo "Creating tag v$VERSION..."
 if [[ "$DRY_RUN" == "true" ]]; then
   echo "[DRY RUN] Would run: git tag \"v$VERSION\""
 else
+  # Make sure we're in the repository root
+  cd "$ORIGINAL_DIR"
+
   git tag "v$VERSION"
 fi
 echo "✅ Tag created"
@@ -228,6 +250,9 @@ else
   read -p "Do you want to push the tag now to trigger the release pipeline? (y/n): " PUSH_TAG
   if [[ "$PUSH_TAG" == "y" || "$PUSH_TAG" == "Y" ]]; then
     echo "Pushing tag v$VERSION..."
+    # Make sure we're in the repository root
+    cd "$ORIGINAL_DIR"
+
     git push origin "v$VERSION"
     echo "✅ Tag pushed. The GitHub workflow will now handle the rest of the publishing process."
   else
