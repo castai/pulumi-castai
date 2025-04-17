@@ -166,9 +166,10 @@ jobs:
 
           # Build the provider with cross-compilation
           echo "Building provider for $GOOS-$GOARCH..."
-          cd provider/cmd/pulumi-resource-castai && \
-          GOOS=$GOOS GOARCH=$GOARCH go build -o $(pwd)/../../../bin/pulumi-resource-castai${BINARY_EXT} \
-          -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+          cd provider && \
+          GOOS=$GOOS GOARCH=$GOARCH go build -o $(pwd)/../bin/pulumi-resource-castai${BINARY_EXT} \
+          -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+          ./cmd/pulumi-resource-castai
 
       # For Linux amd64 only, also build the tfgen binary needed for SDK generation
       - name: Build tfgen binary (Linux amd64 only)
@@ -182,13 +183,15 @@ jobs:
             sed -i '/sdk\/go/d' go.work
           fi
 
-          cd provider/cmd/pulumi-tfgen-castai && \
-          go build -o $(pwd)/../../../bin/pulumi-tfgen-castai \
-          -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+          cd provider && \
+          go build -o $(pwd)/../bin/pulumi-tfgen-castai \
+          -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+          ./cmd/pulumi-tfgen-castai
 
           # Create a separate artifact for the tfgen binary
+          cd ..
           mkdir -p tfgen-release/
-          tar -czf tfgen-release/pulumi-tfgen-castai-v${VERSION}.tar.gz -C $(pwd)/../../../bin pulumi-tfgen-castai
+          tar -czf tfgen-release/pulumi-tfgen-castai-v${VERSION}.tar.gz -C bin pulumi-tfgen-castai
 
           # Verify the artifact was created
           echo "Verifying tfgen artifact was created:"
@@ -214,11 +217,12 @@ jobs:
             ls -la tfgen-release/
           else
             echo "No existing tfgen binary found, building it..."
-            cd provider/cmd/pulumi-tfgen-castai && \
-            go build -o $(pwd)/../../../bin/pulumi-tfgen-castai \
-            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}"
+            cd provider && \
+            go build -o $(pwd)/../bin/pulumi-tfgen-castai \
+            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+            ./cmd/pulumi-tfgen-castai
 
-            cd $(pwd)/../../../
+            cd ..
             mkdir -p tfgen-release/
             tar -czf tfgen-release/pulumi-tfgen-castai-v${VERSION}.tar.gz -C bin pulumi-tfgen-castai
             echo "Created tfgen artifact from newly built binary"
