@@ -54,8 +54,9 @@ build_schema:: tfgen # build the schema
 	(cd ${PROVIDER_PATH} && $(WORKING_DIR)/bin/${TFGEN} schema > $(WORKING_DIR)/${SCHEMA})
 	@echo "Injecting version into schema file..."
 	# Inject the version line after the 'publisher' line using sed
-	@sed -i.bak '/"publisher":/a \
-    "version": "${VERSION}",' $(WORKING_DIR)/${SCHEMA} && rm -f $(WORKING_DIR)/${SCHEMA}.bak
+	@echo "Injecting version into schema file..."
+	# Use the fix_schema.sh script to add/update the version field
+	@./scripts/fix_schema.sh "${VERSION}" "$(WORKING_DIR)/${SCHEMA}"
 	@echo "Verifying version in schema file:"
 	@grep '"version":' $(WORKING_DIR)/${SCHEMA} || echo "Warning: Version not found in schema file, but continuing anyway."
 
