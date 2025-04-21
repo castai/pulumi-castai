@@ -101,6 +101,9 @@ const k8sProvider = new k8s.Provider("eks-k8s", {
 
 // Install the CAST AI agent using Helm
 const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
+    metadata: {
+        name: "castai-agent", // This will be the exact name used, without a suffix
+    },
     chart: "castai-agent",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
@@ -150,6 +153,9 @@ const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
 
 // Install the CAST AI cluster controller
 const clusterController = new k8s.helm.v3.Release("cluster-controller", {
+    metadata: {
+        name: "cluster-controller", // This will be the exact name used, without a suffix
+    },
     chart: "castai-cluster-controller",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
@@ -188,6 +194,9 @@ const clusterController = new k8s.helm.v3.Release("cluster-controller", {
 
 // Install the CAST AI evictor
 const castaiEvictor = new k8s.helm.v3.Release("castai-evictor", {
+    metadata: {
+        name: "castai-evictor", // This will be the exact name used, without a suffix
+    },
     chart: "castai-evictor",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
@@ -213,6 +222,9 @@ const castaiEvictor = new k8s.helm.v3.Release("castai-evictor", {
 
 // Install the CAST AI pod pinner
 const castaiPodPinner = new k8s.helm.v3.Release("castai-pod-pinner", {
+    metadata: {
+        name: "castai-pod-pinner", // This will be the exact name used, without a suffix
+    },
     chart: "castai-pod-pinner",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
