@@ -1021,7 +1021,7 @@
     "/root/.nuget/packages/": {}
   },
   "project": {
-    "version": "0.1.47",
+    "version": "0.1.48",
     "restore": {
       "projectUniqueName": "/workspaces/pulumi-castai/sdk/dotnet/Pulumi.CastAI.csproj",
       "projectName": "CASTAI.Pulumi",
