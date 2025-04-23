@@ -54,6 +54,86 @@ jobs:
             echo "✅ go.sum files exist, proceeding with publishing."
           fi
 
+      - name: Build Plugin Binaries
+        run: |
+          echo "Building plugin binaries for Linux and Windows platforms..."
+          # Ensure the version.go file has the correct version
+          sed -i.bak "s/__VERSION__/${VERSION}/g" provider/pkg/version/version.go && rm -f provider/pkg/version/version.go.bak
+
+          # Create bin directory if it doesn't exist
+          mkdir -p bin
+
+          # Build for Linux (amd64)
+          echo "Building for Linux (amd64)..."
+          GOOS=linux GOARCH=amd64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64 \
+            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+            ./provider/cmd/pulumi-resource-castai
+
+          # Build for Linux (arm64)
+          echo "Building for Linux (arm64)..."
+          GOOS=linux GOARCH=arm64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64 \
+            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+            ./provider/cmd/pulumi-resource-castai
+
+          # Build for Windows (amd64)
+          echo "Building for Windows (amd64)..."
+          GOOS=windows GOARCH=amd64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe \
+            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+            ./provider/cmd/pulumi-resource-castai
+
+          # Create plugin.json files for each platform
+          echo "Creating plugin.json files..."
+
+          # Linux (amd64)
+          cat > ./bin/plugin.json.linux-amd64 << EOF
+          {
+            "name": "castai",
+            "version": "${VERSION}",
+            "server": "pulumi-resource-castai"
+          }
+          EOF
+
+          # Linux (arm64)
+          cat > ./bin/plugin.json.linux-arm64 << EOF
+          {
+            "name": "castai",
+            "version": "${VERSION}",
+            "server": "pulumi-resource-castai"
+          }
+          EOF
+
+          # Windows (amd64)
+          cat > ./bin/plugin.json.windows-amd64 << EOF
+          {
+            "name": "castai",
+            "version": "${VERSION}",
+            "server": "pulumi-resource-castai.exe"
+          }
+          EOF
+
+          # Create plugin tarballs
+          echo "Creating plugin tarballs..."
+
+          # Linux (amd64)
+          mkdir -p ./bin/dist/linux-amd64
+          cp ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64 ./bin/dist/linux-amd64/pulumi-resource-castai
+          cp ./bin/plugin.json.linux-amd64 ./bin/dist/linux-amd64/plugin.json
+          tar -czf ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64.tar.gz -C ./bin/dist/linux-amd64 .
+
+          # Linux (arm64)
+          mkdir -p ./bin/dist/linux-arm64
+          cp ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64 ./bin/dist/linux-arm64/pulumi-resource-castai
+          cp ./bin/plugin.json.linux-arm64 ./bin/dist/linux-arm64/plugin.json
+          tar -czf ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64.tar.gz -C ./bin/dist/linux-arm64 .
+
+          # Windows (amd64)
+          mkdir -p ./bin/dist/windows-amd64
+          cp ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe ./bin/dist/windows-amd64/pulumi-resource-castai.exe
+          cp ./bin/plugin.json.windows-amd64 ./bin/dist/windows-amd64/plugin.json
+          tar -czf ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.tar.gz -C ./bin/dist/windows-amd64 .
+
+          echo "✅ Plugin binaries built and packaged successfully."
+
       - name: Create GitHub Release
         id: create-release
         uses: softprops/action-gh-release@v1
@@ -61,6 +141,10 @@ jobs:
           draft: false
           prerelease: false
           tag_name: v${{ env.VERSION }}
+          files: |
+            ./bin/pulumi-resource-castai-v${{ env.VERSION }}-linux-amd64.tar.gz
+            ./bin/pulumi-resource-castai-v${{ env.VERSION }}-linux-arm64.tar.gz
+            ./bin/pulumi-resource-castai-v${{ env.VERSION }}-windows-amd64.tar.gz
           body: |
             # CAST AI Provider v${{ env.VERSION }}
 
@@ -199,10 +283,70 @@ jobs:
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
           curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=doc"
+          curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
 
           # Force the Go proxy to fetch the module using the version tag
           echo "Forcing the Go proxy to fetch the module using the version tag..."
           GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+          # Create a second test module to directly test the castai module
+          echo "Creating a second test module to directly test the castai module..."
+          mkdir -p /tmp/go-test2
+          cd /tmp/go-test2
+
+          # Initialize a new Go module
+          cat > go.mod << EOF
+          module test2
+
+          go 1.18
+
+          require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
+          EOF
+
+          # Create a simple Go file that directly imports the castai module
+          cat > main.go << EOF
+          package main
+
+          import (
+            "fmt"
+            "github.com/castai/pulumi-castai/sdk/go/castai"
+          )
+
+          func main() {
+            fmt.Println("Testing direct import of github.com/castai/pulumi-castai/sdk/go/castai")
+            _ = castai.NewProvider
+          }
+          EOF
+
+          # Try to download the module
+          echo "Downloading the castai module..."
+          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+          # Try to tidy the module
+          echo "Running go mod tidy..."
+          GOPROXY=https://proxy.golang.org go mod tidy || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+          # Try to build the module
+          echo "Building the test program..."
+          GOPROXY=https://proxy.golang.org go build || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+          # Explicitly request the package from pkg.go.dev to trigger indexing
+          echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
+          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
+          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go@v$VERSION"
+          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
+
+          # Wait a moment for the requests to be processed
+          sleep 5
+
+          # Make additional requests to ensure the package is indexed
+          echo "Making additional requests to ensure the package is indexed..."
+          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=versions"
+          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=versions"
+
+          # Return to the original directory
+          cd $GITHUB_WORKSPACE
 
       # Publish .NET Package
       - name: Setup .NET

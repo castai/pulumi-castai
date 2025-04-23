@@ -103,8 +103,111 @@ if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION" | grep
 
   # Trigger pkg.go.dev to index the new version
   echo "Triggering pkg.go.dev to index the new version..."
-  echo "Note: This may fail if the repository is not yet public, which is expected."
-  GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai@v$VERSION || echo "Failed to trigger pkg.go.dev indexing, but this is expected if the repository is not yet public."
+
+  # Create a temporary directory for testing the Go SDK
+  TEMP_DIR=$(mktemp -d)
+  cd "$TEMP_DIR"
+
+  # Initialize a new Go module
+  echo "Initializing a temporary Go module to test the SDK..."
+  go mod init test
+
+  # Create a simple Go file that imports the SDK
+  echo "Creating a test file..."
+  cat > main.go << EOF
+  package main
+
+  import (
+    "fmt"
+    "github.com/castai/pulumi-castai/sdk/go/castai"
+  )
+
+  func main() {
+    fmt.Println("Testing import of github.com/castai/pulumi-castai/sdk/go/castai")
+    _ = castai.NewProvider
+  }
+  EOF
+
+  # Add the dependency
+  echo "Adding the dependency..."
+  go mod edit -require=github.com/castai/pulumi-castai@v$VERSION
+
+  # Force the Go proxy to fetch the module
+  echo "Forcing the Go proxy to fetch the module..."
+  GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Try to tidy the module
+  echo "Running go mod tidy..."
+  GOPROXY=https://proxy.golang.org go mod tidy || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Try to build the module
+  echo "Building the test program..."
+  GOPROXY=https://proxy.golang.org go build || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Explicitly request the package from pkg.go.dev to trigger indexing
+  echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
+  curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=doc"
+  curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
+
+  # Force the Go proxy to fetch the module using the version tag
+  echo "Forcing the Go proxy to fetch the module using the version tag..."
+  GOPROXY=https://proxy.golang.org GO111MODULE=on go install github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+  GOPROXY=https://proxy.golang.org GO111MODULE=on go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Return to the original directory
+  cd -
+
+  # Additional step to ensure the Go SDK is properly published
+  echo "Creating a second test module to ensure the Go SDK is properly published..."
+  TEMP_DIR2=$(mktemp -d)
+  cd "$TEMP_DIR2"
+
+  # Initialize a new Go module
+  go mod init test2
+
+  # Create a simple Go file that directly imports the castai module
+  cat > main.go << EOF
+  package main
+
+  import (
+    "fmt"
+    "github.com/castai/pulumi-castai/sdk/go/castai"
+  )
+
+  func main() {
+    fmt.Println("Testing direct import of github.com/castai/pulumi-castai/sdk/go/castai")
+    _ = castai.NewProvider
+  }
+  EOF
+
+  # Add the dependency directly to the castai module
+  go mod edit -require=github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
+
+  # Force the Go proxy to fetch the module
+  GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Try to tidy the module
+  GOPROXY=https://proxy.golang.org go mod tidy || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Try to build the module
+  GOPROXY=https://proxy.golang.org go build || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Return to the original directory
+  cd -
+
+  # Explicitly request the package from pkg.go.dev to trigger indexing
+  echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
+  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
+  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go@v$VERSION"
+  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
+
+  # Wait a moment for the requests to be processed
+  sleep 5
+
+  # Make additional requests to ensure the package is indexed
+  echo "Making additional requests to ensure the package is indexed..."
+  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=versions"
+  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=versions"
 
   echo "Go package has been published to GitHub."
   echo "Users can install it with: go get github.com/castai/pulumi-castai@v$VERSION"

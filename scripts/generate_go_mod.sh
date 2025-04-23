@@ -21,6 +21,10 @@ cat > sdk/go/go.mod << EOF
 module github.com/castai/pulumi-castai/sdk/go
 
 go 1.18
+
+require (
+	github.com/pulumi/pulumi/sdk/v3 v3.94.2
+)
 EOF
 
 # Create the sdk/go/castai/go.mod file
@@ -32,7 +36,7 @@ go 1.18
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
-	github.com/pulumi/pulumi/sdk/v3 v3.0.0
+	github.com/pulumi/pulumi/sdk/v3 v3.94.2
 )
 EOF
 
