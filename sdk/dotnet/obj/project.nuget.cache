@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KOKMuxwL8U2XSH4jpyPthMgdgLGNvz+msYh+KS6w/RzG498d4ekcp+8RDXVDjD7Yzy84xfjqjDWcinRrfvDHug==",
+  "dgSpecHash": "ZLOUX7XoYwdbjXdCUyS2PCUFp+njt3Q4xpZQmW82K5+R++fl/8Ce32hA4on79+21Pei4xtd3zx8au41soIWZ+A==",
   "success": true,
   "projectFilePath": "/workspaces/pulumi-castai/sdk/dotnet/Pulumi.CastAI.csproj",
   "expectedPackageFiles": [

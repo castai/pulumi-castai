@@ -5,7 +5,7 @@
   },
   "projects": {
     "/workspaces/pulumi-castai/sdk/dotnet/Pulumi.CastAI.csproj": {
-      "version": "0.1.49",
+      "version": "0.1.50",
       "restore": {
         "projectUniqueName": "/workspaces/pulumi-castai/sdk/dotnet/Pulumi.CastAI.csproj",
         "projectName": "CASTAI.Pulumi",
