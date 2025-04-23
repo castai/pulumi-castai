@@ -13,8 +13,32 @@ set -a
 source .env
 set +a
 
+# Get the version from version.txt
+VERSION=$(cat version.txt | tr -d '\n')
+echo "Using version from version.txt: $VERSION"
+
+# Ensure the provider is built and installed
+echo "Checking if provider binary exists..."
+if [ ! -f "bin/pulumi-resource-castai" ]; then
+    echo "Provider binary not found. Building provider..."
+    make provider
+    echo "✅ Provider built successfully"
+else
+    echo "Provider binary found"
+fi
+
+# Install the provider plugin
+echo "Installing provider plugin..."
+pulumi plugin install resource castai $VERSION --file ./bin/pulumi-resource-castai --reinstall
+echo "✅ Provider plugin installed successfully"
+
 # Define example directory
 EXAMPLE_DIR="examples/typescript/gcp"
+
+# Install TypeScript example dependencies
+echo "Installing TypeScript example dependencies..."
+cd "$EXAMPLE_DIR" && npm install && cd ../../..
+echo "✅ TypeScript example dependencies installed"
 
 # Authenticate with service account credentials if available
 if [ -n "$GOOGLE_CREDENTIALS" ]; then
@@ -56,6 +80,8 @@ cd "$EXAMPLE_DIR" && \
     fi && \
     # Create a new stack
     PULUMI_CONFIG_PASSPHRASE="${PULUMI_CONFIG_PASSPHRASE}" pulumi stack init gcp-example && \
+    # Set GCP project configuration
+    pulumi config set gcp:project "${GCP_PROJECT_ID}" && \
     # Run the deployment with more debugging
     echo "Running with GCP Project ID: ${GCP_PROJECT_ID}"
     echo "Running with GKE Cluster Name: ${GKE_CLUSTER_NAME}"
@@ -75,6 +101,16 @@ cd "$EXAMPLE_DIR" && \
     export CASTAI_API_URL="${CASTAI_API_URL}"
     export CASTAI_READONLY_MODE="${CASTAI_READONLY_MODE:-true}"
     export PULUMI_SKIP_UPDATE_CHECK=true
+
+    # Clean up any existing CAST AI agent namespace to avoid Helm chart conflicts
+    echo "Checking for existing CAST AI agent namespace..."
+    if kubectl get namespace castai-agent &>/dev/null; then
+        echo "Found existing CAST AI agent namespace, cleaning up..."
+        kubectl delete namespace castai-agent --wait=false
+        echo "Waiting for namespace deletion to complete..."
+        # Wait for the namespace to be deleted (with timeout)
+        timeout 60 bash -c 'until ! kubectl get namespace castai-agent &>/dev/null; do sleep 2; done' || echo "Namespace deletion timed out, continuing anyway"
+    fi
 
     echo "Running Pulumi deployment..."
     echo "This will connect to the GKE cluster and install CAST AI Helm charts."
