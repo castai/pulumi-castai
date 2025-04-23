@@ -1,5 +1,7 @@
 module github.com/castai/pulumi-castai/sdk/go
 
-go 1.23.0
+go 1.18
 
-toolchain go1.23.8
+require (
+	github.com/pulumi/pulumi/sdk/v3 v3.94.2
+)

@@ -5,7 +5,7 @@
   },
   "projects": {
     "/workspaces/pulumi-castai/sdk/dotnet/Pulumi.CastAI.csproj": {
-      "version": "0.1.45",
+      "version": "0.1.46",
       "restore": {
         "projectUniqueName": "/workspaces/pulumi-castai/sdk/dotnet/Pulumi.CastAI.csproj",
         "projectName": "CASTAI.Pulumi",
@@ -54,7 +54,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -63,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.136/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/dotnet/6.0.428/sdk/6.0.428/RuntimeIdentifierGraph.json"
         }
       }
     }
