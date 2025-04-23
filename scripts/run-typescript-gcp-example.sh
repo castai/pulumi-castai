@@ -40,6 +40,11 @@ echo "Installing TypeScript example dependencies..."
 cd "$EXAMPLE_DIR" && npm install && cd ../../..
 echo "✅ TypeScript example dependencies installed"
 
+# Install the local SDK in the example project
+echo "Installing local SDK in the example project..."
+cd "$EXAMPLE_DIR" && npm install ../../../sdk/nodejs && cd ../../..
+echo "✅ Local SDK installed in the example project"
+
 # Authenticate with service account credentials if available
 if [ -n "$GOOGLE_CREDENTIALS" ]; then
     echo "Authenticating with service account credentials..."
