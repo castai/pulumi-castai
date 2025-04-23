@@ -54,32 +54,45 @@ jobs:
             echo "✅ go.sum files exist, proceeding with publishing."
           fi
 
-      - name: Build Plugin Binaries
+      - name: Package Plugin Binaries
         run: |
-          echo "Building plugin binaries for Linux and Windows platforms..."
-          # Ensure the version.go file has the correct version
-          sed -i.bak "s/__VERSION__/${VERSION}/g" provider/pkg/version/version.go && rm -f provider/pkg/version/version.go.bak
-
-          # Create bin directory if it doesn't exist
+          echo "Packaging plugin binaries for Linux and Windows platforms..."
+          # Ensure the bin directory exists
           mkdir -p bin
 
-          # Build for Linux (amd64)
-          echo "Building for Linux (amd64)..."
-          GOOS=linux GOARCH=amd64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64 \
-            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
-            ./provider/cmd/pulumi-resource-castai
+          # Check if we need to build the binaries or if they already exist
+          if [ -f "./bin/pulumi-resource-castai" ]; then
+            echo "Provider binary already exists, using it to create platform-specific binaries"
 
-          # Build for Linux (arm64)
-          echo "Building for Linux (arm64)..."
-          GOOS=linux GOARCH=arm64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64 \
-            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
-            ./provider/cmd/pulumi-resource-castai
+            # Create platform-specific copies
+            cp ./bin/pulumi-resource-castai ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64
+            cp ./bin/pulumi-resource-castai ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64
+          else
+            echo "Provider binary not found, building from source..."
+            # Ensure the version.go file has the correct version
+            sed -i.bak "s/__VERSION__/${VERSION}/g" provider/pkg/version/version.go && rm -f provider/pkg/version/version.go.bak
 
-          # Build for Windows (amd64)
-          echo "Building for Windows (amd64)..."
-          GOOS=windows GOARCH=amd64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe \
-            -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
-            ./provider/cmd/pulumi-resource-castai
+            # Build for Linux (amd64)
+            echo "Building for Linux (amd64)..."
+            GOOS=linux GOARCH=amd64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64 \
+              -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+              ./provider/cmd/pulumi-resource-castai
+
+            # Build for Linux (arm64)
+            echo "Building for Linux (arm64)..."
+            GOOS=linux GOARCH=arm64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64 \
+              -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+              ./provider/cmd/pulumi-resource-castai
+          fi
+
+          # Build or copy Windows binary
+          if [ -f "./bin/pulumi-resource-castai" ]; then
+            # Cross-platform build for Windows using the existing binary as a base
+            echo "Creating Windows binary from existing provider binary..."
+            GOOS=windows GOARCH=amd64 go build -o ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe \
+              -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" \
+              ./provider/cmd/pulumi-resource-castai
+          fi
 
           # Create plugin.json files for each platform
           echo "Creating plugin.json files..."
