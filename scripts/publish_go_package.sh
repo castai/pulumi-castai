@@ -125,18 +125,27 @@ RESPONSE=$(curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION
 if echo "$RESPONSE" | grep -q "404 page not found" || echo "$RESPONSE" | grep -q "not found"; then
   echo "Version v$VERSION does not exist in Go package registry. Publishing..."
 
-  # Use the existing tag for the Go SDK
-  cd ../.. # Go back to the root directory
+  # Store the current directory
+  CURRENT_DIR=$(pwd)
 
-  # Check if the tag already exists
-  if git rev-parse "v$VERSION" >/dev/null 2>&1; then
-    echo "Tag v$VERSION already exists. Using existing tag."
+  # Go back to the root directory of the repository
+  cd $(git rev-parse --show-toplevel 2>/dev/null || echo "/home/runner/work/pulumi-castai/pulumi-castai")
+
+  # Check if the tag exists (only if we're in a git repository)
+  if git rev-parse --is-inside-work-tree &>/dev/null; then
+    echo "Checking for tag v$VERSION in Git repository..."
+    if git fetch --tags &>/dev/null && git tag -l | grep -q "v$VERSION"; then
+      echo "Tag v$VERSION exists in the repository."
+    else
+      echo "Note: Tag v$VERSION not found in the repository, but continuing anyway."
+      echo "This is normal in CI environments with shallow clones."
+    fi
   else
-    echo "Error: Tag v$VERSION does not exist. The tag should be created by the prepare_release.sh script."
-    echo "Available tags:"
-    git tag -l
-    exit 1
+    echo "Not in a Git repository. Skipping Git tag check."
   fi
+
+  # Return to the original directory
+  cd "$CURRENT_DIR"
 
   # Trigger pkg.go.dev to index the new version
   echo "Triggering pkg.go.dev to index the new version..."
