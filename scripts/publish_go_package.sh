@@ -20,25 +20,16 @@ cd sdk/go
 echo "Ensuring correct directory structure..."
 mkdir -p castai
 
-# Create go.mod file for the sdk/go directory
-echo "Creating go.mod file for sdk/go..."
+# Create go.mod file with the correct module path
+echo "Creating go.mod file..."
 cat > go.mod << EOF
 module github.com/castai/pulumi-castai/sdk/go
 
 go 1.18
 EOF
 
-# Create go.mod file for the sdk/go/castai directory
-echo "Creating go.mod file for sdk/go/castai..."
-mkdir -p castai
-cat > castai/go.mod << EOF
-module github.com/castai/pulumi-castai/sdk/go/castai
-
-go 1.18
-EOF
-
-# Create a README.md file for the sdk/go directory
-echo "Creating README.md file for sdk/go..."
+# Create a README.md file
+echo "Creating README.md file..."
 cat > README.md << EOF
 # CAST AI Pulumi Provider - Go SDK
 
@@ -51,36 +42,6 @@ go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
 \`\`\`
 
 ## Usage
-
-Import the SDK in your code:
-
-\`\`\`go
-import "github.com/castai/pulumi-castai/sdk/go/castai"
-\`\`\`
-
-See the [documentation](https://www.pulumi.com/registry/packages/castai/) for usage examples.
-EOF
-
-# Create a README.md file for the sdk/go/castai directory
-echo "Creating README.md file for sdk/go/castai..."
-cat > castai/README.md << EOF
-# CAST AI Pulumi Provider - Go SDK
-
-This package provides Go bindings for the CAST AI Pulumi provider.
-
-## Installation
-
-\`\`\`bash
-go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
-\`\`\`
-
-## Usage
-
-Import the SDK in your code:
-
-\`\`\`go
-import "github.com/castai/pulumi-castai/sdk/go/castai"
-\`\`\`
 
 See the [documentation](https://www.pulumi.com/registry/packages/castai/) for usage examples.
 EOF
@@ -103,15 +64,24 @@ fi
 # Run go mod tidy to generate go.sum files
 echo "Running go mod tidy in sdk/go..."
 
-# Run go mod tidy for the main module
+# Create a temporary directory for generating go.sum files
+mkdir -p /tmp/go-sdk-temp
+cp -r . /tmp/go-sdk-temp/go
+
+# Generate go.sum for the main module
+cd /tmp/go-sdk-temp/go
 go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
 
-# Run go mod tidy for the castai module
+# Generate go.sum for the castai module
 cd castai
 go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
 
-# Return to the sdk/go directory
-cd ..
+# Copy the go.sum files back to the original location
+cp -f /tmp/go-sdk-temp/go/go.sum $(pwd)/../../ || echo "No go.sum generated for main module"
+cp -f /tmp/go-sdk-temp/go/castai/go.sum $(pwd)/../../castai/ || echo "No go.sum generated for castai module"
+
+# Return to the original directory
+cd $(pwd)/../../
 
 # Check if this version already exists in Go package registry
 echo "Checking if Go package version v$VERSION already exists..."
