@@ -227,7 +227,7 @@ jobs:
 
             ### Go
             ```bash
-            go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}
+            go get github.com/castai/pulumi-castai@v${{ env.VERSION }}
             ```
 
       # Publish Node.js Package
