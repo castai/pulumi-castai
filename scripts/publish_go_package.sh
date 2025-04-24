@@ -20,13 +20,8 @@ cd sdk/go
 echo "Ensuring correct directory structure..."
 mkdir -p castai
 
-# Create go.mod file with the correct module path for the main module
-echo "Creating go.mod file for the main module..."
-cat > go.mod << EOF
-module github.com/castai/pulumi-castai/sdk/go
-
-go 1.20
-EOF
+# We no longer need a go.mod file for the main module
+echo "Skipping creation of go.mod file for the main module..."
 
 # Create go.mod file with the correct module path for the castai submodule
 echo "Creating go.mod file for the castai submodule..."
@@ -106,9 +101,9 @@ mkdir -p /tmp/go-sdk-temp
 mkdir -p /tmp/go-sdk-temp/go/castai
 cp -r . /tmp/go-sdk-temp/go
 
-# Generate go.sum for the main module
+# We no longer need to generate go.sum for the main module
 cd /tmp/go-sdk-temp/go
-go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll continue"
+echo "Skipping go mod tidy for the main module..."
 
 # Generate go.sum for the castai module
 cd castai
@@ -118,8 +113,7 @@ go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'l
 mkdir -p $(pwd)/../../
 mkdir -p $(pwd)/../../castai
 
-# Copy the go.sum files back to the original location
-cp -f /tmp/go-sdk-temp/go/go.sum $(pwd)/../../ || echo "No go.sum generated for main module"
+# Copy only the castai module go.sum file back to the original location
 cp -f /tmp/go-sdk-temp/go/castai/go.sum $(pwd)/../../castai/ || echo "No go.sum generated for castai module"
 
 # Return to the original directory
