@@ -313,7 +313,7 @@ jobs:
 
           go 1.20
 
-          require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
+          require github.com/castai/pulumi-castai v$VERSION
           EOF
 
           # Create a simple Go file that imports the SDK
@@ -333,7 +333,7 @@ jobs:
 
           # Try to download the module
           echo "Downloading the module..."
-          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Try to tidy the module
           echo "Running go mod tidy..."
@@ -348,13 +348,13 @@ jobs:
 
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-          # Only request the castai submodule, not the root module
-          curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
+          # Request the root module
+          curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=doc"
 
           # Force the Go proxy to fetch the module using the version tag
           echo "Forcing the Go proxy to fetch the module using the version tag..."
-          # Only install the castai submodule, not the root module
-          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          # Install the root module
+          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Create a second test module to directly test the castai module
           echo "Creating a second test module to directly test the castai module..."
@@ -367,7 +367,7 @@ jobs:
 
           go 1.20
 
-          require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
+          require github.com/castai/pulumi-castai v$VERSION
           EOF
 
           # Create a simple Go file that directly imports the castai module
@@ -387,7 +387,7 @@ jobs:
 
           # Try to download the module
           echo "Downloading the castai module..."
-          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Try to tidy the module
           echo "Running go mod tidy..."
@@ -399,16 +399,16 @@ jobs:
 
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-          # Only request the castai submodule, not the root module
-          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
+          # Request the root module
+          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
 
           # Wait a moment for the requests to be processed
           sleep 5
 
           # Make additional requests to ensure the package is indexed
           echo "Making additional requests to ensure the package is indexed..."
-          # Only request the castai submodule, not the root module
-          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=versions"
+          # Request the root module
+          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=versions"
 
           # Return to the original directory
           cd $GITHUB_WORKSPACE
@@ -428,6 +428,16 @@ jobs:
           # Create version.txt file with the correct version
           echo "${VERSION}" > version.txt
           cat version.txt
+
+          # Check if .csproj file exists
+          echo "Checking if .csproj file exists..."
+          if [ ! -f "Pulumi.CastAI.csproj" ]; then
+            echo "Pulumi.CastAI.csproj not found, generating it..."
+            # Run the script to generate the .csproj file
+            cd ../../
+            ./scripts/generate_dotnet_csproj.sh
+            cd sdk/dotnet
+          fi
 
           # Restore NuGet packages first
           echo "Restoring NuGet packages..."
