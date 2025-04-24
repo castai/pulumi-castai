@@ -48,8 +48,8 @@ The Pulumi CASTAI provider allows users to interact with CAST AI resources using
    **For Go:**
    ```bash
    # Add this to your go.mod file:
-   require github.com/castai/pulumi-castai/sdk/go v0.0.0
-   replace github.com/castai/pulumi-castai/sdk/go => /path/to/pulumi-castai/sdk/go
+   require github.com/castai/pulumi-castai/sdk/go/castai v0.0.0
+   replace github.com/castai/pulumi-castai/sdk/go/castai => /path/to/pulumi-castai/sdk/go/castai
    ```
 
 ### Quick Installation for Testing
@@ -185,14 +185,15 @@ import (
 	"os"
 
 	"github.com/castai/pulumi-castai/sdk/go/castai"
-	"github.com/castai/pulumi-castai/sdk/go/castai/gcp"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Initialize the provider
-		provider, err := castai.NewProvider(ctx, "castai-provider", nil)
+		provider, err := castai.NewProvider(ctx, "castai-provider", &castai.ProviderArgs{
+			ApiToken: pulumi.String(os.Getenv("CASTAI_API_TOKEN")),
+		})
 		if err != nil {
 			return err
 		}
@@ -210,14 +211,14 @@ func main() {
 		}
 
 		// Create a connection to a GKE cluster
-		gkeArgs := &gcp.GkeClusterArgs{
+		gkeArgs := &castai.GkeClusterArgs{
 			ProjectId:              pulumi.String(projectID),
 			Location:               pulumi.String("us-central1"),
 			Name:                   pulumi.String(clusterName),
 			DeleteNodesOnDisconnect: pulumi.Bool(true),
 		}
 
-		gkeCluster, err := gcp.NewGkeCluster(ctx, "gke-cluster-connection", gkeArgs, pulumi.Provider(provider))
+		gkeCluster, err := castai.NewGkeCluster(ctx, "gke-cluster-connection", gkeArgs, pulumi.Provider(provider))
 		if err != nil {
 			return err
 		}
@@ -380,7 +381,7 @@ npm update @pulumi/castai
 pip install --upgrade pulumi_castai
 
 # For Go:
-go get -u github.com/castai/pulumi-castai/sdk/go
+go get -u github.com/castai/pulumi-castai/sdk/go/castai
 ```
 
 ### Stuck or Hanging Operations
