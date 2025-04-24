@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/castai/pulumi-castai/sdk/go/castai"
+	castai "github.com/castai/pulumi-castai/sdk/go/castai"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -25,38 +25,18 @@ func runGcpExample() {
 			return err
 		}
 
-		// Create a node configuration
-		nodeArgs := &castai.NodeConfigurationArgs{
-			ClusterId: gkeCluster.ID(),
-		}
-		nodeConfig, err := castai.NewNodeConfiguration(ctx, "gke-node-config", nodeArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
 		// Configure autoscaling
 		autoscalerArgs := &castai.AutoscalerArgs{
 			ClusterId: gkeCluster.ID(),
-			Enabled:   pulumi.Bool(true),
 		}
-		_, err = castai.NewAutoscaler(ctx, "gke-autoscaler", autoscalerArgs, pulumi.Provider(provider))
-		if err != nil {
-			return err
-		}
-
-		// Create a GCP service account for CAST AI
-		saArgs := &castai.GcpServiceAccountArgs{
-			ClusterId: gkeCluster.ID(),
-		}
-		gcpServiceAccount, err := castai.NewGcpServiceAccount(ctx, "cast-ai-service-account", saArgs, pulumi.Provider(provider))
+		autoscaler, err := castai.NewAutoscaler(ctx, "gke-autoscaler", autoscalerArgs, pulumi.Provider(provider))
 		if err != nil {
 			return err
 		}
 
 		// Export relevant IDs
 		ctx.Export("clusterId", gkeCluster.ID())
-		ctx.Export("nodeConfigId", nodeConfig.Id)
-		ctx.Export("serviceAccountEmail", gcpServiceAccount.Email)
+		ctx.Export("autoscalerId", autoscaler.ID())
 
 		return nil
 	})

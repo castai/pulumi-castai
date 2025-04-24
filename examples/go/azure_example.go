@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/castai/pulumi-castai/sdk/go/castai"
+	castai "github.com/castai/pulumi-castai/sdk/go/castai"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -42,8 +42,11 @@ func runAzureExample() {
 		aksArgs := &castai.AksClusterArgs{
 			SubscriptionId:          pulumi.String(subscriptionID),
 			TenantId:                pulumi.String(tenantID),
-			ResourceGroupName:       pulumi.String(resourceGroup),
-			AksClusterName:          pulumi.String(clusterName),
+			NodeResourceGroup:       pulumi.String(resourceGroup),
+			Name:                    pulumi.String(clusterName),
+			Region:                  pulumi.String("eastus"), // Example region
+			ClientId:                pulumi.String("00000000-0000-0000-0000-000000000000"), // Example client ID
+			ClientSecret:            pulumi.String("client-secret"), // Example client secret
 			DeleteNodesOnDisconnect: pulumi.Bool(true),
 		}
 
