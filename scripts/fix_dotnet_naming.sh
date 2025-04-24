@@ -27,8 +27,67 @@ fi
 # Check the project file for the correct package ID
 PROJECT_FILE="sdk/dotnet/Pulumi.CastAI.csproj"
 if [ ! -f "$PROJECT_FILE" ]; then
-  echo "ERROR: $PROJECT_FILE does not exist"
-  exit 1
+  echo "WARNING: $PROJECT_FILE does not exist, creating it"
+  cat > "$PROJECT_FILE" << EOF
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>CASTAI.Pulumi</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>CAST AI</Authors>
+    <Company>CAST AI</Company>
+    <Description>A Pulumi package for creating and managing CAST AI cloud resources.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://cast.ai</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/castai/pulumi-castai</RepositoryUrl>
+    <PackageIcon>castai-logo.png</PackageIcon>
+
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'\$(Configuration)|\$(Platform)'=='Debug|AnyCPU'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>\$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'\$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="version.txt" />
+    <None Include="version.txt" Pack="True" PackagePath="content" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="pulumi-plugin.json" />
+    <None Include="pulumi-plugin.json" Pack="True" PackagePath="content" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pulumi" Version="3.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="castai-logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
+EOF
 fi
 
 # Check if the project file has the correct package ID
@@ -50,13 +109,24 @@ if grep -q "<None Include=\"logo.png\">" "$PROJECT_FILE"; then
 fi
 
 # Copy the correct logo file to the SDK directory
-LOGO_SOURCE="docs/images/castai-logo.png"
+LOGO_SOURCE="docs/images/castai-logo-new.png"
 LOGO_DEST="sdk/dotnet/castai-logo.png"
 if [ -f "$LOGO_SOURCE" ]; then
   echo "Copying logo file from $LOGO_SOURCE to $LOGO_DEST"
   cp "$LOGO_SOURCE" "$LOGO_DEST"
 else
-  echo "WARNING: Logo file not found at $LOGO_SOURCE"
+  # Try the original logo file
+  LOGO_SOURCE="docs/images/castai-logo.png"
+  if [ -f "$LOGO_SOURCE" ]; then
+    echo "Copying logo file from $LOGO_SOURCE to $LOGO_DEST"
+    cp "$LOGO_SOURCE" "$LOGO_DEST"
+  else
+    echo "WARNING: Logo file not found at $LOGO_SOURCE"
+    # Create a simple PNG logo
+    echo "Creating a simple PNG logo"
+    mkdir -p $(dirname "$LOGO_DEST")
+    convert -size 128x128 xc:white -fill black -gravity center -pointsize 20 -annotate 0 "CAST AI" "$LOGO_DEST"
+  fi
 fi
 
 # Show the original file content
