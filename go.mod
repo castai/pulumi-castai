@@ -1,8 +1,6 @@
 module github.com/castai/pulumi-castai
 
-go 1.23.1
-
-toolchain go1.24.1
+go 1.20
 
 // Our modules
 // Use explicit versioning for local modules to help Dependabot

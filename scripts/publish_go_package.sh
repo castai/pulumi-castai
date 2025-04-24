@@ -127,7 +127,7 @@ cd $(pwd)/../../
 
 # Check if this version already exists in Go package registry
 echo "Checking if Go package version v$VERSION already exists..."
-RESPONSE=$(curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION")
+RESPONSE=$(curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION")
 if echo "$RESPONSE" | grep -q "404 page not found" || echo "$RESPONSE" | grep -q "not found"; then
   echo "Version v$VERSION does not exist in Go package registry. Publishing..."
 
@@ -198,8 +198,7 @@ EOFTEST
 
   # Explicitly request the package from pkg.go.dev to trigger indexing
   echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
-  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go@v$VERSION"
+  # Only request the castai submodule, not the root module
   curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
 
   # Force the Go proxy to fetch the module using the version tag
@@ -287,8 +286,7 @@ EOFTEST3
 
   # Explicitly request the package from pkg.go.dev to trigger indexing
   echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
-  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go@v$VERSION"
+  # Only request the castai submodule, not the root module
   curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
 
   # Wait a moment for the requests to be processed
@@ -296,7 +294,7 @@ EOFTEST3
 
   # Make additional requests to ensure the package is indexed
   echo "Making additional requests to ensure the package is indexed..."
-  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=versions"
+  # Only request the castai submodule, not the root module
   curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=versions"
 
   echo "Go package has been published to GitHub."

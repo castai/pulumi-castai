@@ -313,7 +313,7 @@ jobs:
 
           go 1.20
 
-          require github.com/castai/pulumi-castai v$VERSION
+          require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
           EOF
 
           # Create a simple Go file that imports the SDK
@@ -333,7 +333,7 @@ jobs:
 
           # Try to download the module
           echo "Downloading the module..."
-          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Try to tidy the module
           echo "Running go mod tidy..."
@@ -348,12 +348,12 @@ jobs:
 
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-          curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=doc"
+          # Only request the castai submodule, not the root module
           curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
 
           # Force the Go proxy to fetch the module using the version tag
           echo "Forcing the Go proxy to fetch the module using the version tag..."
-          GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+          # Only install the castai submodule, not the root module
           GOPROXY=https://proxy.golang.org go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
           # Create a second test module to directly test the castai module
@@ -399,8 +399,7 @@ jobs:
 
           # Explicitly request the package from pkg.go.dev to trigger indexing
           echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
-          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go@v$VERSION"
+          # Only request the castai submodule, not the root module
           curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
 
           # Wait a moment for the requests to be processed
@@ -408,7 +407,7 @@ jobs:
 
           # Make additional requests to ensure the package is indexed
           echo "Making additional requests to ensure the package is indexed..."
-          curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=versions"
+          # Only request the castai submodule, not the root module
           curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=versions"
 
           # Return to the original directory
