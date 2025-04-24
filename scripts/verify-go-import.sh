@@ -23,7 +23,7 @@ module test
 
 go 1.18
 
-require github.com/castai/pulumi-castai v$VERSION
+require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
 EOF
 
 # Create main.go file that actually uses the package
@@ -57,7 +57,7 @@ go mod tidy || echo "Note: Standard go mod tidy failed, but we'll continue"
 GOPROXY=https://proxy.golang.org go mod tidy || echo "Note: go mod tidy with GOPROXY failed, but we'll continue"
 
 # Approach 3: Use direct replacement
-echo "replace github.com/castai/pulumi-castai => $(pwd)/../../" >> go.mod
+echo "replace github.com/castai/pulumi-castai/sdk/go => $(pwd)/../../sdk/go" >> go.mod
 go mod tidy || echo "Note: go mod tidy with replacement failed, but we'll continue"
 
 # Ensure go.sum exists

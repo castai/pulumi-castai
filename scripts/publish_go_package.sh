@@ -20,8 +20,13 @@ cd sdk/go
 echo "Ensuring correct directory structure..."
 mkdir -p castai
 
-# We no longer need a go.mod file for the main module
-echo "Skipping creation of go.mod file for the main module..."
+# Create go.mod file with the correct module path
+echo "Creating go.mod file..."
+cat > go.mod << EOF
+module github.com/castai/pulumi-castai/sdk/go
+
+go 1.18
+EOF
 
 # Create a README.md file
 echo "Creating README.md file..."
@@ -33,7 +38,7 @@ This package provides Go bindings for the CAST AI Pulumi provider.
 ## Installation
 
 \`\`\`bash
-go get github.com/castai/pulumi-castai@v$VERSION
+go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
 \`\`\`
 
 ## Usage
@@ -86,7 +91,7 @@ cd $(pwd)/../../
 
 # Check if this version already exists in Go package registry
 echo "Checking if Go package version v$VERSION already exists..."
-if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION" | grep -q "404 page not found"; then
+if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION" | grep -q "404 page not found"; then
   echo "Version v$VERSION does not exist in Go package registry. Publishing..."
 
   # Create a git tag for the Go SDK
@@ -104,11 +109,11 @@ if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION" | grep
   # Trigger pkg.go.dev to index the new version
   echo "Triggering pkg.go.dev to index the new version..."
   echo "Note: This may fail if the repository is not yet public, which is expected."
-  GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai@v$VERSION || echo "Failed to trigger pkg.go.dev indexing, but this is expected if the repository is not yet public."
+  GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Failed to trigger pkg.go.dev indexing, but this is expected if the repository is not yet public."
 
   echo "Go package has been published to GitHub."
-  echo "Users can install it with: go get github.com/castai/pulumi-castai@v$VERSION"
-  echo "The package should be available at: https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
+  echo "Users can install it with: go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
+  echo "The package should be available at: https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
   echo "Note: It may take a few minutes for pkg.go.dev to index the new version."
 else
   echo "Version v$VERSION already exists in Go package registry. Skipping publish."
