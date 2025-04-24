@@ -417,37 +417,46 @@ jobs:
 
       - name: Publish .NET Package
         run: |
-          # Check for the .nupkg file in both Debug and Release directories
-          DEBUG_NUPKG="sdk/dotnet/bin/Debug/CASTAI.Pulumi.${VERSION}.nupkg"
-          RELEASE_NUPKG="sdk/dotnet/bin/Release/CASTAI.Pulumi.${VERSION}.nupkg"
+          # Rebuild the .NET package with the correct version
+          echo "Building .NET package with version ${VERSION}..."
+          cd sdk/dotnet
 
-          # First check Debug directory
-          if [ -f "$DEBUG_NUPKG" ]; then
-            NUPKG_FILE="$DEBUG_NUPKG"
-            echo "Found .NET package in Debug directory"
-          # Then check Release directory
-          elif [ -f "$RELEASE_NUPKG" ]; then
-            NUPKG_FILE="$RELEASE_NUPKG"
-            echo "Found .NET package in Release directory"
-          else
-            echo "Error: .NET package file not found in Debug or Release directories"
-            echo "Contents of sdk/dotnet/bin directory:"
-            find sdk/dotnet/bin -type d -exec ls -la {} \; || echo "Directory does not exist"
+          # Create version.txt file with the correct version
+          echo "${VERSION}" > version.txt
+          cat version.txt
 
-            # Look for any .nupkg file as a fallback
-            echo "Looking for any .nupkg file..."
-            NUPKG_FILE=$(find sdk/dotnet -name "*.nupkg" | sort | tail -n 1)
+          # Clean any existing builds
+          dotnet clean -c Release
 
-            if [ -z "$NUPKG_FILE" ]; then
-              echo "Error: No .nupkg files found. Cannot publish .NET package."
-              exit 1
-            fi
+          # Build and pack with the correct version
+          dotnet build /p:Version=${VERSION} -c Release
+          dotnet pack -o nupkg -p:Version=${VERSION} -c Release --no-build
+
+          # Verify the package was created with the correct version
+          echo "Verifying .NET package..."
+          ls -la nupkg/
+
+          # Check if the package with the correct version exists
+          NUPKG_FILE="nupkg/CASTAI.Pulumi.${VERSION}.nupkg"
+          if [ ! -f "$NUPKG_FILE" ]; then
+            echo "Error: .NET package with version ${VERSION} not found."
+            echo "Available packages:"
+            find nupkg -name "*.nupkg"
+            exit 1
           fi
 
-          echo "Found .nupkg file: $NUPKG_FILE"
+          echo "Found .NET package: $NUPKG_FILE"
 
-          # Publish the package
-          echo "Publishing .NET package to NuGet..."
-          dotnet nuget push "$NUPKG_FILE" --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json
+          # Check if this version already exists in NuGet
+          echo "Checking if .NET package version ${VERSION} already exists on NuGet..."
+          if dotnet nuget list CASTAI.Pulumi --source https://api.nuget.org/v3/index.json | grep -q "${VERSION}"; then
+            echo "Version ${VERSION} already exists in NuGet registry. Skipping publish."
+          else
+            # Publish the package
+            echo "Publishing .NET package to NuGet..."
+            dotnet nuget push "$NUPKG_FILE" --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          fi
+
+          cd ../..
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
