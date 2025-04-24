@@ -1,5 +1,0 @@
-{
-  "resource": true,
-  "name": "castai",
-  "server": "github://api.github.com/castai"
-}

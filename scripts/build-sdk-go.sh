@@ -20,7 +20,7 @@ echo "Creating go.mod file..."
 cat > sdk/go/go.mod << EOF
 module github.com/castai/pulumi-castai/sdk/go
 
-go 1.18
+go 1.20
 EOF
 
 # Create a castai subdirectory if it doesn't exist

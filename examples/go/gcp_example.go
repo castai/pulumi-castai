@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/castai/pulumi-castai/sdk/go/castai"
-	"github.com/castai/pulumi-castai/sdk/go/castai/autoscaling"
-	"github.com/castai/pulumi-castai/sdk/go/castai/gcp"
-	"github.com/castai/pulumi-castai/sdk/go/castai/iam"
-	"github.com/castai/pulumi-castai/sdk/go/castai/nodeconfig"
+	"github.com/castai/pulumi-castai"
+	"github.com/castai/pulumi-castai/autoscaling"
+	"github.com/castai/pulumi-castai/gcp"
+	"github.com/castai/pulumi-castai/iam"
+	"github.com/castai/pulumi-castai/nodeconfig"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
