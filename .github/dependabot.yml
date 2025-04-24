@@ -39,23 +39,7 @@ updates:
     ignore:
       - dependency-name: "github.com/castai/pulumi-castai/*"
 
-  # SDK module
-  - package-ecosystem: "gomod"
-    directory: "/sdk/go"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    target-branch: "main"
-    labels:
-      - "dependencies"
-      - "security"
-    allow:
-      - dependency-name: "github.com/go-git/go-git/v5"
-        dependency-type: "direct"
-      - dependency-name: "golang.org/x/crypto"
-        dependency-type: "direct"
-    ignore:
-      - dependency-name: "github.com/castai/pulumi-castai/*"
+  # We no longer use the /sdk/go directory, only /sdk/go/castai
 
   # SDK/castai module
   - package-ecosystem: "gomod"
