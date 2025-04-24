@@ -55,6 +55,11 @@ The Pulumi CASTAI provider allows users to interact with CAST AI resources using
    # import "github.com/castai/pulumi-castai/sdk/go/castai"
    ```
 
+   For published versions, use:
+   ```bash
+   go get github.com/castai/pulumi-castai@v0.1.62
+   ```
+
 ### Quick Installation for Testing
 
 To quickly install just the provider plugin:
@@ -384,7 +389,7 @@ npm update @pulumi/castai
 pip install --upgrade pulumi_castai
 
 # For Go:
-go get -u github.com/castai/pulumi-castai
+go get -u github.com/castai/pulumi-castai@latest
 ```
 
 ### Stuck or Hanging Operations

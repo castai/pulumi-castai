@@ -121,7 +121,7 @@ cd $(pwd)/../../
 
 # Check if this version already exists in Go package registry
 echo "Checking if Go package version v$VERSION already exists..."
-RESPONSE=$(curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION")
+RESPONSE=$(curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION")
 if echo "$RESPONSE" | grep -q "404 page not found" || echo "$RESPONSE" | grep -q "not found"; then
   echo "Version v$VERSION does not exist in Go package registry. Publishing..."
 

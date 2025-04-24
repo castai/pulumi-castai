@@ -15,11 +15,11 @@ echo "Triggering pkg.go.dev to index the Go SDK for version v$VERSION..."
 
 # Explicitly request the package from pkg.go.dev
 echo "Explicitly requesting the Go package from pkg.go.dev..."
-curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
+curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=doc"
 
 # Force the Go proxy to fetch the module
 echo "Forcing the Go proxy to fetch the module..."
-GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Failed to trigger pkg.go.dev indexing, but this is expected if the repository is not yet public."
+GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/castai/pulumi-castai@v$VERSION || echo "Failed to trigger pkg.go.dev indexing, but this is expected if the repository is not yet public."
 
 # Create a test project to verify the module can be imported
 echo "Creating a test project to verify the module can be imported..."
@@ -29,7 +29,7 @@ module test
 
 go 1.18
 
-require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
+require github.com/castai/pulumi-castai v$VERSION
 EOF
 
 cat > /tmp/go-sdk-test/main.go << EOF
@@ -56,5 +56,5 @@ fi
 
 go build || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
-echo "The Go package should be available at https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION after indexing (which may take some time)."
+echo "The Go package should be available at https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION after indexing (which may take some time)."
 echo "If the package is still not available after some time, please check that the repository is public and the module structure is correct."
