@@ -102,8 +102,8 @@ build_dotnet:: install_dependencies # build the dotnet sdk
 	echo "${VERSION}" > sdk/dotnet/version.txt
 	@echo "Checking if .csproj file exists"
 	@if [ ! -f "sdk/dotnet/Pulumi.CastAI.csproj" ]; then \
-		echo "ERROR: sdk/dotnet/Pulumi.CastAI.csproj does not exist. Running fix_dotnet_naming.sh again..."; \
-		./scripts/fix_dotnet_naming.sh; \
+		echo "ERROR: sdk/dotnet/Pulumi.CastAI.csproj does not exist. Running generate_dotnet_csproj.sh..."; \
+		./scripts/generate_dotnet_csproj.sh; \
 	fi
 	@echo "Building .NET SDK"
 	cd sdk/dotnet && \
