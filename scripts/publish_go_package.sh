@@ -97,6 +97,7 @@ echo "Running go mod tidy in sdk/go..."
 
 # Create a temporary directory for generating go.sum files
 mkdir -p /tmp/go-sdk-temp
+mkdir -p /tmp/go-sdk-temp/go/castai
 cp -r . /tmp/go-sdk-temp/go
 
 # Generate go.sum for the main module
@@ -107,6 +108,10 @@ go mod tidy || echo "Warning: go mod tidy failed for the main module, but we'll 
 cd castai
 go mod tidy || echo "Warning: go mod tidy failed for the castai module, but we'll continue"
 
+# Create directories if they don't exist
+mkdir -p $(pwd)/../../
+mkdir -p $(pwd)/../../castai
+
 # Copy the go.sum files back to the original location
 cp -f /tmp/go-sdk-temp/go/go.sum $(pwd)/../../ || echo "No go.sum generated for main module"
 cp -f /tmp/go-sdk-temp/go/castai/go.sum $(pwd)/../../castai/ || echo "No go.sum generated for castai module"
@@ -116,7 +121,8 @@ cd $(pwd)/../../
 
 # Check if this version already exists in Go package registry
 echo "Checking if Go package version v$VERSION already exists..."
-if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION" | grep -q "404 page not found"; then
+RESPONSE=$(curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION")
+if echo "$RESPONSE" | grep -q "404 page not found" || echo "$RESPONSE" | grep -q "not found"; then
   echo "Version v$VERSION does not exist in Go package registry. Publishing..."
 
   # Use the existing tag for the Go SDK

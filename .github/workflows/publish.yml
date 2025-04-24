@@ -425,8 +425,15 @@ jobs:
           echo "${VERSION}" > version.txt
           cat version.txt
 
+          # Restore NuGet packages first
+          echo "Restoring NuGet packages..."
+          dotnet restore
+
           # Clean any existing builds
           dotnet clean -c Release
+
+          # Restore packages again after clean
+          dotnet restore
 
           # Build and pack with the correct version
           dotnet build /p:Version=${VERSION} -c Release
