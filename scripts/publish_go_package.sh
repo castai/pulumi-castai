@@ -20,17 +20,48 @@ cd sdk/go
 echo "Ensuring correct directory structure..."
 mkdir -p castai
 
-# Create go.mod file with the correct module path
-echo "Creating go.mod file..."
+# Create go.mod file with the correct module path for the main module
+echo "Creating go.mod file for the main module..."
 cat > go.mod << EOF
 module github.com/castai/pulumi-castai/sdk/go
 
 go 1.18
 EOF
 
-# Create a README.md file
-echo "Creating README.md file..."
+# Create go.mod file with the correct module path for the castai submodule
+echo "Creating go.mod file for the castai submodule..."
+cat > castai/go.mod << EOF
+module github.com/castai/pulumi-castai/sdk/go/castai
+
+go 1.18
+
+require (
+	github.com/blang/semver v3.5.1+incompatible
+	github.com/pulumi/pulumi/sdk/v3 v3.96.1
+)
+EOF
+
+# Create a README.md file for the main module
+echo "Creating README.md file for the main module..."
 cat > README.md << EOF
+# CAST AI Pulumi Provider - Go SDK
+
+This package provides Go bindings for the CAST AI Pulumi provider.
+
+## Installation
+
+\`\`\`bash
+go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
+\`\`\`
+
+## Usage
+
+See the [documentation](https://www.pulumi.com/registry/packages/castai/) for usage examples.
+EOF
+
+# Create a README.md file for the castai submodule
+echo "Creating README.md file for the castai submodule..."
+cat > castai/README.md << EOF
 # CAST AI Pulumi Provider - Go SDK
 
 This package provides Go bindings for the CAST AI Pulumi provider.
@@ -130,11 +161,11 @@ EOFTEST
 
   # Add the dependency
   echo "Adding the dependency..."
-  go mod edit -require=github.com/castai/pulumi-castai@v$VERSION
+  go mod edit -require=github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
 
   # Force the Go proxy to fetch the module
   echo "Forcing the Go proxy to fetch the module..."
-  GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+  GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
   # Try to tidy the module
   echo "Running go mod tidy..."
@@ -146,12 +177,12 @@ EOFTEST
 
   # Explicitly request the package from pkg.go.dev to trigger indexing
   echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
-  curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION?tab=doc"
-  curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"
+  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
+  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go@v$VERSION"
+  curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
 
   # Force the Go proxy to fetch the module using the version tag
   echo "Forcing the Go proxy to fetch the module using the version tag..."
-  GOPROXY=https://proxy.golang.org GO111MODULE=on go install github.com/castai/pulumi-castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
   GOPROXY=https://proxy.golang.org GO111MODULE=on go install github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
 
   # Return to the original directory
@@ -195,6 +226,44 @@ EOFTEST2
   # Return to the original directory
   cd -
 
+  # Create a third test module to test the direct import
+  echo "Creating a third test module to test direct import..."
+  TEMP_DIR3=$(mktemp -d)
+  cd "$TEMP_DIR3"
+
+  # Initialize a new Go module
+  go mod init test3
+
+  # Create a simple Go file that directly imports the castai module
+  cat > main.go << 'EOFTEST3'
+package main
+
+import (
+  "fmt"
+  "github.com/castai/pulumi-castai/sdk/go/castai"
+)
+
+func main() {
+  fmt.Println("Testing direct import of github.com/castai/pulumi-castai/sdk/go/castai")
+  fmt.Println(castai.NewProvider)
+}
+EOFTEST3
+
+  # Add the dependency directly to the castai module
+  go mod edit -require=github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
+
+  # Force the Go proxy to fetch the module
+  GOPROXY=https://proxy.golang.org go mod download github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Try to tidy the module
+  GOPROXY=https://proxy.golang.org go mod tidy || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Try to build the module
+  GOPROXY=https://proxy.golang.org go build || echo "Note: It's normal to see an error above if the module isn't fully published yet."
+
+  # Return to the original directory
+  cd -
+
   # Explicitly request the package from pkg.go.dev to trigger indexing
   echo "Explicitly requesting the Go package from pkg.go.dev to trigger indexing..."
   curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
@@ -210,8 +279,8 @@ EOFTEST2
   curl -s -X GET "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=versions"
 
   echo "Go package has been published to GitHub."
-  echo "Users can install it with: go get github.com/castai/pulumi-castai@v$VERSION"
-  echo "The package should be available at: https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
+  echo "Users can install it with: go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
+  echo "The package should be available at: https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
   echo "Note: It may take a few minutes for pkg.go.dev to index the new version."
 else
   echo "Version v$VERSION already exists in Go package registry. Skipping publish."

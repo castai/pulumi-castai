@@ -76,6 +76,37 @@ if pip install --index-url https://pypi.org/simple/ --only-binary=:all: pulumi_c
   pip uninstall -y pulumi_castai
 else
   echo "Version $VERSION does not exist in PyPI registry. Publishing..."
-  # Only upload the correct version
-  twine upload dist/pulumi_castai-${VERSION}* -u __token__ -p $PYPI_PASSWORD
+
+  # Function to upload with retries and exponential backoff
+  upload_with_retries() {
+    local max_attempts=10
+    local attempt=1
+    local wait_time=10
+    local success=false
+
+    while [ $attempt -le $max_attempts ]; do
+      echo "Attempt $attempt of $max_attempts: Uploading to PyPI..."
+      if twine upload dist/pulumi_castai-${VERSION}* -u __token__ -p $PYPI_PASSWORD --verbose; then
+        echo "✅ Upload successful on attempt $attempt!"
+        success=true
+        break
+      else
+        echo "❌ Upload failed on attempt $attempt. Waiting ${wait_time}s before retrying..."
+        sleep $wait_time
+        # Exponential backoff with jitter
+        wait_time=$(( wait_time * 2 + (RANDOM % 5) ))
+        attempt=$((attempt + 1))
+      fi
+    done
+
+    if [ "$success" = false ]; then
+      echo "Failed to upload to PyPI after $max_attempts attempts."
+      return 1
+    fi
+
+    return 0
+  }
+
+  # Try to upload with retries
+  upload_with_retries
 fi

@@ -54,42 +54,61 @@ jobs:
             echo "✅ go.sum files exist, proceeding with publishing."
           fi
 
-      - name: Package Plugin Binaries
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22.x'
+          check-latest: true
+
+      - name: Build Provider Binaries
         run: |
-          echo "Packaging plugin binaries for Linux and Windows platforms..."
+          echo "Building provider binaries for all platforms..."
           # Ensure the bin directory exists
           mkdir -p bin
 
-          # Check if we need to build the binaries or if they already exist
-          if [ -f "./bin/pulumi-resource-castai" ]; then
-            echo "Provider binary already exists, using it to create platform-specific binaries"
+          # Build the main provider binary
+          echo "Building main provider binary..."
+          cd provider
+          go build -o ../bin/pulumi-resource-castai -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
+          cd ..
 
-            # Create platform-specific copies
-            cp ./bin/pulumi-resource-castai ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64
-            cp ./bin/pulumi-resource-castai ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64
+          # Build platform-specific binaries
+          echo "Building platform-specific binaries..."
 
-            # Create Windows binary
-            echo "Creating Windows binary..."
-            if [ ! -f "./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe" ]; then
-              # Just create an empty file as a placeholder since we can't cross-compile easily
-              # This is just for packaging purposes
-              touch ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe
-              chmod +x ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe
-            fi
-          else
-            echo "Provider binary not found, creating empty placeholder binaries..."
-            # Create empty placeholder binaries for packaging
-            touch ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64
-            chmod +x ./bin/pulumi-resource-castai-v${VERSION}-linux-amd64
+          # Linux (amd64)
+          echo "Building for Linux amd64..."
+          cd provider
+          GOOS=linux GOARCH=amd64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-linux-amd64 -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
 
-            touch ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64
-            chmod +x ./bin/pulumi-resource-castai-v${VERSION}-linux-arm64
+          # Linux (arm64)
+          echo "Building for Linux arm64..."
+          GOOS=linux GOARCH=arm64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-linux-arm64 -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
 
-            touch ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe
-            chmod +x ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe
+          # Windows (amd64)
+          echo "Building for Windows amd64..."
+          GOOS=windows GOARCH=amd64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
 
-            echo "Created placeholder binaries for packaging purposes."
-          fi
+          # macOS (amd64)
+          echo "Building for macOS amd64..."w
+          GOOS=darwin GOARCH=amd64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-darwin-amd64 -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
+
+          # macOS (arm64)
+          echo "Building for macOS arm64..."
+          GOOS=darwin GOARCH=arm64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-darwin-arm64 -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
+
+          cd ..
+
+          # Verify the binaries were created
+          echo "Verifying all platform-specific binaries..."
+          ls -la ./bin/pulumi-resource-castai-v${VERSION}-*
+
+          echo "✅ Provider binaries built successfully."
+
+      - name: Package Plugin Binaries
+        run: |
+          echo "Packaging plugin binaries for all platforms..."
+          # Ensure the bin directory exists
+          mkdir -p bin
 
           # Create plugin.json files for each platform
           echo "Creating plugin.json files..."
@@ -121,6 +140,24 @@ jobs:
           }
           EOF
 
+          # macOS (amd64)
+          cat > ./bin/plugin.json.darwin-amd64 << EOF
+          {
+            "name": "castai",
+            "version": "${VERSION}",
+            "server": "pulumi-resource-castai"
+          }
+          EOF
+
+          # macOS (arm64)
+          cat > ./bin/plugin.json.darwin-arm64 << EOF
+          {
+            "name": "castai",
+            "version": "${VERSION}",
+            "server": "pulumi-resource-castai"
+          }
+          EOF
+
           # Create plugin tarballs
           echo "Creating plugin tarballs..."
 
@@ -142,7 +179,19 @@ jobs:
           cp ./bin/plugin.json.windows-amd64 ./bin/dist/windows-amd64/plugin.json
           tar -czf ./bin/pulumi-resource-castai-v${VERSION}-windows-amd64.tar.gz -C ./bin/dist/windows-amd64 .
 
-          echo "✅ Plugin binaries built and packaged successfully."
+          # macOS (amd64)
+          mkdir -p ./bin/dist/darwin-amd64
+          cp ./bin/pulumi-resource-castai-v${VERSION}-darwin-amd64 ./bin/dist/darwin-amd64/pulumi-resource-castai
+          cp ./bin/plugin.json.darwin-amd64 ./bin/dist/darwin-amd64/plugin.json
+          tar -czf ./bin/pulumi-resource-castai-v${VERSION}-darwin-amd64.tar.gz -C ./bin/dist/darwin-amd64 .
+
+          # macOS (arm64)
+          mkdir -p ./bin/dist/darwin-arm64
+          cp ./bin/pulumi-resource-castai-v${VERSION}-darwin-arm64 ./bin/dist/darwin-arm64/pulumi-resource-castai
+          cp ./bin/plugin.json.darwin-arm64 ./bin/dist/darwin-arm64/plugin.json
+          tar -czf ./bin/pulumi-resource-castai-v${VERSION}-darwin-arm64.tar.gz -C ./bin/dist/darwin-arm64 .
+
+          echo "✅ Plugin binaries packaged successfully for all platforms."
 
       - name: Create GitHub Release
         id: create-release
@@ -155,6 +204,8 @@ jobs:
             ./bin/pulumi-resource-castai-v${{ env.VERSION }}-linux-amd64.tar.gz
             ./bin/pulumi-resource-castai-v${{ env.VERSION }}-linux-arm64.tar.gz
             ./bin/pulumi-resource-castai-v${{ env.VERSION }}-windows-amd64.tar.gz
+            ./bin/pulumi-resource-castai-v${{ env.VERSION }}-darwin-amd64.tar.gz
+            ./bin/pulumi-resource-castai-v${{ env.VERSION }}-darwin-arm64.tar.gz
           body: |
             # CAST AI Provider v${{ env.VERSION }}
 
@@ -174,7 +225,7 @@ jobs:
 
             ### Go
             ```bash
-            go get github.com/castai/pulumi-castai@v${{ env.VERSION }}
+            go get github.com/castai/pulumi-castai/sdk/go/castai@v${{ env.VERSION }}
             ```
 
       # Publish Node.js Package

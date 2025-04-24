@@ -100,6 +100,58 @@ else
     ./scripts/copy_schema.sh
     echo "✅ Provider built and schema generated"
   fi
+
+
+fi
+
+# Step 3.5: Build platform-specific binaries
+echo "Building platform-specific binaries..."
+if [[ "$DRY_RUN" == "true" ]]; then
+  echo "[DRY RUN] Would build platform-specific binaries"
+  echo "[DRY RUN] Would ensure bin directory exists"
+  echo "[DRY RUN] Would build binaries for Linux amd64, Linux arm64, Windows amd64, macOS amd64, and macOS arm64"
+  echo "✅ Platform-specific binaries would be built (dry run)"
+else
+  # Ensure the bin directory exists
+  mkdir -p bin
+
+  # Check if the main provider binary exists
+  if [ ! -f "bin/pulumi-resource-castai" ]; then
+    echo "Error: Main provider binary not found. Please build it first with 'make provider'."
+    exit 1
+  fi
+
+  # Build all platform-specific binaries
+  echo "Building all platform-specific binaries..."
+  cd provider
+
+  # Build for Linux amd64
+  echo "Building for Linux amd64..."
+  GOOS=linux GOARCH=amd64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-linux-amd64 -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
+
+  # Build for Linux arm64
+  echo "Building for Linux arm64..."
+  GOOS=linux GOARCH=arm64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-linux-arm64 -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
+
+  # Build for Windows amd64
+  echo "Building for Windows amd64..."
+  GOOS=windows GOARCH=amd64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-windows-amd64.exe -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
+
+  # Build for macOS amd64
+  echo "Building for macOS amd64..."
+  GOOS=darwin GOARCH=amd64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-darwin-amd64 -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
+
+  # Build for macOS arm64
+  echo "Building for macOS arm64..."
+  GOOS=darwin GOARCH=arm64 go build -o ../bin/pulumi-resource-castai-v${VERSION}-darwin-arm64 -ldflags "-X github.com/castai/pulumi-castai/provider/pkg/version.Version=${VERSION}" ./cmd/pulumi-resource-castai
+
+  cd ..
+
+  # Verify the binaries were created
+  echo "Verifying platform-specific binaries..."
+  ls -la ./bin/pulumi-resource-castai-v${VERSION}-*
+
+  echo "✅ Platform-specific binaries created"
 fi
 
 # Step 4: Build the SDKs
