@@ -100,6 +100,11 @@ build_dotnet:: install_dependencies # build the dotnet sdk
 	./scripts/fix_dotnet_naming.sh
 	@echo "Creating version.txt file"
 	echo "${VERSION}" > sdk/dotnet/version.txt
+	@echo "Checking if .csproj file exists"
+	@if [ ! -f "sdk/dotnet/Pulumi.CastAI.csproj" ]; then \
+		echo "ERROR: sdk/dotnet/Pulumi.CastAI.csproj does not exist. Running fix_dotnet_naming.sh again..."; \
+		./scripts/fix_dotnet_naming.sh; \
+	fi
 	@echo "Building .NET SDK"
 	cd sdk/dotnet && \
 		dotnet build /p:Version=${VERSION} -c Release -v detailed || \
