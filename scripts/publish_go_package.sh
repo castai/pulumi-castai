@@ -20,17 +20,50 @@ cd sdk/go
 echo "Ensuring correct directory structure..."
 mkdir -p castai
 
-# Create go.mod file with the correct module path
-echo "Creating go.mod file..."
+# Create go.mod file for the sdk/go directory
+echo "Creating go.mod file for sdk/go..."
 cat > go.mod << EOF
 module github.com/castai/pulumi-castai/sdk/go
 
 go 1.18
 EOF
 
-# Create a README.md file
-echo "Creating README.md file..."
+# Create go.mod file for the sdk/go/castai directory
+echo "Creating go.mod file for sdk/go/castai..."
+mkdir -p castai
+cat > castai/go.mod << EOF
+module github.com/castai/pulumi-castai/sdk/go/castai
+
+go 1.18
+EOF
+
+# Create a README.md file for the sdk/go directory
+echo "Creating README.md file for sdk/go..."
 cat > README.md << EOF
+# CAST AI Pulumi Provider - Go SDK
+
+This package provides Go bindings for the CAST AI Pulumi provider.
+
+## Installation
+
+\`\`\`bash
+go get github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION
+\`\`\`
+
+## Usage
+
+Import the SDK in your code:
+
+\`\`\`go
+import "github.com/castai/pulumi-castai/sdk/go/castai"
+\`\`\`
+
+See the [documentation](https://www.pulumi.com/registry/packages/castai/) for usage examples.
+EOF
+
+# Create a README.md file for the sdk/go/castai directory
+echo "Creating README.md file for sdk/go/castai..."
+cat > castai/README.md << EOF
 # CAST AI Pulumi Provider - Go SDK
 
 This package provides Go bindings for the CAST AI Pulumi provider.
