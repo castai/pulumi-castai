@@ -3,8 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/castai/pulumi-castai"
-	"github.com/castai/pulumi-castai/azure"
+	"github.com/castai/pulumi-castai/sdk/go/castai"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -12,7 +11,7 @@ import (
 func runAzureExample() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Initialize the provider (API token will be read from environment variable CASTAI_API_TOKEN)
-		provider, err := castai.NewProvider(ctx, "castai-provider", nil)
+		provider, err := castai.NewProvider(ctx, "castai-provider", &castai.ProviderArgs{})
 		if err != nil {
 			return err
 		}
@@ -40,7 +39,7 @@ func runAzureExample() {
 		}
 
 		// Create a connection to an AKS cluster
-		aksArgs := &azure.AksClusterArgs{
+		aksArgs := &castai.AksClusterArgs{
 			SubscriptionId:          pulumi.String(subscriptionID),
 			TenantId:                pulumi.String(tenantID),
 			ResourceGroupName:       pulumi.String(resourceGroup),
@@ -48,7 +47,7 @@ func runAzureExample() {
 			DeleteNodesOnDisconnect: pulumi.Bool(true),
 		}
 
-		aksCluster, err := azure.NewAksCluster(ctx, "aks-cluster-connection", aksArgs, pulumi.Provider(provider))
+		aksCluster, err := castai.NewAksCluster(ctx, "aks-cluster-connection", aksArgs, pulumi.Provider(provider))
 		if err != nil {
 			return err
 		}

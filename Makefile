@@ -102,7 +102,9 @@ build_dotnet:: install_dependencies # build the dotnet sdk
 	echo "${VERSION}" > sdk/dotnet/version.txt
 	@echo "Building .NET SDK"
 	cd sdk/dotnet && \
-		dotnet build /p:Version=${VERSION} -c Release -v detailed
+		dotnet build /p:Version=${VERSION} -c Release -v detailed || \
+		(echo "Retrying .NET build with simplified approach" && \
+		 dotnet build /p:Version=${VERSION} -c Release -p:GeneratePackageOnBuild=false)
 
 install_dependencies:: # install dependencies for the provider and code generator
 	@echo "Ensure pulumi is installed"

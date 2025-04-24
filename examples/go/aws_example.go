@@ -3,8 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/castai/pulumi-castai"
-	"github.com/castai/pulumi-castai/aws"
+	"github.com/castai/pulumi-castai/sdk/go/castai"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -12,7 +11,7 @@ import (
 func runAwsExample() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Initialize the provider (API token will be read from environment variable CASTAI_API_TOKEN)
-		provider, err := castai.NewProvider(ctx, "castai-provider", nil)
+		provider, err := castai.NewProvider(ctx, "castai-provider", &castai.ProviderArgs{})
 		if err != nil {
 			return err
 		}
@@ -36,7 +35,7 @@ func runAwsExample() {
 		}
 
 		// Create a connection to an EKS cluster
-		eksArgs := &aws.EksClusterArgs{
+		eksArgs := &castai.EksClusterArgs{
 			AccountId:              pulumi.String(accountID),
 			Region:                 pulumi.String(region),
 			EksClusterName:         pulumi.String(clusterName),
@@ -47,7 +46,7 @@ func runAwsExample() {
 			SubnetIds:              pulumi.StringArray{pulumi.String("subnet-12345678"), pulumi.String("subnet-87654321")},
 		}
 
-		eksCluster, err := aws.NewEksCluster(ctx, "eks-cluster-connection", eksArgs, pulumi.Provider(provider))
+		eksCluster, err := castai.NewEksCluster(ctx, "eks-cluster-connection", eksArgs, pulumi.Provider(provider))
 		if err != nil {
 			return err
 		}
