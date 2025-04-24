@@ -15,19 +15,9 @@ fi
 
 VERSION=$1
 
-# Create the sdk/go/go.mod file
-echo "Creating sdk/go/go.mod file..."
-cat > sdk/go/go.mod << EOF
-module github.com/castai/pulumi-castai/sdk/go
-
-go 1.20
-
-require (
-	github.com/castai/pulumi-castai/sdk/go/castai v${VERSION}
-)
-
-replace github.com/castai/pulumi-castai/sdk/go/castai => ./castai
-EOF
+# We don't need a go.mod file in the sdk/go directory anymore
+# We only want to publish the sdk/go/castai module
+echo "Skipping creation of sdk/go/go.mod file..."
 
 # Create the sdk/go/castai/go.mod file
 echo "Creating sdk/go/castai/go.mod file..."

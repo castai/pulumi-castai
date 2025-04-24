@@ -29,7 +29,7 @@ module test
 
 go 1.18
 
-require github.com/castai/pulumi-castai/sdk/go v$VERSION
+require github.com/castai/pulumi-castai/sdk/go/castai v$VERSION
 EOF
 
 cat > /tmp/go-sdk-test/main.go << EOF
