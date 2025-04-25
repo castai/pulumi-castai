@@ -1,11 +1,3 @@
-#!/usr/bin/env bash
-echo "Running GCP Go example..."
-if [ -f .env ]; then
-    source .env
-    cd examples/go && \
-
-    # Create a simple Go file that just imports the SDK
-    cat > simple_gcp.go << 'EOF'
 package main
 
 import (
@@ -25,14 +17,3 @@ func main() {
 	fmt.Println("Import successful!")
 	fmt.Println("GCP example completed successfully!")
 }
-EOF
-
-    # Run the simple example
-    CASTAI_API_TOKEN="${CASTAI_API_TOKEN}" \
-    GCP_PROJECT_ID="${GCP_PROJECT_ID}" \
-    GKE_CLUSTER_NAME="${GKE_CLUSTER_NAME}" \
-    go run simple_gcp.go
-else
-    echo "Error: .env file not found"
-    exit 1
-fi

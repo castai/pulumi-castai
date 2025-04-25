@@ -1,6 +1,8 @@
 module github.com/castai/pulumi-castai
 
-go 1.20
+go 1.23.1
+
+toolchain go1.23.8
 
 // Our modules
 // Use explicit versioning for local modules to help Dependabot
@@ -13,7 +15,7 @@ replace github.com/castai/pulumi-castai/tests/go v0.0.0 => ./tests/go
 // External replacements
 // replace github.com/castai/terraform-provider-castai => ./terraform-provider-castai-reference
 
-require github.com/castai/pulumi-castai/sdk/go/castai v0.0.0
+require github.com/castai/pulumi-castai/sdk/go/castai v0.1.71
 
 require (
 	dario.cat/mergo v1.0.1 // indirect

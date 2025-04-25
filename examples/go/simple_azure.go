@@ -1,11 +1,3 @@
-#!/usr/bin/env bash
-echo "Running Azure Go example..."
-if [ -f .env ]; then
-    source .env
-    cd examples/go && \
-
-    # Create a simple Go file that just imports the SDK
-    cat > simple_azure.go << 'EOF'
 package main
 
 import (
@@ -26,16 +18,3 @@ func main() {
 	fmt.Println("Import successful!")
 	fmt.Println("Azure example completed successfully!")
 }
-EOF
-
-    # Run the simple example
-    CASTAI_API_TOKEN="${CASTAI_API_TOKEN}" \
-    AZURE_SUBSCRIPTION_ID="${AZURE_SUBSCRIPTION_ID}" \
-    AZURE_TENANT_ID="${AZURE_TENANT_ID}" \
-    AZURE_RESOURCE_GROUP="${AZURE_RESOURCE_GROUP}" \
-    AKS_CLUSTER_NAME="${AKS_CLUSTER_NAME}" \
-    go run simple_azure.go
-else
-    echo "Error: .env file not found"
-    exit 1
-fi
