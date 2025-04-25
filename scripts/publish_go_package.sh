@@ -130,6 +130,15 @@ if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$V
     git push origin "v$VERSION"
   fi
 
+  # Create a special tag for the Go SDK
+  if git rev-parse "sdk/go/castai/v$VERSION" >/dev/null 2>&1; then
+    echo "Tag sdk/go/castai/v$VERSION already exists. Using existing tag."
+  else
+    echo "Creating special tag sdk/go/castai/v$VERSION for Go SDK..."
+    git tag -a "sdk/go/castai/v$VERSION" -m "Go SDK v$VERSION"
+    git push origin "sdk/go/castai/v$VERSION"
+  fi
+
   # Trigger pkg.go.dev to index the new version
   echo "Triggering pkg.go.dev to index the new version..."
   echo "Note: This may fail if the repository is not yet public, which is expected."
