@@ -57,7 +57,12 @@ The Pulumi CASTAI provider allows users to interact with CAST AI resources using
 
    For published versions, use:
    ```bash
-   go get github.com/castai/pulumi-castai@v0.1.62
+   go get github.com/castai/pulumi-castai@v0.1.71
+   ```
+
+   Then import the SDK in your code:
+   ```go
+   import "github.com/castai/pulumi-castai"
    ```
 
 ### Quick Installation for Testing
@@ -192,7 +197,7 @@ package main
 import (
 	"os"
 
-	"github.com/castai/pulumi-castai/sdk/go/castai"
+	"github.com/castai/pulumi-castai"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
