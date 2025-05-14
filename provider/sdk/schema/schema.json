@@ -15,7 +15,7 @@
     "logoUrl": "https://raw.githubusercontent.com/castai/pulumi-castai/main/docs/images/castai-logo.png",
     "pluginDownloadURL": "github://api.github.com/castai",
     "publisher": "CAST AI",
-    "version": "0.1.73",
+    "version": "0.1.75",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
     },
