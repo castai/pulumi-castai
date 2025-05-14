@@ -286,34 +286,44 @@ echo "✅ Changes pushed"
 echo "Creating tag v$VERSION..."
 if [[ "$DRY_RUN" == "true" ]]; then
   echo "[DRY RUN] Would run: git tag \"v$VERSION\""
+  echo "[DRY RUN] Would also create special tag \"sdk/go/castai/v$VERSION\" for Go SDK"
 else
   # Make sure we're in the repository root
   cd "$ORIGINAL_DIR"
 
+  # Create the main version tag
   git tag "v$VERSION"
+
+  # Also create a special tag for the Go SDK
+  echo "Creating special tag sdk/go/castai/v$VERSION for Go SDK..."
+  git tag -a "sdk/go/castai/v$VERSION" -m "Go SDK v$VERSION"
 fi
-echo "✅ Tag created"
+echo "✅ Tags created"
 
 # Ask user if they want to push the tag now
 if [[ "$DRY_RUN" == "true" ]]; then
-  echo "[DRY RUN] Would ask: Do you want to push the tag now to trigger the release pipeline? (y/n)"
+  echo "[DRY RUN] Would ask: Do you want to push the tags now to trigger the release pipeline? (y/n)"
   echo "[DRY RUN] Would run: git push origin \"v$VERSION\" (if user answers yes)"
+  echo "[DRY RUN] Would run: git push origin \"sdk/go/castai/v$VERSION\" (if user answers yes)"
 else
-  read -p "Do you want to push the tag now to trigger the release pipeline? (y/n): " PUSH_TAG
+  read -p "Do you want to push the tags now to trigger the release pipeline? (y/n): " PUSH_TAG
   if [[ "$PUSH_TAG" == "y" || "$PUSH_TAG" == "Y" ]]; then
-    echo "Pushing tag v$VERSION..."
+    echo "Pushing tags v$VERSION and sdk/go/castai/v$VERSION..."
     # Make sure we're in the repository root
     cd "$ORIGINAL_DIR"
 
     git push origin "v$VERSION"
-    echo "✅ Tag pushed. The GitHub workflow will now handle the rest of the publishing process."
+    git push origin "sdk/go/castai/v$VERSION"
+    echo "✅ Tags pushed. The GitHub workflow will now handle the rest of the publishing process."
   else
-    echo "Tag not pushed. You can push it later with: git push origin v$VERSION"
+    echo "Tags not pushed. You can push them later with:"
+    echo "  git push origin v$VERSION"
+    echo "  git push origin sdk/go/castai/v$VERSION"
   fi
 fi
 
 echo "IMPORTANT: Always push the code changes BEFORE pushing the tag to ensure the pipeline has access to the latest code."
 
 echo "Once the workflow completes, the Go SDK should be available at:"
-echo "https://pkg.go.dev/github.com/castai/pulumi-castai@v$VERSION"
+echo "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION"
 echo "Note: It may take a few minutes for pkg.go.dev to index the new version after the workflow completes."

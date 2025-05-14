@@ -13,6 +13,21 @@ fi
 
 echo "Triggering pkg.go.dev to index the Go SDK for version v$VERSION..."
 
+# Check if the special tag exists
+echo "Checking if special tag for Go SDK exists..."
+if ! git tag -l | grep -q "^sdk/go/castai/v$VERSION$"; then
+  echo "Special tag sdk/go/castai/v$VERSION does not exist. Creating it..."
+  # Configure git user for the tag
+  git config --local user.email "github-actions@github.com" || git config user.email "github-actions@github.com"
+  git config --local user.name "GitHub Actions" || git config user.name "GitHub Actions"
+  # Create and push the tag
+  git tag -a "sdk/go/castai/v$VERSION" -m "Go SDK v$VERSION"
+  git push origin "sdk/go/castai/v$VERSION"
+  echo "Special tag created and pushed."
+else
+  echo "Special tag sdk/go/castai/v$VERSION already exists."
+fi
+
 # Explicitly request the package from pkg.go.dev
 echo "Explicitly requesting the Go package from pkg.go.dev..."
 curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$VERSION?tab=doc"

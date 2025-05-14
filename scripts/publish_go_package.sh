@@ -135,8 +135,35 @@ if curl -s "https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$V
     echo "Tag sdk/go/castai/v$VERSION already exists. Using existing tag."
   else
     echo "Creating special tag sdk/go/castai/v$VERSION for Go SDK..."
+    # Configure git user for the tag
+    git config --local user.email "github-actions@github.com" || git config user.email "github-actions@github.com"
+    git config --local user.name "GitHub Actions" || git config user.name "GitHub Actions"
+    # Create and push the tag
     git tag -a "sdk/go/castai/v$VERSION" -m "Go SDK v$VERSION"
     git push origin "sdk/go/castai/v$VERSION"
+    echo "Special tag created and pushed."
+  fi
+
+  # Also create a v0.1.73 tag in the sdk/go/castai directory as an alternative approach
+  echo "Creating an alternative tag format..."
+  # Save current directory
+  CURRENT_DIR=$(pwd)
+  # Change to the sdk/go/castai directory
+  if [ -d "sdk/go/castai" ]; then
+    cd sdk/go/castai
+    # Create a tag in this directory
+    if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+      echo "Tag v$VERSION already exists. Using existing tag."
+    else
+      echo "Creating tag v$VERSION in sdk/go/castai directory..."
+      git tag -a "v$VERSION" -m "Go SDK v$VERSION"
+      git push origin "v$VERSION"
+      echo "Alternative tag created and pushed."
+    fi
+    # Return to original directory
+    cd "$CURRENT_DIR"
+  else
+    echo "Warning: sdk/go/castai directory does not exist. Skipping alternative tag creation."
   fi
 
   # Trigger pkg.go.dev to index the new version

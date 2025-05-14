@@ -15,7 +15,7 @@ replace github.com/castai/pulumi-castai/tests/go v0.0.0 => ./tests/go
 // External replacements
 // replace github.com/castai/terraform-provider-castai => ./terraform-provider-castai-reference
 
-require github.com/castai/pulumi-castai/sdk/go/castai v0.1.71
+require github.com/castai/pulumi-castai/sdk/go/castai v0.1.74-0.20250514121510-5cdebd5ce358
 
 require (
 	dario.cat/mergo v1.0.1 // indirect

@@ -296,6 +296,19 @@ jobs:
             exit 1
           fi
 
+          # Create a special tag for the Go SDK if it doesn't exist
+          echo "Checking if special tag for Go SDK exists..."
+          if ! git tag -l | grep -q "^sdk/go/castai/v$VERSION$"; then
+            echo "Creating special tag sdk/go/castai/v$VERSION for Go SDK..."
+            git config --local user.email "github-actions@github.com"
+            git config --local user.name "GitHub Actions"
+            git tag -a "sdk/go/castai/v$VERSION" -m "Go SDK v$VERSION"
+            git push origin "sdk/go/castai/v$VERSION"
+            echo "Special tag created and pushed."
+          else
+            echo "Special tag sdk/go/castai/v$VERSION already exists."
+          fi
+
           # Ensure the SDK directory structure exists
           mkdir -p sdk/go/castai
 

@@ -10,7 +10,7 @@ The Pulumi CAST AI provider is available as a package in all Pulumi languages:
 
 * JavaScript/TypeScript: [`@castai/pulumi`](https://www.npmjs.com/package/@castai/pulumi)
 * Python: [`pulumi-castai`](https://pypi.org/project/pulumi-castai/)
-* Go: [`github.com/castai/pulumi-castai`](https://pkg.go.dev/github.com/castai/pulumi-castai)
+* Go: [`github.com/castai/pulumi-castai/sdk/go/castai`](https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai)
 * .NET: [`Pulumi.CastAI`](https://www.nuget.org/packages/CastAI.Pulumi)
 
 ### Node.js (JavaScript/TypeScript)
@@ -28,7 +28,7 @@ pip install pulumi_castai
 ### Go
 
 ```bash
-go get github.com/castai/pulumi-castai
+go get github.com/castai/pulumi-castai/sdk/go/castai@latest
 ```
 
 ### .NET
@@ -78,7 +78,7 @@ provider = castai.Provider("castai-provider", api_token="your-api-token-here")
 
 ```go
 import (
-    "github.com/castai/pulumi-castai"
+    "github.com/castai/pulumi-castai/sdk/go/castai"
     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
