@@ -36,13 +36,13 @@ eks_cluster_name = os.environ.get("EKS_CLUSTER_NAME", "cast_ai_test_cluster")
 eks_cluster = EksCluster("eks-cluster-connection",
     account_id=aws_account_id,           # AWS account ID
     region=aws_region,                   # AWS region
-    eks_cluster_name=eks_cluster_name,   # EKS cluster name
+    name=eks_cluster_name,   # EKS cluster name
     delete_nodes_on_disconnect=True,     # Remove nodes on disconnect
     
     # The following values need to be replaced with actual values from your AWS account
     # For demo purposes, we're using placeholder values
-    security_group_id="sg-12345678",
-    subnet_ids=["subnet-12345678", "subnet-87654321"],
+    override_security_groups=["sg-12345678"],
+    subnets=["subnet-12345678", "subnet-87654321"],
     opts=pulumi.ResourceOptions(provider=provider)
 )
 

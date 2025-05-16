@@ -38,7 +38,7 @@ aks_cluster = AksCluster("aks-cluster-connection",
     subscription_id=azure_subscription_id,    # Azure subscription ID
     tenant_id=azure_tenant_id,                # Azure tenant ID
     resource_group_name=azure_resource_group, # Azure resource group
-    aks_cluster_name=aks_cluster_name,        # AKS cluster name
+    name=aks_cluster_name,        # AKS cluster name
     delete_nodes_on_disconnect=True,          # Remove nodes on disconnect
     opts=pulumi.ResourceOptions(provider=provider)
 )

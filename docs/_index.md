@@ -25,10 +25,10 @@ const provider = new castai.Provider("castai-provider", {
 const eksCluster = new castai.EksCluster("eks-cluster-connection", {
     accountId: process.env.AWS_ACCOUNT_ID || "123456789012",
     region: process.env.AWS_REGION || "us-west-2",
-    eksClusterName: process.env.EKS_CLUSTER_NAME || "my-eks-cluster",
+    name: process.env.EKS_CLUSTER_NAME || "my-eks-cluster",
     deleteNodesOnDisconnect: true,
-    securityGroupId: "sg-12345678",
-    subnetIds: ["subnet-12345678", "subnet-87654321"],
+    overrideSecurityGroups: ["sg-12345678"],
+    subnets: ["subnet-12345678", "subnet-87654321"],
 }, { provider });
 
 // Export the cluster ID
@@ -56,10 +56,10 @@ eks_cluster_name = os.environ.get("EKS_CLUSTER_NAME", "my-eks-cluster")
 eks_cluster = EksCluster("eks-cluster-connection",
     account_id=aws_account_id,
     region=aws_region,
-    eks_cluster_name=eks_cluster_name,
+    name=eks_cluster_name,
     delete_nodes_on_disconnect=True,
-    security_group_id="sg-12345678",
-    subnet_ids=["subnet-12345678", "subnet-87654321"],
+    override_security_groups=["sg-12345678"],
+    subnets=["subnet-12345678", "subnet-87654321"],
     opts=pulumi.ResourceOptions(provider=provider)
 )
 

@@ -58,11 +58,11 @@ const eksClusterInfo = pulumi.output(aws.eks.getCluster({
 const eksCluster = new castai.EksCluster("eks-cluster-connection", {
     accountId: awsAccountId,
     region: awsRegion,
-    eksClusterName: eksClusterName,
+    name: eksClusterName,
     deleteNodesOnDisconnect: true,
     // The following values need to be replaced with actual values from your AWS account
-    securityGroupId: "sg-12345678",
-    subnetIds: ["subnet-12345678", "subnet-87654321"],
+    overrideSecurityGroups: ["sg-12345678"],
+    subnets: ["subnet-12345678", "subnet-87654321"],
 }, { provider });
 
 // Create a Kubernetes provider to interact with the EKS cluster
