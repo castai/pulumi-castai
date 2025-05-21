@@ -110,10 +110,10 @@ func main() {
 		eksArgs := &castai.EksClusterArgs{
 			AccountId:              pulumi.String(accountID),
 			Region:                 pulumi.String(region),
-			EksClusterName:         pulumi.String(clusterName),
+			Name:         pulumi.String(clusterName),
 			DeleteNodesOnDisconnect: pulumi.Bool(true),
-			SecurityGroupId:        pulumi.String("sg-12345678"),
-			SubnetIds:              pulumi.StringArray{pulumi.String("subnet-12345678"), pulumi.String("subnet-87654321")},
+			OverrideSecurityGroups:         pulumi.StringArray{pulumi.String("sg-12345678")},
+			Subnets:              pulumi.StringArray{pulumi.String("subnet-12345678"), pulumi.String("subnet-87654321")},
 		}
 
 		eksCluster, err := castai.NewEksCluster(ctx, "eks-cluster-connection", eksArgs, pulumi.Provider(provider))
@@ -157,10 +157,10 @@ return await Deployment.RunAsync(() =>
     {
         AccountId = awsAccountId,
         Region = awsRegion,
-        EksClusterName = eksClusterName,
+        Name = eksClusterName,
         DeleteNodesOnDisconnect = true,
-        SecurityGroupId = "sg-12345678",
-        SubnetIds = new[] { "subnet-12345678", "subnet-87654321" }
+        OverrideSecurityGroups = new[] {"sg-12345678"},
+        Subnets = new[] { "subnet-12345678", "subnet-87654321" }
     }, new CustomResourceOptions
     {
         Provider = provider
