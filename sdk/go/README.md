@@ -5,7 +5,7 @@ This package provides Go bindings for the CAST AI Pulumi provider.
 ## Installation
 
 ```bash
-go get github.com/castai/pulumi-castai/sdk/go/castai@v0.1.77
+go get github.com/castai/pulumi-castai/sdk/go/castai@v0.1.78
 ```
 
 ## Usage
