@@ -3,11 +3,11 @@
  *
  * This example demonstrates how to connect an existing GKE cluster to CAST AI
  * and install all necessary components using the Pulumi CAST AI provider.
+ * It creates a service account with the necessary permissions for CAST AI.
  *
  * Required environment variables:
  * - CASTAI_API_TOKEN: Your CAST AI API token
  * - GCP_PROJECT_ID: Your GCP project ID
- * - GOOGLE_CREDENTIALS: GCP credentials JSON
  *
  * Optional environment variables:
  * - GKE_CLUSTER_NAME: Name of your GKE cluster (default: cast_ai_test_cluster)
@@ -21,7 +21,6 @@ import * as gcp from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
 
 const requiredVars = [
-    "GOOGLE_CREDENTIALS",
     "GCP_PROJECT_ID",
     "CASTAI_API_TOKEN"
 ];
@@ -29,7 +28,7 @@ const requiredVars = [
 const missingVars = requiredVars.filter(varName => !process.env[varName]);
 if (missingVars.length > 0) {
     console.warn(`Warning: Missing required GCP credentials: ${missingVars.join(", ")}`);
-    console.warn("This is a simulation only - not creating actual resources.");
+    console.warn("This example will create a service account for GCP authentication.");
 }
 
 const castaiApiToken = process.env.CASTAI_API_TOKEN;
@@ -38,31 +37,71 @@ if (!castaiApiToken) {
     process.exit(1);
 }
 
+const gcpProjectId = process.env.GCP_PROJECT_ID || "my-gcp-project-id";
+const gkeClusterName = process.env.GKE_CLUSTER_NAME || "cast_ai_test_cluster";
+const gkeLocation = process.env.GKE_LOCATION || "us-central1";
+
+// Create a service account for CAST AI
+const castaiServiceAccount = new gcp.serviceaccount.Account("castai-service-account", {
+    accountId: "castai-gke-access",
+    displayName: "CAST AI GKE Access Service Account",
+    description: "Service account for CAST AI to manage GKE cluster",
+    project: gcpProjectId,
+});
+
+// Define the required roles for CAST AI
+const requiredRoles = [
+    "roles/container.clusterAdmin",
+    "roles/compute.instanceAdmin.v1",
+    "roles/iam.serviceAccountUser",
+];
+
+// Assign roles to the service account
+requiredRoles.forEach((role, index) => {
+    new gcp.projects.IAMMember(`castai-role-${index}`, {
+        project: gcpProjectId,
+        role: role,
+        member: castaiServiceAccount.email.apply(email => `serviceAccount:${email}`),
+    });
+});
+
+// Create a service account key
+const serviceAccountKey = new gcp.serviceaccount.Key("castai-service-account-key", {
+    serviceAccountId: castaiServiceAccount.name,
+    publicKeyType: "TYPE_X509_PEM_FILE",
+});
+
 const provider = new castai.Provider("castai-provider", {
     apiToken: castaiApiToken,
     apiUrl: process.env.CASTAI_API_URL || "https://api.cast.ai",
 });
 
-const gcpProjectId = process.env.GCP_PROJECT_ID || "my-gcp-project-id";
-const gkeClusterName = process.env.GKE_CLUSTER_NAME || "cast_ai_test_cluster";
-const gkeLocation = process.env.GKE_LOCATION || "us-central1";
-
-// Get the existing GKE cluster details
-const gkeClusterInfo = pulumi.output(gcp.container.getCluster({
+// Create a GKE cluster for testing
+const gkeClusterInfo = new gcp.container.Cluster("test-gke-cluster", {
     name: gkeClusterName,
     location: gkeLocation,
     project: gcpProjectId,
-}));
+    initialNodeCount: 1,
+    nodeConfig: {
+        machineType: "e2-medium",
+        oauthScopes: [
+            "https://www.googleapis.com/auth/cloud-platform",
+        ],
+    },
+    removeDefaultNodePool: false,
+    deletionProtection: false,
+});
 
-// Create a connection to a GKE cluster
+// Create a connection to a GKE cluster using the service account credentials
 const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
     projectId: gcpProjectId,
     location: gkeLocation,
     name: gkeClusterName,
     deleteNodesOnDisconnect: true,
-    credentialsJson: process.env.GOOGLE_CREDENTIALS,
+    credentialsJson: serviceAccountKey.privateKey,
 }, {
     provider,
+    dependsOn: [gkeClusterInfo],
     customTimeouts: {
         create: "2m",
         update: "2m",
@@ -72,12 +111,12 @@ const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
 
 // Create a Kubernetes provider to interact with the GKE cluster
 const k8sProvider = new k8s.Provider("gke-k8s", {
-    kubeconfig: gkeClusterInfo.apply(info => {
+    kubeconfig: gkeClusterInfo.endpoint.apply(endpoint => {
         return `apiVersion: v1
 kind: Config
 clusters:
 - cluster:
-    server: https://${info.endpoint}
+    server: https://${endpoint}
     insecure-skip-tls-verify: true
   name: ${gkeClusterName}
 contexts:
@@ -244,6 +283,8 @@ const castaiPodPinner = new k8s.helm.v3.Release("castai-pod-pinner", {
 // Export useful information
 export const clusterName = gkeClusterName;
 export const clusterId = gkeCluster.id;
+export const serviceAccountEmail = castaiServiceAccount.email;
+export const serviceAccountName = castaiServiceAccount.name;
 export const agentHelmRelease = castaiAgent.name;
 export const controllerHelmRelease = clusterController.name;
 export const evictorHelmRelease = castaiEvictor.name;
