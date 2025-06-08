@@ -239,8 +239,8 @@ jobs:
 
       - name: Publish Node.js Package
         run: |
-          # The prepare_release.sh script already built the SDK with our fixes
-          # Just need to publish from the bin directory which contains compiled JavaScript
+          # The prepare_release.sh script already built and committed the SDK with our fixes
+          # The compiled JavaScript files and fixed package.json are in sdk/nodejs/bin/
 
           # Check if the package with this version already exists in npm registry
           NPM_VERSION=$(npm view @castai/pulumi version 2>/dev/null || echo "not found")
@@ -249,8 +249,8 @@ jobs:
             exit 0
           fi
 
-          # Verify the build created the bin directory with compiled JavaScript
-          echo "Verifying build output..."
+          # Verify the pre-built files exist
+          echo "Verifying pre-built files..."
           ls -la sdk/nodejs/bin/
           cat sdk/nodejs/bin/package.json
 
