@@ -237,22 +237,11 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Fix npm package.json
+      - name: Build and Publish Node.js Package
         run: |
-          # Make the fix-npm-package.sh script executable
-          chmod +x ./scripts/fix-npm-package.sh
-
-          # Run the script to fix package.json and ensure version consistency
-          ./scripts/fix-npm-package.sh "$VERSION"
-
-          # Check the updated package.json
-          cd sdk/nodejs
-          cat package.json
-          cd ../..
-
-      - name: Publish Node.js Package
-        run: |
-          cd sdk/nodejs
+          # Build the Node.js SDK using our Makefile which compiles TypeScript and applies fixes
+          echo "Building Node.js SDK with proper compilation..."
+          make build_nodejs
 
           # Check if the package with this version already exists in npm registry
           NPM_VERSION=$(npm view @castai/pulumi version 2>/dev/null || echo "not found")
@@ -261,7 +250,13 @@ jobs:
             exit 0
           fi
 
-          # Publish the package
+          # Verify the build created the bin directory with compiled JavaScript
+          echo "Verifying build output..."
+          ls -la sdk/nodejs/bin/
+          cat sdk/nodejs/bin/package.json
+
+          # Publish from the bin directory which contains compiled JavaScript and correct package.json
+          cd sdk/nodejs/bin
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
