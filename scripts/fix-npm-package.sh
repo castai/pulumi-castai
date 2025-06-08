@@ -63,6 +63,9 @@ node -e "
   // Update version
   pkg.version = '$NEW_VERSION';
 
+  // Add main field pointing to compiled JavaScript
+  pkg.main = 'bin/index.js';
+
   // Write the updated package.json
   fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
 "
