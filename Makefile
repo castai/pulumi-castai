@@ -79,6 +79,7 @@ build_nodejs:: install_dependencies # build the node sdk
 		yarn install && \
 		yarn run tsc && \
 		cp ../../README.md ../../LICENSE package.json ./bin/ && \
+		node -e "const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); pkg.main = 'bin/index.js'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');" && \
 		cd bin && \
 		node -e "const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); pkg.main = 'index.js'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
 

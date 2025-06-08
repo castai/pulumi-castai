@@ -237,19 +237,6 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Fix npm package.json
-        run: |
-          # Make the fix-npm-package.sh script executable
-          chmod +x ./scripts/fix-npm-package.sh
-
-          # Run the script to fix package.json and ensure version consistency
-          ./scripts/fix-npm-package.sh "$VERSION"
-
-          # Check the updated package.json
-          cd sdk/nodejs
-          cat package.json
-          cd ../..
-
       - name: Publish Node.js Package
         run: |
           cd sdk/nodejs
