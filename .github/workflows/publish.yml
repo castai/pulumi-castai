@@ -237,11 +237,10 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Build and Publish Node.js Package
+      - name: Publish Node.js Package
         run: |
-          # Build the Node.js SDK using our Makefile which compiles TypeScript and applies fixes
-          echo "Building Node.js SDK with proper compilation..."
-          make build_nodejs
+          # The prepare_release.sh script already built the SDK with our fixes
+          # Just need to publish from the bin directory which contains compiled JavaScript
 
           # Check if the package with this version already exists in npm registry
           NPM_VERSION=$(npm view @castai/pulumi version 2>/dev/null || echo "not found")
