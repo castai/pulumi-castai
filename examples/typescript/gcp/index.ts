@@ -146,7 +146,7 @@ users:
 });
 
 // Install the CAST AI agent using Helm
-const castaiAgent = new k8s.helm.v3.Release(`castai-agent-${uniqueSuffix}`, {
+const castaiAgent = new k8s.helm.v3.Release(`castai-agent`, {
     name: "castai-agent", // Helm release name can be the same across different clusters
     chart: "castai-agent",
     repositoryOpts: {
@@ -196,7 +196,7 @@ const castaiAgent = new k8s.helm.v3.Release(`castai-agent-${uniqueSuffix}`, {
 });
 
 // Install the CAST AI cluster controller
-const clusterController = new k8s.helm.v3.Release(`cluster-controller-${uniqueSuffix}`, {
+const clusterController = new k8s.helm.v3.Release(`cluster-controller`, {
     name: "cluster-controller", // Helm release name can be the same across different clusters
     chart: "castai-cluster-controller",
     repositoryOpts: {
@@ -235,7 +235,7 @@ const clusterController = new k8s.helm.v3.Release(`cluster-controller-${uniqueSu
 });
 
 // Install the CAST AI evictor
-const castaiEvictor = new k8s.helm.v3.Release(`castai-evictor-${uniqueSuffix}`, {
+const castaiEvictor = new k8s.helm.v3.Release(`castai-evictor`, {
     name: "castai-evictor", // Helm release name can be the same across different clusters
     chart: "castai-evictor",
     repositoryOpts: {
@@ -261,7 +261,7 @@ const castaiEvictor = new k8s.helm.v3.Release(`castai-evictor-${uniqueSuffix}`, 
 });
 
 // Install the CAST AI pod pinner
-const castaiPodPinner = new k8s.helm.v3.Release(`castai-pod-pinner-${uniqueSuffix}`, {
+const castaiPodPinner = new k8s.helm.v3.Release(`castai-pod-pinner`, {
     name: "castai-pod-pinner", // Helm release name can be the same across different clusters
     chart: "castai-pod-pinner",
     repositoryOpts: {
