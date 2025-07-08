@@ -7,7 +7,7 @@
         "typescript": "^5.1.6"
     },
     "dependencies": {
-        "@castai/pulumi": "^0.1.86",
+        "@castai/pulumi": "^0.1.87",
         "@pulumi/gcp": "^7.0.0",
         "@pulumi/kubernetes": "^4.0.0",
         "@pulumi/pulumi": "^3.0.0"
