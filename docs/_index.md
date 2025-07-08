@@ -28,8 +28,15 @@ import * as castai from "@castai/pulumi";
 import * as gcp from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
 
+const castaiApiToken = process.env.CASTAI_API_TOKEN;
+if (!castaiApiToken) {
+    console.error("ERROR: CASTAI_API_TOKEN environment variable is required");
+    process.exit(1);
+}
+
 const gcpProjectId = process.env.GCP_PROJECT_ID || "my-gcp-project-id";
-const gkeClusterName = process.env.GKE_CLUSTER_NAME || "my-gke-cluster";
+const gkeClusterName = process.env.GKE_CLUSTER_NAME || "pulumi-test-cluster-" + Date.now();
+const gkeLocation = process.env.GKE_LOCATION || "us-central1";
 
 // Create a service account for CAST AI
 const castaiServiceAccount = new gcp.serviceaccount.Account("castai-service-account", {
@@ -39,16 +46,16 @@ const castaiServiceAccount = new gcp.serviceaccount.Account("castai-service-acco
     project: gcpProjectId,
 });
 
-// Define the required roles for CAST AI (using broader permissions)
+// Define the required roles for CAST AI
 const requiredRoles = [
-    "roles/container.admin",
-    "roles/compute.admin",
+    "roles/container.clusterAdmin",
+    "roles/compute.instanceAdmin.v1",
     "roles/iam.serviceAccountUser",
 ];
 
 // Assign roles to the service account
-requiredRoles.forEach((role, index) => {
-    new gcp.projects.IAMMember(`castai-role-${index}`, {
+const roleBindings = requiredRoles.map((role, index) => {
+    return new gcp.projects.IAMMember(`castai-role-${index}`, {
         project: gcpProjectId,
         role: role,
         member: castaiServiceAccount.email.apply(email => `serviceAccount:${email}`),
@@ -58,76 +65,230 @@ requiredRoles.forEach((role, index) => {
 // Create a service account key
 const serviceAccountKey = new gcp.serviceaccount.Key("castai-service-account-key", {
     serviceAccountId: castaiServiceAccount.name,
+    publicKeyType: "TYPE_X509_PEM_FILE",
 });
 
 // Initialize the CAST AI provider
 const provider = new castai.Provider("castai-provider", {
-    apiToken: process.env.CASTAI_API_TOKEN,
+    apiToken: castaiApiToken,
+    apiUrl: process.env.CASTAI_API_URL || "https://api.cast.ai",
 });
 
-// Create a Kubernetes provider
-const k8sProvider = new k8s.Provider("gke-k8s", {
-    // Uses default kubeconfig from ~/.kube/config
-});
-
-// STEP 1: Create namespace with proper Helm labels
-const castaiNamespace = new k8s.core.v1.Namespace("castai-namespace", {
-    metadata: {
-        name: "castai-agent",
-        labels: {
-            "app.kubernetes.io/managed-by": "Helm",
-        },
-        annotations: {
-            "meta.helm.sh/release-name": "castai-agent",
-            "meta.helm.sh/release-namespace": "castai-agent",
-        },
+// Create a GKE cluster for testing
+const gkeClusterInfo = new gcp.container.Cluster("test-gke-cluster", {
+    name: gkeClusterName,
+    location: gkeLocation,
+    project: gcpProjectId,
+    initialNodeCount: 4, // Increased to 4 nodes to ensure enough capacity for CAST AI agents
+    nodeConfig: {
+        machineType: "e2-standard-2", // Increased from e2-medium to ensure enough resources for CAST AI agents
+        oauthScopes: [
+            "https://www.googleapis.com/auth/cloud-platform",
+        ],
     },
-}, { provider: k8sProvider });
+    removeDefaultNodePool: false,
+    deletionProtection: false,
+});
 
-// STEP 2: Install CAST AI agent FIRST (before cluster connection)
+// Create a Kubernetes provider to interact with the GKE cluster
+const k8sProvider = new k8s.Provider("gke-k8s", {
+    kubeconfig: gkeClusterInfo.endpoint.apply(endpoint => {
+        return `apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    server: https://${endpoint}
+    insecure-skip-tls-verify: true
+  name: ${gkeClusterName}
+contexts:
+- context:
+    cluster: ${gkeClusterName}
+    user: ${gkeClusterName}
+  name: ${gkeClusterName}
+current-context: ${gkeClusterName}
+users:
+- name: ${gkeClusterName}
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: gke-gcloud-auth-plugin
+      installHint: Install gke-gcloud-auth-plugin for use with kubectl by following https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+`;
+    }),
+});
+
+// Install the CAST AI agent using Helm
 const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
-    name: "castai-agent",
+    name: "castai-agent", // This will be the exact name used, without a suffix
     chart: "castai-agent",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
     namespace: "castai-agent",
-    createNamespace: false,
+    createNamespace: true,
+    cleanupOnFail: true,
+    timeout: 300,
+    skipAwait: true,
     values: {
-        apiKey: process.env.CASTAI_API_TOKEN,
+        replicaCount: 1,
         provider: "gke",
-        apiURL: "https://api.cast.ai",
+        additionalEnv: {
+            STATIC_CLUSTER_ID: gkeCluster.id,
+        },
+        createNamespace: false,
+        apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
+        apiKey: castaiApiToken,
+        resources: {
+            agent: {
+                requests: {
+                    memory: "512Mi",
+                    cpu: "100m",
+                },
+                limits: {
+                    memory: "1Gi",
+                    cpu: "500m",
+                },
+            },
+            monitor: {
+                requests: {
+                    memory: "64Mi",
+                    cpu: "50m",
+                },
+            },
+        },
     },
-}, { provider: k8sProvider, dependsOn: [castaiNamespace] });
+}, {
+    provider: k8sProvider,
+    dependsOn: [gkeCluster],
+    customTimeouts: {
+        create: "1m",
+        update: "1m",
+        delete: "5m",
+    },
+});
 
-// STEP 3: Install CAST AI cluster controller
+// Install the CAST AI cluster controller
 const clusterController = new k8s.helm.v3.Release("cluster-controller", {
-    name: "cluster-controller",
+    name: "cluster-controller", // This will be the exact name used, without a suffix
     chart: "castai-cluster-controller",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
     namespace: "castai-agent",
+    createNamespace: true,
+    cleanupOnFail: true,
+    timeout: 300,
+    skipAwait: true,
     values: {
         castai: {
-            apiKey: process.env.CASTAI_API_TOKEN,
-            apiURL: "https://api.cast.ai",
+            clusterID: gkeCluster.id,
+            apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
+            apiKey: castaiApiToken,
+        },
+        resources: {
+            requests: {
+                memory: "128Mi",
+                cpu: "50m",
+            },
+            limits: {
+                memory: "256Mi",
+                cpu: "200m",
+            },
         },
     },
-}, { provider: k8sProvider, dependsOn: [castaiAgent] });
+}, {
+    provider: k8sProvider,
+    dependsOn: [castaiAgent, gkeCluster],
+    customTimeouts: {
+        create: "1m",
+        update: "1m",
+        delete: "5m",
+    },
+});
 
-// STEP 4: Connect GKE cluster to CAST AI AFTER agent installation
+// Connect GKE cluster to CAST AI
 const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
     projectId: gcpProjectId,
-    location: "us-central1",
+    location: gkeLocation,
     name: gkeClusterName,
     deleteNodesOnDisconnect: true,
-    credentialsJson: serviceAccountKey.privateKey,
-}, { provider, dependsOn: [castaiAgent, clusterController] });
+    credentialsJson: serviceAccountKey.privateKey.apply(key =>
+        Buffer.from(key, 'base64').toString('utf8')
+    ),
+}, {
+    provider,
+    dependsOn: [gkeClusterInfo, ...roleBindings],
+    customTimeouts: {
+        create: "2m",
+        update: "5m",
+        delete: "5m",
+    },
+});
 
-// Export the cluster ID and service account information
+// Install the CAST AI evictor
+const castaiEvictor = new k8s.helm.v3.Release("castai-evictor", {
+    name: "castai-evictor", // This will be the exact name used, without a suffix
+    chart: "castai-evictor",
+    repositoryOpts: {
+        repo: "https://castai.github.io/helm-charts",
+    },
+    namespace: "castai-agent",
+    createNamespace: true,
+    cleanupOnFail: true,
+    timeout: 300,
+    skipAwait: true,
+    values: {
+        replicaCount: 1,
+        managedByCASTAI: true,
+    },
+}, {
+    provider: k8sProvider,
+    dependsOn: [castaiAgent, clusterController],
+    customTimeouts: {
+        create: "1m",
+        update: "1m",
+        delete: "5m",
+    },
+});
+
+// Install the CAST AI pod pinner
+const castaiPodPinner = new k8s.helm.v3.Release("castai-pod-pinner", {
+    name: "castai-pod-pinner", // This will be the exact name used, without a suffix
+    chart: "castai-pod-pinner",
+    repositoryOpts: {
+        repo: "https://castai.github.io/helm-charts",
+    },
+    namespace: "castai-agent",
+    createNamespace: true,
+    cleanupOnFail: true,
+    timeout: 300,
+    skipAwait: true,
+    values: {
+        castai: {
+            apiKey: castaiApiToken,
+            clusterID: gkeCluster.id,
+        },
+        replicaCount: 0,
+    },
+}, {
+    provider: k8sProvider,
+    dependsOn: [castaiAgent, clusterController],
+    customTimeouts: {
+        create: "1m",
+        update: "1m",
+        delete: "5m",
+    },
+});
+
+// Export useful information
+export const clusterName = gkeClusterName;
 export const clusterId = gkeCluster.id;
 export const serviceAccountEmail = castaiServiceAccount.email;
+export const serviceAccountName = castaiServiceAccount.name;
+export const agentHelmRelease = castaiAgent.name;
+export const controllerHelmRelease = clusterController.name;
+export const evictorHelmRelease = castaiEvictor.name;
+export const podPinnerHelmRelease = castaiPodPinner.name;
 ```
 
 {{% /choosable %}}
@@ -136,13 +297,21 @@ export const serviceAccountEmail = castaiServiceAccount.email;
 ```python
 import pulumi
 import os
+import base64
+import time
 from pulumi_castai import Provider, GkeCluster
-from pulumi_gcp import serviceaccount, projects
+from pulumi_gcp import serviceaccount, projects, container
 from pulumi_kubernetes import core, helm, Provider as K8sProvider
 
-# Get GCP project ID from environment variable or use a default value
+# Check for required environment variables
+castai_api_token = os.environ.get("CASTAI_API_TOKEN")
+if not castai_api_token:
+    raise Exception("ERROR: CASTAI_API_TOKEN environment variable is required")
+
+# Get configuration from environment variables
 project_id = os.environ.get("GCP_PROJECT_ID", "my-gcp-project-id")
-cluster_name = os.environ.get("GKE_CLUSTER_NAME", "my-gke-cluster")
+cluster_name = os.environ.get("GKE_CLUSTER_NAME", f"pulumi-test-cluster-{int(time.time())}")
+gke_location = os.environ.get("GKE_LOCATION", "us-central1")
 
 # Create a service account for CAST AI
 castai_service_account = serviceaccount.Account(
@@ -153,94 +322,254 @@ castai_service_account = serviceaccount.Account(
     project=project_id
 )
 
-# Define the required roles for CAST AI (using broader permissions)
+# Define the required roles for CAST AI
 required_roles = [
-    "roles/container.admin",
-    "roles/compute.admin",
+    "roles/container.clusterAdmin",
+    "roles/compute.instanceAdmin.v1",
     "roles/iam.serviceAccountUser",
 ]
 
 # Assign roles to the service account
+role_bindings = []
 for i, role in enumerate(required_roles):
-    projects.IAMMember(
+    role_binding = projects.IAMMember(
         f"castai-role-{i}",
         project=project_id,
         role=role,
         member=castai_service_account.email.apply(lambda email: f"serviceAccount:{email}")
     )
+    role_bindings.append(role_binding)
 
 # Create a service account key
 service_account_key = serviceaccount.Key(
     "castai-service-account-key",
-    service_account_id=castai_service_account.name
+    service_account_id=castai_service_account.name,
+    public_key_type="TYPE_X509_PEM_FILE"
 )
 
-# Initialize providers
-api_token = os.environ.get("CASTAI_API_TOKEN", "your-api-token-here")
-castai_provider = Provider("castai-provider", api_token=api_token)
-k8s_provider = K8sProvider("gke-k8s")
+# Initialize the CAST AI provider
+castai_provider = Provider(
+    "castai-provider",
+    api_token=castai_api_token,
+    api_url=os.environ.get("CASTAI_API_URL", "https://api.cast.ai")
+)
 
-# STEP 1: Create namespace with proper Helm labels
-castai_namespace = core.v1.Namespace(
-    "castai-namespace",
-    metadata={
-        "name": "castai-agent",
-        "labels": {
-            "app.kubernetes.io/managed-by": "Helm",
-        },
-        "annotations": {
-            "meta.helm.sh/release-name": "castai-agent",
-            "meta.helm.sh/release-namespace": "castai-agent",
-        },
+# Create a GKE cluster for testing
+gke_cluster_info = container.Cluster(
+    "test-gke-cluster",
+    name=cluster_name,
+    location=gke_location,
+    project=project_id,
+    initial_node_count=4,  # Increased to 4 nodes to ensure enough capacity for CAST AI agents
+    node_config={
+        "machine_type": "e2-standard-2",  # Increased from e2-medium to ensure enough resources for CAST AI agents
+        "oauth_scopes": [
+            "https://www.googleapis.com/auth/cloud-platform",
+        ],
     },
-    opts=pulumi.ResourceOptions(provider=k8s_provider)
+    remove_default_node_pool=False,
+    deletion_protection=False
 )
 
-# STEP 2: Install CAST AI agent FIRST (before cluster connection)
+# Create a Kubernetes provider to interact with the GKE cluster
+k8s_provider = K8sProvider(
+    "gke-k8s",
+    kubeconfig=gke_cluster_info.endpoint.apply(lambda endpoint: f"""apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    server: https://{endpoint}
+    insecure-skip-tls-verify: true
+  name: {cluster_name}
+contexts:
+- context:
+    cluster: {cluster_name}
+    user: {cluster_name}
+  name: {cluster_name}
+current-context: {cluster_name}
+users:
+- name: {cluster_name}
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: gke-gcloud-auth-plugin
+      installHint: Install gke-gcloud-auth-plugin for use with kubectl by following https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+""")
+)
+
+# Install the CAST AI agent using Helm
 castai_agent = helm.v3.Release(
     "castai-agent",
-    name="castai-agent",
+    name="castai-agent",  # This will be the exact name used, without a suffix
     chart="castai-agent",
     repository_opts={"repo": "https://castai.github.io/helm-charts"},
     namespace="castai-agent",
-    create_namespace=False,
+    create_namespace=True,
+    cleanup_on_fail=True,
+    timeout=300,
+    skip_await=True,
     values={
-        "apiKey": api_token,
+        "replicaCount": 1,
         "provider": "gke",
-        "apiURL": "https://api.cast.ai",
+        "additionalEnv": {
+            "STATIC_CLUSTER_ID": gke_cluster.id,
+        },
+        "createNamespace": False,
+        "apiURL": os.environ.get("CASTAI_API_URL", "https://api.cast.ai"),
+        "apiKey": castai_api_token,
+        "resources": {
+            "agent": {
+                "requests": {
+                    "memory": "512Mi",
+                    "cpu": "100m",
+                },
+                "limits": {
+                    "memory": "1Gi",
+                    "cpu": "500m",
+                },
+            },
+            "monitor": {
+                "requests": {
+                    "memory": "64Mi",
+                    "cpu": "50m",
+                },
+            },
+        },
     },
-    opts=pulumi.ResourceOptions(provider=k8s_provider, depends_on=[castai_namespace])
+    opts=pulumi.ResourceOptions(
+        provider=k8s_provider,
+        depends_on=[gke_cluster],
+        custom_timeouts=pulumi.CustomTimeouts(
+            create="1m",
+            update="1m",
+            delete="5m",
+        ),
+    )
 )
 
-# STEP 3: Install CAST AI cluster controller
+# Install the CAST AI cluster controller
 cluster_controller = helm.v3.Release(
     "cluster-controller",
-    name="cluster-controller",
+    name="cluster-controller",  # This will be the exact name used, without a suffix
     chart="castai-cluster-controller",
     repository_opts={"repo": "https://castai.github.io/helm-charts"},
     namespace="castai-agent",
+    create_namespace=True,
+    cleanup_on_fail=True,
+    timeout=300,
+    skip_await=True,
     values={
         "castai": {
-            "apiKey": api_token,
-            "apiURL": "https://api.cast.ai",
+            "clusterID": gke_cluster.id,
+            "apiURL": os.environ.get("CASTAI_API_URL", "https://api.cast.ai"),
+            "apiKey": castai_api_token,
+        },
+        "resources": {
+            "requests": {
+                "memory": "128Mi",
+                "cpu": "50m",
+            },
+            "limits": {
+                "memory": "256Mi",
+                "cpu": "200m",
+            },
         },
     },
-    opts=pulumi.ResourceOptions(provider=k8s_provider, depends_on=[castai_agent])
+    opts=pulumi.ResourceOptions(
+        provider=k8s_provider,
+        depends_on=[castai_agent, gke_cluster],
+        custom_timeouts=pulumi.CustomTimeouts(
+            create="1m",
+            update="1m",
+            delete="5m",
+        ),
+    )
 )
 
-# STEP 4: Connect GKE cluster to CAST AI AFTER agent installation
+# Connect GKE cluster to CAST AI
 gke_cluster = GkeCluster("gke-cluster-connection",
     project_id=project_id,
-    location="us-central1",
+    location=gke_location,
     name=cluster_name,
     delete_nodes_on_disconnect=True,
-    credentials_json=service_account_key.private_key,
-    opts=pulumi.ResourceOptions(provider=castai_provider, depends_on=[castai_agent, cluster_controller])
+    credentials_json=service_account_key.private_key.apply(
+        lambda key: base64.b64decode(key).decode('utf-8')
+    ),
+    opts=pulumi.ResourceOptions(
+        provider=castai_provider,
+        depends_on=[gke_cluster_info] + role_bindings,
+        custom_timeouts=pulumi.CustomTimeouts(
+            create="2m",
+            update="5m",
+            delete="5m",
+        ),
+    )
 )
 
-# Export the cluster ID and service account information
+# Install the CAST AI evictor
+castai_evictor = helm.v3.Release(
+    "castai-evictor",
+    name="castai-evictor",  # This will be the exact name used, without a suffix
+    chart="castai-evictor",
+    repository_opts={"repo": "https://castai.github.io/helm-charts"},
+    namespace="castai-agent",
+    create_namespace=True,
+    cleanup_on_fail=True,
+    timeout=300,
+    skip_await=True,
+    values={
+        "replicaCount": 1,
+        "managedByCASTAI": True,
+    },
+    opts=pulumi.ResourceOptions(
+        provider=k8s_provider,
+        depends_on=[castai_agent, cluster_controller],
+        custom_timeouts=pulumi.CustomTimeouts(
+            create="1m",
+            update="1m",
+            delete="5m",
+        ),
+    )
+)
+
+# Install the CAST AI pod pinner
+castai_pod_pinner = helm.v3.Release(
+    "castai-pod-pinner",
+    name="castai-pod-pinner",  # This will be the exact name used, without a suffix
+    chart="castai-pod-pinner",
+    repository_opts={"repo": "https://castai.github.io/helm-charts"},
+    namespace="castai-agent",
+    create_namespace=True,
+    cleanup_on_fail=True,
+    timeout=300,
+    skip_await=True,
+    values={
+        "castai": {
+            "apiKey": castai_api_token,
+            "clusterID": gke_cluster.id,
+        },
+        "replicaCount": 0,
+    },
+    opts=pulumi.ResourceOptions(
+        provider=k8s_provider,
+        depends_on=[castai_agent, cluster_controller],
+        custom_timeouts=pulumi.CustomTimeouts(
+            create="1m",
+            update="1m",
+            delete="5m",
+        ),
+    )
+)
+
+# Export useful information
+pulumi.export("cluster_name", cluster_name)
 pulumi.export("cluster_id", gke_cluster.id)
 pulumi.export("service_account_email", castai_service_account.email)
+pulumi.export("service_account_name", castai_service_account.name)
+pulumi.export("agent_helm_release", castai_agent.name)
+pulumi.export("controller_helm_release", cluster_controller.name)
+pulumi.export("evictor_helm_release", castai_evictor.name)
+pulumi.export("pod_pinner_helm_release", castai_pod_pinner.name)
 ```
 
 {{% /choosable %}}

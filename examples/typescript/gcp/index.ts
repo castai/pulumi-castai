@@ -101,7 +101,9 @@ const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
     location: gkeLocation,
     name: gkeClusterName,
     deleteNodesOnDisconnect: true,
-    // credentialsJson: serviceAccountKey.privateKey,
+    credentialsJson: serviceAccountKey.privateKey.apply(key =>
+        Buffer.from(key, 'base64').toString('utf8')
+    ),
 }, {
     provider,
     dependsOn: [gkeClusterInfo, ...roleBindings],
