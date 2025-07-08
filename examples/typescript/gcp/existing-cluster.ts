@@ -1,18 +1,26 @@
 /**
- * CAST AI GCP Example
+ * CAST AI GCP Existing Cluster Example
  *
  * This example demonstrates how to connect an existing GKE cluster to CAST AI
- * and install all necessary components using the Pulumi CAST AI provider.
- * It creates a service account with the necessary permissions for CAST AI.
+ * using the current kubectl context. It creates a service account with the 
+ * necessary permissions and installs all CAST AI components.
+ *
+ * Prerequisites:
+ * - An existing GKE cluster
+ * - kubectl configured to point to your GKE cluster
+ * - gcloud CLI authenticated
  *
  * Required environment variables:
  * - CASTAI_API_TOKEN: Your CAST AI API token
  * - GCP_PROJECT_ID: Your GCP project ID
+ * - GKE_CLUSTER_NAME: Name of your existing GKE cluster
+ * - GKE_LOCATION: GCP region/zone where your cluster is located
  *
  * Optional environment variables:
- * - GKE_CLUSTER_NAME: Name of your GKE cluster (default: cast_ai_test_cluster)
- * - GKE_LOCATION: GCP region where your cluster is located (default: us-central1)
  * - CASTAI_API_URL: Custom CAST AI API URL (default: https://api.cast.ai)
+ *
+ * To configure kubectl for your GKE cluster:
+ * gcloud container clusters get-credentials YOUR_CLUSTER_NAME --location=YOUR_LOCATION --project=YOUR_PROJECT_ID
  */
 
 import * as pulumi from "@pulumi/pulumi";
@@ -20,30 +28,33 @@ import * as castai from "@castai/pulumi";
 import * as gcp from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
 
-const requiredVars = [
-    "GCP_PROJECT_ID",
-    "CASTAI_API_TOKEN"
-];
-
-const missingVars = requiredVars.filter(varName => !process.env[varName]);
-if (missingVars.length > 0) {
-    console.warn(`Warning: Missing required GCP credentials: ${missingVars.join(", ")}`);
-    console.warn("This example will create a service account for GCP authentication.");
-}
-
 const castaiApiToken = process.env.CASTAI_API_TOKEN;
 if (!castaiApiToken) {
     console.error("ERROR: CASTAI_API_TOKEN environment variable is required");
     process.exit(1);
 }
 
-const gcpProjectId = process.env.GCP_PROJECT_ID || "my-gcp-project-id";
+// Get cluster information from environment variables
+const gcpProjectId = process.env.GCP_PROJECT_ID;
+if (!gcpProjectId) {
+    console.error("ERROR: GCP_PROJECT_ID environment variable is required");
+    process.exit(1);
+}
+
+const gkeClusterName = process.env.GKE_CLUSTER_NAME;
+if (!gkeClusterName) {
+    console.error("ERROR: GKE_CLUSTER_NAME environment variable is required");
+    process.exit(1);
+}
+
+const gkeLocation = process.env.GKE_LOCATION;
+if (!gkeLocation) {
+    console.error("ERROR: GKE_LOCATION environment variable is required");
+    process.exit(1);
+}
 
 // Generate a short unique suffix to avoid naming conflicts and support multiple deployments
 const uniqueSuffix = Math.random().toString(36).substring(2, 8); // 6 character random string
-
-const gkeClusterName = process.env.GKE_CLUSTER_NAME || `pulumi-test-cluster-${uniqueSuffix}`;
-const gkeLocation = process.env.GKE_LOCATION || "us-central1";
 
 // Create a service account for CAST AI
 const castaiServiceAccount = new gcp.serviceaccount.Account(`castai-sa-${uniqueSuffix}`, {
@@ -75,31 +86,18 @@ const serviceAccountKey = new gcp.serviceaccount.Key(`castai-key-${uniqueSuffix}
     publicKeyType: "TYPE_X509_PEM_FILE",
 });
 
-// Simple approach: just depend on the role bindings directly
-// The key insight is that IAM propagation usually happens quickly enough
-
+// Initialize the CAST AI provider
 const provider = new castai.Provider(`castai-provider-${uniqueSuffix}`, {
     apiToken: castaiApiToken,
     apiUrl: process.env.CASTAI_API_URL || "https://api.cast.ai",
 });
 
-// Create a GKE cluster for testing
-const gkeClusterInfo = new gcp.container.Cluster(`test-gke-cluster-${uniqueSuffix}`, {
-    name: gkeClusterName,
-    location: gkeLocation,
-    project: gcpProjectId,
-    initialNodeCount: 4, // Increased to 4 nodes to ensure enough capacity for CAST AI agents
-    nodeConfig: {
-        machineType: "e2-standard-2", // Increased from e2-medium to ensure enough resources for CAST AI agents
-        oauthScopes: [
-            "https://www.googleapis.com/auth/cloud-platform",
-        ],
-    },
-    removeDefaultNodePool: false,
-    deletionProtection: false,
+// Create a Kubernetes provider using current context (assumes kubectl is configured)
+const k8sProvider = new k8s.Provider(`gke-k8s-${uniqueSuffix}`, {
+    // Uses current kubeconfig context - make sure kubectl is pointing to your GKE cluster
 });
 
-
+// Connect existing GKE cluster to CAST AI
 const gkeCluster = new castai.GkeCluster(`gke-cluster-${uniqueSuffix}`, {
     projectId: gcpProjectId,
     location: gkeLocation,
@@ -110,39 +108,12 @@ const gkeCluster = new castai.GkeCluster(`gke-cluster-${uniqueSuffix}`, {
     ),
 }, {
     provider,
-    dependsOn: [gkeClusterInfo, ...roleBindings],
+    dependsOn: roleBindings,
     customTimeouts: {
-        create: "2m",
+        create: "2m",   
         update: "5m",
         delete: "5m",
     },
-});
-
-// Create a Kubernetes provider to interact with the GKE cluster
-const k8sProvider = new k8s.Provider(`gke-k8s-${uniqueSuffix}`, {
-    kubeconfig: gkeClusterInfo.endpoint.apply(endpoint => {
-        return `apiVersion: v1
-kind: Config
-clusters:
-- cluster:
-    server: https://${endpoint}
-    insecure-skip-tls-verify: true
-  name: ${gkeClusterName}
-contexts:
-- context:
-    cluster: ${gkeClusterName}
-    user: ${gkeClusterName}
-  name: ${gkeClusterName}
-current-context: ${gkeClusterName}
-users:
-- name: ${gkeClusterName}
-  user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1beta1
-      command: gke-gcloud-auth-plugin
-      installHint: Install gke-gcloud-auth-plugin for use with kubectl by following https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
-`;
-    }),
 });
 
 // Install the CAST AI agent using Helm

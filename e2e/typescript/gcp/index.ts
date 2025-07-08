@@ -11,14 +11,18 @@ const castaiToken = config.requireSecret("castai:apiToken");
 const castaiUrl = config.get("castai:apiUrl") || "https://api.cast.ai";
 const region = config.get("gcp:region") || "us-central1";
 const zone = config.get("gcp:zone") || "us-central1-a";
-const clusterName = "pulumi-castai-e2e-test-ts";
+
+// Generate a short unique suffix to avoid naming conflicts and support multiple deployments
+const uniqueSuffix = Math.random().toString(36).substring(2, 8); // 6 character random string
+
+const clusterName = config.get("clusterName") || `pulumi-castai-e2e-${uniqueSuffix}`;
 
 // Create a GCP VPC network and subnet for the GKE cluster
-const network = new gcp.compute.Network("castai-e2e-network-ts", {
+const network = new gcp.compute.Network(`castai-e2e-network-${uniqueSuffix}`, {
     autoCreateSubnetworks: false,
 });
 
-const subnet = new gcp.compute.Subnetwork("castai-e2e-subnet-ts", {
+const subnet = new gcp.compute.Subnetwork(`castai-e2e-subnet-${uniqueSuffix}`, {
     ipCidrRange: "10.2.0.0/16",
     region: region,
     network: network.id,
@@ -35,7 +39,7 @@ const subnet = new gcp.compute.Subnetwork("castai-e2e-subnet-ts", {
 });
 
 // Create a GKE cluster
-const cluster = new gcp.container.Cluster("castai-e2e-cluster-ts", {
+const cluster = new gcp.container.Cluster(`castai-e2e-cluster-${uniqueSuffix}`, {
     name: clusterName,
     location: zone,
     initialNodeCount: 1,
@@ -54,11 +58,11 @@ const cluster = new gcp.container.Cluster("castai-e2e-cluster-ts", {
         clusterSecondaryRangeName: "pods",
         servicesSecondaryRangeName: "services",
     },
-    removableDefaultNodePool: true,
+    removeDefaultNodePool: true,
 });
 
 // Create a Kubernetes provider instance that uses our GKE cluster
-const k8sProvider = new k8s.Provider("gke-k8s-ts", {
+const k8sProvider = new k8s.Provider(`gke-k8s-${uniqueSuffix}`, {
     kubeconfig: pulumi.interpolate`apiVersion: v1
 clusters:
 - cluster:
@@ -87,13 +91,13 @@ users:
 });
 
 // Create IAM resources for CAST AI to manage the GKE cluster
-const castaiServiceAccount = new gcp.serviceaccount.Account("castai-e2e-sa-ts", {
-    accountId: pulumi.interpolate`castai-${clusterName}`,
+const castaiServiceAccount = new gcp.serviceaccount.Account(`castai-e2e-sa-${uniqueSuffix}`, {
+    accountId: `castai-e2e-${uniqueSuffix}`, // Keep it short to avoid GCP limits
     displayName: "CAST AI Service Account for GKE",
     project: projectId,
 });
 
-const castaiSaKey = new gcp.serviceaccount.Key("castai-e2e-sa-key-ts", {
+const castaiSaKey = new gcp.serviceaccount.Key(`castai-e2e-sa-key-${uniqueSuffix}`, {
     serviceAccountId: castaiServiceAccount.name,
 });
 
@@ -105,7 +109,7 @@ const roles = [
 ];
 
 const roleBindings = roles.map((role, i) => {
-    return new gcp.projects.IAMMember(`castai-e2e-binding-ts-${i}`, {
+    return new gcp.projects.IAMMember(`castai-e2e-binding-${uniqueSuffix}-${i}`, {
         project: projectId,
         role: role,
         member: pulumi.interpolate`serviceAccount:${castaiServiceAccount.email}`,
@@ -113,7 +117,7 @@ const roleBindings = roles.map((role, i) => {
 });
 
 // Create the CAST AI GKE integration
-const castaiGkeCluster = new castai.GkeCluster("castai-e2e-gke-ts", {
+const castaiGkeCluster = new castai.GkeCluster(`castai-e2e-gke-${uniqueSuffix}`, {
     name: clusterName,
     projectId: projectId,
     location: zone, 
@@ -193,5 +197,8 @@ const castaiGkeCluster = new castai.GkeCluster("castai-e2e-gke-ts", {
     }),
 });
 
-// Export the CAST AI cluster ID
-export const castaiClusterId = castaiGkeCluster.id; 
+// Export the CAST AI cluster ID and other useful information
+export const castaiClusterId = castaiGkeCluster.id;
+export const gkeClusterName = clusterName;
+export const serviceAccountEmail = castaiServiceAccount.email;
+export const uniqueDeploymentSuffix = uniqueSuffix;
