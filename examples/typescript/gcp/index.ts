@@ -95,20 +95,18 @@ const gkeClusterInfo = new gcp.container.Cluster("test-gke-cluster", {
     deletionProtection: false,
 });
 
-// SOLUTION: Create cluster connection without credentials first to avoid hanging
-// Then install agents, then update with credentials
+
 const gkeCluster = new castai.GkeCluster("gke-cluster-connection", {
     projectId: gcpProjectId,
     location: gkeLocation,
     name: gkeClusterName,
     deleteNodesOnDisconnect: true,
-    // Don't provide credentials initially - this prevents hanging in credential validation
     // credentialsJson: serviceAccountKey.privateKey,
 }, {
     provider,
-    dependsOn: [gkeClusterInfo, ...roleBindings], // Wait for IAM permissions to be assigned
+    dependsOn: [gkeClusterInfo, ...roleBindings],
     customTimeouts: {
-        create: "2m",   // Short timeout - just register cluster, don't wait for agent
+        create: "2m",   
         update: "5m",
         delete: "5m",
     },
