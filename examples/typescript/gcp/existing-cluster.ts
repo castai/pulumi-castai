@@ -27,6 +27,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as castai from "@castai/pulumi";
 import * as gcp from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
+import * as crypto from 'crypto';
 
 const castaiApiToken = process.env.CASTAI_API_TOKEN;
 if (!castaiApiToken) {
@@ -54,7 +55,9 @@ if (!gkeLocation) {
 }
 
 // Generate a short unique suffix to avoid naming conflicts and support multiple deployments
-const uniqueSuffix = Math.random().toString(36).substring(2, 8); // 6 character random string
+const clusterSha = gkeClusterName;
+const sha = crypto.createHash('sha1').update(clusterSha).digest('hex');
+const uniqueSuffix = sha.slice(0, 6);
 
 // Create a service account for CAST AI
 const castaiServiceAccount = new gcp.serviceaccount.Account(`castai-sa-${uniqueSuffix}`, {
