@@ -115,6 +115,10 @@ func Provider() tfbridge.ProviderInfo {
 			"castai_node_configuration":         {Tok: castaiResource(nodeConfigMod, "NodeConfiguration")},
 			"castai_node_configuration_default": {Tok: castaiResource(nodeConfigMod, "NodeConfigurationDefault")},
 			"castai_node_template":              {Tok: castaiResource(nodeConfigMod, "NodeTemplate")},
+
+			// Workload Management resources
+			"castai_workload_scaling_policy":       {Tok: castaiResource(workloadMod, "WorkloadScalingPolicy")},
+			"castai_workload_scaling_policy_order": {Tok: castaiResource(workloadMod, "WorkloadScalingPolicyOrder")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// AWS Data Sources

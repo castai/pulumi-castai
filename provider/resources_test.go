@@ -243,19 +243,21 @@ func TestProviderResources(t *testing.T) {
 	prov := Provider()
 
 	expectedResources := map[string]string{
-		"castai_eks_cluster":                "castai:aws:EksCluster",
-		"castai_gke_cluster":                "castai:gcp:GkeCluster",
-		"castai_aks_cluster":                "castai:azure:AksCluster",
-		"castai_cluster":                    "castai:index:Cluster",
-		"castai_credentials":                "castai:index:Credentials",
-		"castai_cluster_token":              "castai:index:ClusterToken",
-		"castai_eks_clusterid":              "castai:aws:EksClusterId",
-		"castai_gke_cluster_id":             "castai:gcp:GkeClusterId",
-		"castai_autoscaler":                 "castai:autoscaling:Autoscaler",
-		"castai_evictor_advanced_config":    "castai:autoscaling:EvictorAdvancedConfig",
-		"castai_node_configuration":         "castai:nodeconfig:NodeConfiguration",
-		"castai_node_configuration_default": "castai:nodeconfig:NodeConfigurationDefault",
-		"castai_node_template":              "castai:nodeconfig:NodeTemplate",
+		"castai_eks_cluster":                   "castai:aws:EksCluster",
+		"castai_gke_cluster":                   "castai:gcp:GkeCluster",
+		"castai_aks_cluster":                   "castai:azure:AksCluster",
+		"castai_cluster":                       "castai:index:Cluster",
+		"castai_credentials":                   "castai:index:Credentials",
+		"castai_cluster_token":                 "castai:index:ClusterToken",
+		"castai_eks_clusterid":                 "castai:aws:EksClusterId",
+		"castai_gke_cluster_id":                "castai:gcp:GkeClusterId",
+		"castai_autoscaler":                    "castai:autoscaling:Autoscaler",
+		"castai_evictor_advanced_config":       "castai:autoscaling:EvictorAdvancedConfig",
+		"castai_node_configuration":            "castai:nodeconfig:NodeConfiguration",
+		"castai_node_configuration_default":    "castai:nodeconfig:NodeConfigurationDefault",
+		"castai_node_template":                 "castai:nodeconfig:NodeTemplate",
+		"castai_workload_scaling_policy":       "castai:workload:WorkloadScalingPolicy",
+		"castai_workload_scaling_policy_order": "castai:workload:WorkloadScalingPolicyOrder",
 	}
 
 	// Verify all expected resources are present
@@ -267,7 +269,7 @@ func TestProviderResources(t *testing.T) {
 		})
 	}
 
-	// Verify count matches (now have 13 resources: 7 from v0.24.3 + 2 clusterID + 3 nodeConfig + 1 evictor from v7.73.0)
+	// Verify count matches (now have 15 resources: 7 from v0.24.3 + 2 clusterID + 3 nodeConfig + 1 evictor + 2 workload from v7.73.0)
 	assert.Equal(t, len(expectedResources), len(prov.Resources),
 		"Expected %d resources, got %d", len(expectedResources), len(prov.Resources))
 }
@@ -389,6 +391,8 @@ func TestResourceModuleAssignment(t *testing.T) {
 		{"castai_node_configuration", "nodeconfig"},
 		{"castai_node_configuration_default", "nodeconfig"},
 		{"castai_node_template", "nodeconfig"},
+		{"castai_workload_scaling_policy", "workload"},
+		{"castai_workload_scaling_policy_order", "workload"},
 	}
 
 	for _, tt := range tests {
