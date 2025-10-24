@@ -243,13 +243,15 @@ func TestProviderResources(t *testing.T) {
 	prov := Provider()
 
 	expectedResources := map[string]string{
-		"castai_eks_cluster":   "castai:aws:EksCluster",
-		"castai_gke_cluster":   "castai:gcp:GkeCluster",
-		"castai_aks_cluster":   "castai:azure:AksCluster",
-		"castai_cluster":       "castai:index:Cluster",
-		"castai_credentials":   "castai:index:Credentials",
-		"castai_cluster_token": "castai:index:ClusterToken",
-		"castai_autoscaler":    "castai:autoscaling:Autoscaler",
+		"castai_eks_cluster":                "castai:aws:EksCluster",
+		"castai_gke_cluster":                "castai:gcp:GkeCluster",
+		"castai_aks_cluster":                "castai:azure:AksCluster",
+		"castai_cluster":                    "castai:index:Cluster",
+		"castai_credentials":                "castai:index:Credentials",
+		"castai_cluster_token":              "castai:index:ClusterToken",
+		"castai_autoscaler":                 "castai:autoscaling:Autoscaler",
+		"castai_node_configuration":         "castai:nodeconfig:NodeConfiguration",
+		"castai_node_configuration_default": "castai:nodeconfig:NodeConfigurationDefault",
 	}
 
 	// Verify all expected resources are present
@@ -261,7 +263,7 @@ func TestProviderResources(t *testing.T) {
 		})
 	}
 
-	// Verify count matches (should have exactly 7 resources from v0.24.3)
+	// Verify count matches (now have 9 resources: 7 from v0.24.3 + 2 nodeConfig from v7.73.0)
 	assert.Equal(t, len(expectedResources), len(prov.Resources),
 		"Expected %d resources, got %d", len(expectedResources), len(prov.Resources))
 }
@@ -377,6 +379,8 @@ func TestResourceModuleAssignment(t *testing.T) {
 		{"castai_aks_cluster", "azure"},
 		{"castai_cluster", "index"},
 		{"castai_autoscaler", "autoscaling"},
+		{"castai_node_configuration", "nodeconfig"},
+		{"castai_node_configuration_default", "nodeconfig"},
 	}
 
 	for _, tt := range tests {
