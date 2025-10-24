@@ -23,8 +23,6 @@ github.com/aymanbagabas/go-osc52/v2 v2.0.1 h1:HwpRHbFMcZLEVr42D4p7XBqjyuxQH5SMiE
 github.com/aymanbagabas/go-osc52/v2 v2.0.1/go.mod h1:uYgXzlJ7ZpABp8OJ+exZzJJhRNQ2ASbcXHWsFqH8hp8=
 github.com/blang/semver v3.5.1+incompatible h1:cQNTCjp13qL8KC3Nbxr/y2Bqb63oX6wdnnjpJbkM4JQ=
 github.com/blang/semver v3.5.1+incompatible/go.mod h1:kRBLl5iJ+tD4TcOOxsy/0fnwebNt5EWlYSAyrTnjyyk=
-github.com/castai/pulumi-castai/sdk/go/castai v0.1.71 h1:oD2X8tnmhKeF30TCnAoKCGsr2CuDMogkQaLvIdEkqDI=
-github.com/castai/pulumi-castai/sdk/go/castai v0.1.71/go.mod h1:qt/yG4piEykosO6hhzWPIDOMBCF0ks56U2f2WezgXyw=
 github.com/castai/pulumi-castai/sdk/go/castai v0.1.74-0.20250514121510-5cdebd5ce358 h1:PNTB/Nav3aJpDQry2vCzqTWMF2KxIRCLF6Fp1vm6CpA=
 github.com/castai/pulumi-castai/sdk/go/castai v0.1.74-0.20250514121510-5cdebd5ce358/go.mod h1:01yfIfmEO7FNYLV+0kHwPAZVb1ZjXko1jMJ2b05onF8=
 github.com/charmbracelet/bubbles v0.20.0 h1:jSZu6qD8cRQ6k9OMfR1WlM+ruM8fkPWkHvQWD9LIutE=

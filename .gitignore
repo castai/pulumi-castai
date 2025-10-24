@@ -21,6 +21,9 @@ sdk/dotnet/bin/Debug/
 sdk/dotnet/bin/Release/net6.0/
 sdk/dotnet/obj/
 
+./CLAUDE.md
+./GAP_ANALYSIS.md
+
 # SDKs
 # sdk/*
 # sdk/*/bin
