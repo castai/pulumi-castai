@@ -249,6 +249,8 @@ func TestProviderResources(t *testing.T) {
 		"castai_cluster":                    "castai:index:Cluster",
 		"castai_credentials":                "castai:index:Credentials",
 		"castai_cluster_token":              "castai:index:ClusterToken",
+		"castai_eks_clusterid":              "castai:aws:EksClusterId",
+		"castai_gke_cluster_id":             "castai:gcp:GkeClusterId",
 		"castai_autoscaler":                 "castai:autoscaling:Autoscaler",
 		"castai_node_configuration":         "castai:nodeconfig:NodeConfiguration",
 		"castai_node_configuration_default": "castai:nodeconfig:NodeConfigurationDefault",
@@ -263,7 +265,7 @@ func TestProviderResources(t *testing.T) {
 		})
 	}
 
-	// Verify count matches (now have 9 resources: 7 from v0.24.3 + 2 nodeConfig from v7.73.0)
+	// Verify count matches (now have 11 resources: 7 from v0.24.3 + 2 clusterID + 2 nodeConfig from v7.73.0)
 	assert.Equal(t, len(expectedResources), len(prov.Resources),
 		"Expected %d resources, got %d", len(expectedResources), len(prov.Resources))
 }
@@ -378,6 +380,8 @@ func TestResourceModuleAssignment(t *testing.T) {
 		{"castai_gke_cluster", "gcp"},
 		{"castai_aks_cluster", "azure"},
 		{"castai_cluster", "index"},
+		{"castai_eks_clusterid", "aws"},
+		{"castai_gke_cluster_id", "gcp"},
 		{"castai_autoscaler", "autoscaling"},
 		{"castai_node_configuration", "nodeconfig"},
 		{"castai_node_configuration_default", "nodeconfig"},

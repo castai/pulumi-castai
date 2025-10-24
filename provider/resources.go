@@ -96,6 +96,10 @@ func Provider() tfbridge.ProviderInfo {
 			"castai_credentials":    {Tok: castaiResource(mainMod, "Credentials")},
 			"castai_cluster_token":  {Tok: castaiResource(mainMod, "ClusterToken")},
 
+			// Cluster ID resources (register existing clusters with CAST AI)
+			"castai_eks_clusterid":  {Tok: awsResource(awsMod, "EksClusterId")},
+			"castai_gke_cluster_id": {Tok: gcpResource(gcpMod, "GkeClusterId")},
+
 			// Autoscaling resources
 			"castai_autoscaler": {
 				Tok: castaiResource(autoscalingMod, "Autoscaler"),
