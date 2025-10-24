@@ -109,6 +109,7 @@ func Provider() tfbridge.ProviderInfo {
 					},
 				},
 			},
+			"castai_evictor_advanced_config": {Tok: castaiResource(autoscalingMod, "EvictorAdvancedConfig")},
 
 			// Node Configuration resources
 			"castai_node_configuration":         {Tok: castaiResource(nodeConfigMod, "NodeConfiguration")},

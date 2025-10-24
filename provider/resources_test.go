@@ -252,6 +252,7 @@ func TestProviderResources(t *testing.T) {
 		"castai_eks_clusterid":              "castai:aws:EksClusterId",
 		"castai_gke_cluster_id":             "castai:gcp:GkeClusterId",
 		"castai_autoscaler":                 "castai:autoscaling:Autoscaler",
+		"castai_evictor_advanced_config":    "castai:autoscaling:EvictorAdvancedConfig",
 		"castai_node_configuration":         "castai:nodeconfig:NodeConfiguration",
 		"castai_node_configuration_default": "castai:nodeconfig:NodeConfigurationDefault",
 		"castai_node_template":              "castai:nodeconfig:NodeTemplate",
@@ -266,7 +267,7 @@ func TestProviderResources(t *testing.T) {
 		})
 	}
 
-	// Verify count matches (now have 12 resources: 7 from v0.24.3 + 2 clusterID + 3 nodeConfig from v7.73.0)
+	// Verify count matches (now have 13 resources: 7 from v0.24.3 + 2 clusterID + 3 nodeConfig + 1 evictor from v7.73.0)
 	assert.Equal(t, len(expectedResources), len(prov.Resources),
 		"Expected %d resources, got %d", len(expectedResources), len(prov.Resources))
 }
@@ -384,6 +385,7 @@ func TestResourceModuleAssignment(t *testing.T) {
 		{"castai_eks_clusterid", "aws"},
 		{"castai_gke_cluster_id", "gcp"},
 		{"castai_autoscaler", "autoscaling"},
+		{"castai_evictor_advanced_config", "autoscaling"},
 		{"castai_node_configuration", "nodeconfig"},
 		{"castai_node_configuration_default", "nodeconfig"},
 		{"castai_node_template", "nodeconfig"},
