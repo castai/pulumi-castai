@@ -108,16 +108,21 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// AWS Data Sources
-			"castai_eks_settings":  {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksSettings"))},
-			"castai_eks_clusterid": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksClusterId"))},
-			"castai_eks_user_arn":  {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksUserArn"))},
+			"castai_eks_settings": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksSettings"))},
+			"castai_eks_user_arn": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksUserArn"))}, // Deprecated in Terraform, will be removed in next major release
 
 			// GCP Data Sources
 			"castai_gke_user_policies": {Tok: tokens.ModuleMember(gcpDataSource(gcpMod, "getGkePolicies"))},
 
-			// Core Data Sources
-			"castai_cluster":     {Tok: tokens.ModuleMember(castaiDataSource(mainMod, "getCluster"))},
-			"castai_credentials": {Tok: tokens.ModuleMember(castaiDataSource(mainMod, "getCredentials"))},
+			// Organization Data Sources
+			"castai_organization": {Tok: tokens.ModuleMember(castaiDataSource(organizationMod, "getOrganization"))},
+
+			// Rebalancing Data Sources
+			"castai_rebalancing_schedule": {Tok: tokens.ModuleMember(castaiDataSource(rebalancingMod, "getRebalancingSchedule"))},
+			"castai_hibernation_schedule": {Tok: tokens.ModuleMember(castaiDataSource(rebalancingMod, "getHibernationSchedule"))},
+
+			// Workload Data Sources
+			"castai_workload_scaling_policy_order": {Tok: tokens.ModuleMember(castaiDataSource(workloadMod, "getWorkloadScalingPolicyOrder"))},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: "@castai/pulumi",

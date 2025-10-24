@@ -271,12 +271,22 @@ func TestProviderDataSources(t *testing.T) {
 	prov := Provider()
 
 	expectedDataSources := map[string]string{
-		"castai_eks_settings":      "castai:aws:GetEksSettingsDataSource",
-		"castai_eks_clusterid":     "castai:aws:GetEksClusterIdDataSource",
-		"castai_eks_user_arn":      "castai:aws:GetEksUserArnDataSource",
+		// AWS data sources
+		"castai_eks_settings": "castai:aws:GetEksSettingsDataSource",
+		"castai_eks_user_arn": "castai:aws:GetEksUserArnDataSource",
+
+		// GCP data sources
 		"castai_gke_user_policies": "castai:gcp:GetGkePoliciesDataSource",
-		"castai_cluster":           "castai:index:GetClusterDataSource",
-		"castai_credentials":       "castai:index:GetCredentialsDataSource",
+
+		// Organization data sources
+		"castai_organization": "castai:organization:GetOrganizationDataSource",
+
+		// Rebalancing data sources
+		"castai_rebalancing_schedule": "castai:rebalancing:GetRebalancingScheduleDataSource",
+		"castai_hibernation_schedule": "castai:rebalancing:GetHibernationScheduleDataSource",
+
+		// Workload data sources
+		"castai_workload_scaling_policy_order": "castai:workload:GetWorkloadScalingPolicyOrderDataSource",
 	}
 
 	// Verify all expected data sources are present
@@ -288,7 +298,7 @@ func TestProviderDataSources(t *testing.T) {
 		})
 	}
 
-	// Verify count matches (should have exactly 6 data sources from v0.24.3)
+	// Verify count matches (should have exactly 7 data sources from v7.73.0)
 	assert.Equal(t, len(expectedDataSources), len(prov.DataSources),
 		"Expected %d data sources, got %d", len(expectedDataSources), len(prov.DataSources))
 }
@@ -388,11 +398,12 @@ func TestDataSourceModuleAssignment(t *testing.T) {
 		expectedModule string
 	}{
 		{"castai_eks_settings", "aws"},
-		{"castai_eks_clusterid", "aws"},
 		{"castai_eks_user_arn", "aws"},
 		{"castai_gke_user_policies", "gcp"},
-		{"castai_cluster", "index"},
-		{"castai_credentials", "index"},
+		{"castai_organization", "organization"},
+		{"castai_rebalancing_schedule", "rebalancing"},
+		{"castai_hibernation_schedule", "rebalancing"},
+		{"castai_workload_scaling_policy_order", "workload"},
 	}
 
 	for _, tt := range tests {
