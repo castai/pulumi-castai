@@ -254,6 +254,7 @@ func TestProviderResources(t *testing.T) {
 		"castai_autoscaler":                 "castai:autoscaling:Autoscaler",
 		"castai_node_configuration":         "castai:nodeconfig:NodeConfiguration",
 		"castai_node_configuration_default": "castai:nodeconfig:NodeConfigurationDefault",
+		"castai_node_template":              "castai:nodeconfig:NodeTemplate",
 	}
 
 	// Verify all expected resources are present
@@ -265,7 +266,7 @@ func TestProviderResources(t *testing.T) {
 		})
 	}
 
-	// Verify count matches (now have 11 resources: 7 from v0.24.3 + 2 clusterID + 2 nodeConfig from v7.73.0)
+	// Verify count matches (now have 12 resources: 7 from v0.24.3 + 2 clusterID + 3 nodeConfig from v7.73.0)
 	assert.Equal(t, len(expectedResources), len(prov.Resources),
 		"Expected %d resources, got %d", len(expectedResources), len(prov.Resources))
 }
@@ -385,6 +386,7 @@ func TestResourceModuleAssignment(t *testing.T) {
 		{"castai_autoscaler", "autoscaling"},
 		{"castai_node_configuration", "nodeconfig"},
 		{"castai_node_configuration_default", "nodeconfig"},
+		{"castai_node_template", "nodeconfig"},
 	}
 
 	for _, tt := range tests {

@@ -113,6 +113,7 @@ func Provider() tfbridge.ProviderInfo {
 			// Node Configuration resources
 			"castai_node_configuration":         {Tok: castaiResource(nodeConfigMod, "NodeConfiguration")},
 			"castai_node_configuration_default": {Tok: castaiResource(nodeConfigMod, "NodeConfigurationDefault")},
+			"castai_node_template":              {Tok: castaiResource(nodeConfigMod, "NodeTemplate")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// AWS Data Sources
