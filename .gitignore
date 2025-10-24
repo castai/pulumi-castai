@@ -21,8 +21,9 @@ sdk/dotnet/bin/Debug/
 sdk/dotnet/bin/Release/net6.0/
 sdk/dotnet/obj/
 
-./CLAUDE.md
-./GAP_ANALYSIS.md
+# Test coverage files
+coverage.out
+**/coverage.out
 
 # SDKs
 # sdk/*
@@ -61,6 +62,7 @@ yarn-error.log*
 
 .env
 .venv/
+venv/
 __pycache__/
 gcp-credentials.json
 
