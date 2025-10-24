@@ -1,0 +1,18 @@
+# Development dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# Include base requirements
+-r requirements.txt
+
+# Code formatting and linting
+black>=23.0.0
+pylint>=2.17.0
+mypy>=1.0.0
+isort>=5.0.0
+
+# Testing tools
+pytest>=7.0.0
+pytest-env>=1.0.0
+
+# Additional dev tools
+python-dotenv>=1.0.0
