@@ -1,0 +1,36 @@
+{
+  "name": "@castai/pulumi-tests",
+  "version": "1.0.0",
+  "description": "Mock tests for CAST AI Pulumi provider (TypeScript)",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:gke": "jest gke-cluster.test.ts",
+    "test:eks": "jest eks-cluster.test.ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "^3.0.0",
+    "@castai/pulumi": "^0.1.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "collectCoverageFrom": [
+      "**/*.test.ts"
+    ],
+    "coverageDirectory": "coverage",
+    "verbose": true
+  }
+}
