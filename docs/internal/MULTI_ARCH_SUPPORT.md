@@ -14,13 +14,18 @@ The CAST AI Pulumi Provider now supports the following architectures:
 
 ## Building for Different Architectures
 
-### Using the justfile
+### Building for All Architectures
 
-The easiest way to build the provider for all supported architectures is to use the `just` command:
+Build the provider for all supported architectures using the script:
 
 ```bash
 # Build for all supported architectures
-just build-provider-all-archs
+VERSION=$(cat version.txt)
+./scripts/build-provider-binary.sh $VERSION darwin amd64
+./scripts/build-provider-binary.sh $VERSION darwin arm64
+./scripts/build-provider-binary.sh $VERSION linux amd64
+./scripts/build-provider-binary.sh $VERSION linux arm64
+./scripts/build-provider-binary.sh $VERSION windows amd64
 ```
 
 This will create binaries for all supported architectures in the `bin` directory and package them as release assets in the `release` directory.
@@ -36,20 +41,23 @@ You can also build for a specific architecture using the provided script:
 
 ## Installing the Provider
 
-### Using the justfile
+### Using the Install Script
 
 To install the provider for a specific architecture:
 
 ```bash
 # Install for a specific architecture
-just install-provider-arch darwin arm64
+# Usage: ./scripts/install-provider-for-arch.sh <VERSION> <GOOS> <GOARCH>
+./scripts/install-provider-for-arch.sh $(cat version.txt) darwin arm64
 ```
 
 To install the provider for your current system architecture:
 
 ```bash
 # Install for the current system architecture
-just install-provider-current-arch
+GOOS=$(go env GOOS)
+GOARCH=$(go env GOARCH)
+./scripts/install-provider-for-arch.sh $(cat version.txt) $GOOS $GOARCH
 ```
 
 ### Using Pulumi CLI

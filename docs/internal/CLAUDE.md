@@ -46,29 +46,14 @@ The version is centralized in `version.txt` at the repository root. All build pr
 
 ### Development Workflow
 
-Use the `just` command runner for development tasks:
-
-```bash
-# Full clean build
-just clean && just dev
-
-# Build provider only
-just build-provider
-
-# Build specific SDK
-just build-sdk-python
-just build-sdk-typescript
-just build-sdk-go
-
-# Install provider locally
-just install-provider
-```
-
-Or use the Makefile:
+Use the Makefile for building:
 
 ```bash
 # Build everything for development
 make development
+
+# Full clean build
+make clean && make development
 
 # Build provider binary
 make provider
@@ -91,19 +76,18 @@ make build_schema
 
 ### Running Examples
 
+Use the scripts in the `scripts/` directory:
+
 ```bash
 # Run examples by language and cloud provider
-just run-typescript-gcp-example
-just run-python-aws-example
-just run-go-azure-example
+./scripts/run-typescript-gcp-example.sh
+./scripts/run-python-aws-example.sh
+./scripts/run-go-azure-example.sh
 
-# Run all examples for a language
-just run-typescript-examples
-just run-python-examples
-just run-go-examples
-
-# Run all examples
-just run-all-language-examples
+# Run all examples for a language (run all 3 scripts)
+./scripts/run-typescript-gcp-example.sh
+./scripts/run-typescript-aws-example.sh
+./scripts/run-typescript-azure-example.sh
 ```
 
 ### Testing
@@ -170,7 +154,7 @@ The provider builds for multiple platforms:
 - linux/amd64, linux/arm64
 - windows/amd64
 
-Use `just build-provider-all-archs` or `./build_platform_binaries.sh` for cross-compilation.
+Use `./scripts/build-provider-binary.sh` for cross-compilation (see MULTI_ARCH_SUPPORT.md for details).
 
 ## Common Development Tasks
 
@@ -187,8 +171,8 @@ make install_provider
 
 ### Testing Changes Locally
 
-1. Build and install: `just clean && just dev`
-2. Run example: `just run-typescript-gcp-example` (or python/go variant)
+1. Build and install: `make clean && make development`
+2. Run example: `./scripts/run-typescript-gcp-example.sh` (or python/go variant)
 3. Verify outputs and behavior
 
 ### Troubleshooting Plugin Issues
@@ -219,9 +203,8 @@ Examples expect existing clusters to exist in your cloud provider account.
 - `version.txt`: Single source of truth for version number
 - `provider/resources.go`: Resource and data source mappings, module definitions
 - `schema.json`: Generated Pulumi schema (committed to repo)
-- `Makefile`: Traditional build targets
-- `justfile`: Modern build automation with more granular tasks
-- `scripts/prepare_release.sh`: Release automation script
+- `Makefile`: Build targets (provider, SDKs, testing, installation)
+- `scripts/`: Build and release automation scripts
 - `.github/workflows/`: CI/CD pipelines for releases
 
 ## Notes

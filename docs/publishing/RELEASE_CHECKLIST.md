@@ -31,9 +31,9 @@ Use this checklist when preparing a new release of the CAST AI Pulumi Provider.
 - [ ] Build the provider locally: `make provider`
 - [ ] Build all SDKs: `make build_sdks`
 - [ ] Test the provider with examples:
-  - [ ] TypeScript: `just run-typescript-examples`
-  - [ ] Python: `just run-python-examples`
-  - [ ] Go: `just run-go-examples`
+  - [ ] TypeScript: Run `./scripts/run-typescript-*-example.sh` scripts
+  - [ ] Python: Run `./scripts/run-python-*-example.sh` scripts
+  - [ ] Go: Run `./scripts/run-go-*-example.sh` scripts
 
 ## Release
 

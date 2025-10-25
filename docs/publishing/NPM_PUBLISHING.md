@@ -30,14 +30,14 @@ npm warn publish "repository.url" was normalized to "git+https://github.com/cast
 
 ## How to Fix
 
-We've added a script and justfile command to help fix these issues:
+We've added a script to help fix these issues:
 
-### Using the justfile Command
+### Using the Fix Script
 
 To fix the package.json file and sync it with the version in version.txt, run:
 
 ```bash
-just fix-npm-package
+./scripts/fix-npm-package.sh
 ```
 
 This will:
@@ -47,7 +47,7 @@ This will:
 If you want to specify a new version, you can pass it as an argument:
 
 ```bash
-just fix-npm-package 0.2.0
+./scripts/fix-npm-package.sh 0.2.0
 ```
 
 This will update both version.txt and the npm package.json file with the new version.

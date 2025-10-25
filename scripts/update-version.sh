@@ -45,6 +45,5 @@ echo "  make clean && make build"
 echo
 echo "NOTE: The version is now centralized in version.txt and is read by:"
 echo "  - Makefile"
-echo "  - justfile"
 echo "  - package.json (via sync-package-version.js)"
 echo "  - provider/pkg/version/version.go (during build)" 
