@@ -9,6 +9,7 @@
 
 import * as pulumi from "@pulumi/pulumi";
 import * as castai from "@castai/pulumi";
+import { promisify, promisifyAll } from "./test-utils";
 
 /**
  * Mock implementation for CAST AI and GCP resources.
@@ -127,12 +128,12 @@ describe("GKE Cluster Creation", () => {
             credentialsJson: "mock-credentials-json",
         });
 
-        const [clusterId, clusterName, clusterToken, projectId] = await Promise.all([
-            cluster.id.promise(),
-            cluster.name.promise(),
-            cluster.clusterToken.promise(),
-            cluster.projectId.promise(),
-        ]);
+        const [clusterId, clusterName, clusterToken, projectId] = await promisifyAll(
+            cluster.id,
+            cluster.name,
+            cluster.clusterToken,
+            cluster.projectId
+        );
 
         expect(clusterId).toBeDefined();
         expect(clusterId).toContain("cluster-id");
@@ -145,26 +146,22 @@ describe("GKE Cluster Creation", () => {
         expect(projectId).toBe("test-project-123");
     });
 
-    it("should create a GKE cluster with custom tags", async () => {
-        const cluster = new castai.GkeCluster("test-gke-cluster-tags", {
+    it("should create a GKE cluster with SSH key", async () => {
+        const testSshKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ...";
+
+        const cluster = new castai.GkeCluster("test-gke-cluster-ssh", {
             projectId: "test-project-456",
             location: "us-central1",
-            name: "tagged-cluster",
+            name: "ssh-cluster",
             deleteNodesOnDisconnect: false,
             credentialsJson: "mock-creds",
-            tags: {
-                environment: "production",
-                team: "platform",
-                costCenter: "engineering",
-            },
+            sshPublicKey: testSshKey,
         });
 
-        const tags = await cluster.tags.promise();
+        const sshKey = await promisify(cluster.sshPublicKey);
 
-        expect(tags).toBeDefined();
-        expect(tags!.environment).toBe("production");
-        expect(tags!.team).toBe("platform");
-        expect(tags!.costCenter).toBe("engineering");
+        expect(sshKey).toBeDefined();
+        expect(sshKey).toBe(testSshKey);
     });
 
     it("should handle delete_nodes_on_disconnect setting", async () => {
@@ -184,10 +181,10 @@ describe("GKE Cluster Creation", () => {
             credentialsJson: "mock-creds",
         });
 
-        const [deleteSetting, keepSetting] = await Promise.all([
-            clusterDelete.deleteNodesOnDisconnect.promise(),
-            clusterKeep.deleteNodesOnDisconnect.promise(),
-        ]);
+        const [deleteSetting, keepSetting] = await promisifyAll(
+            clusterDelete.deleteNodesOnDisconnect,
+            clusterKeep.deleteNodesOnDisconnect
+        );
 
         expect(deleteSetting).toBe(true);
         expect(keepSetting).toBe(false);
@@ -207,9 +204,9 @@ describe("GKE Cluster Creation", () => {
                 })
         );
 
-        const clusterLocations = await Promise.all(clusters.map((c) => c.location.promise()));
+        const clusterLocations = await Promise.all(clusters.map((c) => promisify(c.location)));
 
-        clusterLocations.forEach((location, i) => {
+        clusterLocations.forEach((location: string, i: number) => {
             expect(location).toBe(locations[i]);
         });
     });
@@ -225,10 +222,10 @@ describe("GKE Cluster Creation", () => {
             credentialsJson: testCredentials,
         });
 
-        const [credsJson, credsId] = await Promise.all([
-            cluster.credentialsJson.promise(),
-            cluster.credentialsId.promise(),
-        ]);
+        const [credsJson, credsId] = await promisifyAll(
+            cluster.credentialsJson,
+            cluster.credentialsId
+        );
 
         expect(credsJson).toBe(testCredentials);
         expect(credsId).toBeDefined();
@@ -250,17 +247,17 @@ describe("GKE Cluster Validation", () => {
         }).not.toThrow();
     });
 
-    it("should handle optional tags field", async () => {
-        const clusterWithoutTags = new castai.GkeCluster("test-no-tags", {
+    it("should handle optional SSH key field", async () => {
+        const clusterWithoutSshKey = new castai.GkeCluster("test-no-ssh", {
             projectId: "test-project",
             location: "us-central1",
-            name: "no-tags-cluster",
+            name: "no-ssh-cluster",
             deleteNodesOnDisconnect: true,
             credentialsJson: "mock-creds",
         });
 
-        // Tags should be undefined or empty if not provided
-        const tags = await clusterWithoutTags.tags.promise();
-        expect(tags === undefined || Object.keys(tags || {}).length === 0).toBe(true);
+        // SSH key should be undefined if not provided
+        const sshKey = await promisify(clusterWithoutSshKey.sshPublicKey);
+        expect(sshKey === undefined || sshKey === null).toBe(true);
     });
 });

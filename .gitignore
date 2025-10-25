@@ -24,6 +24,10 @@ sdk/dotnet/obj/
 # Test coverage files
 coverage.out
 **/coverage.out
+tests/python/htmlcov/
+tests/python/.coverage
+tests/typescript/coverage/
+*.bak
 
 # SDKs
 # sdk/*
