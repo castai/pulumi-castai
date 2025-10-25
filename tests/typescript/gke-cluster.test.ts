@@ -146,24 +146,6 @@ describe("GKE Cluster Creation", () => {
         expect(projectId).toBe("test-project-123");
     });
 
-    it("should create a GKE cluster with SSH key", async () => {
-        const testSshKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ...";
-
-        const cluster = new castai.GkeCluster("test-gke-cluster-ssh", {
-            projectId: "test-project-456",
-            location: "us-central1",
-            name: "ssh-cluster",
-            deleteNodesOnDisconnect: false,
-            credentialsJson: "mock-creds",
-            sshPublicKey: testSshKey,
-        });
-
-        const sshKey = await promisify(cluster.sshPublicKey);
-
-        expect(sshKey).toBeDefined();
-        expect(sshKey).toBe(testSshKey);
-    });
-
     it("should handle delete_nodes_on_disconnect setting", async () => {
         const clusterDelete = new castai.GkeCluster("test-gke-delete", {
             projectId: "test-project",
@@ -245,19 +227,5 @@ describe("GKE Cluster Validation", () => {
                 credentialsJson: "mock-creds",
             });
         }).not.toThrow();
-    });
-
-    it("should handle optional SSH key field", async () => {
-        const clusterWithoutSshKey = new castai.GkeCluster("test-no-ssh", {
-            projectId: "test-project",
-            location: "us-central1",
-            name: "no-ssh-cluster",
-            deleteNodesOnDisconnect: true,
-            credentialsJson: "mock-creds",
-        });
-
-        // SSH key should be undefined if not provided
-        const sshKey = await promisify(clusterWithoutSshKey.sshPublicKey);
-        expect(sshKey === undefined || sshKey === null).toBe(true);
     });
 });

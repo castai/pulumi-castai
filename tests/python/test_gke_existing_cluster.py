@@ -42,32 +42,6 @@ def test_connect_existing_gke_cluster():
 
 
 @pulumi.runtime.test
-def test_connect_existing_gke_with_ssh_key():
-    """Test connecting existing GKE cluster with SSH key for node access"""
-    import pulumi_castai as castai
-
-    mock_credentials = '{"type": "service_account", "project_id": "my-project"}'
-    ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQ... gke-access-key"
-
-    cluster = castai.GkeCluster(
-        "existing-gke-ssh",
-        project_id="my-project-456",
-        location="europe-west1",
-        name="staging-gke-cluster",
-        delete_nodes_on_disconnect=True,
-        credentials_json=mock_credentials,
-        ssh_public_key=ssh_public_key,
-    )
-
-    def check_ssh_key(outputs):
-        ssh_key, cluster_name = outputs
-        assert ssh_key == ssh_public_key
-        assert cluster_name == "staging-gke-cluster"
-
-    return pulumi.Output.all(cluster.ssh_public_key, cluster.name).apply(check_ssh_key)
-
-
-@pulumi.runtime.test
 def test_connect_existing_gke_regional_cluster():
     """Test connecting existing regional GKE cluster (high availability)"""
     import pulumi_castai as castai

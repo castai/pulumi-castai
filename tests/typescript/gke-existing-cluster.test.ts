@@ -79,28 +79,6 @@ describe("GKE Existing Cluster Connection", () => {
         expect(projectId).toBe("my-gcp-project-123");
     });
 
-    it("should connect existing GKE cluster with SSH key for node access", async () => {
-        const mockCredentials = '{"type": "service_account", "project_id": "my-project"}';
-        const sshPublicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQ... gke-access-key";
-
-        const cluster = new castai.GkeCluster("existing-gke-ssh", {
-            projectId: "my-project-456",
-            location: "europe-west1",
-            name: "staging-gke-cluster",
-            deleteNodesOnDisconnect: true,
-            credentialsJson: mockCredentials,
-            sshPublicKey: sshPublicKey,
-        });
-
-        const [sshKey, clusterName] = await promisifyAll(
-            cluster.sshPublicKey,
-            cluster.name
-        );
-
-        expect(sshKey).toBe(sshPublicKey);
-        expect(clusterName).toBe("staging-gke-cluster");
-    });
-
     it("should connect existing regional GKE cluster (high availability)", async () => {
         const mockCredentials = '{"type": "service_account", "project_id": "prod-project"}';
 

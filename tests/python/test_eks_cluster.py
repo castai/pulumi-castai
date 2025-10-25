@@ -32,13 +32,11 @@ def test_eks_cluster_creation():
         region="us-west-2",
         name="my-eks-cluster",
         delete_nodes_on_disconnect=True,
-        override_security_groups=["sg-12345678"],
-        subnets=["subnet-12345678", "subnet-87654321"],
     )
 
     # Verify the outputs
     def check_outputs(outputs):
-        cluster_id, cluster_name, agent_token, account_id, region = outputs
+        cluster_id, cluster_name, cluster_token, account_id, region = outputs
 
         # Assertions
         assert cluster_id is not None, "Cluster ID should not be None"
@@ -46,8 +44,8 @@ def test_eks_cluster_creation():
 
         assert cluster_name == "my-eks-cluster", f"Expected cluster name 'my-eks-cluster', got '{cluster_name}'"
 
-        assert agent_token is not None, "Agent token should not be None"
-        assert "mock" in str(agent_token).lower() or "token" in str(agent_token).lower(), "Agent token should be mocked"
+        assert cluster_token is not None, "Cluster token should not be None"
+        assert "mock" in str(cluster_token).lower() or "token" in str(cluster_token).lower(), "Cluster token should be mocked"
 
         assert account_id == "123456789012", f"Expected account_id '123456789012', got '{account_id}'"
         assert region == "us-west-2", f"Expected region 'us-west-2', got '{region}'"
@@ -55,80 +53,75 @@ def test_eks_cluster_creation():
     return pulumi.Output.all(
         cluster.id,
         cluster.name,
-        cluster.agent_token,  # EKS uses agent_token, not cluster_token
+        cluster.cluster_token,  # In v7.73.0, EKS uses cluster_token
         cluster.account_id,
         cluster.region,
     ).apply(check_outputs)
 
 
 @pulumi.runtime.test
-def test_eks_cluster_with_multiple_subnets():
+def test_eks_cluster_with_assume_role():
     """
-    Test creating an EKS cluster with multiple subnets.
+    Test creating an EKS cluster with assume role ARN.
 
-    Verifies that subnet configuration is properly handled.
+    Verifies that assume role ARN configuration is properly handled.
     """
     import pulumi_castai as castai
 
-    test_subnets = [
-        "subnet-11111111",
-        "subnet-22222222",
-        "subnet-33333333",
-    ]
+    assume_role_arn = "arn:aws:iam::123456789012:role/CastAIRole"
 
     cluster = castai.EksCluster(
-        "test-eks-subnets",
+        "test-eks-assume-role",
         account_id="123456789012",
         region="us-east-1",
-        name="multi-subnet-cluster",
+        name="assume-role-cluster",
         delete_nodes_on_disconnect=True,
-        override_security_groups=["sg-test"],
-        subnets=test_subnets,
+        assume_role_arn=assume_role_arn,
     )
 
-    # Verify subnets
-    def check_subnets(outputs):
-        subnets = outputs[0]
+    # Verify assume role ARN
+    def check_assume_role(outputs):
+        arn, name, region = outputs
 
-        assert subnets is not None, "Subnets should not be None"
-        assert len(subnets) == 3, f"Expected 3 subnets, got {len(subnets)}"
-        assert subnets == test_subnets, f"Expected subnets {test_subnets}, got {subnets}"
+        assert arn is not None, "Assume role ARN should not be None"
+        assert arn == assume_role_arn, f"Expected ARN {assume_role_arn}, got {arn}"
+        assert name == "assume-role-cluster", f"Expected name 'assume-role-cluster', got '{name}'"
+        assert region == "us-east-1", f"Expected region 'us-east-1', got '{region}'"
 
-    return cluster.subnets.apply(lambda subnets: check_subnets([subnets]))
+    return pulumi.Output.all(
+        cluster.assume_role_arn,
+        cluster.name,
+        cluster.region,
+    ).apply(check_assume_role)
 
 
 @pulumi.runtime.test
-def test_eks_cluster_with_security_groups():
+def test_eks_cluster_with_name():
     """
-    Test EKS cluster with security group configuration.
+    Test EKS cluster with custom name configuration.
 
-    Verifies that security groups are properly configured.
+    Verifies that cluster name is properly configured.
     """
     import pulumi_castai as castai
 
-    test_security_groups = [
-        "sg-aaaaaaaa",
-        "sg-bbbbbbbb",
-    ]
+    cluster_name = "my-custom-cluster"
 
     cluster = castai.EksCluster(
-        "test-eks-sg",
+        "test-eks-name",
         account_id="123456789012",
         region="us-west-2",
-        name="sg-cluster",
+        name=cluster_name,
         delete_nodes_on_disconnect=False,
-        override_security_groups=test_security_groups,
-        subnets=["subnet-test"],
     )
 
-    def check_security_groups(outputs):
-        security_groups = outputs[0]
+    def check_name(outputs):
+        name = outputs[0]
 
-        assert security_groups is not None, "Security groups should not be None"
-        assert len(security_groups) == 2, f"Expected 2 security groups, got {len(security_groups)}"
-        assert security_groups == test_security_groups, f"Expected {test_security_groups}, got {security_groups}"
+        assert name is not None, "Cluster name should not be None"
+        assert name == cluster_name, f"Expected cluster name '{cluster_name}', got '{name}'"
 
-    return cluster.override_security_groups.apply(lambda sg: check_security_groups([sg]))
+    return cluster.name.apply(lambda name: check_name([name]))
+
 
 
 @pulumi.runtime.test
@@ -147,8 +140,6 @@ def test_eks_cluster_deletion_behavior():
         region="us-west-2",
         name="delete-cluster",
         delete_nodes_on_disconnect=True,
-        override_security_groups=["sg-test"],
-        subnets=["subnet-test"],
     )
 
     # Test with delete_nodes_on_disconnect=False
@@ -158,8 +149,6 @@ def test_eks_cluster_deletion_behavior():
         region="us-west-2",
         name="keep-cluster",
         delete_nodes_on_disconnect=False,
-        override_security_groups=["sg-test"],
-        subnets=["subnet-test"],
     )
 
     def check_deletion_settings(outputs):
@@ -198,8 +187,6 @@ def test_eks_cluster_regions():
             region=region,
             name=f"cluster-{region}",
             delete_nodes_on_disconnect=True,
-            override_security_groups=["sg-test"],
-            subnets=["subnet-test"],
         )
         clusters.append(cluster)
 
@@ -228,8 +215,6 @@ def test_eks_cluster_with_assume_role():
         region="us-west-2",
         name="assume-role-cluster",
         delete_nodes_on_disconnect=True,
-        override_security_groups=["sg-test"],
-        subnets=["subnet-test"],
         assume_role_arn=assume_role_arn,
     )
 
@@ -258,8 +243,6 @@ def test_eks_cluster_credentials():
         region="us-west-2",
         name="creds-cluster",
         delete_nodes_on_disconnect=True,
-        override_security_groups=["sg-test"],
-        subnets=["subnet-test"],
     )
 
     def check_credentials(outputs):

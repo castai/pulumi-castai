@@ -10,6 +10,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Mock Tests for CAST AI GKE Cluster Creation (Go)
+//
+// These tests use Pulumi's built-in mocking to test GKE cluster creation
+// without making actual API calls to CAST AI or GCP.
+//
+// Run with: go test -v -run TestGke
+
 // GcpMocks extends CastAIMocks to add GCP-specific mocking
 type GcpMocks struct {
 	CastAIMocks
@@ -76,6 +83,7 @@ func (m *GcpMocks) Call(args pulumi.MockCallArgs) (resource.PropertyMap, error) 
 }
 
 func TestGkeClusterCreation(t *testing.T) {
+	// Test creating a GKE cluster with correct configuration
 	err := pulumi.RunErr(func(ctx *pulumi.Context) error {
 		cluster, err := castai.NewGkeCluster(ctx, "test-gke-cluster", &castai.GkeClusterArgs{
 			ProjectId:               pulumi.String("test-project-123"),
@@ -86,26 +94,30 @@ func TestGkeClusterCreation(t *testing.T) {
 		})
 		assert.NoError(t, err)
 		assert.NotNil(t, cluster)
-		return nil
-	}, pulumi.WithMocks("project", "stack", &GcpMocks{}))
 
-	assert.NoError(t, err)
-}
-
-func TestGkeClusterWithSSHKey(t *testing.T) {
-	err := pulumi.RunErr(func(ctx *pulumi.Context) error {
-		testSSHKey := "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ..."
-
-		cluster, err := castai.NewGkeCluster(ctx, "test-gke-cluster-ssh", &castai.GkeClusterArgs{
-			ProjectId:               pulumi.String("test-project-456"),
-			Location:                pulumi.String("us-central1"),
-			Name:                    pulumi.String("ssh-cluster"),
-			DeleteNodesOnDisconnect: pulumi.Bool(false),
-			CredentialsJson:         pulumi.String("mock-creds"),
-			SshPublicKey:            pulumi.String(testSSHKey),
+		// Verify outputs
+		cluster.ID().ApplyT(func(id string) error {
+			assert.NotEmpty(t, id, "Cluster ID should not be empty")
+			assert.Contains(t, id, "cluster-id", "Cluster ID should contain 'cluster-id'")
+			return nil
 		})
-		assert.NoError(t, err)
-		assert.NotNil(t, cluster)
+
+		cluster.Name.ApplyT(func(name string) error {
+			assert.Equal(t, "my-gke-cluster", name)
+			return nil
+		})
+
+		cluster.ClusterToken.ApplyT(func(token string) error {
+			assert.NotEmpty(t, token, "Cluster token should not be empty")
+			assert.Contains(t, token, "mock-gke-token", "Cluster token should be mocked")
+			return nil
+		})
+
+		cluster.ProjectId.ApplyT(func(projectId string) error {
+			assert.Equal(t, "test-project-123", projectId)
+			return nil
+		})
+
 		return nil
 	}, pulumi.WithMocks("project", "stack", &GcpMocks{}))
 
@@ -113,7 +125,9 @@ func TestGkeClusterWithSSHKey(t *testing.T) {
 }
 
 func TestGkeClusterDeleteNodesOnDisconnect(t *testing.T) {
+	// Test GKE cluster with different deletion behaviors
 	err := pulumi.RunErr(func(ctx *pulumi.Context) error {
+		// Test with delete_nodes_on_disconnect=true
 		clusterDelete, err := castai.NewGkeCluster(ctx, "test-gke-delete", &castai.GkeClusterArgs{
 			ProjectId:               pulumi.String("test-project"),
 			Location:                pulumi.String("us-west1"),
@@ -124,6 +138,7 @@ func TestGkeClusterDeleteNodesOnDisconnect(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, clusterDelete)
 
+		// Test with delete_nodes_on_disconnect=false
 		clusterKeep, err := castai.NewGkeCluster(ctx, "test-gke-keep", &castai.GkeClusterArgs{
 			ProjectId:               pulumi.String("test-project"),
 			Location:                pulumi.String("us-west1"),
@@ -133,6 +148,18 @@ func TestGkeClusterDeleteNodesOnDisconnect(t *testing.T) {
 		})
 		assert.NoError(t, err)
 		assert.NotNil(t, clusterKeep)
+
+		// Verify deletion settings
+		clusterDelete.DeleteNodesOnDisconnect.ApplyT(func(deleteSetting *bool) error {
+			assert.True(t, *deleteSetting, "delete_nodes_on_disconnect should be true")
+			return nil
+		})
+
+		clusterKeep.DeleteNodesOnDisconnect.ApplyT(func(keepSetting *bool) error {
+			assert.False(t, *keepSetting, "delete_nodes_on_disconnect should be false")
+			return nil
+		})
+
 		return nil
 	}, pulumi.WithMocks("project", "stack", &GcpMocks{}))
 
@@ -140,6 +167,7 @@ func TestGkeClusterDeleteNodesOnDisconnect(t *testing.T) {
 }
 
 func TestGkeClusterMultipleLocations(t *testing.T) {
+	// Test GKE cluster creation in different locations
 	locations := []string{"us-central1", "us-east1", "europe-west1", "asia-southeast1"}
 
 	for _, location := range locations {
@@ -155,6 +183,13 @@ func TestGkeClusterMultipleLocations(t *testing.T) {
 				})
 				assert.NoError(t, err)
 				assert.NotNil(t, cluster)
+
+				// Verify location
+				cluster.Location.ApplyT(func(loc string) error {
+					assert.Equal(t, location, loc)
+					return nil
+				})
+
 				return nil
 			}, pulumi.WithMocks("project", "stack", &GcpMocks{}))
 
@@ -164,6 +199,7 @@ func TestGkeClusterMultipleLocations(t *testing.T) {
 }
 
 func TestGkeClusterCredentials(t *testing.T) {
+	// Test that GKE cluster properly handles credentials
 	err := pulumi.RunErr(func(ctx *pulumi.Context) error {
 		testCredentials := `{"type": "service_account", "project_id": "test"}`
 
@@ -176,6 +212,19 @@ func TestGkeClusterCredentials(t *testing.T) {
 		})
 		assert.NoError(t, err)
 		assert.NotNil(t, cluster)
+
+		// Verify credentials
+		cluster.CredentialsJson.ApplyT(func(credsJson *string) error {
+			assert.Equal(t, testCredentials, *credsJson, "Credentials JSON should match input")
+			return nil
+		})
+
+		cluster.CredentialsId.ApplyT(func(credsId string) error {
+			assert.NotEmpty(t, credsId, "Credentials ID should be returned")
+			assert.Contains(t, credsId, "mock-credentials", "Credentials ID should be mocked")
+			return nil
+		})
+
 		return nil
 	}, pulumi.WithMocks("project", "stack", &GcpMocks{}))
 
@@ -183,30 +232,12 @@ func TestGkeClusterCredentials(t *testing.T) {
 }
 
 func TestGkeClusterValidation(t *testing.T) {
+	// Test that required fields are accepted
 	err := pulumi.RunErr(func(ctx *pulumi.Context) error {
-		// Test that required fields are accepted
 		cluster, err := castai.NewGkeCluster(ctx, "test-validation", &castai.GkeClusterArgs{
 			ProjectId:               pulumi.String("test-project"),
 			Location:                pulumi.String("us-central1"),
 			Name:                    pulumi.String("validation-cluster"),
-			DeleteNodesOnDisconnect: pulumi.Bool(true),
-			CredentialsJson:         pulumi.String("mock-creds"),
-		})
-		assert.NoError(t, err)
-		assert.NotNil(t, cluster)
-		return nil
-	}, pulumi.WithMocks("project", "stack", &GcpMocks{}))
-
-	assert.NoError(t, err)
-}
-
-func TestGkeClusterOptionalSSHKey(t *testing.T) {
-	err := pulumi.RunErr(func(ctx *pulumi.Context) error {
-		// Create cluster without SSH key
-		cluster, err := castai.NewGkeCluster(ctx, "test-no-ssh", &castai.GkeClusterArgs{
-			ProjectId:               pulumi.String("test-project"),
-			Location:                pulumi.String("us-central1"),
-			Name:                    pulumi.String("no-ssh-cluster"),
 			DeleteNodesOnDisconnect: pulumi.Bool(true),
 			CredentialsJson:         pulumi.String("mock-creds"),
 		})

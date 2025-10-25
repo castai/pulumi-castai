@@ -8,9 +8,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// Tests for connecting existing GKE clusters to CAST AI
+// Mock Tests for Connecting Existing GKE Clusters to CAST AI (Go)
+//
+// These tests simulate connecting an existing GKE cluster to CAST AI for optimization.
+// The cluster already exists - we're just onboarding it to CAST AI.
+//
+// Run with: go test -v -run TestConnectExistingGke
 
 func TestConnectExistingGkeCluster(t *testing.T) {
+	// Test connecting an existing GKE cluster to CAST AI
 	err := pulumi.RunErr(func(ctx *pulumi.Context) error {
 		// Simulated GCP service account credentials
 		mockCredentials := `{"type": "service_account", "project_id": "my-gcp-project"}`
@@ -25,27 +31,28 @@ func TestConnectExistingGkeCluster(t *testing.T) {
 		})
 		assert.NoError(t, err)
 		assert.NotNil(t, cluster)
-		return nil
-	}, pulumi.WithMocks("project", "stack", &GcpMocks{}))
 
-	assert.NoError(t, err)
-}
-
-func TestConnectExistingGkeWithSSHKey(t *testing.T) {
-	err := pulumi.RunErr(func(ctx *pulumi.Context) error {
-		mockCredentials := `{"type": "service_account", "project_id": "my-project"}`
-		sshPublicKey := "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQ... gke-access-key"
-
-		cluster, err := castai.NewGkeCluster(ctx, "existing-gke-ssh", &castai.GkeClusterArgs{
-			ProjectId:               pulumi.String("my-project-456"),
-			Location:                pulumi.String("europe-west1"),
-			Name:                    pulumi.String("staging-gke-cluster"),
-			DeleteNodesOnDisconnect: pulumi.Bool(true),
-			CredentialsJson:         pulumi.String(mockCredentials),
-			SshPublicKey:            pulumi.String(sshPublicKey),
+		// Verify outputs
+		cluster.ID().ApplyT(func(id string) error {
+			assert.NotEmpty(t, id, "Cluster ID should not be empty")
+			return nil
 		})
-		assert.NoError(t, err)
-		assert.NotNil(t, cluster)
+
+		cluster.Name.ApplyT(func(name string) error {
+			assert.Equal(t, "production-gke-cluster", name)
+			return nil
+		})
+
+		cluster.ClusterToken.ApplyT(func(token string) error {
+			assert.NotEmpty(t, token, "Cluster token should not be empty")
+			return nil
+		})
+
+		cluster.ProjectId.ApplyT(func(projectId string) error {
+			assert.Equal(t, "my-gcp-project-123", projectId)
+			return nil
+		})
+
 		return nil
 	}, pulumi.WithMocks("project", "stack", &GcpMocks{}))
 

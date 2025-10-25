@@ -26,7 +26,7 @@ class CastAIMocks(pulumi.runtime.Mocks):
         if args.typ == "castai:aws:EksCluster":
             outputs.update({
                 "id": f"{args.name}-cluster-id-{hash(args.name) % 1000}",
-                "agent_token": f"mock-eks-token-{hash(args.name) % 1000}",  # EKS uses agent_token
+                "cluster_token": f"mock-eks-token-{hash(args.name) % 1000}",  # In v7.73.0, EKS uses cluster_token
                 "credentials_id": f"mock-credentials-{hash(args.name) % 1000}",
             })
 

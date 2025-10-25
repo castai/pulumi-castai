@@ -24,7 +24,7 @@ class CastAIMocks implements pulumi.runtime.Mocks {
                 state: {
                     ...outputs,
                     id: `${args.name}-cluster-id-${this.hash(args.name)}`,
-                    agentToken: `mock-eks-token-${this.hash(args.name)}`,
+                    clusterToken: `mock-eks-token-${this.hash(args.name)}`,
                     credentialsId: `mock-credentials-${this.hash(args.name)}`,
                 },
             };
@@ -61,20 +61,18 @@ describe("EKS Existing Cluster Connection", () => {
             region: "us-east-1",
             name: "production-eks-cluster", // Existing cluster name
             deleteNodesOnDisconnect: false, // Don't delete nodes when disconnecting
-            overrideSecurityGroups: ["sg-existing123"],
-            subnets: ["subnet-existing-a", "subnet-existing-b"],
         });
 
-        const [clusterId, clusterName, agentToken, accountId] = await promisifyAll(
+        const [clusterId, clusterName, clusterToken, accountId] = await promisifyAll(
             cluster.id,
             cluster.name,
-            cluster.agentToken,
+            cluster.clusterToken,
             cluster.accountId
         );
 
         expect(clusterId).toBeDefined();
         expect(clusterName).toBe("production-eks-cluster");
-        expect(agentToken).toBeDefined();
+        expect(clusterToken).toBeDefined();
         expect(accountId).toBe("123456789012");
     });
 
@@ -86,8 +84,6 @@ describe("EKS Existing Cluster Connection", () => {
             region: "us-west-2",
             name: "staging-eks-cluster",
             deleteNodesOnDisconnect: false,
-            overrideSecurityGroups: ["sg-existing456"],
-            subnets: ["subnet-existing-1", "subnet-existing-2"],
             assumeRoleArn: assumeRoleArn,
         });
 
@@ -100,65 +96,12 @@ describe("EKS Existing Cluster Connection", () => {
         expect(clusterName).toBe("staging-eks-cluster");
     });
 
-    it("should connect existing EKS cluster with SSH public key", async () => {
-        const sshPublicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQ... existing-key";
-
-        const cluster = new castai.EksCluster("existing-eks-ssh", {
-            accountId: "123456789012",
-            region: "eu-west-1",
-            name: "dev-eks-cluster",
-            deleteNodesOnDisconnect: true,
-            overrideSecurityGroups: ["sg-dev-123"],
-            subnets: ["subnet-dev-a", "subnet-dev-b", "subnet-dev-c"],
-            sshPublicKey: sshPublicKey,
-        });
-
-        const [sshKey, clusterName] = await promisifyAll(
-            cluster.sshPublicKey,
-            cluster.name
-        );
-
-        expect(sshKey).toBe(sshPublicKey);
-        expect(clusterName).toBe("dev-eks-cluster");
-    });
-
-    it("should connect existing EKS cluster with resource tags", async () => {
-        const clusterTags = {
-            Environment: "production",
-            ManagedBy: "castai",
-            Team: "platform",
-            CostCenter: "engineering",
-        };
-
-        const cluster = new castai.EksCluster("existing-eks-tags", {
-            accountId: "987654321098",
-            region: "us-east-2",
-            name: "prod-eks-main",
-            deleteNodesOnDisconnect: false,
-            overrideSecurityGroups: ["sg-prod-main"],
-            subnets: ["subnet-prod-1a", "subnet-prod-1b"],
-            tags: clusterTags,
-        });
-
-        const [tags, clusterName] = await promisifyAll(cluster.tags, cluster.name);
-
-        expect(tags).toBeDefined();
-        if (tags) {
-            expect(Object.keys(tags).length).toBe(4);
-            expect(tags.Environment).toBe("production");
-            expect(tags.Team).toBe("platform");
-        }
-        expect(clusterName).toBe("prod-eks-main");
-    });
-
     it("should connect existing EKS cluster with minimal configuration", async () => {
         const cluster = new castai.EksCluster("existing-eks-minimal", {
             accountId: "111111111111",
             region: "ap-southeast-1",
             name: "minimal-eks",
             deleteNodesOnDisconnect: true,
-            overrideSecurityGroups: ["sg-minimal"],
-            subnets: ["subnet-min-a"],
         });
 
         const [clusterId, clusterName, accountId] = await promisifyAll(
@@ -172,28 +115,6 @@ describe("EKS Existing Cluster Connection", () => {
         expect(accountId).toBe("111111111111");
     });
 
-    it("should connect existing EKS cluster with custom DNS configuration", async () => {
-        const customDnsIp = "172.20.0.10";
-
-        const cluster = new castai.EksCluster("existing-eks-dns", {
-            accountId: "222222222222",
-            region: "us-west-2",
-            name: "custom-dns-cluster",
-            deleteNodesOnDisconnect: false,
-            overrideSecurityGroups: ["sg-dns-123"],
-            subnets: ["subnet-dns-1", "subnet-dns-2"],
-            dnsClusterIp: customDnsIp,
-        });
-
-        const [dnsIp, clusterName] = await promisifyAll(
-            cluster.dnsClusterIp,
-            cluster.name
-        );
-
-        expect(dnsIp).toBe(customDnsIp);
-        expect(clusterName).toBe("custom-dns-cluster");
-    });
-
     it("should handle delete_nodes_on_disconnect for production clusters", async () => {
         // Production: keep nodes when disconnecting (safety)
         const prodCluster = new castai.EksCluster("existing-eks-prod", {
@@ -201,8 +122,6 @@ describe("EKS Existing Cluster Connection", () => {
             region: "us-east-1",
             name: "prod-critical-cluster",
             deleteNodesOnDisconnect: false, // IMPORTANT: Don't delete in production
-            overrideSecurityGroups: ["sg-prod"],
-            subnets: ["subnet-prod-a", "subnet-prod-b"],
         });
 
         // Dev: can delete nodes when disconnecting
@@ -211,8 +130,6 @@ describe("EKS Existing Cluster Connection", () => {
             region: "us-west-2",
             name: "dev-test-cluster",
             deleteNodesOnDisconnect: true, // Safe for dev environments
-            overrideSecurityGroups: ["sg-dev"],
-            subnets: ["subnet-dev-a"],
         });
 
         const [prodDelete, devDelete] = await promisifyAll(
@@ -233,8 +150,6 @@ describe("EKS Existing Cluster Connection", () => {
                     region: region,
                     name: `cluster-${region}`,
                     deleteNodesOnDisconnect: false,
-                    overrideSecurityGroups: ["sg-multi"],
-                    subnets: ["subnet-multi"],
                 })
         );
 

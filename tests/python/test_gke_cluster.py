@@ -59,39 +59,6 @@ def test_gke_cluster_creation():
 
 
 @pulumi.runtime.test
-def test_gke_cluster_with_ssh_key():
-    """
-    Test creating a GKE cluster with SSH public key.
-
-    Verifies that SSH key is properly passed through.
-    Note: GKE clusters support SSH keys but not tags.
-    """
-    import pulumi_castai as castai
-
-    test_ssh_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ..."
-
-    # Create cluster with SSH key
-    cluster = castai.GkeCluster(
-        "test-gke-cluster-ssh",
-        project_id="test-project-456",
-        location="us-central1",
-        name="ssh-cluster",
-        delete_nodes_on_disconnect=False,
-        credentials_json="mock-creds",
-        ssh_public_key=test_ssh_key,
-    )
-
-    # Verify SSH key
-    def check_ssh_key(outputs):
-        ssh_key = outputs[0]
-
-        assert ssh_key is not None, "SSH key should not be None"
-        assert ssh_key == test_ssh_key, f"Expected SSH key '{test_ssh_key}', got '{ssh_key}'"
-
-    return cluster.ssh_public_key.apply(lambda key: check_ssh_key([key]))
-
-
-@pulumi.runtime.test
 def test_gke_cluster_deletion_behavior():
     """
     Test GKE cluster with different deletion behaviors.

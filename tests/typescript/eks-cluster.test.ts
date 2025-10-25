@@ -28,7 +28,7 @@ class CastAIMocks implements pulumi.runtime.Mocks {
                 state: {
                     ...outputs,
                     id: `${args.name}-cluster-id-${this.hash(args.name)}`,
-                    agentToken: `mock-eks-token-${this.hash(args.name)}`,  // EKS uses agentToken
+                    clusterToken: `mock-eks-token-${this.hash(args.name)}`,  // EKS uses agentToken
                     credentialsId: `mock-credentials-${this.hash(args.name)}`,
                 },
             };
@@ -140,14 +140,12 @@ describe("EKS Cluster Creation", () => {
             region: "us-west-2",
             name: "my-eks-cluster",
             deleteNodesOnDisconnect: true,
-            overrideSecurityGroups: ["sg-12345678"],
-            subnets: ["subnet-12345678", "subnet-87654321"],
         });
 
-        const [clusterId, clusterName, agentToken, accountId, region] = await promisifyAll(
+        const [clusterId, clusterName, clusterToken, accountId, region] = await promisifyAll(
             cluster.id,
             cluster.name,
-            cluster.agentToken,  // EKS uses agentToken, not clusterToken
+            cluster.clusterToken,  // In v7.73.0, EKS uses clusterToken
             cluster.accountId,
             cluster.region
         );
@@ -157,49 +155,44 @@ describe("EKS Cluster Creation", () => {
 
         expect(clusterName).toBe("my-eks-cluster");
 
-        expect(agentToken).toBeDefined();
-        expect(agentToken).toContain("mock-eks-token");
+        expect(clusterToken).toBeDefined();
+        expect(clusterToken).toContain("mock-eks-token");
 
         expect(accountId).toBe("123456789012");
         expect(region).toBe("us-west-2");
     });
 
-    it("should handle multiple subnets", async () => {
-        const testSubnets = ["subnet-11111111", "subnet-22222222", "subnet-33333333"];
+    it("should handle cluster name configuration", async () => {
+        const clusterName = "my-custom-cluster";
 
-        const cluster = new castai.EksCluster("test-eks-subnets", {
+        const cluster = new castai.EksCluster("test-eks-name", {
             accountId: "123456789012",
             region: "us-east-1",
-            name: "multi-subnet-cluster",
+            name: clusterName,
             deleteNodesOnDisconnect: true,
-            overrideSecurityGroups: ["sg-test"],
-            subnets: testSubnets,
         });
 
-        const subnets = await promisify(cluster.subnets);
+        const name = await promisify(cluster.name);
 
-        expect(subnets).toBeDefined();
-        expect(subnets).toHaveLength(3);
-        expect(subnets).toEqual(testSubnets);
+        expect(name).toBeDefined();
+        expect(name).toBe(clusterName);
     });
 
-    it("should handle multiple security groups", async () => {
-        const testSecurityGroups = ["sg-aaaaaaaa", "sg-bbbbbbbb"];
+    it("should handle assume role ARN configuration", async () => {
+        const assumeRoleArn = "arn:aws:iam::123456789012:role/MyCustomRole";
 
-        const cluster = new castai.EksCluster("test-eks-sg", {
+        const cluster = new castai.EksCluster("test-eks-custom-role", {
             accountId: "123456789012",
             region: "us-west-2",
-            name: "sg-cluster",
+            name: "custom-role-cluster",
             deleteNodesOnDisconnect: false,
-            overrideSecurityGroups: testSecurityGroups,
-            subnets: ["subnet-test"],
+            assumeRoleArn: assumeRoleArn,
         });
 
-        const securityGroups = await promisify(cluster.overrideSecurityGroups);
+        const roleArn = await promisify(cluster.assumeRoleArn);
 
-        expect(securityGroups).toBeDefined();
-        expect(securityGroups).toHaveLength(2);
-        expect(securityGroups).toEqual(testSecurityGroups);
+        expect(roleArn).toBeDefined();
+        expect(roleArn).toBe(assumeRoleArn);
     });
 
     it("should handle delete_nodes_on_disconnect setting", async () => {
@@ -208,8 +201,6 @@ describe("EKS Cluster Creation", () => {
             region: "us-west-2",
             name: "delete-cluster",
             deleteNodesOnDisconnect: true,
-            overrideSecurityGroups: ["sg-test"],
-            subnets: ["subnet-test"],
         });
 
         const clusterKeep = new castai.EksCluster("test-eks-keep", {
@@ -217,8 +208,6 @@ describe("EKS Cluster Creation", () => {
             region: "us-west-2",
             name: "keep-cluster",
             deleteNodesOnDisconnect: false,
-            overrideSecurityGroups: ["sg-test"],
-            subnets: ["subnet-test"],
         });
 
         const [deleteSetting, keepSetting] = await promisifyAll(
@@ -240,8 +229,6 @@ describe("EKS Cluster Creation", () => {
                     region: region,
                     name: `cluster-${region}`,
                     deleteNodesOnDisconnect: true,
-                    overrideSecurityGroups: ["sg-test"],
-                    subnets: ["subnet-test"],
                 })
         );
 
@@ -260,8 +247,6 @@ describe("EKS Cluster Creation", () => {
             region: "us-west-2",
             name: "assume-role-cluster",
             deleteNodesOnDisconnect: true,
-            overrideSecurityGroups: ["sg-test"],
-            subnets: ["subnet-test"],
             assumeRoleArn: assumeRoleArn,
         });
 
@@ -278,8 +263,6 @@ describe("EKS Cluster Creation", () => {
             region: "us-west-2",
             name: "creds-cluster",
             deleteNodesOnDisconnect: true,
-            overrideSecurityGroups: ["sg-test"],
-            subnets: ["subnet-test"],
         });
 
         const credsId = await promisify(cluster.credentialsId);
@@ -298,8 +281,6 @@ describe("EKS Cluster Validation", () => {
                 region: "us-west-2",
                 name: "validation-cluster",
                 deleteNodesOnDisconnect: true,
-                overrideSecurityGroups: ["sg-test"],
-                subnets: ["subnet-test"],
             });
         }).not.toThrow();
     });
@@ -314,8 +295,6 @@ describe("EKS Cluster Validation", () => {
                     region: "us-west-2",
                     name: `cluster-${accountId}`,
                     deleteNodesOnDisconnect: true,
-                    overrideSecurityGroups: ["sg-test"],
-                    subnets: ["subnet-test"],
                 })
         );
 
