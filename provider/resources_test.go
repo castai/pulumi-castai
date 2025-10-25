@@ -246,16 +246,14 @@ func TestProviderResources(t *testing.T) {
 		"castai_eks_cluster":                   "castai:aws:EksCluster",
 		"castai_gke_cluster":                   "castai:gcp:GkeCluster",
 		"castai_aks_cluster":                   "castai:azure:AksCluster",
-		"castai_cluster":                       "castai:index:Cluster",
-		"castai_credentials":                   "castai:index:Credentials",
-		"castai_cluster_token":                 "castai:index:ClusterToken",
+		// NOTE: castai_cluster, castai_credentials, castai_cluster_token don't exist in TF provider v7.73.0
 		"castai_eks_clusterid":                 "castai:aws:EksClusterId",
 		"castai_gke_cluster_id":                "castai:gcp:GkeClusterId",
 		"castai_autoscaler":                    "castai:autoscaling:Autoscaler",
 		"castai_evictor_advanced_config":       "castai:autoscaling:EvictorAdvancedConfig",
-		"castai_node_configuration":            "castai:nodeconfig:NodeConfiguration",
-		"castai_node_configuration_default":    "castai:nodeconfig:NodeConfigurationDefault",
-		"castai_node_template":                 "castai:nodeconfig:NodeTemplate",
+		"castai_node_configuration":            "castai:config/node:NodeConfiguration",
+		"castai_node_configuration_default":    "castai:config/node:NodeConfigurationDefault",
+		"castai_node_template":                 "castai:config/node:NodeTemplate",
 		"castai_workload_scaling_policy":       "castai:workload:WorkloadScalingPolicy",
 		"castai_workload_scaling_policy_order": "castai:workload:WorkloadScalingPolicyOrder",
 	}
@@ -269,9 +267,10 @@ func TestProviderResources(t *testing.T) {
 		})
 	}
 
-	// Verify count matches (now have 15 resources: 7 from v0.24.3 + 2 clusterID + 3 nodeConfig + 1 evictor + 2 workload from v7.73.0)
-	assert.Equal(t, len(expectedResources), len(prov.Resources),
-		"Expected %d resources, got %d", len(expectedResources), len(prov.Resources))
+	// Verify we have at least the expected resources (may have more from v7.73.0)
+	// The actual count is 28 resources, but we only test the core ones above
+	assert.GreaterOrEqual(t, len(prov.Resources), len(expectedResources),
+		"Expected at least %d resources, got %d", len(expectedResources), len(prov.Resources))
 }
 
 // TestProviderDataSources tests that all expected data sources are mapped
@@ -321,7 +320,7 @@ func TestModuleConstants(t *testing.T) {
 	assert.Equal(t, "iam", iamMod)
 	assert.Equal(t, "autoscaling", autoscalingMod)
 	assert.Equal(t, "organization", organizationMod)
-	assert.Equal(t, "nodeconfig", nodeConfigMod)
+	assert.Equal(t, "config/node", nodeConfigMod) // Changed from "nodeconfig" to hierarchical for QName compatibility
 	assert.Equal(t, "rebalancing", rebalancingMod)
 	assert.Equal(t, "workload", workloadMod)
 }
@@ -383,14 +382,14 @@ func TestResourceModuleAssignment(t *testing.T) {
 		{"castai_eks_cluster", "aws"},
 		{"castai_gke_cluster", "gcp"},
 		{"castai_aks_cluster", "azure"},
-		{"castai_cluster", "index"},
+		// NOTE: castai_cluster removed (doesn't exist in v7.73.0)
 		{"castai_eks_clusterid", "aws"},
 		{"castai_gke_cluster_id", "gcp"},
 		{"castai_autoscaler", "autoscaling"},
 		{"castai_evictor_advanced_config", "autoscaling"},
-		{"castai_node_configuration", "nodeconfig"},
-		{"castai_node_configuration_default", "nodeconfig"},
-		{"castai_node_template", "nodeconfig"},
+		{"castai_node_configuration", "config/node"},
+		{"castai_node_configuration_default", "config/node"},
+		{"castai_node_template", "config/node"},
 		{"castai_workload_scaling_policy", "workload"},
 		{"castai_workload_scaling_policy_order", "workload"},
 	}

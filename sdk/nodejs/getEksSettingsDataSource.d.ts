@@ -22,7 +22,6 @@ export interface GetEksSettingsDataSourceResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    readonly instanceProfilePolicies: string[];
     readonly region: string;
     readonly vpc: string;
 }

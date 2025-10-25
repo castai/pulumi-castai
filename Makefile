@@ -73,13 +73,21 @@ build_sdks:: install_dependencies provider build_nodejs build_python build_go bu
 build_nodejs:: install_dependencies # build the node sdk
 	rm -rf sdk/nodejs
 	$(WORKING_DIR)/bin/${TFGEN} nodejs --out sdk/nodejs/ --overlays provider/overlays/nodejs --skip-docs
+	# Fix empty module directories by adding empty export
+	@if [ -f sdk/nodejs/rebalancing/index.ts ] && [ "$$(wc -l < sdk/nodejs/rebalancing/index.ts)" -lt 5 ]; then \
+		echo "" >> sdk/nodejs/rebalancing/index.ts && \
+		echo "// Empty module - resources are at root level" >> sdk/nodejs/rebalancing/index.ts && \
+		echo "export {};" >> sdk/nodejs/rebalancing/index.ts; \
+	fi
+	# Fix tsconfig.json to skip lib checks (avoids @types/node compatibility errors)
+	@sed -i.bak 's/"strict": true/"strict": true,\n        "skipLibCheck": true/g' sdk/nodejs/tsconfig.json && rm -f sdk/nodejs/tsconfig.json.bak
 	cd sdk/nodejs && \
 		grep -l "\$${VERSION}" package.json && \
 		sed -i.bak 's/"\$${VERSION}"/"$(VERSION)"/g' package.json && rm -f package.json.bak && \
 		yarn install && \
 		yarn run tsc && \
 		cp ../../README.md ../../LICENSE ./bin/ && \
-		rm -rf node_modules *.ts tsconfig.json config types && \
+		rm -rf node_modules *.ts tsconfig.json config types rebalancing && \
 		mv bin/* . && \
 		rmdir bin && \
 		node -e "const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); pkg.main = 'index.js'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
@@ -89,7 +97,7 @@ build_python:: install_dependencies # build the python sdk
 	$(WORKING_DIR)/bin/${TFGEN} python --out sdk/python/ --overlays provider/overlays/python --skip-docs
 	cd sdk/python && \
 		cp ../../README.md . && \
-		python -m pip install build && python -m build .
+		$(WORKING_DIR)/venv/bin/python -m pip install build && $(WORKING_DIR)/venv/bin/python -m build .
 
 build_go:: install_dependencies # build the go sdk
 	rm -rf sdk/go

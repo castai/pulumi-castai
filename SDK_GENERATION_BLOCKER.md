@@ -1,8 +1,24 @@
 # SDK Generation Blocker - Root Cause Analysis
 
-**Date**: 2025-01-24
+**Date**: 2025-01-24 (Updated: 2025-10-24)
 **Status**: 🔴 **BLOCKED** - Cannot regenerate SDKs with current toolchain
 **Impact**: Unable to add 13 new resources including NodeConfiguration and NodeTemplate
+
+## UPDATE 2025-10-24: Bridge Upgrade Attempted - Still Blocked
+
+**Attempted Fix**: Upgraded pulumi-terraform-bridge from v3.105.0 → v3.116.0
+**Result**: ❌ FAILED - Same panic error persists
+**Conclusion**: The issue is NOT with the bridge version, but with terraform-provider v7.73.0 documentation content
+
+### What We Tested:
+1. ✅ Upgraded bridge to v3.116.0 (latest, includes "Fix panic when gathering attribute")
+2. ✅ Updated terraform-plugin-sdk fork to v2.0.0-20250923233607-7f1981c8674a (matches bridge requirement)
+3. ❌ Still crashes with same error: `QName "aws" has invalid namespace ""`
+
+### Historical Analysis:
+- **Last successful SDK generation**: terraform-provider v0.24.3 + bridge v3.105.0
+- **Current failing configuration**: terraform-provider v7.73.0 + bridge v3.105.0/v3.116.0
+- **Root cause confirmed**: Documentation changes in v7.73.0 (200+ version jump) introduced malformed cross-references that tfgen cannot parse
 
 ## Executive Summary
 
@@ -219,37 +235,52 @@ These 24 resources are mapped correctly but can't be generated:
 
 ## Immediate Recommendations
 
-Given that we need to proceed with testing:
+Given that we've confirmed bridge upgrade doesn't fix the issue:
 
-### For Testing (Short Term)
+### For Testing (Short Term) - PROCEED NOW
 
 1. ✅ **Use existing SDKs** for current tests
    - EKS, GKE, AKS, Autoscaler already working
-   - Continue with current 142 tests
+   - Continue with current 142 tests passing
 
-2. ⏭️ **Defer NodeConfiguration/NodeTemplate tests**
-   - Document as known limitation
-   - Add to backlog for when SDK regeneration works
-
-3. 🚀 **Proceed with E2E tests** using available resources
+2. ✅ **Proceed with E2E tests** using available resources
    - Test cluster connection + autoscaler (works now)
-   - Add NodeConfiguration tests later
+   - Defer NodeConfiguration/NodeTemplate tests until SDK fix
 
-### For SDK Regeneration (Long Term)
+3. ✅ **Refactor Pulumi examples** with autoscaler configuration
+   - Can enhance examples using existing autoscaler SDK
+   - Document NodeConfiguration/NodeTemplate as "coming soon"
 
-1. 🔧 **Try Option 2 first** (Downgrade bridge)
-   - Fastest path to unblock
-   - Low risk, easily reversible
-   - Test with older bridge version
+### For SDK Regeneration (Long Term) - THREE OPTIONS
 
-2. 📝 **Document the issue** (this file!)
-   - Share findings with Pulumi team
-   - May be a known issue with newer bridge versions
+**Option A: Fix Upstream (RECOMMENDED)**
+1. 📝 **File issue with terraform-provider-castai**
+   - Document the malformed cross-references causing panic
+   - Provide this root cause analysis
+   - Request documentation fixes for v7.73.0+
 
-3. 🐛 **File bug report** with Pulumi
-   - Include this analysis
-   - Ask if strict QName validation is intentional
-   - Request guidance on handling abbreviated refs
+2. 🐛 **File issue with pulumi-terraform-bridge**
+   - Report that QName validation is too strict
+   - Suggest graceful handling of invalid references
+   - Include reproduction case
+
+**Option B: Patch Bridge Locally (FASTEST UNBLOCK)**
+1. Fork pulumi-terraform-bridge
+2. Modify `pkg/tfgen/docs.go:2208` to skip invalid QNames:
+   ```go
+   if !strings.Contains(string(qname), ":") {
+       // Skip invalid qname, leave as-is
+       return match
+   }
+   ```
+3. Use forked version in go.mod
+4. Regenerate SDKs successfully
+5. Submit patch upstream
+
+**Option C: Temporary Manual SDK (NOT RECOMMENDED)**
+- Manually create NodeConfiguration/NodeTemplate SDK files
+- High effort, not sustainable
+- Lost on next regeneration
 
 ## Current State of Code
 

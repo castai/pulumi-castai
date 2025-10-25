@@ -1,7 +1,4 @@
 import * as pulumi from "@pulumi/pulumi";
-/**
- * GKE cluster resource allows connecting an existing GEK cluster to CAST AI.
- */
 export declare class GkeCluster extends pulumi.CustomResource {
     /**
      * Get an existing GkeCluster resource's state with the given name, ID, and optional extra
@@ -47,10 +44,6 @@ export declare class GkeCluster extends pulumi.CustomResource {
      */
     readonly projectId: pulumi.Output<string>;
     /**
-     * SSHPublicKey for nodes
-     */
-    readonly sshPublicKey: pulumi.Output<string | undefined>;
-    /**
      * Create a GkeCluster resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
@@ -91,10 +84,6 @@ export interface GkeClusterState {
      * GCP project id
      */
     projectId?: pulumi.Input<string>;
-    /**
-     * SSHPublicKey for nodes
-     */
-    sshPublicKey?: pulumi.Input<string>;
 }
 /**
  * The set of arguments for constructing a GkeCluster resource.
@@ -120,8 +109,4 @@ export interface GkeClusterArgs {
      * GCP project id
      */
     projectId: pulumi.Input<string>;
-    /**
-     * SSHPublicKey for nodes
-     */
-    sshPublicKey?: pulumi.Input<string>;
 }

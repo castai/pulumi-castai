@@ -41,7 +41,7 @@ const (
 	iamMod          = "iam"   // IAM related resources
 	autoscalingMod  = "autoscaling"
 	organizationMod = "organization"
-	nodeConfigMod   = "nodeconfig"
+	nodeConfigMod   = "config/node"
 	rebalancingMod  = "rebalancing"
 	workloadMod     = "workload"
 )
@@ -92,14 +92,12 @@ func Provider() tfbridge.ProviderInfo {
 			"castai_eks_cluster":    {Tok: awsResource(awsMod, "EksCluster")},
 			"castai_gke_cluster":    {Tok: gcpResource(gcpMod, "GkeCluster")},
 			"castai_aks_cluster":    {Tok: azureResource(azureMod, "AksCluster")},
-			"castai_cluster":        {Tok: castaiResource(mainMod, "Cluster")},
-			"castai_credentials":    {Tok: castaiResource(mainMod, "Credentials")},
-			"castai_cluster_token":  {Tok: castaiResource(mainMod, "ClusterToken")},
+			// NOTE: castai_cluster, castai_credentials, castai_cluster_token don't exist in TF provider v7.73.0
 
 			// Cluster ID resources (register existing clusters with CAST AI)
 			"castai_eks_clusterid":  {Tok: awsResource(awsMod, "EksClusterId")},
 			"castai_gke_cluster_id": {Tok: gcpResource(gcpMod, "GkeClusterId")},
-			"castai_eks_user_arn":   {Tok: awsResource(awsMod, "EksUserArn")}, // Resource version (data source also exists)
+			"castai_eks_user_arn":   {Tok: awsResource(awsMod, "EksUserArn")}, // Deprecated but still exists in v7.73.0
 
 			// Autoscaling resources
 			"castai_autoscaler": {
@@ -147,7 +145,7 @@ func Provider() tfbridge.ProviderInfo {
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// AWS Data Sources
 			"castai_eks_settings": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksSettings"))},
-			"castai_eks_user_arn": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksUserArn"))}, // Deprecated in Terraform, will be removed in next major release
+			"castai_eks_user_arn": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksUserArn"))}, // Deprecated but still exists in v7.73.0
 
 			// GCP Data Sources
 			"castai_gke_user_policies": {Tok: tokens.ModuleMember(gcpDataSource(gcpMod, "getGkePolicies"))},

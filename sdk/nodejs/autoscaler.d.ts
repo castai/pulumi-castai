@@ -1,7 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
-/**
- * CAST AI autoscaler resource to manage autoscaler settings
- */
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 export declare class Autoscaler extends pulumi.CustomResource {
     /**
      * Get an existing Autoscaler resource's state with the given name, ID, and optional extra
@@ -24,8 +23,14 @@ export declare class Autoscaler extends pulumi.CustomResource {
     readonly autoscalerPolicies: pulumi.Output<string>;
     /**
      * autoscaler policies JSON string to override current autoscaler settings
+     *
+     * @deprecated use autoscalerSettings instead. See README for example: https://github.com/castai/terraform-provider-castai?tab=readme-ov-file#migrating-from-6xx-to-7xx
      */
     readonly autoscalerPoliciesJson: pulumi.Output<string | undefined>;
+    /**
+     * autoscaler policy definitions to override current autoscaler settings
+     */
+    readonly autoscalerSettings: pulumi.Output<outputs.autoscaling.AutoscalerAutoscalerSettings | undefined>;
     /**
      * CAST AI cluster id
      */
@@ -49,8 +54,14 @@ export interface AutoscalerState {
     autoscalerPolicies?: pulumi.Input<string>;
     /**
      * autoscaler policies JSON string to override current autoscaler settings
+     *
+     * @deprecated use autoscalerSettings instead. See README for example: https://github.com/castai/terraform-provider-castai?tab=readme-ov-file#migrating-from-6xx-to-7xx
      */
     autoscalerPoliciesJson?: pulumi.Input<string>;
+    /**
+     * autoscaler policy definitions to override current autoscaler settings
+     */
+    autoscalerSettings?: pulumi.Input<inputs.autoscaling.AutoscalerAutoscalerSettings>;
     /**
      * CAST AI cluster id
      */
@@ -62,8 +73,14 @@ export interface AutoscalerState {
 export interface AutoscalerArgs {
     /**
      * autoscaler policies JSON string to override current autoscaler settings
+     *
+     * @deprecated use autoscalerSettings instead. See README for example: https://github.com/castai/terraform-provider-castai?tab=readme-ov-file#migrating-from-6xx-to-7xx
      */
     autoscalerPoliciesJson?: pulumi.Input<string>;
+    /**
+     * autoscaler policy definitions to override current autoscaler settings
+     */
+    autoscalerSettings?: pulumi.Input<inputs.autoscaling.AutoscalerAutoscalerSettings>;
     /**
      * CAST AI cluster id
      */

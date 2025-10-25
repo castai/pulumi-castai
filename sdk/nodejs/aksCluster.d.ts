@@ -1,7 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
-/**
- * AKS cluster resource allows connecting an existing EKS cluster to CAST AI.
- */
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 export declare class AksCluster extends pulumi.CustomResource {
     /**
      * Get an existing AksCluster resource's state with the given name, ID, and optional extra
@@ -31,9 +30,17 @@ export declare class AksCluster extends pulumi.CustomResource {
      */
     readonly clusterToken: pulumi.Output<string>;
     /**
+     * CAST AI internal credentials ID
+     */
+    readonly credentialsId: pulumi.Output<string>;
+    /**
      * Should CAST AI remove nodes managed by CAST.AI on disconnect.
      */
     readonly deleteNodesOnDisconnect: pulumi.Output<boolean | undefined>;
+    /**
+     * HTTP proxy configuration for CAST AI nodes and node components.
+     */
+    readonly httpProxyConfig: pulumi.Output<outputs.azure.AksClusterHttpProxyConfig | undefined>;
     /**
      * AKS cluster name.
      */
@@ -80,9 +87,17 @@ export interface AksClusterState {
      */
     clusterToken?: pulumi.Input<string>;
     /**
+     * CAST AI internal credentials ID
+     */
+    credentialsId?: pulumi.Input<string>;
+    /**
      * Should CAST AI remove nodes managed by CAST.AI on disconnect.
      */
     deleteNodesOnDisconnect?: pulumi.Input<boolean>;
+    /**
+     * HTTP proxy configuration for CAST AI nodes and node components.
+     */
+    httpProxyConfig?: pulumi.Input<inputs.azure.AksClusterHttpProxyConfig>;
     /**
      * AKS cluster name.
      */
@@ -120,6 +135,10 @@ export interface AksClusterArgs {
      * Should CAST AI remove nodes managed by CAST.AI on disconnect.
      */
     deleteNodesOnDisconnect?: pulumi.Input<boolean>;
+    /**
+     * HTTP proxy configuration for CAST AI nodes and node components.
+     */
+    httpProxyConfig?: pulumi.Input<inputs.azure.AksClusterHttpProxyConfig>;
     /**
      * AKS cluster name.
      */
