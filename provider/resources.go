@@ -99,6 +99,7 @@ func Provider() tfbridge.ProviderInfo {
 			// Cluster ID resources (register existing clusters with CAST AI)
 			"castai_eks_clusterid":  {Tok: awsResource(awsMod, "EksClusterId")},
 			"castai_gke_cluster_id": {Tok: gcpResource(gcpMod, "GkeClusterId")},
+			"castai_eks_user_arn":   {Tok: awsResource(awsMod, "EksUserArn")}, // Resource version (data source also exists)
 
 			// Autoscaling resources
 			"castai_autoscaler": {
@@ -119,6 +120,29 @@ func Provider() tfbridge.ProviderInfo {
 			// Workload Management resources
 			"castai_workload_scaling_policy":       {Tok: castaiResource(workloadMod, "WorkloadScalingPolicy")},
 			"castai_workload_scaling_policy_order": {Tok: castaiResource(workloadMod, "WorkloadScalingPolicyOrder")},
+
+			// Rebalancing resources
+			"castai_rebalancing_schedule": {Tok: castaiResource(rebalancingMod, "RebalancingSchedule")},
+			"castai_rebalancing_job":      {Tok: castaiResource(rebalancingMod, "RebalancingJob")},
+			"castai_hibernation_schedule": {Tok: castaiResource(rebalancingMod, "HibernationSchedule")},
+
+			// Organization resources
+			"castai_organization_members": {Tok: castaiResource(organizationMod, "OrganizationMembers")},
+			"castai_organization_group":   {Tok: castaiResource(organizationMod, "OrganizationGroup")},
+			"castai_service_account":      {Tok: castaiResource(organizationMod, "ServiceAccount")},
+			"castai_service_account_key":  {Tok: castaiResource(organizationMod, "ServiceAccountKey")},
+			"castai_sso_connection":       {Tok: castaiResource(organizationMod, "SSOConnection")},
+			"castai_role_bindings":        {Tok: castaiResource(iamMod, "RoleBindings")},
+			"castai_enterprise_group":     {Tok: castaiResource(organizationMod, "EnterpriseGroup")},
+			"castai_enterprise_role_binding": {Tok: castaiResource(iamMod, "EnterpriseRoleBinding")},
+
+			// Cost Management resources
+			"castai_reservations":   {Tok: castaiResource(mainMod, "Reservations")},
+			"castai_commitments":    {Tok: castaiResource(mainMod, "Commitments")},
+			"castai_allocation_group": {Tok: castaiResource(mainMod, "AllocationGroup")},
+
+			// Security resources
+			"castai_security_runtime_rule": {Tok: castaiResource(mainMod, "SecurityRuntimeRule")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// AWS Data Sources

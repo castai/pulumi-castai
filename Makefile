@@ -37,7 +37,7 @@ build:: install_dependencies provider build_schema build_sdks install_provider #
 
 tfgen:: install_dependencies
 	(cd ${PROVIDER_PATH} && ${GO_EXECUTABLE} build -o $(WORKING_DIR)/bin/${TFGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}.Version=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/${TFGEN})
-	$(WORKING_DIR)/bin/${TFGEN} schema --out ${PROVIDER_PATH}/cmd/${PROVIDER}
+	$(WORKING_DIR)/bin/${TFGEN} schema --out ${PROVIDER_PATH}/cmd/${PROVIDER} --skip-docs
 	(cd ${PROVIDER_PATH} && ${GO_EXECUTABLE} generate cmd/${PROVIDER}/main.go)
 
 provider:: tfgen install_dependencies # build the provider binary
@@ -51,7 +51,7 @@ build_schema:: tfgen # build the schema
 	@strings $(WORKING_DIR)/bin/${TFGEN} | grep -q "${VERSION}" && echo "✅ Version string found in tfgen binary." || (echo "❌ Version string NOT found in tfgen binary! Ldflags might not be working." && exit 1)
 	# Ensure schema path is clean and generate schema from within the provider dir
 	rm -rf $(WORKING_DIR)/${SCHEMA}
-	(cd ${PROVIDER_PATH} && $(WORKING_DIR)/bin/${TFGEN} schema > $(WORKING_DIR)/${SCHEMA})
+	(cd ${PROVIDER_PATH} && $(WORKING_DIR)/bin/${TFGEN} schema --skip-docs > $(WORKING_DIR)/${SCHEMA})
 	@echo "Injecting version into schema file..."
 	# Inject the version line after the 'publisher' line using sed
 	@echo "Injecting version into schema file..."
@@ -72,7 +72,7 @@ build_sdks:: install_dependencies provider build_nodejs build_python build_go bu
 
 build_nodejs:: install_dependencies # build the node sdk
 	rm -rf sdk/nodejs
-	$(WORKING_DIR)/bin/${TFGEN} nodejs --out sdk/nodejs/ --overlays provider/overlays/nodejs
+	$(WORKING_DIR)/bin/${TFGEN} nodejs --out sdk/nodejs/ --overlays provider/overlays/nodejs --skip-docs
 	cd sdk/nodejs && \
 		grep -l "\$${VERSION}" package.json && \
 		sed -i.bak 's/"\$${VERSION}"/"$(VERSION)"/g' package.json && rm -f package.json.bak && \
@@ -86,19 +86,19 @@ build_nodejs:: install_dependencies # build the node sdk
 
 build_python:: install_dependencies # build the python sdk
 	rm -rf sdk/python
-	$(WORKING_DIR)/bin/${TFGEN} python --out sdk/python/ --overlays provider/overlays/python
+	$(WORKING_DIR)/bin/${TFGEN} python --out sdk/python/ --overlays provider/overlays/python --skip-docs
 	cd sdk/python && \
 		cp ../../README.md . && \
 		python -m pip install build && python -m build .
 
 build_go:: install_dependencies # build the go sdk
 	rm -rf sdk/go
-	$(WORKING_DIR)/bin/${TFGEN} go --out sdk/go/ --overlays provider/overlays/go
+	$(WORKING_DIR)/bin/${TFGEN} go --out sdk/go/ --overlays provider/overlays/go --skip-docs
 
 build_dotnet:: install_dependencies # build the dotnet sdk
 	@echo "Building .NET SDK with version ${VERSION}"
 	rm -rf sdk/dotnet
-	$(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet
+	$(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet --skip-docs
 	@echo "Fixing .NET SDK naming conflicts"
 	./scripts/fix_dotnet_naming.sh
 	@echo "Creating version.txt file"
