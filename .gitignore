@@ -27,6 +27,8 @@ coverage.out
 tests/python/htmlcov/
 tests/python/.coverage
 tests/typescript/coverage/
+tests/go/coverage.html
+tests/go/coverage.out
 *.bak
 
 # SDKs

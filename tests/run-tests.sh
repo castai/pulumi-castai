@@ -22,16 +22,24 @@ echo ""
 # Parse arguments
 RUN_PYTHON=true
 RUN_TYPESCRIPT=true
+RUN_GO=true
 COVERAGE=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
         --python-only)
             RUN_TYPESCRIPT=false
+            RUN_GO=false
             shift
             ;;
         --typescript-only)
             RUN_PYTHON=false
+            RUN_GO=false
+            shift
+            ;;
+        --go-only)
+            RUN_PYTHON=false
+            RUN_TYPESCRIPT=false
             shift
             ;;
         --coverage)
@@ -44,6 +52,7 @@ while [[ $# -gt 0 ]]; do
             echo "Options:"
             echo "  --python-only       Run only Python tests"
             echo "  --typescript-only   Run only TypeScript tests"
+            echo "  --go-only           Run only Go tests"
             echo "  --coverage          Generate coverage reports"
             echo "  --help              Show this help message"
             exit 0
@@ -58,6 +67,7 @@ done
 
 PYTHON_EXIT=0
 TYPESCRIPT_EXIT=0
+GO_EXIT=0
 
 # Run Python tests
 if [ "$RUN_PYTHON" = true ]; then
@@ -113,6 +123,34 @@ if [ "$RUN_TYPESCRIPT" = true ]; then
     echo ""
 fi
 
+# Run Go tests
+if [ "$RUN_GO" = true ]; then
+    echo -e "${BLUE}Running Go Tests...${NC}"
+    echo "-----------------------------------"
+
+    cd go
+
+    # Check if go.sum exists, if not run go mod tidy
+    if [ ! -f "go.sum" ]; then
+        echo -e "${YELLOW}go.sum not found. Running go mod tidy...${NC}"
+        go mod tidy
+    fi
+
+    # Run tests
+    if [ "$COVERAGE" = true ]; then
+        go test -v -cover -coverprofile=coverage.out ./... || GO_EXIT=$?
+        if [ $GO_EXIT -eq 0 ]; then
+            go tool cover -html=coverage.out -o coverage.html
+            echo -e "${GREEN}Coverage report: go/coverage.html${NC}"
+        fi
+    else
+        go test -v ./... || GO_EXIT=$?
+    fi
+
+    cd ..
+    echo ""
+fi
+
 # Summary
 echo -e "${BLUE}======================================${NC}"
 echo -e "${BLUE}Test Summary${NC}"
@@ -134,10 +172,18 @@ if [ "$RUN_TYPESCRIPT" = true ]; then
     fi
 fi
 
+if [ "$RUN_GO" = true ]; then
+    if [ $GO_EXIT -eq 0 ]; then
+        echo -e "Go:         ${GREEN}✅ PASSED${NC}"
+    else
+        echo -e "Go:         ${RED}❌ FAILED${NC}"
+    fi
+fi
+
 echo ""
 
 # Exit with error if any tests failed
-if [ $PYTHON_EXIT -ne 0 ] || [ $TYPESCRIPT_EXIT -ne 0 ]; then
+if [ $PYTHON_EXIT -ne 0 ] || [ $TYPESCRIPT_EXIT -ne 0 ] || [ $GO_EXIT -ne 0 ]; then
     echo -e "${RED}Some tests failed!${NC}"
     exit 1
 else
