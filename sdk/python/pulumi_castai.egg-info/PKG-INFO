@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: pulumi_castai
-Version: 0.0.0
+Version: 0.1.87
 Summary: A Pulumi package for creating and managing CAST AI cloud resources.
 Home-page: https://cast.ai
 License: Apache-2.0
