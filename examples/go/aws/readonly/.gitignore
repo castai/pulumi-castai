@@ -1,0 +1,14 @@
+# Binaries
+/castai-eks-readonly-go
+
+# Pulumi
+Pulumi.*.yaml
+!Pulumi.yaml
+.pulumi/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

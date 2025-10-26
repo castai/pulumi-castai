@@ -116,12 +116,12 @@ const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
     createNamespace: true,
     cleanupOnFail: true,
     timeout: 300,
-    values: {
+    values: castaiCluster.clusterToken.apply(token => ({
         provider: "eks",
         createNamespace: false, // Required until https://github.com/castai/helm-charts/issues/135 is fixed
         apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
-        apiKey: castaiCluster.clusterToken,
-    },
+        apiKey: token,
+    })),
 }, {
     provider: k8sProvider,
     dependsOn: [castaiCluster],
