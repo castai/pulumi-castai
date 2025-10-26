@@ -125,34 +125,26 @@ The CAST AI provider allows you to connect your Kubernetes clusters to CAST AI f
 
 ### Running the Examples
 
-We provide a set of `just` commands to run the examples:
+Build the provider and SDKs, then run the examples:
 
 ```bash
 # Set up your environment
-just clean && just dev
+make clean && make development
 
 # Run TypeScript examples
-just run-typescript-gcp-example
-just run-typescript-aws-example
-just run-typescript-azure-example
+./scripts/run-typescript-gcp-example.sh
+./scripts/run-typescript-aws-example.sh
+./scripts/run-typescript-azure-example.sh
 
 # Run Python examples
-just run-python-gcp-example
-just run-python-aws-example
-just run-python-azure-example
+./scripts/run-python-gcp-example.sh
+./scripts/run-python-aws-example.sh
+./scripts/run-python-azure-example.sh
 
 # Run Go examples
-just run-go-gcp-example
-just run-go-aws-example
-just run-go-azure-example
-
-# Run all examples for a specific language
-just run-typescript-examples
-just run-python-examples
-just run-go-examples
-
-# Run all examples
-just run-all-language-examples
+./scripts/run-go-gcp-example.sh
+./scripts/run-go-aws-example.sh
+./scripts/run-go-azure-example.sh
 ```
 
 ### Python Example
@@ -367,16 +359,16 @@ To test the provider with real cloud resources, you can use the provided example
 
 ```bash
 # Set up your environment
-just clean && just dev
+make clean && make development
 
 # Run the TypeScript GCP example
-just run-typescript-gcp-example
+./scripts/run-typescript-gcp-example.sh
 
 # Run the Python AWS example
-just run-python-aws-example
+./scripts/run-python-aws-example.sh
 
 # Run the Go Azure example
-just run-go-azure-example
+./scripts/run-go-azure-example.sh
 ```
 
 Note that these examples require actual cloud resources to exist. If you see an error like `no cluster found for name "cast_ai_test_cluster"`, it means the provider is working correctly but the cluster doesn't exist in your cloud account.
