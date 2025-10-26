@@ -1,0 +1,3 @@
+name: castai-gke-full-onboarding
+runtime: go
+description: Full onboarding example for connecting GKE cluster to CAST AI with autoscaling

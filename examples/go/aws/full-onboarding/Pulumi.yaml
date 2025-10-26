@@ -1,0 +1,3 @@
+name: castai-eks-full-onboarding
+runtime: go
+description: Full onboarding example for connecting EKS cluster to CAST AI with autoscaling

@@ -7,8 +7,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// runAzureExample shows how to connect an Azure AKS cluster to CAST AI
-func runAzureExample() {
+func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Initialize the provider (API token will be read from environment variable CASTAI_API_TOKEN)
 		provider, err := castai.NewProvider(ctx, "castai-provider", &castai.ProviderArgs{})
