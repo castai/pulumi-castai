@@ -1,0 +1,3 @@
+name: castai-aks-full-onboarding-python
+runtime: python
+description: Full onboarding example for connecting AKS cluster to CAST AI with autoscaling
