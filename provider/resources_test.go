@@ -243,17 +243,51 @@ func TestProviderResources(t *testing.T) {
 	prov := Provider()
 
 	expectedResources := map[string]string{
-		"castai_eks_cluster":                   "castai:aws:EksCluster",
-		"castai_gke_cluster":                   "castai:gcp:GkeCluster",
-		"castai_aks_cluster":                   "castai:azure:AksCluster",
-		// NOTE: castai_cluster, castai_credentials, castai_cluster_token don't exist in TF provider v7.73.0
-		"castai_eks_clusterid":                 "castai:aws:EksClusterId",
-		"castai_gke_cluster_id":                "castai:gcp:GkeClusterId",
-		"castai_autoscaler":                    "castai:autoscaling:Autoscaler",
-		"castai_evictor_advanced_config":       "castai:autoscaling:EvictorAdvancedConfig",
-		"castai_node_configuration":            "castai:config/node:NodeConfiguration",
-		"castai_node_configuration_default":    "castai:config/node:NodeConfigurationDefault",
-		"castai_node_template":                 "castai:config/node:NodeTemplate",
+		// AWS resources
+		"castai_eks_cluster":    "castai:aws:EksCluster",
+		"castai_eks_clusterid":  "castai:aws:EksClusterId",
+		"castai_eks_user_arn":   "castai:aws:EksUserArn",
+
+		// Azure resources
+		"castai_aks_cluster":    "castai:azure:AksCluster",
+
+		// GCP resources
+		"castai_gke_cluster":    "castai:gcp:GkeCluster",
+		"castai_gke_cluster_id": "castai:gcp:GkeClusterId",
+
+		// Autoscaling resources
+		"castai_autoscaler":              "castai:autoscaling:Autoscaler",
+		"castai_evictor_advanced_config": "castai:autoscaling:EvictorAdvancedConfig",
+
+		// Config/Node resources
+		"castai_node_configuration":         "castai:config/node:NodeConfiguration",
+		"castai_node_configuration_default": "castai:config/node:NodeConfigurationDefault",
+		"castai_node_template":              "castai:config/node:NodeTemplate",
+
+		// IAM resources
+		"castai_enterprise_role_binding": "castai:iam:EnterpriseRoleBinding",
+		"castai_role_bindings":           "castai:iam:RoleBindings",
+
+		// Index resources
+		"castai_allocation_group":      "castai:index:AllocationGroup",
+		"castai_commitments":           "castai:index:Commitments",
+		"castai_reservations":          "castai:index:Reservations",
+		"castai_security_runtime_rule": "castai:index:SecurityRuntimeRule",
+
+		// Organization resources
+		"castai_enterprise_group":      "castai:organization:EnterpriseGroup",
+		"castai_organization_group":    "castai:organization:OrganizationGroup",
+		"castai_organization_members":  "castai:organization:OrganizationMembers",
+		"castai_service_account":       "castai:organization:ServiceAccount",
+		"castai_service_account_key":   "castai:organization:ServiceAccountKey",
+		"castai_sso_connection":        "castai:organization:SSOConnection",
+
+		// Rebalancing resources
+		"castai_hibernation_schedule":  "castai:rebalancing:HibernationSchedule",
+		"castai_rebalancing_job":       "castai:rebalancing:RebalancingJob",
+		"castai_rebalancing_schedule":  "castai:rebalancing:RebalancingSchedule",
+
+		// Workload resources
 		"castai_workload_scaling_policy":       "castai:workload:WorkloadScalingPolicy",
 		"castai_workload_scaling_policy_order": "castai:workload:WorkloadScalingPolicyOrder",
 	}
@@ -267,10 +301,9 @@ func TestProviderResources(t *testing.T) {
 		})
 	}
 
-	// Verify we have at least the expected resources (may have more from v7.73.0)
-	// The actual count is 28 resources, but we only test the core ones above
-	assert.GreaterOrEqual(t, len(prov.Resources), len(expectedResources),
-		"Expected at least %d resources, got %d", len(expectedResources), len(prov.Resources))
+	// Verify exact count matches (all 28 resources from v7.73.0)
+	assert.Equal(t, len(expectedResources), len(prov.Resources),
+		"Expected exactly %d resources, got %d", len(expectedResources), len(prov.Resources))
 }
 
 // TestProviderDataSources tests that all expected data sources are mapped
@@ -379,17 +412,51 @@ func TestResourceModuleAssignment(t *testing.T) {
 		resource       string
 		expectedModule string
 	}{
+		// AWS resources
 		{"castai_eks_cluster", "aws"},
-		{"castai_gke_cluster", "gcp"},
-		{"castai_aks_cluster", "azure"},
-		// NOTE: castai_cluster removed (doesn't exist in v7.73.0)
 		{"castai_eks_clusterid", "aws"},
+		{"castai_eks_user_arn", "aws"},
+
+		// Azure resources
+		{"castai_aks_cluster", "azure"},
+
+		// GCP resources
+		{"castai_gke_cluster", "gcp"},
 		{"castai_gke_cluster_id", "gcp"},
+
+		// Autoscaling resources
 		{"castai_autoscaler", "autoscaling"},
 		{"castai_evictor_advanced_config", "autoscaling"},
+
+		// Config/Node resources
 		{"castai_node_configuration", "config/node"},
 		{"castai_node_configuration_default", "config/node"},
 		{"castai_node_template", "config/node"},
+
+		// IAM resources
+		{"castai_enterprise_role_binding", "iam"},
+		{"castai_role_bindings", "iam"},
+
+		// Index resources
+		{"castai_allocation_group", "index"},
+		{"castai_commitments", "index"},
+		{"castai_reservations", "index"},
+		{"castai_security_runtime_rule", "index"},
+
+		// Organization resources
+		{"castai_enterprise_group", "organization"},
+		{"castai_organization_group", "organization"},
+		{"castai_organization_members", "organization"},
+		{"castai_service_account", "organization"},
+		{"castai_service_account_key", "organization"},
+		{"castai_sso_connection", "organization"},
+
+		// Rebalancing resources
+		{"castai_hibernation_schedule", "rebalancing"},
+		{"castai_rebalancing_job", "rebalancing"},
+		{"castai_rebalancing_schedule", "rebalancing"},
+
+		// Workload resources
 		{"castai_workload_scaling_policy", "workload"},
 		{"castai_workload_scaling_policy_order", "workload"},
 	}
