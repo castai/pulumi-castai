@@ -1,7 +1,7 @@
 {
-    "name": "castai-gke-full-onboarding",
+    "name": "castai-eks-full-onboarding",
     "version": "0.1.0",
-    "description": "Full onboarding example for connecting GKE cluster to CAST AI with autoscaling",
+    "description": "Full onboarding example for connecting EKS cluster to CAST AI with autoscaling",
     "main": "index.ts",
     "scripts": {
         "build": "tsc"
@@ -13,7 +13,7 @@
     "dependencies": {
         "@castai/pulumi": "file:../../../../sdk/nodejs",
         "@pulumi/pulumi": "^3.0.0",
-        "@pulumi/gcp": "^7.0.0",
+        "@pulumi/aws": "^6.0.0",
         "@pulumi/kubernetes": "^4.0.0"
     }
 }
