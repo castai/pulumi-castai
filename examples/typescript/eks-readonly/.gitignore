@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+bin/
+
+# Pulumi
+Pulumi.*.yaml
+!Pulumi.yaml
+.pulumi/
+
+# TypeScript
+*.js
+*.js.map
+*.d.ts
+!jest.config.js
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

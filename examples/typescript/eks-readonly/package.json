@@ -1,0 +1,20 @@
+{
+    "name": "castai-eks-readonly-example",
+    "version": "0.1.0",
+    "description": "Example: Connect existing EKS cluster to CAST AI in read-only mode",
+    "main": "index.ts",
+    "scripts": {
+        "build": "tsc",
+        "clean": "rm -rf bin node_modules"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/aws": "^6.0.0",
+        "@pulumi/kubernetes": "^4.0.0",
+        "@castai/pulumi": "file:../../../sdk/nodejs"
+    }
+}
