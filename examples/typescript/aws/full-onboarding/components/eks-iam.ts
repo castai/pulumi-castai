@@ -324,87 +324,50 @@ export class EksIamResources extends pulumi.ComponentResource {
         // Update aws-auth ConfigMap if Kubernetes provider is provided
         // This is needed for clusters using API_AND_CONFIG_MAP authentication mode
         if (args.k8sProvider) {
-            // First, get the existing aws-auth ConfigMap
-            const existingAwsAuth = pulumi.output(k8s.core.v1.ConfigMap.get(
-                `${name}-existing-aws-auth`,
-                "kube-system/aws-auth",
-                { provider: args.k8sProvider }
-            ));
+            // Use kubectl command to safely patch the ConfigMap
+            // This approach avoids SSA conflicts and properly handles existing entries
+            const awsAuthPatch = new command.local.Command(`${name}-aws-auth-patch`, {
+                create: nodeRole.arn.apply((arn: string) => {
+                    // Use kubectl to read, merge, and update the ConfigMap
+                    const patchCmd = `
+# Read existing ConfigMap
+EXISTING_MAP_ROLES=$(kubectl get configmap aws-auth -n kube-system -o jsonpath='{.data.mapRoles}')
 
-            // Parse and update the ConfigMap with our new role
-            const updatedAwsAuth = pulumi.all([existingAwsAuth, nodeRole.arn]).apply(([configMap, roleArn]) => {
-                // Get existing data or initialize empty
-                const existingData = configMap.data || {};
-                let mapRoles: any[] = [];
-                let mapUsers: any[] = [];
-                let mapAccounts: any[] = [];
+# Parse and merge
+CAST_ROLE='- rolearn: ${arn}
+  username: system:node:{{EC2PrivateDNSName}}
+  groups:
+    - system:bootstrappers
+    - system:nodes'
 
-                // Parse existing mapRoles (YAML format)
-                if (existingData.mapRoles) {
-                    try {
-                        // ConfigMap stores YAML as string, parse it
-                        const yaml = require('js-yaml');
-                        mapRoles = yaml.load(existingData.mapRoles) || [];
-                    } catch (e) {
-                        console.warn('Failed to parse existing mapRoles:', e);
-                        mapRoles = [];
-                    }
-                }
+# Check if role already exists
+if echo "$EXISTING_MAP_ROLES" | grep -q "${arn}"; then
+  echo "CAST AI role already exists in aws-auth ConfigMap"
+  exit 0
+fi
 
-                // Parse existing mapUsers if present
-                if (existingData.mapUsers) {
-                    try {
-                        const yaml = require('js-yaml');
-                        mapUsers = yaml.load(existingData.mapUsers) || [];
-                    } catch (e) {
-                        mapUsers = [];
-                    }
-                }
+# Append the role
+UPDATED_ROLES="$EXISTING_MAP_ROLES
+$CAST_ROLE"
 
-                // Parse existing mapAccounts if present
-                if (existingData.mapAccounts) {
-                    try {
-                        const yaml = require('js-yaml');
-                        mapAccounts = yaml.load(existingData.mapAccounts) || [];
-                    } catch (e) {
-                        mapAccounts = [];
-                    }
-                }
+# Create patch JSON
+PATCH_JSON=$(cat <<EOF
+{
+  "data": {
+    "mapRoles": $(echo "$UPDATED_ROLES" | jq -Rs .)
+  }
+}
+EOF
+)
 
-                // Check if CAST AI role already exists
-                const castaiRoleExists = mapRoles.some((role: any) => role.rolearn === roleArn);
-
-                // Add CAST AI role if it doesn't exist
-                if (!castaiRoleExists) {
-                    mapRoles.push({
-                        rolearn: roleArn,
-                        username: "system:node:{{EC2PrivateDNSName}}",
-                        groups: [
-                            "system:bootstrappers",
-                            "system:nodes"
-                        ]
-                    });
-                }
-
-                // Convert back to YAML
-                const yaml = require('js-yaml');
-                return {
-                    mapRoles: yaml.dump(mapRoles),
-                    mapUsers: existingData.mapUsers || yaml.dump(mapUsers),
-                    mapAccounts: existingData.mapAccounts || yaml.dump(mapAccounts),
-                };
-            });
-
-            // Update the ConfigMap with merged data
-            new k8s.core.v1.ConfigMapPatch(`${name}-aws-auth-update`, {
-                metadata: {
-                    name: "aws-auth",
-                    namespace: "kube-system",
-                },
-                data: updatedAwsAuth,
+# Apply patch
+kubectl patch configmap aws-auth -n kube-system -p "$PATCH_JSON"
+echo "CAST AI role added to aws-auth ConfigMap"
+`;
+                    return patchCmd;
+                }),
             }, {
                 ...componentOpts,
-                provider: args.k8sProvider,
                 dependsOn: [nodeRole],
             });
         }

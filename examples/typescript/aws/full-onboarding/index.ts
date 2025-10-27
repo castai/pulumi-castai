@@ -95,6 +95,46 @@ const castaiUserArn = new castai.EksUserArn("castai-user-arn", {
 }, { provider: castaiProvider });
 
 // ============================================================================
+// Kubernetes Provider (needed for IAM component ConfigMap updates)
+// ============================================================================
+
+const k8sProvider = new k8s.Provider("eks-k8s", {
+    kubeconfig: eksCluster.apply(cluster => {
+        const clusterCert = pulumi.output(aws.eks.getCluster({
+            name: eksClusterName,
+        })).apply(c => c.certificateAuthorities[0].data);
+
+        return pulumi.interpolate`apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    server: ${cluster.endpoint}
+    certificate-authority-data: ${clusterCert}
+  name: ${eksClusterName}
+contexts:
+- context:
+    cluster: ${eksClusterName}
+    user: ${eksClusterName}
+  name: ${eksClusterName}
+current-context: ${eksClusterName}
+users:
+- name: ${eksClusterName}
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: aws
+      args:
+        - eks
+        - get-token
+        - --cluster-name
+        - ${eksClusterName}
+        - --region
+        - ${awsRegion}
+`;
+    }),
+});
+
+// ============================================================================
 // Phase 2: Create IAM Infrastructure (using component)
 // ============================================================================
 
@@ -133,46 +173,6 @@ const eksClusterConnection = new castai.EksCluster("eks-cluster-connection", {
 }, {
     provider: castaiProvider,
     dependsOn: [castaiClusterPhase1, iamResources],
-});
-
-// ============================================================================
-// Kubernetes Provider
-// ============================================================================
-
-const k8sProvider = new k8s.Provider("eks-k8s", {
-    kubeconfig: eksCluster.apply(cluster => {
-        const clusterCert = pulumi.output(aws.eks.getCluster({
-            name: eksClusterName,
-        })).apply(c => c.certificateAuthorities[0].data);
-
-        return pulumi.interpolate`apiVersion: v1
-kind: Config
-clusters:
-- cluster:
-    server: ${cluster.endpoint}
-    certificate-authority-data: ${clusterCert}
-  name: ${eksClusterName}
-contexts:
-- context:
-    cluster: ${eksClusterName}
-    user: ${eksClusterName}
-  name: ${eksClusterName}
-current-context: ${eksClusterName}
-users:
-- name: ${eksClusterName}
-  user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1beta1
-      command: aws
-      args:
-        - eks
-        - get-token
-        - --cluster-name
-        - ${eksClusterName}
-        - --region
-        - ${awsRegion}
-`;
-    }),
 });
 
 // ============================================================================
