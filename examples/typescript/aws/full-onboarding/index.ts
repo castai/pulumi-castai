@@ -1,107 +1,187 @@
 /**
- * CAST AI AWS Example
+ * CAST AI AWS Full Onboarding Example (Phase 1 + Phase 2)
  *
- * This example demonstrates how to connect an existing EKS cluster to CAST AI
- * and install all necessary components using the Pulumi CAST AI provider.
+ * This example provides a SIMPLIFIED approach to CAST AI onboarding for an EKS cluster.
+ * It uses a reusable IAM component that encapsulates all AWS resource complexity.
+ *
+ * What this example does:
+ * - Phase 1: Registers cluster and installs castai-agent for read-only monitoring
+ * - Phase 2: Sets up IAM infrastructure and enables full cluster management
+ * - Installs all necessary Helm charts (agent, controller, spot-handler, evictor, pod-pinner)
+ *
+ * Prerequisites:
+ * - Existing EKS cluster
+ * - AWS credentials configured
+ * - kubectl configured to access the cluster
+ * - CAST AI API token
  *
  * Required environment variables:
  * - CASTAI_API_TOKEN: Your CAST AI API token
  * - AWS_ACCESS_KEY_ID: Your AWS access key ID
  * - AWS_SECRET_ACCESS_KEY: Your AWS secret access key
  * - AWS_REGION: Your AWS region
+ * - EKS_CLUSTER_NAME: Name of your existing EKS cluster
  *
- * Optional environment variables:
- * - EKS_CLUSTER_NAME: Name of your EKS cluster (default: cast_ai_test_cluster)
- * - AWS_ACCOUNT_ID: Your AWS account ID (default: 123456789012)
- * - CASTAI_API_URL: Custom CAST AI API URL (default: https://api.cast.ai)
+ * Note: VPC ID is automatically discovered from the EKS cluster.
+ *
+ * EKS Authentication Modes:
+ * This example handles ALL authentication modes by default (matching CAST AI onboarding script):
+ * - API mode: Uses EKS access entries ✓
+ * - CONFIG_MAP mode: Updates aws-auth ConfigMap ✓
+ * - API_AND_CONFIG_MAP mode: Does both ✓
+ *
+ * The aws-auth ConfigMap is safely updated by reading existing entries and merging.
+ * If your cluster uses pure API mode, you can skip ConfigMap updates by removing
+ * the k8sProvider parameter (see line 119).
+ *
+ * For fine-grained control over IAM resources, see the "custom-iam" example.
  */
 
 import * as pulumi from "@pulumi/pulumi";
 import * as castai from "@castai/pulumi";
 import * as aws from "@pulumi/aws";
 import * as k8s from "@pulumi/kubernetes";
+import { EksIamResources } from "./components/eks-iam";
 
-const requiredVars = [
-    "AWS_ACCESS_KEY_ID",
-    "AWS_SECRET_ACCESS_KEY",
-    "AWS_REGION",
-    "CASTAI_API_TOKEN"
-];
+// ============================================================================
+// Configuration
+// ============================================================================
 
-const missingVars = requiredVars.filter(varName => !process.env[varName]);
-if (missingVars.length > 0) {
-    console.warn(`Warning: Missing required AWS credentials: ${missingVars.join(", ")}`);
-    console.warn("This is a simulation only - not creating actual resources.");
+const castaiApiToken = process.env.CASTAI_API_TOKEN!;
+const awsRegion = process.env.AWS_REGION!;
+const eksClusterName = process.env.EKS_CLUSTER_NAME!;
+const castaiApiUrl = process.env.CASTAI_API_URL || "https://api.cast.ai";
+
+if (!castaiApiToken || !awsRegion || !eksClusterName) {
+    throw new Error("Missing required environment variables: CASTAI_API_TOKEN, AWS_REGION, EKS_CLUSTER_NAME");
 }
 
-const castaiApiToken = process.env.CASTAI_API_TOKEN;
-if (!castaiApiToken) {
-    console.error("ERROR: CASTAI_API_TOKEN environment variable is required");
-    process.exit(1);
-}
+// ============================================================================
+// Providers
+// ============================================================================
 
-const provider = new castai.Provider("castai-provider", {
+const castaiProvider = new castai.Provider("castai-provider", {
     apiToken: castaiApiToken,
-    apiUrl: process.env.CASTAI_API_URL || "https://api.cast.ai",
+    apiUrl: castaiApiUrl,
 });
 
-const awsRegion = process.env.AWS_REGION || "us-west-2";
-const awsAccountId = process.env.AWS_ACCOUNT_ID || "123456789012";
-const eksClusterName = process.env.EKS_CLUSTER_NAME || "cast_ai_test_cluster";
+// ============================================================================
+// Get AWS and EKS Information
+// ============================================================================
 
-// Get the existing EKS cluster details
-const eksClusterInfo = pulumi.output(aws.eks.getCluster({
+const caller = aws.getCallerIdentity({});
+const awsAccountId = caller.then((c: aws.GetCallerIdentityResult) => c.accountId);
+
+const eksCluster = pulumi.output(aws.eks.getCluster({
     name: eksClusterName,
 }));
 
-// Example EKS cluster configuration
-const eksCluster = new castai.EksCluster("eks-cluster-connection", {
+// ============================================================================
+// Phase 1: Register Cluster with CAST AI
+// ============================================================================
+
+// Register cluster (Phase 1 - creates cluster registration and gets cluster token)
+const castaiClusterPhase1 = new castai.EksCluster("castai-eks-cluster-phase1", {
     accountId: awsAccountId,
     region: awsRegion,
     name: eksClusterName,
-    deleteNodesOnDisconnect: true,
-    // The following values need to be replaced with actual values from your AWS account
-    overrideSecurityGroups: ["sg-12345678"],
-    subnets: ["subnet-12345678", "subnet-87654321"],
-}, { provider });
+}, { provider: castaiProvider });
 
-// Create a Kubernetes provider to interact with the EKS cluster
+const castaiClusterId = castaiClusterPhase1.id;
+
+// Get CAST AI user ARN for IAM trust relationship
+const castaiUserArn = new castai.EksUserArn("castai-user-arn", {
+    clusterId: castaiClusterId,
+}, { provider: castaiProvider });
+
+// ============================================================================
+// Phase 2: Create IAM Infrastructure (using component)
+// ============================================================================
+
+// Create all IAM resources using the reusable component
+// This replaces ~300 lines of manual IAM resource creation!
+//
+// By default, this updates BOTH:
+// - EKS access entries (for API and API_AND_CONFIG_MAP modes)
+// - aws-auth ConfigMap (for CONFIG_MAP and API_AND_CONFIG_MAP modes)
+//
+// This matches the behavior of the official CAST AI onboarding script.
+// The component will automatically:
+// - Read the existing aws-auth ConfigMap
+// - Merge in the CAST AI node role
+// - Update the ConfigMap without overwriting existing entries
+//
+// If your cluster uses pure API mode and you want to skip ConfigMap updates,
+// remove the k8sProvider parameter below.
+const iamResources = new EksIamResources("castai-eks-iam", {
+    clusterName: eksClusterName,
+    region: awsRegion,
+    accountId: awsAccountId,
+    vpcId: eksCluster.vpcConfig.vpcId,
+    castaiUserArn: castaiUserArn.arn,
+    clusterId: castaiClusterId,
+    k8sProvider: k8sProvider,  // Comment this out if using pure API mode
+});
+
+// Update cluster with IAM role to enable Phase 2 (full management)
+const eksClusterConnection = new castai.EksCluster("eks-cluster-connection", {
+    accountId: awsAccountId,
+    region: awsRegion,
+    name: eksClusterName,
+    assumeRoleArn: iamResources.roleArn,
+    deleteNodesOnDisconnect: false,
+}, {
+    provider: castaiProvider,
+    dependsOn: [castaiClusterPhase1, iamResources],
+});
+
+// ============================================================================
+// Kubernetes Provider
+// ============================================================================
+
 const k8sProvider = new k8s.Provider("eks-k8s", {
-    kubeconfig: eksClusterInfo.apply(info => {
-        return aws.eks.getClusterAuth({
+    kubeconfig: eksCluster.apply(cluster => {
+        const clusterCert = pulumi.output(aws.eks.getCluster({
             name: eksClusterName,
-        }).apply(auth => {
-            return {
-                apiVersion: "v1",
-                clusters: [{
-                    cluster: {
-                        server: info.endpoint,
-                        certificateAuthorityData: info.certificateAuthority.data,
-                    },
-                    name: "kubernetes",
-                }],
-                contexts: [{
-                    context: {
-                        cluster: "kubernetes",
-                        user: "aws",
-                    },
-                    name: "aws",
-                }],
-                currentContext: "aws",
-                users: [{
-                    name: "aws",
-                    user: {
-                        token: auth.token,
-                    },
-                }],
-            };
-        });
+        })).apply(c => c.certificateAuthorities[0].data);
+
+        return pulumi.interpolate`apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    server: ${cluster.endpoint}
+    certificate-authority-data: ${clusterCert}
+  name: ${eksClusterName}
+contexts:
+- context:
+    cluster: ${eksClusterName}
+    user: ${eksClusterName}
+  name: ${eksClusterName}
+current-context: ${eksClusterName}
+users:
+- name: ${eksClusterName}
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: aws
+      args:
+        - eks
+        - get-token
+        - --cluster-name
+        - ${eksClusterName}
+        - --region
+        - ${awsRegion}
+`;
     }),
 });
 
-// Install the CAST AI agent using Helm
+// ============================================================================
+// Install Helm Charts
+// ============================================================================
+
+// Install CAST AI agent (Phase 1 - read-only monitoring)
 const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
-    name: "castai-agent", // This will be the exact name used, without a suffix
+    name: "castai-agent",
     chart: "castai-agent",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
@@ -110,143 +190,147 @@ const castaiAgent = new k8s.helm.v3.Release("castai-agent", {
     createNamespace: true,
     cleanupOnFail: true,
     timeout: 300,
-    skipAwait: true,
+    skipAwait: false,
     values: {
-        replicaCount: 1,
         provider: "eks",
-        additionalEnv: {
-            STATIC_CLUSTER_ID: eksCluster.id,
-        },
         createNamespace: false,
-        apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
-        apiKey: castaiApiToken,
-        resources: {
-            agent: {
-                requests: {
-                    memory: "512Mi",
-                    cpu: "100m",
-                },
-                limits: {
-                    memory: "1Gi",
-                    cpu: "500m",
-                },
-            },
-            monitor: {
-                requests: {
-                    memory: "64Mi",
-                    cpu: "50m",
-                },
-            },
-        },
+        apiURL: castaiApiUrl,
+        apiKey: castaiClusterPhase1.clusterToken,
     },
 }, {
     provider: k8sProvider,
-    dependsOn: [eksCluster],
-    customTimeouts: {
-        create: "1m",
-        update: "1m",
-        delete: "5m",
-    },
+    dependsOn: [castaiClusterPhase1],
 });
 
-// Install the CAST AI cluster controller
+// ============================================================================
+// EKS Cluster Access
+// ============================================================================
+
+// Note: The EksIamResources component handles cluster access by default:
+// - Always creates EKS access entry (for API mode)
+// - Updates aws-auth ConfigMap if k8sProvider is provided (for CONFIG_MAP mode)
+// This ensures compatibility with all EKS authentication modes, matching the
+// behavior of the official CAST AI onboarding script.
+
+// Install cluster controller (Phase 2 component)
 const clusterController = new k8s.helm.v3.Release("cluster-controller", {
-    name: "cluster-controller", // This will be the exact name used, without a suffix
+    name: "cluster-controller",
     chart: "castai-cluster-controller",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
     namespace: "castai-agent",
-    createNamespace: true,
+    createNamespace: false,
     cleanupOnFail: true,
     timeout: 300,
     skipAwait: true,
     values: {
         castai: {
-            clusterID: eksCluster.id,
-            apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
+            clusterID: eksClusterConnection.id,
+            apiURL: castaiApiUrl,
             apiKey: castaiApiToken,
-        },
-        resources: {
-            requests: {
-                memory: "128Mi",
-                cpu: "50m",
-            },
-            limits: {
-                memory: "256Mi",
-                cpu: "200m",
-            },
         },
     },
 }, {
     provider: k8sProvider,
-    dependsOn: [castaiAgent, eksCluster],
+    dependsOn: [castaiAgent, eksClusterConnection],
     customTimeouts: {
-        create: "1m",
-        update: "1m",
+        create: "5m",
+        update: "5m",
         delete: "5m",
     },
 });
 
-// Install the CAST AI evictor
+// Install spot handler (Phase 2 component)
+const castaiSpotHandler = new k8s.helm.v3.Release("castai-spot-handler", {
+    name: "castai-spot-handler",
+    chart: "castai-spot-handler",
+    repositoryOpts: {
+        repo: "https://castai.github.io/helm-charts",
+    },
+    namespace: "castai-agent",
+    createNamespace: false,
+    cleanupOnFail: true,
+    timeout: 300,
+    skipAwait: true,
+    values: {
+        castai: {
+            clusterID: eksClusterConnection.id,
+            provider: "eks",
+        },
+    },
+}, {
+    provider: k8sProvider,
+    dependsOn: [clusterController],
+    customTimeouts: {
+        create: "5m",
+        update: "5m",
+        delete: "5m",
+    },
+});
+
+// Install evictor (Phase 2 component)
 const castaiEvictor = new k8s.helm.v3.Release("castai-evictor", {
-    name: "castai-evictor", // This will be the exact name used, without a suffix
+    name: "castai-evictor",
     chart: "castai-evictor",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
     namespace: "castai-agent",
-    createNamespace: true,
+    createNamespace: false,
     cleanupOnFail: true,
     timeout: 300,
     skipAwait: true,
     values: {
-        replicaCount: 1,
-        managedByCASTAI: true,
+        replicaCount: 0,
     },
 }, {
     provider: k8sProvider,
-    dependsOn: [castaiAgent, clusterController],
+    dependsOn: [clusterController],
     customTimeouts: {
-        create: "1m",
-        update: "1m",
+        create: "5m",
+        update: "5m",
         delete: "5m",
     },
 });
 
-// Install the CAST AI pod pinner
+// Install pod pinner (Phase 2 component)
 const castaiPodPinner = new k8s.helm.v3.Release("castai-pod-pinner", {
-    name: "castai-pod-pinner", // This will be the exact name used, without a suffix
+    name: "castai-pod-pinner",
     chart: "castai-pod-pinner",
     repositoryOpts: {
         repo: "https://castai.github.io/helm-charts",
     },
     namespace: "castai-agent",
-    createNamespace: true,
+    createNamespace: false,
     cleanupOnFail: true,
     timeout: 300,
     skipAwait: true,
     values: {
         castai: {
             apiKey: castaiApiToken,
-            clusterID: eksCluster.id,
+            clusterID: eksClusterConnection.id,
         },
         replicaCount: 0,
     },
 }, {
     provider: k8sProvider,
-    dependsOn: [castaiAgent, clusterController],
+    dependsOn: [clusterController],
     customTimeouts: {
-        create: "1m",
-        update: "1m",
+        create: "5m",
+        update: "5m",
         delete: "5m",
     },
 });
 
-// Export useful information
+// ============================================================================
+// Exports
+// ============================================================================
+
 export const clusterName = eksClusterName;
-export const clusterId = eksCluster.id;
-export const agentHelmRelease = castaiAgent.name;
+export const clusterId = eksClusterConnection.id;
+export const castaiRoleArn = iamResources.roleArn;
+export const instanceProfileArn = iamResources.instanceProfileArn;
 export const controllerHelmRelease = clusterController.name;
 export const evictorHelmRelease = castaiEvictor.name;
 export const podPinnerHelmRelease = castaiPodPinner.name;

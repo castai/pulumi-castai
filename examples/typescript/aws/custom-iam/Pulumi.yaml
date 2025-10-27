@@ -1,0 +1,4 @@
+name: typescript-castai-aws-custom-iam
+runtime: nodejs
+main: index.ts
+description: CAST AI EKS example with custom IAM setup (Phase 1 + Phase 2)
