@@ -7,6 +7,7 @@
  * What this example does:
  * - Phase 1: Registers cluster and installs castai-agent for monitoring
  * - Phase 2: Sets up IAM infrastructure and enables full cluster management
+ * - Creates default node configuration with instance profile and security groups
  * - Installs all necessary Helm charts (agent, controller, spot-handler, evictor, pod-pinner)
  * - Handles all EKS authentication modes (API, CONFIG_MAP, API_AND_CONFIG_MAP)
  *
@@ -72,7 +73,9 @@ const cluster = new CastAiEksCluster("castai-cluster", {
     apiToken: castaiApiToken,
     apiUrl: castaiApiUrl,
 
-    // Networking configuration
+    // Networking configuration for CAST AI provisioned nodes
+    // The component automatically creates a default node configuration
+    // with instance profile ARN and security groups
     subnets: subnetIds,
     securityGroups: [clusterSecurityGroupId],
 
@@ -108,13 +111,16 @@ Resources created:
 - Instance Profile: ${instanceProfileArn}
 - Node Role: ${nodeRoleArn}
 - Security Group: ${securityGroupId}
+- Default Node Configuration (visible in CAST AI console)
 
 Next steps:
 1. Log in to CAST AI console: https://console.cast.ai
 2. Navigate to your cluster
-3. Review and enable the autoscaler when ready
-4. Configure node templates and policies as needed
+3. Review the default node configuration and template
+4. Enable the autoscaler when ready
+5. Configure additional node templates and policies as needed
 
-Note: The cluster is registered but autoscaling is disabled by default.
-Enable it in the CAST AI console when you're ready to start optimizing.
+Note: The cluster is registered with a default node configuration.
+Autoscaling is disabled by default - enable it in the CAST AI console
+when you're ready to start optimizing.
 `;
