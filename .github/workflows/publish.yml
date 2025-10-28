@@ -31,13 +31,12 @@ jobs:
         run: |
           # Verify that the SDKs exist in the repository
           echo "Verifying SDKs exist in the repository..."
-          if [ ! -d "sdk/nodejs" ] || [ ! -d "sdk/python" ] || [ ! -d "sdk/go" ] || [ ! -d "sdk/dotnet" ]; then
+          if [ ! -d "sdk/nodejs" ] || [ ! -d "sdk/python" ] || [ ! -d "sdk/go" ]; then
             echo "Error: One or more SDK directories are missing. The SDKs should be built and committed before running this workflow."
             echo "Missing SDKs:"
             [ ! -d "sdk/nodejs" ] && echo "- Node.js SDK is missing"
             [ ! -d "sdk/python" ] && echo "- Python SDK is missing"
             [ ! -d "sdk/go" ] && echo "- Go SDK is missing"
-            [ ! -d "sdk/dotnet" ] && echo "- .NET SDK is missing"
             exit 1
           fi
 
@@ -412,72 +411,3 @@ jobs:
 
           # Return to the original directory
           cd $GITHUB_WORKSPACE
-
-      # Publish .NET Package
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '6.0.x'
-
-      - name: Publish .NET Package
-        run: |
-          # Rebuild the .NET package with the correct version
-          echo "Building .NET package with version ${VERSION}..."
-          cd sdk/dotnet
-
-          # Create version.txt file with the correct version
-          echo "${VERSION}" > version.txt
-          cat version.txt
-
-          # Check if .csproj file exists
-          echo "Checking if .csproj file exists..."
-          if [ ! -f "Pulumi.CastAI.csproj" ]; then
-            echo "Pulumi.CastAI.csproj not found, generating it..."
-            # Run the script to generate the .csproj file
-            cd ../../
-            ./scripts/generate_dotnet_csproj.sh
-            cd sdk/dotnet
-          fi
-
-          # Restore NuGet packages first
-          echo "Restoring NuGet packages..."
-          dotnet restore
-
-          # Clean any existing builds
-          dotnet clean -c Release
-
-          # Restore packages again after clean
-          dotnet restore
-
-          # Build and pack with the correct version
-          dotnet build /p:Version=${VERSION} -c Release
-          dotnet pack -o nupkg -p:Version=${VERSION} -c Release --no-build
-
-          # Verify the package was created with the correct version
-          echo "Verifying .NET package..."
-          ls -la nupkg/
-
-          # Check if the package with the correct version exists
-          NUPKG_FILE="nupkg/CASTAI.Pulumi.${VERSION}.nupkg"
-          if [ ! -f "$NUPKG_FILE" ]; then
-            echo "Error: .NET package with version ${VERSION} not found."
-            echo "Available packages:"
-            find nupkg -name "*.nupkg"
-            exit 1
-          fi
-
-          echo "Found .NET package: $NUPKG_FILE"
-
-          # Check if this version already exists in NuGet
-          echo "Checking if .NET package version ${VERSION} already exists on NuGet..."
-          if dotnet nuget list CASTAI.Pulumi --source https://api.nuget.org/v3/index.json | grep -q "${VERSION}"; then
-            echo "Version ${VERSION} already exists in NuGet registry. Skipping publish."
-          else
-            # Publish the package
-            echo "Publishing .NET package to NuGet..."
-            dotnet nuget push "$NUPKG_FILE" --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          fi
-
-          cd ../..
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}

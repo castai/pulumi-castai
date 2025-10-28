@@ -28,7 +28,7 @@ EMPTY_TO_AVOID_SED := ""
 # Use go from PATH
 GO_EXECUTABLE := go
 
-.PHONY: development provider build_sdks build_nodejs build_dotnet build_go build_python install_provider cleanup build_schema build_examples ensure publish_packages publish publish_nodejs publish_python publish_go build_codegen check_schema create_docs test clean help
+.PHONY: development provider build_sdks build_nodejs build_go build_python install_provider cleanup build_schema build_examples ensure publish_packages publish publish_nodejs publish_python publish_go build_codegen check_schema create_docs test clean help
 
 development:: install_dependencies provider build_sdks install_provider cleanup # Build the provider & SDKs for a development environment
 
@@ -68,7 +68,7 @@ build_examples: ensure # build the examples
 build_test:: # build just the test directory
 	cd tests && go test -v -c -o $(WORKING_DIR)/bin/tests .
 
-build_sdks:: install_dependencies provider build_nodejs build_python build_go build_dotnet # build all the SDKs
+build_sdks:: install_dependencies provider build_nodejs build_python build_go # build all the SDKs
 
 build_nodejs:: install_dependencies # build the node sdk
 	rm -rf sdk/nodejs
@@ -102,25 +102,6 @@ build_python:: install_dependencies # build the python sdk
 build_go:: install_dependencies # build the go sdk
 	rm -rf sdk/go
 	$(WORKING_DIR)/bin/${TFGEN} go --out sdk/go/ --overlays provider/overlays/go --skip-docs
-
-build_dotnet:: install_dependencies # build the dotnet sdk
-	@echo "Building .NET SDK with version ${VERSION}"
-	rm -rf sdk/dotnet
-	$(WORKING_DIR)/bin/${TFGEN} dotnet --out sdk/dotnet/ --overlays provider/overlays/dotnet --skip-docs
-	@echo "Fixing .NET SDK naming conflicts"
-	./scripts/fix_dotnet_naming.sh
-	@echo "Creating version.txt file"
-	echo "${VERSION}" > sdk/dotnet/version.txt
-	@echo "Checking if .csproj file exists"
-	@if [ ! -f "sdk/dotnet/Pulumi.CastAI.csproj" ]; then \
-		echo "ERROR: sdk/dotnet/Pulumi.CastAI.csproj does not exist. Running generate_dotnet_csproj.sh..."; \
-		./scripts/generate_dotnet_csproj.sh; \
-	fi
-	@echo "Building .NET SDK"
-	cd sdk/dotnet && \
-		dotnet build /p:Version=${VERSION} -c Release -v detailed || \
-		(echo "Retrying .NET build with simplified approach" && \
-		 dotnet build /p:Version=${VERSION} -c Release -p:GeneratePackageOnBuild=false)
 
 install_dependencies:: # install dependencies for the provider and code generator
 	@echo "Ensure pulumi is installed"
@@ -166,7 +147,7 @@ check_schema:: build_schema # check if the schema has changed from what is commi
 # Publishing Targets
 publish:: provider build_sdks install_provider create_docs publish_packages # build and publish all SDK's
 
-publish_packages:: publish_nodejs publish_python publish_go publish_dotnet # publish all SDK packages
+publish_packages:: publish_nodejs publish_python publish_go # publish all SDK packages
 
 publish_nodejs:: # publish to NPM
 	cd sdk/nodejs/bin && \
@@ -186,10 +167,3 @@ publish_go:: # publish to GitHub
 	@echo "Go SDK has been published to GitHub."
 	@echo "The package should be available at: https://pkg.go.dev/github.com/castai/pulumi-castai/sdk/go/castai@v$(VERSION)"
 	@echo "Note: It may take a few minutes for pkg.go.dev to index the new version."
-
-publish_dotnet:: # publish to NuGet
-	@echo "Publishing .NET package with version ${VERSION}"
-	cd sdk/dotnet && \
-		dotnet pack -o nupkg -p:Version=${VERSION} -c Release --no-build && \
-		dotnet nuget push nupkg/*.nupkg --api-key "${NUGET_AUTH_TOKEN}" --source https://api.nuget.org/v3/index.json || \
-		echo "Warning: Failed to publish to NuGet. See error message above."

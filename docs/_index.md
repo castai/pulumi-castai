@@ -18,7 +18,7 @@ This ensures the cluster controller is running and can respond when CAST AI atte
 
 ## Example
 
-{{< chooser language "typescript,python,go,csharp" >}}
+{{< chooser language "typescript,python,go" >}}
 
 {{% choosable language typescript %}}
 
@@ -978,114 +978,6 @@ func main() {
 		return nil
 	})
 }
-```
-
-{{% /choosable %}}
-{{% choosable language csharp %}}
-
-```csharp
-using System;
-using System.Collections.Generic;
-using Pulumi;
-using Pulumi.CastAI;
-using Pulumi.Kubernetes.Core.V1;
-using Pulumi.Kubernetes.Helm.V3;
-using Pulumi.Kubernetes.Types.Inputs.Core.V1;
-using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
-
-return await Deployment.RunAsync(() =>
-{
-    var apiToken = Environment.GetEnvironmentVariable("CASTAI_API_TOKEN");
-    var awsRegion = Environment.GetEnvironmentVariable("AWS_REGION") ?? "us-west-2";
-    var awsAccountId = Environment.GetEnvironmentVariable("AWS_ACCOUNT_ID") ?? "123456789012";
-    var eksClusterName = Environment.GetEnvironmentVariable("EKS_CLUSTER_NAME") ?? "my-eks-cluster";
-
-    // Initialize providers
-    var castaiProvider = new Provider("castai-provider", new ProviderArgs
-    {
-        ApiToken = apiToken
-    });
-
-    var k8sProvider = new Pulumi.Kubernetes.Provider("eks-k8s");
-
-    // STEP 1: Create namespace with proper Helm labels
-    var castaiNamespace = new Namespace("castai-namespace", new NamespaceArgs
-    {
-        Metadata = new ObjectMetaArgs
-        {
-            Name = "castai-agent",
-            Labels = new Dictionary<string, string>
-            {
-                ["app.kubernetes.io/managed-by"] = "Helm"
-            },
-            Annotations = new Dictionary<string, string>
-            {
-                ["meta.helm.sh/release-name"] = "castai-agent",
-                ["meta.helm.sh/release-namespace"] = "castai-agent"
-            }
-        }
-    }, new CustomResourceOptions { Provider = k8sProvider });
-
-    // STEP 2: Install CAST AI agent FIRST (before cluster connection)
-    var castaiAgent = new Release("castai-agent", new ReleaseArgs
-    {
-        Name = "castai-agent",
-        Chart = "castai-agent",
-        RepositoryOpts = new RepositoryOptsArgs
-        {
-            Repo = "https://castai.github.io/helm-charts"
-        },
-        Namespace = "castai-agent",
-        CreateNamespace = false,
-        Values = new Dictionary<string, object>
-        {
-            ["apiKey"] = apiToken,
-            ["provider"] = "eks",
-            ["apiURL"] = "https://api.cast.ai"
-        }
-    }, new CustomResourceOptions { Provider = k8sProvider, DependsOn = { castaiNamespace } });
-
-    // STEP 3: Install CAST AI cluster controller
-    var clusterController = new Release("cluster-controller", new ReleaseArgs
-    {
-        Name = "cluster-controller",
-        Chart = "castai-cluster-controller",
-        RepositoryOpts = new RepositoryOptsArgs
-        {
-            Repo = "https://castai.github.io/helm-charts"
-        },
-        Namespace = "castai-agent",
-        Values = new Dictionary<string, object>
-        {
-            ["castai"] = new Dictionary<string, object>
-            {
-                ["apiKey"] = apiToken,
-                ["apiURL"] = "https://api.cast.ai"
-            }
-        }
-    }, new CustomResourceOptions { Provider = k8sProvider, DependsOn = { castaiAgent } });
-
-    // STEP 4: Connect EKS cluster to CAST AI AFTER agent installation
-    var eksCluster = new EksCluster("eks-cluster-connection", new EksClusterArgs
-    {
-        AccountId = awsAccountId,
-        Region = awsRegion,
-        Name = eksClusterName,
-        DeleteNodesOnDisconnect = true,
-        OverrideSecurityGroups = new[] {"sg-12345678"},
-        Subnets = new[] { "subnet-12345678", "subnet-87654321" }
-    }, new CustomResourceOptions
-    {
-        Provider = castaiProvider,
-        DependsOn = { castaiAgent, clusterController }
-    });
-
-    // Export the cluster ID
-    return new Dictionary<string, object?>
-    {
-        ["ClusterId"] = eksCluster.Id
-    };
-});
 ```
 
 {{% /choosable %}}

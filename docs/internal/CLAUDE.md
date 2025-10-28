@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is the Pulumi provider for CAST AI, a Kubernetes cost optimization platform. The provider is built using the Pulumi Terraform Bridge (v3), which wraps the existing CAST AI Terraform provider into native Pulumi SDKs for TypeScript/JavaScript, Python, Go, and .NET.
+This is the Pulumi provider for CAST AI, a Kubernetes cost optimization platform. The provider is built using the Pulumi Terraform Bridge (v3), which wraps the existing CAST AI Terraform provider into native Pulumi SDKs for TypeScript/JavaScript, Python, and Go.
 
 ## Architecture
 
@@ -22,7 +22,6 @@ The provider follows the standard Pulumi bridged provider architecture:
   - `nodejs/`: TypeScript/JavaScript SDK
   - `python/`: Python SDK
   - `go/`: Go SDK
-  - `dotnet/`: .NET SDK
 
 - **`examples/`**: Example programs demonstrating provider usage for AWS EKS, GCP GKE, and Azure AKS clusters
 
@@ -65,7 +64,6 @@ make build_sdks
 make build_nodejs
 make build_python
 make build_go
-make build_dotnet
 
 # Install provider with PulumiPlugin.yaml
 make install_provider
@@ -112,7 +110,7 @@ End-to-end tests exist in the `e2e/` directory but require actual cloud resource
 
 The GitHub workflow handles publishing when a tag is pushed:
 - Builds provider binaries for all architectures (darwin/linux/windows, amd64/arm64)
-- Publishes SDKs to npm, PyPI, NuGet, and GitHub
+- Publishes SDKs to npm, PyPI, and GitHub
 - Creates GitHub release with binaries
 - Triggers pkg.go.dev indexing
 
@@ -144,7 +142,7 @@ The provider requires a `PulumiPlugin.yaml` file in the plugin directory. This i
 1. **Provider Binary**: Compile `provider/cmd/pulumi-resource-castai/` with version from `version.txt`
 2. **Schema Generation**: Run `pulumi-tfgen-castai schema` to generate `schema.json`
 3. **SDK Generation**: Run `pulumi-tfgen-castai <lang>` for each target language
-4. **SDK Compilation**: Build TypeScript, Python wheel, Go modules, .NET assemblies
+4. **SDK Compilation**: Build TypeScript, Python wheel, and Go modules
 5. **Installation**: Copy provider binary and create `PulumiPlugin.yaml` in `~/.pulumi/plugins/`
 
 ### Multi-Architecture Support

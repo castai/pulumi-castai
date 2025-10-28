@@ -11,16 +11,6 @@ bin/
 # Don't ignore the schema.json in the provider/sdk/schema directory
 !provider/sdk/schema/schema.json
 
-# Don't ignore the .NET SDK Release folder and .nupkg files
-!sdk/dotnet/bin/
-!sdk/dotnet/bin/Release/
-!sdk/dotnet/bin/Release/CASTAI.Pulumi.*.nupkg
-
-# But ignore other .NET build artifacts
-sdk/dotnet/bin/Debug/
-sdk/dotnet/bin/Release/net6.0/
-sdk/dotnet/obj/
-
 # Test coverage files
 coverage.out
 **/coverage.out
@@ -34,8 +24,6 @@ tests/go/coverage.out
 # SDKs
 # sdk/*
 # sdk/*/bin
-# sdk/dotnet/bin
-# sdk/dotnet/obj
 # sdk/nodejs/node_modules
 # sdk/python/bin
 # sdk/python/build
@@ -83,6 +71,5 @@ gcp-credentials.json
 !sdk/go/castai/
 !sdk/nodejs/
 !sdk/python/
-!sdk/dotnet/
 
 google-cloud-sdk/

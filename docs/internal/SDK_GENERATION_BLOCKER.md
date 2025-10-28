@@ -82,7 +82,7 @@ gatherResource()
 2. ✅ **Updated Makefile** to use `--skip-docs` everywhere
    - tfgen
    - build_schema
-   - build_nodejs, build_python, build_go, build_dotnet
+   - build_nodejs, build_python, build_go
 
 3. ❌ **Attempted SDK regeneration** - Still fails with same error
    - Error occurs during schema generation phase

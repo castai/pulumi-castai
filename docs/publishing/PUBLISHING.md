@@ -10,11 +10,9 @@ Before publishing, ensure you have:
 2. Access to the following package registries:
    - npm (for JavaScript/TypeScript SDK)
    - PyPI (for Python SDK)
-   - NuGet Gallery (for .NET SDK)
 3. The necessary secrets configured in your GitHub repository:
    - `NPM_TOKEN`: Token for publishing to npm
    - `PYPI_PASSWORD`: Token for publishing to PyPI
-   - `NUGET_TOKEN`: Token for publishing to NuGet Gallery
    - `PULUMI_ACCESS_TOKEN`: Token for Pulumi API access
 
 ## Publishing Process
@@ -43,7 +41,7 @@ The GitHub Actions workflow will automatically:
 - Build all SDKs
 - Create release assets
 - Publish the GitHub release
-- Publish packages to npm, PyPI, and NuGet
+- Publish packages to npm and PyPI
 - The Go module is published via the Git tag
 
 ## Manual Publishing
@@ -92,14 +90,6 @@ python -m build
 twine upload dist/*
 ```
 
-#### NuGet (.NET)
-
-```bash
-cd sdk/dotnet
-dotnet pack -c Release
-dotnet nuget push bin/Release/*.nupkg --api-key <your-nuget-api-key> --source https://api.nuget.org/v3/index.json
-```
-
 #### Go
 
 Go modules are published via Git tags, which we've already done by tagging the repository.
@@ -112,7 +102,6 @@ After publishing, verify that:
 2. The packages are available on their respective package managers:
    - npm: https://www.npmjs.com/package/@pulumi/castai
    - PyPI: https://pypi.org/project/pulumi-castai/
-   - NuGet: https://www.nuget.org/packages/Pulumi.CastAI
    - Go: `go get github.com/castai/pulumi-castai@v<new-version>`
 3. The Pulumi Registry shows the updated package: https://www.pulumi.com/registry/packages/castai/
 

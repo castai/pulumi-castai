@@ -18,7 +18,7 @@ Please make sure to read and observe our [Code of Conduct](CODE_OF_CONDUCT.md).
 2. Update examples if necessary.
 3. Update the documentation if applicable.
 4. Follow the coding style of the project.
-5. The PR should work for all supported languages (TypeScript, Python, Go, and C#).
+5. The PR should work for all supported languages (TypeScript, Python, and Go).
 
 ## Coding Guidelines
 
