@@ -2,7 +2,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: [
-    '**/__tests__/**/*.test.ts',
+    '**/tests/**/*.test.ts',
     '**/?(*.)+(spec|test).ts'
   ],
   collectCoverageFrom: [
@@ -10,7 +10,7 @@ module.exports = {
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!**/bin/**',
-    '!**/__tests__/**'
+    '!**/tests/**'
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   globals: {
