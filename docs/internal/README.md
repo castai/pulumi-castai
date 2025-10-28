@@ -11,8 +11,7 @@ When starting a new Claude Code session, read these documents in order:
 - [SDK_GENERATION_BLOCKER.md](./SDK_GENERATION_BLOCKER.md) - Known blockers and resolutions
 
 ### 2. **Testing & Quality**
-- [RESOURCE_TEST_COVERAGE.md](./RESOURCE_TEST_COVERAGE.md) - Test coverage by language and resource
-- [TESTING_STRATEGY.md](./TESTING_STRATEGY.md) - Testing approach and patterns
+- [TESTING.md](./TESTING.md) - Comprehensive testing guide (SDK, Provider, Component tests)
 
 ### 3. **Architecture & Support**
 - [MULTI_ARCH_SUPPORT.md](./MULTI_ARCH_SUPPORT.md) - Multi-architecture build support
@@ -30,13 +29,16 @@ When starting a new Claude Code session, read these documents in order:
 **When to read:** When regenerating SDKs or troubleshooting schema issues
 **Purpose:** Documents the terraform-provider-castai v7.x upgrade blockers and how they were resolved
 
-### RESOURCE_TEST_COVERAGE.md
-**When to read:** When working on tests or checking test parity
-**Purpose:** Detailed breakdown of test coverage across Python/TypeScript/Go
+### TESTING.md
+**When to read:** When adding new tests or running tests
+**Purpose:** Comprehensive testing guide covering SDK, Provider, and Component tests with test runners and patterns
 
-### TESTING_STRATEGY.md
-**When to read:** When adding new tests or understanding test patterns
-**Purpose:** Testing approach, patterns, and best practices for this provider
+### Analysis Documents
+Additional analysis documents from development:
+- `IMPLEMENTATION_SUMMARY.md` - Implementation details
+- `QUICKSTART.md` - Quick start guide
+- `SDK_GAPS_ANALYSIS.md` - SDK gap analysis
+- `TERRAFORM_EXAMPLE_ANALYSIS.md` - Terraform example analysis
 
 ### MULTI_ARCH_SUPPORT.md
 **When to read:** When working on builds or multi-platform support
@@ -52,9 +54,9 @@ When starting a new Claude Code session, read these documents in order:
 # For a new Claude Code session working on this provider:
 1. Read GAP_ANALYSIS.md (current state)
 2. Read relevant doc based on task:
-   - Adding tests? → TESTING_STRATEGY.md
+   - Adding/running tests? → TESTING.md
    - SDK issues? → SDK_GENERATION_BLOCKER.md
-   - Coverage questions? → RESOURCE_TEST_COVERAGE.md
+   - Build issues? → MULTI_ARCH_SUPPORT.md
 ```
 
 ## 🔗 Related Documentation
@@ -66,11 +68,16 @@ When starting a new Claude Code session, read these documents in order:
 ## 📝 Maintaining These Docs
 
 - **Update GAP_ANALYSIS.md** after major milestones (resources mapped, tests fixed, etc.)
-- **Update RESOURCE_TEST_COVERAGE.md** when test counts change
+- **Update TESTING.md** when test organization changes or new test runners are added
 - **Update CLAUDE.md** at the end of significant sessions to capture decisions/context
 - Keep docs current - stale docs are worse than no docs!
 
 ---
 
-**Last Updated:** October 25, 2024
-**Project Status:** v7.73.0 upgrade complete, 112/112 tests passing ✅
+**Last Updated:** October 27, 2025
+**Project Status:**
+- v7.73.0 upgrade complete
+- SDK tests: 75+ passing (co-located with SDKs)
+- Provider tests: passing
+- Component tests: 44 passing (98.68% coverage)
+- Test runners in place for all test buckets ✅

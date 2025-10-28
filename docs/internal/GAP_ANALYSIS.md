@@ -382,7 +382,7 @@ The upgrade from v0.24.3 to v7.73.0 was smooth:
 3. ✅ **Added Comprehensive Test Coverage**
    - 85% unit test coverage
    - 56 tests passing
-   - Documented in TEST_RESULTS.md and RESOURCE_TEST_COVERAGE.md
+   - Documented in TESTING.md (comprehensive testing guide)
 
 ### Immediate Next Actions (Priority 1)
 
@@ -534,7 +534,7 @@ The gap will be considered closed when:
 - ✅ Upgraded to v7.73.0 successfully
 - ✅ Verified no breaking changes
 - ✅ All existing resources work
-- ✅ Comprehensive documentation (CLAUDE.md, TEST_RESULTS.md, RESOURCE_TEST_COVERAGE.md, GAP_ANALYSIS.md)
+- ✅ Comprehensive documentation (CLAUDE.md, TESTING.md, GAP_ANALYSIS.md)
 - ✅ PR submitted for upstream fix
 
 ### What Remains
@@ -567,8 +567,7 @@ The gap will be considered closed when:
 
 ### Related Documentation (This Repository)
 - [CLAUDE.md](./CLAUDE.md) - Developer guide and architecture overview
-- [TEST_RESULTS.md](./TEST_RESULTS.md) - Unit test detailed results (85% coverage)
-- [RESOURCE_TEST_COVERAGE.md](./RESOURCE_TEST_COVERAGE.md) - Resource-by-resource test coverage analysis
+- [TESTING.md](./TESTING.md) - Comprehensive testing guide with test runners and coverage details
 - [requirements.txt](./requirements.txt) - Python runtime dependencies
 - [requirements-dev.txt](./requirements-dev.txt) - Python development dependencies
 

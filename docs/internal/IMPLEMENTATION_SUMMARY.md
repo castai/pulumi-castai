@@ -124,7 +124,7 @@ Compare to E2E tests: **5-10 minutes per test**!
 - **README.md** - Full testing guide with examples
 - **QUICKSTART.md** - Get started in 30 seconds
 - **IMPLEMENTATION_SUMMARY.md** - This document
-- **TESTING_STRATEGY.md** (parent dir) - Deep dive on approach
+- **TESTING.md** (this dir) - Comprehensive testing guide
 
 ## How to Use
 

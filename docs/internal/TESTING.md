@@ -362,8 +362,7 @@ All tests run entirely in-memory without making any API calls.
 ## Additional Resources
 
 - [Pulumi Testing Guide](https://www.pulumi.com/docs/iac/concepts/testing/)
-- [SDK Tests Documentation](SDK_TESTS.md)
-- [Component Tests README](components/eks-cluster/typescript/tests/README.md)
+- [Component Tests README](../../components/eks-cluster/typescript/tests/README.md)
 
 ---
 

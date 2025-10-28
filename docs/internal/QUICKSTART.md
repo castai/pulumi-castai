@@ -220,7 +220,7 @@ cd tests && ./run-tests.sh --coverage
 
 1. **Run the tests** - Verify everything works
 2. **Read [README.md](./README.md)** - Understand the test structure
-3. **Read [TESTING_STRATEGY.md](../TESTING_STRATEGY.md)** - Learn about mocking approach
+3. **Read [TESTING.md](./TESTING.md)** - Learn about testing approach and test runners
 4. **Add your own tests** - Follow the existing patterns
 
 ## 💡 Key Concept

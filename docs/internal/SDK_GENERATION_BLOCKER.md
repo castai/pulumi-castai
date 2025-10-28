@@ -301,7 +301,7 @@ Given that we've confirmed bridge upgrade doesn't fix the issue:
 1. **provider/resources.go** - Added 13 new resource mappings
 2. **Makefile** - Added `--skip-docs` to all tfgen commands
 3. **tests/** - 21 new autoscaler tests (Python, TypeScript, Go)
-4. **Documentation** - TEST_COVERAGE_ANALYSIS.md, TERRAFORM_EXAMPLE_ANALYSIS.md, SDK_GAPS_ANALYSIS.md
+4. **Documentation** - TESTING.md (comprehensive testing guide), analysis documents in this directory
 
 ## Next Steps
 
