@@ -29,6 +29,7 @@
 
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
+import * as castai from "@castai/pulumi";
 import { CastAiEksCluster } from "../../../../components/eks-cluster/typescript";
 
 // ============================================================================
@@ -88,6 +89,79 @@ const cluster = new CastAiEksCluster("castai-cluster", {
 
     autoscalerEnabled: true,
 });
+
+// ============================================================================
+// Optional: Create Additional Node Configurations
+// ============================================================================
+//
+// The component automatically creates a "default" node configuration.
+// You can create additional custom configurations with different settings.
+//
+// Common use cases:
+// - GPU-optimized nodes with specific instance types
+// - High-throughput nodes with custom EBS volumes
+// - Nodes with custom kubelet/container runtime settings
+// - Different subnet configurations for different workloads
+//
+// Uncomment the example below to add a custom configuration:
+
+/*
+const customNodeConfig = new castai.config.NodeConfiguration("custom-config", {
+    clusterId: cluster.clusterId,
+    name: "gpu-nodes",  // Custom name for this configuration
+    subnets: subnetIds,
+    tags: {
+        "node-type": "gpu-optimized",
+        "environment": "production",
+    },
+
+    // EKS-specific configuration
+    eks: {
+        instanceProfileArn: cluster.instanceProfileArn!,
+        securityGroups: pulumi.all([cluster.securityGroupId!, clusterSecurityGroupId])
+            .apply(([castaiSG, clusterSG]) => [castaiSG, clusterSG]),
+
+        // Use containerd instead of dockerd
+        containerRuntime: "containerd",
+
+        // Enable IMDSv1 for legacy workloads
+        imdsV1: true,
+
+        // Use gp3 volumes with custom IOPS and throughput
+        volumeType: "gp3",
+        volumeIops: 3100,
+        volumeThroughput: 130,
+    },
+
+    // Custom kubelet configuration (JSON string)
+    kubeletConfig: JSON.stringify({
+        "registryBurst": 20,
+        "registryPullQPS": 10,
+        "maxPods": 110,
+    }),
+
+    // Minimum disk size in GiB
+    minDiskSize: 100,
+}, {
+    dependsOn: [cluster],
+});
+
+// Additional EKS options available (not shown above):
+// - eks.dnsClusterIp: Custom DNS cluster IP
+// - eks.eksImageFamily: "al2", "al2023", or "bottlerocket"
+// - eks.imdsHopLimit: IMDSv2 hop limit (default: 2)
+// - eks.keyPairId: AWS key pair for SSH access
+// - eks.maxPodsPerNodeFormula: Custom formula for max pods
+// - eks.volumeKmsKeyArn: KMS key for EBS encryption
+// - containerRuntime: "dockerd" or "containerd"
+// - dockerConfig: Custom Docker daemon config (JSON string)
+// - initScript: Base64-encoded init script
+// - sshPublicKey: SSH public key for node access
+// - diskCpuRatio: GiB per CPU ratio
+// - drainTimeoutSec: Node drain timeout
+//
+// See: /Users/leonkuperman/LKDev/CAST/pulumi-castai/sdk/nodejs/config/nodeConfiguration.d.ts
+*/
 
 // ============================================================================
 // Exports
