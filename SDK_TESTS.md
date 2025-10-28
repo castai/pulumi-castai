@@ -2,6 +2,8 @@
 
 This document explains the SDK test organization for the CAST AI Pulumi provider.
 
+> **Note**: For comprehensive testing documentation covering all test types (SDK, Provider, and Component tests), see [TESTING.md](TESTING.md).
+
 ## Test Organization
 
 SDK tests are **co-located** with each SDK to keep them self-contained and consistent with the provider and component test patterns.
