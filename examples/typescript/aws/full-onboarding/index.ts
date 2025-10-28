@@ -80,11 +80,10 @@ const cluster = new CastAiEksCluster("castai-cluster", {
     deleteNodesOnDisconnect: deleteNodesOnDisconnect,
 
     // Optional: Enable additional features
-    installWorkloadAutoscaler: true,
-    installEgressd: true,
+    installWorkloadAutoscaler: false,
+    installEgressd: false,
 
-    // Autoscaler is disabled by default - enable it in CAST AI console when ready
-    autoscalerEnabled: false,
+    autoscalerEnabled: true,
 });
 
 // ============================================================================

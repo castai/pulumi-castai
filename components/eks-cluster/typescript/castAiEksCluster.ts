@@ -258,6 +258,7 @@ users:
             this.securityGroupId = iamResources.securityGroupId;
 
             // Update cluster with IAM role (Phase 2)
+            // CAST AI will auto-discover instance profile and security groups from the node role
             const eksClusterConnection = new castai.EksCluster(`${name}-connection`, {
                 accountId: accountId,
                 region: args.region,
@@ -267,33 +268,6 @@ users:
             }, {
                 provider: castaiProvider,
                 dependsOn: [castaiClusterPhase1, iamResources],
-                ...componentOpts,
-            });
-
-            // Update cluster config via API (instance profile + security groups)
-            new command.local.Command(`${name}-update-config`, {
-                create: pulumi.all([
-                    this.clusterId,
-                    this.instanceProfileArn,
-                    this.securityGroupId,
-                    args.securityGroups!,
-                ]).apply(([clusterId, instanceProfile, castaiSG, userSGs]) => {
-                    const allSGs = [castaiSG, ...userSGs];
-                    const patchData = JSON.stringify({
-                        eks: {
-                            instanceProfileArn: instanceProfile,
-                            securityGroups: allSGs,
-                        }
-                    }).replace(/'/g, "'\\''");
-
-                    return `curl -sf -X PATCH \
-                      -H "X-API-Key: ${pulumi.output(args.apiToken).apply(t => t)}" \
-                      -H "Content-Type: application/json" \
-                      -d '${patchData}' \
-                      "${apiUrl}/v1/kubernetes/external-clusters/${clusterId}"`;
-                }),
-            }, {
-                dependsOn: [eksClusterConnection, iamResources],
                 ...componentOpts,
             });
 
