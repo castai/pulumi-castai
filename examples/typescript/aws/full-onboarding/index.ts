@@ -87,7 +87,7 @@ const cluster = new CastAiEksCluster("castai-cluster", {
     installWorkloadAutoscaler: false,
     installEgressd: false,
 
-    autoscalerEnabled: true,
+    // Note: autoscalerEnabled is set below via the Autoscaler resource
 });
 
 // ============================================================================
@@ -145,6 +145,115 @@ const customNodeConfig = new castai.config.NodeConfiguration("custom-config", {
     dependsOn: [cluster],
 });
 
+// ============================================================================
+// Optional: Create Node Templates
+// ============================================================================
+//
+// Node templates define instance selection criteria for autoscaling.
+// They reference node configurations and add constraints on instance types.
+
+const spotTemplate = new castai.config.NodeTemplate("spot-template", {
+    clusterId: cluster.clusterId,
+    name: "spot-instances",
+    configurationId: customNodeConfig.id,  // Use the gpu-nodes config
+    isEnabled: true,
+
+    // Custom labels and taints for spot nodes
+    customLabels: {
+        "workload-type": "batch",
+        "spot": "true",
+    },
+    shouldTaint: true,
+    customTaints: [{
+        key: "scheduling.cast.ai/spot",
+        value: "true",
+        effect: "NoSchedule",
+    }],
+
+    // Instance constraints for spot template
+    constraints: {
+        // Allow spot instances
+        fallbackRestoreRateSeconds: 1800,
+        spot: true,
+        onDemand: false,
+
+        // Use spot diversity to balance cost and availability
+        enableSpotDiversity: true,
+        spotDiversityPriceIncreaseLimitPercent: 20,
+
+        // Architecture preferences
+        architectures: ["amd64"],
+
+        // CPU constraints
+        computeOptimizedState: "enabled",
+        minCpu: 2,
+        maxCpu: 16,
+        minMemory: 4096,  // 4 GiB
+        maxMemory: 65536,  // 64 GiB
+
+        // Instance families (AWS)
+        instanceFamilies: {
+            includes: [
+                "c5", "c6i", "c6a",  // Compute optimized
+                "m5", "m6i", "m6a",  // General purpose
+            ],
+        },
+    },
+}, {
+    dependsOn: [customNodeConfig],
+});
+
+// ============================================================================
+// Configure Autoscaler Settings
+// ============================================================================
+//
+// Configure CAST AI autoscaler policies for cluster optimization.
+
+const autoscaler = new castai.Autoscaler("autoscaler", {
+    clusterId: cluster.clusterId,
+
+    autoscalerSettings: {
+        enabled: true,
+
+        // Unschedulable pods policy - add nodes when pods can't be scheduled
+        unschedulablePods: {
+            enabled: true,
+            // Note: headroom and headroomSpot are deprecated
+            // See: https://docs.cast.ai/docs/autoscaler-1#cluster-headroom
+        },
+
+        // Node downscaler - remove underutilized nodes
+        nodeDownscaler: {
+            enabled: true,
+            emptyNodes: {
+                enabled: true,
+                delaySeconds: 300,  // Wait 5 minutes before removing empty nodes
+            },
+            evictor: {
+                enabled: true,
+                dryRun: false,
+                aggressiveMode: false,
+                scopedMode: true,  // Only CAST AI managed nodes
+                cycleInterval: "5m",
+                nodeGracePeriodMinutes: 10,
+                podEvictionFailureBackOffInterval: "1m",
+                ignorePodDisruptionBudgets: false,
+            },
+        },
+
+        // Cluster resource limits
+        clusterLimits: {
+            enabled: true,
+            cpu: {
+                minCores: 4,   // Minimum 4 vCPUs
+                maxCores: 100, // Maximum 100 vCPUs
+            },
+        },
+    },
+}, {
+    dependsOn: [cluster, spotTemplate],
+});
+
 /*
 // Additional EKS options available (not shown above):
 // - eks.dnsClusterIp: Custom DNS cluster IP
@@ -175,9 +284,12 @@ export const nodeRoleArn = cluster.nodeRoleArn;
 export const securityGroupId = cluster.securityGroupId;
 export const customNodeConfigId = customNodeConfig.id;
 export const customNodeConfigName = customNodeConfig.name;
+export const spotTemplateId = spotTemplate.id;
+export const spotTemplateName = spotTemplate.name;
+export const autoscalerEnabled = autoscaler.autoscalerSettings.apply(s => s?.enabled ?? false);
 
 export const message = pulumi.interpolate`
-✅ CAST AI full onboarding complete!
+✅ CAST AI full onboarding complete with autoscaling enabled!
 
 Your EKS cluster "${clusterName}" is now fully connected to CAST AI.
 
@@ -187,16 +299,22 @@ Resources created:
 - Instance Profile: ${instanceProfileArn}
 - Node Role: ${nodeRoleArn}
 - Security Group: ${securityGroupId}
-- Default Node Configuration (visible in CAST AI console)
+- Node Configurations: default, ${customNodeConfigName}
+- Node Templates: ${spotTemplateName}
+- Autoscaler: ENABLED with policies configured
+
+Autoscaler policies configured:
+- Unschedulable pods: Enabled
+- Node downscaler: Enabled (empty nodes + evictor)
+- Cluster limits: 4-100 vCPUs
 
 Next steps:
 1. Log in to CAST AI console: https://console.cast.ai
 2. Navigate to your cluster
-3. Review the default node configuration and template
-4. Enable the autoscaler when ready
-5. Configure additional node templates and policies as needed
+3. Review node configurations, templates, and autoscaler policies
+4. Monitor the cluster as CAST AI optimizes your infrastructure
+5. Deploy workloads and watch CAST AI scale automatically
 
-Note: The cluster is registered with a default node configuration.
-Autoscaling is disabled by default - enable it in the CAST AI console
-when you're ready to start optimizing.
+Note: Autoscaling is ENABLED and will actively manage your cluster.
+CAST AI will add/remove nodes based on workload demands and configured policies.
 `;
