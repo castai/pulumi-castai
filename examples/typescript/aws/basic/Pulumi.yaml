@@ -1,3 +1,0 @@
-name: castai-eks-basic
-runtime: nodejs
-description: Basic example of connecting an EKS cluster to CAST AI
