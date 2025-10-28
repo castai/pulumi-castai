@@ -62,7 +62,7 @@ If you don't have an existing GKE cluster, use the provided script to create a m
 
 ```bash
 # Create a minimal GKE cluster for testing
-./create-test-cluster.sh
+../create-test-cluster.sh
 
 # The script will:
 # - Create a 2-node e2-medium cluster in us-central1-a
@@ -82,12 +82,12 @@ If you don't have an existing GKE cluster, use the provided script to create a m
 export GKE_CLUSTER_NAME="my-test-cluster"
 export GKE_LOCATION="us-west1-a"
 export GCP_PROJECT_ID="my-project"
-./create-test-cluster.sh
+../create-test-cluster.sh
 ```
 
 **Delete the test cluster when done:**
 ```bash
-./delete-test-cluster.sh
+../delete-test-cluster.sh
 ```
 
 ## Option 2: Use an Existing GKE Cluster
