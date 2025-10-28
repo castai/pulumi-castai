@@ -1,0 +1,18 @@
+{
+  "name": "castai-eks-basic-example",
+  "version": "0.1.0",
+  "description": "Basic example of connecting an EKS cluster to CAST AI using the CastAiEksCluster component",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf bin node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "^3.0.0",
+    "@pulumi/aws": "^6.0.0"
+  }
+}

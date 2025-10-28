@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "bin",
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "bin"
+  ]
+}
