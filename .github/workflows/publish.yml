@@ -56,7 +56,7 @@ jobs:
           fi
 
       - name: Setup Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v6
         with:
           go-version: '1.22.x'
           check-latest: true
@@ -265,7 +265,7 @@ jobs:
 
       # Publish Go Package
       - name: Setup Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v6
         with:
           go-version: '1.22.x'
           check-latest: true
