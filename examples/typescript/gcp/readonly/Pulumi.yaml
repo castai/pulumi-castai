@@ -1,0 +1,3 @@
+name: castai-gke-readonly
+runtime: nodejs
+description: Connect existing GKE cluster to CAST AI in read-only mode (Phase 1)

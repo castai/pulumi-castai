@@ -1,3 +1,3 @@
-name: typescript-castai-gcp-example
+name: castai-gke-full-onboarding
 runtime: nodejs
-main: index.ts
+description: Full CAST AI onboarding for GKE cluster (Phase 1 + Phase 2)

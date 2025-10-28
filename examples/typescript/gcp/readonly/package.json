@@ -1,7 +1,7 @@
 {
-    "name": "castai-gke-full-onboarding-example",
+    "name": "castai-gke-readonly-example",
     "version": "0.1.0",
-    "description": "Example: Full CAST AI onboarding for GKE cluster with autoscaling",
+    "description": "Example: Connect existing GKE cluster to CAST AI in read-only mode",
     "main": "index.ts",
     "scripts": {
         "build": "tsc",

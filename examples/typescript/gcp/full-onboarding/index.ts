@@ -1,304 +1,300 @@
 /**
- * CAST AI GCP Example
+ * CAST AI GKE Full Onboarding Example (Phase 1 + Phase 2)
  *
- * This example demonstrates how to connect an existing GKE cluster to CAST AI
- * and install all necessary components using the Pulumi CAST AI provider.
- * It creates a service account with the necessary permissions for CAST AI.
+ * This example connects an existing GKE cluster to CAST AI with full management
+ * capabilities using the high-level CastAiGkeCluster component.
+ *
+ * What this example does:
+ * - Phase 1: Registers cluster and installs castai-agent for monitoring
+ * - Phase 2: Sets up IAM infrastructure (service account, roles) and enables full cluster management
+ * - Creates default node configuration with subnets and network tags
+ * - Installs all necessary Helm charts (agent, controller, spot-handler, evictor, pod-pinner)
+ * - Optionally creates custom node configurations and templates
+ * - Configures autoscaler policies for cost optimization
+ *
+ * Prerequisites:
+ * - Existing GKE cluster
+ * - GCP credentials configured (gcloud auth application-default login)
+ * - kubectl configured to access the cluster
+ * - CAST AI API token
  *
  * Required environment variables:
  * - CASTAI_API_TOKEN: Your CAST AI API token
- * - GCP_PROJECT_ID: Your GCP project ID
+ * - GKE_CLUSTER_NAME: Name of your existing GKE cluster
+ * - GCP_PROJECT_ID: GCP project ID
+ * - GKE_LOCATION: GCP location (zone or region, e.g., us-central1-a or us-central1)
  *
  * Optional environment variables:
- * - GKE_CLUSTER_NAME: Name of your GKE cluster (default: cast_ai_test_cluster)
- * - GKE_LOCATION: GCP region where your cluster is located (default: us-central1)
- * - CASTAI_API_URL: Custom CAST AI API URL (default: https://api.cast.ai)
+ * - CASTAI_API_URL: CAST AI API URL (defaults to https://api.cast.ai)
+ * - DELETE_NODES_ON_DISCONNECT: Remove nodes when disconnecting (defaults to false)
  */
 
 import * as pulumi from "@pulumi/pulumi";
-import * as castai from "@castai/pulumi";
 import * as gcp from "@pulumi/gcp";
-import * as k8s from "@pulumi/kubernetes";
-import * as crypto from 'crypto';
+import * as castai from "@castai/pulumi";
+import { CastAiGkeCluster } from "../../../../components/gke-cluster/typescript";
 
-const requiredVars = [
-    "GCP_PROJECT_ID",
-    "CASTAI_API_TOKEN"
-];
+// ============================================================================
+// Configuration
+// ============================================================================
 
-const missingVars = requiredVars.filter(varName => !process.env[varName]);
-if (missingVars.length > 0) {
-    console.warn(`Warning: Missing required GCP credentials: ${missingVars.join(", ")}`);
-    console.warn("This example will create a service account for GCP authentication.");
+const castaiApiToken = process.env.CASTAI_API_TOKEN!;
+const clusterName = process.env.GKE_CLUSTER_NAME!;
+const projectId = process.env.GCP_PROJECT_ID!;
+const location = process.env.GKE_LOCATION!;
+const castaiApiUrl = process.env.CASTAI_API_URL;
+const deleteNodesOnDisconnect = process.env.DELETE_NODES_ON_DISCONNECT === "true";
+
+if (!castaiApiToken || !clusterName || !projectId || !location) {
+    throw new Error("Missing required environment variables: CASTAI_API_TOKEN, GKE_CLUSTER_NAME, GCP_PROJECT_ID, GKE_LOCATION");
 }
 
-const castaiApiToken = process.env.CASTAI_API_TOKEN;
-if (!castaiApiToken) {
-    console.error("ERROR: CASTAI_API_TOKEN environment variable is required");
-    process.exit(1);
-}
+// ============================================================================
+// Get GKE Cluster Information
+// ============================================================================
 
-const randomSuffix = Math.random().toString(36).substring(2, 8); // 6 character random string
-const gcpProjectId = process.env.GCP_PROJECT_ID || "my-gcp-project-id";
-const gkeClusterName = process.env.GKE_CLUSTER_NAME || `pulumi-test-cluster-${randomSuffix}`;
-const gkeLocation = process.env.GKE_LOCATION || "us-central1";
+// Get GKE cluster details
+const gkeCluster = pulumi.output(gcp.container.getCluster({
+    name: clusterName,
+    location: location,
+    project: projectId,
+}));
 
-// Generate a short unique suffix to avoid naming conflicts
-const clusterSha = gkeClusterName;
-const sha = crypto.createHash('sha1').update(clusterSha).digest('hex');
-const uniqueSuffix = sha.slice(0, 6);
+// Extract networking information
+const network = gkeCluster.network;
+const subnetwork = gkeCluster.subnetwork;
 
-// Create a service account for CAST AI
-const castaiServiceAccount = new gcp.serviceaccount.Account(`castai-sa-${uniqueSuffix}`, {
-    accountId: `castai-gke-${uniqueSuffix}`, // Keep it short: castai-gke-abc123
-    displayName: "CAST AI GKE Access Service Account",
-    description: "Service account for CAST AI to manage GKE cluster",
-    project: gcpProjectId,
-});
+// ============================================================================
+// Connect Cluster to CAST AI (Full Management)
+// ============================================================================
 
-// Define the required roles for CAST AI
-const requiredRoles = [
-    "roles/container.clusterAdmin",
-    "roles/compute.instanceAdmin.v1",
-    "roles/iam.serviceAccountUser",
-];
-
-// Assign roles to the service account
-const roleBindings = requiredRoles.map((role, index) => {
-    return new gcp.projects.IAMMember(`castai-role-${index}-${uniqueSuffix}`, {
-        project: gcpProjectId,
-        role: role,
-        member: castaiServiceAccount.email.apply(email => `serviceAccount:${email}`),
-    });
-});
-
-// Create a service account key
-const serviceAccountKey = new gcp.serviceaccount.Key(`castai-key-${uniqueSuffix}`, {
-    serviceAccountId: castaiServiceAccount.name,
-    publicKeyType: "TYPE_X509_PEM_FILE",
-});
-
-// Simple approach: just depend on the role bindings directly
-// The key insight is that IAM propagation usually happens quickly enough
-
-const provider = new castai.Provider(`castai-provider-${uniqueSuffix}`, {
+const cluster = new CastAiGkeCluster("castai-cluster", {
+    clusterName: clusterName,
+    location: location,
+    projectId: projectId,
     apiToken: castaiApiToken,
-    apiUrl: process.env.CASTAI_API_URL || "https://api.cast.ai",
-});
+    apiUrl: castaiApiUrl,
 
-// Create a GKE cluster for testing
-const gkeClusterInfo = new gcp.container.Cluster(`test-gke-cluster-${uniqueSuffix}`, {
-    name: gkeClusterName,
-    location: gkeLocation,
-    project: gcpProjectId,
-    initialNodeCount: 4, // Increased to 4 nodes to ensure enough capacity for CAST AI agents
-    nodeConfig: {
-        machineType: "e2-standard-2", // Increased from e2-medium to ensure enough resources for CAST AI agents
-        oauthScopes: [
-            "https://www.googleapis.com/auth/cloud-platform",
-        ],
+    // Networking configuration for CAST AI provisioned nodes
+    // The component automatically creates a default node configuration
+    // with these subnets and network tags
+    subnets: [subnetwork],
+    networkTags: ["castai-managed"],
+
+    // Cluster management settings
+    deleteNodesOnDisconnect: deleteNodesOnDisconnect,
+
+    // Optional: Add custom tags to all CAST AI provisioned nodes
+    tags: {
+        "managed-by": "castai",
+        "environment": "production",
     },
-    removeDefaultNodePool: false,
-    deletionProtection: false,
+
+    // Optional: Enable additional features
+    installWorkloadAutoscaler: false,
+    installSecurityAgent: false,
 });
 
+// ============================================================================
+// Optional: Create Additional Node Configurations
+// ============================================================================
+//
+// The component automatically creates a "default" node configuration.
+// You can create additional custom configurations with different settings.
+//
+// Common use cases:
+// - GPU-optimized nodes with specific machine types
+// - High-throughput nodes with custom disk configurations
+// - Nodes with custom GKE settings
+// - Different subnet configurations for different workloads
+//
+// Uncomment the example below to add a custom configuration:
 
-const gkeCluster = new castai.GkeCluster(`gke-cluster-${uniqueSuffix}`, {
-    projectId: gcpProjectId,
-    location: gkeLocation,
-    name: gkeClusterName,
-    deleteNodesOnDisconnect: true,
-    credentialsJson: serviceAccountKey.privateKey.apply(key =>
-        Buffer.from(key, 'base64').toString('utf8')
-    ),
+const customNodeConfig = new castai.config.NodeConfiguration("custom-config", {
+    clusterId: cluster.clusterId,
+    name: "gpu-nodes",  // Custom name for this configuration
+    subnets: [subnetwork],
+    tags: {
+        "node-type": "gpu-optimized",
+        "environment": "production",
+    },
+
+    // Minimum disk size in GiB
+    minDiskSize: 100,
+
+    // GKE-specific configuration
+    gke: {
+        diskType: "pd-ssd",  // Use SSD persistent disk for better performance
+        networkTags: ["castai-managed", "gpu-nodes"],
+        maxPodsPerNode: 110,
+    },
 }, {
-    provider,
-    dependsOn: [gkeClusterInfo, ...roleBindings],
-    customTimeouts: {
-        create: "2m",
-        update: "5m",
-        delete: "5m",
-    },
+    dependsOn: [cluster],
 });
 
-// Create a Kubernetes provider to interact with the GKE cluster
-const k8sProvider = new k8s.Provider(`gke-k8s-${uniqueSuffix}`, {
-    kubeconfig: gkeClusterInfo.endpoint.apply(endpoint => {
-        return `apiVersion: v1
-kind: Config
-clusters:
-- cluster:
-    server: https://${endpoint}
-    insecure-skip-tls-verify: true
-  name: ${gkeClusterName}
-contexts:
-- context:
-    cluster: ${gkeClusterName}
-    user: ${gkeClusterName}
-  name: ${gkeClusterName}
-current-context: ${gkeClusterName}
-users:
-- name: ${gkeClusterName}
-  user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1beta1
-      command: gke-gcloud-auth-plugin
-      installHint: Install gke-gcloud-auth-plugin for use with kubectl by following https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+// ============================================================================
+// Optional: Create Node Templates
+// ============================================================================
+//
+// Node templates define instance selection criteria for autoscaling.
+// They reference node configurations and add constraints on instance types.
+
+const spotTemplate = new castai.config.NodeTemplate("spot-template", {
+    clusterId: cluster.clusterId,
+    name: "spot-instances",
+    configurationId: customNodeConfig.id,  // Use the gpu-nodes config
+    isEnabled: true,
+
+    // Custom labels and taints for spot nodes
+    customLabels: {
+        "workload-type": "batch",
+        "spot": "true",
+    },
+    shouldTaint: true,
+    customTaints: [{
+        key: "scheduling.cast.ai/spot",
+        value: "true",
+        effect: "NoSchedule",
+    }],
+
+    // Instance constraints for spot template
+    constraints: {
+        // Allow spot (preemptible) instances
+        fallbackRestoreRateSeconds: 1800,
+        spot: true,
+        onDemand: false,
+
+        // Use spot diversity to balance cost and availability
+        enableSpotDiversity: true,
+        spotDiversityPriceIncreaseLimitPercent: 20,
+
+        // Architecture preferences
+        architectures: ["amd64"],
+
+        // CPU constraints
+        computeOptimizedState: "enabled",
+        minCpu: 2,
+        maxCpu: 16,
+        minMemory: 4096,  // 4 GiB
+        maxMemory: 65536,  // 64 GiB
+
+        // Instance families (GCP)
+        instanceFamilies: {
+            includes: [
+                "c2", "c2d",      // Compute optimized
+                "n2", "n2d",      // General purpose
+                "e2",             // Cost-optimized
+            ],
+        },
+    },
+}, {
+    dependsOn: [customNodeConfig],
+});
+
+// ============================================================================
+// Configure Autoscaler Settings
+// ============================================================================
+//
+// Configure CAST AI autoscaler policies for cluster optimization.
+
+const autoscaler = new castai.Autoscaler("autoscaler", {
+    clusterId: cluster.clusterId,
+
+    autoscalerSettings: {
+        enabled: true,
+
+        // Unschedulable pods policy - add nodes when pods can't be scheduled
+        unschedulablePods: {
+            enabled: true,
+            // Note: headroom and headroomSpot are deprecated
+            // See: https://docs.cast.ai/docs/autoscaler-1#cluster-headroom
+        },
+
+        // Node downscaler - remove underutilized nodes
+        nodeDownscaler: {
+            enabled: true,
+            emptyNodes: {
+                enabled: true,
+                delaySeconds: 300,  // Wait 5 minutes before removing empty nodes
+            },
+            evictor: {
+                enabled: true,
+                dryRun: false,
+                aggressiveMode: false,
+                scopedMode: true,  // Only CAST AI managed nodes
+                cycleInterval: "5m",
+                nodeGracePeriodMinutes: 10,
+                podEvictionFailureBackOffInterval: "1m",
+                ignorePodDisruptionBudgets: false,
+            },
+        },
+
+        // Cluster resource limits
+        clusterLimits: {
+            enabled: true,
+            cpu: {
+                minCores: 4,   // Minimum 4 vCPUs
+                maxCores: 100, // Maximum 100 vCPUs
+            },
+        },
+    },
+}, {
+    dependsOn: [cluster, spotTemplate],
+});
+
+/*
+// Additional GKE options available (not shown above):
+// - gke.diskType: "pd-standard", "pd-ssd", "pd-balanced"
+// - gke.minCpuPlatform: Minimum CPU platform (e.g., "Intel Cascade Lake")
+// - gke.useEphemeralStorageLocalSsd: Use local SSD for ephemeral storage
+// - gke.localSsdCount: Number of local SSDs to attach
+// - gke.reservations: Consumption reservations
+// - containerRuntime: "dockerd" or "containerd"
+// - initScript: Base64-encoded init script
+// - sshPublicKey: SSH public key for node access
+// - diskCpuRatio: GiB per CPU ratio
+// - drainTimeoutSec: Node drain timeout
+//
+// See: /Users/leonkuperman/LKDev/CAST/pulumi-castai/sdk/nodejs/config/nodeConfiguration.d.ts
+*/
+
+// ============================================================================
+// Exports
+// ============================================================================
+
+export const clusterId = cluster.clusterId;
+export const clusterToken = pulumi.secret(cluster.clusterToken);
+export const serviceAccountEmail = cluster.serviceAccountEmail;
+export const customNodeConfigId = customNodeConfig.id;
+export const customNodeConfigName = customNodeConfig.name;
+export const spotTemplateId = spotTemplate.id;
+export const spotTemplateName = spotTemplate.name;
+export const autoscalerEnabled = autoscaler.autoscalerSettings.apply(s => s?.enabled ?? false);
+
+export const message = pulumi.interpolate`
+✅ CAST AI full onboarding complete with autoscaling enabled!
+
+Your GKE cluster "${clusterName}" is now fully connected to CAST AI.
+
+Resources created:
+- Cluster ID: ${clusterId}
+- Service Account: ${serviceAccountEmail}
+- Node Configurations: default, ${customNodeConfigName}
+- Node Templates: ${spotTemplateName}
+- Autoscaler: ENABLED with policies configured
+
+Autoscaler policies configured:
+- Unschedulable pods: Enabled
+- Node downscaler: Enabled (empty nodes + evictor)
+- Cluster limits: 4-100 vCPUs
+
+Next steps:
+1. Log in to CAST AI console: https://console.cast.ai
+2. Navigate to your cluster
+3. Review node configurations, templates, and autoscaler policies
+4. Monitor the cluster as CAST AI optimizes your infrastructure
+5. Deploy workloads and watch CAST AI scale automatically
+
+Note: Autoscaling is ENABLED and will actively manage your cluster.
+CAST AI will add/remove nodes based on workload demands and configured policies.
 `;
-    }),
-});
-
-// Install the CAST AI agent using Helm
-const castaiAgent = new k8s.helm.v3.Release(`castai-agent`, {
-    name: "castai-agent", // Helm release name can be the same across different clusters
-    chart: "castai-agent",
-    repositoryOpts: {
-        repo: "https://castai.github.io/helm-charts",
-    },
-    namespace: "castai-agent",
-    createNamespace: true,
-    cleanupOnFail: true,
-    timeout: 300,
-    skipAwait: true,
-    values: {
-        replicaCount: 1,
-        provider: "gke",
-        additionalEnv: {
-            STATIC_CLUSTER_ID: gkeCluster.id,
-        },
-        createNamespace: false,
-        apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
-        apiKey: castaiApiToken,
-        resources: {
-            agent: {
-                requests: {
-                    memory: "512Mi",
-                    cpu: "100m",
-                },
-                limits: {
-                    memory: "1Gi",
-                    cpu: "500m",
-                },
-            },
-            monitor: {
-                requests: {
-                    memory: "64Mi",
-                    cpu: "50m",
-                },
-            },
-        },
-    },
-}, {
-    provider: k8sProvider,
-    dependsOn: [gkeCluster],
-    customTimeouts: {
-        create: "1m",
-        update: "1m",
-        delete: "5m",
-    },
-});
-
-// Install the CAST AI cluster controller
-const clusterController = new k8s.helm.v3.Release(`cluster-controller`, {
-    name: "cluster-controller", // Helm release name can be the same across different clusters
-    chart: "castai-cluster-controller",
-    repositoryOpts: {
-        repo: "https://castai.github.io/helm-charts",
-    },
-    namespace: "castai-agent",
-    createNamespace: true,
-    cleanupOnFail: true,
-    timeout: 300,
-    skipAwait: true,
-    values: {
-        castai: {
-            clusterID: gkeCluster.id,
-            apiURL: process.env.CASTAI_API_URL || "https://api.cast.ai",
-            apiKey: castaiApiToken,
-        },
-        resources: {
-            requests: {
-                memory: "128Mi",
-                cpu: "50m",
-            },
-            limits: {
-                memory: "256Mi",
-                cpu: "200m",
-            },
-        },
-    },
-}, {
-    provider: k8sProvider,
-    dependsOn: [castaiAgent, gkeCluster],
-    customTimeouts: {
-        create: "1m",
-        update: "1m",
-        delete: "5m",
-    },
-});
-
-// Install the CAST AI evictor
-const castaiEvictor = new k8s.helm.v3.Release(`castai-evictor`, {
-    name: "castai-evictor", // Helm release name can be the same across different clusters
-    chart: "castai-evictor",
-    repositoryOpts: {
-        repo: "https://castai.github.io/helm-charts",
-    },
-    namespace: "castai-agent",
-    createNamespace: true,
-    cleanupOnFail: true,
-    timeout: 300,
-    skipAwait: true,
-    values: {
-        replicaCount: 1,
-        managedByCASTAI: true,
-    },
-}, {
-    provider: k8sProvider,
-    dependsOn: [castaiAgent, clusterController],
-    customTimeouts: {
-        create: "1m",
-        update: "1m",
-        delete: "5m",
-    },
-});
-
-// Install the CAST AI pod pinner
-const castaiPodPinner = new k8s.helm.v3.Release(`castai-pod-pinner`, {
-    name: "castai-pod-pinner", // Helm release name can be the same across different clusters
-    chart: "castai-pod-pinner",
-    repositoryOpts: {
-        repo: "https://castai.github.io/helm-charts",
-    },
-    namespace: "castai-agent",
-    createNamespace: true,
-    cleanupOnFail: true,
-    timeout: 300,
-    skipAwait: true,
-    values: {
-        castai: {
-            apiKey: castaiApiToken,
-            clusterID: gkeCluster.id,
-        },
-        replicaCount: 0,
-    },
-}, {
-    provider: k8sProvider,
-    dependsOn: [castaiAgent, clusterController],
-    customTimeouts: {
-        create: "1m",
-        update: "1m",
-        delete: "5m",
-    },
-});
-
-// Export useful information
-export const clusterName = gkeClusterName;
-export const clusterId = gkeCluster.id;
-export const serviceAccountEmail = castaiServiceAccount.email;
-export const serviceAccountName = castaiServiceAccount.name;
-export const agentHelmRelease = castaiAgent.name;
-export const controllerHelmRelease = clusterController.name;
-export const evictorHelmRelease = castaiEvictor.name;
-export const podPinnerHelmRelease = castaiPodPinner.name;
-export const uniqueDeploymentSuffix = uniqueSuffix;
