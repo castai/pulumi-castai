@@ -10,11 +10,11 @@ This example demonstrates how to connect an **existing** GKE cluster to CAST AI 
 
 ## Prerequisites
 
-- **Existing GKE cluster** (this example does not create one)
 - **GCP CLI** (gcloud) configured with credentials
-- **kubectl** configured to access your cluster
+- **kubectl** installed
 - **Pulumi CLI** installed
 - **CAST AI account** and API token ([sign up here](https://console.cast.ai))
+- **Existing GKE cluster** OR use the provided script to create a test cluster (see below)
 
 ## Architecture
 
@@ -55,6 +55,44 @@ cp .env.example .env
 # Edit .env with your values
 source .env
 ```
+
+## Option 1: Create a Test GKE Cluster
+
+If you don't have an existing GKE cluster, use the provided script to create a minimal test cluster:
+
+```bash
+# Create a minimal GKE cluster for testing
+./create-test-cluster.sh
+
+# The script will:
+# - Create a 2-node e2-medium cluster in us-central1-a
+# - Configure kubectl access automatically
+# - Display environment variables to set
+```
+
+**Cluster specifications:**
+- Machine type: `e2-medium` (2 vCPUs, 4 GB RAM)
+- Nodes: 2 (with autoscaling 2-4)
+- Disk: 20 GB standard persistent disk
+- Cost: ~$50/month (delete after testing!)
+
+**Customize the cluster:**
+```bash
+# Override defaults with environment variables
+export GKE_CLUSTER_NAME="my-test-cluster"
+export GKE_LOCATION="us-west1-a"
+export GCP_PROJECT_ID="my-project"
+./create-test-cluster.sh
+```
+
+**Delete the test cluster when done:**
+```bash
+./delete-test-cluster.sh
+```
+
+## Option 2: Use an Existing GKE Cluster
+
+If you already have a GKE cluster, skip to the Usage section below.
 
 ## Usage
 
