@@ -36,12 +36,12 @@ export interface CastAiEksClusterArgs {
     /**
      * Name of the EKS cluster to connect to CAST AI
      */
-    clusterName: pulumi.Input<string>;
+    clusterName: string;
 
     /**
      * AWS region where the cluster is located
      */
-    region: pulumi.Input<string>;
+    region: string;
 
     /**
      * AWS account ID

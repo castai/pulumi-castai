@@ -13,12 +13,12 @@ module.exports = {
     '!**/tests/**'
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  globals: {
-    'ts-jest': {
+  transform: {
+    '^.+\\.ts$': ['ts-jest', {
       tsconfig: {
         esModuleInterop: true,
         skipLibCheck: true
       }
-    }
+    }]
   }
 };
