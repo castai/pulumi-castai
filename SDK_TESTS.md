@@ -9,6 +9,8 @@ SDK tests are **co-located** with each SDK to keep them self-contained and consi
 ```
 pulumi-castai/
 ├── sdk/
+│   ├── run-tests.sh          # Unified SDK test runner
+│   │
 │   ├── nodejs/
 │   │   ├── castai/           # TypeScript SDK code
 │   │   └── tests/            # TypeScript SDK tests (16 tests)
@@ -36,11 +38,9 @@ pulumi-castai/
 ├── provider/
 │   └── resources_test.go     # Provider tests (co-located)
 │
-├── components/
-│   └── eks-cluster/typescript/
-│       └── tests/            # Component tests (co-located, 44 tests)
-│
-└── run-sdk-tests.sh          # Unified SDK test runner
+└── components/
+    └── eks-cluster/typescript/
+        └── tests/            # Component tests (co-located, 44 tests)
 ```
 
 ## Running SDK Tests
@@ -51,15 +51,32 @@ From the project root:
 
 ```bash
 # Run all SDK tests
-./run-sdk-tests.sh
+cd sdk && ./run-tests.sh
 
 # Run with coverage
-./run-sdk-tests.sh --coverage
+cd sdk && ./run-tests.sh --coverage
 
 # Run specific SDK
-./run-sdk-tests.sh --python-only
-./run-sdk-tests.sh --typescript-only
-./run-sdk-tests.sh --go-only
+cd sdk && ./run-tests.sh --python-only
+cd sdk && ./run-tests.sh --typescript-only
+cd sdk && ./run-tests.sh --go-only
+```
+
+Or from the sdk directory:
+
+```bash
+cd sdk
+
+# Run all SDK tests
+./run-tests.sh
+
+# Run with coverage
+./run-tests.sh --coverage
+
+# Run specific SDK
+./run-tests.sh --python-only
+./run-tests.sh --typescript-only
+./run-tests.sh --go-only
 ```
 
 ### TypeScript SDK Tests

@@ -4,6 +4,7 @@
 
 set -e
 
+# Change to sdk directory (where this script is located)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
@@ -47,7 +48,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --help)
-            echo "Usage: ./run-sdk-tests.sh [OPTIONS]"
+            echo "Usage: ./run-tests.sh [OPTIONS]"
             echo ""
             echo "Options:"
             echo "  --python-only       Run only Python SDK tests"
@@ -74,7 +75,7 @@ if [ "$RUN_PYTHON" = true ]; then
     echo -e "${BLUE}Running Python SDK Tests...${NC}"
     echo "-----------------------------------"
 
-    cd sdk/python/tests
+    cd python/tests
 
     # Check if pytest is installed
     if ! command -v pytest &> /dev/null; then
@@ -86,13 +87,13 @@ if [ "$RUN_PYTHON" = true ]; then
     if [ "$COVERAGE" = true ]; then
         pytest -v --cov --cov-report=term --cov-report=html || PYTHON_EXIT=$?
         if [ $PYTHON_EXIT -eq 0 ]; then
-            echo -e "${GREEN}Coverage report: sdk/python/tests/htmlcov/index.html${NC}"
+            echo -e "${GREEN}Coverage report: python/tests/htmlcov/index.html${NC}"
         fi
     else
         pytest -v || PYTHON_EXIT=$?
     fi
 
-    cd ../../..
+    cd ../..
     echo ""
 fi
 
@@ -101,7 +102,7 @@ if [ "$RUN_TYPESCRIPT" = true ]; then
     echo -e "${BLUE}Running TypeScript SDK Tests...${NC}"
     echo "-----------------------------------"
 
-    cd sdk/nodejs/tests
+    cd nodejs/tests
 
     # Check if node_modules exists
     if [ ! -d "node_modules" ]; then
@@ -113,13 +114,13 @@ if [ "$RUN_TYPESCRIPT" = true ]; then
     if [ "$COVERAGE" = true ]; then
         npm run test:coverage || TYPESCRIPT_EXIT=$?
         if [ $TYPESCRIPT_EXIT -eq 0 ]; then
-            echo -e "${GREEN}Coverage report: sdk/nodejs/tests/coverage/index.html${NC}"
+            echo -e "${GREEN}Coverage report: nodejs/tests/coverage/index.html${NC}"
         fi
     else
         npm test || TYPESCRIPT_EXIT=$?
     fi
 
-    cd ../../..
+    cd ../..
     echo ""
 fi
 
@@ -128,7 +129,7 @@ if [ "$RUN_GO" = true ]; then
     echo -e "${BLUE}Running Go SDK Tests...${NC}"
     echo "-----------------------------------"
 
-    cd sdk/go/tests
+    cd go/tests
 
     # Check if go.sum exists, if not run go mod tidy
     if [ ! -f "go.sum" ]; then
@@ -141,13 +142,13 @@ if [ "$RUN_GO" = true ]; then
         go test -v -cover -coverprofile=coverage.out ./... || GO_EXIT=$?
         if [ $GO_EXIT -eq 0 ]; then
             go tool cover -html=coverage.out -o coverage.html
-            echo -e "${GREEN}Coverage report: sdk/go/tests/coverage.html${NC}"
+            echo -e "${GREEN}Coverage report: go/tests/coverage.html${NC}"
         fi
     else
         go test -v ./... || GO_EXIT=$?
     fi
 
-    cd ../../..
+    cd ../..
     echo ""
 fi
 
