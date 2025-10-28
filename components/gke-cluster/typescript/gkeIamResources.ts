@@ -46,8 +46,13 @@ export class GkeIamResources extends pulumi.ComponentResource {
         // Service Account for CAST AI
         // =================================================================
 
+        // Generate service account ID (max 30 chars, must end with alphanumeric)
+        let accountId = `castai-gke-${args.clusterName}`.substring(0, 30);
+        // Remove trailing hyphens to meet GCP regex: ^[a-z](?:[-a-z0-9]{4,28}[a-z0-9])$
+        accountId = accountId.replace(/-+$/, '');
+
         const serviceAccount = new gcp.serviceaccount.Account(`${name}-sa`, {
-            accountId: `castai-gke-${args.clusterName}`.substring(0, 30), // Max 30 chars
+            accountId: accountId,
             displayName: `CAST AI service account for ${args.clusterName}`,
             project: args.projectId,
         }, componentOpts);
@@ -68,26 +73,21 @@ export class GkeIamResources extends pulumi.ComponentResource {
                 "container.clusters.get",
                 "container.clusters.update",
                 "container.operations.get",
-                "container.operations.list",
 
-                // Node pool management
-                "container.nodePools.create",
-                "container.nodePools.delete",
-                "container.nodePools.get",
-                "container.nodePools.list",
-                "container.nodePools.update",
+                // Service usage for API discovery
+                "serviceusage.services.list",
 
-                // Kubernetes Engine
-                "container.pods.get",
-                "container.pods.list",
-                "container.nodes.get",
-                "container.nodes.list",
+                // Resource manager
+                "resourcemanager.projects.getIamPolicy",
             ],
         }, componentOpts);
 
         // =================================================================
         // Custom IAM Role: CAST AI Compute Role
         // =================================================================
+        // Based on CAST AI documentation: https://docs.cast.ai/docs/cloud-permissions
+        // CAST AI manages nodes via Instance Group Managers and Instance Templates,
+        // not through container.nodePools.* permissions
 
         const computeRole = new gcp.projects.IAMCustomRole(`${name}-compute-role`, {
             roleId: `castai_gke_${args.clusterName}_compute`.replace(/-/g, "_").substring(0, 64),
@@ -102,26 +102,44 @@ export class GkeIamResources extends pulumi.ComponentResource {
                 "compute.instances.list",
                 "compute.instances.setLabels",
                 "compute.instances.setMetadata",
+                "compute.instances.setServiceAccount",
                 "compute.instances.setTags",
                 "compute.instances.start",
                 "compute.instances.stop",
+
+                // Instance Group Manager (how GKE node pools are managed)
+                "compute.instanceGroupManagers.get",
+                "compute.instanceGroupManagers.update",
+                "compute.instanceGroups.get",
+
+                // Instance Templates (for node pool templates)
+                "compute.instanceTemplates.create",
+                "compute.instanceTemplates.delete",
+                "compute.instanceTemplates.get",
+                "compute.instanceTemplates.list",
 
                 // Disk management
                 "compute.disks.create",
                 "compute.disks.get",
                 "compute.disks.list",
                 "compute.disks.setLabels",
+                "compute.disks.use",
 
                 // Network management
+                "compute.addresses.use",
+                "compute.subnetworks.get",
                 "compute.subnetworks.use",
                 "compute.subnetworks.useExternalIp",
                 "compute.networks.get",
+                "compute.networks.use",
 
                 // Zone/region operations
                 "compute.zones.get",
                 "compute.zones.list",
                 "compute.regions.get",
                 "compute.regions.list",
+                "compute.zoneOperations.get",
+                "compute.regionOperations.get",
 
                 // Machine types
                 "compute.machineTypes.get",

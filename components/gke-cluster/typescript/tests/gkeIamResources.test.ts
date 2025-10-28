@@ -158,6 +158,32 @@ describe("GkeIamResources Component", () => {
             expect(email).toBeDefined();
             expect(email).toContain("@test-project.iam.gserviceaccount.com");
         });
+
+        it("should remove trailing hyphens from truncated service account IDs", async () => {
+            // This cluster name will result in "castai-gke-lk-gcp-pulumi-1028-" after truncation
+            // which is 30 chars but ends with a hyphen (invalid for GCP)
+            const clusterName = "lk-gcp-pulumi-1028-full";
+
+            const iamResources = new GkeIamResources("test-trailing-hyphen", {
+                clusterName: clusterName,
+                projectId: "test-project",
+                location: "us-central1",
+                clusterId: "cluster-id",
+            });
+
+            const [email] = await promisifyAll(iamResources.serviceAccountEmail);
+
+            // Extract the account ID part (before the @)
+            const accountId = email.split("@")[0];
+
+            // GCP regex requires: ^[a-z](?:[-a-z0-9]{4,28}[a-z0-9])$
+            // Must end with alphanumeric (not hyphen)
+            expect(accountId).toBeDefined();
+            expect(accountId).not.toMatch(/-$/); // Should not end with hyphen
+            expect(accountId).toMatch(/^[a-z](?:[-a-z0-9]{4,28}[a-z0-9])$/); // Must match GCP regex
+            expect(accountId.length).toBeGreaterThanOrEqual(6); // Min 6 chars
+            expect(accountId.length).toBeLessThanOrEqual(30); // Max 30 chars
+        });
     });
 
     describe("IAM Roles and Permissions", () => {

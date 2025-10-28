@@ -10,8 +10,8 @@ set -e
 CLUSTER_NAME="${GKE_CLUSTER_NAME:-castai-readonly-test}"
 LOCATION="${GKE_LOCATION:-us-central1-a}"
 PROJECT_ID="${GCP_PROJECT_ID:-$(gcloud config get-value project)}"
-MACHINE_TYPE="e2-medium"
-NUM_NODES=2
+MACHINE_TYPE="e2-standard-4"
+NUM_NODES=3
 
 echo "=========================================="
 echo "Creating GKE Test Cluster"
@@ -44,8 +44,8 @@ gcloud container clusters create "$CLUSTER_NAME" \
     --disk-type=pd-standard \
     --enable-ip-alias \
     --enable-autoscaling \
-    --min-nodes=2 \
-    --max-nodes=4 \
+    --min-nodes=3 \
+    --max-nodes=8 \
     --no-enable-master-authorized-networks \
     --enable-stackdriver-kubernetes \
     --scopes="https://www.googleapis.com/auth/cloud-platform" \

@@ -23,6 +23,26 @@ if ! gcloud container clusters describe "$CLUSTER_NAME" --location="$LOCATION" -
     exit 1
 fi
 
+# Check for CAST AI managed nodes
+CAST_NODES=$(gcloud compute instances list --project="$PROJECT_ID" \
+    --filter="labels.cast-managed-by=cast-ai AND labels.goog-k8s-cluster-name=$CLUSTER_NAME" \
+    --format="value(name)" 2>/dev/null | wc -l | tr -d ' ')
+
+if [ "$CAST_NODES" -gt 0 ]; then
+    echo "⚠️  WARNING: Found $CAST_NODES CAST AI-managed node(s) in this cluster!"
+    echo ""
+    echo "If you used full-onboarding with DELETE_NODES_ON_DISCONNECT=false (default),"
+    echo "you must delete CAST AI nodes manually before deleting the cluster:"
+    echo ""
+    echo "  gcloud compute instances list --project=$PROJECT_ID \\"
+    echo "    --filter=\"labels.cast-managed-by=cast-ai AND labels.goog-k8s-cluster-name=$CLUSTER_NAME\""
+    echo ""
+    echo "  gcloud compute instances delete NODE_NAME --zone=ZONE --project=$PROJECT_ID"
+    echo ""
+    echo "Or this cluster deletion will fail with: 'subnetwork resource is in use'"
+    echo ""
+fi
+
 echo "⚠️  WARNING: This will permanently delete the cluster and all its resources!"
 echo ""
 read -p "Are you sure you want to delete the cluster? (yes/no): " -r

@@ -71,10 +71,10 @@ If you don't have an existing GKE cluster, use the provided script to create a m
 ```
 
 **Cluster specifications:**
-- Machine type: `e2-medium` (2 vCPUs, 4 GB RAM)
-- Nodes: 2 (with autoscaling 2-4)
+- Machine type: `e2-standard-4` (4 vCPUs, 16 GB RAM)
+- Nodes: 3 (with autoscaling 3-8)
 - Disk: 20 GB standard persistent disk
-- Cost: ~$50/month (delete after testing!)
+- Cost: ~$200/month (delete after testing!)
 
 **Customize the cluster:**
 ```bash

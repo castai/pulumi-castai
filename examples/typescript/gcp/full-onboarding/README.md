@@ -71,10 +71,10 @@ cd ..
 ```
 
 **Cluster specifications:**
-- Machine type: `e2-medium` (2 vCPUs, 4 GB RAM)
-- Nodes: 2 (with autoscaling 2-4)
+- Machine type: `e2-standard-4` (4 vCPUs, 16 GB RAM)
+- Nodes: 3 (with autoscaling 3-8)
 - Disk: 20 GB standard persistent disk
-- Cost: ~$50/month (delete after testing!)
+- Cost: ~$200/month (delete after testing!)
 
 **Customize the cluster:**
 ```bash
@@ -106,8 +106,10 @@ export GKE_LOCATION="us-central1-a"  # or us-central1 for regional clusters
 
 Optional:
 ```bash
-export CASTAI_API_URL="https://api.cast.ai"  # Custom API URL
-export DELETE_NODES_ON_DISCONNECT="false"    # Remove nodes on disconnect
+export CASTAI_API_URL="https://api.cast.ai"       # Custom API URL
+export DELETE_NODES_ON_DISCONNECT="false"         # Delete CAST AI nodes on disconnect
+                                                   # false (default) = nodes remain, safer for production
+                                                   # true = nodes deleted automatically, better for test clusters
 ```
 
 Or copy and customize the `.env.example` file:
@@ -271,6 +273,119 @@ cd ..
 - Remove node configurations and templates
 
 Your GKE cluster will remain, but CAST AI will no longer manage it.
+
+### Delete Nodes on Disconnect Behavior
+
+The `DELETE_NODES_ON_DISCONNECT` environment variable controls whether CAST AI-created nodes are deleted when disconnecting from the cluster. Understanding this setting is critical for proper cleanup.
+
+#### Default Behavior (`DELETE_NODES_ON_DISCONNECT=false`)
+
+**What happens:**
+- ✅ CAST AI disconnects from the cluster
+- ✅ All CAST AI controllers and agents are removed
+- ✅ IAM resources are cleaned up
+- ❌ **CAST AI-created nodes remain running**
+
+**Why this is the default:**
+- Safe for production - prevents accidental node deletion
+- Workloads continue running without disruption
+- Allows reconnecting CAST AI later
+- Node management transfers back to GKE
+
+**Cleanup process with default setting:**
+```bash
+# 1. Destroy Pulumi resources
+pulumi destroy
+
+# 2. CAST AI nodes are still running - must be deleted manually
+gcloud compute instances list --project=YOUR_PROJECT_ID \
+  --filter="labels.cast-managed-by=cast-ai AND labels.goog-k8s-cluster-name=YOUR_CLUSTER_NAME"
+
+# 3. Delete CAST AI nodes before cluster deletion
+gcloud compute instances delete NODE_NAME_1 NODE_NAME_2 \
+  --zone=YOUR_ZONE --project=YOUR_PROJECT_ID --quiet
+
+# 4. Now you can delete the cluster
+gcloud container clusters delete YOUR_CLUSTER_NAME \
+  --location=YOUR_LOCATION --project=YOUR_PROJECT_ID --quiet
+```
+
+⚠️ **Important:** If you don't manually delete CAST AI nodes, cluster deletion will fail with an error like:
+```
+ERROR: The subnetwork resource is already being used by 'instances/gke-cluster-cast-pool-xxxxx'
+```
+
+#### Automatic Node Deletion (`DELETE_NODES_ON_DISCONNECT=true`)
+
+**What happens:**
+- ✅ CAST AI disconnects from the cluster
+- ✅ All CAST AI controllers and agents are removed
+- ✅ IAM resources are cleaned up
+- ✅ **CAST AI-created nodes are automatically deleted**
+
+**When to use this setting:**
+- Test/development clusters
+- You want automatic cleanup
+- You plan to return cluster to original state
+- No production workloads are running on CAST AI nodes
+
+**Cleanup process with automatic deletion:**
+```bash
+# Set the environment variable before deployment
+export DELETE_NODES_ON_DISCONNECT="true"
+
+# Deploy
+pulumi up
+
+# Later, destroy - nodes are automatically removed
+pulumi destroy
+
+# Cluster can be deleted immediately
+gcloud container clusters delete YOUR_CLUSTER_NAME \
+  --location=YOUR_LOCATION --project=YOUR_PROJECT_ID --quiet
+```
+
+#### Setting the Flag
+
+**Option 1: Environment variable**
+```bash
+export DELETE_NODES_ON_DISCONNECT="true"  # or "false"
+pulumi up
+```
+
+**Option 2: Update .env file**
+```bash
+# In .env file
+DELETE_NODES_ON_DISCONNECT=true
+```
+
+**Option 3: Set inline**
+```bash
+DELETE_NODES_ON_DISCONNECT=true pulumi up
+```
+
+#### Comparison Table
+
+| Setting | Nodes Deleted on Destroy | Cluster Deletion | Production Safe | Use Case |
+|---------|-------------------------|------------------|-----------------|----------|
+| `false` (default) | ❌ Manual cleanup needed | ⚠️ Requires manual node deletion first | ✅ Yes | Production, reconnection scenarios |
+| `true` | ✅ Automatic | ✅ Can delete immediately | ⚠️ Disrupts workloads | Test/dev, full cleanup |
+
+#### Recommended Approach
+
+**For production clusters:**
+```bash
+# Use default (false) - safer
+unset DELETE_NODES_ON_DISCONNECT
+pulumi up
+```
+
+**For test clusters:**
+```bash
+# Enable automatic cleanup
+export DELETE_NODES_ON_DISCONNECT="true"
+pulumi up
+```
 
 ## Troubleshooting
 
