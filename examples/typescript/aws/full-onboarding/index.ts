@@ -105,7 +105,6 @@ const cluster = new CastAiEksCluster("castai-cluster", {
 //
 // Uncomment the example below to add a custom configuration:
 
-/*
 const customNodeConfig = new castai.config.NodeConfiguration("custom-config", {
     clusterId: cluster.clusterId,
     name: "gpu-nodes",  // Custom name for this configuration
@@ -115,23 +114,8 @@ const customNodeConfig = new castai.config.NodeConfiguration("custom-config", {
         "environment": "production",
     },
 
-    // EKS-specific configuration
-    eks: {
-        instanceProfileArn: cluster.instanceProfileArn!,
-        securityGroups: pulumi.all([cluster.securityGroupId!, clusterSecurityGroupId])
-            .apply(([castaiSG, clusterSG]) => [castaiSG, clusterSG]),
-
-        // Use containerd instead of dockerd
-        containerRuntime: "containerd",
-
-        // Enable IMDSv1 for legacy workloads
-        imdsV1: true,
-
-        // Use gp3 volumes with custom IOPS and throughput
-        volumeType: "gp3",
-        volumeIops: 3100,
-        volumeThroughput: 130,
-    },
+    // Use containerd instead of dockerd (top-level property)
+    containerRuntime: "containerd",
 
     // Custom kubelet configuration (JSON string)
     kubeletConfig: JSON.stringify({
@@ -142,10 +126,26 @@ const customNodeConfig = new castai.config.NodeConfiguration("custom-config", {
 
     // Minimum disk size in GiB
     minDiskSize: 100,
+
+    // EKS-specific configuration
+    eks: {
+        instanceProfileArn: cluster.instanceProfileArn!,
+        securityGroups: pulumi.all([cluster.securityGroupId!, clusterSecurityGroupId])
+            .apply(([castaiSG, clusterSG]) => [castaiSG, clusterSG]),
+
+        // Enable IMDSv1 for legacy workloads
+        imdsV1: true,
+
+        // Use gp3 volumes with custom IOPS and throughput
+        volumeType: "gp3",
+        volumeIops: 3100,
+        volumeThroughput: 130,
+    },
 }, {
     dependsOn: [cluster],
 });
 
+/*
 // Additional EKS options available (not shown above):
 // - eks.dnsClusterIp: Custom DNS cluster IP
 // - eks.eksImageFamily: "al2", "al2023", or "bottlerocket"
@@ -173,6 +173,8 @@ export const castaiRoleArn = cluster.castaiRoleArn;
 export const instanceProfileArn = cluster.instanceProfileArn;
 export const nodeRoleArn = cluster.nodeRoleArn;
 export const securityGroupId = cluster.securityGroupId;
+export const customNodeConfigId = customNodeConfig.id;
+export const customNodeConfigName = customNodeConfig.name;
 
 export const message = pulumi.interpolate`
 ✅ CAST AI full onboarding complete!
