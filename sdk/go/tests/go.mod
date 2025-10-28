@@ -1,4 +1,4 @@
-module github.com/castai/pulumi-castai/tests/go
+module github.com/castai/pulumi-castai/sdk/go/tests
 
 go 1.24.0
 
@@ -93,4 +93,4 @@ require (
 	lukechampine.com/frand v1.4.2 // indirect
 )
 
-replace github.com/castai/pulumi-castai/sdk/go/castai => ../../sdk/go/castai
+replace github.com/castai/pulumi-castai/sdk/go/castai => ../castai
