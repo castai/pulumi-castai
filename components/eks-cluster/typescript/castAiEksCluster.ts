@@ -258,7 +258,6 @@ users:
             this.securityGroupId = iamResources.securityGroupId;
 
             // Update cluster with IAM role (Phase 2)
-            // CAST AI will auto-discover instance profile and security groups from the node role
             const eksClusterConnection = new castai.EksCluster(`${name}-connection`, {
                 accountId: accountId,
                 region: args.region,
@@ -268,6 +267,35 @@ users:
             }, {
                 provider: castaiProvider,
                 dependsOn: [castaiClusterPhase1, iamResources],
+                ...componentOpts,
+            });
+
+            // Create default node configuration with instance profile and security groups
+            const allSecurityGroups = pulumi.all([this.securityGroupId, args.securityGroups!])
+                .apply(([castaiSG, userSGs]) => [castaiSG, ...userSGs]);
+
+            const defaultNodeConfig = new castai.config.NodeConfiguration(`${name}-node-config-default`, {
+                clusterId: this.clusterId,
+                name: "default",
+                subnets: args.subnets!,
+                tags: args.tags,
+                eks: {
+                    instanceProfileArn: this.instanceProfileArn!,
+                    securityGroups: allSecurityGroups,
+                },
+            }, {
+                provider: castaiProvider,
+                dependsOn: [eksClusterConnection, iamResources],
+                ...componentOpts,
+            });
+
+            // Set as default node configuration
+            new castai.config.NodeConfigurationDefault(`${name}-node-config-default-ref`, {
+                clusterId: this.clusterId,
+                configurationId: defaultNodeConfig.id,
+            }, {
+                provider: castaiProvider,
+                dependsOn: [defaultNodeConfig],
                 ...componentOpts,
             });
 
