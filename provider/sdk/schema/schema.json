@@ -15,7 +15,7 @@
     "logoUrl": "https://raw.githubusercontent.com/castai/pulumi-castai/main/docs/images/castai-logo.png",
     "pluginDownloadURL": "github://api.github.com/castai",
     "publisher": "CAST AI",
-    "version": "7.73.1",
+    "version": "7.73.2",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
     },
@@ -30,7 +30,7 @@
             "compatibility": "tfbridge20"
         },
         "go": {
-            "importBasePath": "github.com/castai/pulumi-castai/sdk/go/castai",
+            "importBasePath": "github.com/castai/pulumi-castai/sdk/v7/go/castai",
             "generateResourceContainerTypes": true,
             "generateExtraInputTypes": true
         },
