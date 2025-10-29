@@ -15,6 +15,6 @@
         "@pulumi/pulumi": "^3.0.0",
         "@pulumi/gcp": "^7.0.0",
         "@pulumi/kubernetes": "^4.0.0",
-        "@castai/pulumi": "file:../../../../sdk/nodejs"
+        "@castai/pulumi": "^7.73.1"
     }
 }
