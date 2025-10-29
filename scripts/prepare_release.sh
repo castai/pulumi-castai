@@ -240,6 +240,23 @@ else
   echo "✅ Go SDK go.mod and go.sum files generated"
 fi
 
+# Step 5.4: Install SDK dependencies
+echo "Installing SDK dependencies..."
+if [[ "$DRY_RUN" == "true" ]]; then
+  echo "[DRY RUN] Would install TypeScript SDK dependencies: cd sdk/nodejs && npm install"
+  echo "✅ SDK dependencies would be installed (dry run)"
+elif [[ "$SKIP_BUILD" == "true" ]]; then
+  echo "Skipping SDK dependency installation as requested"
+  echo "✅ SDK dependency installation skipped"
+else
+  # Install TypeScript SDK dependencies
+  echo "Installing TypeScript SDK dependencies..."
+  cd "$ORIGINAL_DIR/sdk/nodejs"
+  npm install
+  cd "$ORIGINAL_DIR"
+  echo "✅ TypeScript SDK dependencies installed"
+fi
+
 # Step 5.5: Run all tests
 echo "Running comprehensive test suite..."
 if [[ "$DRY_RUN" == "true" ]]; then

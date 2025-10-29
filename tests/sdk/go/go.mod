@@ -3,7 +3,7 @@ module github.com/castai/pulumi-castai/sdk/go/tests
 go 1.24.0
 
 require (
-	github.com/castai/pulumi-castai/sdk/go v0.0.0
+	github.com/castai/pulumi-castai/sdk/go/castai v0.0.0
 	github.com/pulumi/pulumi/sdk/v3 v3.204.0
 	github.com/stretchr/testify v1.10.0
 )
@@ -93,4 +93,4 @@ require (
 	lukechampine.com/frand v1.4.2 // indirect
 )
 
-replace github.com/castai/pulumi-castai/sdk/go => ../../../sdk/go
+replace github.com/castai/pulumi-castai/sdk/go/castai => ../../../sdk/go/castai
