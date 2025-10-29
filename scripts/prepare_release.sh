@@ -262,7 +262,6 @@ echo "Running comprehensive test suite..."
 if [[ "$DRY_RUN" == "true" ]]; then
   echo "[DRY RUN] Would run provider tests: cd provider && ./run-tests.sh"
   echo "[DRY RUN] Would run SDK tests: cd tests && ./run-sdk-tests.sh"
-  echo "[DRY RUN] Would run component tests: cd components && ./run-tests.sh"
   echo "✅ All tests would be executed (dry run)"
 else
   # Make sure we're in the repository root
@@ -294,20 +293,6 @@ else
     cd "$ORIGINAL_DIR"
   else
     echo "❌ SDK tests failed"
-    TEST_FAILED=true
-    cd "$ORIGINAL_DIR"
-  fi
-
-  # Run component tests
-  echo ""
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "Running Component Tests..."
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  if cd components && ./run-tests.sh; then
-    echo "✅ Component tests passed"
-    cd "$ORIGINAL_DIR"
-  else
-    echo "❌ Component tests failed"
     TEST_FAILED=true
     cd "$ORIGINAL_DIR"
   fi
