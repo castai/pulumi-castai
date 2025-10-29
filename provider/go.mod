@@ -3,7 +3,7 @@ module github.com/castai/pulumi-castai/provider
 go 1.24.0
 
 require (
-	github.com/castai/terraform-provider-castai v7.73.0+incompatible
+	github.com/castai/terraform-provider-castai v0.0.0-20251027192515-5c5db7fcc5f3
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.116.0
 	github.com/pulumi/pulumi/sdk/v3 v3.190.0
 	github.com/stretchr/testify v1.10.0
@@ -193,7 +193,4 @@ require (
 // Updated to match v3.116.0 bridge requirements
 replace github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20250923233607-7f1981c8674a
 
-// Use local branch with slices fix until PR is merged
-replace github.com/castai/terraform-provider-castai => /Users/leonkuperman/LKDev/CAST/terraform-provider-castai
-
-// No local shim needed, using the actual Terraform provider
+// Now using public registry version 7.73.1 from https://registry.terraform.io/providers/castai/castai/latest
