@@ -76,14 +76,14 @@ if [ "$RUN_PYTHON" = true ]; then
     echo "-----------------------------------"
 
     # Activate venv if it exists
-    VENV_PATH="../../venv"
+    VENV_PATH="../venv"
     if [ -d "$VENV_PATH" ]; then
         echo -e "${YELLOW}Activating Python virtual environment...${NC}"
         source "$VENV_PATH/bin/activate"
     fi
 
-    if [ -d "../tests/sdk/python" ]; then
-        cd ../tests/sdk/python
+    if [ -d "sdk/python" ]; then
+        cd sdk/python
 
         # Check if pytest is installed
         if ! command -v pytest &> /dev/null; then
@@ -120,7 +120,7 @@ if [ "$RUN_TYPESCRIPT" = true ]; then
     echo -e "${BLUE}Running TypeScript SDK Tests...${NC}"
     echo "-----------------------------------"
 
-    cd ../tests/sdk/nodejs
+    cd sdk/nodejs
 
     # Check if node_modules exists
     if [ ! -d "node_modules" ]; then
@@ -147,7 +147,7 @@ if [ "$RUN_GO" = true ]; then
     echo -e "${BLUE}Running Go SDK Tests...${NC}"
     echo "-----------------------------------"
 
-    cd ../tests/sdk/go
+    cd sdk/go
 
     # Check if go.sum exists, if not run go mod tidy
     if [ ! -f "go.sum" ]; then

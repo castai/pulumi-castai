@@ -6,18 +6,18 @@ This document explains the test organization and how to run tests for the CAST A
 
 Tests are **co-located** with the code they test to keep them self-contained and easy to maintain.
 
-**Important**: SDK tests are kept in `tests/sdk/` (not `sdk/*/tests/`) to prevent them from being deleted during SDK regeneration (`make build_sdks` runs `rm -rf sdk/*`).
+**Important**: SDK tests and the SDK test runner are kept in `tests/` (not `sdk/`) to prevent them from being deleted during SDK regeneration (`make build_sdks` runs `rm -rf sdk/*`).
 
 ```
 pulumi-castai/
 ├── tests/
+│   ├── run-sdk-tests.sh      # SDK test runner (protected from SDK regeneration)
 │   └── sdk/
 │       ├── nodejs/           # TypeScript SDK tests (42 tests)
 │       ├── python/           # Python SDK tests (33 tests)
-│       └── go/               # Go SDK tests
+│       └── go/               # Go SDK tests (48 tests)
 │
 ├── sdk/
-│   ├── run-tests.sh          # SDK test runner (looks in ../tests/sdk/)
 │   ├── nodejs/               # Generated TypeScript SDK
 │   ├── python/               # Generated Python SDK
 │   └── go/                   # Generated Go SDK
@@ -42,7 +42,7 @@ To run all tests across the project:
 make test-all      # (if Makefile target exists)
 
 # Or run each test bucket separately:
-cd sdk && ./run-tests.sh
+cd tests && ./run-sdk-tests.sh
 cd provider && ./run-tests.sh
 cd components && ./run-tests.sh
 ```
@@ -52,18 +52,18 @@ cd components && ./run-tests.sh
 Test all three SDK implementations (TypeScript, Python, Go):
 
 ```bash
-cd sdk
+cd tests
 
 # Run all SDK tests
-./run-tests.sh
+./run-sdk-tests.sh
 
 # Run with coverage
-./run-tests.sh --coverage
+./run-sdk-tests.sh --coverage
 
 # Run specific SDK
-./run-tests.sh --python-only
-./run-tests.sh --typescript-only
-./run-tests.sh --go-only
+./run-sdk-tests.sh --python-only
+./run-sdk-tests.sh --typescript-only
+./run-sdk-tests.sh --go-only
 ```
 
 **Individual SDK tests:**
@@ -378,4 +378,5 @@ All tests run entirely in-memory without making any API calls.
 
 **Last Updated:** October 28, 2025
 **Change Log:**
+- October 28, 2025: Moved SDK test runner from `sdk/run-tests.sh` to `tests/run-sdk-tests.sh` to protect from SDK regeneration
 - October 28, 2025: Moved SDK tests to `tests/sdk/` to protect from SDK regeneration
