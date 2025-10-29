@@ -18,7 +18,7 @@ echo -n "$NEW_VERSION" > version.txt
 echo "✅ Updated version.txt"
 
 # Update package.json files
-./sync-package-version.js
+./scripts/sync-package-version.js
 echo "✅ Updated package.json files"
 
 # Update Python setup.py if it exists
