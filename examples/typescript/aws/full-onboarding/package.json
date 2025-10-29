@@ -17,7 +17,7 @@
         "@pulumi/aws": "^6.0.0",
         "@pulumi/kubernetes": "^4.0.0",
         "@pulumi/command": "^1.0.0",
-        "@castai/pulumi": "file:../../../../sdk/nodejs",
+        "@castai/pulumi": "^7.73.2",
         "js-yaml": "^4.1.0"
     }
 }

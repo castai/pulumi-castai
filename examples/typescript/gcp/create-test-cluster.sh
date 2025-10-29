@@ -47,7 +47,6 @@ gcloud container clusters create "$CLUSTER_NAME" \
     --min-nodes=3 \
     --max-nodes=8 \
     --no-enable-master-authorized-networks \
-    --enable-stackdriver-kubernetes \
     --scopes="https://www.googleapis.com/auth/cloud-platform" \
     --quiet
 

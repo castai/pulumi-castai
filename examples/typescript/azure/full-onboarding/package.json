@@ -11,7 +11,7 @@
         "typescript": "^5.1.6"
     },
     "dependencies": {
-        "@castai/pulumi": "file:../../../../sdk/nodejs",
+        "@castai/pulumi": "^7.73.2",
         "@pulumi/pulumi": "^3.0.0",
         "@pulumi/azure-native": "^2.0.0",
         "@pulumi/kubernetes": "^4.0.0"
