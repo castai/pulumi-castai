@@ -231,7 +231,7 @@ jobs:
 
       # Publish Node.js Package
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
