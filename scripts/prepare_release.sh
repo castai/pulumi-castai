@@ -341,9 +341,15 @@ else
   if [ -d "sdk" ]; then
     git add sdk/
   fi
-  git commit -m "Prepare release v$VERSION"
+
+  # Check if there are changes to commit
+  if git diff --cached --quiet; then
+    echo "No changes to commit - files are already up to date"
+  else
+    git commit -m "Prepare release v$VERSION"
+  fi
 fi
-echo "✅ Changes committed"
+echo "✅ Changes committed (or already up to date)"
 
 # Step 7: Push changes to the repository FIRST
 echo "Pushing changes to repository..."
