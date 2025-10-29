@@ -1495,10 +1495,10 @@ type NodeConfigurationGke struct {
 	// This is an advanced configuration field. In general, we recommend using maxPodsPerNode instead.
 	// This field accepts a formula to calculate the maximum number of pods that can run on a node. This will affect the pod CIDR range that the node reserves. The following variables are available for use in the formula and will be bound to numeric values before evaluation:
 	//
-	// * NUM_CPU - Number of CPUs available on the node
-	// * NUM_RAM_GB - Amount of RAM in gigabytes available on the node.
+	//     * NUM_CPU - Number of CPUs available on the node
+	//     * NUM_RAM_GB - Amount of RAM in gigabytes available on the node.
 	//
-	// If you want the smallest value between 5 times the CPUs, 5 times the RAM, or a cap of 110, your formula would be math.least(110, 5*NUM_CPU, 5*NUM_RAM_GB).
+	// If you want the smallest value between 5 times the CPUs, 5 times the RAM, or a cap of 110, your formula would be math.least(110, 5 \* NUM_CPU, 5 \* NUM_RAM_GB).
 	// For a node with 8 CPUs and 16 GB RAM, this calculates to 40 (5×8), 80 (5×16), and 110, then picks the smallest value: 40 pods.
 	MaxPodsPerNodeFormula *string `pulumi:"maxPodsPerNodeFormula"`
 	// Network tags to be added on a VM. (See [network tags](https://cloud.google.com/vpc/docs/add-remove-network-tags))
@@ -1536,10 +1536,10 @@ type NodeConfigurationGkeArgs struct {
 	// This is an advanced configuration field. In general, we recommend using maxPodsPerNode instead.
 	// This field accepts a formula to calculate the maximum number of pods that can run on a node. This will affect the pod CIDR range that the node reserves. The following variables are available for use in the formula and will be bound to numeric values before evaluation:
 	//
-	// * NUM_CPU - Number of CPUs available on the node
-	// * NUM_RAM_GB - Amount of RAM in gigabytes available on the node.
+	//     * NUM_CPU - Number of CPUs available on the node
+	//     * NUM_RAM_GB - Amount of RAM in gigabytes available on the node.
 	//
-	// If you want the smallest value between 5 times the CPUs, 5 times the RAM, or a cap of 110, your formula would be math.least(110, 5*NUM_CPU, 5*NUM_RAM_GB).
+	// If you want the smallest value between 5 times the CPUs, 5 times the RAM, or a cap of 110, your formula would be math.least(110, 5 \* NUM_CPU, 5 \* NUM_RAM_GB).
 	// For a node with 8 CPUs and 16 GB RAM, this calculates to 40 (5×8), 80 (5×16), and 110, then picks the smallest value: 40 pods.
 	MaxPodsPerNodeFormula pulumi.StringPtrInput `pulumi:"maxPodsPerNodeFormula"`
 	// Network tags to be added on a VM. (See [network tags](https://cloud.google.com/vpc/docs/add-remove-network-tags))
@@ -1651,10 +1651,10 @@ func (o NodeConfigurationGkeOutput) MaxPodsPerNode() pulumi.IntPtrOutput {
 // This is an advanced configuration field. In general, we recommend using maxPodsPerNode instead.
 // This field accepts a formula to calculate the maximum number of pods that can run on a node. This will affect the pod CIDR range that the node reserves. The following variables are available for use in the formula and will be bound to numeric values before evaluation:
 //
-// * NUM_CPU - Number of CPUs available on the node
-// * NUM_RAM_GB - Amount of RAM in gigabytes available on the node.
+//   - NUM_CPU - Number of CPUs available on the node
+//   - NUM_RAM_GB - Amount of RAM in gigabytes available on the node.
 //
-// If you want the smallest value between 5 times the CPUs, 5 times the RAM, or a cap of 110, your formula would be math.least(110, 5*NUM_CPU, 5*NUM_RAM_GB).
+// If you want the smallest value between 5 times the CPUs, 5 times the RAM, or a cap of 110, your formula would be math.least(110, 5 \* NUM_CPU, 5 \* NUM_RAM_GB).
 // For a node with 8 CPUs and 16 GB RAM, this calculates to 40 (5×8), 80 (5×16), and 110, then picks the smallest value: 40 pods.
 func (o NodeConfigurationGkeOutput) MaxPodsPerNodeFormula() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeConfigurationGke) *string { return v.MaxPodsPerNodeFormula }).(pulumi.StringPtrOutput)
@@ -1744,10 +1744,10 @@ func (o NodeConfigurationGkePtrOutput) MaxPodsPerNode() pulumi.IntPtrOutput {
 // This is an advanced configuration field. In general, we recommend using maxPodsPerNode instead.
 // This field accepts a formula to calculate the maximum number of pods that can run on a node. This will affect the pod CIDR range that the node reserves. The following variables are available for use in the formula and will be bound to numeric values before evaluation:
 //
-// * NUM_CPU - Number of CPUs available on the node
-// * NUM_RAM_GB - Amount of RAM in gigabytes available on the node.
+//   - NUM_CPU - Number of CPUs available on the node
+//   - NUM_RAM_GB - Amount of RAM in gigabytes available on the node.
 //
-// If you want the smallest value between 5 times the CPUs, 5 times the RAM, or a cap of 110, your formula would be math.least(110, 5*NUM_CPU, 5*NUM_RAM_GB).
+// If you want the smallest value between 5 times the CPUs, 5 times the RAM, or a cap of 110, your formula would be math.least(110, 5 \* NUM_CPU, 5 \* NUM_RAM_GB).
 // For a node with 8 CPUs and 16 GB RAM, this calculates to 40 (5×8), 80 (5×16), and 110, then picks the smallest value: 40 pods.
 func (o NodeConfigurationGkePtrOutput) MaxPodsPerNodeFormula() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeConfigurationGke) *string {
