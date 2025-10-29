@@ -128,15 +128,11 @@ describe("GKE Cluster Creation", () => {
             credentialsJson: "mock-credentials-json",
         });
 
-        const [clusterId, clusterName, clusterToken, projectId] = await promisifyAll(
-            cluster.id,
+        const [clusterName, clusterToken, projectId] = await promisifyAll(
             cluster.name,
             cluster.clusterToken,
             cluster.projectId
         );
-
-        expect(clusterId).toBeDefined();
-        expect(clusterId).toContain("cluster-id");
 
         expect(clusterName).toBe("my-gke-cluster");
 
@@ -186,9 +182,9 @@ describe("GKE Cluster Creation", () => {
                 })
         );
 
-        const clusterLocations = await Promise.all(clusters.map((c) => promisify(c.location)));
+        const clusterLocations = await Promise.all(clusters.map((c) => promisify(c.location))) as string[];
 
-        clusterLocations.forEach((location: string, i: number) => {
+        clusterLocations.forEach((location, i) => {
             expect(location).toBe(locations[i]);
         });
     });

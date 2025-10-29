@@ -240,6 +240,79 @@ else
   echo "✅ Go SDK go.mod and go.sum files generated"
 fi
 
+# Step 5.5: Run all tests
+echo "Running comprehensive test suite..."
+if [[ "$DRY_RUN" == "true" ]]; then
+  echo "[DRY RUN] Would run provider tests: cd provider && ./run-tests.sh"
+  echo "[DRY RUN] Would run SDK tests: cd sdk && ./run-tests.sh"
+  echo "[DRY RUN] Would run component tests: cd components && ./run-tests.sh"
+  echo "✅ All tests would be executed (dry run)"
+else
+  # Make sure we're in the repository root
+  cd "$ORIGINAL_DIR"
+
+  TEST_FAILED=false
+
+  # Run provider tests
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "Running Provider Tests..."
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  if cd provider && ./run-tests.sh; then
+    echo "✅ Provider tests passed"
+    cd "$ORIGINAL_DIR"
+  else
+    echo "❌ Provider tests failed"
+    TEST_FAILED=true
+    cd "$ORIGINAL_DIR"
+  fi
+
+  # Run SDK tests
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "Running SDK Tests..."
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  if cd sdk && ./run-tests.sh; then
+    echo "✅ SDK tests passed"
+    cd "$ORIGINAL_DIR"
+  else
+    echo "❌ SDK tests failed"
+    TEST_FAILED=true
+    cd "$ORIGINAL_DIR"
+  fi
+
+  # Run component tests
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "Running Component Tests..."
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  if cd components && ./run-tests.sh; then
+    echo "✅ Component tests passed"
+    cd "$ORIGINAL_DIR"
+  else
+    echo "❌ Component tests failed"
+    TEST_FAILED=true
+    cd "$ORIGINAL_DIR"
+  fi
+
+  # Check if any tests failed
+  if [[ "$TEST_FAILED" == "true" ]]; then
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "❌ TEST SUITE FAILED"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "One or more test suites failed. Please fix the failures before releasing."
+    echo "Release preparation aborted."
+    exit 1
+  fi
+
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "✅ ALL TESTS PASSED"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+fi
+
 # Step 6: Commit changes
 echo "Committing changes..."
 if [[ "$DRY_RUN" == "true" ]]; then

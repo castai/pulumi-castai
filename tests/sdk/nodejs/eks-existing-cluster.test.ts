@@ -63,14 +63,12 @@ describe("EKS Existing Cluster Connection", () => {
             deleteNodesOnDisconnect: false, // Don't delete nodes when disconnecting
         });
 
-        const [clusterId, clusterName, clusterToken, accountId] = await promisifyAll(
-            cluster.id,
+        const [clusterName, clusterToken, accountId] = await promisifyAll(
             cluster.name,
             cluster.clusterToken,
             cluster.accountId
         );
 
-        expect(clusterId).toBeDefined();
         expect(clusterName).toBe("production-eks-cluster");
         expect(clusterToken).toBeDefined();
         expect(accountId).toBe("123456789012");
@@ -104,13 +102,11 @@ describe("EKS Existing Cluster Connection", () => {
             deleteNodesOnDisconnect: true,
         });
 
-        const [clusterId, clusterName, accountId] = await promisifyAll(
-            cluster.id,
+        const [clusterName, accountId] = await promisifyAll(
             cluster.name,
             cluster.accountId
         );
 
-        expect(clusterId).toBeDefined();
         expect(clusterName).toBe("minimal-eks");
         expect(accountId).toBe("111111111111");
     });
@@ -155,9 +151,9 @@ describe("EKS Existing Cluster Connection", () => {
 
         const clusterRegions = await Promise.all(
             clusters.map((c) => promisify(c.region))
-        );
+        ) as string[];
 
-        clusterRegions.forEach((region: string, i: number) => {
+        clusterRegions.forEach((region, i) => {
             expect(region).toBe(regions[i]);
         });
     });

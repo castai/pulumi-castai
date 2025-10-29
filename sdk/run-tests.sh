@@ -75,25 +75,43 @@ if [ "$RUN_PYTHON" = true ]; then
     echo -e "${BLUE}Running Python SDK Tests...${NC}"
     echo "-----------------------------------"
 
-    cd python/tests
-
-    # Check if pytest is installed
-    if ! command -v pytest &> /dev/null; then
-        echo -e "${YELLOW}pytest not found. Installing dependencies...${NC}"
-        pip install -r requirements.txt
+    # Activate venv if it exists
+    VENV_PATH="../../venv"
+    if [ -d "$VENV_PATH" ]; then
+        echo -e "${YELLOW}Activating Python virtual environment...${NC}"
+        source "$VENV_PATH/bin/activate"
     fi
 
-    # Run tests
-    if [ "$COVERAGE" = true ]; then
-        pytest -v --cov --cov-report=term --cov-report=html || PYTHON_EXIT=$?
-        if [ $PYTHON_EXIT -eq 0 ]; then
-            echo -e "${GREEN}Coverage report: python/tests/htmlcov/index.html${NC}"
+    if [ -d "../tests/sdk/python" ]; then
+        cd ../tests/sdk/python
+
+        # Check if pytest is installed
+        if ! command -v pytest &> /dev/null; then
+            echo -e "${YELLOW}pytest not found. Installing dependencies...${NC}"
+            pip install -r requirements.txt
         fi
+
+        # Run tests
+        if [ "$COVERAGE" = true ]; then
+            pytest -v --cov --cov-report=term --cov-report=html || PYTHON_EXIT=$?
+            if [ $PYTHON_EXIT -eq 0 ]; then
+                echo -e "${GREEN}Coverage report: tests/sdk/python/htmlcov/index.html${NC}"
+            fi
+        else
+            pytest -v || PYTHON_EXIT=$?
+        fi
+
+        cd "$SCRIPT_DIR"
     else
-        pytest -v || PYTHON_EXIT=$?
+        echo -e "${YELLOW}Python SDK tests directory not found, skipping...${NC}"
+        PYTHON_EXIT=0
     fi
 
-    cd ../..
+    # Deactivate venv
+    if [ -d "$VENV_PATH" ]; then
+        deactivate
+    fi
+
     echo ""
 fi
 
@@ -102,7 +120,7 @@ if [ "$RUN_TYPESCRIPT" = true ]; then
     echo -e "${BLUE}Running TypeScript SDK Tests...${NC}"
     echo "-----------------------------------"
 
-    cd nodejs/tests
+    cd ../tests/sdk/nodejs
 
     # Check if node_modules exists
     if [ ! -d "node_modules" ]; then
@@ -114,13 +132,13 @@ if [ "$RUN_TYPESCRIPT" = true ]; then
     if [ "$COVERAGE" = true ]; then
         npm run test:coverage || TYPESCRIPT_EXIT=$?
         if [ $TYPESCRIPT_EXIT -eq 0 ]; then
-            echo -e "${GREEN}Coverage report: nodejs/tests/coverage/index.html${NC}"
+            echo -e "${GREEN}Coverage report: tests/sdk/nodejs/coverage/index.html${NC}"
         fi
     else
         npm test || TYPESCRIPT_EXIT=$?
     fi
 
-    cd ../..
+    cd "$SCRIPT_DIR"
     echo ""
 fi
 
@@ -129,7 +147,7 @@ if [ "$RUN_GO" = true ]; then
     echo -e "${BLUE}Running Go SDK Tests...${NC}"
     echo "-----------------------------------"
 
-    cd go/tests
+    cd ../tests/sdk/go
 
     # Check if go.sum exists, if not run go mod tidy
     if [ ! -f "go.sum" ]; then
@@ -142,13 +160,13 @@ if [ "$RUN_GO" = true ]; then
         go test -v -cover -coverprofile=coverage.out ./... || GO_EXIT=$?
         if [ $GO_EXIT -eq 0 ]; then
             go tool cover -html=coverage.out -o coverage.html
-            echo -e "${GREEN}Coverage report: go/tests/coverage.html${NC}"
+            echo -e "${GREEN}Coverage report: tests/sdk/go/coverage.html${NC}"
         fi
     else
         go test -v ./... || GO_EXIT=$?
     fi
 
-    cd ../..
+    cd "$SCRIPT_DIR"
     echo ""
 fi
 

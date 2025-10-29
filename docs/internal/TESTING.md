@@ -6,13 +6,21 @@ This document explains the test organization and how to run tests for the CAST A
 
 Tests are **co-located** with the code they test to keep them self-contained and easy to maintain.
 
+**Important**: SDK tests are kept in `tests/sdk/` (not `sdk/*/tests/`) to prevent them from being deleted during SDK regeneration (`make build_sdks` runs `rm -rf sdk/*`).
+
 ```
 pulumi-castai/
+├── tests/
+│   └── sdk/
+│       ├── nodejs/           # TypeScript SDK tests (42 tests)
+│       ├── python/           # Python SDK tests (33 tests)
+│       └── go/               # Go SDK tests
+│
 ├── sdk/
-│   ├── run-tests.sh          # SDK test runner
-│   ├── nodejs/tests/         # TypeScript SDK tests (42 tests)
-│   ├── python/tests/         # Python SDK tests (33 tests)
-│   └── go/tests/             # Go SDK tests
+│   ├── run-tests.sh          # SDK test runner (looks in ../tests/sdk/)
+│   ├── nodejs/               # Generated TypeScript SDK
+│   ├── python/               # Generated Python SDK
+│   └── go/                   # Generated Go SDK
 │
 ├── provider/
 │   ├── run-tests.sh          # Provider test runner
@@ -62,13 +70,13 @@ cd sdk
 
 ```bash
 # TypeScript
-cd sdk/nodejs/tests && npm test
+cd tests/sdk/nodejs && npm test
 
 # Python
-cd sdk/python/tests && pytest -v
+cd tests/sdk/python && pytest -v
 
 # Go
-cd sdk/go/tests && go test -v ./...
+cd tests/sdk/go && go test -v ./...
 ```
 
 ### Provider Tests
@@ -124,7 +132,7 @@ cd components/eks-cluster/typescript && npm test
 
 ### 1. SDK Tests (Mock-based)
 
-- **Location**: `sdk/*/tests/`
+- **Location**: `tests/sdk/*/` (protected from SDK regeneration)
 - **Type**: Unit tests with Pulumi mocking
 - **Purpose**: Test SDK resource creation without real API calls
 - **Speed**: < 2 seconds per SDK
@@ -135,6 +143,7 @@ cd components/eks-cluster/typescript && npm test
 - No cloud credentials required
 - No actual resources created
 - Fast and reliable
+- **Protected**: Located outside `sdk/` to survive `make build_sdks`
 
 ### 2. Provider Tests
 
@@ -179,9 +188,9 @@ cd sdk
 ./run-tests.sh --coverage
 
 # View reports:
-# - TypeScript: sdk/nodejs/tests/coverage/index.html
-# - Python: sdk/python/tests/htmlcov/index.html
-# - Go: sdk/go/tests/coverage.html
+# - TypeScript: tests/sdk/nodejs/coverage/index.html
+# - Python: tests/sdk/python/htmlcov/index.html
+# - Go: tests/sdk/go/coverage.html
 ```
 
 ### Provider Coverage
@@ -270,10 +279,11 @@ err := pulumi.RunErr(func(ctx *pulumi.Context) error {
 
 ### Adding SDK Tests
 
-1. Create test file in appropriate SDK's `tests/` directory
+1. Create test file in `tests/sdk/{language}/` directory
 2. Follow existing test patterns
 3. Use Pulumi mocks
-4. Run `./run-tests.sh` to verify
+4. Run `cd sdk && ./run-tests.sh` to verify
+5. **Important**: Tests are in `tests/sdk/` to survive SDK regeneration
 
 ### Adding Provider Tests
 
@@ -312,9 +322,9 @@ go test -list .               # Go
 
 ```bash
 # SDK tests
-cd sdk/nodejs/tests && rm -rf node_modules && npm install
-cd sdk/python/tests && pip install -r requirements.txt
-cd sdk/go/tests && go mod tidy
+cd tests/sdk/nodejs && rm -rf node_modules && npm install
+cd tests/sdk/python && pip install -r requirements.txt
+cd tests/sdk/go && go mod tidy
 
 # Component tests
 cd components/eks-cluster/typescript && rm -rf node_modules && npm install
@@ -366,4 +376,6 @@ All tests run entirely in-memory without making any API calls.
 
 ---
 
-**Last Updated:** October 27, 2025
+**Last Updated:** October 28, 2025
+**Change Log:**
+- October 28, 2025: Moved SDK tests to `tests/sdk/` to protect from SDK regeneration

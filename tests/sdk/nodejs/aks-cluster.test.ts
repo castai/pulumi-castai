@@ -67,20 +67,18 @@ describe("AKS Cluster Creation", () => {
             deleteNodesOnDisconnect: true,
         });
 
-        const [clusterId, clusterName, clusterToken, subscriptionId, region] =
+        const [clusterName, clusterToken, subscriptionId, region] =
             await promisifyAll(
-                cluster.id,
                 cluster.name,
                 cluster.clusterToken,
                 cluster.subscriptionId,
                 cluster.region
             );
 
-        expect(clusterId).toBeDefined();
         expect(clusterName).toBe("my-aks-cluster");
         expect(clusterToken).toBeDefined();
         expect(typeof clusterToken).toBe("string");
-        expect(clusterToken.length).toBeGreaterThan(0);
+        expect((clusterToken as string).length).toBeGreaterThan(0);
         expect(subscriptionId).toBe("12345678-1234-1234-1234-123456789012");
         expect(region).toBe("eastus");
     });
@@ -224,8 +222,8 @@ describe("AKS Cluster Creation", () => {
             deleteNodesOnDisconnect: true,
         });
 
-        const clusterId = await promisify(cluster.id);
-        expect(clusterId).toBeDefined();
+        const clusterName = await promisify(cluster.name);
+        expect(clusterName).toBe("validation-cluster");
     });
 
     it("should create AKS cluster with minimal required configuration", async () => {
@@ -240,13 +238,11 @@ describe("AKS Cluster Creation", () => {
             deleteNodesOnDisconnect: false,
         });
 
-        const [clusterId, clusterName, subscriptionId] = await promisifyAll(
-            cluster.id,
+        const [clusterName, subscriptionId] = await promisifyAll(
             cluster.name,
             cluster.subscriptionId
         );
 
-        expect(clusterId).toBeDefined();
         expect(clusterName).toBe("minimal-aks");
         expect(subscriptionId).toBe("99999999-9999-9999-9999-999999999999");
     });

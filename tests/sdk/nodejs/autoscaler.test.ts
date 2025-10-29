@@ -105,7 +105,7 @@ describe("Autoscaler Configuration Tests", () => {
         expect(clusterId).toBe("test-cluster-id-123");
         expect(policiesJson).toBeDefined();
 
-        const policies = JSON.parse(policiesJson!);
+        const policies = JSON.parse(policiesJson as string);
         expect(policies.enabled).toBe(false);
         expect(policies.clusterLimits.cpu.maxCores).toBe(20);
     });
@@ -156,7 +156,7 @@ describe("Autoscaler Configuration Tests", () => {
 
         expect(clusterId).toBe("enabled-cluster-123");
 
-        const policies = JSON.parse(policiesJson!);
+        const policies = JSON.parse(policiesJson as string);
         expect(policies.enabled).toBe(true);
         expect(policies.unschedulablePods.enabled).toBe(true);
         expect(policies.nodeDownscaler.enabled).toBe(true);
@@ -190,7 +190,7 @@ describe("Autoscaler Configuration Tests", () => {
             autoscaler.autoscalerPoliciesJson
         );
 
-        const policies = JSON.parse(policiesJson!);
+        const policies = JSON.parse(policiesJson as string);
         const evictor = policies.nodeDownscaler.evictor;
         expect(evictor.enabled).toBe(true);
         expect(evictor.aggressiveMode).toBe(true);
@@ -224,7 +224,7 @@ describe("Autoscaler Configuration Tests", () => {
             autoscaler.autoscalerPoliciesJson
         );
 
-        const policies = JSON.parse(policiesJson!);
+        const policies = JSON.parse(policiesJson as string);
         const limits = policies.clusterLimits;
         expect(limits.enabled).toBe(true);
         expect(limits.cpu.maxCores).toBe(50);
@@ -259,7 +259,7 @@ describe("Autoscaler Configuration Tests", () => {
             autoscaler.autoscalerPoliciesJson
         );
 
-        const policies = JSON.parse(policiesJson!);
+        const policies = JSON.parse(policiesJson as string);
         expect(policies.isScopedMode).toBe(true);
         expect(policies.nodeTemplatesPartialMatchingEnabled).toBe(true);
         expect(policies.nodeDownscaler.evictor.scopedMode).toBe(true);
@@ -283,7 +283,7 @@ describe("Autoscaler Configuration Tests", () => {
 
         expect(clusterId).toBe("minimal-cluster-999");
 
-        const policies = JSON.parse(policiesJson!);
+        const policies = JSON.parse(policiesJson as string);
         expect(policies.enabled).toBe(true);
     });
 
@@ -334,7 +334,7 @@ describe("Autoscaler Configuration Tests", () => {
 
         expect(clusterId).toBe("prod-cluster-001");
 
-        const policies = JSON.parse(policiesJson!);
+        const policies = JSON.parse(policiesJson as string);
         expect(policies.enabled).toBe(true);
         expect(policies.nodeDownscaler.evictor.aggressiveMode).toBe(false);
         expect(policies.nodeDownscaler.evictor.nodeGracePeriodMinutes).toBe(15);

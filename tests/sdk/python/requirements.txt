@@ -7,7 +7,8 @@ pytest-xdist>=3.3.0  # Parallel test execution
 
 # Pulumi SDKs (required for testing)
 pulumi>=3.0.0,<4.0.0
-pulumi-castai>=0.1.0
+# Use local SDK for testing (editable install)
+-e ../../../sdk/python/
 
 # Optional: Cloud provider SDKs for more complete tests
 # Uncomment if testing with actual cloud resources
