@@ -134,6 +134,25 @@ cd tests/sdk/go && go test
 
 **Important:** Tests are in `tests/` (not `sdk/`) to protect them from SDK regeneration, which runs `rm -rf sdk/*`.
 
+**⚠️ CRITICAL - Python Virtual Environment:**
+**ALWAYS activate the Python venv before running ANY Python commands** (pip, pytest, python, build commands, etc.):
+```bash
+source venv/bin/activate  # or just 'source venv'
+```
+The venv is located at the repository root. Not activating it causes:
+- Module import errors
+- Wrong Python version
+- Dependencies not found
+- Test failures
+
+**When to activate:**
+- Before running SDK tests
+- Before building Python SDK
+- Before running release scripts that involve Python
+- At the start of any Python-related task
+
+This is easy to forget but **critical** - add it to your mental checklist for ANY Python operation!
+
 ### Version Updates and Releases
 
 **Update Version:**
@@ -236,6 +255,8 @@ Components are high-level abstractions that simplify common workflows:
 Components are **not** published separately; they live in this repo and examples reference them locally via relative paths (e.g., `file:../../../components/eks-cluster/typescript`).
 
 ## Common Development Tasks
+
+**⚠️ FIRST STEP for ANY Python work:** `source venv/bin/activate`
 
 ### Making Schema Changes
 
