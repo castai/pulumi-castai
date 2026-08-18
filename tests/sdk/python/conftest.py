@@ -5,6 +5,7 @@ This file is automatically loaded by pytest and provides shared
 test configuration and fixtures.
 """
 
+import asyncio
 import pytest
 import pulumi
 
@@ -49,7 +50,7 @@ class CastAIMocks(pulumi.runtime.Mocks):
                 "id": f"{args.name}-autoscaler-id-{hash(args.name) % 1000}",
             })
 
-        elif args.typ == "castai:nodeconfig:NodeConfiguration":
+        elif args.typ == "castai:config/node:NodeConfiguration":
             outputs.update({
                 "id": f"{args.name}-nodeconfig-id-{hash(args.name) % 1000}",
             })
@@ -148,6 +149,14 @@ def setup_mocks():
     This fixture runs once per test session and enables mocking
     for all Pulumi resource operations.
     """
+    # Python 3.12+ deprecated implicit event loop creation on the main
+    # thread. Pulumi's resource registration relies on an asyncio event
+    # loop being available, so explicitly create and set one before
+    # installing the mocks.
+    try:
+        asyncio.get_event_loop()
+    except RuntimeError:
+        asyncio.set_event_loop(asyncio.new_event_loop())
     pulumi.runtime.set_mocks(CastAIMocks())
     yield
 

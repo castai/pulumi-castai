@@ -72,4 +72,5 @@ gcp-credentials.json
 !sdk/nodejs/
 !sdk/python/
 
-google-cloud-sdk/
+.kimchi/
+google-cloud-sdk/.kimchi/

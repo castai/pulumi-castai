@@ -43,9 +43,9 @@ Set these environment variables before running the example:
 
 ```bash
 export CASTAI_API_TOKEN="your-castai-api-token"
-export EKS_CLUSTER_NAME="lk-pulumi-10-26"
+export EKS_CLUSTER_NAME="your-eks-cluster-name"
 export AWS_REGION="us-east-1"
-export AWS_ACCOUNT_ID="148761655444"
+export AWS_ACCOUNT_ID="123456789012"
 ```
 
 Or use the provided `.env` file in the project root:

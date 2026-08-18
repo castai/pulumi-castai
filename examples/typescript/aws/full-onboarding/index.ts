@@ -269,7 +269,7 @@ const autoscaler = new castai.Autoscaler("autoscaler", {
 // - diskCpuRatio: GiB per CPU ratio
 // - drainTimeoutSec: Node drain timeout
 //
-// See: /Users/leonkuperman/LKDev/CAST/pulumi-castai/sdk/nodejs/config/nodeConfiguration.d.ts
+// See: sdk/nodejs/config/nodeConfiguration.d.ts
 */
 
 // ============================================================================

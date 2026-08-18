@@ -20,7 +20,7 @@ class GkeIamMocks implements pulumi.runtime.Mocks {
         const outputs = { ...args.inputs };
 
         // Mock ComponentResource (the GkeIamResources itself)
-        if (args.type === "castai:gke:GkeIamResources") {
+        if (args.type === "castai:index:GkeIamResources") {
             return {
                 id: `${args.name}`,
                 state: outputs,
@@ -351,6 +351,87 @@ describe("GkeIamResources Component", () => {
 
             const [email] = await promisifyAll(iamResources.serviceAccountEmail);
             expect(email).toBeDefined();
+        });
+    });
+
+    describe("Impersonation fallback", () => {
+        it("should still issue a JSON service-account key when useImpersonation is true", async () => {
+            const iamResources = new GkeIamResources("test-iam-impersonation", {
+                clusterName: "impersonation-cluster",
+                projectId: "impersonation-project",
+                location: "us-central1",
+                clusterId: "cluster-imp-123",
+                useImpersonation: true,
+            });
+
+            // Fallback: GKE does not support the upstream CAST AI impersonation
+            // data source, so a JSON key is still produced.
+            expect(iamResources.serviceAccountKey).toBeDefined();
+            const [keyJson] = await promisifyAll(iamResources.serviceAccountKey);
+            expect(keyJson).toBeDefined();
+            expect(() => JSON.parse(keyJson)).not.toThrow();
+            expect(JSON.parse(keyJson).type).toBe("service_account");
+
+            const isKeySecret = await pulumi.isSecret(iamResources.serviceAccountKey);
+            expect(isKeySecret).toBe(true);
+        });
+    });
+
+    describe("Key rotation", () => {
+        it("should append a numeric rotation suffix to the key resource name when keyRotationDays is set", async () => {
+            const iamResources = new GkeIamResources("test-iam-rotation", {
+                clusterName: "rotation-cluster",
+                projectId: "rotation-project",
+                location: "us-central1",
+                clusterId: "cluster-rot-123",
+                keyRotationDays: 30,
+            });
+
+            expect(iamResources.serviceAccountKeyName).toBeDefined();
+            expect(iamResources.serviceAccountKeyName).toBeInstanceOf(pulumi.Output);
+
+            const [keyName] = await promisifyAll(iamResources.serviceAccountKeyName);
+            expect(typeof keyName).toBe("string");
+            expect(keyName).toMatch(/-key-\d+$/);
+
+            const match = keyName.match(/-key-(\d+)$/);
+            expect(match).not.toBeNull();
+            const suffix = parseInt(match![1], 10);
+            expect(Number.isFinite(suffix)).toBe(true);
+            expect(suffix).toBeGreaterThan(0);
+
+            const expectedSuffix = Math.floor(Date.now() / (30 * 24 * 60 * 60 * 1000));
+            expect([expectedSuffix - 1, expectedSuffix, expectedSuffix + 1]).toContain(suffix);
+        });
+
+        it("should use the un-suffixed key resource name when keyRotationDays is omitted", async () => {
+            const iamResources = new GkeIamResources("test-iam-no-rotation", {
+                clusterName: "no-rotation-cluster",
+                projectId: "no-rotation-project",
+                location: "us-central1",
+                clusterId: "cluster-norot-123",
+            });
+
+            expect(iamResources.serviceAccountKeyName).toBeDefined();
+
+            const [keyName] = await promisifyAll(iamResources.serviceAccountKeyName);
+            expect(keyName).toMatch(/-key$/);
+            expect(keyName).not.toMatch(/-key-\d+$/);
+        });
+
+        it("should still issue a usable service-account key when rotation is enabled", async () => {
+            const iamResources = new GkeIamResources("test-iam-rotation-key", {
+                clusterName: "rotation-key-cluster",
+                projectId: "rotation-key-project",
+                location: "us-central1",
+                clusterId: "cluster-rotkey-123",
+                keyRotationDays: 7,
+            });
+
+            const [keyJson] = await promisifyAll(iamResources.serviceAccountKey);
+            expect(keyJson).toBeDefined();
+            expect(() => JSON.parse(keyJson)).not.toThrow();
+            expect(JSON.parse(keyJson).type).toBe("service_account");
         });
     });
 });
