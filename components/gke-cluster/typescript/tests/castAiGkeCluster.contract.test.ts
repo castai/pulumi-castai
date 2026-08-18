@@ -157,8 +157,11 @@ class GkeClusterMocks implements pulumi.runtime.Mocks {
             };
         }
 
-        // Mock Kubernetes Provider
-        if (args.type === "pulumi:providers:kubernetes") {
+        // Mock Kubernetes Provider. Accept both the v3 token
+        // (`pulumi:providers:kubernetes`) and the v4 token
+        // (`kubernetes:providers:kubernetes`) so the mock works regardless of
+        // which @pulumi/kubernetes version is in use.
+        if (args.type === "pulumi:providers:kubernetes" || args.type === "kubernetes:providers:kubernetes") {
             GkeClusterMocks.k8sProviders.push(args);
             return {
                 id: `${args.name}-k8s-provider`,
@@ -472,7 +475,9 @@ describe("CastAiGkeCluster - Public API Contract", () => {
             expect(cluster.helmReleaseArgs).toBeDefined();
             expect(cluster.helmReleaseArgs!.length).toBe(5);
             for (const args of cluster.helmReleaseArgs!) {
-                expect(args.version).toBe("1.2.3");
+                // helmChartVersion is now an Output<string|undefined>; resolve it.
+                const v = await promisify(args.version as pulumi.Output<string | undefined>);
+                expect(v).toBe("1.2.3");
             }
         });
 
@@ -490,7 +495,9 @@ describe("CastAiGkeCluster - Public API Contract", () => {
             expect(cluster.helmReleaseArgs).toBeDefined();
             expect(cluster.helmReleaseArgs!.length).toBeGreaterThan(0);
             for (const args of cluster.helmReleaseArgs!) {
-                expect(args.version).toBeUndefined();
+                // helmChartVersion is now an Output<string|undefined>; resolve it.
+                const v = await promisify(args.version as pulumi.Output<string | undefined>);
+                expect(v).toBeUndefined();
             }
         });
 
@@ -758,6 +765,52 @@ describe("CastAiGkeCluster - Public API Contract", () => {
             expect(cluster.k8sProviderArgs!.deleteUnreachable).toBe(true);
         });
 
+        it("should expose clusterIdentifier and deleteUnreachable only in the public k8sProviderArgs output (not on the Provider)", async () => {
+            // Fix #6: the k8s.Provider should only receive `kubeconfig`. The
+            // contextual fields `clusterIdentifier` and `deleteUnreachable` are
+            // surfaced in the public `k8sProviderArgs` output for inspection
+            // but are NOT forwarded to the Provider itself.
+            GkeClusterMocks.reset();
+            const cluster = new CastAiGkeCluster("kubeconfig-inputs-clean", {
+                clusterName: "kubeconfig-inputs-clean-cluster",
+                location: "us-central1",
+                projectId: "test-project",
+                apiToken: "mock-token",
+                subnets: ["default"],
+                networkTags: ["tag"],
+            });
+
+            await promisify(cluster.clusterId);
+
+            // The public output retains the contextual fields for inspection.
+            expect(cluster.k8sProviderArgs).toBeDefined();
+            expect(cluster.k8sProviderArgs!.clusterIdentifier).toBe(cluster.clusterId);
+            expect(cluster.k8sProviderArgs!.deleteUnreachable).toBe(true);
+            expect(cluster.k8sProviderArgs!.kubeconfig).toBeDefined();
+
+            // The k8s.Provider's `newResource` mock callback is dispatched
+            // only after something pulls on the Provider, which in the
+            // component happens when the first Helm Release that depends on
+            // it is registered. Awaiting `cluster.clusterId` does NOT
+            // transitively trigger that; we must resolve one of the Helm
+            // release args to force the k8s.Provider mock callback to run.
+            await promisify(cluster.k8sProviderArgs!.kubeconfig);
+            // Wait for the cluster ID AND enough microtask drains to let the
+            // mock monitor register the k8s.Provider before inspecting the
+            // tracking array.
+            await new Promise<void>(resolve => setImmediate(resolve));
+            await new Promise<void>(resolve => setImmediate(resolve));
+
+            // The Provider itself must only receive `kubeconfig` — the
+            // contextual fields live on the public output only.
+            const k8sProvider = GkeClusterMocks.k8sProviders[0];
+            expect(k8sProvider).toBeDefined();
+            expect(k8sProvider.inputs).toBeDefined();
+            expect((k8sProvider.inputs as any).clusterIdentifier).toBeUndefined();
+            expect((k8sProvider.inputs as any).deleteUnreachable).toBeUndefined();
+            expect((k8sProvider.inputs as any).kubeconfig).toBeDefined();
+        });
+
         it("should use default nodeDiskType=pd-standard when not provided", async () => {
             const cluster = new CastAiGkeCluster("default-disk-type", {
                 clusterName: "default-disk-cluster",
@@ -928,6 +981,47 @@ describe("CastAiGkeCluster - Public API Contract", () => {
             // Default format is `${name}-key` with no trailing numeric suffix.
             expect(keyName).toMatch(/-key$/);
             expect(keyName).not.toMatch(/-key-\d+$/);
+        });
+
+        it("should flow an explicit rotationBoundary from CastAiGkeClusterArgs to the service-account key resource name", async () => {
+            const cluster = new CastAiGkeCluster("test-rotation-boundary", {
+                clusterName: "rotation-boundary-cluster",
+                location: "us-central1",
+                projectId: "test-project",
+                apiToken: "mock-token",
+                subnets: ["default"],
+                networkTags: ["tag"],
+                rotationBoundary: 42,
+            });
+
+            expect(cluster.serviceAccountKeyName).toBeDefined();
+
+            const [keyName] = await promisifyAll(cluster.serviceAccountKeyName!);
+            // The explicit rotationBoundary must be embedded verbatim and
+            // must override any wall-clock-derived boundary from keyRotationDays.
+            expect(typeof keyName).toBe("string");
+            expect(keyName).toMatch(/-key-42$/);
+        });
+
+        it("should let an explicit rotationBoundary override keyRotationDays", async () => {
+            const cluster = new CastAiGkeCluster("test-rotation-boundary-overrides", {
+                clusterName: "rotation-boundary-overrides-cluster",
+                location: "us-central1",
+                projectId: "test-project",
+                apiToken: "mock-token",
+                subnets: ["default"],
+                networkTags: ["tag"],
+                keyRotationDays: 30,
+                rotationBoundary: 7,
+            });
+
+            const [keyName] = await promisifyAll(cluster.serviceAccountKeyName!);
+            expect(keyName).toMatch(/-key-7$/);
+
+            const match = keyName.match(/-key-(\d+)$/);
+            expect(match).not.toBeNull();
+            const suffix = parseInt(match![1], 10);
+            expect(suffix).toBe(7);
         });
     });
 });

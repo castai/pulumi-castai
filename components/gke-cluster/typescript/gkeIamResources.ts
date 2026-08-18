@@ -11,6 +11,30 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as gcp from "@pulumi/gcp";
 
+/**
+ * Sanitize a cluster name into a token that is safe to embed in identifiers
+ * that must obey GCP naming rules.
+ *
+ * Behavior:
+ *   - lowercases the input,
+ *   - replaces every character outside `[a-z0-9]` with `_`,
+ *   - collapses runs of consecutive `_` into a single `_`,
+ *   - strips any leading/trailing characters that are not lowercase letters
+ *     or digits so the result can be safely prefixed/suffixed.
+ *
+ * This matches the sanitization used to derive the GCP service-account ID
+ * (`castai-gke-<sanitized>`) and is reused for the custom IAM role IDs so
+ * that the same cluster name produces deterministic, well-formed identifiers
+ * across all three resources.
+ */
+function sanitizeClusterName(clusterName: string): string {
+    return clusterName
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "_")
+        .replace(/_+/g, "_")
+        .replace(/^[^a-z]+|[^a-z0-9]+$/g, "");
+}
+
 export interface GkeIamArgs {
     /**
      * GKE cluster name
@@ -37,6 +61,10 @@ export interface GkeIamArgs {
      * because the upstream impersonation data source only supports AKS. When
      * set to `true`, the component emits a runtime `pulumi.log.warn` and
      * falls back to issuing a GCP JSON service-account key.
+     *
+     * NOTE: `useImpersonation` must be known at component construction time
+     * because it is inspected synchronously to decide whether to emit the
+     * runtime warning. It is not a `pulumi.Input<boolean>`.
      */
     useImpersonation?: boolean;
 
@@ -47,8 +75,30 @@ export interface GkeIamArgs {
      * The rotation suffix is derived from the current wall-clock boundary
      * (`floor(Date.now() / (keyRotationDays * 24h))`), so the key will be
      * replaced when the boundary advances even if no other input changes.
+     *
+     * NOTE: `keyRotationDays` must be known at component construction time
+     * because the rotation suffix is computed synchronously at instantiation
+     * to decide whether to embed it in the key resource name. It is not a
+     * `pulumi.Input<number>`.
      */
     keyRotationDays?: number;
+
+    /**
+     * Explicit rotation boundary index used to derive the service-account key
+     * resource name. When provided, the key resource name embeds this value
+     * verbatim (e.g. `${name}-key-${rotationBoundary}`) so callers can pin the
+     * rotation cycle to a deterministic schedule independent of the wall-clock
+     * time at which the component is instantiated.
+     *
+     * When omitted, the component falls back to
+     * `floor(Date.now() / (keyRotationDays * 24h))` (provided `keyRotationDays`
+     * is set) so that rotation happens whenever the wall-clock boundary
+     * advances.
+     *
+     * NOTE: `rotationBoundary` is a plain number, not a `pulumi.Input<number>`;
+     * it must be known at component construction time.
+     */
+    rotationBoundary?: number;
 }
 
 export class GkeIamResources extends pulumi.ComponentResource {
@@ -58,10 +108,10 @@ export class GkeIamResources extends pulumi.ComponentResource {
 
     constructor(name: string, args: GkeIamArgs, opts?: pulumi.ComponentResourceOptions) {
         super("castai:index:GkeIamResources", name, {}, {
-            aliases: [{ type: "castai:gke:GkeIamResources" }],
-            additionalSecretOutputs: ["serviceAccountKey"],
             ...opts,
-        } as pulumi.ComponentResourceOptions);
+            aliases: [...(opts?.aliases ?? []), { type: "castai:gke:GkeIamResources" }],
+            additionalSecretOutputs: [...((opts as pulumi.CustomResourceOptions | undefined)?.additionalSecretOutputs ?? []), "serviceAccountKey"],
+        } as pulumi.CustomResourceOptions);
 
         const componentOpts = { parent: this };
 
@@ -119,9 +169,22 @@ export class GkeIamResources extends pulumi.ComponentResource {
         // Custom IAM Role: CAST AI Cluster Role
         // =================================================================
 
-        const clusterRoleId = clusterNameOutput.apply(clusterName =>
-            `castai_gke_${clusterName}_cluster`.replace(/-/g, "_").substring(0, 64)
-        );
+        const clusterRoleId = clusterNameOutput.apply(clusterName => {
+            // GCP custom role IDs allow `[a-zA-Z0-9_.]` and must be <= 64 chars.
+            // We reuse the same lowercase sanitization applied to `accountId`
+            // so the role ID is derived consistently from the cluster name and
+            // any uppercase letters, dashes or other invalid characters in the
+            // cluster name are collapsed to `_` before trimming.
+            const sanitized = sanitizeClusterName(clusterName);
+            let id = `castai_gke_${sanitized}_cluster`;
+            if (id.length > 64) {
+                id = id.substring(0, 64);
+            }
+            // Strip trailing `_` so the result still ends on an alphanumeric
+            // boundary if truncation lands between separators.
+            id = id.replace(/_+$/, "");
+            return id;
+        });
         const clusterRoleTitle = pulumi.interpolate`CAST AI GKE ${args.clusterName} Cluster Role`;
 
         const clusterRole = new gcp.projects.IAMCustomRole(`${name}-cluster-role`, {
@@ -150,9 +213,18 @@ export class GkeIamResources extends pulumi.ComponentResource {
         // CAST AI manages nodes via Instance Group Managers and Instance Templates,
         // not through container.nodePools.* permissions
 
-        const computeRoleId = clusterNameOutput.apply(clusterName =>
-            `castai_gke_${clusterName}_compute`.replace(/-/g, "_").substring(0, 64)
-        );
+        const computeRoleId = clusterNameOutput.apply(clusterName => {
+            // Same GCP custom-role sanitization as `clusterRoleId`: lowercase,
+            // collapse invalid characters to `_`, trim to 64 chars, strip any
+            // trailing separators.
+            const sanitized = sanitizeClusterName(clusterName);
+            let id = `castai_gke_${sanitized}_compute`;
+            if (id.length > 64) {
+                id = id.substring(0, 64);
+            }
+            id = id.replace(/_+$/, "");
+            return id;
+        });
         const computeRoleTitle = pulumi.interpolate`CAST AI GKE ${args.clusterName} Compute Role`;
 
         const computeRole = new gcp.projects.IAMCustomRole(`${name}-compute-role`, {
@@ -260,18 +332,30 @@ export class GkeIamResources extends pulumi.ComponentResource {
             );
         }
 
-        // Key rotation: when enabled, derive a rotation boundary from the current
-        // wall-clock time and embed it in the resource name so Pulumi replaces
-        // the key once the boundary advances (i.e. roughly every keyRotationDays
-        // days). The rotation suffix is computed as
-        // `floor(Date.now() / (keyRotationDays * 24h))`, so the key resource
-        // will be replaced when the boundary advances even if no other input
-        // changes (for example, every keyRotationDays days). This means a
-        // `pulumi up` run after the boundary has passed will destroy and
-        // recreate the key.
-        const rotationSuffix = args.keyRotationDays && args.keyRotationDays > 0
-            ? Math.floor(Date.now() / (args.keyRotationDays * 24 * 60 * 60 * 1000)).toString()
-            : undefined;
+        // Key rotation: derive a rotation boundary and embed it in the resource
+        // name so Pulumi replaces the key when the boundary advances. The
+        // rotation suffix is resolved in this priority order:
+        //
+        //   1. `args.rotationBoundary` — explicit caller-provided boundary
+        //      index. When set, this value is used verbatim and any
+        //      `keyRotationDays` value is ignored for the purpose of computing
+        //      the suffix. Callers use this to pin rotation to a deterministic
+        //      schedule independent of the wall-clock time at instantiation.
+        //
+        //   2. `args.keyRotationDays` — derive the boundary index from the
+        //      current wall-clock time using
+        //      `floor(Date.now() / (keyRotationDays * 24h))`. The key is then
+        //      replaced whenever that boundary advances, i.e. roughly every
+        //      `keyRotationDays` days. This means a `pulumi up` run after the
+        //      boundary has passed will destroy and recreate the key.
+        //
+        //   3. Neither — no rotation suffix is appended.
+        let rotationSuffix: string | undefined;
+        if (typeof args.rotationBoundary === "number" && Number.isFinite(args.rotationBoundary)) {
+            rotationSuffix = args.rotationBoundary.toString();
+        } else if (args.keyRotationDays && args.keyRotationDays > 0) {
+            rotationSuffix = Math.floor(Date.now() / (args.keyRotationDays * 24 * 60 * 60 * 1000)).toString();
+        }
         const keyResourceName = rotationSuffix !== undefined
             ? `${name}-key-${rotationSuffix}`
             : `${name}-key`;

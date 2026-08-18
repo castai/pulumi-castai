@@ -16,6 +16,15 @@ import { promisify, promisifyAll } from "./test-utils";
  * Mock implementation for GCP resources used in GkeIamResources
  */
 class GkeIamMocks implements pulumi.runtime.Mocks {
+    public static iamCustomRoles: pulumi.runtime.MockResourceArgs[] = [];
+    public static serviceAccountKeys: pulumi.runtime.MockResourceArgs[] = [];
+    public static serviceAccounts: pulumi.runtime.MockResourceArgs[] = [];
+
+    public static reset(): void {
+        GkeIamMocks.iamCustomRoles = [];
+        GkeIamMocks.serviceAccountKeys = [];
+        GkeIamMocks.serviceAccounts = [];
+    }
     newResource(args: pulumi.runtime.MockResourceArgs): { id: string; state: any } {
         const outputs = { ...args.inputs };
 
@@ -31,6 +40,7 @@ class GkeIamMocks implements pulumi.runtime.Mocks {
         if (args.type === "gcp:serviceaccount/account:Account") {
             const project = args.inputs.project || "test-project";
             const accountId = args.inputs.accountId || "castai";
+            GkeIamMocks.serviceAccounts.push(args);
             return {
                 id: `projects/${project}/serviceAccounts/${accountId}@${project}.iam.gserviceaccount.com`,
                 state: {
@@ -47,6 +57,7 @@ class GkeIamMocks implements pulumi.runtime.Mocks {
         if (args.type === "gcp:projects/iAMCustomRole:IAMCustomRole") {
             const roleId = args.inputs.roleId || "custom_role";
             const project = args.inputs.project || "test-project";
+            GkeIamMocks.iamCustomRoles.push(args);
             return {
                 id: `projects/${project}/roles/${roleId}`,
                 state: {
@@ -82,6 +93,7 @@ class GkeIamMocks implements pulumi.runtime.Mocks {
                 auth_uri: "https://accounts.google.com/o/oauth2/auth",
                 token_uri: "https://oauth2.googleapis.com/token",
             };
+            GkeIamMocks.serviceAccountKeys.push(args);
             return {
                 id: `projects/test-project/serviceAccounts/castai@test-project.iam.gserviceaccount.com/keys/${this.hash(args.name)}`,
                 state: {
@@ -125,6 +137,10 @@ class GkeIamMocks implements pulumi.runtime.Mocks {
 
 // Set up mocks
 pulumi.runtime.setMocks(new GkeIamMocks());
+
+beforeEach(() => {
+    GkeIamMocks.reset();
+});
 
 describe("GkeIamResources Component", () => {
     describe("Service Account Creation", () => {
@@ -354,6 +370,98 @@ describe("GkeIamResources Component", () => {
         });
     });
 
+    describe("Custom IAM role ID sanitization", () => {
+        beforeEach(() => {
+            GkeIamMocks.reset();
+        });
+
+        it("should sanitize uppercase letters in the cluster name for clusterRoleId and computeRoleId", async () => {
+            GkeIamMocks.reset();
+            const iamResources = new GkeIamResources("test-uppercase", {
+                clusterName: "MyCluster",
+                projectId: "test-project",
+                location: "us-central1",
+                clusterId: "cluster-id",
+            });
+
+            // Drive the mock monitor so all Outputs (including roleId) resolve.
+            await promisifyAll(iamResources.serviceAccountEmail);
+
+            // Both cluster- and compute-role IDs must replace uppercase letters
+            // with `_` and obey the GCP custom-role regex `[a-zA-Z0-9_.]{1,64}`.
+            const clusterRole = GkeIamMocks.iamCustomRoles.find(r =>
+                r.name === "test-uppercase-cluster-role");
+            const computeRole = GkeIamMocks.iamCustomRoles.find(r =>
+                r.name === "test-uppercase-compute-role");
+
+            expect(clusterRole).toBeDefined();
+            expect(computeRole).toBeDefined();
+
+            const clusterRoleId = clusterRole!.inputs.roleId as string;
+            const computeRoleId = computeRole!.inputs.roleId as string;
+
+            expect(clusterRoleId).toBe("castai_gke_mycluster_cluster");
+            expect(computeRoleId).toBe("castai_gke_mycluster_compute");
+            expect(clusterRoleId).toMatch(/^[a-zA-Z0-9_.]{1,64}$/);
+            expect(computeRoleId).toMatch(/^[a-zA-Z0-9_.]{1,64}$/);
+        });
+
+        it("should sanitize dashes and dots in cluster names for role IDs", async () => {
+            GkeIamMocks.reset();
+            const iamResources = new GkeIamResources("test-special", {
+                clusterName: "Cluster.With-Dashes",
+                projectId: "test-project",
+                location: "us-central1",
+                clusterId: "cluster-id",
+            });
+
+            await promisifyAll(iamResources.serviceAccountEmail);
+
+            const clusterRole = GkeIamMocks.iamCustomRoles.find(r =>
+                r.name === "test-special-cluster-role");
+            const computeRole = GkeIamMocks.iamCustomRoles.find(r =>
+                r.name === "test-special-compute-role");
+
+            const clusterRoleId = clusterRole!.inputs.roleId as string;
+            const computeRoleId = computeRole!.inputs.roleId as string;
+
+            // `.` and `-` must be replaced with `_`, runs must be collapsed.
+            expect(clusterRoleId).toBe("castai_gke_cluster_with_dashes_cluster");
+            expect(computeRoleId).toBe("castai_gke_cluster_with_dashes_compute");
+            expect(clusterRoleId).toMatch(/^[a-zA-Z0-9_.]{1,64}$/);
+            expect(computeRoleId).toMatch(/^[a-zA-Z0-9_.]{1,64}$/);
+        });
+
+        it("should trim long role IDs to <= 64 characters without trailing separators", async () => {
+            GkeIamMocks.reset();
+            // 80-char sanitized cluster name; full IDs are way over 64 chars.
+            const longName = "a".repeat(80);
+            const iamResources = new GkeIamResources("test-long", {
+                clusterName: longName,
+                projectId: "test-project",
+                location: "us-central1",
+                clusterId: "cluster-id",
+            });
+
+            await promisifyAll(iamResources.serviceAccountEmail);
+
+            const clusterRole = GkeIamMocks.iamCustomRoles.find(r =>
+                r.name === "test-long-cluster-role");
+            const computeRole = GkeIamMocks.iamCustomRoles.find(r =>
+                r.name === "test-long-compute-role");
+
+            const clusterRoleId = clusterRole!.inputs.roleId as string;
+            const computeRoleId = computeRole!.inputs.roleId as string;
+
+            expect(clusterRoleId.length).toBeLessThanOrEqual(64);
+            expect(computeRoleId.length).toBeLessThanOrEqual(64);
+            // No trailing separators (would otherwise violate GCP's regex on
+            // older versions and is at minimum ugly).
+            expect(clusterRoleId).not.toMatch(/_$/);
+            expect(computeRoleId).not.toMatch(/_$/);
+        });
+    });
+
     describe("Impersonation fallback", () => {
         it("should still issue a JSON service-account key when useImpersonation is true", async () => {
             const iamResources = new GkeIamResources("test-iam-impersonation", {
@@ -432,6 +540,73 @@ describe("GkeIamResources Component", () => {
             expect(keyJson).toBeDefined();
             expect(() => JSON.parse(keyJson)).not.toThrow();
             expect(JSON.parse(keyJson).type).toBe("service_account");
+        });
+
+        it("should use the explicit rotationBoundary verbatim when provided", async () => {
+            const iamResources = new GkeIamResources("test-iam-explicit-boundary", {
+                clusterName: "explicit-boundary-cluster",
+                projectId: "explicit-boundary-project",
+                location: "us-central1",
+                clusterId: "cluster-explicit-123",
+                rotationBoundary: 42,
+            });
+
+            const [keyName] = await promisifyAll(iamResources.serviceAccountKeyName!);
+            expect(keyName).toMatch(/-key-42$/);
+        });
+
+        it("should ignore keyRotationDays for the suffix when rotationBoundary is provided", async () => {
+            // When rotationBoundary is set, the wall-clock-derived suffix must
+            // NOT be used; the explicit boundary must win.
+            const iamResources = new GkeIamResources("test-iam-boundary-overrides", {
+                clusterName: "boundary-overrides-cluster",
+                projectId: "boundary-overrides-project",
+                location: "us-central1",
+                clusterId: "cluster-boundary-override-123",
+                keyRotationDays: 30,
+                rotationBoundary: 7,
+            });
+
+            const [keyName] = await promisifyAll(iamResources.serviceAccountKeyName!);
+            expect(keyName).toMatch(/-key-7$/);
+            // Make sure the wall-clock suffix for `30 * 24h` boundaries is not
+            // present (it would be a much larger integer).
+            const match = keyName.match(/-key-(\d+)$/);
+            expect(match).not.toBeNull();
+            const suffix = parseInt(match![1], 10);
+            expect(suffix).toBe(7);
+        });
+
+        it("should omit the rotation suffix when neither rotationBoundary nor keyRotationDays is provided", async () => {
+            const iamResources = new GkeIamResources("test-iam-no-boundary", {
+                clusterName: "no-boundary-cluster",
+                projectId: "no-boundary-project",
+                location: "us-central1",
+                clusterId: "cluster-noboundary-123",
+                // neither rotationBoundary nor keyRotationDays provided
+            });
+
+            const [keyName] = await promisifyAll(iamResources.serviceAccountKeyName!);
+            expect(keyName).toMatch(/-key$/);
+            expect(keyName).not.toMatch(/-key-\d+$/);
+        });
+
+        it("should fall back to wall-clock boundary when rotationBoundary is undefined and keyRotationDays is set", async () => {
+            const iamResources = new GkeIamResources("test-iam-fallback-clock", {
+                clusterName: "fallback-clock-cluster",
+                projectId: "fallback-clock-project",
+                location: "us-central1",
+                clusterId: "cluster-fbclock-123",
+                keyRotationDays: 30,
+                // rotationBoundary intentionally omitted
+            });
+
+            const [keyName] = await promisifyAll(iamResources.serviceAccountKeyName!);
+            const match = keyName.match(/-key-(\d+)$/);
+            expect(match).not.toBeNull();
+            const suffix = parseInt(match![1], 10);
+            const expectedSuffix = Math.floor(Date.now() / (30 * 24 * 60 * 60 * 1000));
+            expect([expectedSuffix - 1, expectedSuffix, expectedSuffix + 1]).toContain(suffix);
         });
     });
 });

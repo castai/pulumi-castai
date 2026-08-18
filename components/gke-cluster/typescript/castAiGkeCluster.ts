@@ -125,6 +125,13 @@ export interface CastAiGkeClusterArgs {
      * boundary in the key resource name, forcing Pulumi to replace it.
      */
     keyRotationDays?: number;
+
+    /**
+     * Optional explicit rotation boundary for the GCP service-account key.
+     * When set, takes precedence over the wall-clock boundary computed from
+     * keyRotationDays. Must be known at component construction time.
+     */
+    rotationBoundary?: number;
 }
 
 export class CastAiGkeCluster extends pulumi.ComponentResource {
@@ -150,15 +157,23 @@ export class CastAiGkeCluster extends pulumi.ComponentResource {
 
     constructor(name: string, args: CastAiGkeClusterArgs, opts?: pulumi.ComponentResourceOptions) {
         super("castai:index:CastAiGkeCluster", name, {}, {
-            aliases: [{ type: "castai:gke:CastAiGkeCluster" }],
-            additionalSecretOutputs: ["serviceAccountKey", "clusterToken"],
             ...opts,
-        } as pulumi.ComponentResourceOptions);
+            aliases: [...(opts?.aliases ?? []), { type: "castai:gke:CastAiGkeCluster" }],
+            additionalSecretOutputs: [...((opts as pulumi.CustomResourceOptions | undefined)?.additionalSecretOutputs ?? []), "serviceAccountKey", "clusterToken"],
+        } as pulumi.CustomResourceOptions);
 
         const componentOpts = { parent: this };
         const apiUrl = args.apiUrl;
         const readOnlyMode = args.readOnlyMode || false;
-        const helmChartVersion = args.helmChartVersion;
+        // Resolve `helmChartVersion` to a trimmed non-empty string or `undefined`.
+        // Checking truthiness on the raw `pulumi.Input<string>` wrapper is wrong
+        // because the wrapper is always truthy; we must look at the resolved value
+        // before deciding whether to pin a Helm chart version. The Output's apply
+        // callback collapses `undefined`, `""`, and whitespace-only strings into
+        // `undefined` so the downstream conditional behaves predictably.
+        const helmChartVersionOutput = pulumi.output(args.helmChartVersion).apply(v =>
+            v && v.trim() ? v.trim() : undefined
+        );
         const purgeOnDelete = args.purgeOnDelete ?? true;
 
         // `purgeOnDelete` is supported by the underlying helm provider but is
@@ -184,11 +199,14 @@ export class CastAiGkeCluster extends pulumi.ComponentResource {
 
         // Build Helm release args, omitting the version field when no explicit
         // chart version is supplied so the Helm provider pulls the latest chart.
+        // We assign the resolved `Output<string | undefined>` directly: when the
+        // apply callback resolves to `undefined`, Pulumi treats the property as
+        // unset (equivalent to omitting it). This avoids the previous bug where
+        // the bare `pulumi.Input<string>` wrapper was always truthy and would
+        // pin a Helm chart version even when the underlying value was empty.
         const buildHelmArgs = (args: Omit<ExtendedReleaseArgs, "version"> & { version?: pulumi.Input<string> }): ExtendedReleaseArgs => {
             const result: ExtendedReleaseArgs = { ...args };
-            if (helmChartVersion) {
-                result.version = helmChartVersion;
-            }
+            result.version = helmChartVersionOutput as pulumi.Input<string>;
             return result;
         };
 
@@ -249,17 +267,24 @@ export class CastAiGkeCluster extends pulumi.ComponentResource {
             deleteUnreachable: pulumi.Input<boolean>;
         } | undefined;
         const k8sProvider = args.k8sProvider || (() => {
-            const providerArgs: {
-                kubeconfig: pulumi.Output<string>;
-                clusterIdentifier: pulumi.Input<string>;
-                deleteUnreachable: pulumi.Input<boolean>;
-            } = {
+            // Inputs to k8s.Provider must only contain fields declared on
+            // `k8s.ProviderArgs`. `clusterIdentifier` and `deleteUnreachable`
+            // are surfaced in the public `k8sProviderArgs` for inspection but
+            // are intentionally NOT passed to the Provider to avoid type
+            // errors and unwanted side effects.
+            const providerInputs: k8s.ProviderArgs = {
                 kubeconfig: gkeCluster.apply(cluster => {
                     const context = pulumi.interpolate`gke_${args.projectId}_${args.location}_${args.clusterName}`;
                     const masterAuths = (cluster as any).masterAuths;
                     const caCert = Array.isArray(masterAuths) && masterAuths.length > 0
                         ? masterAuths[0].clusterCaCertificate
                         : (cluster as any).masterAuth?.clusterCaCertificate;
+
+                    if (!caCert) {
+                        throw new Error(
+                            `Unable to obtain cluster CA certificate for GKE cluster ${args.clusterName}.`
+                        );
+                    }
 
                     return pulumi.interpolate`apiVersion: v1
 kind: Config
@@ -285,11 +310,17 @@ users:
       interactiveMode: Never
 `;
                 }),
+            };
+            // The public output retains the contextual fields (cluster identifier
+            // and the deleteUnreachable flag) so users can inspect them, even
+            // though they are no longer passed to the Provider itself.
+            const providerArgs = {
+                kubeconfig: providerInputs.kubeconfig as pulumi.Output<string>,
                 clusterIdentifier: this.clusterId,
                 deleteUnreachable: true,
             };
             k8sProviderArgs = providerArgs;
-            return new k8s.Provider(`${name}-k8s`, providerArgs, componentOpts);
+            return new k8s.Provider(`${name}-k8s`, providerInputs, componentOpts);
         })();
         this.k8sProviderArgs = k8sProviderArgs;
 
@@ -300,7 +331,7 @@ users:
         helmReleaseArgs.push({
             name: "castai-agent",
             chart: "castai-agent",
-            version: helmChartVersion,
+            version: helmChartVersionOutput as pulumi.Input<string>,
             purgeOnDelete,
             values: {
                 provider: "gke",
@@ -346,6 +377,7 @@ users:
                 clusterId: this.clusterId,
                 useImpersonation: args.useImpersonation,
                 keyRotationDays: args.keyRotationDays,
+                rotationBoundary: args.rotationBoundary,
             }, componentOpts);
 
             this.serviceAccountEmail = iamResources.serviceAccountEmail;
@@ -398,7 +430,7 @@ users:
             helmReleaseArgs.push({
                 name: "cluster-controller",
                 chart: "castai-cluster-controller",
-                version: helmChartVersion,
+                version: helmChartVersionOutput as pulumi.Input<string>,
                 purgeOnDelete,
                 values: {
                     castai: {
@@ -437,7 +469,7 @@ users:
             helmReleaseArgs.push({
                 name: "castai-spot-handler",
                 chart: "castai-spot-handler",
-                version: helmChartVersion,
+                version: helmChartVersionOutput as pulumi.Input<string>,
                 purgeOnDelete,
                 values: {
                     castai: {
@@ -474,7 +506,7 @@ users:
             helmReleaseArgs.push({
                 name: "castai-evictor",
                 chart: "castai-evictor",
-                version: helmChartVersion,
+                version: helmChartVersionOutput as pulumi.Input<string>,
                 purgeOnDelete,
                 values: {
                     replicaCount: 0,
@@ -505,7 +537,7 @@ users:
             helmReleaseArgs.push({
                 name: "castai-pod-pinner",
                 chart: "castai-pod-pinner",
-                version: helmChartVersion,
+                version: helmChartVersionOutput as pulumi.Input<string>,
                 purgeOnDelete,
                 values: {
                     castai: {
