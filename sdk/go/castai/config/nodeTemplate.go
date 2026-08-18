@@ -14,7 +14,7 @@ import (
 type NodeTemplate struct {
 	pulumi.CustomResourceState
 
-	// Marks whether CLM should be enabled for nodes created from this template.
+	// Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
 	ClmEnabled pulumi.BoolPtrOutput `pulumi:"clmEnabled"`
 	// CAST AI cluster id.
 	ClusterId pulumi.StringPtrOutput `pulumi:"clusterId"`
@@ -29,14 +29,18 @@ type NodeTemplate struct {
 	CustomLabels pulumi.StringMapOutput `pulumi:"customLabels"`
 	// Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
 	CustomTaints NodeTemplateCustomTaintArrayOutput `pulumi:"customTaints"`
+	// List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+	EdgeLocationIds pulumi.StringArrayOutput `pulumi:"edgeLocationIds"`
 	// GPU configuration.
 	Gpu NodeTemplateGpuPtrOutput `pulumi:"gpu"`
-	// Flag whether the node template is default.
-	IsDefault pulumi.BoolPtrOutput `pulumi:"isDefault"`
+	// Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
+	IsDefault pulumi.BoolOutput `pulumi:"isDefault"`
 	// Flag whether the node template is enabled and considered for autoscaling.
 	IsEnabled pulumi.BoolOutput `pulumi:"isEnabled"`
 	// Name of the node template.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+	PriceAdjustmentConfiguration NodeTemplatePriceAdjustmentConfigurationPtrOutput `pulumi:"priceAdjustmentConfiguration"`
 	// Minimum nodes that will be kept when rebalancing nodes using this node template.
 	RebalancingConfigMinNodes pulumi.IntPtrOutput `pulumi:"rebalancingConfigMinNodes"`
 	// Marks whether the templated nodes will have a taint.
@@ -73,7 +77,7 @@ func GetNodeTemplate(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering NodeTemplate resources.
 type nodeTemplateState struct {
-	// Marks whether CLM should be enabled for nodes created from this template.
+	// Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
 	ClmEnabled *bool `pulumi:"clmEnabled"`
 	// CAST AI cluster id.
 	ClusterId *string `pulumi:"clusterId"`
@@ -88,14 +92,18 @@ type nodeTemplateState struct {
 	CustomLabels map[string]string `pulumi:"customLabels"`
 	// Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
 	CustomTaints []NodeTemplateCustomTaint `pulumi:"customTaints"`
+	// List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+	EdgeLocationIds []string `pulumi:"edgeLocationIds"`
 	// GPU configuration.
 	Gpu *NodeTemplateGpu `pulumi:"gpu"`
-	// Flag whether the node template is default.
+	// Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
 	IsDefault *bool `pulumi:"isDefault"`
 	// Flag whether the node template is enabled and considered for autoscaling.
 	IsEnabled *bool `pulumi:"isEnabled"`
 	// Name of the node template.
 	Name *string `pulumi:"name"`
+	// Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+	PriceAdjustmentConfiguration *NodeTemplatePriceAdjustmentConfiguration `pulumi:"priceAdjustmentConfiguration"`
 	// Minimum nodes that will be kept when rebalancing nodes using this node template.
 	RebalancingConfigMinNodes *int `pulumi:"rebalancingConfigMinNodes"`
 	// Marks whether the templated nodes will have a taint.
@@ -103,7 +111,7 @@ type nodeTemplateState struct {
 }
 
 type NodeTemplateState struct {
-	// Marks whether CLM should be enabled for nodes created from this template.
+	// Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
 	ClmEnabled pulumi.BoolPtrInput
 	// CAST AI cluster id.
 	ClusterId pulumi.StringPtrInput
@@ -118,14 +126,18 @@ type NodeTemplateState struct {
 	CustomLabels pulumi.StringMapInput
 	// Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
 	CustomTaints NodeTemplateCustomTaintArrayInput
+	// List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+	EdgeLocationIds pulumi.StringArrayInput
 	// GPU configuration.
 	Gpu NodeTemplateGpuPtrInput
-	// Flag whether the node template is default.
+	// Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
 	IsDefault pulumi.BoolPtrInput
 	// Flag whether the node template is enabled and considered for autoscaling.
 	IsEnabled pulumi.BoolPtrInput
 	// Name of the node template.
 	Name pulumi.StringPtrInput
+	// Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+	PriceAdjustmentConfiguration NodeTemplatePriceAdjustmentConfigurationPtrInput
 	// Minimum nodes that will be kept when rebalancing nodes using this node template.
 	RebalancingConfigMinNodes pulumi.IntPtrInput
 	// Marks whether the templated nodes will have a taint.
@@ -137,7 +149,7 @@ func (NodeTemplateState) ElementType() reflect.Type {
 }
 
 type nodeTemplateArgs struct {
-	// Marks whether CLM should be enabled for nodes created from this template.
+	// Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
 	ClmEnabled *bool `pulumi:"clmEnabled"`
 	// CAST AI cluster id.
 	ClusterId *string `pulumi:"clusterId"`
@@ -152,14 +164,18 @@ type nodeTemplateArgs struct {
 	CustomLabels map[string]string `pulumi:"customLabels"`
 	// Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
 	CustomTaints []NodeTemplateCustomTaint `pulumi:"customTaints"`
+	// List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+	EdgeLocationIds []string `pulumi:"edgeLocationIds"`
 	// GPU configuration.
 	Gpu *NodeTemplateGpu `pulumi:"gpu"`
-	// Flag whether the node template is default.
+	// Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
 	IsDefault *bool `pulumi:"isDefault"`
 	// Flag whether the node template is enabled and considered for autoscaling.
 	IsEnabled *bool `pulumi:"isEnabled"`
 	// Name of the node template.
 	Name *string `pulumi:"name"`
+	// Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+	PriceAdjustmentConfiguration *NodeTemplatePriceAdjustmentConfiguration `pulumi:"priceAdjustmentConfiguration"`
 	// Minimum nodes that will be kept when rebalancing nodes using this node template.
 	RebalancingConfigMinNodes *int `pulumi:"rebalancingConfigMinNodes"`
 	// Marks whether the templated nodes will have a taint.
@@ -168,7 +184,7 @@ type nodeTemplateArgs struct {
 
 // The set of arguments for constructing a NodeTemplate resource.
 type NodeTemplateArgs struct {
-	// Marks whether CLM should be enabled for nodes created from this template.
+	// Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
 	ClmEnabled pulumi.BoolPtrInput
 	// CAST AI cluster id.
 	ClusterId pulumi.StringPtrInput
@@ -183,14 +199,18 @@ type NodeTemplateArgs struct {
 	CustomLabels pulumi.StringMapInput
 	// Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
 	CustomTaints NodeTemplateCustomTaintArrayInput
+	// List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+	EdgeLocationIds pulumi.StringArrayInput
 	// GPU configuration.
 	Gpu NodeTemplateGpuPtrInput
-	// Flag whether the node template is default.
+	// Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
 	IsDefault pulumi.BoolPtrInput
 	// Flag whether the node template is enabled and considered for autoscaling.
 	IsEnabled pulumi.BoolPtrInput
 	// Name of the node template.
 	Name pulumi.StringPtrInput
+	// Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+	PriceAdjustmentConfiguration NodeTemplatePriceAdjustmentConfigurationPtrInput
 	// Minimum nodes that will be kept when rebalancing nodes using this node template.
 	RebalancingConfigMinNodes pulumi.IntPtrInput
 	// Marks whether the templated nodes will have a taint.
@@ -284,7 +304,7 @@ func (o NodeTemplateOutput) ToNodeTemplateOutputWithContext(ctx context.Context)
 	return o
 }
 
-// Marks whether CLM should be enabled for nodes created from this template.
+// Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
 func (o NodeTemplateOutput) ClmEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *NodeTemplate) pulumi.BoolPtrOutput { return v.ClmEnabled }).(pulumi.BoolPtrOutput)
 }
@@ -323,14 +343,19 @@ func (o NodeTemplateOutput) CustomTaints() NodeTemplateCustomTaintArrayOutput {
 	return o.ApplyT(func(v *NodeTemplate) NodeTemplateCustomTaintArrayOutput { return v.CustomTaints }).(NodeTemplateCustomTaintArrayOutput)
 }
 
+// List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+func (o NodeTemplateOutput) EdgeLocationIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NodeTemplate) pulumi.StringArrayOutput { return v.EdgeLocationIds }).(pulumi.StringArrayOutput)
+}
+
 // GPU configuration.
 func (o NodeTemplateOutput) Gpu() NodeTemplateGpuPtrOutput {
 	return o.ApplyT(func(v *NodeTemplate) NodeTemplateGpuPtrOutput { return v.Gpu }).(NodeTemplateGpuPtrOutput)
 }
 
-// Flag whether the node template is default.
-func (o NodeTemplateOutput) IsDefault() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *NodeTemplate) pulumi.BoolPtrOutput { return v.IsDefault }).(pulumi.BoolPtrOutput)
+// Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
+func (o NodeTemplateOutput) IsDefault() pulumi.BoolOutput {
+	return o.ApplyT(func(v *NodeTemplate) pulumi.BoolOutput { return v.IsDefault }).(pulumi.BoolOutput)
 }
 
 // Flag whether the node template is enabled and considered for autoscaling.
@@ -341,6 +366,13 @@ func (o NodeTemplateOutput) IsEnabled() pulumi.BoolOutput {
 // Name of the node template.
 func (o NodeTemplateOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *NodeTemplate) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+func (o NodeTemplateOutput) PriceAdjustmentConfiguration() NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return o.ApplyT(func(v *NodeTemplate) NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+		return v.PriceAdjustmentConfiguration
+	}).(NodeTemplatePriceAdjustmentConfigurationPtrOutput)
 }
 
 // Minimum nodes that will be kept when rebalancing nodes using this node template.

@@ -15,6 +15,26 @@ else:
 from . import _utilities
 
 __all__ = [
+    'AiOptimizerHostedModelFallbackArgs',
+    'AiOptimizerHostedModelFallbackArgsDict',
+    'AiOptimizerHostedModelHibernationArgs',
+    'AiOptimizerHostedModelHibernationArgsDict',
+    'AiOptimizerHostedModelHibernationHibernateConditionArgs',
+    'AiOptimizerHostedModelHibernationHibernateConditionArgsDict',
+    'AiOptimizerHostedModelHibernationResumeConditionArgs',
+    'AiOptimizerHostedModelHibernationResumeConditionArgsDict',
+    'AiOptimizerHostedModelHorizontalAutoscalingArgs',
+    'AiOptimizerHostedModelHorizontalAutoscalingArgsDict',
+    'AiOptimizerHostedModelVllmConfigArgs',
+    'AiOptimizerHostedModelVllmConfigArgsDict',
+    'AiOptimizerModelRegistryGcsArgs',
+    'AiOptimizerModelRegistryGcsArgsDict',
+    'AiOptimizerModelRegistryS3Args',
+    'AiOptimizerModelRegistryS3ArgsDict',
+    'AiOptimizerModelSpecsHuggingfaceArgs',
+    'AiOptimizerModelSpecsHuggingfaceArgsDict',
+    'AiOptimizerModelSpecsPrivateRegistryArgs',
+    'AiOptimizerModelSpecsPrivateRegistryArgsDict',
     'CommitmentsAzureReservationArgs',
     'CommitmentsAzureReservationArgsDict',
     'CommitmentsAzureReservationAssignmentArgs',
@@ -29,79 +49,687 @@ __all__ = [
     'CommitmentsGcpCudArgsDict',
     'CommitmentsGcpCudAssignmentArgs',
     'CommitmentsGcpCudAssignmentArgsDict',
+    'PodMutationAffinityArgs',
+    'PodMutationAffinityArgsDict',
+    'PodMutationAffinityNodeAffinityArgs',
+    'PodMutationAffinityNodeAffinityArgsDict',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgsDict',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgsDict',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgsDict',
+    'PodMutationDistributionGroupArgs',
+    'PodMutationDistributionGroupArgsDict',
+    'PodMutationDistributionGroupConfigurationArgs',
+    'PodMutationDistributionGroupConfigurationArgsDict',
+    'PodMutationDistributionGroupConfigurationAffinityArgs',
+    'PodMutationDistributionGroupConfigurationAffinityArgsDict',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgsDict',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgsDict',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgsDict',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgsDict',
+    'PodMutationDistributionGroupConfigurationNodeSelectorArgs',
+    'PodMutationDistributionGroupConfigurationNodeSelectorArgsDict',
+    'PodMutationDistributionGroupConfigurationTolerationArgs',
+    'PodMutationDistributionGroupConfigurationTolerationArgsDict',
+    'PodMutationFilterV2Args',
+    'PodMutationFilterV2ArgsDict',
+    'PodMutationFilterV2PodArgs',
+    'PodMutationFilterV2PodArgsDict',
+    'PodMutationFilterV2PodExcludeLabelsFilterArgs',
+    'PodMutationFilterV2PodExcludeLabelsFilterArgsDict',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcherArgsDict',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgsDict',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgsDict',
+    'PodMutationFilterV2PodLabelsFilterArgs',
+    'PodMutationFilterV2PodLabelsFilterArgsDict',
+    'PodMutationFilterV2PodLabelsFilterMatcherArgs',
+    'PodMutationFilterV2PodLabelsFilterMatcherArgsDict',
+    'PodMutationFilterV2PodLabelsFilterMatcherKeyArgs',
+    'PodMutationFilterV2PodLabelsFilterMatcherKeyArgsDict',
+    'PodMutationFilterV2PodLabelsFilterMatcherValueArgs',
+    'PodMutationFilterV2PodLabelsFilterMatcherValueArgsDict',
+    'PodMutationFilterV2PodTolerationsFilterArgs',
+    'PodMutationFilterV2PodTolerationsFilterArgsDict',
+    'PodMutationFilterV2PodTolerationsFilterMatcherArgs',
+    'PodMutationFilterV2PodTolerationsFilterMatcherArgsDict',
+    'PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs',
+    'PodMutationFilterV2PodTolerationsFilterMatcherKeyArgsDict',
+    'PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs',
+    'PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgsDict',
+    'PodMutationFilterV2PodTolerationsFilterMatcherValueArgs',
+    'PodMutationFilterV2PodTolerationsFilterMatcherValueArgsDict',
+    'PodMutationFilterV2WorkloadArgs',
+    'PodMutationFilterV2WorkloadArgsDict',
+    'PodMutationFilterV2WorkloadExcludeKindArgs',
+    'PodMutationFilterV2WorkloadExcludeKindArgsDict',
+    'PodMutationFilterV2WorkloadExcludeNameArgs',
+    'PodMutationFilterV2WorkloadExcludeNameArgsDict',
+    'PodMutationFilterV2WorkloadExcludeNamespaceArgs',
+    'PodMutationFilterV2WorkloadExcludeNamespaceArgsDict',
+    'PodMutationFilterV2WorkloadKindArgs',
+    'PodMutationFilterV2WorkloadKindArgsDict',
+    'PodMutationFilterV2WorkloadNameArgs',
+    'PodMutationFilterV2WorkloadNameArgsDict',
+    'PodMutationFilterV2WorkloadNamespaceArgs',
+    'PodMutationFilterV2WorkloadNamespaceArgsDict',
+    'PodMutationNodeSelectorArgs',
+    'PodMutationNodeSelectorArgsDict',
+    'PodMutationPodEvictionArgs',
+    'PodMutationPodEvictionArgsDict',
+    'PodMutationSpotConfigArgs',
+    'PodMutationSpotConfigArgsDict',
+    'PodMutationTolerationArgs',
+    'PodMutationTolerationArgsDict',
     'ReservationsReservationArgs',
     'ReservationsReservationArgsDict',
 ]
 
-MYPY = False
+class AiOptimizerHostedModelFallbackArgsDict(TypedDict):
+    enabled: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    model: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    provider_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
 
-if not MYPY:
-    class CommitmentsAzureReservationArgsDict(TypedDict):
-        count: pulumi.Input[_builtins.int]
+@pulumi.input_type
+class AiOptimizerHostedModelFallbackArgs:
+    def __init__(__self__, *,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 model: pulumi.Input[Optional[_builtins.str]] = None,
+                 provider_id: pulumi.Input[Optional[_builtins.str]] = None):
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if model is not None:
+            pulumi.set(__self__, "model", model)
+        if provider_id is not None:
+            pulumi.set(__self__, "provider_id", provider_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def model(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "model")
+
+    @model.setter
+    def model(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "model", value)
+
+    @_builtins.property
+    @pulumi.getter(name="providerId")
+    def provider_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "provider_id")
+
+    @provider_id.setter
+    def provider_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "provider_id", value)
+
+
+class AiOptimizerHostedModelHibernationArgsDict(TypedDict):
+    hibernate_condition: pulumi.Input['AiOptimizerHostedModelHibernationHibernateConditionArgsDict']
+    resume_condition: pulumi.Input['AiOptimizerHostedModelHibernationResumeConditionArgsDict']
+    enabled: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+
+@pulumi.input_type
+class AiOptimizerHostedModelHibernationArgs:
+    def __init__(__self__, *,
+                 hibernate_condition: pulumi.Input['AiOptimizerHostedModelHibernationHibernateConditionArgs'],
+                 resume_condition: pulumi.Input['AiOptimizerHostedModelHibernationResumeConditionArgs'],
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None):
+        pulumi.set(__self__, "hibernate_condition", hibernate_condition)
+        pulumi.set(__self__, "resume_condition", resume_condition)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="hibernateCondition")
+    def hibernate_condition(self) -> pulumi.Input['AiOptimizerHostedModelHibernationHibernateConditionArgs']:
+        return pulumi.get(self, "hibernate_condition")
+
+    @hibernate_condition.setter
+    def hibernate_condition(self, value: pulumi.Input['AiOptimizerHostedModelHibernationHibernateConditionArgs']):
+        pulumi.set(self, "hibernate_condition", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resumeCondition")
+    def resume_condition(self) -> pulumi.Input['AiOptimizerHostedModelHibernationResumeConditionArgs']:
+        return pulumi.get(self, "resume_condition")
+
+    @resume_condition.setter
+    def resume_condition(self, value: pulumi.Input['AiOptimizerHostedModelHibernationResumeConditionArgs']):
+        pulumi.set(self, "resume_condition", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+class AiOptimizerHostedModelHibernationHibernateConditionArgsDict(TypedDict):
+    duration: pulumi.Input[_builtins.str]
+    """
+    Time period for the condition evaluation.
+    """
+    request_count: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Request count threshold. Value of 0 is treated as not set.
+    """
+
+@pulumi.input_type
+class AiOptimizerHostedModelHibernationHibernateConditionArgs:
+    def __init__(__self__, *,
+                 duration: pulumi.Input[_builtins.str],
+                 request_count: pulumi.Input[Optional[_builtins.int]] = None):
         """
-        Number of instances covered by the reservation.
+        :param pulumi.Input[_builtins.str] duration: Time period for the condition evaluation.
+        :param pulumi.Input[_builtins.int] request_count: Request count threshold. Value of 0 is treated as not set.
         """
-        end_timestamp: pulumi.Input[_builtins.str]
+        pulumi.set(__self__, "duration", duration)
+        if request_count is not None:
+            pulumi.set(__self__, "request_count", request_count)
+
+    @_builtins.property
+    @pulumi.getter
+    def duration(self) -> pulumi.Input[_builtins.str]:
         """
-        End timestamp of the CUD.
+        Time period for the condition evaluation.
         """
-        instance_type: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "duration")
+
+    @duration.setter
+    def duration(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "duration", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requestCount")
+    def request_count(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Type of the instance covered by the reservation.
+        Request count threshold. Value of 0 is treated as not set.
         """
-        name: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "request_count")
+
+    @request_count.setter
+    def request_count(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "request_count", value)
+
+
+class AiOptimizerHostedModelHibernationResumeConditionArgsDict(TypedDict):
+    duration: pulumi.Input[_builtins.str]
+    """
+    Time period for the condition evaluation.
+    """
+    request_count: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Request count threshold. Value of 0 is treated as not set.
+    """
+
+@pulumi.input_type
+class AiOptimizerHostedModelHibernationResumeConditionArgs:
+    def __init__(__self__, *,
+                 duration: pulumi.Input[_builtins.str],
+                 request_count: pulumi.Input[Optional[_builtins.int]] = None):
         """
-        Name of the CUD.
+        :param pulumi.Input[_builtins.str] duration: Time period for the condition evaluation.
+        :param pulumi.Input[_builtins.int] request_count: Request count threshold. Value of 0 is treated as not set.
         """
-        plan: pulumi.Input[_builtins.str]
+        pulumi.set(__self__, "duration", duration)
+        if request_count is not None:
+            pulumi.set(__self__, "request_count", request_count)
+
+    @_builtins.property
+    @pulumi.getter
+    def duration(self) -> pulumi.Input[_builtins.str]:
         """
-        Plan of the reservation.
+        Time period for the condition evaluation.
         """
-        region: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "duration")
+
+    @duration.setter
+    def duration(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "duration", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requestCount")
+    def request_count(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Region in which the CUD is available.
+        Request count threshold. Value of 0 is treated as not set.
         """
-        reservation_id: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "request_count")
+
+    @request_count.setter
+    def request_count(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "request_count", value)
+
+
+class AiOptimizerHostedModelHorizontalAutoscalingArgsDict(TypedDict):
+    max_replicas: pulumi.Input[_builtins.int]
+    min_replicas: pulumi.Input[_builtins.int]
+    target_metric: pulumi.Input[_builtins.str]
+    target_value: pulumi.Input[_builtins.float]
+    enabled: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+
+@pulumi.input_type
+class AiOptimizerHostedModelHorizontalAutoscalingArgs:
+    def __init__(__self__, *,
+                 max_replicas: pulumi.Input[_builtins.int],
+                 min_replicas: pulumi.Input[_builtins.int],
+                 target_metric: pulumi.Input[_builtins.str],
+                 target_value: pulumi.Input[_builtins.float],
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None):
+        pulumi.set(__self__, "max_replicas", max_replicas)
+        pulumi.set(__self__, "min_replicas", min_replicas)
+        pulumi.set(__self__, "target_metric", target_metric)
+        pulumi.set(__self__, "target_value", target_value)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="maxReplicas")
+    def max_replicas(self) -> pulumi.Input[_builtins.int]:
+        return pulumi.get(self, "max_replicas")
+
+    @max_replicas.setter
+    def max_replicas(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "max_replicas", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minReplicas")
+    def min_replicas(self) -> pulumi.Input[_builtins.int]:
+        return pulumi.get(self, "min_replicas")
+
+    @min_replicas.setter
+    def min_replicas(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "min_replicas", value)
+
+    @_builtins.property
+    @pulumi.getter(name="targetMetric")
+    def target_metric(self) -> pulumi.Input[_builtins.str]:
+        return pulumi.get(self, "target_metric")
+
+    @target_metric.setter
+    def target_metric(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "target_metric", value)
+
+    @_builtins.property
+    @pulumi.getter(name="targetValue")
+    def target_value(self) -> pulumi.Input[_builtins.float]:
+        return pulumi.get(self, "target_value")
+
+    @target_value.setter
+    def target_value(self, value: pulumi.Input[_builtins.float]):
+        pulumi.set(self, "target_value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+class AiOptimizerHostedModelVllmConfigArgsDict(TypedDict):
+    hugging_face_token: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    HuggingFace token. Mutually exclusive with secret_name.
+    """
+    secret_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kubernetes secret name containing the HuggingFace token.
+    """
+
+@pulumi.input_type
+class AiOptimizerHostedModelVllmConfigArgs:
+    def __init__(__self__, *,
+                 hugging_face_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 secret_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        ID of the reservation in Azure.
+        :param pulumi.Input[_builtins.str] hugging_face_token: HuggingFace token. Mutually exclusive with secret_name.
+        :param pulumi.Input[_builtins.str] secret_name: Kubernetes secret name containing the HuggingFace token.
         """
-        reservation_status: pulumi.Input[_builtins.str]
+        if hugging_face_token is not None:
+            pulumi.set(__self__, "hugging_face_token", hugging_face_token)
+        if secret_name is not None:
+            pulumi.set(__self__, "secret_name", secret_name)
+
+    @_builtins.property
+    @pulumi.getter(name="huggingFaceToken")
+    def hugging_face_token(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Status of the reservation in Azure.
+        HuggingFace token. Mutually exclusive with secret_name.
         """
-        scope: pulumi.Input[_builtins.str]
-        scope_resource_group: pulumi.Input[_builtins.str]
-        scope_subscription: pulumi.Input[_builtins.str]
-        start_timestamp: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "hugging_face_token")
+
+    @hugging_face_token.setter
+    def hugging_face_token(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "hugging_face_token", value)
+
+    @_builtins.property
+    @pulumi.getter(name="secretName")
+    def secret_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Start timestamp of the CUD.
+        Kubernetes secret name containing the HuggingFace token.
         """
-        allowed_usage: NotRequired[pulumi.Input[_builtins.float]]
+        return pulumi.get(self, "secret_name")
+
+    @secret_name.setter
+    def secret_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "secret_name", value)
+
+
+class AiOptimizerModelRegistryGcsArgsDict(TypedDict):
+    bucket: pulumi.Input[_builtins.str]
+    """
+    GCS bucket name.
+    """
+    prefix: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Path prefix within the bucket.
+    """
+    service_account: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Service account email generated by onboarding.
+    """
+
+@pulumi.input_type
+class AiOptimizerModelRegistryGcsArgs:
+    def __init__(__self__, *,
+                 bucket: pulumi.Input[_builtins.str],
+                 prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 service_account: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
+        :param pulumi.Input[_builtins.str] bucket: GCS bucket name.
+        :param pulumi.Input[_builtins.str] prefix: Path prefix within the bucket.
+        :param pulumi.Input[_builtins.str] service_account: Service account email generated by onboarding.
         """
-        assignments: NotRequired[pulumi.Input[Sequence[pulumi.Input['CommitmentsAzureReservationAssignmentArgsDict']]]]
+        pulumi.set(__self__, "bucket", bucket)
+        if prefix is not None:
+            pulumi.set(__self__, "prefix", prefix)
+        if service_account is not None:
+            pulumi.set(__self__, "service_account", service_account)
+
+    @_builtins.property
+    @pulumi.getter
+    def bucket(self) -> pulumi.Input[_builtins.str]:
         """
-        List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
+        GCS bucket name.
         """
-        id: NotRequired[pulumi.Input[_builtins.str]]
+        return pulumi.get(self, "bucket")
+
+    @bucket.setter
+    def bucket(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "bucket", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def prefix(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        ID of the commitment in CAST AI.
+        Path prefix within the bucket.
         """
-        prioritization: NotRequired[pulumi.Input[_builtins.bool]]
+        return pulumi.get(self, "prefix")
+
+    @prefix.setter
+    def prefix(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "prefix", value)
+
+    @_builtins.property
+    @pulumi.getter(name="serviceAccount")
+    def service_account(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        If enabled, it's possible to assign priorities to the assigned clusters.
+        Service account email generated by onboarding.
         """
-        scaling_strategy: NotRequired[pulumi.Input[_builtins.str]]
+        return pulumi.get(self, "service_account")
+
+    @service_account.setter
+    def service_account(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "service_account", value)
+
+
+class AiOptimizerModelRegistryS3ArgsDict(TypedDict):
+    bucket: pulumi.Input[_builtins.str]
+    """
+    S3 bucket name.
+    """
+    region: pulumi.Input[_builtins.str]
+    """
+    AWS region of the S3 bucket.
+    """
+    prefix: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Path prefix within the bucket.
+    """
+    user_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    IAM user name created by onboarding.
+    """
+
+@pulumi.input_type
+class AiOptimizerModelRegistryS3Args:
+    def __init__(__self__, *,
+                 bucket: pulumi.Input[_builtins.str],
+                 region: pulumi.Input[_builtins.str],
+                 prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
+        :param pulumi.Input[_builtins.str] bucket: S3 bucket name.
+        :param pulumi.Input[_builtins.str] region: AWS region of the S3 bucket.
+        :param pulumi.Input[_builtins.str] prefix: Path prefix within the bucket.
+        :param pulumi.Input[_builtins.str] user_name: IAM user name created by onboarding.
         """
-        status: NotRequired[pulumi.Input[_builtins.str]]
+        pulumi.set(__self__, "bucket", bucket)
+        pulumi.set(__self__, "region", region)
+        if prefix is not None:
+            pulumi.set(__self__, "prefix", prefix)
+        if user_name is not None:
+            pulumi.set(__self__, "user_name", user_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def bucket(self) -> pulumi.Input[_builtins.str]:
         """
-        Status of the commitment in CAST AI.
+        S3 bucket name.
         """
-elif False:
-    CommitmentsAzureReservationArgsDict: TypeAlias = Mapping[str, Any]
+        return pulumi.get(self, "bucket")
+
+    @bucket.setter
+    def bucket(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "bucket", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def region(self) -> pulumi.Input[_builtins.str]:
+        """
+        AWS region of the S3 bucket.
+        """
+        return pulumi.get(self, "region")
+
+    @region.setter
+    def region(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "region", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def prefix(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Path prefix within the bucket.
+        """
+        return pulumi.get(self, "prefix")
+
+    @prefix.setter
+    def prefix(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "prefix", value)
+
+    @_builtins.property
+    @pulumi.getter(name="userName")
+    def user_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        IAM user name created by onboarding.
+        """
+        return pulumi.get(self, "user_name")
+
+    @user_name.setter
+    def user_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "user_name", value)
+
+
+class AiOptimizerModelSpecsHuggingfaceArgsDict(TypedDict):
+    model_name: pulumi.Input[_builtins.str]
+    """
+    HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+    """
+
+@pulumi.input_type
+class AiOptimizerModelSpecsHuggingfaceArgs:
+    def __init__(__self__, *,
+                 model_name: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] model_name: HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+        """
+        pulumi.set(__self__, "model_name", model_name)
+
+    @_builtins.property
+    @pulumi.getter(name="modelName")
+    def model_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+        """
+        return pulumi.get(self, "model_name")
+
+    @model_name.setter
+    def model_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "model_name", value)
+
+
+class AiOptimizerModelSpecsPrivateRegistryArgsDict(TypedDict):
+    base_model_id: pulumi.Input[_builtins.str]
+    """
+    Base model identifier.
+    """
+    registry_id: pulumi.Input[_builtins.str]
+    """
+    ID of the AiOptimizerModelRegistry resource.
+    """
+
+@pulumi.input_type
+class AiOptimizerModelSpecsPrivateRegistryArgs:
+    def __init__(__self__, *,
+                 base_model_id: pulumi.Input[_builtins.str],
+                 registry_id: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] base_model_id: Base model identifier.
+        :param pulumi.Input[_builtins.str] registry_id: ID of the AiOptimizerModelRegistry resource.
+        """
+        pulumi.set(__self__, "base_model_id", base_model_id)
+        pulumi.set(__self__, "registry_id", registry_id)
+
+    @_builtins.property
+    @pulumi.getter(name="baseModelId")
+    def base_model_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        Base model identifier.
+        """
+        return pulumi.get(self, "base_model_id")
+
+    @base_model_id.setter
+    def base_model_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "base_model_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="registryId")
+    def registry_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        ID of the AiOptimizerModelRegistry resource.
+        """
+        return pulumi.get(self, "registry_id")
+
+    @registry_id.setter
+    def registry_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "registry_id", value)
+
+
+class CommitmentsAzureReservationArgsDict(TypedDict):
+    count: pulumi.Input[_builtins.int]
+    """
+    Number of instances covered by the reservation.
+    """
+    end_timestamp: pulumi.Input[_builtins.str]
+    """
+    End timestamp of the CUD.
+    """
+    instance_type: pulumi.Input[_builtins.str]
+    """
+    Type of the instance covered by the reservation.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name of the CUD.
+    """
+    plan: pulumi.Input[_builtins.str]
+    """
+    Plan of the reservation.
+    """
+    region: pulumi.Input[_builtins.str]
+    """
+    Region in which the CUD is available.
+    """
+    reservation_id: pulumi.Input[_builtins.str]
+    """
+    ID of the reservation in Azure.
+    """
+    reservation_status: pulumi.Input[_builtins.str]
+    """
+    Status of the reservation in Azure.
+    """
+    scope: pulumi.Input[_builtins.str]
+    scope_resource_group: pulumi.Input[_builtins.str]
+    scope_subscription: pulumi.Input[_builtins.str]
+    start_timestamp: pulumi.Input[_builtins.str]
+    """
+    Start timestamp of the CUD.
+    """
+    allowed_usage: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
+    """
+    assignments: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsAzureReservationAssignmentArgsDict']]]]]
+    """
+    List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
+    """
+    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ID of the commitment in CAST AI.
+    """
+    prioritization: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    If enabled, it's possible to assign priorities to the assigned clusters.
+    """
+    scaling_strategy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
+    """
+    status: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Status of the commitment in CAST AI.
+    """
 
 @pulumi.input_type
 class CommitmentsAzureReservationArgs:
@@ -118,12 +746,12 @@ class CommitmentsAzureReservationArgs:
                  scope_resource_group: pulumi.Input[_builtins.str],
                  scope_subscription: pulumi.Input[_builtins.str],
                  start_timestamp: pulumi.Input[_builtins.str],
-                 allowed_usage: Optional[pulumi.Input[_builtins.float]] = None,
-                 assignments: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsAzureReservationAssignmentArgs']]]] = None,
-                 id: Optional[pulumi.Input[_builtins.str]] = None,
-                 prioritization: Optional[pulumi.Input[_builtins.bool]] = None,
-                 scaling_strategy: Optional[pulumi.Input[_builtins.str]] = None,
-                 status: Optional[pulumi.Input[_builtins.str]] = None):
+                 allowed_usage: pulumi.Input[Optional[_builtins.float]] = None,
+                 assignments: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsAzureReservationAssignmentArgs']]]] = None,
+                 id: pulumi.Input[Optional[_builtins.str]] = None,
+                 prioritization: pulumi.Input[Optional[_builtins.bool]] = None,
+                 scaling_strategy: pulumi.Input[Optional[_builtins.str]] = None,
+                 status: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.int] count: Number of instances covered by the reservation.
         :param pulumi.Input[_builtins.str] end_timestamp: End timestamp of the CUD.
@@ -303,95 +931,92 @@ class CommitmentsAzureReservationArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowedUsage")
-    def allowed_usage(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def allowed_usage(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
         """
         return pulumi.get(self, "allowed_usage")
 
     @allowed_usage.setter
-    def allowed_usage(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def allowed_usage(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "allowed_usage", value)
 
     @_builtins.property
     @pulumi.getter
-    def assignments(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsAzureReservationAssignmentArgs']]]]:
+    def assignments(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsAzureReservationAssignmentArgs']]]]:
         """
         List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
         """
         return pulumi.get(self, "assignments")
 
     @assignments.setter
-    def assignments(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsAzureReservationAssignmentArgs']]]]):
+    def assignments(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsAzureReservationAssignmentArgs']]]]):
         pulumi.set(self, "assignments", value)
 
     @_builtins.property
     @pulumi.getter
-    def id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the commitment in CAST AI.
         """
         return pulumi.get(self, "id")
 
     @id.setter
-    def id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "id", value)
 
     @_builtins.property
     @pulumi.getter
-    def prioritization(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def prioritization(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If enabled, it's possible to assign priorities to the assigned clusters.
         """
         return pulumi.get(self, "prioritization")
 
     @prioritization.setter
-    def prioritization(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def prioritization(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "prioritization", value)
 
     @_builtins.property
     @pulumi.getter(name="scalingStrategy")
-    def scaling_strategy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def scaling_strategy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
         """
         return pulumi.get(self, "scaling_strategy")
 
     @scaling_strategy.setter
-    def scaling_strategy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def scaling_strategy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "scaling_strategy", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def status(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Status of the commitment in CAST AI.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def status(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class CommitmentsAzureReservationAssignmentArgsDict(TypedDict):
-        cluster_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        ID of the cluster to assign the commitment to.
-        """
-        priority: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
-        """
-elif False:
-    CommitmentsAzureReservationAssignmentArgsDict: TypeAlias = Mapping[str, Any]
+class CommitmentsAzureReservationAssignmentArgsDict(TypedDict):
+    cluster_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ID of the cluster to assign the commitment to.
+    """
+    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
+    """
 
 @pulumi.input_type
 class CommitmentsAzureReservationAssignmentArgs:
     def __init__(__self__, *,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 priority: Optional[pulumi.Input[_builtins.int]] = None):
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 priority: pulumi.Input[Optional[_builtins.int]] = None):
         """
         :param pulumi.Input[_builtins.str] cluster_id: ID of the cluster to assign the commitment to.
         :param pulumi.Input[_builtins.int] priority: Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
@@ -403,71 +1028,74 @@ class CommitmentsAzureReservationAssignmentArgs:
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the cluster to assign the commitment to.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def priority(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
         """
         return pulumi.get(self, "priority")
 
     @priority.setter
-    def priority(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "priority", value)
 
 
-if not MYPY:
-    class CommitmentsCommitmentConfigArgsDict(TypedDict):
-        matcher: pulumi.Input['CommitmentsCommitmentConfigMatcherArgsDict']
-        """
-        Matcher used to map config to a commitment.
-        """
-        allowed_usage: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
-        """
-        assignments: NotRequired[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgsDict']]]]
-        """
-        List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
-        """
-        prioritization: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        If enabled, it's possible to assign priorities to the assigned clusters.
-        """
-        scaling_strategy: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
-        """
-        status: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Status of the commitment in CAST AI.
-        """
-elif False:
-    CommitmentsCommitmentConfigArgsDict: TypeAlias = Mapping[str, Any]
+class CommitmentsCommitmentConfigArgsDict(TypedDict):
+    matcher: pulumi.Input['CommitmentsCommitmentConfigMatcherArgsDict']
+    """
+    Matcher used to map config to a commitment.
+    """
+    allowed_usage: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
+    """
+    assignments: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgsDict']]]]]
+    """
+    List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
+    """
+    auto_assignment: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    If enabled, the commitment is automatically assigned to all clusters in the matching region. When disabled, only explicitly listed cluster assignments are used.
+    """
+    prioritization: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    If enabled, it's possible to assign priorities to the assigned clusters.
+    """
+    scaling_strategy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
+    """
+    status: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Status of the commitment in CAST AI.
+    """
 
 @pulumi.input_type
 class CommitmentsCommitmentConfigArgs:
     def __init__(__self__, *,
                  matcher: pulumi.Input['CommitmentsCommitmentConfigMatcherArgs'],
-                 allowed_usage: Optional[pulumi.Input[_builtins.float]] = None,
-                 assignments: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgs']]]] = None,
-                 prioritization: Optional[pulumi.Input[_builtins.bool]] = None,
-                 scaling_strategy: Optional[pulumi.Input[_builtins.str]] = None,
-                 status: Optional[pulumi.Input[_builtins.str]] = None):
+                 allowed_usage: pulumi.Input[Optional[_builtins.float]] = None,
+                 assignments: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgs']]]] = None,
+                 auto_assignment: pulumi.Input[Optional[_builtins.bool]] = None,
+                 prioritization: pulumi.Input[Optional[_builtins.bool]] = None,
+                 scaling_strategy: pulumi.Input[Optional[_builtins.str]] = None,
+                 status: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input['CommitmentsCommitmentConfigMatcherArgs'] matcher: Matcher used to map config to a commitment.
         :param pulumi.Input[_builtins.float] allowed_usage: Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
         :param pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgs']]] assignments: List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
+        :param pulumi.Input[_builtins.bool] auto_assignment: If enabled, the commitment is automatically assigned to all clusters in the matching region. When disabled, only explicitly listed cluster assignments are used.
         :param pulumi.Input[_builtins.bool] prioritization: If enabled, it's possible to assign priorities to the assigned clusters.
         :param pulumi.Input[_builtins.str] scaling_strategy: Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
         :param pulumi.Input[_builtins.str] status: Status of the commitment in CAST AI.
@@ -477,6 +1105,8 @@ class CommitmentsCommitmentConfigArgs:
             pulumi.set(__self__, "allowed_usage", allowed_usage)
         if assignments is not None:
             pulumi.set(__self__, "assignments", assignments)
+        if auto_assignment is not None:
+            pulumi.set(__self__, "auto_assignment", auto_assignment)
         if prioritization is not None:
             pulumi.set(__self__, "prioritization", prioritization)
         if scaling_strategy is not None:
@@ -498,83 +1128,92 @@ class CommitmentsCommitmentConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowedUsage")
-    def allowed_usage(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def allowed_usage(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
         """
         return pulumi.get(self, "allowed_usage")
 
     @allowed_usage.setter
-    def allowed_usage(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def allowed_usage(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "allowed_usage", value)
 
     @_builtins.property
     @pulumi.getter
-    def assignments(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgs']]]]:
+    def assignments(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgs']]]]:
         """
         List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
         """
         return pulumi.get(self, "assignments")
 
     @assignments.setter
-    def assignments(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgs']]]]):
+    def assignments(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigAssignmentArgs']]]]):
         pulumi.set(self, "assignments", value)
 
     @_builtins.property
+    @pulumi.getter(name="autoAssignment")
+    def auto_assignment(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        If enabled, the commitment is automatically assigned to all clusters in the matching region. When disabled, only explicitly listed cluster assignments are used.
+        """
+        return pulumi.get(self, "auto_assignment")
+
+    @auto_assignment.setter
+    def auto_assignment(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "auto_assignment", value)
+
+    @_builtins.property
     @pulumi.getter
-    def prioritization(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def prioritization(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If enabled, it's possible to assign priorities to the assigned clusters.
         """
         return pulumi.get(self, "prioritization")
 
     @prioritization.setter
-    def prioritization(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def prioritization(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "prioritization", value)
 
     @_builtins.property
     @pulumi.getter(name="scalingStrategy")
-    def scaling_strategy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def scaling_strategy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
         """
         return pulumi.get(self, "scaling_strategy")
 
     @scaling_strategy.setter
-    def scaling_strategy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def scaling_strategy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "scaling_strategy", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def status(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Status of the commitment in CAST AI.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def status(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class CommitmentsCommitmentConfigAssignmentArgsDict(TypedDict):
-        cluster_id: pulumi.Input[_builtins.str]
-        """
-        ID of the cluster to assign the commitment to.
-        """
-        priority: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
-        """
-elif False:
-    CommitmentsCommitmentConfigAssignmentArgsDict: TypeAlias = Mapping[str, Any]
+class CommitmentsCommitmentConfigAssignmentArgsDict(TypedDict):
+    cluster_id: pulumi.Input[_builtins.str]
+    """
+    ID of the cluster to assign the commitment to.
+    """
+    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
+    """
 
 @pulumi.input_type
 class CommitmentsCommitmentConfigAssignmentArgs:
     def __init__(__self__, *,
                  cluster_id: pulumi.Input[_builtins.str],
-                 priority: Optional[pulumi.Input[_builtins.int]] = None):
+                 priority: pulumi.Input[Optional[_builtins.int]] = None):
         """
         :param pulumi.Input[_builtins.str] cluster_id: ID of the cluster to assign the commitment to.
         :param pulumi.Input[_builtins.int] priority: Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
@@ -597,40 +1236,37 @@ class CommitmentsCommitmentConfigAssignmentArgs:
 
     @_builtins.property
     @pulumi.getter
-    def priority(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
         """
         return pulumi.get(self, "priority")
 
     @priority.setter
-    def priority(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "priority", value)
 
 
-if not MYPY:
-    class CommitmentsCommitmentConfigMatcherArgsDict(TypedDict):
-        name: pulumi.Input[_builtins.str]
-        """
-        Name of the commitment to match.
-        """
-        region: pulumi.Input[_builtins.str]
-        """
-        Region of the commitment to match.
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Type of the commitment to match. For compute resources, it's the type of the machine.
-        """
-elif False:
-    CommitmentsCommitmentConfigMatcherArgsDict: TypeAlias = Mapping[str, Any]
+class CommitmentsCommitmentConfigMatcherArgsDict(TypedDict):
+    name: pulumi.Input[_builtins.str]
+    """
+    Name of the commitment to match.
+    """
+    region: pulumi.Input[_builtins.str]
+    """
+    Region of the commitment to match.
+    """
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Type of the commitment to match. For compute resources, it's the type of the machine.
+    """
 
 @pulumi.input_type
 class CommitmentsCommitmentConfigMatcherArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[_builtins.str],
                  region: pulumi.Input[_builtins.str],
-                 type: Optional[pulumi.Input[_builtins.str]] = None):
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] name: Name of the commitment to match.
         :param pulumi.Input[_builtins.str] region: Region of the commitment to match.
@@ -667,85 +1303,82 @@ class CommitmentsCommitmentConfigMatcherArgs:
 
     @_builtins.property
     @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Type of the commitment to match. For compute resources, it's the type of the machine.
         """
         return pulumi.get(self, "type")
 
     @type.setter
-    def type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class CommitmentsGcpCudArgsDict(TypedDict):
-        cpu: pulumi.Input[_builtins.int]
-        """
-        Number of CPUs covered by the CUD.
-        """
-        cud_id: pulumi.Input[_builtins.str]
-        """
-        ID of the CUD in GCP.
-        """
-        cud_status: pulumi.Input[_builtins.str]
-        """
-        Status of the CUD in GCP.
-        """
-        end_timestamp: pulumi.Input[_builtins.str]
-        """
-        End timestamp of the CUD.
-        """
-        memory_mb: pulumi.Input[_builtins.int]
-        """
-        Amount of memory in MB covered by the CUD.
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        Name of the CUD.
-        """
-        plan: pulumi.Input[_builtins.str]
-        """
-        CUD plan e.g. 'TWELVE_MONTH'.
-        """
-        region: pulumi.Input[_builtins.str]
-        """
-        Region in which the CUD is available.
-        """
-        start_timestamp: pulumi.Input[_builtins.str]
-        """
-        Start timestamp of the CUD.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        Type of the CUD, e.g. determines the covered resource type e.g. 'COMPUTE_OPTIMIZED_C2D'.
-        """
-        allowed_usage: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
-        """
-        assignments: NotRequired[pulumi.Input[Sequence[pulumi.Input['CommitmentsGcpCudAssignmentArgsDict']]]]
-        """
-        List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
-        """
-        id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        ID of the commitment in CAST AI.
-        """
-        prioritization: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        If enabled, it's possible to assign priorities to the assigned clusters.
-        """
-        scaling_strategy: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
-        """
-        status: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Status of the commitment in CAST AI.
-        """
-elif False:
-    CommitmentsGcpCudArgsDict: TypeAlias = Mapping[str, Any]
+class CommitmentsGcpCudArgsDict(TypedDict):
+    cpu: pulumi.Input[_builtins.int]
+    """
+    Number of CPUs covered by the CUD.
+    """
+    cud_id: pulumi.Input[_builtins.str]
+    """
+    ID of the CUD in GCP.
+    """
+    cud_status: pulumi.Input[_builtins.str]
+    """
+    Status of the CUD in GCP.
+    """
+    end_timestamp: pulumi.Input[_builtins.str]
+    """
+    End timestamp of the CUD.
+    """
+    memory_mb: pulumi.Input[_builtins.int]
+    """
+    Amount of memory in MB covered by the CUD.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name of the CUD.
+    """
+    plan: pulumi.Input[_builtins.str]
+    """
+    CUD plan e.g. 'TWELVE_MONTH'.
+    """
+    region: pulumi.Input[_builtins.str]
+    """
+    Region in which the CUD is available.
+    """
+    start_timestamp: pulumi.Input[_builtins.str]
+    """
+    Start timestamp of the CUD.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Type of the CUD, e.g. determines the covered resource type e.g. 'COMPUTE_OPTIMIZED_C2D'.
+    """
+    allowed_usage: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
+    """
+    assignments: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsGcpCudAssignmentArgsDict']]]]]
+    """
+    List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
+    """
+    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ID of the commitment in CAST AI.
+    """
+    prioritization: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    If enabled, it's possible to assign priorities to the assigned clusters.
+    """
+    scaling_strategy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
+    """
+    status: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Status of the commitment in CAST AI.
+    """
 
 @pulumi.input_type
 class CommitmentsGcpCudArgs:
@@ -760,12 +1393,12 @@ class CommitmentsGcpCudArgs:
                  region: pulumi.Input[_builtins.str],
                  start_timestamp: pulumi.Input[_builtins.str],
                  type: pulumi.Input[_builtins.str],
-                 allowed_usage: Optional[pulumi.Input[_builtins.float]] = None,
-                 assignments: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsGcpCudAssignmentArgs']]]] = None,
-                 id: Optional[pulumi.Input[_builtins.str]] = None,
-                 prioritization: Optional[pulumi.Input[_builtins.bool]] = None,
-                 scaling_strategy: Optional[pulumi.Input[_builtins.str]] = None,
-                 status: Optional[pulumi.Input[_builtins.str]] = None):
+                 allowed_usage: pulumi.Input[Optional[_builtins.float]] = None,
+                 assignments: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsGcpCudAssignmentArgs']]]] = None,
+                 id: pulumi.Input[Optional[_builtins.str]] = None,
+                 prioritization: pulumi.Input[Optional[_builtins.bool]] = None,
+                 scaling_strategy: pulumi.Input[Optional[_builtins.str]] = None,
+                 status: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.int] cpu: Number of CPUs covered by the CUD.
         :param pulumi.Input[_builtins.str] cud_id: ID of the CUD in GCP.
@@ -929,95 +1562,92 @@ class CommitmentsGcpCudArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowedUsage")
-    def allowed_usage(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def allowed_usage(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
         """
         return pulumi.get(self, "allowed_usage")
 
     @allowed_usage.setter
-    def allowed_usage(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def allowed_usage(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "allowed_usage", value)
 
     @_builtins.property
     @pulumi.getter
-    def assignments(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsGcpCudAssignmentArgs']]]]:
+    def assignments(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsGcpCudAssignmentArgs']]]]:
         """
         List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
         """
         return pulumi.get(self, "assignments")
 
     @assignments.setter
-    def assignments(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsGcpCudAssignmentArgs']]]]):
+    def assignments(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsGcpCudAssignmentArgs']]]]):
         pulumi.set(self, "assignments", value)
 
     @_builtins.property
     @pulumi.getter
-    def id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the commitment in CAST AI.
         """
         return pulumi.get(self, "id")
 
     @id.setter
-    def id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "id", value)
 
     @_builtins.property
     @pulumi.getter
-    def prioritization(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def prioritization(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If enabled, it's possible to assign priorities to the assigned clusters.
         """
         return pulumi.get(self, "prioritization")
 
     @prioritization.setter
-    def prioritization(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def prioritization(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "prioritization", value)
 
     @_builtins.property
     @pulumi.getter(name="scalingStrategy")
-    def scaling_strategy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def scaling_strategy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
         """
         return pulumi.get(self, "scaling_strategy")
 
     @scaling_strategy.setter
-    def scaling_strategy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def scaling_strategy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "scaling_strategy", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def status(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Status of the commitment in CAST AI.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def status(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class CommitmentsGcpCudAssignmentArgsDict(TypedDict):
-        cluster_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        ID of the cluster to assign the commitment to.
-        """
-        priority: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
-        """
-elif False:
-    CommitmentsGcpCudAssignmentArgsDict: TypeAlias = Mapping[str, Any]
+class CommitmentsGcpCudAssignmentArgsDict(TypedDict):
+    cluster_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ID of the cluster to assign the commitment to.
+    """
+    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
+    """
 
 @pulumi.input_type
 class CommitmentsGcpCudAssignmentArgs:
     def __init__(__self__, *,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 priority: Optional[pulumi.Input[_builtins.int]] = None):
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 priority: pulumi.Input[Optional[_builtins.int]] = None):
         """
         :param pulumi.Input[_builtins.str] cluster_id: ID of the cluster to assign the commitment to.
         :param pulumi.Input[_builtins.int] priority: Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
@@ -1029,73 +1659,1976 @@ class CommitmentsGcpCudAssignmentArgs:
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the cluster to assign the commitment to.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def priority(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
         """
         return pulumi.get(self, "priority")
 
     @priority.setter
-    def priority(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "priority", value)
 
 
-if not MYPY:
-    class ReservationsReservationArgsDict(TypedDict):
-        count: pulumi.Input[_builtins.str]
+class PodMutationAffinityArgsDict(TypedDict):
+    node_affinity: NotRequired[pulumi.Input[Optional['PodMutationAffinityNodeAffinityArgsDict']]]
+
+@pulumi.input_type
+class PodMutationAffinityArgs:
+    def __init__(__self__, *,
+                 node_affinity: pulumi.Input[Optional['PodMutationAffinityNodeAffinityArgs']] = None):
+        if node_affinity is not None:
+            pulumi.set(__self__, "node_affinity", node_affinity)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAffinity")
+    def node_affinity(self) -> pulumi.Input[Optional['PodMutationAffinityNodeAffinityArgs']]:
+        return pulumi.get(self, "node_affinity")
+
+    @node_affinity.setter
+    def node_affinity(self, value: pulumi.Input[Optional['PodMutationAffinityNodeAffinityArgs']]):
+        pulumi.set(self, "node_affinity", value)
+
+
+class PodMutationAffinityNodeAffinityArgsDict(TypedDict):
+    preferred_during_scheduling_ignored_during_executions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgsDict']]]]]
+
+@pulumi.input_type
+class PodMutationAffinityNodeAffinityArgs:
+    def __init__(__self__, *,
+                 preferred_during_scheduling_ignored_during_executions: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs']]]] = None):
+        if preferred_during_scheduling_ignored_during_executions is not None:
+            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_executions", preferred_during_scheduling_ignored_during_executions)
+
+    @_builtins.property
+    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecutions")
+    def preferred_during_scheduling_ignored_during_executions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs']]]]:
+        return pulumi.get(self, "preferred_during_scheduling_ignored_during_executions")
+
+    @preferred_during_scheduling_ignored_during_executions.setter
+    def preferred_during_scheduling_ignored_during_executions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs']]]]):
+        pulumi.set(self, "preferred_during_scheduling_ignored_during_executions", value)
+
+
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgsDict(TypedDict):
+    preference: pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgsDict']
+    weight: pulumi.Input[_builtins.int]
+    """
+    Weight of the node affinity term.
+    """
+
+@pulumi.input_type
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs:
+    def __init__(__self__, *,
+                 preference: pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs'],
+                 weight: pulumi.Input[_builtins.int]):
         """
-        amount of reserved instances
+        :param pulumi.Input[_builtins.int] weight: Weight of the node affinity term.
         """
-        instance_type: pulumi.Input[_builtins.str]
+        pulumi.set(__self__, "preference", preference)
+        pulumi.set(__self__, "weight", weight)
+
+    @_builtins.property
+    @pulumi.getter
+    def preference(self) -> pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs']:
+        return pulumi.get(self, "preference")
+
+    @preference.setter
+    def preference(self, value: pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs']):
+        pulumi.set(self, "preference", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def weight(self) -> pulumi.Input[_builtins.int]:
         """
-        reserved instance type
+        Weight of the node affinity term.
         """
-        name: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "weight")
+
+    @weight.setter
+    def weight(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "weight", value)
+
+
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgsDict(TypedDict):
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgsDict']]]]]
+
+@pulumi.input_type
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs:
+    def __init__(__self__, *,
+                 match_expressions: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs']]]] = None):
+        if match_expressions is not None:
+            pulumi.set(__self__, "match_expressions", match_expressions)
+
+    @_builtins.property
+    @pulumi.getter(name="matchExpressions")
+    def match_expressions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs']]]]:
+        return pulumi.get(self, "match_expressions")
+
+    @match_expressions.setter
+    def match_expressions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs']]]]):
+        pulumi.set(self, "match_expressions", value)
+
+
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgsDict(TypedDict):
+    key: pulumi.Input[_builtins.str]
+    operator: pulumi.Input[_builtins.str]
+    values: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+
+@pulumi.input_type
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input[_builtins.str],
+                 operator: pulumi.Input[_builtins.str],
+                 values: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "operator", operator)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[_builtins.str]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[_builtins.str]:
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "operator", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "values", value)
+
+
+class PodMutationDistributionGroupArgsDict(TypedDict):
+    configuration: pulumi.Input['PodMutationDistributionGroupConfigurationArgsDict']
+    name: pulumi.Input[_builtins.str]
+    """
+    Unique name for this distribution group.
+    """
+    percentage: pulumi.Input[_builtins.int]
+    """
+    Percentage of pods (0-100) that should receive this configuration.
+    """
+
+@pulumi.input_type
+class PodMutationDistributionGroupArgs:
+    def __init__(__self__, *,
+                 configuration: pulumi.Input['PodMutationDistributionGroupConfigurationArgs'],
+                 name: pulumi.Input[_builtins.str],
+                 percentage: pulumi.Input[_builtins.int]):
         """
-        unique reservation name in region for specific instance type
+        :param pulumi.Input[_builtins.str] name: Unique name for this distribution group.
+        :param pulumi.Input[_builtins.int] percentage: Percentage of pods (0-100) that should receive this configuration.
         """
-        price: pulumi.Input[_builtins.str]
+        pulumi.set(__self__, "configuration", configuration)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "percentage", percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def configuration(self) -> pulumi.Input['PodMutationDistributionGroupConfigurationArgs']:
+        return pulumi.get(self, "configuration")
+
+    @configuration.setter
+    def configuration(self, value: pulumi.Input['PodMutationDistributionGroupConfigurationArgs']):
+        pulumi.set(self, "configuration", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
         """
-        reservation price
+        Unique name for this distribution group.
         """
-        provider: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def percentage(self) -> pulumi.Input[_builtins.int]:
         """
-        reservation cloud provider (gcp, aws, azure)
+        Percentage of pods (0-100) that should receive this configuration.
         """
-        region: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "percentage")
+
+    @percentage.setter
+    def percentage(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "percentage", value)
+
+
+class PodMutationDistributionGroupConfigurationArgsDict(TypedDict):
+    affinity: NotRequired[pulumi.Input[Optional['PodMutationDistributionGroupConfigurationAffinityArgsDict']]]
+    """
+    Affinity to apply to the pods.
+    """
+    annotations: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Annotations to add to the pods.
+    """
+    labels: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Labels to add to the pods.
+    """
+    node_selector: NotRequired[pulumi.Input[Optional['PodMutationDistributionGroupConfigurationNodeSelectorArgsDict']]]
+    """
+    Node selector to apply to the pods (add/remove key-value pairs).
+    """
+    node_templates_to_consolidates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Node template names to consolidate.
+    """
+    patch: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    JSON patch to apply to pods. Must be a JSON array of patch operations.
+    """
+    spot_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Spot instance type: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+    """
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationTolerationArgsDict']]]]]
+    """
+    Tolerations to apply to the pods.
+    """
+
+@pulumi.input_type
+class PodMutationDistributionGroupConfigurationArgs:
+    def __init__(__self__, *,
+                 affinity: pulumi.Input[Optional['PodMutationDistributionGroupConfigurationAffinityArgs']] = None,
+                 annotations: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 node_selector: pulumi.Input[Optional['PodMutationDistributionGroupConfigurationNodeSelectorArgs']] = None,
+                 node_templates_to_consolidates: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 patch: pulumi.Input[Optional[_builtins.str]] = None,
+                 spot_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 tolerations: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationTolerationArgs']]]] = None):
         """
-        reservation region
+        :param pulumi.Input['PodMutationDistributionGroupConfigurationAffinityArgs'] affinity: Affinity to apply to the pods.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] annotations: Annotations to add to the pods.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] labels: Labels to add to the pods.
+        :param pulumi.Input['PodMutationDistributionGroupConfigurationNodeSelectorArgs'] node_selector: Node selector to apply to the pods (add/remove key-value pairs).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] node_templates_to_consolidates: Node template names to consolidate.
+        :param pulumi.Input[_builtins.str] patch: JSON patch to apply to pods. Must be a JSON array of patch operations.
+        :param pulumi.Input[_builtins.str] spot_type: Spot instance type: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+        :param pulumi.Input[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationTolerationArgs']]] tolerations: Tolerations to apply to the pods.
         """
-        start_date: pulumi.Input[_builtins.str]
+        if affinity is not None:
+            pulumi.set(__self__, "affinity", affinity)
+        if annotations is not None:
+            pulumi.set(__self__, "annotations", annotations)
+        if labels is not None:
+            pulumi.set(__self__, "labels", labels)
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if node_templates_to_consolidates is not None:
+            pulumi.set(__self__, "node_templates_to_consolidates", node_templates_to_consolidates)
+        if patch is not None:
+            pulumi.set(__self__, "patch", patch)
+        if spot_type is not None:
+            pulumi.set(__self__, "spot_type", spot_type)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+
+    @_builtins.property
+    @pulumi.getter
+    def affinity(self) -> pulumi.Input[Optional['PodMutationDistributionGroupConfigurationAffinityArgs']]:
         """
-        start date of reservation
+        Affinity to apply to the pods.
         """
-        end_date: NotRequired[pulumi.Input[_builtins.str]]
+        return pulumi.get(self, "affinity")
+
+    @affinity.setter
+    def affinity(self, value: pulumi.Input[Optional['PodMutationDistributionGroupConfigurationAffinityArgs']]):
+        pulumi.set(self, "affinity", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def annotations(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        end date of reservation
+        Annotations to add to the pods.
         """
-        zone_id: NotRequired[pulumi.Input[_builtins.str]]
+        return pulumi.get(self, "annotations")
+
+    @annotations.setter
+    def annotations(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "annotations", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        reservation zone id
+        Labels to add to the pods.
         """
-        zone_name: NotRequired[pulumi.Input[_builtins.str]]
+        return pulumi.get(self, "labels")
+
+    @labels.setter
+    def labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "labels", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> pulumi.Input[Optional['PodMutationDistributionGroupConfigurationNodeSelectorArgs']]:
         """
-        reservation zone name
+        Node selector to apply to the pods (add/remove key-value pairs).
         """
-elif False:
-    ReservationsReservationArgsDict: TypeAlias = Mapping[str, Any]
+        return pulumi.get(self, "node_selector")
+
+    @node_selector.setter
+    def node_selector(self, value: pulumi.Input[Optional['PodMutationDistributionGroupConfigurationNodeSelectorArgs']]):
+        pulumi.set(self, "node_selector", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeTemplatesToConsolidates")
+    def node_templates_to_consolidates(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Node template names to consolidate.
+        """
+        return pulumi.get(self, "node_templates_to_consolidates")
+
+    @node_templates_to_consolidates.setter
+    def node_templates_to_consolidates(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "node_templates_to_consolidates", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def patch(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        JSON patch to apply to pods. Must be a JSON array of patch operations.
+        """
+        return pulumi.get(self, "patch")
+
+    @patch.setter
+    def patch(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "patch", value)
+
+    @_builtins.property
+    @pulumi.getter(name="spotType")
+    def spot_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Spot instance type: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+        """
+        return pulumi.get(self, "spot_type")
+
+    @spot_type.setter
+    def spot_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "spot_type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def tolerations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationTolerationArgs']]]]:
+        """
+        Tolerations to apply to the pods.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationTolerationArgs']]]]):
+        pulumi.set(self, "tolerations", value)
+
+
+class PodMutationDistributionGroupConfigurationAffinityArgsDict(TypedDict):
+    node_affinity: NotRequired[pulumi.Input[Optional['PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgsDict']]]
+
+@pulumi.input_type
+class PodMutationDistributionGroupConfigurationAffinityArgs:
+    def __init__(__self__, *,
+                 node_affinity: pulumi.Input[Optional['PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs']] = None):
+        if node_affinity is not None:
+            pulumi.set(__self__, "node_affinity", node_affinity)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAffinity")
+    def node_affinity(self) -> pulumi.Input[Optional['PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs']]:
+        return pulumi.get(self, "node_affinity")
+
+    @node_affinity.setter
+    def node_affinity(self, value: pulumi.Input[Optional['PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs']]):
+        pulumi.set(self, "node_affinity", value)
+
+
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgsDict(TypedDict):
+    preferred_during_scheduling_ignored_during_executions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgsDict']]]]]
+
+@pulumi.input_type
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs:
+    def __init__(__self__, *,
+                 preferred_during_scheduling_ignored_during_executions: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs']]]] = None):
+        if preferred_during_scheduling_ignored_during_executions is not None:
+            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_executions", preferred_during_scheduling_ignored_during_executions)
+
+    @_builtins.property
+    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecutions")
+    def preferred_during_scheduling_ignored_during_executions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs']]]]:
+        return pulumi.get(self, "preferred_during_scheduling_ignored_during_executions")
+
+    @preferred_during_scheduling_ignored_during_executions.setter
+    def preferred_during_scheduling_ignored_during_executions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs']]]]):
+        pulumi.set(self, "preferred_during_scheduling_ignored_during_executions", value)
+
+
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgsDict(TypedDict):
+    preference: pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgsDict']
+    weight: pulumi.Input[_builtins.int]
+    """
+    Weight of the node affinity term.
+    """
+
+@pulumi.input_type
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs:
+    def __init__(__self__, *,
+                 preference: pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs'],
+                 weight: pulumi.Input[_builtins.int]):
+        """
+        :param pulumi.Input[_builtins.int] weight: Weight of the node affinity term.
+        """
+        pulumi.set(__self__, "preference", preference)
+        pulumi.set(__self__, "weight", weight)
+
+    @_builtins.property
+    @pulumi.getter
+    def preference(self) -> pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs']:
+        return pulumi.get(self, "preference")
+
+    @preference.setter
+    def preference(self, value: pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs']):
+        pulumi.set(self, "preference", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def weight(self) -> pulumi.Input[_builtins.int]:
+        """
+        Weight of the node affinity term.
+        """
+        return pulumi.get(self, "weight")
+
+    @weight.setter
+    def weight(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "weight", value)
+
+
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgsDict(TypedDict):
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgsDict']]]]]
+
+@pulumi.input_type
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs:
+    def __init__(__self__, *,
+                 match_expressions: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs']]]] = None):
+        if match_expressions is not None:
+            pulumi.set(__self__, "match_expressions", match_expressions)
+
+    @_builtins.property
+    @pulumi.getter(name="matchExpressions")
+    def match_expressions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs']]]]:
+        return pulumi.get(self, "match_expressions")
+
+    @match_expressions.setter
+    def match_expressions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs']]]]):
+        pulumi.set(self, "match_expressions", value)
+
+
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgsDict(TypedDict):
+    key: pulumi.Input[_builtins.str]
+    operator: pulumi.Input[_builtins.str]
+    values: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+
+@pulumi.input_type
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input[_builtins.str],
+                 operator: pulumi.Input[_builtins.str],
+                 values: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "operator", operator)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[_builtins.str]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[_builtins.str]:
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "operator", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "values", value)
+
+
+class PodMutationDistributionGroupConfigurationNodeSelectorArgsDict(TypedDict):
+    add: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    remove: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+
+@pulumi.input_type
+class PodMutationDistributionGroupConfigurationNodeSelectorArgs:
+    def __init__(__self__, *,
+                 add: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 remove: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        if add is not None:
+            pulumi.set(__self__, "add", add)
+        if remove is not None:
+            pulumi.set(__self__, "remove", remove)
+
+    @_builtins.property
+    @pulumi.getter
+    def add(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "add")
+
+    @add.setter
+    def add(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "add", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def remove(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "remove")
+
+    @remove.setter
+    def remove(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "remove", value)
+
+
+class PodMutationDistributionGroupConfigurationTolerationArgsDict(TypedDict):
+    effect: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Toleration effect.
+    """
+    key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Toleration key.
+    """
+    operator: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Toleration operator.
+    """
+    toleration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Toleration seconds.
+    """
+    value: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Toleration value.
+    """
+
+@pulumi.input_type
+class PodMutationDistributionGroupConfigurationTolerationArgs:
+    def __init__(__self__, *,
+                 effect: pulumi.Input[Optional[_builtins.str]] = None,
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 operator: pulumi.Input[Optional[_builtins.str]] = None,
+                 toleration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 value: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] effect: Toleration effect.
+        :param pulumi.Input[_builtins.str] key: Toleration key.
+        :param pulumi.Input[_builtins.str] operator: Toleration operator.
+        :param pulumi.Input[_builtins.int] toleration_seconds: Toleration seconds.
+        :param pulumi.Input[_builtins.str] value: Toleration value.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if toleration_seconds is not None:
+            pulumi.set(__self__, "toleration_seconds", toleration_seconds)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def effect(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Toleration effect.
+        """
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "effect", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Toleration key.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Toleration operator.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "operator", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tolerationSeconds")
+    def toleration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Toleration seconds.
+        """
+        return pulumi.get(self, "toleration_seconds")
+
+    @toleration_seconds.setter
+    def toleration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "toleration_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Toleration value.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2ArgsDict(TypedDict):
+    pod: NotRequired[pulumi.Input[Optional['PodMutationFilterV2PodArgsDict']]]
+    """
+    Pod filter for labels.
+    """
+    workload: NotRequired[pulumi.Input[Optional['PodMutationFilterV2WorkloadArgsDict']]]
+    """
+    Workload filter for kinds, names, and namespaces.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2Args:
+    def __init__(__self__, *,
+                 pod: pulumi.Input[Optional['PodMutationFilterV2PodArgs']] = None,
+                 workload: pulumi.Input[Optional['PodMutationFilterV2WorkloadArgs']] = None):
+        """
+        :param pulumi.Input['PodMutationFilterV2PodArgs'] pod: Pod filter for labels.
+        :param pulumi.Input['PodMutationFilterV2WorkloadArgs'] workload: Workload filter for kinds, names, and namespaces.
+        """
+        if pod is not None:
+            pulumi.set(__self__, "pod", pod)
+        if workload is not None:
+            pulumi.set(__self__, "workload", workload)
+
+    @_builtins.property
+    @pulumi.getter
+    def pod(self) -> pulumi.Input[Optional['PodMutationFilterV2PodArgs']]:
+        """
+        Pod filter for labels.
+        """
+        return pulumi.get(self, "pod")
+
+    @pod.setter
+    def pod(self, value: pulumi.Input[Optional['PodMutationFilterV2PodArgs']]):
+        pulumi.set(self, "pod", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def workload(self) -> pulumi.Input[Optional['PodMutationFilterV2WorkloadArgs']]:
+        """
+        Workload filter for kinds, names, and namespaces.
+        """
+        return pulumi.get(self, "workload")
+
+    @workload.setter
+    def workload(self, value: pulumi.Input[Optional['PodMutationFilterV2WorkloadArgs']]):
+        pulumi.set(self, "workload", value)
+
+
+class PodMutationFilterV2PodArgsDict(TypedDict):
+    exclude_labels_filter: NotRequired[pulumi.Input[Optional['PodMutationFilterV2PodExcludeLabelsFilterArgsDict']]]
+    labels_filter: NotRequired[pulumi.Input[Optional['PodMutationFilterV2PodLabelsFilterArgsDict']]]
+    tolerations_filter: NotRequired[pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterArgsDict']]]
+    """
+    Tolerations filter for matching pods by their tolerations.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodArgs:
+    def __init__(__self__, *,
+                 exclude_labels_filter: pulumi.Input[Optional['PodMutationFilterV2PodExcludeLabelsFilterArgs']] = None,
+                 labels_filter: pulumi.Input[Optional['PodMutationFilterV2PodLabelsFilterArgs']] = None,
+                 tolerations_filter: pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterArgs']] = None):
+        """
+        :param pulumi.Input['PodMutationFilterV2PodTolerationsFilterArgs'] tolerations_filter: Tolerations filter for matching pods by their tolerations.
+        """
+        if exclude_labels_filter is not None:
+            pulumi.set(__self__, "exclude_labels_filter", exclude_labels_filter)
+        if labels_filter is not None:
+            pulumi.set(__self__, "labels_filter", labels_filter)
+        if tolerations_filter is not None:
+            pulumi.set(__self__, "tolerations_filter", tolerations_filter)
+
+    @_builtins.property
+    @pulumi.getter(name="excludeLabelsFilter")
+    def exclude_labels_filter(self) -> pulumi.Input[Optional['PodMutationFilterV2PodExcludeLabelsFilterArgs']]:
+        return pulumi.get(self, "exclude_labels_filter")
+
+    @exclude_labels_filter.setter
+    def exclude_labels_filter(self, value: pulumi.Input[Optional['PodMutationFilterV2PodExcludeLabelsFilterArgs']]):
+        pulumi.set(self, "exclude_labels_filter", value)
+
+    @_builtins.property
+    @pulumi.getter(name="labelsFilter")
+    def labels_filter(self) -> pulumi.Input[Optional['PodMutationFilterV2PodLabelsFilterArgs']]:
+        return pulumi.get(self, "labels_filter")
+
+    @labels_filter.setter
+    def labels_filter(self, value: pulumi.Input[Optional['PodMutationFilterV2PodLabelsFilterArgs']]):
+        pulumi.set(self, "labels_filter", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tolerationsFilter")
+    def tolerations_filter(self) -> pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterArgs']]:
+        """
+        Tolerations filter for matching pods by their tolerations.
+        """
+        return pulumi.get(self, "tolerations_filter")
+
+    @tolerations_filter.setter
+    def tolerations_filter(self, value: pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterArgs']]):
+        pulumi.set(self, "tolerations_filter", value)
+
+
+class PodMutationFilterV2PodExcludeLabelsFilterArgsDict(TypedDict):
+    matchers: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodExcludeLabelsFilterMatcherArgsDict']]]
+    operator: pulumi.Input[_builtins.str]
+    """
+    Logical operator to combine label matchers: AND or OR.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodExcludeLabelsFilterArgs:
+    def __init__(__self__, *,
+                 matchers: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs']]],
+                 operator: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] operator: Logical operator to combine label matchers: AND or OR.
+        """
+        pulumi.set(__self__, "matchers", matchers)
+        pulumi.set(__self__, "operator", operator)
+
+    @_builtins.property
+    @pulumi.getter
+    def matchers(self) -> pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs']]]:
+        return pulumi.get(self, "matchers")
+
+    @matchers.setter
+    def matchers(self, value: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs']]]):
+        pulumi.set(self, "matchers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[_builtins.str]:
+        """
+        Logical operator to combine label matchers: AND or OR.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "operator", value)
+
+
+class PodMutationFilterV2PodExcludeLabelsFilterMatcherArgsDict(TypedDict):
+    key: pulumi.Input['PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgsDict']
+    value: NotRequired[pulumi.Input[Optional['PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgsDict']]]
+
+@pulumi.input_type
+class PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input['PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs'],
+                 value: pulumi.Input[Optional['PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs']] = None):
+        pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input['PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs']:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input['PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs']):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[Optional['PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs']]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[Optional['PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs']]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodLabelsFilterArgsDict(TypedDict):
+    matchers: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodLabelsFilterMatcherArgsDict']]]
+    operator: pulumi.Input[_builtins.str]
+    """
+    Logical operator to combine label matchers: AND or OR.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodLabelsFilterArgs:
+    def __init__(__self__, *,
+                 matchers: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodLabelsFilterMatcherArgs']]],
+                 operator: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] operator: Logical operator to combine label matchers: AND or OR.
+        """
+        pulumi.set(__self__, "matchers", matchers)
+        pulumi.set(__self__, "operator", operator)
+
+    @_builtins.property
+    @pulumi.getter
+    def matchers(self) -> pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodLabelsFilterMatcherArgs']]]:
+        return pulumi.get(self, "matchers")
+
+    @matchers.setter
+    def matchers(self, value: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodLabelsFilterMatcherArgs']]]):
+        pulumi.set(self, "matchers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[_builtins.str]:
+        """
+        Logical operator to combine label matchers: AND or OR.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "operator", value)
+
+
+class PodMutationFilterV2PodLabelsFilterMatcherArgsDict(TypedDict):
+    key: pulumi.Input['PodMutationFilterV2PodLabelsFilterMatcherKeyArgsDict']
+    value: NotRequired[pulumi.Input[Optional['PodMutationFilterV2PodLabelsFilterMatcherValueArgsDict']]]
+
+@pulumi.input_type
+class PodMutationFilterV2PodLabelsFilterMatcherArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input['PodMutationFilterV2PodLabelsFilterMatcherKeyArgs'],
+                 value: pulumi.Input[Optional['PodMutationFilterV2PodLabelsFilterMatcherValueArgs']] = None):
+        pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input['PodMutationFilterV2PodLabelsFilterMatcherKeyArgs']:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input['PodMutationFilterV2PodLabelsFilterMatcherKeyArgs']):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[Optional['PodMutationFilterV2PodLabelsFilterMatcherValueArgs']]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[Optional['PodMutationFilterV2PodLabelsFilterMatcherValueArgs']]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodLabelsFilterMatcherKeyArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodLabelsFilterMatcherKeyArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodLabelsFilterMatcherValueArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodLabelsFilterMatcherValueArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodTolerationsFilterArgsDict(TypedDict):
+    matchers: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodTolerationsFilterMatcherArgsDict']]]
+    operator: pulumi.Input[_builtins.str]
+    """
+    Logical operator to combine toleration matchers: AND or OR.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodTolerationsFilterArgs:
+    def __init__(__self__, *,
+                 matchers: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodTolerationsFilterMatcherArgs']]],
+                 operator: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] operator: Logical operator to combine toleration matchers: AND or OR.
+        """
+        pulumi.set(__self__, "matchers", matchers)
+        pulumi.set(__self__, "operator", operator)
+
+    @_builtins.property
+    @pulumi.getter
+    def matchers(self) -> pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodTolerationsFilterMatcherArgs']]]:
+        return pulumi.get(self, "matchers")
+
+    @matchers.setter
+    def matchers(self, value: pulumi.Input[Sequence[pulumi.Input['PodMutationFilterV2PodTolerationsFilterMatcherArgs']]]):
+        pulumi.set(self, "matchers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[_builtins.str]:
+        """
+        Logical operator to combine toleration matchers: AND or OR.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "operator", value)
+
+
+class PodMutationFilterV2PodTolerationsFilterMatcherArgsDict(TypedDict):
+    key: pulumi.Input['PodMutationFilterV2PodTolerationsFilterMatcherKeyArgsDict']
+    operator: NotRequired[pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgsDict']]]
+    value: NotRequired[pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterMatcherValueArgsDict']]]
+
+@pulumi.input_type
+class PodMutationFilterV2PodTolerationsFilterMatcherArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input['PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs'],
+                 operator: pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs']] = None,
+                 value: pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterMatcherValueArgs']] = None):
+        pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input['PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs']:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input['PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs']):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs']]:
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs']]):
+        pulumi.set(self, "operator", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterMatcherValueArgs']]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[Optional['PodMutationFilterV2PodTolerationsFilterMatcherValueArgs']]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodTolerationsFilterMatcherKeyArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2PodTolerationsFilterMatcherValueArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2PodTolerationsFilterMatcherValueArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2WorkloadArgsDict(TypedDict):
+    exclude_kinds: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeKindArgsDict']]]]]
+    exclude_names: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeNameArgsDict']]]]]
+    exclude_namespaces: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeNamespaceArgsDict']]]]]
+    kinds: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadKindArgsDict']]]]]
+    names: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadNameArgsDict']]]]]
+    namespaces: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadNamespaceArgsDict']]]]]
+
+@pulumi.input_type
+class PodMutationFilterV2WorkloadArgs:
+    def __init__(__self__, *,
+                 exclude_kinds: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeKindArgs']]]] = None,
+                 exclude_names: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeNameArgs']]]] = None,
+                 exclude_namespaces: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeNamespaceArgs']]]] = None,
+                 kinds: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadKindArgs']]]] = None,
+                 names: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadNameArgs']]]] = None,
+                 namespaces: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadNamespaceArgs']]]] = None):
+        if exclude_kinds is not None:
+            pulumi.set(__self__, "exclude_kinds", exclude_kinds)
+        if exclude_names is not None:
+            pulumi.set(__self__, "exclude_names", exclude_names)
+        if exclude_namespaces is not None:
+            pulumi.set(__self__, "exclude_namespaces", exclude_namespaces)
+        if kinds is not None:
+            pulumi.set(__self__, "kinds", kinds)
+        if names is not None:
+            pulumi.set(__self__, "names", names)
+        if namespaces is not None:
+            pulumi.set(__self__, "namespaces", namespaces)
+
+    @_builtins.property
+    @pulumi.getter(name="excludeKinds")
+    def exclude_kinds(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeKindArgs']]]]:
+        return pulumi.get(self, "exclude_kinds")
+
+    @exclude_kinds.setter
+    def exclude_kinds(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeKindArgs']]]]):
+        pulumi.set(self, "exclude_kinds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="excludeNames")
+    def exclude_names(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeNameArgs']]]]:
+        return pulumi.get(self, "exclude_names")
+
+    @exclude_names.setter
+    def exclude_names(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeNameArgs']]]]):
+        pulumi.set(self, "exclude_names", value)
+
+    @_builtins.property
+    @pulumi.getter(name="excludeNamespaces")
+    def exclude_namespaces(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeNamespaceArgs']]]]:
+        return pulumi.get(self, "exclude_namespaces")
+
+    @exclude_namespaces.setter
+    def exclude_namespaces(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadExcludeNamespaceArgs']]]]):
+        pulumi.set(self, "exclude_namespaces", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kinds(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadKindArgs']]]]:
+        return pulumi.get(self, "kinds")
+
+    @kinds.setter
+    def kinds(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadKindArgs']]]]):
+        pulumi.set(self, "kinds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def names(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadNameArgs']]]]:
+        return pulumi.get(self, "names")
+
+    @names.setter
+    def names(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadNameArgs']]]]):
+        pulumi.set(self, "names", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def namespaces(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadNamespaceArgs']]]]:
+        return pulumi.get(self, "namespaces")
+
+    @namespaces.setter
+    def namespaces(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodMutationFilterV2WorkloadNamespaceArgs']]]]):
+        pulumi.set(self, "namespaces", value)
+
+
+class PodMutationFilterV2WorkloadExcludeKindArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2WorkloadExcludeKindArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2WorkloadExcludeNameArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2WorkloadExcludeNameArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2WorkloadExcludeNamespaceArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2WorkloadExcludeNamespaceArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2WorkloadKindArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2WorkloadKindArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2WorkloadNameArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2WorkloadNameArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationFilterV2WorkloadNamespaceArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Matcher type: EXACT or REGEX.
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value to match against.
+    """
+
+@pulumi.input_type
+class PodMutationFilterV2WorkloadNamespaceArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: Matcher type: EXACT or REGEX.
+        :param pulumi.Input[_builtins.str] value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class PodMutationNodeSelectorArgsDict(TypedDict):
+    add: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    remove: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+
+@pulumi.input_type
+class PodMutationNodeSelectorArgs:
+    def __init__(__self__, *,
+                 add: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 remove: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        if add is not None:
+            pulumi.set(__self__, "add", add)
+        if remove is not None:
+            pulumi.set(__self__, "remove", remove)
+
+    @_builtins.property
+    @pulumi.getter
+    def add(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "add")
+
+    @add.setter
+    def add(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "add", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def remove(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "remove")
+
+    @remove.setter
+    def remove(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "remove", value)
+
+
+class PodMutationPodEvictionArgsDict(TypedDict):
+    enabled: pulumi.Input[_builtins.bool]
+    """
+    Whether non-conforming pods are eligible for eviction.
+    """
+
+@pulumi.input_type
+class PodMutationPodEvictionArgs:
+    def __init__(__self__, *,
+                 enabled: pulumi.Input[_builtins.bool]):
+        """
+        :param pulumi.Input[_builtins.bool] enabled: Whether non-conforming pods are eligible for eviction.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether non-conforming pods are eligible for eviction.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "enabled", value)
+
+
+class PodMutationSpotConfigArgsDict(TypedDict):
+    distribution_percentage: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Percentage of pods (0-100) that receive spot scheduling constraints.
+    """
+    spot_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+    """
+
+@pulumi.input_type
+class PodMutationSpotConfigArgs:
+    def __init__(__self__, *,
+                 distribution_percentage: pulumi.Input[Optional[_builtins.int]] = None,
+                 spot_mode: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.int] distribution_percentage: Percentage of pods (0-100) that receive spot scheduling constraints.
+        :param pulumi.Input[_builtins.str] spot_mode: Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+        """
+        if distribution_percentage is not None:
+            pulumi.set(__self__, "distribution_percentage", distribution_percentage)
+        if spot_mode is not None:
+            pulumi.set(__self__, "spot_mode", spot_mode)
+
+    @_builtins.property
+    @pulumi.getter(name="distributionPercentage")
+    def distribution_percentage(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Percentage of pods (0-100) that receive spot scheduling constraints.
+        """
+        return pulumi.get(self, "distribution_percentage")
+
+    @distribution_percentage.setter
+    def distribution_percentage(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "distribution_percentage", value)
+
+    @_builtins.property
+    @pulumi.getter(name="spotMode")
+    def spot_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+        """
+        return pulumi.get(self, "spot_mode")
+
+    @spot_mode.setter
+    def spot_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "spot_mode", value)
+
+
+class PodMutationTolerationArgsDict(TypedDict):
+    effect: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Toleration effect.
+    """
+    key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Toleration key.
+    """
+    operator: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Toleration operator.
+    """
+    toleration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Toleration seconds.
+    """
+    value: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Toleration value.
+    """
+
+@pulumi.input_type
+class PodMutationTolerationArgs:
+    def __init__(__self__, *,
+                 effect: pulumi.Input[Optional[_builtins.str]] = None,
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 operator: pulumi.Input[Optional[_builtins.str]] = None,
+                 toleration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 value: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] effect: Toleration effect.
+        :param pulumi.Input[_builtins.str] key: Toleration key.
+        :param pulumi.Input[_builtins.str] operator: Toleration operator.
+        :param pulumi.Input[_builtins.int] toleration_seconds: Toleration seconds.
+        :param pulumi.Input[_builtins.str] value: Toleration value.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if toleration_seconds is not None:
+            pulumi.set(__self__, "toleration_seconds", toleration_seconds)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def effect(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Toleration effect.
+        """
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "effect", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Toleration key.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Toleration operator.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "operator", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tolerationSeconds")
+    def toleration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Toleration seconds.
+        """
+        return pulumi.get(self, "toleration_seconds")
+
+    @toleration_seconds.setter
+    def toleration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "toleration_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Toleration value.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+class ReservationsReservationArgsDict(TypedDict):
+    count: pulumi.Input[_builtins.str]
+    """
+    amount of reserved instances
+    """
+    instance_type: pulumi.Input[_builtins.str]
+    """
+    reserved instance type
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    unique reservation name in region for specific instance type
+    """
+    price: pulumi.Input[_builtins.str]
+    """
+    reservation price
+    """
+    provider: pulumi.Input[_builtins.str]
+    """
+    reservation cloud provider (gcp, aws, azure)
+    """
+    region: pulumi.Input[_builtins.str]
+    """
+    reservation region
+    """
+    start_date: pulumi.Input[_builtins.str]
+    """
+    start date of reservation
+    """
+    end_date: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    end date of reservation
+    """
+    zone_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    reservation zone id
+    """
+    zone_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    reservation zone name
+    """
 
 @pulumi.input_type
 class ReservationsReservationArgs:
@@ -1107,9 +3640,9 @@ class ReservationsReservationArgs:
                  provider: pulumi.Input[_builtins.str],
                  region: pulumi.Input[_builtins.str],
                  start_date: pulumi.Input[_builtins.str],
-                 end_date: Optional[pulumi.Input[_builtins.str]] = None,
-                 zone_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 zone_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 end_date: pulumi.Input[Optional[_builtins.str]] = None,
+                 zone_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 zone_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] count: amount of reserved instances
         :param pulumi.Input[_builtins.str] instance_type: reserved instance type
@@ -1222,38 +3755,38 @@ class ReservationsReservationArgs:
 
     @_builtins.property
     @pulumi.getter(name="endDate")
-    def end_date(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def end_date(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         end date of reservation
         """
         return pulumi.get(self, "end_date")
 
     @end_date.setter
-    def end_date(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def end_date(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "end_date", value)
 
     @_builtins.property
     @pulumi.getter(name="zoneId")
-    def zone_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def zone_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         reservation zone id
         """
         return pulumi.get(self, "zone_id")
 
     @zone_id.setter
-    def zone_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def zone_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "zone_id", value)
 
     @_builtins.property
     @pulumi.getter(name="zoneName")
-    def zone_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def zone_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         reservation zone name
         """
         return pulumi.get(self, "zone_name")
 
     @zone_name.setter
-    def zone_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def zone_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "zone_name", value)
 
 

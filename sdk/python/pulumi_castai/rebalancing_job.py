@@ -21,9 +21,10 @@ class RebalancingJobArgs:
     def __init__(__self__, *,
                  cluster_id: pulumi.Input[_builtins.str],
                  rebalancing_schedule_id: pulumi.Input[_builtins.str],
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None):
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a RebalancingJob resource.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
         :param pulumi.Input[_builtins.str] rebalancing_schedule_id: Rebalancing schedule of this job.
         :param pulumi.Input[_builtins.bool] enabled: The job will only be executed if it's enabled.
@@ -59,25 +60,26 @@ class RebalancingJobArgs:
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         The job will only be executed if it's enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
 
 @pulumi.input_type
 class _RebalancingJobState:
     def __init__(__self__, *,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 rebalancing_schedule_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 rebalancing_schedule_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering RebalancingJob resources.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
         :param pulumi.Input[_builtins.bool] enabled: The job will only be executed if it's enabled.
         :param pulumi.Input[_builtins.str] rebalancing_schedule_id: Rebalancing schedule of this job.
@@ -91,38 +93,38 @@ class _RebalancingJobState:
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         The job will only be executed if it's enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="rebalancingScheduleId")
-    def rebalancing_schedule_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def rebalancing_schedule_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Rebalancing schedule of this job.
         """
         return pulumi.get(self, "rebalancing_schedule_id")
 
     @rebalancing_schedule_id.setter
-    def rebalancing_schedule_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def rebalancing_schedule_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "rebalancing_schedule_id", value)
 
 
@@ -132,12 +134,13 @@ class RebalancingJob(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 rebalancing_schedule_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 rebalancing_schedule_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a RebalancingJob resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
@@ -152,6 +155,7 @@ class RebalancingJob(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a RebalancingJob resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param RebalancingJobArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -167,9 +171,9 @@ class RebalancingJob(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 rebalancing_schedule_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 rebalancing_schedule_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -196,9 +200,9 @@ class RebalancingJob(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            rebalancing_schedule_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'RebalancingJob':
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            rebalancing_schedule_id: pulumi.Input[Optional[_builtins.str]] = None) -> 'RebalancingJob':
         """
         Get an existing RebalancingJob resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

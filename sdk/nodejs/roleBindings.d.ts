@@ -54,24 +54,24 @@ export interface RoleBindingsState {
     /**
      * Description of the role binding.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Name of role binding.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * CAST AI organization ID.
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * ID of role from role binding.
      */
-    roleId?: pulumi.Input<string>;
+    roleId?: pulumi.Input<string | undefined>;
     /**
      * Scopes of the role binding.
      */
-    scopes?: pulumi.Input<pulumi.Input<inputs.iam.RoleBindingsScope>[]>;
-    subjects?: pulumi.Input<pulumi.Input<inputs.iam.RoleBindingsSubject>[]>;
+    scopes?: pulumi.Input<pulumi.Input<inputs.iam.RoleBindingsScope>[] | undefined>;
+    subjects?: pulumi.Input<pulumi.Input<inputs.iam.RoleBindingsSubject>[] | undefined>;
 }
 /**
  * The set of arguments for constructing a RoleBindings resource.
@@ -80,11 +80,11 @@ export interface RoleBindingsArgs {
     /**
      * Description of the role binding.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Name of role binding.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * CAST AI organization ID.
      */
@@ -96,6 +96,7 @@ export interface RoleBindingsArgs {
     /**
      * Scopes of the role binding.
      */
-    scopes?: pulumi.Input<pulumi.Input<inputs.iam.RoleBindingsScope>[]>;
+    scopes?: pulumi.Input<pulumi.Input<inputs.iam.RoleBindingsScope>[] | undefined>;
     subjects: pulumi.Input<pulumi.Input<inputs.iam.RoleBindingsSubject>[]>;
 }
+//# sourceMappingURL=roleBindings.d.ts.map

@@ -25,6 +25,8 @@ type GkeClusterId struct {
 	Location pulumi.StringOutput `pulumi:"location"`
 	// GKE cluster name
 	Name pulumi.StringOutput `pulumi:"name"`
+	// CAST AI organization ID
+	OrganizationId pulumi.StringOutput `pulumi:"organizationId"`
 	// GCP project id
 	ProjectId pulumi.StringOutput `pulumi:"projectId"`
 }
@@ -79,6 +81,8 @@ type gkeClusterIdState struct {
 	Location *string `pulumi:"location"`
 	// GKE cluster name
 	Name *string `pulumi:"name"`
+	// CAST AI organization ID
+	OrganizationId *string `pulumi:"organizationId"`
 	// GCP project id
 	ProjectId *string `pulumi:"projectId"`
 }
@@ -94,6 +98,8 @@ type GkeClusterIdState struct {
 	Location pulumi.StringPtrInput
 	// GKE cluster name
 	Name pulumi.StringPtrInput
+	// CAST AI organization ID
+	OrganizationId pulumi.StringPtrInput
 	// GCP project id
 	ProjectId pulumi.StringPtrInput
 }
@@ -239,6 +245,11 @@ func (o GkeClusterIdOutput) Location() pulumi.StringOutput {
 // GKE cluster name
 func (o GkeClusterIdOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *GkeClusterId) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// CAST AI organization ID
+func (o GkeClusterIdOutput) OrganizationId() pulumi.StringOutput {
+	return o.ApplyT(func(v *GkeClusterId) pulumi.StringOutput { return v.OrganizationId }).(pulumi.StringOutput)
 }
 
 // GCP project id

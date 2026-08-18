@@ -23,6 +23,7 @@ class NodeConfigurationDefaultArgs:
                  configuration_id: pulumi.Input[_builtins.str]):
         """
         The set of arguments for constructing a NodeConfigurationDefault resource.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input[_builtins.str] configuration_id: Id of the node configuration
         """
@@ -57,10 +58,11 @@ class NodeConfigurationDefaultArgs:
 @pulumi.input_type
 class _NodeConfigurationDefaultState:
     def __init__(__self__, *,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 configuration_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 configuration_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering NodeConfigurationDefault resources.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input[_builtins.str] configuration_id: Id of the node configuration
         """
@@ -71,26 +73,26 @@ class _NodeConfigurationDefaultState:
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter(name="configurationId")
-    def configuration_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def configuration_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Id of the node configuration
         """
         return pulumi.get(self, "configuration_id")
 
     @configuration_id.setter
-    def configuration_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def configuration_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "configuration_id", value)
 
 
@@ -100,11 +102,12 @@ class NodeConfigurationDefault(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 configuration_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 configuration_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a NodeConfigurationDefault resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
@@ -118,6 +121,7 @@ class NodeConfigurationDefault(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a NodeConfigurationDefault resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param NodeConfigurationDefaultArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -133,8 +137,8 @@ class NodeConfigurationDefault(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 configuration_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 configuration_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -160,8 +164,8 @@ class NodeConfigurationDefault(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            configuration_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'NodeConfigurationDefault':
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            configuration_id: pulumi.Input[Optional[_builtins.str]] = None) -> 'NodeConfigurationDefault':
         """
         Get an existing NodeConfigurationDefault resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

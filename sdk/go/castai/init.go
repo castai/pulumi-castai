@@ -33,6 +33,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EksUserArn{}
 	case "castai:azure:AksCluster":
 		r = &AksCluster{}
+	case "castai:cache:CacheConfiguration":
+		r = &CacheConfiguration{}
+	case "castai:cache:CacheGroup":
+		r = &CacheGroup{}
+	case "castai:cache:CacheRule":
+		r = &CacheRule{}
 	case "castai:gcp:GkeCluster":
 		r = &GkeCluster{}
 	case "castai:gcp:GkeClusterId":
@@ -41,16 +47,26 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EnterpriseRoleBinding{}
 	case "castai:iam:RoleBindings":
 		r = &RoleBindings{}
+	case "castai:index/aiOptimizer:AiOptimizerHostedModel":
+		r = &AiOptimizerHostedModel{}
+	case "castai:index/aiOptimizer:AiOptimizerModelRegistry":
+		r = &AiOptimizerModelRegistry{}
+	case "castai:index/aiOptimizer:AiOptimizerModelSpecs":
+		r = &AiOptimizerModelSpecs{}
 	case "castai:index:AllocationGroup":
 		r = &AllocationGroup{}
 	case "castai:index:Commitments":
 		r = &Commitments{}
+	case "castai:index:PodMutation":
+		r = &PodMutation{}
 	case "castai:index:Reservations":
 		r = &Reservations{}
 	case "castai:index:SecurityRuntimeRule":
 		r = &SecurityRuntimeRule{}
 	case "castai:organization:EnterpriseGroup":
 		r = &EnterpriseGroup{}
+	case "castai:organization:EnterpriseServiceAccount":
+		r = &EnterpriseServiceAccount{}
 	case "castai:organization:OrganizationGroup":
 		r = &OrganizationGroup{}
 	case "castai:organization:OrganizationMembers":
@@ -67,6 +83,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &RebalancingJob{}
 	case "castai:rebalancing:RebalancingSchedule":
 		r = &RebalancingSchedule{}
+	case "castai:workload:WorkloadCustomMetricsDataSource":
+		r = &WorkloadCustomMetricsDataSource{}
 	case "castai:workload:WorkloadScalingPolicy":
 		r = &WorkloadScalingPolicy{}
 	case "castai:workload:WorkloadScalingPolicyOrder":
@@ -119,6 +137,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"castai",
+		"cache",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"castai",
 		"gcp",
 		&module{version},
 	)
@@ -130,6 +153,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"castai",
 		"index",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"castai",
+		"index/aiOptimizer",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

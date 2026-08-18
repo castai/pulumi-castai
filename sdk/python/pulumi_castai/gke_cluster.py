@@ -21,11 +21,12 @@ class GkeClusterArgs:
     def __init__(__self__, *,
                  location: pulumi.Input[_builtins.str],
                  project_id: pulumi.Input[_builtins.str],
-                 credentials_json: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 credentials_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a GkeCluster resource.
+
         :param pulumi.Input[_builtins.str] location: GCP cluster zone in case of zonal or region in case of regional cluster
         :param pulumi.Input[_builtins.str] project_id: GCP project id
         :param pulumi.Input[_builtins.str] credentials_json: GCP credentials.json from ServiceAccount with credentials for CAST AI
@@ -67,59 +68,62 @@ class GkeClusterArgs:
 
     @_builtins.property
     @pulumi.getter(name="credentialsJson")
-    def credentials_json(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def credentials_json(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GCP credentials.json from ServiceAccount with credentials for CAST AI
         """
         return pulumi.get(self, "credentials_json")
 
     @credentials_json.setter
-    def credentials_json(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def credentials_json(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "credentials_json", value)
 
     @_builtins.property
     @pulumi.getter(name="deleteNodesOnDisconnect")
-    def delete_nodes_on_disconnect(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def delete_nodes_on_disconnect(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Should CAST AI remove nodes managed by CAST.AI on disconnect
         """
         return pulumi.get(self, "delete_nodes_on_disconnect")
 
     @delete_nodes_on_disconnect.setter
-    def delete_nodes_on_disconnect(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def delete_nodes_on_disconnect(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "delete_nodes_on_disconnect", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GKE cluster name
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
 class _GkeClusterState:
     def __init__(__self__, *,
-                 cluster_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 credentials_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 credentials_json: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-                 location: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 project_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 cluster_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 credentials_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 credentials_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+                 location: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 project_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering GkeCluster resources.
+
         :param pulumi.Input[_builtins.str] cluster_token: CAST.AI agent cluster token
         :param pulumi.Input[_builtins.str] credentials_id: CAST AI credentials id for cluster
         :param pulumi.Input[_builtins.str] credentials_json: GCP credentials.json from ServiceAccount with credentials for CAST AI
         :param pulumi.Input[_builtins.bool] delete_nodes_on_disconnect: Should CAST AI remove nodes managed by CAST.AI on disconnect
         :param pulumi.Input[_builtins.str] location: GCP cluster zone in case of zonal or region in case of regional cluster
         :param pulumi.Input[_builtins.str] name: GKE cluster name
+        :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID
         :param pulumi.Input[_builtins.str] project_id: GCP project id
         """
         if cluster_token is not None:
@@ -134,91 +138,105 @@ class _GkeClusterState:
             pulumi.set(__self__, "location", location)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if organization_id is not None:
+            pulumi.set(__self__, "organization_id", organization_id)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
 
     @_builtins.property
     @pulumi.getter(name="clusterToken")
-    def cluster_token(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_token(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST.AI agent cluster token
         """
         return pulumi.get(self, "cluster_token")
 
     @cluster_token.setter
-    def cluster_token(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_token(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_token", value)
 
     @_builtins.property
     @pulumi.getter(name="credentialsId")
-    def credentials_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def credentials_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI credentials id for cluster
         """
         return pulumi.get(self, "credentials_id")
 
     @credentials_id.setter
-    def credentials_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def credentials_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "credentials_id", value)
 
     @_builtins.property
     @pulumi.getter(name="credentialsJson")
-    def credentials_json(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def credentials_json(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GCP credentials.json from ServiceAccount with credentials for CAST AI
         """
         return pulumi.get(self, "credentials_json")
 
     @credentials_json.setter
-    def credentials_json(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def credentials_json(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "credentials_json", value)
 
     @_builtins.property
     @pulumi.getter(name="deleteNodesOnDisconnect")
-    def delete_nodes_on_disconnect(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def delete_nodes_on_disconnect(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Should CAST AI remove nodes managed by CAST.AI on disconnect
         """
         return pulumi.get(self, "delete_nodes_on_disconnect")
 
     @delete_nodes_on_disconnect.setter
-    def delete_nodes_on_disconnect(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def delete_nodes_on_disconnect(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "delete_nodes_on_disconnect", value)
 
     @_builtins.property
     @pulumi.getter
-    def location(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def location(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GCP cluster zone in case of zonal or region in case of regional cluster
         """
         return pulumi.get(self, "location")
 
     @location.setter
-    def location(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def location(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "location", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GKE cluster name
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        CAST AI organization ID
+        """
+        return pulumi.get(self, "organization_id")
+
+    @organization_id.setter
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "organization_id", value)
+
+    @_builtins.property
     @pulumi.getter(name="projectId")
-    def project_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def project_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GCP project id
         """
         return pulumi.get(self, "project_id")
 
     @project_id.setter
-    def project_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def project_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "project_id", value)
 
 
@@ -228,14 +246,15 @@ class GkeCluster(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 credentials_json: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-                 location: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 project_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 credentials_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+                 location: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 project_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a GkeCluster resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] credentials_json: GCP credentials.json from ServiceAccount with credentials for CAST AI
@@ -252,6 +271,7 @@ class GkeCluster(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a GkeCluster resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param GkeClusterArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -267,11 +287,11 @@ class GkeCluster(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 credentials_json: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-                 location: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 project_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 credentials_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+                 location: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 project_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -292,6 +312,7 @@ class GkeCluster(pulumi.CustomResource):
             __props__.__dict__["project_id"] = project_id
             __props__.__dict__["cluster_token"] = None
             __props__.__dict__["credentials_id"] = None
+            __props__.__dict__["organization_id"] = None
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["clusterToken", "credentialsJson"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(GkeCluster, __self__).__init__(
@@ -304,13 +325,14 @@ class GkeCluster(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cluster_token: Optional[pulumi.Input[_builtins.str]] = None,
-            credentials_id: Optional[pulumi.Input[_builtins.str]] = None,
-            credentials_json: Optional[pulumi.Input[_builtins.str]] = None,
-            delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-            location: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            project_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'GkeCluster':
+            cluster_token: pulumi.Input[Optional[_builtins.str]] = None,
+            credentials_id: pulumi.Input[Optional[_builtins.str]] = None,
+            credentials_json: pulumi.Input[Optional[_builtins.str]] = None,
+            delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+            location: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+            project_id: pulumi.Input[Optional[_builtins.str]] = None) -> 'GkeCluster':
         """
         Get an existing GkeCluster resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -324,6 +346,7 @@ class GkeCluster(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] delete_nodes_on_disconnect: Should CAST AI remove nodes managed by CAST.AI on disconnect
         :param pulumi.Input[_builtins.str] location: GCP cluster zone in case of zonal or region in case of regional cluster
         :param pulumi.Input[_builtins.str] name: GKE cluster name
+        :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID
         :param pulumi.Input[_builtins.str] project_id: GCP project id
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -336,6 +359,7 @@ class GkeCluster(pulumi.CustomResource):
         __props__.__dict__["delete_nodes_on_disconnect"] = delete_nodes_on_disconnect
         __props__.__dict__["location"] = location
         __props__.__dict__["name"] = name
+        __props__.__dict__["organization_id"] = organization_id
         __props__.__dict__["project_id"] = project_id
         return GkeCluster(resource_name, opts=opts, __props__=__props__)
 
@@ -386,6 +410,14 @@ class GkeCluster(pulumi.CustomResource):
         GKE cluster name
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Output[_builtins.str]:
+        """
+        CAST AI organization ID
+        """
+        return pulumi.get(self, "organization_id")
 
     @_builtins.property
     @pulumi.getter(name="projectId")

@@ -24,3 +24,8 @@ apiUrl: str
 CAST.AI API url.
 """
 
+organizationId: Optional[str]
+"""
+CAST AI organization ID. Required when the API token has access to multiple organizations.
+"""
+

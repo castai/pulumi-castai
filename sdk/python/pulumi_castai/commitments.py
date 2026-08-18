@@ -21,14 +21,19 @@ __all__ = ['CommitmentsArgs', 'Commitments']
 @pulumi.input_type
 class CommitmentsArgs:
     def __init__(__self__, *,
-                 azure_reservations_csv: Optional[pulumi.Input[_builtins.str]] = None,
-                 commitment_configs: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]] = None,
-                 gcp_cuds_json: Optional[pulumi.Input[_builtins.str]] = None):
+                 azure_reservations_csv: pulumi.Input[Optional[_builtins.str]] = None,
+                 commitment_configs: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]] = None,
+                 gcp_cuds_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 import_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Commitments resource.
+
         :param pulumi.Input[_builtins.str] azure_reservations_csv: CSV file containing reservations exported from Azure.
         :param pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]] commitment_configs: List of commitment configurations.
         :param pulumi.Input[_builtins.str] gcp_cuds_json: JSON file containing CUDs exported from GCP.
+        :param pulumi.Input[_builtins.str] import_mode: Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+        :param pulumi.Input[_builtins.str] organization_id: Organization ID. If not provided, will be fetched from the API using the authentication token.
         """
         if azure_reservations_csv is not None:
             pulumi.set(__self__, "azure_reservations_csv", azure_reservations_csv)
@@ -36,59 +41,92 @@ class CommitmentsArgs:
             pulumi.set(__self__, "commitment_configs", commitment_configs)
         if gcp_cuds_json is not None:
             pulumi.set(__self__, "gcp_cuds_json", gcp_cuds_json)
+        if import_mode is not None:
+            pulumi.set(__self__, "import_mode", import_mode)
+        if organization_id is not None:
+            pulumi.set(__self__, "organization_id", organization_id)
 
     @_builtins.property
     @pulumi.getter(name="azureReservationsCsv")
-    def azure_reservations_csv(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def azure_reservations_csv(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CSV file containing reservations exported from Azure.
         """
         return pulumi.get(self, "azure_reservations_csv")
 
     @azure_reservations_csv.setter
-    def azure_reservations_csv(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def azure_reservations_csv(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "azure_reservations_csv", value)
 
     @_builtins.property
     @pulumi.getter(name="commitmentConfigs")
-    def commitment_configs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]]:
+    def commitment_configs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]]:
         """
         List of commitment configurations.
         """
         return pulumi.get(self, "commitment_configs")
 
     @commitment_configs.setter
-    def commitment_configs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]]):
+    def commitment_configs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]]):
         pulumi.set(self, "commitment_configs", value)
 
     @_builtins.property
     @pulumi.getter(name="gcpCudsJson")
-    def gcp_cuds_json(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def gcp_cuds_json(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         JSON file containing CUDs exported from GCP.
         """
         return pulumi.get(self, "gcp_cuds_json")
 
     @gcp_cuds_json.setter
-    def gcp_cuds_json(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def gcp_cuds_json(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "gcp_cuds_json", value)
+
+    @_builtins.property
+    @pulumi.getter(name="importMode")
+    def import_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+        """
+        return pulumi.get(self, "import_mode")
+
+    @import_mode.setter
+    def import_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "import_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Organization ID. If not provided, will be fetched from the API using the authentication token.
+        """
+        return pulumi.get(self, "organization_id")
+
+    @organization_id.setter
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "organization_id", value)
 
 
 @pulumi.input_type
 class _CommitmentsState:
     def __init__(__self__, *,
-                 azure_reservations: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsAzureReservationArgs']]]] = None,
-                 azure_reservations_csv: Optional[pulumi.Input[_builtins.str]] = None,
-                 commitment_configs: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]] = None,
-                 gcp_cuds: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsGcpCudArgs']]]] = None,
-                 gcp_cuds_json: Optional[pulumi.Input[_builtins.str]] = None):
+                 azure_reservations: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsAzureReservationArgs']]]] = None,
+                 azure_reservations_csv: pulumi.Input[Optional[_builtins.str]] = None,
+                 commitment_configs: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]] = None,
+                 gcp_cuds: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsGcpCudArgs']]]] = None,
+                 gcp_cuds_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 import_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Commitments resources.
+
         :param pulumi.Input[Sequence[pulumi.Input['CommitmentsAzureReservationArgs']]] azure_reservations: List of Azure reservations.
         :param pulumi.Input[_builtins.str] azure_reservations_csv: CSV file containing reservations exported from Azure.
         :param pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]] commitment_configs: List of commitment configurations.
         :param pulumi.Input[Sequence[pulumi.Input['CommitmentsGcpCudArgs']]] gcp_cuds: List of GCP CUDs.
         :param pulumi.Input[_builtins.str] gcp_cuds_json: JSON file containing CUDs exported from GCP.
+        :param pulumi.Input[_builtins.str] import_mode: Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+        :param pulumi.Input[_builtins.str] organization_id: Organization ID. If not provided, will be fetched from the API using the authentication token.
         """
         if azure_reservations is not None:
             pulumi.set(__self__, "azure_reservations", azure_reservations)
@@ -100,66 +138,94 @@ class _CommitmentsState:
             pulumi.set(__self__, "gcp_cuds", gcp_cuds)
         if gcp_cuds_json is not None:
             pulumi.set(__self__, "gcp_cuds_json", gcp_cuds_json)
+        if import_mode is not None:
+            pulumi.set(__self__, "import_mode", import_mode)
+        if organization_id is not None:
+            pulumi.set(__self__, "organization_id", organization_id)
 
     @_builtins.property
     @pulumi.getter(name="azureReservations")
-    def azure_reservations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsAzureReservationArgs']]]]:
+    def azure_reservations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsAzureReservationArgs']]]]:
         """
         List of Azure reservations.
         """
         return pulumi.get(self, "azure_reservations")
 
     @azure_reservations.setter
-    def azure_reservations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsAzureReservationArgs']]]]):
+    def azure_reservations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsAzureReservationArgs']]]]):
         pulumi.set(self, "azure_reservations", value)
 
     @_builtins.property
     @pulumi.getter(name="azureReservationsCsv")
-    def azure_reservations_csv(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def azure_reservations_csv(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CSV file containing reservations exported from Azure.
         """
         return pulumi.get(self, "azure_reservations_csv")
 
     @azure_reservations_csv.setter
-    def azure_reservations_csv(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def azure_reservations_csv(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "azure_reservations_csv", value)
 
     @_builtins.property
     @pulumi.getter(name="commitmentConfigs")
-    def commitment_configs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]]:
+    def commitment_configs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]]:
         """
         List of commitment configurations.
         """
         return pulumi.get(self, "commitment_configs")
 
     @commitment_configs.setter
-    def commitment_configs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]]):
+    def commitment_configs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsCommitmentConfigArgs']]]]):
         pulumi.set(self, "commitment_configs", value)
 
     @_builtins.property
     @pulumi.getter(name="gcpCuds")
-    def gcp_cuds(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsGcpCudArgs']]]]:
+    def gcp_cuds(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsGcpCudArgs']]]]:
         """
         List of GCP CUDs.
         """
         return pulumi.get(self, "gcp_cuds")
 
     @gcp_cuds.setter
-    def gcp_cuds(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CommitmentsGcpCudArgs']]]]):
+    def gcp_cuds(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CommitmentsGcpCudArgs']]]]):
         pulumi.set(self, "gcp_cuds", value)
 
     @_builtins.property
     @pulumi.getter(name="gcpCudsJson")
-    def gcp_cuds_json(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def gcp_cuds_json(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         JSON file containing CUDs exported from GCP.
         """
         return pulumi.get(self, "gcp_cuds_json")
 
     @gcp_cuds_json.setter
-    def gcp_cuds_json(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def gcp_cuds_json(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "gcp_cuds_json", value)
+
+    @_builtins.property
+    @pulumi.getter(name="importMode")
+    def import_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+        """
+        return pulumi.get(self, "import_mode")
+
+    @import_mode.setter
+    def import_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "import_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Organization ID. If not provided, will be fetched from the API using the authentication token.
+        """
+        return pulumi.get(self, "organization_id")
+
+    @organization_id.setter
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "organization_id", value)
 
 
 @pulumi.type_token("castai:index:Commitments")
@@ -168,17 +234,22 @@ class Commitments(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 azure_reservations_csv: Optional[pulumi.Input[_builtins.str]] = None,
-                 commitment_configs: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CommitmentsCommitmentConfigArgs', 'CommitmentsCommitmentConfigArgsDict']]]]] = None,
-                 gcp_cuds_json: Optional[pulumi.Input[_builtins.str]] = None,
+                 azure_reservations_csv: pulumi.Input[Optional[_builtins.str]] = None,
+                 commitment_configs: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CommitmentsCommitmentConfigArgs', 'CommitmentsCommitmentConfigArgsDict']]]]] = None,
+                 gcp_cuds_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 import_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a Commitments resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] azure_reservations_csv: CSV file containing reservations exported from Azure.
         :param pulumi.Input[Sequence[pulumi.Input[Union['CommitmentsCommitmentConfigArgs', 'CommitmentsCommitmentConfigArgsDict']]]] commitment_configs: List of commitment configurations.
         :param pulumi.Input[_builtins.str] gcp_cuds_json: JSON file containing CUDs exported from GCP.
+        :param pulumi.Input[_builtins.str] import_mode: Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+        :param pulumi.Input[_builtins.str] organization_id: Organization ID. If not provided, will be fetched from the API using the authentication token.
         """
         ...
     @overload
@@ -188,6 +259,7 @@ class Commitments(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a Commitments resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param CommitmentsArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -203,9 +275,11 @@ class Commitments(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 azure_reservations_csv: Optional[pulumi.Input[_builtins.str]] = None,
-                 commitment_configs: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CommitmentsCommitmentConfigArgs', 'CommitmentsCommitmentConfigArgsDict']]]]] = None,
-                 gcp_cuds_json: Optional[pulumi.Input[_builtins.str]] = None,
+                 azure_reservations_csv: pulumi.Input[Optional[_builtins.str]] = None,
+                 commitment_configs: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CommitmentsCommitmentConfigArgs', 'CommitmentsCommitmentConfigArgsDict']]]]] = None,
+                 gcp_cuds_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 import_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -218,6 +292,8 @@ class Commitments(pulumi.CustomResource):
             __props__.__dict__["azure_reservations_csv"] = azure_reservations_csv
             __props__.__dict__["commitment_configs"] = commitment_configs
             __props__.__dict__["gcp_cuds_json"] = gcp_cuds_json
+            __props__.__dict__["import_mode"] = import_mode
+            __props__.__dict__["organization_id"] = organization_id
             __props__.__dict__["azure_reservations"] = None
             __props__.__dict__["gcp_cuds"] = None
         super(Commitments, __self__).__init__(
@@ -230,11 +306,13 @@ class Commitments(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            azure_reservations: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CommitmentsAzureReservationArgs', 'CommitmentsAzureReservationArgsDict']]]]] = None,
-            azure_reservations_csv: Optional[pulumi.Input[_builtins.str]] = None,
-            commitment_configs: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CommitmentsCommitmentConfigArgs', 'CommitmentsCommitmentConfigArgsDict']]]]] = None,
-            gcp_cuds: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CommitmentsGcpCudArgs', 'CommitmentsGcpCudArgsDict']]]]] = None,
-            gcp_cuds_json: Optional[pulumi.Input[_builtins.str]] = None) -> 'Commitments':
+            azure_reservations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CommitmentsAzureReservationArgs', 'CommitmentsAzureReservationArgsDict']]]]] = None,
+            azure_reservations_csv: pulumi.Input[Optional[_builtins.str]] = None,
+            commitment_configs: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CommitmentsCommitmentConfigArgs', 'CommitmentsCommitmentConfigArgsDict']]]]] = None,
+            gcp_cuds: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CommitmentsGcpCudArgs', 'CommitmentsGcpCudArgsDict']]]]] = None,
+            gcp_cuds_json: pulumi.Input[Optional[_builtins.str]] = None,
+            import_mode: pulumi.Input[Optional[_builtins.str]] = None,
+            organization_id: pulumi.Input[Optional[_builtins.str]] = None) -> 'Commitments':
         """
         Get an existing Commitments resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -247,6 +325,8 @@ class Commitments(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['CommitmentsCommitmentConfigArgs', 'CommitmentsCommitmentConfigArgsDict']]]] commitment_configs: List of commitment configurations.
         :param pulumi.Input[Sequence[pulumi.Input[Union['CommitmentsGcpCudArgs', 'CommitmentsGcpCudArgsDict']]]] gcp_cuds: List of GCP CUDs.
         :param pulumi.Input[_builtins.str] gcp_cuds_json: JSON file containing CUDs exported from GCP.
+        :param pulumi.Input[_builtins.str] import_mode: Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+        :param pulumi.Input[_builtins.str] organization_id: Organization ID. If not provided, will be fetched from the API using the authentication token.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -257,6 +337,8 @@ class Commitments(pulumi.CustomResource):
         __props__.__dict__["commitment_configs"] = commitment_configs
         __props__.__dict__["gcp_cuds"] = gcp_cuds
         __props__.__dict__["gcp_cuds_json"] = gcp_cuds_json
+        __props__.__dict__["import_mode"] = import_mode
+        __props__.__dict__["organization_id"] = organization_id
         return Commitments(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -298,4 +380,20 @@ class Commitments(pulumi.CustomResource):
         JSON file containing CUDs exported from GCP.
         """
         return pulumi.get(self, "gcp_cuds_json")
+
+    @_builtins.property
+    @pulumi.getter(name="importMode")
+    def import_mode(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+        """
+        return pulumi.get(self, "import_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Organization ID. If not provided, will be fetched from the API using the authentication token.
+        """
+        return pulumi.get(self, "organization_id")
 

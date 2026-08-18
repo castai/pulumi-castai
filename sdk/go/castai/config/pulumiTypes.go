@@ -14,10 +14,14 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type NodeConfigurationAks struct {
-	// Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,azure-linux,windows2019,windows2022)
+	// Controls SR-IOV accelerated networking on the node NIC. Allowed values: `disabled` (force off regardless of SKU capability). When omitted, the field is not sent to the API and the API default applies.
+	AcceleratedNetworking *string `pulumi:"acceleratedNetworking"`
+	// Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,ubuntu2204,ubuntu2404,azure-linux,windows2019,windows2022,windows2025)
 	AksImageFamily *string `pulumi:"aksImageFamily"`
 	// Application security groups to be used for provisioned nodes
 	ApplicationSecurityGroups []string `pulumi:"applicationSecurityGroups"`
+	// Whether to enable encryption at host for provisioned nodes. See https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption#encryption-at-host---end-to-end-encryption-for-your-vm-data
+	EnableEncryptionAtHost *bool `pulumi:"enableEncryptionAtHost"`
 	// Ephemeral OS disk configuration for CAST provisioned nodes
 	EphemeralOsDisk *NodeConfigurationAksEphemeralOsDisk `pulumi:"ephemeralOsDisk"`
 	// Load balancer configuration for CAST provisioned nodes
@@ -46,10 +50,14 @@ type NodeConfigurationAksInput interface {
 }
 
 type NodeConfigurationAksArgs struct {
-	// Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,azure-linux,windows2019,windows2022)
+	// Controls SR-IOV accelerated networking on the node NIC. Allowed values: `disabled` (force off regardless of SKU capability). When omitted, the field is not sent to the API and the API default applies.
+	AcceleratedNetworking pulumi.StringPtrInput `pulumi:"acceleratedNetworking"`
+	// Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,ubuntu2204,ubuntu2404,azure-linux,windows2019,windows2022,windows2025)
 	AksImageFamily pulumi.StringPtrInput `pulumi:"aksImageFamily"`
 	// Application security groups to be used for provisioned nodes
 	ApplicationSecurityGroups pulumi.StringArrayInput `pulumi:"applicationSecurityGroups"`
+	// Whether to enable encryption at host for provisioned nodes. See https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption#encryption-at-host---end-to-end-encryption-for-your-vm-data
+	EnableEncryptionAtHost pulumi.BoolPtrInput `pulumi:"enableEncryptionAtHost"`
 	// Ephemeral OS disk configuration for CAST provisioned nodes
 	EphemeralOsDisk NodeConfigurationAksEphemeralOsDiskPtrInput `pulumi:"ephemeralOsDisk"`
 	// Load balancer configuration for CAST provisioned nodes
@@ -143,7 +151,12 @@ func (o NodeConfigurationAksOutput) ToNodeConfigurationAksPtrOutputWithContext(c
 	}).(NodeConfigurationAksPtrOutput)
 }
 
-// Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,azure-linux,windows2019,windows2022)
+// Controls SR-IOV accelerated networking on the node NIC. Allowed values: `disabled` (force off regardless of SKU capability). When omitted, the field is not sent to the API and the API default applies.
+func (o NodeConfigurationAksOutput) AcceleratedNetworking() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeConfigurationAks) *string { return v.AcceleratedNetworking }).(pulumi.StringPtrOutput)
+}
+
+// Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,ubuntu2204,ubuntu2404,azure-linux,windows2019,windows2022,windows2025)
 func (o NodeConfigurationAksOutput) AksImageFamily() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeConfigurationAks) *string { return v.AksImageFamily }).(pulumi.StringPtrOutput)
 }
@@ -151,6 +164,11 @@ func (o NodeConfigurationAksOutput) AksImageFamily() pulumi.StringPtrOutput {
 // Application security groups to be used for provisioned nodes
 func (o NodeConfigurationAksOutput) ApplicationSecurityGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NodeConfigurationAks) []string { return v.ApplicationSecurityGroups }).(pulumi.StringArrayOutput)
+}
+
+// Whether to enable encryption at host for provisioned nodes. See https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption#encryption-at-host---end-to-end-encryption-for-your-vm-data
+func (o NodeConfigurationAksOutput) EnableEncryptionAtHost() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v NodeConfigurationAks) *bool { return v.EnableEncryptionAtHost }).(pulumi.BoolPtrOutput)
 }
 
 // Ephemeral OS disk configuration for CAST provisioned nodes
@@ -212,7 +230,17 @@ func (o NodeConfigurationAksPtrOutput) Elem() NodeConfigurationAksOutput {
 	}).(NodeConfigurationAksOutput)
 }
 
-// Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,azure-linux,windows2019,windows2022)
+// Controls SR-IOV accelerated networking on the node NIC. Allowed values: `disabled` (force off regardless of SKU capability). When omitted, the field is not sent to the API and the API default applies.
+func (o NodeConfigurationAksPtrOutput) AcceleratedNetworking() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeConfigurationAks) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AcceleratedNetworking
+	}).(pulumi.StringPtrOutput)
+}
+
+// Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,ubuntu2204,ubuntu2404,azure-linux,windows2019,windows2022,windows2025)
 func (o NodeConfigurationAksPtrOutput) AksImageFamily() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeConfigurationAks) *string {
 		if v == nil {
@@ -230,6 +258,16 @@ func (o NodeConfigurationAksPtrOutput) ApplicationSecurityGroups() pulumi.String
 		}
 		return v.ApplicationSecurityGroups
 	}).(pulumi.StringArrayOutput)
+}
+
+// Whether to enable encryption at host for provisioned nodes. See https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption#encryption-at-host---end-to-end-encryption-for-your-vm-data
+func (o NodeConfigurationAksPtrOutput) EnableEncryptionAtHost() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *NodeConfigurationAks) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableEncryptionAtHost
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Ephemeral OS disk configuration for CAST provisioned nodes
@@ -303,10 +341,12 @@ func (o NodeConfigurationAksPtrOutput) PublicIp() NodeConfigurationAksPublicIpPt
 }
 
 type NodeConfigurationAksEphemeralOsDisk struct {
-	// Cache type for the ephemeral OS disk. One of: ReadOnly, ReadWrite
+	// Deprecated: this field has no effect. Ephemeral OS disks always use ReadOnly cache strategy
+	//
+	// Deprecated: This field has no effect and will be removed in a future major version of the provider. Remove it from your configuration.
 	Cache *string `pulumi:"cache"`
-	// Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk
-	Placement string `pulumi:"placement"`
+	// Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk, nvmeDisk
+	Placement *string `pulumi:"placement"`
 }
 
 // NodeConfigurationAksEphemeralOsDiskInput is an input type that accepts NodeConfigurationAksEphemeralOsDiskArgs and NodeConfigurationAksEphemeralOsDiskOutput values.
@@ -321,10 +361,12 @@ type NodeConfigurationAksEphemeralOsDiskInput interface {
 }
 
 type NodeConfigurationAksEphemeralOsDiskArgs struct {
-	// Cache type for the ephemeral OS disk. One of: ReadOnly, ReadWrite
+	// Deprecated: this field has no effect. Ephemeral OS disks always use ReadOnly cache strategy
+	//
+	// Deprecated: This field has no effect and will be removed in a future major version of the provider. Remove it from your configuration.
 	Cache pulumi.StringPtrInput `pulumi:"cache"`
-	// Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk
-	Placement pulumi.StringInput `pulumi:"placement"`
+	// Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk, nvmeDisk
+	Placement pulumi.StringPtrInput `pulumi:"placement"`
 }
 
 func (NodeConfigurationAksEphemeralOsDiskArgs) ElementType() reflect.Type {
@@ -404,14 +446,16 @@ func (o NodeConfigurationAksEphemeralOsDiskOutput) ToNodeConfigurationAksEphemer
 	}).(NodeConfigurationAksEphemeralOsDiskPtrOutput)
 }
 
-// Cache type for the ephemeral OS disk. One of: ReadOnly, ReadWrite
+// Deprecated: this field has no effect. Ephemeral OS disks always use ReadOnly cache strategy
+//
+// Deprecated: This field has no effect and will be removed in a future major version of the provider. Remove it from your configuration.
 func (o NodeConfigurationAksEphemeralOsDiskOutput) Cache() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeConfigurationAksEphemeralOsDisk) *string { return v.Cache }).(pulumi.StringPtrOutput)
 }
 
-// Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk
-func (o NodeConfigurationAksEphemeralOsDiskOutput) Placement() pulumi.StringOutput {
-	return o.ApplyT(func(v NodeConfigurationAksEphemeralOsDisk) string { return v.Placement }).(pulumi.StringOutput)
+// Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk, nvmeDisk
+func (o NodeConfigurationAksEphemeralOsDiskOutput) Placement() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeConfigurationAksEphemeralOsDisk) *string { return v.Placement }).(pulumi.StringPtrOutput)
 }
 
 type NodeConfigurationAksEphemeralOsDiskPtrOutput struct{ *pulumi.OutputState }
@@ -438,7 +482,9 @@ func (o NodeConfigurationAksEphemeralOsDiskPtrOutput) Elem() NodeConfigurationAk
 	}).(NodeConfigurationAksEphemeralOsDiskOutput)
 }
 
-// Cache type for the ephemeral OS disk. One of: ReadOnly, ReadWrite
+// Deprecated: this field has no effect. Ephemeral OS disks always use ReadOnly cache strategy
+//
+// Deprecated: This field has no effect and will be removed in a future major version of the provider. Remove it from your configuration.
 func (o NodeConfigurationAksEphemeralOsDiskPtrOutput) Cache() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeConfigurationAksEphemeralOsDisk) *string {
 		if v == nil {
@@ -448,13 +494,13 @@ func (o NodeConfigurationAksEphemeralOsDiskPtrOutput) Cache() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk
+// Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk, nvmeDisk
 func (o NodeConfigurationAksEphemeralOsDiskPtrOutput) Placement() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeConfigurationAksEphemeralOsDisk) *string {
 		if v == nil {
 			return nil
 		}
-		return &v.Placement
+		return v.Placement
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -962,13 +1008,15 @@ type NodeConfigurationEks struct {
 	DnsClusterIp *string `pulumi:"dnsClusterIp"`
 	// Image OS Family to use when provisioning node in EKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (al2,al2023,bottlerocket)
 	EksImageFamily *string `pulumi:"eksImageFamily"`
-	// Allow configure the IMDSv2 hop limit, the default is 2
+	// Number of ENA queues per network interface.
+	EnaQueueCountPerInterface *int `pulumi:"enaQueueCountPerInterface"`
+	// Allow configure the IMDSv2 hop limit, the default is 2. Setting to 1 disables access to most pods except pods running on host network.
 	ImdsHopLimit *int `pulumi:"imdsHopLimit"`
 	// When the value is true both IMDSv1 and IMDSv2 are enabled. Setting the value to false disables permanently IMDSv1 and might affect legacy workloads running on the node created with this configuration. The default is true if the flag isn't provided
 	ImdsV1 *bool `pulumi:"imdsV1"`
 	// Cluster's instance profile ARN used for CAST provisioned nodes
 	InstanceProfileArn string `pulumi:"instanceProfileArn"`
-	// Number of IPs per prefix to be used for calculating max pods.
+	// Number of IPs per prefix to be used for calculating max pods. For IPv4 it should be 16. More info: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html#ec2-prefix-basics
 	IpsPerPrefix *int `pulumi:"ipsPerPrefix"`
 	// AWS key pair ID to be used for CAST provisioned nodes. Has priority over ssh_public_key
 	KeyPairId *string `pulumi:"keyPairId"`
@@ -1008,13 +1056,15 @@ type NodeConfigurationEksArgs struct {
 	DnsClusterIp pulumi.StringPtrInput `pulumi:"dnsClusterIp"`
 	// Image OS Family to use when provisioning node in EKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (al2,al2023,bottlerocket)
 	EksImageFamily pulumi.StringPtrInput `pulumi:"eksImageFamily"`
-	// Allow configure the IMDSv2 hop limit, the default is 2
+	// Number of ENA queues per network interface.
+	EnaQueueCountPerInterface pulumi.IntPtrInput `pulumi:"enaQueueCountPerInterface"`
+	// Allow configure the IMDSv2 hop limit, the default is 2. Setting to 1 disables access to most pods except pods running on host network.
 	ImdsHopLimit pulumi.IntPtrInput `pulumi:"imdsHopLimit"`
 	// When the value is true both IMDSv1 and IMDSv2 are enabled. Setting the value to false disables permanently IMDSv1 and might affect legacy workloads running on the node created with this configuration. The default is true if the flag isn't provided
 	ImdsV1 pulumi.BoolPtrInput `pulumi:"imdsV1"`
 	// Cluster's instance profile ARN used for CAST provisioned nodes
 	InstanceProfileArn pulumi.StringInput `pulumi:"instanceProfileArn"`
-	// Number of IPs per prefix to be used for calculating max pods.
+	// Number of IPs per prefix to be used for calculating max pods. For IPv4 it should be 16. More info: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html#ec2-prefix-basics
 	IpsPerPrefix pulumi.IntPtrInput `pulumi:"ipsPerPrefix"`
 	// AWS key pair ID to be used for CAST provisioned nodes. Has priority over ssh_public_key
 	KeyPairId pulumi.StringPtrInput `pulumi:"keyPairId"`
@@ -1125,7 +1175,12 @@ func (o NodeConfigurationEksOutput) EksImageFamily() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeConfigurationEks) *string { return v.EksImageFamily }).(pulumi.StringPtrOutput)
 }
 
-// Allow configure the IMDSv2 hop limit, the default is 2
+// Number of ENA queues per network interface.
+func (o NodeConfigurationEksOutput) EnaQueueCountPerInterface() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NodeConfigurationEks) *int { return v.EnaQueueCountPerInterface }).(pulumi.IntPtrOutput)
+}
+
+// Allow configure the IMDSv2 hop limit, the default is 2. Setting to 1 disables access to most pods except pods running on host network.
 func (o NodeConfigurationEksOutput) ImdsHopLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v NodeConfigurationEks) *int { return v.ImdsHopLimit }).(pulumi.IntPtrOutput)
 }
@@ -1140,7 +1195,7 @@ func (o NodeConfigurationEksOutput) InstanceProfileArn() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeConfigurationEks) string { return v.InstanceProfileArn }).(pulumi.StringOutput)
 }
 
-// Number of IPs per prefix to be used for calculating max pods.
+// Number of IPs per prefix to be used for calculating max pods. For IPv4 it should be 16. More info: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html#ec2-prefix-basics
 func (o NodeConfigurationEksOutput) IpsPerPrefix() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v NodeConfigurationEks) *int { return v.IpsPerPrefix }).(pulumi.IntPtrOutput)
 }
@@ -1239,7 +1294,17 @@ func (o NodeConfigurationEksPtrOutput) EksImageFamily() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Allow configure the IMDSv2 hop limit, the default is 2
+// Number of ENA queues per network interface.
+func (o NodeConfigurationEksPtrOutput) EnaQueueCountPerInterface() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NodeConfigurationEks) *int {
+		if v == nil {
+			return nil
+		}
+		return v.EnaQueueCountPerInterface
+	}).(pulumi.IntPtrOutput)
+}
+
+// Allow configure the IMDSv2 hop limit, the default is 2. Setting to 1 disables access to most pods except pods running on host network.
 func (o NodeConfigurationEksPtrOutput) ImdsHopLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *NodeConfigurationEks) *int {
 		if v == nil {
@@ -1269,7 +1334,7 @@ func (o NodeConfigurationEksPtrOutput) InstanceProfileArn() pulumi.StringPtrOutp
 	}).(pulumi.StringPtrOutput)
 }
 
-// Number of IPs per prefix to be used for calculating max pods.
+// Number of IPs per prefix to be used for calculating max pods. For IPv4 it should be 16. More info: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html#ec2-prefix-basics
 func (o NodeConfigurationEksPtrOutput) IpsPerPrefix() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *NodeConfigurationEks) *int {
 		if v == nil {
@@ -2402,6 +2467,8 @@ type NodeTemplateConstraints struct {
 	ArchitecturePriorities []string `pulumi:"architecturePriorities"`
 	// List of acceptable instance CPU architectures, the default is amd64. Allowed values: amd64, arm64.
 	Architectures []string `pulumi:"architectures"`
+	// AWS-specific constraints for the node template.
+	Aws *NodeTemplateConstraintsAws `pulumi:"aws"`
 	// The list of AZ names to consider for the node template, if empty or not set all AZs are considered.
 	Azs []string `pulumi:"azs"`
 	// Bare metal constraint, will only pick bare metal nodes if set to true. Will only pick non-bare metal nodes if false. Defaults to unspecified. Allowed values: true, false, unspecified.
@@ -2427,15 +2494,19 @@ type NodeTemplateConstraints struct {
 	// Enable/disable spot diversity policy. When enabled, autoscaler will try to balance between diverse and cost optimal instance types.
 	EnableSpotDiversity *bool `pulumi:"enableSpotDiversity"`
 	// Fallback restore rate in seconds: defines how much time should pass before spot fallback should be attempted to be restored to real spot.
-	FallbackRestoreRateSeconds *int                                     `pulumi:"fallbackRestoreRateSeconds"`
-	Gpu                        *NodeTemplateConstraintsGpu              `pulumi:"gpu"`
-	InstanceFamilies           *NodeTemplateConstraintsInstanceFamilies `pulumi:"instanceFamilies"`
+	FallbackRestoreRateSeconds *int `pulumi:"fallbackRestoreRateSeconds"`
+	// GCP-specific constraints for the node template.
+	Gcp              *NodeTemplateConstraintsGcp              `pulumi:"gcp"`
+	Gpu              *NodeTemplateConstraintsGpu              `pulumi:"gpu"`
+	InstanceFamilies *NodeTemplateConstraintsInstanceFamilies `pulumi:"instanceFamilies"`
 	// GPU instance constraint - will only pick nodes with GPU if true
 	IsGpuOnly *bool `pulumi:"isGpuOnly"`
 	// Max CPU cores per node.
 	MaxCpu *int `pulumi:"maxCpu"`
 	// Max Memory (Mib) per node.
 	MaxMemory *int `pulumi:"maxMemory"`
+	// Maximum price per vCPU threshold. When price adjustments are configured, the filter applies to the adjusted price.
+	MaxPricePerCpu *float64 `pulumi:"maxPricePerCpu"`
 	// Min CPU cores per node.
 	MinCpu *int `pulumi:"minCpu"`
 	// Min Memory (Mib) per node.
@@ -2451,7 +2522,9 @@ type NodeTemplateConstraints struct {
 	SpotDiversityPriceIncreaseLimitPercent *int `pulumi:"spotDiversityPriceIncreaseLimitPercent"`
 	// Enable/disable spot interruption predictions.
 	SpotInterruptionPredictionsEnabled *bool `pulumi:"spotInterruptionPredictionsEnabled"`
-	// Spot interruption predictions type. Can be either "aws-rebalance-recommendations" or "interruption-predictions".
+	// Spot interruption predictions type. Only "interruption-predictions" is supported.
+	//
+	// Deprecated: The value "aws-rebalance-recommendations" is deprecated and will be removed in a future major version. Cast AI ML predictions ("interruption-predictions") are now used for all spot interruption prediction.
 	SpotInterruptionPredictionsType *string `pulumi:"spotInterruptionPredictionsType"`
 	// Enable/disable spot reliability. When enabled, autoscaler will create instances with highest reliability score within price increase threshold.
 	SpotReliabilityEnabled *bool `pulumi:"spotReliabilityEnabled"`
@@ -2481,6 +2554,8 @@ type NodeTemplateConstraintsArgs struct {
 	ArchitecturePriorities pulumi.StringArrayInput `pulumi:"architecturePriorities"`
 	// List of acceptable instance CPU architectures, the default is amd64. Allowed values: amd64, arm64.
 	Architectures pulumi.StringArrayInput `pulumi:"architectures"`
+	// AWS-specific constraints for the node template.
+	Aws NodeTemplateConstraintsAwsPtrInput `pulumi:"aws"`
 	// The list of AZ names to consider for the node template, if empty or not set all AZs are considered.
 	Azs pulumi.StringArrayInput `pulumi:"azs"`
 	// Bare metal constraint, will only pick bare metal nodes if set to true. Will only pick non-bare metal nodes if false. Defaults to unspecified. Allowed values: true, false, unspecified.
@@ -2506,15 +2581,19 @@ type NodeTemplateConstraintsArgs struct {
 	// Enable/disable spot diversity policy. When enabled, autoscaler will try to balance between diverse and cost optimal instance types.
 	EnableSpotDiversity pulumi.BoolPtrInput `pulumi:"enableSpotDiversity"`
 	// Fallback restore rate in seconds: defines how much time should pass before spot fallback should be attempted to be restored to real spot.
-	FallbackRestoreRateSeconds pulumi.IntPtrInput                              `pulumi:"fallbackRestoreRateSeconds"`
-	Gpu                        NodeTemplateConstraintsGpuPtrInput              `pulumi:"gpu"`
-	InstanceFamilies           NodeTemplateConstraintsInstanceFamiliesPtrInput `pulumi:"instanceFamilies"`
+	FallbackRestoreRateSeconds pulumi.IntPtrInput `pulumi:"fallbackRestoreRateSeconds"`
+	// GCP-specific constraints for the node template.
+	Gcp              NodeTemplateConstraintsGcpPtrInput              `pulumi:"gcp"`
+	Gpu              NodeTemplateConstraintsGpuPtrInput              `pulumi:"gpu"`
+	InstanceFamilies NodeTemplateConstraintsInstanceFamiliesPtrInput `pulumi:"instanceFamilies"`
 	// GPU instance constraint - will only pick nodes with GPU if true
 	IsGpuOnly pulumi.BoolPtrInput `pulumi:"isGpuOnly"`
 	// Max CPU cores per node.
 	MaxCpu pulumi.IntPtrInput `pulumi:"maxCpu"`
 	// Max Memory (Mib) per node.
 	MaxMemory pulumi.IntPtrInput `pulumi:"maxMemory"`
+	// Maximum price per vCPU threshold. When price adjustments are configured, the filter applies to the adjusted price.
+	MaxPricePerCpu pulumi.Float64PtrInput `pulumi:"maxPricePerCpu"`
 	// Min CPU cores per node.
 	MinCpu pulumi.IntPtrInput `pulumi:"minCpu"`
 	// Min Memory (Mib) per node.
@@ -2530,7 +2609,9 @@ type NodeTemplateConstraintsArgs struct {
 	SpotDiversityPriceIncreaseLimitPercent pulumi.IntPtrInput `pulumi:"spotDiversityPriceIncreaseLimitPercent"`
 	// Enable/disable spot interruption predictions.
 	SpotInterruptionPredictionsEnabled pulumi.BoolPtrInput `pulumi:"spotInterruptionPredictionsEnabled"`
-	// Spot interruption predictions type. Can be either "aws-rebalance-recommendations" or "interruption-predictions".
+	// Spot interruption predictions type. Only "interruption-predictions" is supported.
+	//
+	// Deprecated: The value "aws-rebalance-recommendations" is deprecated and will be removed in a future major version. Cast AI ML predictions ("interruption-predictions") are now used for all spot interruption prediction.
 	SpotInterruptionPredictionsType pulumi.StringPtrInput `pulumi:"spotInterruptionPredictionsType"`
 	// Enable/disable spot reliability. When enabled, autoscaler will create instances with highest reliability score within price increase threshold.
 	SpotReliabilityEnabled pulumi.BoolPtrInput `pulumi:"spotReliabilityEnabled"`
@@ -2631,6 +2712,11 @@ func (o NodeTemplateConstraintsOutput) Architectures() pulumi.StringArrayOutput 
 	return o.ApplyT(func(v NodeTemplateConstraints) []string { return v.Architectures }).(pulumi.StringArrayOutput)
 }
 
+// AWS-specific constraints for the node template.
+func (o NodeTemplateConstraintsOutput) Aws() NodeTemplateConstraintsAwsPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraints) *NodeTemplateConstraintsAws { return v.Aws }).(NodeTemplateConstraintsAwsPtrOutput)
+}
+
 // The list of AZ names to consider for the node template, if empty or not set all AZs are considered.
 func (o NodeTemplateConstraintsOutput) Azs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NodeTemplateConstraints) []string { return v.Azs }).(pulumi.StringArrayOutput)
@@ -2693,6 +2779,11 @@ func (o NodeTemplateConstraintsOutput) FallbackRestoreRateSeconds() pulumi.IntPt
 	return o.ApplyT(func(v NodeTemplateConstraints) *int { return v.FallbackRestoreRateSeconds }).(pulumi.IntPtrOutput)
 }
 
+// GCP-specific constraints for the node template.
+func (o NodeTemplateConstraintsOutput) Gcp() NodeTemplateConstraintsGcpPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraints) *NodeTemplateConstraintsGcp { return v.Gcp }).(NodeTemplateConstraintsGcpPtrOutput)
+}
+
 func (o NodeTemplateConstraintsOutput) Gpu() NodeTemplateConstraintsGpuPtrOutput {
 	return o.ApplyT(func(v NodeTemplateConstraints) *NodeTemplateConstraintsGpu { return v.Gpu }).(NodeTemplateConstraintsGpuPtrOutput)
 }
@@ -2714,6 +2805,11 @@ func (o NodeTemplateConstraintsOutput) MaxCpu() pulumi.IntPtrOutput {
 // Max Memory (Mib) per node.
 func (o NodeTemplateConstraintsOutput) MaxMemory() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v NodeTemplateConstraints) *int { return v.MaxMemory }).(pulumi.IntPtrOutput)
+}
+
+// Maximum price per vCPU threshold. When price adjustments are configured, the filter applies to the adjusted price.
+func (o NodeTemplateConstraintsOutput) MaxPricePerCpu() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraints) *float64 { return v.MaxPricePerCpu }).(pulumi.Float64PtrOutput)
 }
 
 // Min CPU cores per node.
@@ -2755,7 +2851,9 @@ func (o NodeTemplateConstraintsOutput) SpotInterruptionPredictionsEnabled() pulu
 	return o.ApplyT(func(v NodeTemplateConstraints) *bool { return v.SpotInterruptionPredictionsEnabled }).(pulumi.BoolPtrOutput)
 }
 
-// Spot interruption predictions type. Can be either "aws-rebalance-recommendations" or "interruption-predictions".
+// Spot interruption predictions type. Only "interruption-predictions" is supported.
+//
+// Deprecated: The value "aws-rebalance-recommendations" is deprecated and will be removed in a future major version. Cast AI ML predictions ("interruption-predictions") are now used for all spot interruption prediction.
 func (o NodeTemplateConstraintsOutput) SpotInterruptionPredictionsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeTemplateConstraints) *string { return v.SpotInterruptionPredictionsType }).(pulumi.StringPtrOutput)
 }
@@ -2827,6 +2925,16 @@ func (o NodeTemplateConstraintsPtrOutput) Architectures() pulumi.StringArrayOutp
 		}
 		return v.Architectures
 	}).(pulumi.StringArrayOutput)
+}
+
+// AWS-specific constraints for the node template.
+func (o NodeTemplateConstraintsPtrOutput) Aws() NodeTemplateConstraintsAwsPtrOutput {
+	return o.ApplyT(func(v *NodeTemplateConstraints) *NodeTemplateConstraintsAws {
+		if v == nil {
+			return nil
+		}
+		return v.Aws
+	}).(NodeTemplateConstraintsAwsPtrOutput)
 }
 
 // The list of AZ names to consider for the node template, if empty or not set all AZs are considered.
@@ -2944,6 +3052,16 @@ func (o NodeTemplateConstraintsPtrOutput) FallbackRestoreRateSeconds() pulumi.In
 	}).(pulumi.IntPtrOutput)
 }
 
+// GCP-specific constraints for the node template.
+func (o NodeTemplateConstraintsPtrOutput) Gcp() NodeTemplateConstraintsGcpPtrOutput {
+	return o.ApplyT(func(v *NodeTemplateConstraints) *NodeTemplateConstraintsGcp {
+		if v == nil {
+			return nil
+		}
+		return v.Gcp
+	}).(NodeTemplateConstraintsGcpPtrOutput)
+}
+
 func (o NodeTemplateConstraintsPtrOutput) Gpu() NodeTemplateConstraintsGpuPtrOutput {
 	return o.ApplyT(func(v *NodeTemplateConstraints) *NodeTemplateConstraintsGpu {
 		if v == nil {
@@ -2990,6 +3108,16 @@ func (o NodeTemplateConstraintsPtrOutput) MaxMemory() pulumi.IntPtrOutput {
 		}
 		return v.MaxMemory
 	}).(pulumi.IntPtrOutput)
+}
+
+// Maximum price per vCPU threshold. When price adjustments are configured, the filter applies to the adjusted price.
+func (o NodeTemplateConstraintsPtrOutput) MaxPricePerCpu() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *NodeTemplateConstraints) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.MaxPricePerCpu
+	}).(pulumi.Float64PtrOutput)
 }
 
 // Min CPU cores per node.
@@ -3071,7 +3199,9 @@ func (o NodeTemplateConstraintsPtrOutput) SpotInterruptionPredictionsEnabled() p
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Spot interruption predictions type. Can be either "aws-rebalance-recommendations" or "interruption-predictions".
+// Spot interruption predictions type. Only "interruption-predictions" is supported.
+//
+// Deprecated: The value "aws-rebalance-recommendations" is deprecated and will be removed in a future major version. Cast AI ML predictions ("interruption-predictions") are now used for all spot interruption prediction.
 func (o NodeTemplateConstraintsPtrOutput) SpotInterruptionPredictionsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeTemplateConstraints) *string {
 		if v == nil {
@@ -3129,6 +3259,260 @@ func (o NodeTemplateConstraintsPtrOutput) UseSpotFallbacks() pulumi.BoolPtrOutpu
 		}
 		return v.UseSpotFallbacks
 	}).(pulumi.BoolPtrOutput)
+}
+
+type NodeTemplateConstraintsAws struct {
+	// Capacity reservations that this template can use for provisioning.
+	CapacityReservations []NodeTemplateConstraintsAwsCapacityReservation `pulumi:"capacityReservations"`
+}
+
+// NodeTemplateConstraintsAwsInput is an input type that accepts NodeTemplateConstraintsAwsArgs and NodeTemplateConstraintsAwsOutput values.
+// You can construct a concrete instance of `NodeTemplateConstraintsAwsInput` via:
+//
+//	NodeTemplateConstraintsAwsArgs{...}
+type NodeTemplateConstraintsAwsInput interface {
+	pulumi.Input
+
+	ToNodeTemplateConstraintsAwsOutput() NodeTemplateConstraintsAwsOutput
+	ToNodeTemplateConstraintsAwsOutputWithContext(context.Context) NodeTemplateConstraintsAwsOutput
+}
+
+type NodeTemplateConstraintsAwsArgs struct {
+	// Capacity reservations that this template can use for provisioning.
+	CapacityReservations NodeTemplateConstraintsAwsCapacityReservationArrayInput `pulumi:"capacityReservations"`
+}
+
+func (NodeTemplateConstraintsAwsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeTemplateConstraintsAws)(nil)).Elem()
+}
+
+func (i NodeTemplateConstraintsAwsArgs) ToNodeTemplateConstraintsAwsOutput() NodeTemplateConstraintsAwsOutput {
+	return i.ToNodeTemplateConstraintsAwsOutputWithContext(context.Background())
+}
+
+func (i NodeTemplateConstraintsAwsArgs) ToNodeTemplateConstraintsAwsOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplateConstraintsAwsOutput)
+}
+
+func (i NodeTemplateConstraintsAwsArgs) ToNodeTemplateConstraintsAwsPtrOutput() NodeTemplateConstraintsAwsPtrOutput {
+	return i.ToNodeTemplateConstraintsAwsPtrOutputWithContext(context.Background())
+}
+
+func (i NodeTemplateConstraintsAwsArgs) ToNodeTemplateConstraintsAwsPtrOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplateConstraintsAwsOutput).ToNodeTemplateConstraintsAwsPtrOutputWithContext(ctx)
+}
+
+// NodeTemplateConstraintsAwsPtrInput is an input type that accepts NodeTemplateConstraintsAwsArgs, NodeTemplateConstraintsAwsPtr and NodeTemplateConstraintsAwsPtrOutput values.
+// You can construct a concrete instance of `NodeTemplateConstraintsAwsPtrInput` via:
+//
+//	        NodeTemplateConstraintsAwsArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeTemplateConstraintsAwsPtrInput interface {
+	pulumi.Input
+
+	ToNodeTemplateConstraintsAwsPtrOutput() NodeTemplateConstraintsAwsPtrOutput
+	ToNodeTemplateConstraintsAwsPtrOutputWithContext(context.Context) NodeTemplateConstraintsAwsPtrOutput
+}
+
+type nodeTemplateConstraintsAwsPtrType NodeTemplateConstraintsAwsArgs
+
+func NodeTemplateConstraintsAwsPtr(v *NodeTemplateConstraintsAwsArgs) NodeTemplateConstraintsAwsPtrInput {
+	return (*nodeTemplateConstraintsAwsPtrType)(v)
+}
+
+func (*nodeTemplateConstraintsAwsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeTemplateConstraintsAws)(nil)).Elem()
+}
+
+func (i *nodeTemplateConstraintsAwsPtrType) ToNodeTemplateConstraintsAwsPtrOutput() NodeTemplateConstraintsAwsPtrOutput {
+	return i.ToNodeTemplateConstraintsAwsPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeTemplateConstraintsAwsPtrType) ToNodeTemplateConstraintsAwsPtrOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplateConstraintsAwsPtrOutput)
+}
+
+type NodeTemplateConstraintsAwsOutput struct{ *pulumi.OutputState }
+
+func (NodeTemplateConstraintsAwsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeTemplateConstraintsAws)(nil)).Elem()
+}
+
+func (o NodeTemplateConstraintsAwsOutput) ToNodeTemplateConstraintsAwsOutput() NodeTemplateConstraintsAwsOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsAwsOutput) ToNodeTemplateConstraintsAwsOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsAwsOutput) ToNodeTemplateConstraintsAwsPtrOutput() NodeTemplateConstraintsAwsPtrOutput {
+	return o.ToNodeTemplateConstraintsAwsPtrOutputWithContext(context.Background())
+}
+
+func (o NodeTemplateConstraintsAwsOutput) ToNodeTemplateConstraintsAwsPtrOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeTemplateConstraintsAws) *NodeTemplateConstraintsAws {
+		return &v
+	}).(NodeTemplateConstraintsAwsPtrOutput)
+}
+
+// Capacity reservations that this template can use for provisioning.
+func (o NodeTemplateConstraintsAwsOutput) CapacityReservations() NodeTemplateConstraintsAwsCapacityReservationArrayOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsAws) []NodeTemplateConstraintsAwsCapacityReservation {
+		return v.CapacityReservations
+	}).(NodeTemplateConstraintsAwsCapacityReservationArrayOutput)
+}
+
+type NodeTemplateConstraintsAwsPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeTemplateConstraintsAwsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeTemplateConstraintsAws)(nil)).Elem()
+}
+
+func (o NodeTemplateConstraintsAwsPtrOutput) ToNodeTemplateConstraintsAwsPtrOutput() NodeTemplateConstraintsAwsPtrOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsAwsPtrOutput) ToNodeTemplateConstraintsAwsPtrOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsPtrOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsAwsPtrOutput) Elem() NodeTemplateConstraintsAwsOutput {
+	return o.ApplyT(func(v *NodeTemplateConstraintsAws) NodeTemplateConstraintsAws {
+		if v != nil {
+			return *v
+		}
+		var ret NodeTemplateConstraintsAws
+		return ret
+	}).(NodeTemplateConstraintsAwsOutput)
+}
+
+// Capacity reservations that this template can use for provisioning.
+func (o NodeTemplateConstraintsAwsPtrOutput) CapacityReservations() NodeTemplateConstraintsAwsCapacityReservationArrayOutput {
+	return o.ApplyT(func(v *NodeTemplateConstraintsAws) []NodeTemplateConstraintsAwsCapacityReservation {
+		if v == nil {
+			return nil
+		}
+		return v.CapacityReservations
+	}).(NodeTemplateConstraintsAwsCapacityReservationArrayOutput)
+}
+
+type NodeTemplateConstraintsAwsCapacityReservation struct {
+	// Capacity resource group ARN for UltraServer capacity blocks.
+	CapacityResourceGroupArn *string `pulumi:"capacityResourceGroupArn"`
+	// AWS capacity reservation ID.
+	Id *string `pulumi:"id"`
+	// Type of capacity reservation. Allowed values: ON_DEMAND_CAPACITY_RESERVATION, CAPACITY_BLOCK.
+	Type *string `pulumi:"type"`
+}
+
+// NodeTemplateConstraintsAwsCapacityReservationInput is an input type that accepts NodeTemplateConstraintsAwsCapacityReservationArgs and NodeTemplateConstraintsAwsCapacityReservationOutput values.
+// You can construct a concrete instance of `NodeTemplateConstraintsAwsCapacityReservationInput` via:
+//
+//	NodeTemplateConstraintsAwsCapacityReservationArgs{...}
+type NodeTemplateConstraintsAwsCapacityReservationInput interface {
+	pulumi.Input
+
+	ToNodeTemplateConstraintsAwsCapacityReservationOutput() NodeTemplateConstraintsAwsCapacityReservationOutput
+	ToNodeTemplateConstraintsAwsCapacityReservationOutputWithContext(context.Context) NodeTemplateConstraintsAwsCapacityReservationOutput
+}
+
+type NodeTemplateConstraintsAwsCapacityReservationArgs struct {
+	// Capacity resource group ARN for UltraServer capacity blocks.
+	CapacityResourceGroupArn pulumi.StringPtrInput `pulumi:"capacityResourceGroupArn"`
+	// AWS capacity reservation ID.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// Type of capacity reservation. Allowed values: ON_DEMAND_CAPACITY_RESERVATION, CAPACITY_BLOCK.
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (NodeTemplateConstraintsAwsCapacityReservationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeTemplateConstraintsAwsCapacityReservation)(nil)).Elem()
+}
+
+func (i NodeTemplateConstraintsAwsCapacityReservationArgs) ToNodeTemplateConstraintsAwsCapacityReservationOutput() NodeTemplateConstraintsAwsCapacityReservationOutput {
+	return i.ToNodeTemplateConstraintsAwsCapacityReservationOutputWithContext(context.Background())
+}
+
+func (i NodeTemplateConstraintsAwsCapacityReservationArgs) ToNodeTemplateConstraintsAwsCapacityReservationOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsCapacityReservationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplateConstraintsAwsCapacityReservationOutput)
+}
+
+// NodeTemplateConstraintsAwsCapacityReservationArrayInput is an input type that accepts NodeTemplateConstraintsAwsCapacityReservationArray and NodeTemplateConstraintsAwsCapacityReservationArrayOutput values.
+// You can construct a concrete instance of `NodeTemplateConstraintsAwsCapacityReservationArrayInput` via:
+//
+//	NodeTemplateConstraintsAwsCapacityReservationArray{ NodeTemplateConstraintsAwsCapacityReservationArgs{...} }
+type NodeTemplateConstraintsAwsCapacityReservationArrayInput interface {
+	pulumi.Input
+
+	ToNodeTemplateConstraintsAwsCapacityReservationArrayOutput() NodeTemplateConstraintsAwsCapacityReservationArrayOutput
+	ToNodeTemplateConstraintsAwsCapacityReservationArrayOutputWithContext(context.Context) NodeTemplateConstraintsAwsCapacityReservationArrayOutput
+}
+
+type NodeTemplateConstraintsAwsCapacityReservationArray []NodeTemplateConstraintsAwsCapacityReservationInput
+
+func (NodeTemplateConstraintsAwsCapacityReservationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeTemplateConstraintsAwsCapacityReservation)(nil)).Elem()
+}
+
+func (i NodeTemplateConstraintsAwsCapacityReservationArray) ToNodeTemplateConstraintsAwsCapacityReservationArrayOutput() NodeTemplateConstraintsAwsCapacityReservationArrayOutput {
+	return i.ToNodeTemplateConstraintsAwsCapacityReservationArrayOutputWithContext(context.Background())
+}
+
+func (i NodeTemplateConstraintsAwsCapacityReservationArray) ToNodeTemplateConstraintsAwsCapacityReservationArrayOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsCapacityReservationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplateConstraintsAwsCapacityReservationArrayOutput)
+}
+
+type NodeTemplateConstraintsAwsCapacityReservationOutput struct{ *pulumi.OutputState }
+
+func (NodeTemplateConstraintsAwsCapacityReservationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeTemplateConstraintsAwsCapacityReservation)(nil)).Elem()
+}
+
+func (o NodeTemplateConstraintsAwsCapacityReservationOutput) ToNodeTemplateConstraintsAwsCapacityReservationOutput() NodeTemplateConstraintsAwsCapacityReservationOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsAwsCapacityReservationOutput) ToNodeTemplateConstraintsAwsCapacityReservationOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsCapacityReservationOutput {
+	return o
+}
+
+// Capacity resource group ARN for UltraServer capacity blocks.
+func (o NodeTemplateConstraintsAwsCapacityReservationOutput) CapacityResourceGroupArn() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsAwsCapacityReservation) *string { return v.CapacityResourceGroupArn }).(pulumi.StringPtrOutput)
+}
+
+// AWS capacity reservation ID.
+func (o NodeTemplateConstraintsAwsCapacityReservationOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsAwsCapacityReservation) *string { return v.Id }).(pulumi.StringPtrOutput)
+}
+
+// Type of capacity reservation. Allowed values: ON_DEMAND_CAPACITY_RESERVATION, CAPACITY_BLOCK.
+func (o NodeTemplateConstraintsAwsCapacityReservationOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsAwsCapacityReservation) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type NodeTemplateConstraintsAwsCapacityReservationArrayOutput struct{ *pulumi.OutputState }
+
+func (NodeTemplateConstraintsAwsCapacityReservationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeTemplateConstraintsAwsCapacityReservation)(nil)).Elem()
+}
+
+func (o NodeTemplateConstraintsAwsCapacityReservationArrayOutput) ToNodeTemplateConstraintsAwsCapacityReservationArrayOutput() NodeTemplateConstraintsAwsCapacityReservationArrayOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsAwsCapacityReservationArrayOutput) ToNodeTemplateConstraintsAwsCapacityReservationArrayOutputWithContext(ctx context.Context) NodeTemplateConstraintsAwsCapacityReservationArrayOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsAwsCapacityReservationArrayOutput) Index(i pulumi.IntInput) NodeTemplateConstraintsAwsCapacityReservationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NodeTemplateConstraintsAwsCapacityReservation {
+		return vs[0].([]NodeTemplateConstraintsAwsCapacityReservation)[vs[1].(int)]
+	}).(NodeTemplateConstraintsAwsCapacityReservationOutput)
 }
 
 type NodeTemplateConstraintsCustomPriority struct {
@@ -3250,8 +3634,14 @@ type NodeTemplateConstraintsDedicatedNodeAffinity struct {
 	Affinities []NodeTemplateConstraintsDedicatedNodeAffinityAffinity `pulumi:"affinities"`
 	// Availability zone name.
 	AzName string `pulumi:"azName"`
+	// Number of CPUs per GPU on the node.
+	CpusPerGpu *int `pulumi:"cpusPerGpu"`
 	// Instance/node types in this node group.
 	InstanceTypes []string `pulumi:"instanceTypes"`
+	// Maximum number of CPUs that can be provisioned from this dedicated node affinity across all nodes for the specific node template. If not set, no CPU cap is applied. If cpusPerGpu is set, maxCpu must be a multiple of cpus_per_gpu.
+	MaxCpu *int `pulumi:"maxCpu"`
+	// Minimal number of GPUs per node.
+	MinGpusPerNode *int `pulumi:"minGpusPerNode"`
 	// Name of node group.
 	Name string `pulumi:"name"`
 }
@@ -3271,8 +3661,14 @@ type NodeTemplateConstraintsDedicatedNodeAffinityArgs struct {
 	Affinities NodeTemplateConstraintsDedicatedNodeAffinityAffinityArrayInput `pulumi:"affinities"`
 	// Availability zone name.
 	AzName pulumi.StringInput `pulumi:"azName"`
+	// Number of CPUs per GPU on the node.
+	CpusPerGpu pulumi.IntPtrInput `pulumi:"cpusPerGpu"`
 	// Instance/node types in this node group.
 	InstanceTypes pulumi.StringArrayInput `pulumi:"instanceTypes"`
+	// Maximum number of CPUs that can be provisioned from this dedicated node affinity across all nodes for the specific node template. If not set, no CPU cap is applied. If cpusPerGpu is set, maxCpu must be a multiple of cpus_per_gpu.
+	MaxCpu pulumi.IntPtrInput `pulumi:"maxCpu"`
+	// Minimal number of GPUs per node.
+	MinGpusPerNode pulumi.IntPtrInput `pulumi:"minGpusPerNode"`
 	// Name of node group.
 	Name pulumi.StringInput `pulumi:"name"`
 }
@@ -3339,9 +3735,24 @@ func (o NodeTemplateConstraintsDedicatedNodeAffinityOutput) AzName() pulumi.Stri
 	return o.ApplyT(func(v NodeTemplateConstraintsDedicatedNodeAffinity) string { return v.AzName }).(pulumi.StringOutput)
 }
 
+// Number of CPUs per GPU on the node.
+func (o NodeTemplateConstraintsDedicatedNodeAffinityOutput) CpusPerGpu() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsDedicatedNodeAffinity) *int { return v.CpusPerGpu }).(pulumi.IntPtrOutput)
+}
+
 // Instance/node types in this node group.
 func (o NodeTemplateConstraintsDedicatedNodeAffinityOutput) InstanceTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NodeTemplateConstraintsDedicatedNodeAffinity) []string { return v.InstanceTypes }).(pulumi.StringArrayOutput)
+}
+
+// Maximum number of CPUs that can be provisioned from this dedicated node affinity across all nodes for the specific node template. If not set, no CPU cap is applied. If cpusPerGpu is set, maxCpu must be a multiple of cpus_per_gpu.
+func (o NodeTemplateConstraintsDedicatedNodeAffinityOutput) MaxCpu() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsDedicatedNodeAffinity) *int { return v.MaxCpu }).(pulumi.IntPtrOutput)
+}
+
+// Minimal number of GPUs per node.
+func (o NodeTemplateConstraintsDedicatedNodeAffinityOutput) MinGpusPerNode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsDedicatedNodeAffinity) *int { return v.MinGpusPerNode }).(pulumi.IntPtrOutput)
 }
 
 // Name of node group.
@@ -3484,9 +3895,148 @@ func (o NodeTemplateConstraintsDedicatedNodeAffinityAffinityArrayOutput) Index(i
 	}).(NodeTemplateConstraintsDedicatedNodeAffinityAffinityOutput)
 }
 
+type NodeTemplateConstraintsGcp struct {
+	// GCP capacity reservation IDs (numeric) that this template is allowed to use.
+	CapacityReservationIds []string `pulumi:"capacityReservationIds"`
+}
+
+// NodeTemplateConstraintsGcpInput is an input type that accepts NodeTemplateConstraintsGcpArgs and NodeTemplateConstraintsGcpOutput values.
+// You can construct a concrete instance of `NodeTemplateConstraintsGcpInput` via:
+//
+//	NodeTemplateConstraintsGcpArgs{...}
+type NodeTemplateConstraintsGcpInput interface {
+	pulumi.Input
+
+	ToNodeTemplateConstraintsGcpOutput() NodeTemplateConstraintsGcpOutput
+	ToNodeTemplateConstraintsGcpOutputWithContext(context.Context) NodeTemplateConstraintsGcpOutput
+}
+
+type NodeTemplateConstraintsGcpArgs struct {
+	// GCP capacity reservation IDs (numeric) that this template is allowed to use.
+	CapacityReservationIds pulumi.StringArrayInput `pulumi:"capacityReservationIds"`
+}
+
+func (NodeTemplateConstraintsGcpArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeTemplateConstraintsGcp)(nil)).Elem()
+}
+
+func (i NodeTemplateConstraintsGcpArgs) ToNodeTemplateConstraintsGcpOutput() NodeTemplateConstraintsGcpOutput {
+	return i.ToNodeTemplateConstraintsGcpOutputWithContext(context.Background())
+}
+
+func (i NodeTemplateConstraintsGcpArgs) ToNodeTemplateConstraintsGcpOutputWithContext(ctx context.Context) NodeTemplateConstraintsGcpOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplateConstraintsGcpOutput)
+}
+
+func (i NodeTemplateConstraintsGcpArgs) ToNodeTemplateConstraintsGcpPtrOutput() NodeTemplateConstraintsGcpPtrOutput {
+	return i.ToNodeTemplateConstraintsGcpPtrOutputWithContext(context.Background())
+}
+
+func (i NodeTemplateConstraintsGcpArgs) ToNodeTemplateConstraintsGcpPtrOutputWithContext(ctx context.Context) NodeTemplateConstraintsGcpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplateConstraintsGcpOutput).ToNodeTemplateConstraintsGcpPtrOutputWithContext(ctx)
+}
+
+// NodeTemplateConstraintsGcpPtrInput is an input type that accepts NodeTemplateConstraintsGcpArgs, NodeTemplateConstraintsGcpPtr and NodeTemplateConstraintsGcpPtrOutput values.
+// You can construct a concrete instance of `NodeTemplateConstraintsGcpPtrInput` via:
+//
+//	        NodeTemplateConstraintsGcpArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeTemplateConstraintsGcpPtrInput interface {
+	pulumi.Input
+
+	ToNodeTemplateConstraintsGcpPtrOutput() NodeTemplateConstraintsGcpPtrOutput
+	ToNodeTemplateConstraintsGcpPtrOutputWithContext(context.Context) NodeTemplateConstraintsGcpPtrOutput
+}
+
+type nodeTemplateConstraintsGcpPtrType NodeTemplateConstraintsGcpArgs
+
+func NodeTemplateConstraintsGcpPtr(v *NodeTemplateConstraintsGcpArgs) NodeTemplateConstraintsGcpPtrInput {
+	return (*nodeTemplateConstraintsGcpPtrType)(v)
+}
+
+func (*nodeTemplateConstraintsGcpPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeTemplateConstraintsGcp)(nil)).Elem()
+}
+
+func (i *nodeTemplateConstraintsGcpPtrType) ToNodeTemplateConstraintsGcpPtrOutput() NodeTemplateConstraintsGcpPtrOutput {
+	return i.ToNodeTemplateConstraintsGcpPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeTemplateConstraintsGcpPtrType) ToNodeTemplateConstraintsGcpPtrOutputWithContext(ctx context.Context) NodeTemplateConstraintsGcpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplateConstraintsGcpPtrOutput)
+}
+
+type NodeTemplateConstraintsGcpOutput struct{ *pulumi.OutputState }
+
+func (NodeTemplateConstraintsGcpOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeTemplateConstraintsGcp)(nil)).Elem()
+}
+
+func (o NodeTemplateConstraintsGcpOutput) ToNodeTemplateConstraintsGcpOutput() NodeTemplateConstraintsGcpOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsGcpOutput) ToNodeTemplateConstraintsGcpOutputWithContext(ctx context.Context) NodeTemplateConstraintsGcpOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsGcpOutput) ToNodeTemplateConstraintsGcpPtrOutput() NodeTemplateConstraintsGcpPtrOutput {
+	return o.ToNodeTemplateConstraintsGcpPtrOutputWithContext(context.Background())
+}
+
+func (o NodeTemplateConstraintsGcpOutput) ToNodeTemplateConstraintsGcpPtrOutputWithContext(ctx context.Context) NodeTemplateConstraintsGcpPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeTemplateConstraintsGcp) *NodeTemplateConstraintsGcp {
+		return &v
+	}).(NodeTemplateConstraintsGcpPtrOutput)
+}
+
+// GCP capacity reservation IDs (numeric) that this template is allowed to use.
+func (o NodeTemplateConstraintsGcpOutput) CapacityReservationIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsGcp) []string { return v.CapacityReservationIds }).(pulumi.StringArrayOutput)
+}
+
+type NodeTemplateConstraintsGcpPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeTemplateConstraintsGcpPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeTemplateConstraintsGcp)(nil)).Elem()
+}
+
+func (o NodeTemplateConstraintsGcpPtrOutput) ToNodeTemplateConstraintsGcpPtrOutput() NodeTemplateConstraintsGcpPtrOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsGcpPtrOutput) ToNodeTemplateConstraintsGcpPtrOutputWithContext(ctx context.Context) NodeTemplateConstraintsGcpPtrOutput {
+	return o
+}
+
+func (o NodeTemplateConstraintsGcpPtrOutput) Elem() NodeTemplateConstraintsGcpOutput {
+	return o.ApplyT(func(v *NodeTemplateConstraintsGcp) NodeTemplateConstraintsGcp {
+		if v != nil {
+			return *v
+		}
+		var ret NodeTemplateConstraintsGcp
+		return ret
+	}).(NodeTemplateConstraintsGcpOutput)
+}
+
+// GCP capacity reservation IDs (numeric) that this template is allowed to use.
+func (o NodeTemplateConstraintsGcpPtrOutput) CapacityReservationIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NodeTemplateConstraintsGcp) []string {
+		if v == nil {
+			return nil
+		}
+		return v.CapacityReservationIds
+	}).(pulumi.StringArrayOutput)
+}
+
 type NodeTemplateConstraintsGpu struct {
 	// Names of the GPUs to exclude.
 	ExcludeNames []string `pulumi:"excludeNames"`
+	// Will include fractional GPU instances when enabled otherwise they will be excluded. Supported values: `enabled`, `disabled` or ``.
+	FractionalGpus *string `pulumi:"fractionalGpus"`
 	// Instance families to include when filtering (excludes all other families).
 	IncludeNames []string `pulumi:"includeNames"`
 	// Manufacturers of the gpus to select - NVIDIA, AMD.
@@ -3511,6 +4061,8 @@ type NodeTemplateConstraintsGpuInput interface {
 type NodeTemplateConstraintsGpuArgs struct {
 	// Names of the GPUs to exclude.
 	ExcludeNames pulumi.StringArrayInput `pulumi:"excludeNames"`
+	// Will include fractional GPU instances when enabled otherwise they will be excluded. Supported values: `enabled`, `disabled` or ``.
+	FractionalGpus pulumi.StringPtrInput `pulumi:"fractionalGpus"`
 	// Instance families to include when filtering (excludes all other families).
 	IncludeNames pulumi.StringArrayInput `pulumi:"includeNames"`
 	// Manufacturers of the gpus to select - NVIDIA, AMD.
@@ -3603,6 +4155,11 @@ func (o NodeTemplateConstraintsGpuOutput) ExcludeNames() pulumi.StringArrayOutpu
 	return o.ApplyT(func(v NodeTemplateConstraintsGpu) []string { return v.ExcludeNames }).(pulumi.StringArrayOutput)
 }
 
+// Will include fractional GPU instances when enabled otherwise they will be excluded. Supported values: `enabled`, `disabled` or “.
+func (o NodeTemplateConstraintsGpuOutput) FractionalGpus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeTemplateConstraintsGpu) *string { return v.FractionalGpus }).(pulumi.StringPtrOutput)
+}
+
 // Instance families to include when filtering (excludes all other families).
 func (o NodeTemplateConstraintsGpuOutput) IncludeNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NodeTemplateConstraintsGpu) []string { return v.IncludeNames }).(pulumi.StringArrayOutput)
@@ -3655,6 +4212,16 @@ func (o NodeTemplateConstraintsGpuPtrOutput) ExcludeNames() pulumi.StringArrayOu
 		}
 		return v.ExcludeNames
 	}).(pulumi.StringArrayOutput)
+}
+
+// Will include fractional GPU instances when enabled otherwise they will be excluded. Supported values: `enabled`, `disabled` or “.
+func (o NodeTemplateConstraintsGpuPtrOutput) FractionalGpus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeTemplateConstraintsGpu) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FractionalGpus
+	}).(pulumi.StringPtrOutput)
 }
 
 // Instance families to include when filtering (excludes all other families).
@@ -4127,10 +4694,16 @@ func (o NodeTemplateCustomTaintArrayOutput) Index(i pulumi.IntInput) NodeTemplat
 type NodeTemplateGpu struct {
 	// Defines default number of shared clients per GPU.
 	DefaultSharedClientsPerGpu *int `pulumi:"defaultSharedClientsPerGpu"`
-	// Enable/disable GPU time-sharing.
+	// Enable/disable GPU time-sharing. Deprecated: use sharingStrategy = "time-slicing" instead.
+	//
+	// Deprecated: Use sharingStrategy instead.
 	EnableTimeSharing *bool `pulumi:"enableTimeSharing"`
 	// Defines GPU sharing configurations for GPU devices.
 	SharingConfigurations []NodeTemplateGpuSharingConfiguration `pulumi:"sharingConfigurations"`
+	// GPU sharing strategy. Supported values: `time-slicing`, `mps`.
+	SharingStrategy *string `pulumi:"sharingStrategy"`
+	// Enable/disable user-managed GPU drivers (for GKE clusters only).
+	UserManagedGpuDrivers *bool `pulumi:"userManagedGpuDrivers"`
 }
 
 // NodeTemplateGpuInput is an input type that accepts NodeTemplateGpuArgs and NodeTemplateGpuOutput values.
@@ -4147,10 +4720,16 @@ type NodeTemplateGpuInput interface {
 type NodeTemplateGpuArgs struct {
 	// Defines default number of shared clients per GPU.
 	DefaultSharedClientsPerGpu pulumi.IntPtrInput `pulumi:"defaultSharedClientsPerGpu"`
-	// Enable/disable GPU time-sharing.
+	// Enable/disable GPU time-sharing. Deprecated: use sharingStrategy = "time-slicing" instead.
+	//
+	// Deprecated: Use sharingStrategy instead.
 	EnableTimeSharing pulumi.BoolPtrInput `pulumi:"enableTimeSharing"`
 	// Defines GPU sharing configurations for GPU devices.
 	SharingConfigurations NodeTemplateGpuSharingConfigurationArrayInput `pulumi:"sharingConfigurations"`
+	// GPU sharing strategy. Supported values: `time-slicing`, `mps`.
+	SharingStrategy pulumi.StringPtrInput `pulumi:"sharingStrategy"`
+	// Enable/disable user-managed GPU drivers (for GKE clusters only).
+	UserManagedGpuDrivers pulumi.BoolPtrInput `pulumi:"userManagedGpuDrivers"`
 }
 
 func (NodeTemplateGpuArgs) ElementType() reflect.Type {
@@ -4235,7 +4814,9 @@ func (o NodeTemplateGpuOutput) DefaultSharedClientsPerGpu() pulumi.IntPtrOutput 
 	return o.ApplyT(func(v NodeTemplateGpu) *int { return v.DefaultSharedClientsPerGpu }).(pulumi.IntPtrOutput)
 }
 
-// Enable/disable GPU time-sharing.
+// Enable/disable GPU time-sharing. Deprecated: use sharingStrategy = "time-slicing" instead.
+//
+// Deprecated: Use sharingStrategy instead.
 func (o NodeTemplateGpuOutput) EnableTimeSharing() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v NodeTemplateGpu) *bool { return v.EnableTimeSharing }).(pulumi.BoolPtrOutput)
 }
@@ -4243,6 +4824,16 @@ func (o NodeTemplateGpuOutput) EnableTimeSharing() pulumi.BoolPtrOutput {
 // Defines GPU sharing configurations for GPU devices.
 func (o NodeTemplateGpuOutput) SharingConfigurations() NodeTemplateGpuSharingConfigurationArrayOutput {
 	return o.ApplyT(func(v NodeTemplateGpu) []NodeTemplateGpuSharingConfiguration { return v.SharingConfigurations }).(NodeTemplateGpuSharingConfigurationArrayOutput)
+}
+
+// GPU sharing strategy. Supported values: `time-slicing`, `mps`.
+func (o NodeTemplateGpuOutput) SharingStrategy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeTemplateGpu) *string { return v.SharingStrategy }).(pulumi.StringPtrOutput)
+}
+
+// Enable/disable user-managed GPU drivers (for GKE clusters only).
+func (o NodeTemplateGpuOutput) UserManagedGpuDrivers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v NodeTemplateGpu) *bool { return v.UserManagedGpuDrivers }).(pulumi.BoolPtrOutput)
 }
 
 type NodeTemplateGpuPtrOutput struct{ *pulumi.OutputState }
@@ -4279,7 +4870,9 @@ func (o NodeTemplateGpuPtrOutput) DefaultSharedClientsPerGpu() pulumi.IntPtrOutp
 	}).(pulumi.IntPtrOutput)
 }
 
-// Enable/disable GPU time-sharing.
+// Enable/disable GPU time-sharing. Deprecated: use sharingStrategy = "time-slicing" instead.
+//
+// Deprecated: Use sharingStrategy instead.
 func (o NodeTemplateGpuPtrOutput) EnableTimeSharing() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *NodeTemplateGpu) *bool {
 		if v == nil {
@@ -4297,6 +4890,26 @@ func (o NodeTemplateGpuPtrOutput) SharingConfigurations() NodeTemplateGpuSharing
 		}
 		return v.SharingConfigurations
 	}).(NodeTemplateGpuSharingConfigurationArrayOutput)
+}
+
+// GPU sharing strategy. Supported values: `time-slicing`, `mps`.
+func (o NodeTemplateGpuPtrOutput) SharingStrategy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeTemplateGpu) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SharingStrategy
+	}).(pulumi.StringPtrOutput)
+}
+
+// Enable/disable user-managed GPU drivers (for GKE clusters only).
+func (o NodeTemplateGpuPtrOutput) UserManagedGpuDrivers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *NodeTemplateGpu) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UserManagedGpuDrivers
+	}).(pulumi.BoolPtrOutput)
 }
 
 type NodeTemplateGpuSharingConfiguration struct {
@@ -4405,6 +5018,143 @@ func (o NodeTemplateGpuSharingConfigurationArrayOutput) Index(i pulumi.IntInput)
 	}).(NodeTemplateGpuSharingConfigurationOutput)
 }
 
+type NodeTemplatePriceAdjustmentConfiguration struct {
+	// Map of instance type names to price adjustment multipliers (as strings). Example: {"r7a.xlarge": "1.0", "r7i.xlarge": "1.20"}
+	InstanceTypeAdjustments map[string]string `pulumi:"instanceTypeAdjustments"`
+}
+
+// NodeTemplatePriceAdjustmentConfigurationInput is an input type that accepts NodeTemplatePriceAdjustmentConfigurationArgs and NodeTemplatePriceAdjustmentConfigurationOutput values.
+// You can construct a concrete instance of `NodeTemplatePriceAdjustmentConfigurationInput` via:
+//
+//	NodeTemplatePriceAdjustmentConfigurationArgs{...}
+type NodeTemplatePriceAdjustmentConfigurationInput interface {
+	pulumi.Input
+
+	ToNodeTemplatePriceAdjustmentConfigurationOutput() NodeTemplatePriceAdjustmentConfigurationOutput
+	ToNodeTemplatePriceAdjustmentConfigurationOutputWithContext(context.Context) NodeTemplatePriceAdjustmentConfigurationOutput
+}
+
+type NodeTemplatePriceAdjustmentConfigurationArgs struct {
+	// Map of instance type names to price adjustment multipliers (as strings). Example: {"r7a.xlarge": "1.0", "r7i.xlarge": "1.20"}
+	InstanceTypeAdjustments pulumi.StringMapInput `pulumi:"instanceTypeAdjustments"`
+}
+
+func (NodeTemplatePriceAdjustmentConfigurationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeTemplatePriceAdjustmentConfiguration)(nil)).Elem()
+}
+
+func (i NodeTemplatePriceAdjustmentConfigurationArgs) ToNodeTemplatePriceAdjustmentConfigurationOutput() NodeTemplatePriceAdjustmentConfigurationOutput {
+	return i.ToNodeTemplatePriceAdjustmentConfigurationOutputWithContext(context.Background())
+}
+
+func (i NodeTemplatePriceAdjustmentConfigurationArgs) ToNodeTemplatePriceAdjustmentConfigurationOutputWithContext(ctx context.Context) NodeTemplatePriceAdjustmentConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplatePriceAdjustmentConfigurationOutput)
+}
+
+func (i NodeTemplatePriceAdjustmentConfigurationArgs) ToNodeTemplatePriceAdjustmentConfigurationPtrOutput() NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return i.ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i NodeTemplatePriceAdjustmentConfigurationArgs) ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(ctx context.Context) NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplatePriceAdjustmentConfigurationOutput).ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(ctx)
+}
+
+// NodeTemplatePriceAdjustmentConfigurationPtrInput is an input type that accepts NodeTemplatePriceAdjustmentConfigurationArgs, NodeTemplatePriceAdjustmentConfigurationPtr and NodeTemplatePriceAdjustmentConfigurationPtrOutput values.
+// You can construct a concrete instance of `NodeTemplatePriceAdjustmentConfigurationPtrInput` via:
+//
+//	        NodeTemplatePriceAdjustmentConfigurationArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeTemplatePriceAdjustmentConfigurationPtrInput interface {
+	pulumi.Input
+
+	ToNodeTemplatePriceAdjustmentConfigurationPtrOutput() NodeTemplatePriceAdjustmentConfigurationPtrOutput
+	ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(context.Context) NodeTemplatePriceAdjustmentConfigurationPtrOutput
+}
+
+type nodeTemplatePriceAdjustmentConfigurationPtrType NodeTemplatePriceAdjustmentConfigurationArgs
+
+func NodeTemplatePriceAdjustmentConfigurationPtr(v *NodeTemplatePriceAdjustmentConfigurationArgs) NodeTemplatePriceAdjustmentConfigurationPtrInput {
+	return (*nodeTemplatePriceAdjustmentConfigurationPtrType)(v)
+}
+
+func (*nodeTemplatePriceAdjustmentConfigurationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeTemplatePriceAdjustmentConfiguration)(nil)).Elem()
+}
+
+func (i *nodeTemplatePriceAdjustmentConfigurationPtrType) ToNodeTemplatePriceAdjustmentConfigurationPtrOutput() NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return i.ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeTemplatePriceAdjustmentConfigurationPtrType) ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(ctx context.Context) NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeTemplatePriceAdjustmentConfigurationPtrOutput)
+}
+
+type NodeTemplatePriceAdjustmentConfigurationOutput struct{ *pulumi.OutputState }
+
+func (NodeTemplatePriceAdjustmentConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeTemplatePriceAdjustmentConfiguration)(nil)).Elem()
+}
+
+func (o NodeTemplatePriceAdjustmentConfigurationOutput) ToNodeTemplatePriceAdjustmentConfigurationOutput() NodeTemplatePriceAdjustmentConfigurationOutput {
+	return o
+}
+
+func (o NodeTemplatePriceAdjustmentConfigurationOutput) ToNodeTemplatePriceAdjustmentConfigurationOutputWithContext(ctx context.Context) NodeTemplatePriceAdjustmentConfigurationOutput {
+	return o
+}
+
+func (o NodeTemplatePriceAdjustmentConfigurationOutput) ToNodeTemplatePriceAdjustmentConfigurationPtrOutput() NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return o.ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (o NodeTemplatePriceAdjustmentConfigurationOutput) ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(ctx context.Context) NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeTemplatePriceAdjustmentConfiguration) *NodeTemplatePriceAdjustmentConfiguration {
+		return &v
+	}).(NodeTemplatePriceAdjustmentConfigurationPtrOutput)
+}
+
+// Map of instance type names to price adjustment multipliers (as strings). Example: {"r7a.xlarge": "1.0", "r7i.xlarge": "1.20"}
+func (o NodeTemplatePriceAdjustmentConfigurationOutput) InstanceTypeAdjustments() pulumi.StringMapOutput {
+	return o.ApplyT(func(v NodeTemplatePriceAdjustmentConfiguration) map[string]string { return v.InstanceTypeAdjustments }).(pulumi.StringMapOutput)
+}
+
+type NodeTemplatePriceAdjustmentConfigurationPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeTemplatePriceAdjustmentConfigurationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeTemplatePriceAdjustmentConfiguration)(nil)).Elem()
+}
+
+func (o NodeTemplatePriceAdjustmentConfigurationPtrOutput) ToNodeTemplatePriceAdjustmentConfigurationPtrOutput() NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return o
+}
+
+func (o NodeTemplatePriceAdjustmentConfigurationPtrOutput) ToNodeTemplatePriceAdjustmentConfigurationPtrOutputWithContext(ctx context.Context) NodeTemplatePriceAdjustmentConfigurationPtrOutput {
+	return o
+}
+
+func (o NodeTemplatePriceAdjustmentConfigurationPtrOutput) Elem() NodeTemplatePriceAdjustmentConfigurationOutput {
+	return o.ApplyT(func(v *NodeTemplatePriceAdjustmentConfiguration) NodeTemplatePriceAdjustmentConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret NodeTemplatePriceAdjustmentConfiguration
+		return ret
+	}).(NodeTemplatePriceAdjustmentConfigurationOutput)
+}
+
+// Map of instance type names to price adjustment multipliers (as strings). Example: {"r7a.xlarge": "1.0", "r7i.xlarge": "1.20"}
+func (o NodeTemplatePriceAdjustmentConfigurationPtrOutput) InstanceTypeAdjustments() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *NodeTemplatePriceAdjustmentConfiguration) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.InstanceTypeAdjustments
+	}).(pulumi.StringMapOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeConfigurationAksInput)(nil)).Elem(), NodeConfigurationAksArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeConfigurationAksPtrInput)(nil)).Elem(), NodeConfigurationAksArgs{})
@@ -4436,12 +5186,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeConfigurationKopsPtrInput)(nil)).Elem(), NodeConfigurationKopsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsInput)(nil)).Elem(), NodeTemplateConstraintsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsPtrInput)(nil)).Elem(), NodeTemplateConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsAwsInput)(nil)).Elem(), NodeTemplateConstraintsAwsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsAwsPtrInput)(nil)).Elem(), NodeTemplateConstraintsAwsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsAwsCapacityReservationInput)(nil)).Elem(), NodeTemplateConstraintsAwsCapacityReservationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsAwsCapacityReservationArrayInput)(nil)).Elem(), NodeTemplateConstraintsAwsCapacityReservationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsCustomPriorityInput)(nil)).Elem(), NodeTemplateConstraintsCustomPriorityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsCustomPriorityArrayInput)(nil)).Elem(), NodeTemplateConstraintsCustomPriorityArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsDedicatedNodeAffinityInput)(nil)).Elem(), NodeTemplateConstraintsDedicatedNodeAffinityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsDedicatedNodeAffinityArrayInput)(nil)).Elem(), NodeTemplateConstraintsDedicatedNodeAffinityArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsDedicatedNodeAffinityAffinityInput)(nil)).Elem(), NodeTemplateConstraintsDedicatedNodeAffinityAffinityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsDedicatedNodeAffinityAffinityArrayInput)(nil)).Elem(), NodeTemplateConstraintsDedicatedNodeAffinityAffinityArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsGcpInput)(nil)).Elem(), NodeTemplateConstraintsGcpArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsGcpPtrInput)(nil)).Elem(), NodeTemplateConstraintsGcpArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsGpuInput)(nil)).Elem(), NodeTemplateConstraintsGpuArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsGpuPtrInput)(nil)).Elem(), NodeTemplateConstraintsGpuArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateConstraintsInstanceFamiliesInput)(nil)).Elem(), NodeTemplateConstraintsInstanceFamiliesArgs{})
@@ -4454,6 +5210,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateGpuPtrInput)(nil)).Elem(), NodeTemplateGpuArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateGpuSharingConfigurationInput)(nil)).Elem(), NodeTemplateGpuSharingConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplateGpuSharingConfigurationArrayInput)(nil)).Elem(), NodeTemplateGpuSharingConfigurationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplatePriceAdjustmentConfigurationInput)(nil)).Elem(), NodeTemplatePriceAdjustmentConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTemplatePriceAdjustmentConfigurationPtrInput)(nil)).Elem(), NodeTemplatePriceAdjustmentConfigurationArgs{})
 	pulumi.RegisterOutputType(NodeConfigurationAksOutput{})
 	pulumi.RegisterOutputType(NodeConfigurationAksPtrOutput{})
 	pulumi.RegisterOutputType(NodeConfigurationAksEphemeralOsDiskOutput{})
@@ -4484,12 +5242,18 @@ func init() {
 	pulumi.RegisterOutputType(NodeConfigurationKopsPtrOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsPtrOutput{})
+	pulumi.RegisterOutputType(NodeTemplateConstraintsAwsOutput{})
+	pulumi.RegisterOutputType(NodeTemplateConstraintsAwsPtrOutput{})
+	pulumi.RegisterOutputType(NodeTemplateConstraintsAwsCapacityReservationOutput{})
+	pulumi.RegisterOutputType(NodeTemplateConstraintsAwsCapacityReservationArrayOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsCustomPriorityOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsCustomPriorityArrayOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsDedicatedNodeAffinityOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsDedicatedNodeAffinityArrayOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsDedicatedNodeAffinityAffinityOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsDedicatedNodeAffinityAffinityArrayOutput{})
+	pulumi.RegisterOutputType(NodeTemplateConstraintsGcpOutput{})
+	pulumi.RegisterOutputType(NodeTemplateConstraintsGcpPtrOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsGpuOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsGpuPtrOutput{})
 	pulumi.RegisterOutputType(NodeTemplateConstraintsInstanceFamiliesOutput{})
@@ -4502,4 +5266,6 @@ func init() {
 	pulumi.RegisterOutputType(NodeTemplateGpuPtrOutput{})
 	pulumi.RegisterOutputType(NodeTemplateGpuSharingConfigurationOutput{})
 	pulumi.RegisterOutputType(NodeTemplateGpuSharingConfigurationArrayOutput{})
+	pulumi.RegisterOutputType(NodeTemplatePriceAdjustmentConfigurationOutput{})
+	pulumi.RegisterOutputType(NodeTemplatePriceAdjustmentConfigurationPtrOutput{})
 }

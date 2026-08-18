@@ -13,6 +13,603 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type WorkloadCustomMetricsDataSourcePrometheus struct {
+	// Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+	Metrics []WorkloadCustomMetricsDataSourcePrometheusMetric `pulumi:"metrics"`
+	// List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+	Presets []string `pulumi:"presets"`
+	// Timeout for Prometheus queries (e.g. "30s").
+	Timeout *string `pulumi:"timeout"`
+	// URL of the Prometheus server.
+	Url string `pulumi:"url"`
+}
+
+// WorkloadCustomMetricsDataSourcePrometheusInput is an input type that accepts WorkloadCustomMetricsDataSourcePrometheusArgs and WorkloadCustomMetricsDataSourcePrometheusOutput values.
+// You can construct a concrete instance of `WorkloadCustomMetricsDataSourcePrometheusInput` via:
+//
+//	WorkloadCustomMetricsDataSourcePrometheusArgs{...}
+type WorkloadCustomMetricsDataSourcePrometheusInput interface {
+	pulumi.Input
+
+	ToWorkloadCustomMetricsDataSourcePrometheusOutput() WorkloadCustomMetricsDataSourcePrometheusOutput
+	ToWorkloadCustomMetricsDataSourcePrometheusOutputWithContext(context.Context) WorkloadCustomMetricsDataSourcePrometheusOutput
+}
+
+type WorkloadCustomMetricsDataSourcePrometheusArgs struct {
+	// Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+	Metrics WorkloadCustomMetricsDataSourcePrometheusMetricArrayInput `pulumi:"metrics"`
+	// List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+	Presets pulumi.StringArrayInput `pulumi:"presets"`
+	// Timeout for Prometheus queries (e.g. "30s").
+	Timeout pulumi.StringPtrInput `pulumi:"timeout"`
+	// URL of the Prometheus server.
+	Url pulumi.StringInput `pulumi:"url"`
+}
+
+func (WorkloadCustomMetricsDataSourcePrometheusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadCustomMetricsDataSourcePrometheus)(nil)).Elem()
+}
+
+func (i WorkloadCustomMetricsDataSourcePrometheusArgs) ToWorkloadCustomMetricsDataSourcePrometheusOutput() WorkloadCustomMetricsDataSourcePrometheusOutput {
+	return i.ToWorkloadCustomMetricsDataSourcePrometheusOutputWithContext(context.Background())
+}
+
+func (i WorkloadCustomMetricsDataSourcePrometheusArgs) ToWorkloadCustomMetricsDataSourcePrometheusOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadCustomMetricsDataSourcePrometheusOutput)
+}
+
+func (i WorkloadCustomMetricsDataSourcePrometheusArgs) ToWorkloadCustomMetricsDataSourcePrometheusPtrOutput() WorkloadCustomMetricsDataSourcePrometheusPtrOutput {
+	return i.ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadCustomMetricsDataSourcePrometheusArgs) ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadCustomMetricsDataSourcePrometheusOutput).ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(ctx)
+}
+
+// WorkloadCustomMetricsDataSourcePrometheusPtrInput is an input type that accepts WorkloadCustomMetricsDataSourcePrometheusArgs, WorkloadCustomMetricsDataSourcePrometheusPtr and WorkloadCustomMetricsDataSourcePrometheusPtrOutput values.
+// You can construct a concrete instance of `WorkloadCustomMetricsDataSourcePrometheusPtrInput` via:
+//
+//	        WorkloadCustomMetricsDataSourcePrometheusArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadCustomMetricsDataSourcePrometheusPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadCustomMetricsDataSourcePrometheusPtrOutput() WorkloadCustomMetricsDataSourcePrometheusPtrOutput
+	ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(context.Context) WorkloadCustomMetricsDataSourcePrometheusPtrOutput
+}
+
+type workloadCustomMetricsDataSourcePrometheusPtrType WorkloadCustomMetricsDataSourcePrometheusArgs
+
+func WorkloadCustomMetricsDataSourcePrometheusPtr(v *WorkloadCustomMetricsDataSourcePrometheusArgs) WorkloadCustomMetricsDataSourcePrometheusPtrInput {
+	return (*workloadCustomMetricsDataSourcePrometheusPtrType)(v)
+}
+
+func (*workloadCustomMetricsDataSourcePrometheusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadCustomMetricsDataSourcePrometheus)(nil)).Elem()
+}
+
+func (i *workloadCustomMetricsDataSourcePrometheusPtrType) ToWorkloadCustomMetricsDataSourcePrometheusPtrOutput() WorkloadCustomMetricsDataSourcePrometheusPtrOutput {
+	return i.ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadCustomMetricsDataSourcePrometheusPtrType) ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadCustomMetricsDataSourcePrometheusPtrOutput)
+}
+
+type WorkloadCustomMetricsDataSourcePrometheusOutput struct{ *pulumi.OutputState }
+
+func (WorkloadCustomMetricsDataSourcePrometheusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadCustomMetricsDataSourcePrometheus)(nil)).Elem()
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusOutput) ToWorkloadCustomMetricsDataSourcePrometheusOutput() WorkloadCustomMetricsDataSourcePrometheusOutput {
+	return o
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusOutput) ToWorkloadCustomMetricsDataSourcePrometheusOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusOutput {
+	return o
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusOutput) ToWorkloadCustomMetricsDataSourcePrometheusPtrOutput() WorkloadCustomMetricsDataSourcePrometheusPtrOutput {
+	return o.ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusOutput) ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadCustomMetricsDataSourcePrometheus) *WorkloadCustomMetricsDataSourcePrometheus {
+		return &v
+	}).(WorkloadCustomMetricsDataSourcePrometheusPtrOutput)
+}
+
+// Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+func (o WorkloadCustomMetricsDataSourcePrometheusOutput) Metrics() WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput {
+	return o.ApplyT(func(v WorkloadCustomMetricsDataSourcePrometheus) []WorkloadCustomMetricsDataSourcePrometheusMetric {
+		return v.Metrics
+	}).(WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput)
+}
+
+// List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+func (o WorkloadCustomMetricsDataSourcePrometheusOutput) Presets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v WorkloadCustomMetricsDataSourcePrometheus) []string { return v.Presets }).(pulumi.StringArrayOutput)
+}
+
+// Timeout for Prometheus queries (e.g. "30s").
+func (o WorkloadCustomMetricsDataSourcePrometheusOutput) Timeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadCustomMetricsDataSourcePrometheus) *string { return v.Timeout }).(pulumi.StringPtrOutput)
+}
+
+// URL of the Prometheus server.
+func (o WorkloadCustomMetricsDataSourcePrometheusOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v WorkloadCustomMetricsDataSourcePrometheus) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type WorkloadCustomMetricsDataSourcePrometheusPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadCustomMetricsDataSourcePrometheusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadCustomMetricsDataSourcePrometheus)(nil)).Elem()
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusPtrOutput) ToWorkloadCustomMetricsDataSourcePrometheusPtrOutput() WorkloadCustomMetricsDataSourcePrometheusPtrOutput {
+	return o
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusPtrOutput) ToWorkloadCustomMetricsDataSourcePrometheusPtrOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusPtrOutput {
+	return o
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusPtrOutput) Elem() WorkloadCustomMetricsDataSourcePrometheusOutput {
+	return o.ApplyT(func(v *WorkloadCustomMetricsDataSourcePrometheus) WorkloadCustomMetricsDataSourcePrometheus {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadCustomMetricsDataSourcePrometheus
+		return ret
+	}).(WorkloadCustomMetricsDataSourcePrometheusOutput)
+}
+
+// Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+func (o WorkloadCustomMetricsDataSourcePrometheusPtrOutput) Metrics() WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput {
+	return o.ApplyT(func(v *WorkloadCustomMetricsDataSourcePrometheus) []WorkloadCustomMetricsDataSourcePrometheusMetric {
+		if v == nil {
+			return nil
+		}
+		return v.Metrics
+	}).(WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput)
+}
+
+// List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+func (o WorkloadCustomMetricsDataSourcePrometheusPtrOutput) Presets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *WorkloadCustomMetricsDataSourcePrometheus) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Presets
+	}).(pulumi.StringArrayOutput)
+}
+
+// Timeout for Prometheus queries (e.g. "30s").
+func (o WorkloadCustomMetricsDataSourcePrometheusPtrOutput) Timeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WorkloadCustomMetricsDataSourcePrometheus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Timeout
+	}).(pulumi.StringPtrOutput)
+}
+
+// URL of the Prometheus server.
+func (o WorkloadCustomMetricsDataSourcePrometheusPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WorkloadCustomMetricsDataSourcePrometheus) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+type WorkloadCustomMetricsDataSourcePrometheusMetric struct {
+	// Name of the metric.
+	Name string `pulumi:"name"`
+	// PromQL query for this metric.
+	Query string `pulumi:"query"`
+}
+
+// WorkloadCustomMetricsDataSourcePrometheusMetricInput is an input type that accepts WorkloadCustomMetricsDataSourcePrometheusMetricArgs and WorkloadCustomMetricsDataSourcePrometheusMetricOutput values.
+// You can construct a concrete instance of `WorkloadCustomMetricsDataSourcePrometheusMetricInput` via:
+//
+//	WorkloadCustomMetricsDataSourcePrometheusMetricArgs{...}
+type WorkloadCustomMetricsDataSourcePrometheusMetricInput interface {
+	pulumi.Input
+
+	ToWorkloadCustomMetricsDataSourcePrometheusMetricOutput() WorkloadCustomMetricsDataSourcePrometheusMetricOutput
+	ToWorkloadCustomMetricsDataSourcePrometheusMetricOutputWithContext(context.Context) WorkloadCustomMetricsDataSourcePrometheusMetricOutput
+}
+
+type WorkloadCustomMetricsDataSourcePrometheusMetricArgs struct {
+	// Name of the metric.
+	Name pulumi.StringInput `pulumi:"name"`
+	// PromQL query for this metric.
+	Query pulumi.StringInput `pulumi:"query"`
+}
+
+func (WorkloadCustomMetricsDataSourcePrometheusMetricArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadCustomMetricsDataSourcePrometheusMetric)(nil)).Elem()
+}
+
+func (i WorkloadCustomMetricsDataSourcePrometheusMetricArgs) ToWorkloadCustomMetricsDataSourcePrometheusMetricOutput() WorkloadCustomMetricsDataSourcePrometheusMetricOutput {
+	return i.ToWorkloadCustomMetricsDataSourcePrometheusMetricOutputWithContext(context.Background())
+}
+
+func (i WorkloadCustomMetricsDataSourcePrometheusMetricArgs) ToWorkloadCustomMetricsDataSourcePrometheusMetricOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusMetricOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadCustomMetricsDataSourcePrometheusMetricOutput)
+}
+
+// WorkloadCustomMetricsDataSourcePrometheusMetricArrayInput is an input type that accepts WorkloadCustomMetricsDataSourcePrometheusMetricArray and WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput values.
+// You can construct a concrete instance of `WorkloadCustomMetricsDataSourcePrometheusMetricArrayInput` via:
+//
+//	WorkloadCustomMetricsDataSourcePrometheusMetricArray{ WorkloadCustomMetricsDataSourcePrometheusMetricArgs{...} }
+type WorkloadCustomMetricsDataSourcePrometheusMetricArrayInput interface {
+	pulumi.Input
+
+	ToWorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput() WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput
+	ToWorkloadCustomMetricsDataSourcePrometheusMetricArrayOutputWithContext(context.Context) WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput
+}
+
+type WorkloadCustomMetricsDataSourcePrometheusMetricArray []WorkloadCustomMetricsDataSourcePrometheusMetricInput
+
+func (WorkloadCustomMetricsDataSourcePrometheusMetricArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadCustomMetricsDataSourcePrometheusMetric)(nil)).Elem()
+}
+
+func (i WorkloadCustomMetricsDataSourcePrometheusMetricArray) ToWorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput() WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput {
+	return i.ToWorkloadCustomMetricsDataSourcePrometheusMetricArrayOutputWithContext(context.Background())
+}
+
+func (i WorkloadCustomMetricsDataSourcePrometheusMetricArray) ToWorkloadCustomMetricsDataSourcePrometheusMetricArrayOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput)
+}
+
+type WorkloadCustomMetricsDataSourcePrometheusMetricOutput struct{ *pulumi.OutputState }
+
+func (WorkloadCustomMetricsDataSourcePrometheusMetricOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadCustomMetricsDataSourcePrometheusMetric)(nil)).Elem()
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusMetricOutput) ToWorkloadCustomMetricsDataSourcePrometheusMetricOutput() WorkloadCustomMetricsDataSourcePrometheusMetricOutput {
+	return o
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusMetricOutput) ToWorkloadCustomMetricsDataSourcePrometheusMetricOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusMetricOutput {
+	return o
+}
+
+// Name of the metric.
+func (o WorkloadCustomMetricsDataSourcePrometheusMetricOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v WorkloadCustomMetricsDataSourcePrometheusMetric) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// PromQL query for this metric.
+func (o WorkloadCustomMetricsDataSourcePrometheusMetricOutput) Query() pulumi.StringOutput {
+	return o.ApplyT(func(v WorkloadCustomMetricsDataSourcePrometheusMetric) string { return v.Query }).(pulumi.StringOutput)
+}
+
+type WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput struct{ *pulumi.OutputState }
+
+func (WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadCustomMetricsDataSourcePrometheusMetric)(nil)).Elem()
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput) ToWorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput() WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput {
+	return o
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput) ToWorkloadCustomMetricsDataSourcePrometheusMetricArrayOutputWithContext(ctx context.Context) WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput {
+	return o
+}
+
+func (o WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput) Index(i pulumi.IntInput) WorkloadCustomMetricsDataSourcePrometheusMetricOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) WorkloadCustomMetricsDataSourcePrometheusMetric {
+		return vs[0].([]WorkloadCustomMetricsDataSourcePrometheusMetric)[vs[1].(int)]
+	}).(WorkloadCustomMetricsDataSourcePrometheusMetricOutput)
+}
+
+type WorkloadScalingPolicyAnomalyDetection struct {
+	// Configures CPU pressure anomaly detection thresholds.
+	CpuPressure *WorkloadScalingPolicyAnomalyDetectionCpuPressure `pulumi:"cpuPressure"`
+}
+
+// WorkloadScalingPolicyAnomalyDetectionInput is an input type that accepts WorkloadScalingPolicyAnomalyDetectionArgs and WorkloadScalingPolicyAnomalyDetectionOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyAnomalyDetectionInput` via:
+//
+//	WorkloadScalingPolicyAnomalyDetectionArgs{...}
+type WorkloadScalingPolicyAnomalyDetectionInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyAnomalyDetectionOutput() WorkloadScalingPolicyAnomalyDetectionOutput
+	ToWorkloadScalingPolicyAnomalyDetectionOutputWithContext(context.Context) WorkloadScalingPolicyAnomalyDetectionOutput
+}
+
+type WorkloadScalingPolicyAnomalyDetectionArgs struct {
+	// Configures CPU pressure anomaly detection thresholds.
+	CpuPressure WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrInput `pulumi:"cpuPressure"`
+}
+
+func (WorkloadScalingPolicyAnomalyDetectionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyAnomalyDetection)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyAnomalyDetectionArgs) ToWorkloadScalingPolicyAnomalyDetectionOutput() WorkloadScalingPolicyAnomalyDetectionOutput {
+	return i.ToWorkloadScalingPolicyAnomalyDetectionOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyAnomalyDetectionArgs) ToWorkloadScalingPolicyAnomalyDetectionOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyAnomalyDetectionOutput)
+}
+
+func (i WorkloadScalingPolicyAnomalyDetectionArgs) ToWorkloadScalingPolicyAnomalyDetectionPtrOutput() WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return i.ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyAnomalyDetectionArgs) ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyAnomalyDetectionOutput).ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyAnomalyDetectionPtrInput is an input type that accepts WorkloadScalingPolicyAnomalyDetectionArgs, WorkloadScalingPolicyAnomalyDetectionPtr and WorkloadScalingPolicyAnomalyDetectionPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyAnomalyDetectionPtrInput` via:
+//
+//	        WorkloadScalingPolicyAnomalyDetectionArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyAnomalyDetectionPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyAnomalyDetectionPtrOutput() WorkloadScalingPolicyAnomalyDetectionPtrOutput
+	ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(context.Context) WorkloadScalingPolicyAnomalyDetectionPtrOutput
+}
+
+type workloadScalingPolicyAnomalyDetectionPtrType WorkloadScalingPolicyAnomalyDetectionArgs
+
+func WorkloadScalingPolicyAnomalyDetectionPtr(v *WorkloadScalingPolicyAnomalyDetectionArgs) WorkloadScalingPolicyAnomalyDetectionPtrInput {
+	return (*workloadScalingPolicyAnomalyDetectionPtrType)(v)
+}
+
+func (*workloadScalingPolicyAnomalyDetectionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyAnomalyDetection)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyAnomalyDetectionPtrType) ToWorkloadScalingPolicyAnomalyDetectionPtrOutput() WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return i.ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyAnomalyDetectionPtrType) ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyAnomalyDetectionPtrOutput)
+}
+
+type WorkloadScalingPolicyAnomalyDetectionOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyAnomalyDetectionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyAnomalyDetection)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionOutput) ToWorkloadScalingPolicyAnomalyDetectionOutput() WorkloadScalingPolicyAnomalyDetectionOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionOutput) ToWorkloadScalingPolicyAnomalyDetectionOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionOutput) ToWorkloadScalingPolicyAnomalyDetectionPtrOutput() WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return o.ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionOutput) ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyAnomalyDetection) *WorkloadScalingPolicyAnomalyDetection {
+		return &v
+	}).(WorkloadScalingPolicyAnomalyDetectionPtrOutput)
+}
+
+// Configures CPU pressure anomaly detection thresholds.
+func (o WorkloadScalingPolicyAnomalyDetectionOutput) CpuPressure() WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyAnomalyDetection) *WorkloadScalingPolicyAnomalyDetectionCpuPressure {
+		return v.CpuPressure
+	}).(WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput)
+}
+
+type WorkloadScalingPolicyAnomalyDetectionPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyAnomalyDetectionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyAnomalyDetection)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionPtrOutput) ToWorkloadScalingPolicyAnomalyDetectionPtrOutput() WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionPtrOutput) ToWorkloadScalingPolicyAnomalyDetectionPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionPtrOutput) Elem() WorkloadScalingPolicyAnomalyDetectionOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyAnomalyDetection) WorkloadScalingPolicyAnomalyDetection {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyAnomalyDetection
+		return ret
+	}).(WorkloadScalingPolicyAnomalyDetectionOutput)
+}
+
+// Configures CPU pressure anomaly detection thresholds.
+func (o WorkloadScalingPolicyAnomalyDetectionPtrOutput) CpuPressure() WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyAnomalyDetection) *WorkloadScalingPolicyAnomalyDetectionCpuPressure {
+		if v == nil {
+			return nil
+		}
+		return v.CpuPressure
+	}).(WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput)
+}
+
+type WorkloadScalingPolicyAnomalyDetectionCpuPressure struct {
+	// Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+	CpuStallThresholdPercentage float64 `pulumi:"cpuStallThresholdPercentage"`
+	// Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+	MinPressuredPodPercentage float64 `pulumi:"minPressuredPodPercentage"`
+}
+
+// WorkloadScalingPolicyAnomalyDetectionCpuPressureInput is an input type that accepts WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs and WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyAnomalyDetectionCpuPressureInput` via:
+//
+//	WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs{...}
+type WorkloadScalingPolicyAnomalyDetectionCpuPressureInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyAnomalyDetectionCpuPressureOutput() WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput
+	ToWorkloadScalingPolicyAnomalyDetectionCpuPressureOutputWithContext(context.Context) WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput
+}
+
+type WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs struct {
+	// Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+	CpuStallThresholdPercentage pulumi.Float64Input `pulumi:"cpuStallThresholdPercentage"`
+	// Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+	MinPressuredPodPercentage pulumi.Float64Input `pulumi:"minPressuredPodPercentage"`
+}
+
+func (WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyAnomalyDetectionCpuPressure)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs) ToWorkloadScalingPolicyAnomalyDetectionCpuPressureOutput() WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput {
+	return i.ToWorkloadScalingPolicyAnomalyDetectionCpuPressureOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs) ToWorkloadScalingPolicyAnomalyDetectionCpuPressureOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput)
+}
+
+func (i WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs) ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput() WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return i.ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs) ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput).ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrInput is an input type that accepts WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs, WorkloadScalingPolicyAnomalyDetectionCpuPressurePtr and WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrInput` via:
+//
+//	        WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput() WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput
+	ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(context.Context) WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput
+}
+
+type workloadScalingPolicyAnomalyDetectionCpuPressurePtrType WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs
+
+func WorkloadScalingPolicyAnomalyDetectionCpuPressurePtr(v *WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs) WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrInput {
+	return (*workloadScalingPolicyAnomalyDetectionCpuPressurePtrType)(v)
+}
+
+func (*workloadScalingPolicyAnomalyDetectionCpuPressurePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyAnomalyDetectionCpuPressure)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyAnomalyDetectionCpuPressurePtrType) ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput() WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return i.ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyAnomalyDetectionCpuPressurePtrType) ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput)
+}
+
+type WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyAnomalyDetectionCpuPressure)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput) ToWorkloadScalingPolicyAnomalyDetectionCpuPressureOutput() WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput) ToWorkloadScalingPolicyAnomalyDetectionCpuPressureOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput) ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput() WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return o.ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput) ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyAnomalyDetectionCpuPressure) *WorkloadScalingPolicyAnomalyDetectionCpuPressure {
+		return &v
+	}).(WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput)
+}
+
+// Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput) CpuStallThresholdPercentage() pulumi.Float64Output {
+	return o.ApplyT(func(v WorkloadScalingPolicyAnomalyDetectionCpuPressure) float64 { return v.CpuStallThresholdPercentage }).(pulumi.Float64Output)
+}
+
+// Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput) MinPressuredPodPercentage() pulumi.Float64Output {
+	return o.ApplyT(func(v WorkloadScalingPolicyAnomalyDetectionCpuPressure) float64 { return v.MinPressuredPodPercentage }).(pulumi.Float64Output)
+}
+
+type WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyAnomalyDetectionCpuPressure)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput) ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput() WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput) ToWorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput) Elem() WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyAnomalyDetectionCpuPressure) WorkloadScalingPolicyAnomalyDetectionCpuPressure {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyAnomalyDetectionCpuPressure
+		return ret
+	}).(WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput)
+}
+
+// Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput) CpuStallThresholdPercentage() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyAnomalyDetectionCpuPressure) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.CpuStallThresholdPercentage
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+func (o WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput) MinPressuredPodPercentage() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyAnomalyDetectionCpuPressure) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.MinPressuredPodPercentage
+	}).(pulumi.Float64PtrOutput)
+}
+
 type WorkloadScalingPolicyAntiAffinity struct {
 	// Defines if anti-affinity should be considered when scaling the workload.
 	// 	If enabled, requiring host ports, or having anti-affinity on hostname will force all recommendations to be deferred.
@@ -361,6 +958,8 @@ func (o WorkloadScalingPolicyAssignmentRuleRuleArrayOutput) Index(i pulumi.IntIn
 }
 
 type WorkloadScalingPolicyAssignmentRuleRuleNamespace struct {
+	// Defines matching by label selector requirements.
+	LabelsExpressions []WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression `pulumi:"labelsExpressions"`
 	// Defines matching by namespace names.
 	Names []string `pulumi:"names"`
 }
@@ -377,6 +976,8 @@ type WorkloadScalingPolicyAssignmentRuleRuleNamespaceInput interface {
 }
 
 type WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs struct {
+	// Defines matching by label selector requirements.
+	LabelsExpressions WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayInput `pulumi:"labelsExpressions"`
 	// Defines matching by namespace names.
 	Names pulumi.StringArrayInput `pulumi:"names"`
 }
@@ -458,6 +1059,13 @@ func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceOutput) ToWorkloadScalin
 	}).(WorkloadScalingPolicyAssignmentRuleRuleNamespacePtrOutput)
 }
 
+// Defines matching by label selector requirements.
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceOutput) LabelsExpressions() WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyAssignmentRuleRuleNamespace) []WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression {
+		return v.LabelsExpressions
+	}).(WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput)
+}
+
 // Defines matching by namespace names.
 func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceOutput) Names() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyAssignmentRuleRuleNamespace) []string { return v.Names }).(pulumi.StringArrayOutput)
@@ -487,6 +1095,16 @@ func (o WorkloadScalingPolicyAssignmentRuleRuleNamespacePtrOutput) Elem() Worklo
 	}).(WorkloadScalingPolicyAssignmentRuleRuleNamespaceOutput)
 }
 
+// Defines matching by label selector requirements.
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespacePtrOutput) LabelsExpressions() WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyAssignmentRuleRuleNamespace) []WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression {
+		if v == nil {
+			return nil
+		}
+		return v.LabelsExpressions
+	}).(WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput)
+}
+
 // Defines matching by namespace names.
 func (o WorkloadScalingPolicyAssignmentRuleRuleNamespacePtrOutput) Names() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyAssignmentRuleRuleNamespace) []string {
@@ -495,6 +1113,121 @@ func (o WorkloadScalingPolicyAssignmentRuleRuleNamespacePtrOutput) Names() pulum
 		}
 		return v.Names
 	}).(pulumi.StringArrayOutput)
+}
+
+type WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression struct {
+	// The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+	Key *string `pulumi:"key"`
+	// The operator to use for matching the label.
+	Operator string `pulumi:"operator"`
+	// A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+	Values []string `pulumi:"values"`
+}
+
+// WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionInput is an input type that accepts WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs and WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionInput` via:
+//
+//	WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs{...}
+type WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput() WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput
+	ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutputWithContext(context.Context) WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput
+}
+
+type WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs struct {
+	// The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// The operator to use for matching the label.
+	Operator pulumi.StringInput `pulumi:"operator"`
+	// A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs) ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput() WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput {
+	return i.ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs) ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutputWithContext(ctx context.Context) WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput)
+}
+
+// WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayInput is an input type that accepts WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArray and WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayInput` via:
+//
+//	WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArray{ WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs{...} }
+type WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput() WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput
+	ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutputWithContext(context.Context) WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput
+}
+
+type WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArray []WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionInput
+
+func (WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArray) ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput() WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput {
+	return i.ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArray) ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutputWithContext(ctx context.Context) WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput)
+}
+
+type WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput) ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput() WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput) ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutputWithContext(ctx context.Context) WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput {
+	return o
+}
+
+// The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// The operator to use for matching the label.
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression) string { return v.Operator }).(pulumi.StringOutput)
+}
+
+// A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput) ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput() WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput) ToWorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutputWithContext(ctx context.Context) WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput) Index(i pulumi.IntInput) WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression {
+		return vs[0].([]WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression)[vs[1].(int)]
+	}).(WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput)
 }
 
 type WorkloadScalingPolicyAssignmentRuleRuleWorkload struct {
@@ -932,6 +1665,8 @@ type WorkloadScalingPolicyCpu struct {
 	ApplyThresholdStrategy *WorkloadScalingPolicyCpuApplyThresholdStrategy `pulumi:"applyThresholdStrategy"`
 	// The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
 	Args *string `pulumi:"args"`
+	// Defines min/max bounds for the recommendation using constraint strategies.
+	Constraints *WorkloadScalingPolicyCpuConstraints `pulumi:"constraints"`
 	// The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
 	Function *string `pulumi:"function"`
 	// Resource limit settings
@@ -941,8 +1676,12 @@ type WorkloadScalingPolicyCpu struct {
 	// Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
 	ManagementOption *string `pulumi:"managementOption"`
 	// Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+	//
+	// Deprecated: Use constraints { max { constant = X } } instead
 	Max *float64 `pulumi:"max"`
 	// Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+	//
+	// Deprecated: Use constraints { min { constant = X } } instead
 	Min *float64 `pulumi:"min"`
 	// Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
 	Overhead *float64 `pulumi:"overhead"`
@@ -968,6 +1707,8 @@ type WorkloadScalingPolicyCpuArgs struct {
 	ApplyThresholdStrategy WorkloadScalingPolicyCpuApplyThresholdStrategyPtrInput `pulumi:"applyThresholdStrategy"`
 	// The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
 	Args pulumi.StringPtrInput `pulumi:"args"`
+	// Defines min/max bounds for the recommendation using constraint strategies.
+	Constraints WorkloadScalingPolicyCpuConstraintsPtrInput `pulumi:"constraints"`
 	// The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
 	Function pulumi.StringPtrInput `pulumi:"function"`
 	// Resource limit settings
@@ -977,8 +1718,12 @@ type WorkloadScalingPolicyCpuArgs struct {
 	// Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
 	ManagementOption pulumi.StringPtrInput `pulumi:"managementOption"`
 	// Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+	//
+	// Deprecated: Use constraints { max { constant = X } } instead
 	Max pulumi.Float64PtrInput `pulumi:"max"`
 	// Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+	//
+	// Deprecated: Use constraints { min { constant = X } } instead
 	Min pulumi.Float64PtrInput `pulumi:"min"`
 	// Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
 	Overhead pulumi.Float64PtrInput `pulumi:"overhead"`
@@ -1080,6 +1825,11 @@ func (o WorkloadScalingPolicyCpuOutput) Args() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyCpu) *string { return v.Args }).(pulumi.StringPtrOutput)
 }
 
+// Defines min/max bounds for the recommendation using constraint strategies.
+func (o WorkloadScalingPolicyCpuOutput) Constraints() WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpu) *WorkloadScalingPolicyCpuConstraints { return v.Constraints }).(WorkloadScalingPolicyCpuConstraintsPtrOutput)
+}
+
 // The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
 func (o WorkloadScalingPolicyCpuOutput) Function() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyCpu) *string { return v.Function }).(pulumi.StringPtrOutput)
@@ -1101,11 +1851,15 @@ func (o WorkloadScalingPolicyCpuOutput) ManagementOption() pulumi.StringPtrOutpu
 }
 
 // Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+//
+// Deprecated: Use constraints { max { constant = X } } instead
 func (o WorkloadScalingPolicyCpuOutput) Max() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyCpu) *float64 { return v.Max }).(pulumi.Float64PtrOutput)
 }
 
 // Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+//
+// Deprecated: Use constraints { min { constant = X } } instead
 func (o WorkloadScalingPolicyCpuOutput) Min() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyCpu) *float64 { return v.Min }).(pulumi.Float64PtrOutput)
 }
@@ -1171,6 +1925,16 @@ func (o WorkloadScalingPolicyCpuPtrOutput) Args() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Defines min/max bounds for the recommendation using constraint strategies.
+func (o WorkloadScalingPolicyCpuPtrOutput) Constraints() WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpu) *WorkloadScalingPolicyCpuConstraints {
+		if v == nil {
+			return nil
+		}
+		return v.Constraints
+	}).(WorkloadScalingPolicyCpuConstraintsPtrOutput)
+}
+
 // The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
 func (o WorkloadScalingPolicyCpuPtrOutput) Function() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyCpu) *string {
@@ -1212,6 +1976,8 @@ func (o WorkloadScalingPolicyCpuPtrOutput) ManagementOption() pulumi.StringPtrOu
 }
 
 // Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+//
+// Deprecated: Use constraints { max { constant = X } } instead
 func (o WorkloadScalingPolicyCpuPtrOutput) Max() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyCpu) *float64 {
 		if v == nil {
@@ -1222,6 +1988,8 @@ func (o WorkloadScalingPolicyCpuPtrOutput) Max() pulumi.Float64PtrOutput {
 }
 
 // Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+//
+// Deprecated: Use constraints { min { constant = X } } instead
 func (o WorkloadScalingPolicyCpuPtrOutput) Min() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyCpu) *float64 {
 		if v == nil {
@@ -1478,13 +2246,488 @@ func (o WorkloadScalingPolicyCpuApplyThresholdStrategyPtrOutput) Type() pulumi.S
 	}).(pulumi.StringPtrOutput)
 }
 
+type WorkloadScalingPolicyCpuConstraints struct {
+	Max *WorkloadScalingPolicyCpuConstraintsMax `pulumi:"max"`
+	Min *WorkloadScalingPolicyCpuConstraintsMin `pulumi:"min"`
+}
+
+// WorkloadScalingPolicyCpuConstraintsInput is an input type that accepts WorkloadScalingPolicyCpuConstraintsArgs and WorkloadScalingPolicyCpuConstraintsOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyCpuConstraintsInput` via:
+//
+//	WorkloadScalingPolicyCpuConstraintsArgs{...}
+type WorkloadScalingPolicyCpuConstraintsInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyCpuConstraintsOutput() WorkloadScalingPolicyCpuConstraintsOutput
+	ToWorkloadScalingPolicyCpuConstraintsOutputWithContext(context.Context) WorkloadScalingPolicyCpuConstraintsOutput
+}
+
+type WorkloadScalingPolicyCpuConstraintsArgs struct {
+	Max WorkloadScalingPolicyCpuConstraintsMaxPtrInput `pulumi:"max"`
+	Min WorkloadScalingPolicyCpuConstraintsMinPtrInput `pulumi:"min"`
+}
+
+func (WorkloadScalingPolicyCpuConstraintsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyCpuConstraints)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsArgs) ToWorkloadScalingPolicyCpuConstraintsOutput() WorkloadScalingPolicyCpuConstraintsOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsArgs) ToWorkloadScalingPolicyCpuConstraintsOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsOutput)
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsArgs) ToWorkloadScalingPolicyCpuConstraintsPtrOutput() WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsArgs) ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsOutput).ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyCpuConstraintsPtrInput is an input type that accepts WorkloadScalingPolicyCpuConstraintsArgs, WorkloadScalingPolicyCpuConstraintsPtr and WorkloadScalingPolicyCpuConstraintsPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyCpuConstraintsPtrInput` via:
+//
+//	        WorkloadScalingPolicyCpuConstraintsArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyCpuConstraintsPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyCpuConstraintsPtrOutput() WorkloadScalingPolicyCpuConstraintsPtrOutput
+	ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(context.Context) WorkloadScalingPolicyCpuConstraintsPtrOutput
+}
+
+type workloadScalingPolicyCpuConstraintsPtrType WorkloadScalingPolicyCpuConstraintsArgs
+
+func WorkloadScalingPolicyCpuConstraintsPtr(v *WorkloadScalingPolicyCpuConstraintsArgs) WorkloadScalingPolicyCpuConstraintsPtrInput {
+	return (*workloadScalingPolicyCpuConstraintsPtrType)(v)
+}
+
+func (*workloadScalingPolicyCpuConstraintsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyCpuConstraints)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyCpuConstraintsPtrType) ToWorkloadScalingPolicyCpuConstraintsPtrOutput() WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyCpuConstraintsPtrType) ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsPtrOutput)
+}
+
+type WorkloadScalingPolicyCpuConstraintsOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyCpuConstraintsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyCpuConstraints)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsOutput) ToWorkloadScalingPolicyCpuConstraintsOutput() WorkloadScalingPolicyCpuConstraintsOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsOutput) ToWorkloadScalingPolicyCpuConstraintsOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsOutput) ToWorkloadScalingPolicyCpuConstraintsPtrOutput() WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return o.ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsOutput) ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyCpuConstraints) *WorkloadScalingPolicyCpuConstraints {
+		return &v
+	}).(WorkloadScalingPolicyCpuConstraintsPtrOutput)
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsOutput) Max() WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpuConstraints) *WorkloadScalingPolicyCpuConstraintsMax { return v.Max }).(WorkloadScalingPolicyCpuConstraintsMaxPtrOutput)
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsOutput) Min() WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpuConstraints) *WorkloadScalingPolicyCpuConstraintsMin { return v.Min }).(WorkloadScalingPolicyCpuConstraintsMinPtrOutput)
+}
+
+type WorkloadScalingPolicyCpuConstraintsPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyCpuConstraintsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyCpuConstraints)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsPtrOutput) ToWorkloadScalingPolicyCpuConstraintsPtrOutput() WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsPtrOutput) ToWorkloadScalingPolicyCpuConstraintsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsPtrOutput) Elem() WorkloadScalingPolicyCpuConstraintsOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraints) WorkloadScalingPolicyCpuConstraints {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyCpuConstraints
+		return ret
+	}).(WorkloadScalingPolicyCpuConstraintsOutput)
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsPtrOutput) Max() WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraints) *WorkloadScalingPolicyCpuConstraintsMax {
+		if v == nil {
+			return nil
+		}
+		return v.Max
+	}).(WorkloadScalingPolicyCpuConstraintsMaxPtrOutput)
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsPtrOutput) Min() WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraints) *WorkloadScalingPolicyCpuConstraintsMin {
+		if v == nil {
+			return nil
+		}
+		return v.Min
+	}).(WorkloadScalingPolicyCpuConstraintsMinPtrOutput)
+}
+
+type WorkloadScalingPolicyCpuConstraintsMax struct {
+	// Fixed bound value. For memory - MiB, for CPU - cores.
+	Constant *float64 `pulumi:"constant"`
+	// Bound as a percentage of the original pod-spec request.
+	PercentageOfOriginal *float64 `pulumi:"percentageOfOriginal"`
+}
+
+// WorkloadScalingPolicyCpuConstraintsMaxInput is an input type that accepts WorkloadScalingPolicyCpuConstraintsMaxArgs and WorkloadScalingPolicyCpuConstraintsMaxOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyCpuConstraintsMaxInput` via:
+//
+//	WorkloadScalingPolicyCpuConstraintsMaxArgs{...}
+type WorkloadScalingPolicyCpuConstraintsMaxInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyCpuConstraintsMaxOutput() WorkloadScalingPolicyCpuConstraintsMaxOutput
+	ToWorkloadScalingPolicyCpuConstraintsMaxOutputWithContext(context.Context) WorkloadScalingPolicyCpuConstraintsMaxOutput
+}
+
+type WorkloadScalingPolicyCpuConstraintsMaxArgs struct {
+	// Fixed bound value. For memory - MiB, for CPU - cores.
+	Constant pulumi.Float64PtrInput `pulumi:"constant"`
+	// Bound as a percentage of the original pod-spec request.
+	PercentageOfOriginal pulumi.Float64PtrInput `pulumi:"percentageOfOriginal"`
+}
+
+func (WorkloadScalingPolicyCpuConstraintsMaxArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsMax)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsMaxArgs) ToWorkloadScalingPolicyCpuConstraintsMaxOutput() WorkloadScalingPolicyCpuConstraintsMaxOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsMaxOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsMaxArgs) ToWorkloadScalingPolicyCpuConstraintsMaxOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMaxOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsMaxOutput)
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsMaxArgs) ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutput() WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsMaxArgs) ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsMaxOutput).ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyCpuConstraintsMaxPtrInput is an input type that accepts WorkloadScalingPolicyCpuConstraintsMaxArgs, WorkloadScalingPolicyCpuConstraintsMaxPtr and WorkloadScalingPolicyCpuConstraintsMaxPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyCpuConstraintsMaxPtrInput` via:
+//
+//	        WorkloadScalingPolicyCpuConstraintsMaxArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyCpuConstraintsMaxPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutput() WorkloadScalingPolicyCpuConstraintsMaxPtrOutput
+	ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(context.Context) WorkloadScalingPolicyCpuConstraintsMaxPtrOutput
+}
+
+type workloadScalingPolicyCpuConstraintsMaxPtrType WorkloadScalingPolicyCpuConstraintsMaxArgs
+
+func WorkloadScalingPolicyCpuConstraintsMaxPtr(v *WorkloadScalingPolicyCpuConstraintsMaxArgs) WorkloadScalingPolicyCpuConstraintsMaxPtrInput {
+	return (*workloadScalingPolicyCpuConstraintsMaxPtrType)(v)
+}
+
+func (*workloadScalingPolicyCpuConstraintsMaxPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyCpuConstraintsMax)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyCpuConstraintsMaxPtrType) ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutput() WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyCpuConstraintsMaxPtrType) ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsMaxPtrOutput)
+}
+
+type WorkloadScalingPolicyCpuConstraintsMaxOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyCpuConstraintsMaxOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsMax)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMaxOutput) ToWorkloadScalingPolicyCpuConstraintsMaxOutput() WorkloadScalingPolicyCpuConstraintsMaxOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMaxOutput) ToWorkloadScalingPolicyCpuConstraintsMaxOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMaxOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMaxOutput) ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutput() WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return o.ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMaxOutput) ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyCpuConstraintsMax) *WorkloadScalingPolicyCpuConstraintsMax {
+		return &v
+	}).(WorkloadScalingPolicyCpuConstraintsMaxPtrOutput)
+}
+
+// Fixed bound value. For memory - MiB, for CPU - cores.
+func (o WorkloadScalingPolicyCpuConstraintsMaxOutput) Constant() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpuConstraintsMax) *float64 { return v.Constant }).(pulumi.Float64PtrOutput)
+}
+
+// Bound as a percentage of the original pod-spec request.
+func (o WorkloadScalingPolicyCpuConstraintsMaxOutput) PercentageOfOriginal() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpuConstraintsMax) *float64 { return v.PercentageOfOriginal }).(pulumi.Float64PtrOutput)
+}
+
+type WorkloadScalingPolicyCpuConstraintsMaxPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyCpuConstraintsMaxPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyCpuConstraintsMax)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMaxPtrOutput) ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutput() WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMaxPtrOutput) ToWorkloadScalingPolicyCpuConstraintsMaxPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMaxPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMaxPtrOutput) Elem() WorkloadScalingPolicyCpuConstraintsMaxOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraintsMax) WorkloadScalingPolicyCpuConstraintsMax {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyCpuConstraintsMax
+		return ret
+	}).(WorkloadScalingPolicyCpuConstraintsMaxOutput)
+}
+
+// Fixed bound value. For memory - MiB, for CPU - cores.
+func (o WorkloadScalingPolicyCpuConstraintsMaxPtrOutput) Constant() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraintsMax) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Constant
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Bound as a percentage of the original pod-spec request.
+func (o WorkloadScalingPolicyCpuConstraintsMaxPtrOutput) PercentageOfOriginal() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraintsMax) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.PercentageOfOriginal
+	}).(pulumi.Float64PtrOutput)
+}
+
+type WorkloadScalingPolicyCpuConstraintsMin struct {
+	// Fixed bound value. For memory - MiB, for CPU - cores.
+	Constant *float64 `pulumi:"constant"`
+	// Bound as a percentage of the original pod-spec request.
+	PercentageOfOriginal *float64 `pulumi:"percentageOfOriginal"`
+}
+
+// WorkloadScalingPolicyCpuConstraintsMinInput is an input type that accepts WorkloadScalingPolicyCpuConstraintsMinArgs and WorkloadScalingPolicyCpuConstraintsMinOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyCpuConstraintsMinInput` via:
+//
+//	WorkloadScalingPolicyCpuConstraintsMinArgs{...}
+type WorkloadScalingPolicyCpuConstraintsMinInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyCpuConstraintsMinOutput() WorkloadScalingPolicyCpuConstraintsMinOutput
+	ToWorkloadScalingPolicyCpuConstraintsMinOutputWithContext(context.Context) WorkloadScalingPolicyCpuConstraintsMinOutput
+}
+
+type WorkloadScalingPolicyCpuConstraintsMinArgs struct {
+	// Fixed bound value. For memory - MiB, for CPU - cores.
+	Constant pulumi.Float64PtrInput `pulumi:"constant"`
+	// Bound as a percentage of the original pod-spec request.
+	PercentageOfOriginal pulumi.Float64PtrInput `pulumi:"percentageOfOriginal"`
+}
+
+func (WorkloadScalingPolicyCpuConstraintsMinArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsMin)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsMinArgs) ToWorkloadScalingPolicyCpuConstraintsMinOutput() WorkloadScalingPolicyCpuConstraintsMinOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsMinOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsMinArgs) ToWorkloadScalingPolicyCpuConstraintsMinOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMinOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsMinOutput)
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsMinArgs) ToWorkloadScalingPolicyCpuConstraintsMinPtrOutput() WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyCpuConstraintsMinArgs) ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsMinOutput).ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyCpuConstraintsMinPtrInput is an input type that accepts WorkloadScalingPolicyCpuConstraintsMinArgs, WorkloadScalingPolicyCpuConstraintsMinPtr and WorkloadScalingPolicyCpuConstraintsMinPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyCpuConstraintsMinPtrInput` via:
+//
+//	        WorkloadScalingPolicyCpuConstraintsMinArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyCpuConstraintsMinPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyCpuConstraintsMinPtrOutput() WorkloadScalingPolicyCpuConstraintsMinPtrOutput
+	ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(context.Context) WorkloadScalingPolicyCpuConstraintsMinPtrOutput
+}
+
+type workloadScalingPolicyCpuConstraintsMinPtrType WorkloadScalingPolicyCpuConstraintsMinArgs
+
+func WorkloadScalingPolicyCpuConstraintsMinPtr(v *WorkloadScalingPolicyCpuConstraintsMinArgs) WorkloadScalingPolicyCpuConstraintsMinPtrInput {
+	return (*workloadScalingPolicyCpuConstraintsMinPtrType)(v)
+}
+
+func (*workloadScalingPolicyCpuConstraintsMinPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyCpuConstraintsMin)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyCpuConstraintsMinPtrType) ToWorkloadScalingPolicyCpuConstraintsMinPtrOutput() WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return i.ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyCpuConstraintsMinPtrType) ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyCpuConstraintsMinPtrOutput)
+}
+
+type WorkloadScalingPolicyCpuConstraintsMinOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyCpuConstraintsMinOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsMin)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMinOutput) ToWorkloadScalingPolicyCpuConstraintsMinOutput() WorkloadScalingPolicyCpuConstraintsMinOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMinOutput) ToWorkloadScalingPolicyCpuConstraintsMinOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMinOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMinOutput) ToWorkloadScalingPolicyCpuConstraintsMinPtrOutput() WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return o.ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMinOutput) ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyCpuConstraintsMin) *WorkloadScalingPolicyCpuConstraintsMin {
+		return &v
+	}).(WorkloadScalingPolicyCpuConstraintsMinPtrOutput)
+}
+
+// Fixed bound value. For memory - MiB, for CPU - cores.
+func (o WorkloadScalingPolicyCpuConstraintsMinOutput) Constant() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpuConstraintsMin) *float64 { return v.Constant }).(pulumi.Float64PtrOutput)
+}
+
+// Bound as a percentage of the original pod-spec request.
+func (o WorkloadScalingPolicyCpuConstraintsMinOutput) PercentageOfOriginal() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpuConstraintsMin) *float64 { return v.PercentageOfOriginal }).(pulumi.Float64PtrOutput)
+}
+
+type WorkloadScalingPolicyCpuConstraintsMinPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyCpuConstraintsMinPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyCpuConstraintsMin)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMinPtrOutput) ToWorkloadScalingPolicyCpuConstraintsMinPtrOutput() WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMinPtrOutput) ToWorkloadScalingPolicyCpuConstraintsMinPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyCpuConstraintsMinPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyCpuConstraintsMinPtrOutput) Elem() WorkloadScalingPolicyCpuConstraintsMinOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraintsMin) WorkloadScalingPolicyCpuConstraintsMin {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyCpuConstraintsMin
+		return ret
+	}).(WorkloadScalingPolicyCpuConstraintsMinOutput)
+}
+
+// Fixed bound value. For memory - MiB, for CPU - cores.
+func (o WorkloadScalingPolicyCpuConstraintsMinPtrOutput) Constant() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraintsMin) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Constant
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Bound as a percentage of the original pod-spec request.
+func (o WorkloadScalingPolicyCpuConstraintsMinPtrOutput) PercentageOfOriginal() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuConstraintsMin) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.PercentageOfOriginal
+	}).(pulumi.Float64PtrOutput)
+}
+
 type WorkloadScalingPolicyCpuLimit struct {
 	// Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
 	Multiplier *float64 `pulumi:"multiplier"`
+	// When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+	// 	If the original workload has no limits specified, no limits will be added.
+	//
+	//     This flag allows conditional limit management based on the original workload configuration.
+	//
+	//     Only applicable when the type is set to multiplier.
+	OnlyIfOriginalExist *bool `pulumi:"onlyIfOriginalExist"`
+	// When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+	// 	If the original limits are already higher than the calculated value, they remain unchanged.
+	//
+	//     This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+	//
+	//     Only applicable when the type is set to multiplier.
+	OnlyIfOriginalLower *bool `pulumi:"onlyIfOriginalLower"`
 	// Defines limit strategy type.
 	// 	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
 	// 	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
 	// 	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+	// 	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
 	Type string `pulumi:"type"`
 }
 
@@ -1502,10 +2745,25 @@ type WorkloadScalingPolicyCpuLimitInput interface {
 type WorkloadScalingPolicyCpuLimitArgs struct {
 	// Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
 	Multiplier pulumi.Float64PtrInput `pulumi:"multiplier"`
+	// When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+	// 	If the original workload has no limits specified, no limits will be added.
+	//
+	//     This flag allows conditional limit management based on the original workload configuration.
+	//
+	//     Only applicable when the type is set to multiplier.
+	OnlyIfOriginalExist pulumi.BoolPtrInput `pulumi:"onlyIfOriginalExist"`
+	// When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+	// 	If the original limits are already higher than the calculated value, they remain unchanged.
+	//
+	//     This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+	//
+	//     Only applicable when the type is set to multiplier.
+	OnlyIfOriginalLower pulumi.BoolPtrInput `pulumi:"onlyIfOriginalLower"`
 	// Defines limit strategy type.
 	// 	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
 	// 	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
 	// 	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+	// 	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -1591,10 +2849,33 @@ func (o WorkloadScalingPolicyCpuLimitOutput) Multiplier() pulumi.Float64PtrOutpu
 	return o.ApplyT(func(v WorkloadScalingPolicyCpuLimit) *float64 { return v.Multiplier }).(pulumi.Float64PtrOutput)
 }
 
+// When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+//
+//		If the original workload has no limits specified, no limits will be added.
+//
+//	    This flag allows conditional limit management based on the original workload configuration.
+//
+//	    Only applicable when the type is set to multiplier.
+func (o WorkloadScalingPolicyCpuLimitOutput) OnlyIfOriginalExist() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpuLimit) *bool { return v.OnlyIfOriginalExist }).(pulumi.BoolPtrOutput)
+}
+
+// When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+//
+//		If the original limits are already higher than the calculated value, they remain unchanged.
+//
+//	    This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+//
+//	    Only applicable when the type is set to multiplier.
+func (o WorkloadScalingPolicyCpuLimitOutput) OnlyIfOriginalLower() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyCpuLimit) *bool { return v.OnlyIfOriginalLower }).(pulumi.BoolPtrOutput)
+}
+
 // Defines limit strategy type.
 //   - NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
 //   - KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
 //   - MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+//   - MAINTAIN_RATIO - maintains the original ratio between requests and limits.
 func (o WorkloadScalingPolicyCpuLimitOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyCpuLimit) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -1633,10 +2914,43 @@ func (o WorkloadScalingPolicyCpuLimitPtrOutput) Multiplier() pulumi.Float64PtrOu
 	}).(pulumi.Float64PtrOutput)
 }
 
+// When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+//
+//		If the original workload has no limits specified, no limits will be added.
+//
+//	    This flag allows conditional limit management based on the original workload configuration.
+//
+//	    Only applicable when the type is set to multiplier.
+func (o WorkloadScalingPolicyCpuLimitPtrOutput) OnlyIfOriginalExist() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuLimit) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyIfOriginalExist
+	}).(pulumi.BoolPtrOutput)
+}
+
+// When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+//
+//		If the original limits are already higher than the calculated value, they remain unchanged.
+//
+//	    This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+//
+//	    Only applicable when the type is set to multiplier.
+func (o WorkloadScalingPolicyCpuLimitPtrOutput) OnlyIfOriginalLower() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyCpuLimit) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyIfOriginalLower
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Defines limit strategy type.
 //   - NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
 //   - KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
 //   - MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+//   - MAINTAIN_RATIO - maintains the original ratio between requests and limits.
 func (o WorkloadScalingPolicyCpuLimitPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyCpuLimit) *string {
 		if v == nil {
@@ -1791,6 +3105,396 @@ func (o WorkloadScalingPolicyDownscalingPtrOutput) ApplyType() pulumi.StringPtrO
 	}).(pulumi.StringPtrOutput)
 }
 
+type WorkloadScalingPolicyHpaConverter struct {
+	// HPA converter type. AVERAGE_VALUE_FROM_ORIGINAL_REQUESTS converts HPA utilization (%) targets to AverageValue using workload container requests.
+	Type string `pulumi:"type"`
+}
+
+// WorkloadScalingPolicyHpaConverterInput is an input type that accepts WorkloadScalingPolicyHpaConverterArgs and WorkloadScalingPolicyHpaConverterOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyHpaConverterInput` via:
+//
+//	WorkloadScalingPolicyHpaConverterArgs{...}
+type WorkloadScalingPolicyHpaConverterInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyHpaConverterOutput() WorkloadScalingPolicyHpaConverterOutput
+	ToWorkloadScalingPolicyHpaConverterOutputWithContext(context.Context) WorkloadScalingPolicyHpaConverterOutput
+}
+
+type WorkloadScalingPolicyHpaConverterArgs struct {
+	// HPA converter type. AVERAGE_VALUE_FROM_ORIGINAL_REQUESTS converts HPA utilization (%) targets to AverageValue using workload container requests.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (WorkloadScalingPolicyHpaConverterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyHpaConverter)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyHpaConverterArgs) ToWorkloadScalingPolicyHpaConverterOutput() WorkloadScalingPolicyHpaConverterOutput {
+	return i.ToWorkloadScalingPolicyHpaConverterOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyHpaConverterArgs) ToWorkloadScalingPolicyHpaConverterOutputWithContext(ctx context.Context) WorkloadScalingPolicyHpaConverterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyHpaConverterOutput)
+}
+
+// WorkloadScalingPolicyHpaConverterArrayInput is an input type that accepts WorkloadScalingPolicyHpaConverterArray and WorkloadScalingPolicyHpaConverterArrayOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyHpaConverterArrayInput` via:
+//
+//	WorkloadScalingPolicyHpaConverterArray{ WorkloadScalingPolicyHpaConverterArgs{...} }
+type WorkloadScalingPolicyHpaConverterArrayInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyHpaConverterArrayOutput() WorkloadScalingPolicyHpaConverterArrayOutput
+	ToWorkloadScalingPolicyHpaConverterArrayOutputWithContext(context.Context) WorkloadScalingPolicyHpaConverterArrayOutput
+}
+
+type WorkloadScalingPolicyHpaConverterArray []WorkloadScalingPolicyHpaConverterInput
+
+func (WorkloadScalingPolicyHpaConverterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadScalingPolicyHpaConverter)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyHpaConverterArray) ToWorkloadScalingPolicyHpaConverterArrayOutput() WorkloadScalingPolicyHpaConverterArrayOutput {
+	return i.ToWorkloadScalingPolicyHpaConverterArrayOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyHpaConverterArray) ToWorkloadScalingPolicyHpaConverterArrayOutputWithContext(ctx context.Context) WorkloadScalingPolicyHpaConverterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyHpaConverterArrayOutput)
+}
+
+type WorkloadScalingPolicyHpaConverterOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyHpaConverterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyHpaConverter)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyHpaConverterOutput) ToWorkloadScalingPolicyHpaConverterOutput() WorkloadScalingPolicyHpaConverterOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyHpaConverterOutput) ToWorkloadScalingPolicyHpaConverterOutputWithContext(ctx context.Context) WorkloadScalingPolicyHpaConverterOutput {
+	return o
+}
+
+// HPA converter type. AVERAGE_VALUE_FROM_ORIGINAL_REQUESTS converts HPA utilization (%) targets to AverageValue using workload container requests.
+func (o WorkloadScalingPolicyHpaConverterOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyHpaConverter) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type WorkloadScalingPolicyHpaConverterArrayOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyHpaConverterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadScalingPolicyHpaConverter)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyHpaConverterArrayOutput) ToWorkloadScalingPolicyHpaConverterArrayOutput() WorkloadScalingPolicyHpaConverterArrayOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyHpaConverterArrayOutput) ToWorkloadScalingPolicyHpaConverterArrayOutputWithContext(ctx context.Context) WorkloadScalingPolicyHpaConverterArrayOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyHpaConverterArrayOutput) Index(i pulumi.IntInput) WorkloadScalingPolicyHpaConverterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) WorkloadScalingPolicyHpaConverter {
+		return vs[0].([]WorkloadScalingPolicyHpaConverter)[vs[1].(int)]
+	}).(WorkloadScalingPolicyHpaConverterOutput)
+}
+
+type WorkloadScalingPolicyJvm struct {
+	// When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
+	AutoInstrument *bool `pulumi:"autoInstrument"`
+	// JVM memory optimization settings.
+	Memory *WorkloadScalingPolicyJvmMemory `pulumi:"memory"`
+}
+
+// WorkloadScalingPolicyJvmInput is an input type that accepts WorkloadScalingPolicyJvmArgs and WorkloadScalingPolicyJvmOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyJvmInput` via:
+//
+//	WorkloadScalingPolicyJvmArgs{...}
+type WorkloadScalingPolicyJvmInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyJvmOutput() WorkloadScalingPolicyJvmOutput
+	ToWorkloadScalingPolicyJvmOutputWithContext(context.Context) WorkloadScalingPolicyJvmOutput
+}
+
+type WorkloadScalingPolicyJvmArgs struct {
+	// When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
+	AutoInstrument pulumi.BoolPtrInput `pulumi:"autoInstrument"`
+	// JVM memory optimization settings.
+	Memory WorkloadScalingPolicyJvmMemoryPtrInput `pulumi:"memory"`
+}
+
+func (WorkloadScalingPolicyJvmArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyJvm)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyJvmArgs) ToWorkloadScalingPolicyJvmOutput() WorkloadScalingPolicyJvmOutput {
+	return i.ToWorkloadScalingPolicyJvmOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyJvmArgs) ToWorkloadScalingPolicyJvmOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyJvmOutput)
+}
+
+func (i WorkloadScalingPolicyJvmArgs) ToWorkloadScalingPolicyJvmPtrOutput() WorkloadScalingPolicyJvmPtrOutput {
+	return i.ToWorkloadScalingPolicyJvmPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyJvmArgs) ToWorkloadScalingPolicyJvmPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyJvmOutput).ToWorkloadScalingPolicyJvmPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyJvmPtrInput is an input type that accepts WorkloadScalingPolicyJvmArgs, WorkloadScalingPolicyJvmPtr and WorkloadScalingPolicyJvmPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyJvmPtrInput` via:
+//
+//	        WorkloadScalingPolicyJvmArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyJvmPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyJvmPtrOutput() WorkloadScalingPolicyJvmPtrOutput
+	ToWorkloadScalingPolicyJvmPtrOutputWithContext(context.Context) WorkloadScalingPolicyJvmPtrOutput
+}
+
+type workloadScalingPolicyJvmPtrType WorkloadScalingPolicyJvmArgs
+
+func WorkloadScalingPolicyJvmPtr(v *WorkloadScalingPolicyJvmArgs) WorkloadScalingPolicyJvmPtrInput {
+	return (*workloadScalingPolicyJvmPtrType)(v)
+}
+
+func (*workloadScalingPolicyJvmPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyJvm)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyJvmPtrType) ToWorkloadScalingPolicyJvmPtrOutput() WorkloadScalingPolicyJvmPtrOutput {
+	return i.ToWorkloadScalingPolicyJvmPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyJvmPtrType) ToWorkloadScalingPolicyJvmPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyJvmPtrOutput)
+}
+
+type WorkloadScalingPolicyJvmOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyJvmOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyJvm)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyJvmOutput) ToWorkloadScalingPolicyJvmOutput() WorkloadScalingPolicyJvmOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyJvmOutput) ToWorkloadScalingPolicyJvmOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyJvmOutput) ToWorkloadScalingPolicyJvmPtrOutput() WorkloadScalingPolicyJvmPtrOutput {
+	return o.ToWorkloadScalingPolicyJvmPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyJvmOutput) ToWorkloadScalingPolicyJvmPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyJvm) *WorkloadScalingPolicyJvm {
+		return &v
+	}).(WorkloadScalingPolicyJvmPtrOutput)
+}
+
+// When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
+func (o WorkloadScalingPolicyJvmOutput) AutoInstrument() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyJvm) *bool { return v.AutoInstrument }).(pulumi.BoolPtrOutput)
+}
+
+// JVM memory optimization settings.
+func (o WorkloadScalingPolicyJvmOutput) Memory() WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyJvm) *WorkloadScalingPolicyJvmMemory { return v.Memory }).(WorkloadScalingPolicyJvmMemoryPtrOutput)
+}
+
+type WorkloadScalingPolicyJvmPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyJvmPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyJvm)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyJvmPtrOutput) ToWorkloadScalingPolicyJvmPtrOutput() WorkloadScalingPolicyJvmPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyJvmPtrOutput) ToWorkloadScalingPolicyJvmPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyJvmPtrOutput) Elem() WorkloadScalingPolicyJvmOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyJvm) WorkloadScalingPolicyJvm {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyJvm
+		return ret
+	}).(WorkloadScalingPolicyJvmOutput)
+}
+
+// When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
+func (o WorkloadScalingPolicyJvmPtrOutput) AutoInstrument() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyJvm) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AutoInstrument
+	}).(pulumi.BoolPtrOutput)
+}
+
+// JVM memory optimization settings.
+func (o WorkloadScalingPolicyJvmPtrOutput) Memory() WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyJvm) *WorkloadScalingPolicyJvmMemory {
+		if v == nil {
+			return nil
+		}
+		return v.Memory
+	}).(WorkloadScalingPolicyJvmMemoryPtrOutput)
+}
+
+type WorkloadScalingPolicyJvmMemory struct {
+	// Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
+	Optimization *bool `pulumi:"optimization"`
+}
+
+// WorkloadScalingPolicyJvmMemoryInput is an input type that accepts WorkloadScalingPolicyJvmMemoryArgs and WorkloadScalingPolicyJvmMemoryOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyJvmMemoryInput` via:
+//
+//	WorkloadScalingPolicyJvmMemoryArgs{...}
+type WorkloadScalingPolicyJvmMemoryInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyJvmMemoryOutput() WorkloadScalingPolicyJvmMemoryOutput
+	ToWorkloadScalingPolicyJvmMemoryOutputWithContext(context.Context) WorkloadScalingPolicyJvmMemoryOutput
+}
+
+type WorkloadScalingPolicyJvmMemoryArgs struct {
+	// Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
+	Optimization pulumi.BoolPtrInput `pulumi:"optimization"`
+}
+
+func (WorkloadScalingPolicyJvmMemoryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyJvmMemory)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyJvmMemoryArgs) ToWorkloadScalingPolicyJvmMemoryOutput() WorkloadScalingPolicyJvmMemoryOutput {
+	return i.ToWorkloadScalingPolicyJvmMemoryOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyJvmMemoryArgs) ToWorkloadScalingPolicyJvmMemoryOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmMemoryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyJvmMemoryOutput)
+}
+
+func (i WorkloadScalingPolicyJvmMemoryArgs) ToWorkloadScalingPolicyJvmMemoryPtrOutput() WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return i.ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyJvmMemoryArgs) ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyJvmMemoryOutput).ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyJvmMemoryPtrInput is an input type that accepts WorkloadScalingPolicyJvmMemoryArgs, WorkloadScalingPolicyJvmMemoryPtr and WorkloadScalingPolicyJvmMemoryPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyJvmMemoryPtrInput` via:
+//
+//	        WorkloadScalingPolicyJvmMemoryArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyJvmMemoryPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyJvmMemoryPtrOutput() WorkloadScalingPolicyJvmMemoryPtrOutput
+	ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(context.Context) WorkloadScalingPolicyJvmMemoryPtrOutput
+}
+
+type workloadScalingPolicyJvmMemoryPtrType WorkloadScalingPolicyJvmMemoryArgs
+
+func WorkloadScalingPolicyJvmMemoryPtr(v *WorkloadScalingPolicyJvmMemoryArgs) WorkloadScalingPolicyJvmMemoryPtrInput {
+	return (*workloadScalingPolicyJvmMemoryPtrType)(v)
+}
+
+func (*workloadScalingPolicyJvmMemoryPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyJvmMemory)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyJvmMemoryPtrType) ToWorkloadScalingPolicyJvmMemoryPtrOutput() WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return i.ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyJvmMemoryPtrType) ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyJvmMemoryPtrOutput)
+}
+
+type WorkloadScalingPolicyJvmMemoryOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyJvmMemoryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyJvmMemory)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyJvmMemoryOutput) ToWorkloadScalingPolicyJvmMemoryOutput() WorkloadScalingPolicyJvmMemoryOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyJvmMemoryOutput) ToWorkloadScalingPolicyJvmMemoryOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmMemoryOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyJvmMemoryOutput) ToWorkloadScalingPolicyJvmMemoryPtrOutput() WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return o.ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyJvmMemoryOutput) ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyJvmMemory) *WorkloadScalingPolicyJvmMemory {
+		return &v
+	}).(WorkloadScalingPolicyJvmMemoryPtrOutput)
+}
+
+// Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
+func (o WorkloadScalingPolicyJvmMemoryOutput) Optimization() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyJvmMemory) *bool { return v.Optimization }).(pulumi.BoolPtrOutput)
+}
+
+type WorkloadScalingPolicyJvmMemoryPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyJvmMemoryPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyJvmMemory)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyJvmMemoryPtrOutput) ToWorkloadScalingPolicyJvmMemoryPtrOutput() WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyJvmMemoryPtrOutput) ToWorkloadScalingPolicyJvmMemoryPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyJvmMemoryPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyJvmMemoryPtrOutput) Elem() WorkloadScalingPolicyJvmMemoryOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyJvmMemory) WorkloadScalingPolicyJvmMemory {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyJvmMemory
+		return ret
+	}).(WorkloadScalingPolicyJvmMemoryOutput)
+}
+
+// Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
+func (o WorkloadScalingPolicyJvmMemoryPtrOutput) Optimization() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyJvmMemory) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Optimization
+	}).(pulumi.BoolPtrOutput)
+}
+
 type WorkloadScalingPolicyMemory struct {
 	// The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
 	//
@@ -1800,6 +3504,8 @@ type WorkloadScalingPolicyMemory struct {
 	ApplyThresholdStrategy *WorkloadScalingPolicyMemoryApplyThresholdStrategy `pulumi:"applyThresholdStrategy"`
 	// The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
 	Args *string `pulumi:"args"`
+	// Defines min/max bounds for the recommendation using constraint strategies.
+	Constraints *WorkloadScalingPolicyMemoryConstraints `pulumi:"constraints"`
 	// The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
 	Function *string `pulumi:"function"`
 	// Resource limit settings
@@ -1809,8 +3515,12 @@ type WorkloadScalingPolicyMemory struct {
 	// Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
 	ManagementOption *string `pulumi:"managementOption"`
 	// Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+	//
+	// Deprecated: Use constraints { max { constant = X } } instead
 	Max *float64 `pulumi:"max"`
 	// Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+	//
+	// Deprecated: Use constraints { min { constant = X } } instead
 	Min *float64 `pulumi:"min"`
 	// Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
 	Overhead *float64 `pulumi:"overhead"`
@@ -1836,6 +3546,8 @@ type WorkloadScalingPolicyMemoryArgs struct {
 	ApplyThresholdStrategy WorkloadScalingPolicyMemoryApplyThresholdStrategyPtrInput `pulumi:"applyThresholdStrategy"`
 	// The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
 	Args pulumi.StringPtrInput `pulumi:"args"`
+	// Defines min/max bounds for the recommendation using constraint strategies.
+	Constraints WorkloadScalingPolicyMemoryConstraintsPtrInput `pulumi:"constraints"`
 	// The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
 	Function pulumi.StringPtrInput `pulumi:"function"`
 	// Resource limit settings
@@ -1845,8 +3557,12 @@ type WorkloadScalingPolicyMemoryArgs struct {
 	// Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
 	ManagementOption pulumi.StringPtrInput `pulumi:"managementOption"`
 	// Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+	//
+	// Deprecated: Use constraints { max { constant = X } } instead
 	Max pulumi.Float64PtrInput `pulumi:"max"`
 	// Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+	//
+	// Deprecated: Use constraints { min { constant = X } } instead
 	Min pulumi.Float64PtrInput `pulumi:"min"`
 	// Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
 	Overhead pulumi.Float64PtrInput `pulumi:"overhead"`
@@ -1948,6 +3664,11 @@ func (o WorkloadScalingPolicyMemoryOutput) Args() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyMemory) *string { return v.Args }).(pulumi.StringPtrOutput)
 }
 
+// Defines min/max bounds for the recommendation using constraint strategies.
+func (o WorkloadScalingPolicyMemoryOutput) Constraints() WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemory) *WorkloadScalingPolicyMemoryConstraints { return v.Constraints }).(WorkloadScalingPolicyMemoryConstraintsPtrOutput)
+}
+
 // The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
 func (o WorkloadScalingPolicyMemoryOutput) Function() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyMemory) *string { return v.Function }).(pulumi.StringPtrOutput)
@@ -1969,11 +3690,15 @@ func (o WorkloadScalingPolicyMemoryOutput) ManagementOption() pulumi.StringPtrOu
 }
 
 // Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+//
+// Deprecated: Use constraints { max { constant = X } } instead
 func (o WorkloadScalingPolicyMemoryOutput) Max() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyMemory) *float64 { return v.Max }).(pulumi.Float64PtrOutput)
 }
 
 // Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+//
+// Deprecated: Use constraints { min { constant = X } } instead
 func (o WorkloadScalingPolicyMemoryOutput) Min() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyMemory) *float64 { return v.Min }).(pulumi.Float64PtrOutput)
 }
@@ -2039,6 +3764,16 @@ func (o WorkloadScalingPolicyMemoryPtrOutput) Args() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Defines min/max bounds for the recommendation using constraint strategies.
+func (o WorkloadScalingPolicyMemoryPtrOutput) Constraints() WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemory) *WorkloadScalingPolicyMemoryConstraints {
+		if v == nil {
+			return nil
+		}
+		return v.Constraints
+	}).(WorkloadScalingPolicyMemoryConstraintsPtrOutput)
+}
+
 // The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
 func (o WorkloadScalingPolicyMemoryPtrOutput) Function() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyMemory) *string {
@@ -2080,6 +3815,8 @@ func (o WorkloadScalingPolicyMemoryPtrOutput) ManagementOption() pulumi.StringPt
 }
 
 // Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+//
+// Deprecated: Use constraints { max { constant = X } } instead
 func (o WorkloadScalingPolicyMemoryPtrOutput) Max() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyMemory) *float64 {
 		if v == nil {
@@ -2090,6 +3827,8 @@ func (o WorkloadScalingPolicyMemoryPtrOutput) Max() pulumi.Float64PtrOutput {
 }
 
 // Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+//
+// Deprecated: Use constraints { min { constant = X } } instead
 func (o WorkloadScalingPolicyMemoryPtrOutput) Min() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyMemory) *float64 {
 		if v == nil {
@@ -2346,6 +4085,470 @@ func (o WorkloadScalingPolicyMemoryApplyThresholdStrategyPtrOutput) Type() pulum
 	}).(pulumi.StringPtrOutput)
 }
 
+type WorkloadScalingPolicyMemoryConstraints struct {
+	Max *WorkloadScalingPolicyMemoryConstraintsMax `pulumi:"max"`
+	Min *WorkloadScalingPolicyMemoryConstraintsMin `pulumi:"min"`
+}
+
+// WorkloadScalingPolicyMemoryConstraintsInput is an input type that accepts WorkloadScalingPolicyMemoryConstraintsArgs and WorkloadScalingPolicyMemoryConstraintsOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyMemoryConstraintsInput` via:
+//
+//	WorkloadScalingPolicyMemoryConstraintsArgs{...}
+type WorkloadScalingPolicyMemoryConstraintsInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyMemoryConstraintsOutput() WorkloadScalingPolicyMemoryConstraintsOutput
+	ToWorkloadScalingPolicyMemoryConstraintsOutputWithContext(context.Context) WorkloadScalingPolicyMemoryConstraintsOutput
+}
+
+type WorkloadScalingPolicyMemoryConstraintsArgs struct {
+	Max WorkloadScalingPolicyMemoryConstraintsMaxPtrInput `pulumi:"max"`
+	Min WorkloadScalingPolicyMemoryConstraintsMinPtrInput `pulumi:"min"`
+}
+
+func (WorkloadScalingPolicyMemoryConstraintsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraints)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsArgs) ToWorkloadScalingPolicyMemoryConstraintsOutput() WorkloadScalingPolicyMemoryConstraintsOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsArgs) ToWorkloadScalingPolicyMemoryConstraintsOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsOutput)
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsArgs) ToWorkloadScalingPolicyMemoryConstraintsPtrOutput() WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsArgs) ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsOutput).ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyMemoryConstraintsPtrInput is an input type that accepts WorkloadScalingPolicyMemoryConstraintsArgs, WorkloadScalingPolicyMemoryConstraintsPtr and WorkloadScalingPolicyMemoryConstraintsPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyMemoryConstraintsPtrInput` via:
+//
+//	        WorkloadScalingPolicyMemoryConstraintsArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyMemoryConstraintsPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyMemoryConstraintsPtrOutput() WorkloadScalingPolicyMemoryConstraintsPtrOutput
+	ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(context.Context) WorkloadScalingPolicyMemoryConstraintsPtrOutput
+}
+
+type workloadScalingPolicyMemoryConstraintsPtrType WorkloadScalingPolicyMemoryConstraintsArgs
+
+func WorkloadScalingPolicyMemoryConstraintsPtr(v *WorkloadScalingPolicyMemoryConstraintsArgs) WorkloadScalingPolicyMemoryConstraintsPtrInput {
+	return (*workloadScalingPolicyMemoryConstraintsPtrType)(v)
+}
+
+func (*workloadScalingPolicyMemoryConstraintsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyMemoryConstraints)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyMemoryConstraintsPtrType) ToWorkloadScalingPolicyMemoryConstraintsPtrOutput() WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyMemoryConstraintsPtrType) ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsPtrOutput)
+}
+
+type WorkloadScalingPolicyMemoryConstraintsOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyMemoryConstraintsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraints)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsOutput) ToWorkloadScalingPolicyMemoryConstraintsOutput() WorkloadScalingPolicyMemoryConstraintsOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsOutput) ToWorkloadScalingPolicyMemoryConstraintsOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsOutput) ToWorkloadScalingPolicyMemoryConstraintsPtrOutput() WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return o.ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsOutput) ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyMemoryConstraints) *WorkloadScalingPolicyMemoryConstraints {
+		return &v
+	}).(WorkloadScalingPolicyMemoryConstraintsPtrOutput)
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsOutput) Max() WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemoryConstraints) *WorkloadScalingPolicyMemoryConstraintsMax {
+		return v.Max
+	}).(WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput)
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsOutput) Min() WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemoryConstraints) *WorkloadScalingPolicyMemoryConstraintsMin {
+		return v.Min
+	}).(WorkloadScalingPolicyMemoryConstraintsMinPtrOutput)
+}
+
+type WorkloadScalingPolicyMemoryConstraintsPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyMemoryConstraintsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyMemoryConstraints)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsPtrOutput) ToWorkloadScalingPolicyMemoryConstraintsPtrOutput() WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsPtrOutput) ToWorkloadScalingPolicyMemoryConstraintsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsPtrOutput) Elem() WorkloadScalingPolicyMemoryConstraintsOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraints) WorkloadScalingPolicyMemoryConstraints {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyMemoryConstraints
+		return ret
+	}).(WorkloadScalingPolicyMemoryConstraintsOutput)
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsPtrOutput) Max() WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraints) *WorkloadScalingPolicyMemoryConstraintsMax {
+		if v == nil {
+			return nil
+		}
+		return v.Max
+	}).(WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput)
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsPtrOutput) Min() WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraints) *WorkloadScalingPolicyMemoryConstraintsMin {
+		if v == nil {
+			return nil
+		}
+		return v.Min
+	}).(WorkloadScalingPolicyMemoryConstraintsMinPtrOutput)
+}
+
+type WorkloadScalingPolicyMemoryConstraintsMax struct {
+	// Fixed bound value. For memory - MiB, for CPU - cores.
+	Constant *float64 `pulumi:"constant"`
+	// Bound as a percentage of the original pod-spec request.
+	PercentageOfOriginal *float64 `pulumi:"percentageOfOriginal"`
+}
+
+// WorkloadScalingPolicyMemoryConstraintsMaxInput is an input type that accepts WorkloadScalingPolicyMemoryConstraintsMaxArgs and WorkloadScalingPolicyMemoryConstraintsMaxOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyMemoryConstraintsMaxInput` via:
+//
+//	WorkloadScalingPolicyMemoryConstraintsMaxArgs{...}
+type WorkloadScalingPolicyMemoryConstraintsMaxInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyMemoryConstraintsMaxOutput() WorkloadScalingPolicyMemoryConstraintsMaxOutput
+	ToWorkloadScalingPolicyMemoryConstraintsMaxOutputWithContext(context.Context) WorkloadScalingPolicyMemoryConstraintsMaxOutput
+}
+
+type WorkloadScalingPolicyMemoryConstraintsMaxArgs struct {
+	// Fixed bound value. For memory - MiB, for CPU - cores.
+	Constant pulumi.Float64PtrInput `pulumi:"constant"`
+	// Bound as a percentage of the original pod-spec request.
+	PercentageOfOriginal pulumi.Float64PtrInput `pulumi:"percentageOfOriginal"`
+}
+
+func (WorkloadScalingPolicyMemoryConstraintsMaxArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsMax)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsMaxArgs) ToWorkloadScalingPolicyMemoryConstraintsMaxOutput() WorkloadScalingPolicyMemoryConstraintsMaxOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsMaxOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsMaxArgs) ToWorkloadScalingPolicyMemoryConstraintsMaxOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMaxOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsMaxOutput)
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsMaxArgs) ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutput() WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsMaxArgs) ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsMaxOutput).ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyMemoryConstraintsMaxPtrInput is an input type that accepts WorkloadScalingPolicyMemoryConstraintsMaxArgs, WorkloadScalingPolicyMemoryConstraintsMaxPtr and WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyMemoryConstraintsMaxPtrInput` via:
+//
+//	        WorkloadScalingPolicyMemoryConstraintsMaxArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyMemoryConstraintsMaxPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutput() WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput
+	ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(context.Context) WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput
+}
+
+type workloadScalingPolicyMemoryConstraintsMaxPtrType WorkloadScalingPolicyMemoryConstraintsMaxArgs
+
+func WorkloadScalingPolicyMemoryConstraintsMaxPtr(v *WorkloadScalingPolicyMemoryConstraintsMaxArgs) WorkloadScalingPolicyMemoryConstraintsMaxPtrInput {
+	return (*workloadScalingPolicyMemoryConstraintsMaxPtrType)(v)
+}
+
+func (*workloadScalingPolicyMemoryConstraintsMaxPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyMemoryConstraintsMax)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyMemoryConstraintsMaxPtrType) ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutput() WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyMemoryConstraintsMaxPtrType) ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput)
+}
+
+type WorkloadScalingPolicyMemoryConstraintsMaxOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyMemoryConstraintsMaxOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsMax)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMaxOutput) ToWorkloadScalingPolicyMemoryConstraintsMaxOutput() WorkloadScalingPolicyMemoryConstraintsMaxOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMaxOutput) ToWorkloadScalingPolicyMemoryConstraintsMaxOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMaxOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMaxOutput) ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutput() WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return o.ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMaxOutput) ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyMemoryConstraintsMax) *WorkloadScalingPolicyMemoryConstraintsMax {
+		return &v
+	}).(WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput)
+}
+
+// Fixed bound value. For memory - MiB, for CPU - cores.
+func (o WorkloadScalingPolicyMemoryConstraintsMaxOutput) Constant() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemoryConstraintsMax) *float64 { return v.Constant }).(pulumi.Float64PtrOutput)
+}
+
+// Bound as a percentage of the original pod-spec request.
+func (o WorkloadScalingPolicyMemoryConstraintsMaxOutput) PercentageOfOriginal() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemoryConstraintsMax) *float64 { return v.PercentageOfOriginal }).(pulumi.Float64PtrOutput)
+}
+
+type WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyMemoryConstraintsMax)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput) ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutput() WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput) ToWorkloadScalingPolicyMemoryConstraintsMaxPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput) Elem() WorkloadScalingPolicyMemoryConstraintsMaxOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraintsMax) WorkloadScalingPolicyMemoryConstraintsMax {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyMemoryConstraintsMax
+		return ret
+	}).(WorkloadScalingPolicyMemoryConstraintsMaxOutput)
+}
+
+// Fixed bound value. For memory - MiB, for CPU - cores.
+func (o WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput) Constant() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraintsMax) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Constant
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Bound as a percentage of the original pod-spec request.
+func (o WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput) PercentageOfOriginal() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraintsMax) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.PercentageOfOriginal
+	}).(pulumi.Float64PtrOutput)
+}
+
+type WorkloadScalingPolicyMemoryConstraintsMin struct {
+	// Fixed bound value. For memory - MiB, for CPU - cores.
+	Constant *float64 `pulumi:"constant"`
+	// Bound as a percentage of the original pod-spec request.
+	PercentageOfOriginal *float64 `pulumi:"percentageOfOriginal"`
+}
+
+// WorkloadScalingPolicyMemoryConstraintsMinInput is an input type that accepts WorkloadScalingPolicyMemoryConstraintsMinArgs and WorkloadScalingPolicyMemoryConstraintsMinOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyMemoryConstraintsMinInput` via:
+//
+//	WorkloadScalingPolicyMemoryConstraintsMinArgs{...}
+type WorkloadScalingPolicyMemoryConstraintsMinInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyMemoryConstraintsMinOutput() WorkloadScalingPolicyMemoryConstraintsMinOutput
+	ToWorkloadScalingPolicyMemoryConstraintsMinOutputWithContext(context.Context) WorkloadScalingPolicyMemoryConstraintsMinOutput
+}
+
+type WorkloadScalingPolicyMemoryConstraintsMinArgs struct {
+	// Fixed bound value. For memory - MiB, for CPU - cores.
+	Constant pulumi.Float64PtrInput `pulumi:"constant"`
+	// Bound as a percentage of the original pod-spec request.
+	PercentageOfOriginal pulumi.Float64PtrInput `pulumi:"percentageOfOriginal"`
+}
+
+func (WorkloadScalingPolicyMemoryConstraintsMinArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsMin)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsMinArgs) ToWorkloadScalingPolicyMemoryConstraintsMinOutput() WorkloadScalingPolicyMemoryConstraintsMinOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsMinOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsMinArgs) ToWorkloadScalingPolicyMemoryConstraintsMinOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMinOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsMinOutput)
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsMinArgs) ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutput() WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyMemoryConstraintsMinArgs) ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsMinOutput).ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyMemoryConstraintsMinPtrInput is an input type that accepts WorkloadScalingPolicyMemoryConstraintsMinArgs, WorkloadScalingPolicyMemoryConstraintsMinPtr and WorkloadScalingPolicyMemoryConstraintsMinPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyMemoryConstraintsMinPtrInput` via:
+//
+//	        WorkloadScalingPolicyMemoryConstraintsMinArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyMemoryConstraintsMinPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutput() WorkloadScalingPolicyMemoryConstraintsMinPtrOutput
+	ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(context.Context) WorkloadScalingPolicyMemoryConstraintsMinPtrOutput
+}
+
+type workloadScalingPolicyMemoryConstraintsMinPtrType WorkloadScalingPolicyMemoryConstraintsMinArgs
+
+func WorkloadScalingPolicyMemoryConstraintsMinPtr(v *WorkloadScalingPolicyMemoryConstraintsMinArgs) WorkloadScalingPolicyMemoryConstraintsMinPtrInput {
+	return (*workloadScalingPolicyMemoryConstraintsMinPtrType)(v)
+}
+
+func (*workloadScalingPolicyMemoryConstraintsMinPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyMemoryConstraintsMin)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyMemoryConstraintsMinPtrType) ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutput() WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return i.ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyMemoryConstraintsMinPtrType) ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyMemoryConstraintsMinPtrOutput)
+}
+
+type WorkloadScalingPolicyMemoryConstraintsMinOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyMemoryConstraintsMinOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsMin)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMinOutput) ToWorkloadScalingPolicyMemoryConstraintsMinOutput() WorkloadScalingPolicyMemoryConstraintsMinOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMinOutput) ToWorkloadScalingPolicyMemoryConstraintsMinOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMinOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMinOutput) ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutput() WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return o.ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMinOutput) ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyMemoryConstraintsMin) *WorkloadScalingPolicyMemoryConstraintsMin {
+		return &v
+	}).(WorkloadScalingPolicyMemoryConstraintsMinPtrOutput)
+}
+
+// Fixed bound value. For memory - MiB, for CPU - cores.
+func (o WorkloadScalingPolicyMemoryConstraintsMinOutput) Constant() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemoryConstraintsMin) *float64 { return v.Constant }).(pulumi.Float64PtrOutput)
+}
+
+// Bound as a percentage of the original pod-spec request.
+func (o WorkloadScalingPolicyMemoryConstraintsMinOutput) PercentageOfOriginal() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemoryConstraintsMin) *float64 { return v.PercentageOfOriginal }).(pulumi.Float64PtrOutput)
+}
+
+type WorkloadScalingPolicyMemoryConstraintsMinPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyMemoryConstraintsMinPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyMemoryConstraintsMin)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMinPtrOutput) ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutput() WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMinPtrOutput) ToWorkloadScalingPolicyMemoryConstraintsMinPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyMemoryConstraintsMinPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyMemoryConstraintsMinPtrOutput) Elem() WorkloadScalingPolicyMemoryConstraintsMinOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraintsMin) WorkloadScalingPolicyMemoryConstraintsMin {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyMemoryConstraintsMin
+		return ret
+	}).(WorkloadScalingPolicyMemoryConstraintsMinOutput)
+}
+
+// Fixed bound value. For memory - MiB, for CPU - cores.
+func (o WorkloadScalingPolicyMemoryConstraintsMinPtrOutput) Constant() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraintsMin) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Constant
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Bound as a percentage of the original pod-spec request.
+func (o WorkloadScalingPolicyMemoryConstraintsMinPtrOutput) PercentageOfOriginal() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryConstraintsMin) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.PercentageOfOriginal
+	}).(pulumi.Float64PtrOutput)
+}
+
 type WorkloadScalingPolicyMemoryEvent struct {
 	// Defines the apply type to be used when applying recommendation for memory related event.
 	// 	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
@@ -2494,10 +4697,25 @@ func (o WorkloadScalingPolicyMemoryEventPtrOutput) ApplyType() pulumi.StringPtrO
 type WorkloadScalingPolicyMemoryLimit struct {
 	// Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
 	Multiplier *float64 `pulumi:"multiplier"`
+	// When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+	// 	If the original workload has no limits specified, no limits will be added.
+	//
+	//     This flag allows conditional limit management based on the original workload configuration.
+	//
+	//     Only applicable when the type is set to multiplier.
+	OnlyIfOriginalExist *bool `pulumi:"onlyIfOriginalExist"`
+	// When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+	// 	If the original limits are already higher than the calculated value, they remain unchanged.
+	//
+	//     This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+	//
+	//     Only applicable when the type is set to multiplier.
+	OnlyIfOriginalLower *bool `pulumi:"onlyIfOriginalLower"`
 	// Defines limit strategy type.
 	// 	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
 	// 	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
 	// 	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+	// 	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
 	Type string `pulumi:"type"`
 }
 
@@ -2515,10 +4733,25 @@ type WorkloadScalingPolicyMemoryLimitInput interface {
 type WorkloadScalingPolicyMemoryLimitArgs struct {
 	// Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
 	Multiplier pulumi.Float64PtrInput `pulumi:"multiplier"`
+	// When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+	// 	If the original workload has no limits specified, no limits will be added.
+	//
+	//     This flag allows conditional limit management based on the original workload configuration.
+	//
+	//     Only applicable when the type is set to multiplier.
+	OnlyIfOriginalExist pulumi.BoolPtrInput `pulumi:"onlyIfOriginalExist"`
+	// When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+	// 	If the original limits are already higher than the calculated value, they remain unchanged.
+	//
+	//     This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+	//
+	//     Only applicable when the type is set to multiplier.
+	OnlyIfOriginalLower pulumi.BoolPtrInput `pulumi:"onlyIfOriginalLower"`
 	// Defines limit strategy type.
 	// 	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
 	// 	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
 	// 	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+	// 	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -2604,10 +4837,33 @@ func (o WorkloadScalingPolicyMemoryLimitOutput) Multiplier() pulumi.Float64PtrOu
 	return o.ApplyT(func(v WorkloadScalingPolicyMemoryLimit) *float64 { return v.Multiplier }).(pulumi.Float64PtrOutput)
 }
 
+// When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+//
+//		If the original workload has no limits specified, no limits will be added.
+//
+//	    This flag allows conditional limit management based on the original workload configuration.
+//
+//	    Only applicable when the type is set to multiplier.
+func (o WorkloadScalingPolicyMemoryLimitOutput) OnlyIfOriginalExist() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemoryLimit) *bool { return v.OnlyIfOriginalExist }).(pulumi.BoolPtrOutput)
+}
+
+// When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+//
+//		If the original limits are already higher than the calculated value, they remain unchanged.
+//
+//	    This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+//
+//	    Only applicable when the type is set to multiplier.
+func (o WorkloadScalingPolicyMemoryLimitOutput) OnlyIfOriginalLower() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyMemoryLimit) *bool { return v.OnlyIfOriginalLower }).(pulumi.BoolPtrOutput)
+}
+
 // Defines limit strategy type.
 //   - NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
 //   - KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
 //   - MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+//   - MAINTAIN_RATIO - maintains the original ratio between requests and limits.
 func (o WorkloadScalingPolicyMemoryLimitOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyMemoryLimit) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -2646,10 +4902,43 @@ func (o WorkloadScalingPolicyMemoryLimitPtrOutput) Multiplier() pulumi.Float64Pt
 	}).(pulumi.Float64PtrOutput)
 }
 
+// When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+//
+//		If the original workload has no limits specified, no limits will be added.
+//
+//	    This flag allows conditional limit management based on the original workload configuration.
+//
+//	    Only applicable when the type is set to multiplier.
+func (o WorkloadScalingPolicyMemoryLimitPtrOutput) OnlyIfOriginalExist() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryLimit) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyIfOriginalExist
+	}).(pulumi.BoolPtrOutput)
+}
+
+// When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+//
+//		If the original limits are already higher than the calculated value, they remain unchanged.
+//
+//	    This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+//
+//	    Only applicable when the type is set to multiplier.
+func (o WorkloadScalingPolicyMemoryLimitPtrOutput) OnlyIfOriginalLower() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryLimit) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyIfOriginalLower
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Defines limit strategy type.
 //   - NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
 //   - KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
 //   - MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+//   - MAINTAIN_RATIO - maintains the original ratio between requests and limits.
 func (o WorkloadScalingPolicyMemoryLimitPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyMemoryLimit) *string {
 		if v == nil {
@@ -2936,10 +5225,13 @@ func (o WorkloadScalingPolicyPredictiveScalingCpuPtrOutput) Enabled() pulumi.Boo
 }
 
 type WorkloadScalingPolicyRolloutBehavior struct {
+	// Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
+	DelaySeconds *int `pulumi:"delaySeconds"`
 	// Defines if pods should be restarted one by one to avoid service disruption.
 	PreferOneByOne *bool `pulumi:"preferOneByOne"`
 	// Defines the rollout type to be used when applying recommendations.
 	// 	- NO_DISRUPTION - pods are restarted without causing service disruption.
+	// 	- UNSPECIFIED - rollout type is not specified.
 	Type *string `pulumi:"type"`
 }
 
@@ -2955,10 +5247,13 @@ type WorkloadScalingPolicyRolloutBehaviorInput interface {
 }
 
 type WorkloadScalingPolicyRolloutBehaviorArgs struct {
+	// Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
+	DelaySeconds pulumi.IntPtrInput `pulumi:"delaySeconds"`
 	// Defines if pods should be restarted one by one to avoid service disruption.
 	PreferOneByOne pulumi.BoolPtrInput `pulumi:"preferOneByOne"`
 	// Defines the rollout type to be used when applying recommendations.
 	// 	- NO_DISRUPTION - pods are restarted without causing service disruption.
+	// 	- UNSPECIFIED - rollout type is not specified.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -3039,6 +5334,11 @@ func (o WorkloadScalingPolicyRolloutBehaviorOutput) ToWorkloadScalingPolicyRollo
 	}).(WorkloadScalingPolicyRolloutBehaviorPtrOutput)
 }
 
+// Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
+func (o WorkloadScalingPolicyRolloutBehaviorOutput) DelaySeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyRolloutBehavior) *int { return v.DelaySeconds }).(pulumi.IntPtrOutput)
+}
+
 // Defines if pods should be restarted one by one to avoid service disruption.
 func (o WorkloadScalingPolicyRolloutBehaviorOutput) PreferOneByOne() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyRolloutBehavior) *bool { return v.PreferOneByOne }).(pulumi.BoolPtrOutput)
@@ -3046,6 +5346,7 @@ func (o WorkloadScalingPolicyRolloutBehaviorOutput) PreferOneByOne() pulumi.Bool
 
 // Defines the rollout type to be used when applying recommendations.
 //   - NO_DISRUPTION - pods are restarted without causing service disruption.
+//   - UNSPECIFIED - rollout type is not specified.
 func (o WorkloadScalingPolicyRolloutBehaviorOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WorkloadScalingPolicyRolloutBehavior) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -3074,6 +5375,16 @@ func (o WorkloadScalingPolicyRolloutBehaviorPtrOutput) Elem() WorkloadScalingPol
 	}).(WorkloadScalingPolicyRolloutBehaviorOutput)
 }
 
+// Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
+func (o WorkloadScalingPolicyRolloutBehaviorPtrOutput) DelaySeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyRolloutBehavior) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DelaySeconds
+	}).(pulumi.IntPtrOutput)
+}
+
 // Defines if pods should be restarted one by one to avoid service disruption.
 func (o WorkloadScalingPolicyRolloutBehaviorPtrOutput) PreferOneByOne() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyRolloutBehavior) *bool {
@@ -3086,6 +5397,7 @@ func (o WorkloadScalingPolicyRolloutBehaviorPtrOutput) PreferOneByOne() pulumi.B
 
 // Defines the rollout type to be used when applying recommendations.
 //   - NO_DISRUPTION - pods are restarted without causing service disruption.
+//   - UNSPECIFIED - rollout type is not specified.
 func (o WorkloadScalingPolicyRolloutBehaviorPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicyRolloutBehavior) *string {
 		if v == nil {
@@ -3100,6 +5412,8 @@ type WorkloadScalingPolicyStartup struct {
 	// When set, recommendations will be adjusted to disregard resource spikes within this period.
 	// If not specified, the workload will receive standard recommendations without startup considerations.
 	PeriodSeconds *int `pulumi:"periodSeconds"`
+	// Defines two-phase recommendations settings for the startup period.
+	TwoPhaseRecommendations *WorkloadScalingPolicyStartupTwoPhaseRecommendations `pulumi:"twoPhaseRecommendations"`
 }
 
 // WorkloadScalingPolicyStartupInput is an input type that accepts WorkloadScalingPolicyStartupArgs and WorkloadScalingPolicyStartupOutput values.
@@ -3118,6 +5432,8 @@ type WorkloadScalingPolicyStartupArgs struct {
 	// When set, recommendations will be adjusted to disregard resource spikes within this period.
 	// If not specified, the workload will receive standard recommendations without startup considerations.
 	PeriodSeconds pulumi.IntPtrInput `pulumi:"periodSeconds"`
+	// Defines two-phase recommendations settings for the startup period.
+	TwoPhaseRecommendations WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrInput `pulumi:"twoPhaseRecommendations"`
 }
 
 func (WorkloadScalingPolicyStartupArgs) ElementType() reflect.Type {
@@ -3204,6 +5520,13 @@ func (o WorkloadScalingPolicyStartupOutput) PeriodSeconds() pulumi.IntPtrOutput 
 	return o.ApplyT(func(v WorkloadScalingPolicyStartup) *int { return v.PeriodSeconds }).(pulumi.IntPtrOutput)
 }
 
+// Defines two-phase recommendations settings for the startup period.
+func (o WorkloadScalingPolicyStartupOutput) TwoPhaseRecommendations() WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyStartup) *WorkloadScalingPolicyStartupTwoPhaseRecommendations {
+		return v.TwoPhaseRecommendations
+	}).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput)
+}
+
 type WorkloadScalingPolicyStartupPtrOutput struct{ *pulumi.OutputState }
 
 func (WorkloadScalingPolicyStartupPtrOutput) ElementType() reflect.Type {
@@ -3240,7 +5563,476 @@ func (o WorkloadScalingPolicyStartupPtrOutput) PeriodSeconds() pulumi.IntPtrOutp
 	}).(pulumi.IntPtrOutput)
 }
 
+// Defines two-phase recommendations settings for the startup period.
+func (o WorkloadScalingPolicyStartupPtrOutput) TwoPhaseRecommendations() WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyStartup) *WorkloadScalingPolicyStartupTwoPhaseRecommendations {
+		if v == nil {
+			return nil
+		}
+		return v.TwoPhaseRecommendations
+	}).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput)
+}
+
+type WorkloadScalingPolicyStartupTwoPhaseRecommendations struct {
+	// Defines whether two-phase recommendations are enabled during startup.
+	Enabled bool `pulumi:"enabled"`
+	// Defines the resource requests to use during startup.
+	RequestsOnStartup *WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup `pulumi:"requestsOnStartup"`
+}
+
+// WorkloadScalingPolicyStartupTwoPhaseRecommendationsInput is an input type that accepts WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs and WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyStartupTwoPhaseRecommendationsInput` via:
+//
+//	WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs{...}
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput
+	ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsOutputWithContext(context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput
+}
+
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs struct {
+	// Defines whether two-phase recommendations are enabled during startup.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// Defines the resource requests to use during startup.
+	RequestsOnStartup WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrInput `pulumi:"requestsOnStartup"`
+}
+
+func (WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyStartupTwoPhaseRecommendations)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput {
+	return i.ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput)
+}
+
+func (i WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return i.ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput).ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrInput is an input type that accepts WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs, WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtr and WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrInput` via:
+//
+//	        WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput
+	ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput
+}
+
+type workloadScalingPolicyStartupTwoPhaseRecommendationsPtrType WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs
+
+func WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtr(v *WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs) WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrInput {
+	return (*workloadScalingPolicyStartupTwoPhaseRecommendationsPtrType)(v)
+}
+
+func (*workloadScalingPolicyStartupTwoPhaseRecommendationsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyStartupTwoPhaseRecommendations)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyStartupTwoPhaseRecommendationsPtrType) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return i.ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyStartupTwoPhaseRecommendationsPtrType) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput)
+}
+
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyStartupTwoPhaseRecommendations)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return o.ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyStartupTwoPhaseRecommendations) *WorkloadScalingPolicyStartupTwoPhaseRecommendations {
+		return &v
+	}).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput)
+}
+
+// Defines whether two-phase recommendations are enabled during startup.
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyStartupTwoPhaseRecommendations) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// Defines the resource requests to use during startup.
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput) RequestsOnStartup() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyStartupTwoPhaseRecommendations) *WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup {
+		return v.RequestsOnStartup
+	}).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput)
+}
+
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyStartupTwoPhaseRecommendations)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput) Elem() WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyStartupTwoPhaseRecommendations) WorkloadScalingPolicyStartupTwoPhaseRecommendations {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyStartupTwoPhaseRecommendations
+		return ret
+	}).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput)
+}
+
+// Defines whether two-phase recommendations are enabled during startup.
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyStartupTwoPhaseRecommendations) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Defines the resource requests to use during startup.
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput) RequestsOnStartup() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyStartupTwoPhaseRecommendations) *WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup {
+		if v == nil {
+			return nil
+		}
+		return v.RequestsOnStartup
+	}).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput)
+}
+
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup struct {
+	// CPU cores to request during startup.
+	CpuCores *float64 `pulumi:"cpuCores"`
+	// Memory in GiB to request during startup.
+	MemoryGib *float64 `pulumi:"memoryGib"`
+}
+
+// WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupInput is an input type that accepts WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs and WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupInput` via:
+//
+//	WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs{...}
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput
+	ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutputWithContext(context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput
+}
+
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs struct {
+	// CPU cores to request during startup.
+	CpuCores pulumi.Float64PtrInput `pulumi:"cpuCores"`
+	// Memory in GiB to request during startup.
+	MemoryGib pulumi.Float64PtrInput `pulumi:"memoryGib"`
+}
+
+func (WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup)(nil)).Elem()
+}
+
+func (i WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput {
+	return i.ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput)
+}
+
+func (i WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return i.ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput).ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(ctx)
+}
+
+// WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrInput is an input type that accepts WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs, WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtr and WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput values.
+// You can construct a concrete instance of `WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrInput` via:
+//
+//	        WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput
+	ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput
+}
+
+type workloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrType WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs
+
+func WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtr(v *WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrInput {
+	return (*workloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrType)(v)
+}
+
+func (*workloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup)(nil)).Elem()
+}
+
+func (i *workloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrType) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return i.ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrType) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput)
+}
+
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return o.ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup) *WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup {
+		return &v
+	}).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput)
+}
+
+// CPU cores to request during startup.
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput) CpuCores() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup) *float64 {
+		return v.CpuCores
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Memory in GiB to request during startup.
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput) MemoryGib() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup) *float64 {
+		return v.MemoryGib
+	}).(pulumi.Float64PtrOutput)
+}
+
+type WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup)(nil)).Elem()
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput) ToWorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutputWithContext(ctx context.Context) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput {
+	return o
+}
+
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput) Elem() WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup) WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup
+		return ret
+	}).(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput)
+}
+
+// CPU cores to request during startup.
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput) CpuCores() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.CpuCores
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Memory in GiB to request during startup.
+func (o WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput) MemoryGib() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.MemoryGib
+	}).(pulumi.Float64PtrOutput)
+}
+
+type GetWorkloadScalingPoliciesPolicy struct {
+	// Policy UUID.
+	Id string `pulumi:"id"`
+	// Whether this policy is managed by CAST AI and only applies to castware workloads.
+	IsCastware bool `pulumi:"isCastware"`
+	// Whether this is the default scaling policy for the cluster.
+	IsDefault bool `pulumi:"isDefault"`
+	// Whether this policy is read-only (cannot be updated or deleted).
+	IsReadonly bool `pulumi:"isReadonly"`
+	// Policy name.
+	Name string `pulumi:"name"`
+}
+
+// GetWorkloadScalingPoliciesPolicyInput is an input type that accepts GetWorkloadScalingPoliciesPolicyArgs and GetWorkloadScalingPoliciesPolicyOutput values.
+// You can construct a concrete instance of `GetWorkloadScalingPoliciesPolicyInput` via:
+//
+//	GetWorkloadScalingPoliciesPolicyArgs{...}
+type GetWorkloadScalingPoliciesPolicyInput interface {
+	pulumi.Input
+
+	ToGetWorkloadScalingPoliciesPolicyOutput() GetWorkloadScalingPoliciesPolicyOutput
+	ToGetWorkloadScalingPoliciesPolicyOutputWithContext(context.Context) GetWorkloadScalingPoliciesPolicyOutput
+}
+
+type GetWorkloadScalingPoliciesPolicyArgs struct {
+	// Policy UUID.
+	Id pulumi.StringInput `pulumi:"id"`
+	// Whether this policy is managed by CAST AI and only applies to castware workloads.
+	IsCastware pulumi.BoolInput `pulumi:"isCastware"`
+	// Whether this is the default scaling policy for the cluster.
+	IsDefault pulumi.BoolInput `pulumi:"isDefault"`
+	// Whether this policy is read-only (cannot be updated or deleted).
+	IsReadonly pulumi.BoolInput `pulumi:"isReadonly"`
+	// Policy name.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (GetWorkloadScalingPoliciesPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetWorkloadScalingPoliciesPolicy)(nil)).Elem()
+}
+
+func (i GetWorkloadScalingPoliciesPolicyArgs) ToGetWorkloadScalingPoliciesPolicyOutput() GetWorkloadScalingPoliciesPolicyOutput {
+	return i.ToGetWorkloadScalingPoliciesPolicyOutputWithContext(context.Background())
+}
+
+func (i GetWorkloadScalingPoliciesPolicyArgs) ToGetWorkloadScalingPoliciesPolicyOutputWithContext(ctx context.Context) GetWorkloadScalingPoliciesPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetWorkloadScalingPoliciesPolicyOutput)
+}
+
+// GetWorkloadScalingPoliciesPolicyArrayInput is an input type that accepts GetWorkloadScalingPoliciesPolicyArray and GetWorkloadScalingPoliciesPolicyArrayOutput values.
+// You can construct a concrete instance of `GetWorkloadScalingPoliciesPolicyArrayInput` via:
+//
+//	GetWorkloadScalingPoliciesPolicyArray{ GetWorkloadScalingPoliciesPolicyArgs{...} }
+type GetWorkloadScalingPoliciesPolicyArrayInput interface {
+	pulumi.Input
+
+	ToGetWorkloadScalingPoliciesPolicyArrayOutput() GetWorkloadScalingPoliciesPolicyArrayOutput
+	ToGetWorkloadScalingPoliciesPolicyArrayOutputWithContext(context.Context) GetWorkloadScalingPoliciesPolicyArrayOutput
+}
+
+type GetWorkloadScalingPoliciesPolicyArray []GetWorkloadScalingPoliciesPolicyInput
+
+func (GetWorkloadScalingPoliciesPolicyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetWorkloadScalingPoliciesPolicy)(nil)).Elem()
+}
+
+func (i GetWorkloadScalingPoliciesPolicyArray) ToGetWorkloadScalingPoliciesPolicyArrayOutput() GetWorkloadScalingPoliciesPolicyArrayOutput {
+	return i.ToGetWorkloadScalingPoliciesPolicyArrayOutputWithContext(context.Background())
+}
+
+func (i GetWorkloadScalingPoliciesPolicyArray) ToGetWorkloadScalingPoliciesPolicyArrayOutputWithContext(ctx context.Context) GetWorkloadScalingPoliciesPolicyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetWorkloadScalingPoliciesPolicyArrayOutput)
+}
+
+type GetWorkloadScalingPoliciesPolicyOutput struct{ *pulumi.OutputState }
+
+func (GetWorkloadScalingPoliciesPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetWorkloadScalingPoliciesPolicy)(nil)).Elem()
+}
+
+func (o GetWorkloadScalingPoliciesPolicyOutput) ToGetWorkloadScalingPoliciesPolicyOutput() GetWorkloadScalingPoliciesPolicyOutput {
+	return o
+}
+
+func (o GetWorkloadScalingPoliciesPolicyOutput) ToGetWorkloadScalingPoliciesPolicyOutputWithContext(ctx context.Context) GetWorkloadScalingPoliciesPolicyOutput {
+	return o
+}
+
+// Policy UUID.
+func (o GetWorkloadScalingPoliciesPolicyOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetWorkloadScalingPoliciesPolicy) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Whether this policy is managed by CAST AI and only applies to castware workloads.
+func (o GetWorkloadScalingPoliciesPolicyOutput) IsCastware() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetWorkloadScalingPoliciesPolicy) bool { return v.IsCastware }).(pulumi.BoolOutput)
+}
+
+// Whether this is the default scaling policy for the cluster.
+func (o GetWorkloadScalingPoliciesPolicyOutput) IsDefault() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetWorkloadScalingPoliciesPolicy) bool { return v.IsDefault }).(pulumi.BoolOutput)
+}
+
+// Whether this policy is read-only (cannot be updated or deleted).
+func (o GetWorkloadScalingPoliciesPolicyOutput) IsReadonly() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetWorkloadScalingPoliciesPolicy) bool { return v.IsReadonly }).(pulumi.BoolOutput)
+}
+
+// Policy name.
+func (o GetWorkloadScalingPoliciesPolicyOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetWorkloadScalingPoliciesPolicy) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type GetWorkloadScalingPoliciesPolicyArrayOutput struct{ *pulumi.OutputState }
+
+func (GetWorkloadScalingPoliciesPolicyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetWorkloadScalingPoliciesPolicy)(nil)).Elem()
+}
+
+func (o GetWorkloadScalingPoliciesPolicyArrayOutput) ToGetWorkloadScalingPoliciesPolicyArrayOutput() GetWorkloadScalingPoliciesPolicyArrayOutput {
+	return o
+}
+
+func (o GetWorkloadScalingPoliciesPolicyArrayOutput) ToGetWorkloadScalingPoliciesPolicyArrayOutputWithContext(ctx context.Context) GetWorkloadScalingPoliciesPolicyArrayOutput {
+	return o
+}
+
+func (o GetWorkloadScalingPoliciesPolicyArrayOutput) Index(i pulumi.IntInput) GetWorkloadScalingPoliciesPolicyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetWorkloadScalingPoliciesPolicy {
+		return vs[0].([]GetWorkloadScalingPoliciesPolicy)[vs[1].(int)]
+	}).(GetWorkloadScalingPoliciesPolicyOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadCustomMetricsDataSourcePrometheusInput)(nil)).Elem(), WorkloadCustomMetricsDataSourcePrometheusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadCustomMetricsDataSourcePrometheusPtrInput)(nil)).Elem(), WorkloadCustomMetricsDataSourcePrometheusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadCustomMetricsDataSourcePrometheusMetricInput)(nil)).Elem(), WorkloadCustomMetricsDataSourcePrometheusMetricArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadCustomMetricsDataSourcePrometheusMetricArrayInput)(nil)).Elem(), WorkloadCustomMetricsDataSourcePrometheusMetricArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAnomalyDetectionInput)(nil)).Elem(), WorkloadScalingPolicyAnomalyDetectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAnomalyDetectionPtrInput)(nil)).Elem(), WorkloadScalingPolicyAnomalyDetectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAnomalyDetectionCpuPressureInput)(nil)).Elem(), WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrInput)(nil)).Elem(), WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAntiAffinityInput)(nil)).Elem(), WorkloadScalingPolicyAntiAffinityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAntiAffinityPtrInput)(nil)).Elem(), WorkloadScalingPolicyAntiAffinityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleArgs{})
@@ -3249,6 +6041,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleArrayInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleNamespaceInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleNamespacePtrInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleWorkloadInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleWorkloadPtrInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionInput)(nil)).Elem(), WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs{})
@@ -3259,14 +6053,32 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuPtrInput)(nil)).Elem(), WorkloadScalingPolicyCpuArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuApplyThresholdStrategyInput)(nil)).Elem(), WorkloadScalingPolicyCpuApplyThresholdStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuApplyThresholdStrategyPtrInput)(nil)).Elem(), WorkloadScalingPolicyCpuApplyThresholdStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsInput)(nil)).Elem(), WorkloadScalingPolicyCpuConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsPtrInput)(nil)).Elem(), WorkloadScalingPolicyCpuConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsMaxInput)(nil)).Elem(), WorkloadScalingPolicyCpuConstraintsMaxArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsMaxPtrInput)(nil)).Elem(), WorkloadScalingPolicyCpuConstraintsMaxArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsMinInput)(nil)).Elem(), WorkloadScalingPolicyCpuConstraintsMinArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuConstraintsMinPtrInput)(nil)).Elem(), WorkloadScalingPolicyCpuConstraintsMinArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuLimitInput)(nil)).Elem(), WorkloadScalingPolicyCpuLimitArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyCpuLimitPtrInput)(nil)).Elem(), WorkloadScalingPolicyCpuLimitArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyDownscalingInput)(nil)).Elem(), WorkloadScalingPolicyDownscalingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyDownscalingPtrInput)(nil)).Elem(), WorkloadScalingPolicyDownscalingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyHpaConverterInput)(nil)).Elem(), WorkloadScalingPolicyHpaConverterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyHpaConverterArrayInput)(nil)).Elem(), WorkloadScalingPolicyHpaConverterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyJvmInput)(nil)).Elem(), WorkloadScalingPolicyJvmArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyJvmPtrInput)(nil)).Elem(), WorkloadScalingPolicyJvmArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyJvmMemoryInput)(nil)).Elem(), WorkloadScalingPolicyJvmMemoryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyJvmMemoryPtrInput)(nil)).Elem(), WorkloadScalingPolicyJvmMemoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryInput)(nil)).Elem(), WorkloadScalingPolicyMemoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryPtrInput)(nil)).Elem(), WorkloadScalingPolicyMemoryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryApplyThresholdStrategyInput)(nil)).Elem(), WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryApplyThresholdStrategyPtrInput)(nil)).Elem(), WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsInput)(nil)).Elem(), WorkloadScalingPolicyMemoryConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsPtrInput)(nil)).Elem(), WorkloadScalingPolicyMemoryConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsMaxInput)(nil)).Elem(), WorkloadScalingPolicyMemoryConstraintsMaxArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsMaxPtrInput)(nil)).Elem(), WorkloadScalingPolicyMemoryConstraintsMaxArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsMinInput)(nil)).Elem(), WorkloadScalingPolicyMemoryConstraintsMinArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryConstraintsMinPtrInput)(nil)).Elem(), WorkloadScalingPolicyMemoryConstraintsMinArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryEventInput)(nil)).Elem(), WorkloadScalingPolicyMemoryEventArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryEventPtrInput)(nil)).Elem(), WorkloadScalingPolicyMemoryEventArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyMemoryLimitInput)(nil)).Elem(), WorkloadScalingPolicyMemoryLimitArgs{})
@@ -3279,6 +6091,20 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyRolloutBehaviorPtrInput)(nil)).Elem(), WorkloadScalingPolicyRolloutBehaviorArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyStartupInput)(nil)).Elem(), WorkloadScalingPolicyStartupArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyStartupPtrInput)(nil)).Elem(), WorkloadScalingPolicyStartupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyStartupTwoPhaseRecommendationsInput)(nil)).Elem(), WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrInput)(nil)).Elem(), WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupInput)(nil)).Elem(), WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrInput)(nil)).Elem(), WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetWorkloadScalingPoliciesPolicyInput)(nil)).Elem(), GetWorkloadScalingPoliciesPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetWorkloadScalingPoliciesPolicyArrayInput)(nil)).Elem(), GetWorkloadScalingPoliciesPolicyArray{})
+	pulumi.RegisterOutputType(WorkloadCustomMetricsDataSourcePrometheusOutput{})
+	pulumi.RegisterOutputType(WorkloadCustomMetricsDataSourcePrometheusPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadCustomMetricsDataSourcePrometheusMetricOutput{})
+	pulumi.RegisterOutputType(WorkloadCustomMetricsDataSourcePrometheusMetricArrayOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyAnomalyDetectionOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyAnomalyDetectionPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyAnomalyDetectionCpuPressureOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyAnomalyDetectionCpuPressurePtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAntiAffinityOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAntiAffinityPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleOutput{})
@@ -3287,6 +6113,8 @@ func init() {
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleRuleArrayOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleRuleNamespaceOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleRuleNamespacePtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArrayOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleRuleWorkloadOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleRuleWorkloadPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionOutput{})
@@ -3297,14 +6125,32 @@ func init() {
 	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuApplyThresholdStrategyOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuApplyThresholdStrategyPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuConstraintsOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuConstraintsPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuConstraintsMaxOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuConstraintsMaxPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuConstraintsMinOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuConstraintsMinPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuLimitOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyCpuLimitPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyDownscalingOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyDownscalingPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyHpaConverterOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyHpaConverterArrayOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyJvmOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyJvmPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyJvmMemoryOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyJvmMemoryPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryApplyThresholdStrategyOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryApplyThresholdStrategyPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryConstraintsOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryConstraintsPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryConstraintsMaxOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryConstraintsMaxPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryConstraintsMinOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryConstraintsMinPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryEventOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryEventPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyMemoryLimitOutput{})
@@ -3317,4 +6163,10 @@ func init() {
 	pulumi.RegisterOutputType(WorkloadScalingPolicyRolloutBehaviorPtrOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyStartupOutput{})
 	pulumi.RegisterOutputType(WorkloadScalingPolicyStartupPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyStartupTwoPhaseRecommendationsOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyStartupTwoPhaseRecommendationsPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupOutput{})
+	pulumi.RegisterOutputType(WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupPtrOutput{})
+	pulumi.RegisterOutputType(GetWorkloadScalingPoliciesPolicyOutput{})
+	pulumi.RegisterOutputType(GetWorkloadScalingPoliciesPolicyArrayOutput{})
 }

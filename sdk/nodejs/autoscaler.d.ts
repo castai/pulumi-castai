@@ -19,6 +19,8 @@ export declare class Autoscaler extends pulumi.CustomResource {
     static isInstance(obj: any): obj is Autoscaler;
     /**
      * computed value to store full policies configuration
+     *
+     * @deprecated This field is deprecated and will be removed in the next major version. Use autoscalerSettings to configure and manage autoscaler policies.
      */
     readonly autoscalerPolicies: pulumi.Output<string>;
     /**
@@ -50,22 +52,24 @@ export declare class Autoscaler extends pulumi.CustomResource {
 export interface AutoscalerState {
     /**
      * computed value to store full policies configuration
+     *
+     * @deprecated This field is deprecated and will be removed in the next major version. Use autoscalerSettings to configure and manage autoscaler policies.
      */
-    autoscalerPolicies?: pulumi.Input<string>;
+    autoscalerPolicies?: pulumi.Input<string | undefined>;
     /**
      * autoscaler policies JSON string to override current autoscaler settings
      *
      * @deprecated use autoscalerSettings instead. See README for example: https://github.com/castai/terraform-provider-castai?tab=readme-ov-file#migrating-from-6xx-to-7xx
      */
-    autoscalerPoliciesJson?: pulumi.Input<string>;
+    autoscalerPoliciesJson?: pulumi.Input<string | undefined>;
     /**
      * autoscaler policy definitions to override current autoscaler settings
      */
-    autoscalerSettings?: pulumi.Input<inputs.autoscaling.AutoscalerAutoscalerSettings>;
+    autoscalerSettings?: pulumi.Input<inputs.autoscaling.AutoscalerAutoscalerSettings | undefined>;
     /**
      * CAST AI cluster id
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a Autoscaler resource.
@@ -76,13 +80,14 @@ export interface AutoscalerArgs {
      *
      * @deprecated use autoscalerSettings instead. See README for example: https://github.com/castai/terraform-provider-castai?tab=readme-ov-file#migrating-from-6xx-to-7xx
      */
-    autoscalerPoliciesJson?: pulumi.Input<string>;
+    autoscalerPoliciesJson?: pulumi.Input<string | undefined>;
     /**
      * autoscaler policy definitions to override current autoscaler settings
      */
-    autoscalerSettings?: pulumi.Input<inputs.autoscaling.AutoscalerAutoscalerSettings>;
+    autoscalerSettings?: pulumi.Input<inputs.autoscaling.AutoscalerAutoscalerSettings | undefined>;
     /**
      * CAST AI cluster id
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
 }
+//# sourceMappingURL=autoscaler.d.ts.map

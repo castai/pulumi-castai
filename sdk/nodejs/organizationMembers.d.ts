@@ -55,23 +55,23 @@ export interface OrganizationMembersState {
      *
      * @deprecated The 'members' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.
      */
-    members?: pulumi.Input<pulumi.Input<string>[]>;
+    members?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * CAST AI organization ID.
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * A list of email addresses corresponding to users who should be given owner access to the organization.
      *
      * @deprecated The 'owners' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.
      */
-    owners?: pulumi.Input<pulumi.Input<string>[]>;
+    owners?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * A list of email addresses corresponding to users who should be given viewer access to the organization.
      *
      * @deprecated The 'viewers' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.
      */
-    viewers?: pulumi.Input<pulumi.Input<string>[]>;
+    viewers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 /**
  * The set of arguments for constructing a OrganizationMembers resource.
@@ -82,7 +82,7 @@ export interface OrganizationMembersArgs {
      *
      * @deprecated The 'members' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.
      */
-    members?: pulumi.Input<pulumi.Input<string>[]>;
+    members?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * CAST AI organization ID.
      */
@@ -92,11 +92,12 @@ export interface OrganizationMembersArgs {
      *
      * @deprecated The 'owners' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.
      */
-    owners?: pulumi.Input<pulumi.Input<string>[]>;
+    owners?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * A list of email addresses corresponding to users who should be given viewer access to the organization.
      *
      * @deprecated The 'viewers' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.
      */
-    viewers?: pulumi.Input<pulumi.Input<string>[]>;
+    viewers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
+//# sourceMappingURL=organizationMembers.d.ts.map

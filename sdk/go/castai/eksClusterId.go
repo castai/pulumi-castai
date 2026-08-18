@@ -17,7 +17,9 @@ type EksClusterId struct {
 
 	AccountId   pulumi.StringOutput `pulumi:"accountId"`
 	ClusterName pulumi.StringOutput `pulumi:"clusterName"`
-	Region      pulumi.StringOutput `pulumi:"region"`
+	// CAST AI organization ID
+	OrganizationId pulumi.StringOutput `pulumi:"organizationId"`
+	Region         pulumi.StringOutput `pulumi:"region"`
 }
 
 // NewEksClusterId registers a new resource with the given unique name, arguments, and options.
@@ -61,13 +63,17 @@ func GetEksClusterId(ctx *pulumi.Context,
 type eksClusterIdState struct {
 	AccountId   *string `pulumi:"accountId"`
 	ClusterName *string `pulumi:"clusterName"`
-	Region      *string `pulumi:"region"`
+	// CAST AI organization ID
+	OrganizationId *string `pulumi:"organizationId"`
+	Region         *string `pulumi:"region"`
 }
 
 type EksClusterIdState struct {
 	AccountId   pulumi.StringPtrInput
 	ClusterName pulumi.StringPtrInput
-	Region      pulumi.StringPtrInput
+	// CAST AI organization ID
+	OrganizationId pulumi.StringPtrInput
+	Region         pulumi.StringPtrInput
 }
 
 func (EksClusterIdState) ElementType() reflect.Type {
@@ -180,6 +186,11 @@ func (o EksClusterIdOutput) AccountId() pulumi.StringOutput {
 
 func (o EksClusterIdOutput) ClusterName() pulumi.StringOutput {
 	return o.ApplyT(func(v *EksClusterId) pulumi.StringOutput { return v.ClusterName }).(pulumi.StringOutput)
+}
+
+// CAST AI organization ID
+func (o EksClusterIdOutput) OrganizationId() pulumi.StringOutput {
+	return o.ApplyT(func(v *EksClusterId) pulumi.StringOutput { return v.OrganizationId }).(pulumi.StringOutput)
 }
 
 func (o EksClusterIdOutput) Region() pulumi.StringOutput {

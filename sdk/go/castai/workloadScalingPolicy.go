@@ -16,7 +16,9 @@ import (
 type WorkloadScalingPolicy struct {
 	pulumi.CustomResourceState
 
-	AntiAffinity workload.WorkloadScalingPolicyAntiAffinityPtrOutput `pulumi:"antiAffinity"`
+	// Defines anomaly detection settings for the scaling policy.
+	AnomalyDetection workload.WorkloadScalingPolicyAnomalyDetectionPtrOutput `pulumi:"anomalyDetection"`
+	AntiAffinity     workload.WorkloadScalingPolicyAntiAffinityPtrOutput     `pulumi:"antiAffinity"`
 	// Recommendation apply type.
 	// 	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
 	// 	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
@@ -29,6 +31,12 @@ type WorkloadScalingPolicy struct {
 	Confidence  workload.WorkloadScalingPolicyConfidencePtrOutput  `pulumi:"confidence"`
 	Cpu         workload.WorkloadScalingPolicyCpuOutput            `pulumi:"cpu"`
 	Downscaling workload.WorkloadScalingPolicyDownscalingPtrOutput `pulumi:"downscaling"`
+	// Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+	ExcludedContainers pulumi.StringArrayOutput `pulumi:"excludedContainers"`
+	// Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+	HpaConverters workload.WorkloadScalingPolicyHpaConverterArrayOutput `pulumi:"hpaConverters"`
+	// JVM optimization settings.
+	Jvm workload.WorkloadScalingPolicyJvmPtrOutput `pulumi:"jvm"`
 	// Defines possible options for workload management.
 	// 	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
 	// 	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
@@ -93,7 +101,9 @@ func GetWorkloadScalingPolicy(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering WorkloadScalingPolicy resources.
 type workloadScalingPolicyState struct {
-	AntiAffinity *workload.WorkloadScalingPolicyAntiAffinity `pulumi:"antiAffinity"`
+	// Defines anomaly detection settings for the scaling policy.
+	AnomalyDetection *workload.WorkloadScalingPolicyAnomalyDetection `pulumi:"anomalyDetection"`
+	AntiAffinity     *workload.WorkloadScalingPolicyAntiAffinity     `pulumi:"antiAffinity"`
 	// Recommendation apply type.
 	// 	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
 	// 	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
@@ -106,6 +116,12 @@ type workloadScalingPolicyState struct {
 	Confidence  *workload.WorkloadScalingPolicyConfidence  `pulumi:"confidence"`
 	Cpu         *workload.WorkloadScalingPolicyCpu         `pulumi:"cpu"`
 	Downscaling *workload.WorkloadScalingPolicyDownscaling `pulumi:"downscaling"`
+	// Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+	ExcludedContainers []string `pulumi:"excludedContainers"`
+	// Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+	HpaConverters []workload.WorkloadScalingPolicyHpaConverter `pulumi:"hpaConverters"`
+	// JVM optimization settings.
+	Jvm *workload.WorkloadScalingPolicyJvm `pulumi:"jvm"`
 	// Defines possible options for workload management.
 	// 	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
 	// 	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
@@ -126,7 +142,9 @@ type workloadScalingPolicyState struct {
 }
 
 type WorkloadScalingPolicyState struct {
-	AntiAffinity workload.WorkloadScalingPolicyAntiAffinityPtrInput
+	// Defines anomaly detection settings for the scaling policy.
+	AnomalyDetection workload.WorkloadScalingPolicyAnomalyDetectionPtrInput
+	AntiAffinity     workload.WorkloadScalingPolicyAntiAffinityPtrInput
 	// Recommendation apply type.
 	// 	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
 	// 	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
@@ -139,6 +157,12 @@ type WorkloadScalingPolicyState struct {
 	Confidence  workload.WorkloadScalingPolicyConfidencePtrInput
 	Cpu         workload.WorkloadScalingPolicyCpuPtrInput
 	Downscaling workload.WorkloadScalingPolicyDownscalingPtrInput
+	// Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+	ExcludedContainers pulumi.StringArrayInput
+	// Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+	HpaConverters workload.WorkloadScalingPolicyHpaConverterArrayInput
+	// JVM optimization settings.
+	Jvm workload.WorkloadScalingPolicyJvmPtrInput
 	// Defines possible options for workload management.
 	// 	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
 	// 	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
@@ -163,7 +187,9 @@ func (WorkloadScalingPolicyState) ElementType() reflect.Type {
 }
 
 type workloadScalingPolicyArgs struct {
-	AntiAffinity *workload.WorkloadScalingPolicyAntiAffinity `pulumi:"antiAffinity"`
+	// Defines anomaly detection settings for the scaling policy.
+	AnomalyDetection *workload.WorkloadScalingPolicyAnomalyDetection `pulumi:"anomalyDetection"`
+	AntiAffinity     *workload.WorkloadScalingPolicyAntiAffinity     `pulumi:"antiAffinity"`
 	// Recommendation apply type.
 	// 	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
 	// 	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
@@ -176,6 +202,12 @@ type workloadScalingPolicyArgs struct {
 	Confidence  *workload.WorkloadScalingPolicyConfidence  `pulumi:"confidence"`
 	Cpu         workload.WorkloadScalingPolicyCpu          `pulumi:"cpu"`
 	Downscaling *workload.WorkloadScalingPolicyDownscaling `pulumi:"downscaling"`
+	// Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+	ExcludedContainers []string `pulumi:"excludedContainers"`
+	// Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+	HpaConverters []workload.WorkloadScalingPolicyHpaConverter `pulumi:"hpaConverters"`
+	// JVM optimization settings.
+	Jvm *workload.WorkloadScalingPolicyJvm `pulumi:"jvm"`
 	// Defines possible options for workload management.
 	// 	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
 	// 	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
@@ -197,7 +229,9 @@ type workloadScalingPolicyArgs struct {
 
 // The set of arguments for constructing a WorkloadScalingPolicy resource.
 type WorkloadScalingPolicyArgs struct {
-	AntiAffinity workload.WorkloadScalingPolicyAntiAffinityPtrInput
+	// Defines anomaly detection settings for the scaling policy.
+	AnomalyDetection workload.WorkloadScalingPolicyAnomalyDetectionPtrInput
+	AntiAffinity     workload.WorkloadScalingPolicyAntiAffinityPtrInput
 	// Recommendation apply type.
 	// 	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
 	// 	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
@@ -210,6 +244,12 @@ type WorkloadScalingPolicyArgs struct {
 	Confidence  workload.WorkloadScalingPolicyConfidencePtrInput
 	Cpu         workload.WorkloadScalingPolicyCpuInput
 	Downscaling workload.WorkloadScalingPolicyDownscalingPtrInput
+	// Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+	ExcludedContainers pulumi.StringArrayInput
+	// Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+	HpaConverters workload.WorkloadScalingPolicyHpaConverterArrayInput
+	// JVM optimization settings.
+	Jvm workload.WorkloadScalingPolicyJvmPtrInput
 	// Defines possible options for workload management.
 	// 	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
 	// 	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
@@ -316,6 +356,13 @@ func (o WorkloadScalingPolicyOutput) ToWorkloadScalingPolicyOutputWithContext(ct
 	return o
 }
 
+// Defines anomaly detection settings for the scaling policy.
+func (o WorkloadScalingPolicyOutput) AnomalyDetection() workload.WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicy) workload.WorkloadScalingPolicyAnomalyDetectionPtrOutput {
+		return v.AnomalyDetection
+	}).(workload.WorkloadScalingPolicyAnomalyDetectionPtrOutput)
+}
+
 func (o WorkloadScalingPolicyOutput) AntiAffinity() workload.WorkloadScalingPolicyAntiAffinityPtrOutput {
 	return o.ApplyT(func(v *WorkloadScalingPolicy) workload.WorkloadScalingPolicyAntiAffinityPtrOutput {
 		return v.AntiAffinity
@@ -354,6 +401,23 @@ func (o WorkloadScalingPolicyOutput) Downscaling() workload.WorkloadScalingPolic
 	return o.ApplyT(func(v *WorkloadScalingPolicy) workload.WorkloadScalingPolicyDownscalingPtrOutput {
 		return v.Downscaling
 	}).(workload.WorkloadScalingPolicyDownscalingPtrOutput)
+}
+
+// Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+func (o WorkloadScalingPolicyOutput) ExcludedContainers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicy) pulumi.StringArrayOutput { return v.ExcludedContainers }).(pulumi.StringArrayOutput)
+}
+
+// Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+func (o WorkloadScalingPolicyOutput) HpaConverters() workload.WorkloadScalingPolicyHpaConverterArrayOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicy) workload.WorkloadScalingPolicyHpaConverterArrayOutput {
+		return v.HpaConverters
+	}).(workload.WorkloadScalingPolicyHpaConverterArrayOutput)
+}
+
+// JVM optimization settings.
+func (o WorkloadScalingPolicyOutput) Jvm() workload.WorkloadScalingPolicyJvmPtrOutput {
+	return o.ApplyT(func(v *WorkloadScalingPolicy) workload.WorkloadScalingPolicyJvmPtrOutput { return v.Jvm }).(workload.WorkloadScalingPolicyJvmPtrOutput)
 }
 
 // Defines possible options for workload management.

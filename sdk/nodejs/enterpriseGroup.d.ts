@@ -57,27 +57,27 @@ export interface EnterpriseGroupState {
     /**
      * Description of the group.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Enterprise organization ID.
      */
-    enterpriseId?: pulumi.Input<string>;
+    enterpriseId?: pulumi.Input<string | undefined>;
     /**
      * List of group members.
      */
-    members?: pulumi.Input<pulumi.Input<inputs.organization.EnterpriseGroupMember>[]>;
+    members?: pulumi.Input<pulumi.Input<inputs.organization.EnterpriseGroupMember>[] | undefined>;
     /**
      * Name of the group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Target organization ID for the group.
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * List of role bindings for the group.
      */
-    roleBindings?: pulumi.Input<pulumi.Input<inputs.organization.EnterpriseGroupRoleBinding>[]>;
+    roleBindings?: pulumi.Input<pulumi.Input<inputs.organization.EnterpriseGroupRoleBinding>[] | undefined>;
 }
 /**
  * The set of arguments for constructing a EnterpriseGroup resource.
@@ -86,7 +86,7 @@ export interface EnterpriseGroupArgs {
     /**
      * Description of the group.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Enterprise organization ID.
      */
@@ -94,11 +94,11 @@ export interface EnterpriseGroupArgs {
     /**
      * List of group members.
      */
-    members?: pulumi.Input<pulumi.Input<inputs.organization.EnterpriseGroupMember>[]>;
+    members?: pulumi.Input<pulumi.Input<inputs.organization.EnterpriseGroupMember>[] | undefined>;
     /**
      * Name of the group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Target organization ID for the group.
      */
@@ -106,5 +106,6 @@ export interface EnterpriseGroupArgs {
     /**
      * List of role bindings for the group.
      */
-    roleBindings?: pulumi.Input<pulumi.Input<inputs.organization.EnterpriseGroupRoleBinding>[]>;
+    roleBindings?: pulumi.Input<pulumi.Input<inputs.organization.EnterpriseGroupRoleBinding>[] | undefined>;
 }
+//# sourceMappingURL=enterpriseGroup.d.ts.map

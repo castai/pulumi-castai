@@ -63,35 +63,35 @@ export interface ServiceAccountKeyState {
     /**
      * Whether the service account key is active. Defaults to true.
      */
-    active?: pulumi.Input<boolean>;
+    active?: pulumi.Input<boolean | undefined>;
     /**
      * The expiration time of the service account key in RFC3339 format. Defaults to an empty string.
      */
-    expiresAt?: pulumi.Input<string>;
+    expiresAt?: pulumi.Input<string | undefined>;
     /**
      * Last time the service account key was used.
      */
-    lastUsedAt?: pulumi.Input<string>;
+    lastUsedAt?: pulumi.Input<string | undefined>;
     /**
      * Name of the service account key.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * ID of the organization.
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * Prefix of the service account key.
      */
-    prefix?: pulumi.Input<string>;
+    prefix?: pulumi.Input<string | undefined>;
     /**
      * ID of the service account.
      */
-    serviceAccountId?: pulumi.Input<string>;
+    serviceAccountId?: pulumi.Input<string | undefined>;
     /**
      * The token of the service account key used for authentication.
      */
-    token?: pulumi.Input<string>;
+    token?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a ServiceAccountKey resource.
@@ -100,15 +100,15 @@ export interface ServiceAccountKeyArgs {
     /**
      * Whether the service account key is active. Defaults to true.
      */
-    active?: pulumi.Input<boolean>;
+    active?: pulumi.Input<boolean | undefined>;
     /**
      * The expiration time of the service account key in RFC3339 format. Defaults to an empty string.
      */
-    expiresAt?: pulumi.Input<string>;
+    expiresAt?: pulumi.Input<string | undefined>;
     /**
      * Name of the service account key.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * ID of the organization.
      */
@@ -118,3 +118,4 @@ export interface ServiceAccountKeyArgs {
      */
     serviceAccountId: pulumi.Input<string>;
 }
+//# sourceMappingURL=serviceAccountKey.d.ts.map

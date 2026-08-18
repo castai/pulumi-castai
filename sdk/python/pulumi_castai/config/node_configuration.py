@@ -23,23 +23,24 @@ class NodeConfigurationArgs:
     def __init__(__self__, *,
                  cluster_id: pulumi.Input[_builtins.str],
                  subnets: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
-                 aks: Optional[pulumi.Input['NodeConfigurationAksArgs']] = None,
-                 container_runtime: Optional[pulumi.Input[_builtins.str]] = None,
-                 disk_cpu_ratio: Optional[pulumi.Input[_builtins.int]] = None,
-                 docker_config: Optional[pulumi.Input[_builtins.str]] = None,
-                 drain_timeout_sec: Optional[pulumi.Input[_builtins.int]] = None,
-                 eks: Optional[pulumi.Input['NodeConfigurationEksArgs']] = None,
-                 gke: Optional[pulumi.Input['NodeConfigurationGkeArgs']] = None,
-                 image: Optional[pulumi.Input[_builtins.str]] = None,
-                 init_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 kops: Optional[pulumi.Input['NodeConfigurationKopsArgs']] = None,
-                 kubelet_config: Optional[pulumi.Input[_builtins.str]] = None,
-                 min_disk_size: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 ssh_public_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 aks: pulumi.Input[Optional['NodeConfigurationAksArgs']] = None,
+                 container_runtime: pulumi.Input[Optional[_builtins.str]] = None,
+                 disk_cpu_ratio: pulumi.Input[Optional[_builtins.int]] = None,
+                 docker_config: pulumi.Input[Optional[_builtins.str]] = None,
+                 drain_timeout_sec: pulumi.Input[Optional[_builtins.int]] = None,
+                 eks: pulumi.Input[Optional['NodeConfigurationEksArgs']] = None,
+                 gke: pulumi.Input[Optional['NodeConfigurationGkeArgs']] = None,
+                 image: pulumi.Input[Optional[_builtins.str]] = None,
+                 init_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 kops: pulumi.Input[Optional['NodeConfigurationKopsArgs']] = None,
+                 kubelet_config: pulumi.Input[Optional[_builtins.str]] = None,
+                 min_disk_size: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 ssh_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         The set of arguments for constructing a NodeConfiguration resource.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] subnets: Subnet ids to be used for provisioned nodes
         :param pulumi.Input[_builtins.str] container_runtime: Optional container runtime to be used by kubelet. Applicable for EKS only.  Supported values include: `dockerd`, `containerd`
@@ -50,6 +51,7 @@ class NodeConfigurationArgs:
         :param pulumi.Input[_builtins.str] init_script: Init script to be run on your instance at launch. Should not contain any sensitive data. Value should be base64 encoded
         :param pulumi.Input[_builtins.str] kubelet_config: Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
         :param pulumi.Input[_builtins.int] min_disk_size: Minimal disk size in GiB. Defaults to 100, min 30, max 65536
+        :param pulumi.Input[_builtins.str] name: Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
         :param pulumi.Input[_builtins.str] ssh_public_key: SSH public key to be used for provisioned nodes
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] tags: Tags to be added on cloud instances for provisioned nodes
         """
@@ -112,192 +114,196 @@ class NodeConfigurationArgs:
 
     @_builtins.property
     @pulumi.getter
-    def aks(self) -> Optional[pulumi.Input['NodeConfigurationAksArgs']]:
+    def aks(self) -> pulumi.Input[Optional['NodeConfigurationAksArgs']]:
         return pulumi.get(self, "aks")
 
     @aks.setter
-    def aks(self, value: Optional[pulumi.Input['NodeConfigurationAksArgs']]):
+    def aks(self, value: pulumi.Input[Optional['NodeConfigurationAksArgs']]):
         pulumi.set(self, "aks", value)
 
     @_builtins.property
     @pulumi.getter(name="containerRuntime")
-    def container_runtime(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def container_runtime(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional container runtime to be used by kubelet. Applicable for EKS only.  Supported values include: `dockerd`, `containerd`
         """
         return pulumi.get(self, "container_runtime")
 
     @container_runtime.setter
-    def container_runtime(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def container_runtime(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "container_runtime", value)
 
     @_builtins.property
     @pulumi.getter(name="diskCpuRatio")
-    def disk_cpu_ratio(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def disk_cpu_ratio(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Disk to CPU ratio. Sets the number of GiBs to be added for every CPU on the node. Defaults to 0
         """
         return pulumi.get(self, "disk_cpu_ratio")
 
     @disk_cpu_ratio.setter
-    def disk_cpu_ratio(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def disk_cpu_ratio(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "disk_cpu_ratio", value)
 
     @_builtins.property
     @pulumi.getter(name="dockerConfig")
-    def docker_config(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def docker_config(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional docker daemon configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
         """
         return pulumi.get(self, "docker_config")
 
     @docker_config.setter
-    def docker_config(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def docker_config(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "docker_config", value)
 
     @_builtins.property
     @pulumi.getter(name="drainTimeoutSec")
-    def drain_timeout_sec(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def drain_timeout_sec(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Timeout in seconds for draining the node. Defaults to 0
         """
         return pulumi.get(self, "drain_timeout_sec")
 
     @drain_timeout_sec.setter
-    def drain_timeout_sec(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def drain_timeout_sec(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "drain_timeout_sec", value)
 
     @_builtins.property
     @pulumi.getter
-    def eks(self) -> Optional[pulumi.Input['NodeConfigurationEksArgs']]:
+    def eks(self) -> pulumi.Input[Optional['NodeConfigurationEksArgs']]:
         return pulumi.get(self, "eks")
 
     @eks.setter
-    def eks(self, value: Optional[pulumi.Input['NodeConfigurationEksArgs']]):
+    def eks(self, value: pulumi.Input[Optional['NodeConfigurationEksArgs']]):
         pulumi.set(self, "eks", value)
 
     @_builtins.property
     @pulumi.getter
-    def gke(self) -> Optional[pulumi.Input['NodeConfigurationGkeArgs']]:
+    def gke(self) -> pulumi.Input[Optional['NodeConfigurationGkeArgs']]:
         return pulumi.get(self, "gke")
 
     @gke.setter
-    def gke(self, value: Optional[pulumi.Input['NodeConfigurationGkeArgs']]):
+    def gke(self, value: pulumi.Input[Optional['NodeConfigurationGkeArgs']]):
         pulumi.set(self, "gke", value)
 
     @_builtins.property
     @pulumi.getter
-    def image(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def image(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Image to be used while provisioning the node. If nothing is provided will be resolved to latest available image based on Image family, Kubernetes version and node architecture if possible. See Cast.ai documentation for details.
         """
         return pulumi.get(self, "image")
 
     @image.setter
-    def image(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def image(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "image", value)
 
     @_builtins.property
     @pulumi.getter(name="initScript")
-    def init_script(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def init_script(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Init script to be run on your instance at launch. Should not contain any sensitive data. Value should be base64 encoded
         """
         return pulumi.get(self, "init_script")
 
     @init_script.setter
-    def init_script(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def init_script(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "init_script", value)
 
     @_builtins.property
     @pulumi.getter
-    def kops(self) -> Optional[pulumi.Input['NodeConfigurationKopsArgs']]:
+    def kops(self) -> pulumi.Input[Optional['NodeConfigurationKopsArgs']]:
         return pulumi.get(self, "kops")
 
     @kops.setter
-    def kops(self, value: Optional[pulumi.Input['NodeConfigurationKopsArgs']]):
+    def kops(self, value: pulumi.Input[Optional['NodeConfigurationKopsArgs']]):
         pulumi.set(self, "kops", value)
 
     @_builtins.property
     @pulumi.getter(name="kubeletConfig")
-    def kubelet_config(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kubelet_config(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
         """
         return pulumi.get(self, "kubelet_config")
 
     @kubelet_config.setter
-    def kubelet_config(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kubelet_config(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kubelet_config", value)
 
     @_builtins.property
     @pulumi.getter(name="minDiskSize")
-    def min_disk_size(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def min_disk_size(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimal disk size in GiB. Defaults to 100, min 30, max 65536
         """
         return pulumi.get(self, "min_disk_size")
 
     @min_disk_size.setter
-    def min_disk_size(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def min_disk_size(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "min_disk_size", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="sshPublicKey")
-    def ssh_public_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ssh_public_key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         SSH public key to be used for provisioned nodes
         """
         return pulumi.get(self, "ssh_public_key")
 
     @ssh_public_key.setter
-    def ssh_public_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ssh_public_key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ssh_public_key", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Tags to be added on cloud instances for provisioned nodes
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
 
 @pulumi.input_type
 class _NodeConfigurationState:
     def __init__(__self__, *,
-                 aks: Optional[pulumi.Input['NodeConfigurationAksArgs']] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 container_runtime: Optional[pulumi.Input[_builtins.str]] = None,
-                 disk_cpu_ratio: Optional[pulumi.Input[_builtins.int]] = None,
-                 docker_config: Optional[pulumi.Input[_builtins.str]] = None,
-                 drain_timeout_sec: Optional[pulumi.Input[_builtins.int]] = None,
-                 eks: Optional[pulumi.Input['NodeConfigurationEksArgs']] = None,
-                 gke: Optional[pulumi.Input['NodeConfigurationGkeArgs']] = None,
-                 image: Optional[pulumi.Input[_builtins.str]] = None,
-                 init_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 kops: Optional[pulumi.Input['NodeConfigurationKopsArgs']] = None,
-                 kubelet_config: Optional[pulumi.Input[_builtins.str]] = None,
-                 min_disk_size: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 ssh_public_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 subnets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 aks: pulumi.Input[Optional['NodeConfigurationAksArgs']] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 container_runtime: pulumi.Input[Optional[_builtins.str]] = None,
+                 disk_cpu_ratio: pulumi.Input[Optional[_builtins.int]] = None,
+                 docker_config: pulumi.Input[Optional[_builtins.str]] = None,
+                 drain_timeout_sec: pulumi.Input[Optional[_builtins.int]] = None,
+                 eks: pulumi.Input[Optional['NodeConfigurationEksArgs']] = None,
+                 gke: pulumi.Input[Optional['NodeConfigurationGkeArgs']] = None,
+                 image: pulumi.Input[Optional[_builtins.str]] = None,
+                 init_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 kops: pulumi.Input[Optional['NodeConfigurationKopsArgs']] = None,
+                 kubelet_config: pulumi.Input[Optional[_builtins.str]] = None,
+                 min_disk_size: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 ssh_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 subnets: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 tags: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         Input properties used for looking up and filtering NodeConfiguration resources.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input[_builtins.str] container_runtime: Optional container runtime to be used by kubelet. Applicable for EKS only.  Supported values include: `dockerd`, `containerd`
         :param pulumi.Input[_builtins.int] disk_cpu_ratio: Disk to CPU ratio. Sets the number of GiBs to be added for every CPU on the node. Defaults to 0
@@ -307,6 +313,7 @@ class _NodeConfigurationState:
         :param pulumi.Input[_builtins.str] init_script: Init script to be run on your instance at launch. Should not contain any sensitive data. Value should be base64 encoded
         :param pulumi.Input[_builtins.str] kubelet_config: Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
         :param pulumi.Input[_builtins.int] min_disk_size: Minimal disk size in GiB. Defaults to 100, min 30, max 65536
+        :param pulumi.Input[_builtins.str] name: Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
         :param pulumi.Input[_builtins.str] ssh_public_key: SSH public key to be used for provisioned nodes
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] subnets: Subnet ids to be used for provisioned nodes
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] tags: Tags to be added on cloud instances for provisioned nodes
@@ -348,191 +355,194 @@ class _NodeConfigurationState:
 
     @_builtins.property
     @pulumi.getter
-    def aks(self) -> Optional[pulumi.Input['NodeConfigurationAksArgs']]:
+    def aks(self) -> pulumi.Input[Optional['NodeConfigurationAksArgs']]:
         return pulumi.get(self, "aks")
 
     @aks.setter
-    def aks(self, value: Optional[pulumi.Input['NodeConfigurationAksArgs']]):
+    def aks(self, value: pulumi.Input[Optional['NodeConfigurationAksArgs']]):
         pulumi.set(self, "aks", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter(name="containerRuntime")
-    def container_runtime(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def container_runtime(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional container runtime to be used by kubelet. Applicable for EKS only.  Supported values include: `dockerd`, `containerd`
         """
         return pulumi.get(self, "container_runtime")
 
     @container_runtime.setter
-    def container_runtime(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def container_runtime(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "container_runtime", value)
 
     @_builtins.property
     @pulumi.getter(name="diskCpuRatio")
-    def disk_cpu_ratio(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def disk_cpu_ratio(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Disk to CPU ratio. Sets the number of GiBs to be added for every CPU on the node. Defaults to 0
         """
         return pulumi.get(self, "disk_cpu_ratio")
 
     @disk_cpu_ratio.setter
-    def disk_cpu_ratio(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def disk_cpu_ratio(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "disk_cpu_ratio", value)
 
     @_builtins.property
     @pulumi.getter(name="dockerConfig")
-    def docker_config(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def docker_config(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional docker daemon configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
         """
         return pulumi.get(self, "docker_config")
 
     @docker_config.setter
-    def docker_config(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def docker_config(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "docker_config", value)
 
     @_builtins.property
     @pulumi.getter(name="drainTimeoutSec")
-    def drain_timeout_sec(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def drain_timeout_sec(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Timeout in seconds for draining the node. Defaults to 0
         """
         return pulumi.get(self, "drain_timeout_sec")
 
     @drain_timeout_sec.setter
-    def drain_timeout_sec(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def drain_timeout_sec(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "drain_timeout_sec", value)
 
     @_builtins.property
     @pulumi.getter
-    def eks(self) -> Optional[pulumi.Input['NodeConfigurationEksArgs']]:
+    def eks(self) -> pulumi.Input[Optional['NodeConfigurationEksArgs']]:
         return pulumi.get(self, "eks")
 
     @eks.setter
-    def eks(self, value: Optional[pulumi.Input['NodeConfigurationEksArgs']]):
+    def eks(self, value: pulumi.Input[Optional['NodeConfigurationEksArgs']]):
         pulumi.set(self, "eks", value)
 
     @_builtins.property
     @pulumi.getter
-    def gke(self) -> Optional[pulumi.Input['NodeConfigurationGkeArgs']]:
+    def gke(self) -> pulumi.Input[Optional['NodeConfigurationGkeArgs']]:
         return pulumi.get(self, "gke")
 
     @gke.setter
-    def gke(self, value: Optional[pulumi.Input['NodeConfigurationGkeArgs']]):
+    def gke(self, value: pulumi.Input[Optional['NodeConfigurationGkeArgs']]):
         pulumi.set(self, "gke", value)
 
     @_builtins.property
     @pulumi.getter
-    def image(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def image(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Image to be used while provisioning the node. If nothing is provided will be resolved to latest available image based on Image family, Kubernetes version and node architecture if possible. See Cast.ai documentation for details.
         """
         return pulumi.get(self, "image")
 
     @image.setter
-    def image(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def image(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "image", value)
 
     @_builtins.property
     @pulumi.getter(name="initScript")
-    def init_script(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def init_script(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Init script to be run on your instance at launch. Should not contain any sensitive data. Value should be base64 encoded
         """
         return pulumi.get(self, "init_script")
 
     @init_script.setter
-    def init_script(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def init_script(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "init_script", value)
 
     @_builtins.property
     @pulumi.getter
-    def kops(self) -> Optional[pulumi.Input['NodeConfigurationKopsArgs']]:
+    def kops(self) -> pulumi.Input[Optional['NodeConfigurationKopsArgs']]:
         return pulumi.get(self, "kops")
 
     @kops.setter
-    def kops(self, value: Optional[pulumi.Input['NodeConfigurationKopsArgs']]):
+    def kops(self, value: pulumi.Input[Optional['NodeConfigurationKopsArgs']]):
         pulumi.set(self, "kops", value)
 
     @_builtins.property
     @pulumi.getter(name="kubeletConfig")
-    def kubelet_config(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kubelet_config(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
         """
         return pulumi.get(self, "kubelet_config")
 
     @kubelet_config.setter
-    def kubelet_config(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kubelet_config(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kubelet_config", value)
 
     @_builtins.property
     @pulumi.getter(name="minDiskSize")
-    def min_disk_size(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def min_disk_size(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimal disk size in GiB. Defaults to 100, min 30, max 65536
         """
         return pulumi.get(self, "min_disk_size")
 
     @min_disk_size.setter
-    def min_disk_size(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def min_disk_size(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "min_disk_size", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="sshPublicKey")
-    def ssh_public_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ssh_public_key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         SSH public key to be used for provisioned nodes
         """
         return pulumi.get(self, "ssh_public_key")
 
     @ssh_public_key.setter
-    def ssh_public_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ssh_public_key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ssh_public_key", value)
 
     @_builtins.property
     @pulumi.getter
-    def subnets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def subnets(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Subnet ids to be used for provisioned nodes
         """
         return pulumi.get(self, "subnets")
 
     @subnets.setter
-    def subnets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def subnets(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "subnets", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Tags to be added on cloud instances for provisioned nodes
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
 
@@ -542,26 +552,27 @@ class NodeConfiguration(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 aks: Optional[pulumi.Input[Union['NodeConfigurationAksArgs', 'NodeConfigurationAksArgsDict']]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 container_runtime: Optional[pulumi.Input[_builtins.str]] = None,
-                 disk_cpu_ratio: Optional[pulumi.Input[_builtins.int]] = None,
-                 docker_config: Optional[pulumi.Input[_builtins.str]] = None,
-                 drain_timeout_sec: Optional[pulumi.Input[_builtins.int]] = None,
-                 eks: Optional[pulumi.Input[Union['NodeConfigurationEksArgs', 'NodeConfigurationEksArgsDict']]] = None,
-                 gke: Optional[pulumi.Input[Union['NodeConfigurationGkeArgs', 'NodeConfigurationGkeArgsDict']]] = None,
-                 image: Optional[pulumi.Input[_builtins.str]] = None,
-                 init_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 kops: Optional[pulumi.Input[Union['NodeConfigurationKopsArgs', 'NodeConfigurationKopsArgsDict']]] = None,
-                 kubelet_config: Optional[pulumi.Input[_builtins.str]] = None,
-                 min_disk_size: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 ssh_public_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 subnets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 aks: pulumi.Input[Optional[Union['NodeConfigurationAksArgs', 'NodeConfigurationAksArgsDict']]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 container_runtime: pulumi.Input[Optional[_builtins.str]] = None,
+                 disk_cpu_ratio: pulumi.Input[Optional[_builtins.int]] = None,
+                 docker_config: pulumi.Input[Optional[_builtins.str]] = None,
+                 drain_timeout_sec: pulumi.Input[Optional[_builtins.int]] = None,
+                 eks: pulumi.Input[Optional[Union['NodeConfigurationEksArgs', 'NodeConfigurationEksArgsDict']]] = None,
+                 gke: pulumi.Input[Optional[Union['NodeConfigurationGkeArgs', 'NodeConfigurationGkeArgsDict']]] = None,
+                 image: pulumi.Input[Optional[_builtins.str]] = None,
+                 init_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 kops: pulumi.Input[Optional[Union['NodeConfigurationKopsArgs', 'NodeConfigurationKopsArgsDict']]] = None,
+                 kubelet_config: pulumi.Input[Optional[_builtins.str]] = None,
+                 min_disk_size: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 ssh_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 subnets: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 tags: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         """
         Create a NodeConfiguration resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
@@ -573,6 +584,7 @@ class NodeConfiguration(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] init_script: Init script to be run on your instance at launch. Should not contain any sensitive data. Value should be base64 encoded
         :param pulumi.Input[_builtins.str] kubelet_config: Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
         :param pulumi.Input[_builtins.int] min_disk_size: Minimal disk size in GiB. Defaults to 100, min 30, max 65536
+        :param pulumi.Input[_builtins.str] name: Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
         :param pulumi.Input[_builtins.str] ssh_public_key: SSH public key to be used for provisioned nodes
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] subnets: Subnet ids to be used for provisioned nodes
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] tags: Tags to be added on cloud instances for provisioned nodes
@@ -585,6 +597,7 @@ class NodeConfiguration(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a NodeConfiguration resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param NodeConfigurationArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -600,23 +613,23 @@ class NodeConfiguration(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 aks: Optional[pulumi.Input[Union['NodeConfigurationAksArgs', 'NodeConfigurationAksArgsDict']]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 container_runtime: Optional[pulumi.Input[_builtins.str]] = None,
-                 disk_cpu_ratio: Optional[pulumi.Input[_builtins.int]] = None,
-                 docker_config: Optional[pulumi.Input[_builtins.str]] = None,
-                 drain_timeout_sec: Optional[pulumi.Input[_builtins.int]] = None,
-                 eks: Optional[pulumi.Input[Union['NodeConfigurationEksArgs', 'NodeConfigurationEksArgsDict']]] = None,
-                 gke: Optional[pulumi.Input[Union['NodeConfigurationGkeArgs', 'NodeConfigurationGkeArgsDict']]] = None,
-                 image: Optional[pulumi.Input[_builtins.str]] = None,
-                 init_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 kops: Optional[pulumi.Input[Union['NodeConfigurationKopsArgs', 'NodeConfigurationKopsArgsDict']]] = None,
-                 kubelet_config: Optional[pulumi.Input[_builtins.str]] = None,
-                 min_disk_size: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 ssh_public_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 subnets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 aks: pulumi.Input[Optional[Union['NodeConfigurationAksArgs', 'NodeConfigurationAksArgsDict']]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 container_runtime: pulumi.Input[Optional[_builtins.str]] = None,
+                 disk_cpu_ratio: pulumi.Input[Optional[_builtins.int]] = None,
+                 docker_config: pulumi.Input[Optional[_builtins.str]] = None,
+                 drain_timeout_sec: pulumi.Input[Optional[_builtins.int]] = None,
+                 eks: pulumi.Input[Optional[Union['NodeConfigurationEksArgs', 'NodeConfigurationEksArgsDict']]] = None,
+                 gke: pulumi.Input[Optional[Union['NodeConfigurationGkeArgs', 'NodeConfigurationGkeArgsDict']]] = None,
+                 image: pulumi.Input[Optional[_builtins.str]] = None,
+                 init_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 kops: pulumi.Input[Optional[Union['NodeConfigurationKopsArgs', 'NodeConfigurationKopsArgsDict']]] = None,
+                 kubelet_config: pulumi.Input[Optional[_builtins.str]] = None,
+                 min_disk_size: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 ssh_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 subnets: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 tags: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -657,23 +670,23 @@ class NodeConfiguration(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            aks: Optional[pulumi.Input[Union['NodeConfigurationAksArgs', 'NodeConfigurationAksArgsDict']]] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            container_runtime: Optional[pulumi.Input[_builtins.str]] = None,
-            disk_cpu_ratio: Optional[pulumi.Input[_builtins.int]] = None,
-            docker_config: Optional[pulumi.Input[_builtins.str]] = None,
-            drain_timeout_sec: Optional[pulumi.Input[_builtins.int]] = None,
-            eks: Optional[pulumi.Input[Union['NodeConfigurationEksArgs', 'NodeConfigurationEksArgsDict']]] = None,
-            gke: Optional[pulumi.Input[Union['NodeConfigurationGkeArgs', 'NodeConfigurationGkeArgsDict']]] = None,
-            image: Optional[pulumi.Input[_builtins.str]] = None,
-            init_script: Optional[pulumi.Input[_builtins.str]] = None,
-            kops: Optional[pulumi.Input[Union['NodeConfigurationKopsArgs', 'NodeConfigurationKopsArgsDict']]] = None,
-            kubelet_config: Optional[pulumi.Input[_builtins.str]] = None,
-            min_disk_size: Optional[pulumi.Input[_builtins.int]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            ssh_public_key: Optional[pulumi.Input[_builtins.str]] = None,
-            subnets: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None) -> 'NodeConfiguration':
+            aks: pulumi.Input[Optional[Union['NodeConfigurationAksArgs', 'NodeConfigurationAksArgsDict']]] = None,
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            container_runtime: pulumi.Input[Optional[_builtins.str]] = None,
+            disk_cpu_ratio: pulumi.Input[Optional[_builtins.int]] = None,
+            docker_config: pulumi.Input[Optional[_builtins.str]] = None,
+            drain_timeout_sec: pulumi.Input[Optional[_builtins.int]] = None,
+            eks: pulumi.Input[Optional[Union['NodeConfigurationEksArgs', 'NodeConfigurationEksArgsDict']]] = None,
+            gke: pulumi.Input[Optional[Union['NodeConfigurationGkeArgs', 'NodeConfigurationGkeArgsDict']]] = None,
+            image: pulumi.Input[Optional[_builtins.str]] = None,
+            init_script: pulumi.Input[Optional[_builtins.str]] = None,
+            kops: pulumi.Input[Optional[Union['NodeConfigurationKopsArgs', 'NodeConfigurationKopsArgsDict']]] = None,
+            kubelet_config: pulumi.Input[Optional[_builtins.str]] = None,
+            min_disk_size: pulumi.Input[Optional[_builtins.int]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            ssh_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+            subnets: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            tags: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None) -> 'NodeConfiguration':
         """
         Get an existing NodeConfiguration resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -690,6 +703,7 @@ class NodeConfiguration(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] init_script: Init script to be run on your instance at launch. Should not contain any sensitive data. Value should be base64 encoded
         :param pulumi.Input[_builtins.str] kubelet_config: Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
         :param pulumi.Input[_builtins.int] min_disk_size: Minimal disk size in GiB. Defaults to 100, min 30, max 65536
+        :param pulumi.Input[_builtins.str] name: Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
         :param pulumi.Input[_builtins.str] ssh_public_key: SSH public key to be used for provisioned nodes
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] subnets: Subnet ids to be used for provisioned nodes
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] tags: Tags to be added on cloud instances for provisioned nodes
@@ -812,6 +826,9 @@ class NodeConfiguration(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
+        """
+        Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property

@@ -441,7 +441,9 @@ func (o AutoscalerAutoscalerSettingsClusterLimitsPtrOutput) Enabled() pulumi.Boo
 type AutoscalerAutoscalerSettingsClusterLimitsCpu struct {
 	// defines the maximum allowed amount of vCPUs in the whole cluster.
 	MaxCores *int `pulumi:"maxCores"`
-	// defines the minimum allowed amount of CPUs in the whole cluster.
+	// defines the minimum allowed amount of CPUs in the whole cluster. This field is deprecated.
+	//
+	// Deprecated: This field is deprecated and will be removed in a future major version of the provider.
 	MinCores *int `pulumi:"minCores"`
 }
 
@@ -459,7 +461,9 @@ type AutoscalerAutoscalerSettingsClusterLimitsCpuInput interface {
 type AutoscalerAutoscalerSettingsClusterLimitsCpuArgs struct {
 	// defines the maximum allowed amount of vCPUs in the whole cluster.
 	MaxCores pulumi.IntPtrInput `pulumi:"maxCores"`
-	// defines the minimum allowed amount of CPUs in the whole cluster.
+	// defines the minimum allowed amount of CPUs in the whole cluster. This field is deprecated.
+	//
+	// Deprecated: This field is deprecated and will be removed in a future major version of the provider.
 	MinCores pulumi.IntPtrInput `pulumi:"minCores"`
 }
 
@@ -545,7 +549,9 @@ func (o AutoscalerAutoscalerSettingsClusterLimitsCpuOutput) MaxCores() pulumi.In
 	return o.ApplyT(func(v AutoscalerAutoscalerSettingsClusterLimitsCpu) *int { return v.MaxCores }).(pulumi.IntPtrOutput)
 }
 
-// defines the minimum allowed amount of CPUs in the whole cluster.
+// defines the minimum allowed amount of CPUs in the whole cluster. This field is deprecated.
+//
+// Deprecated: This field is deprecated and will be removed in a future major version of the provider.
 func (o AutoscalerAutoscalerSettingsClusterLimitsCpuOutput) MinCores() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v AutoscalerAutoscalerSettingsClusterLimitsCpu) *int { return v.MinCores }).(pulumi.IntPtrOutput)
 }
@@ -584,7 +590,9 @@ func (o AutoscalerAutoscalerSettingsClusterLimitsCpuPtrOutput) MaxCores() pulumi
 	}).(pulumi.IntPtrOutput)
 }
 
-// defines the minimum allowed amount of CPUs in the whole cluster.
+// defines the minimum allowed amount of CPUs in the whole cluster. This field is deprecated.
+//
+// Deprecated: This field is deprecated and will be removed in a future major version of the provider.
 func (o AutoscalerAutoscalerSettingsClusterLimitsCpuPtrOutput) MinCores() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *AutoscalerAutoscalerSettingsClusterLimitsCpu) *int {
 		if v == nil {
@@ -1646,7 +1654,9 @@ func (o AutoscalerAutoscalerSettingsSpotInstancesSpotBackupsPtrOutput) SpotBacku
 type AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictions struct {
 	// enable/disable spot interruption predictions.
 	Enabled *bool `pulumi:"enabled"`
-	// define the type of the spot interruption prediction to handle. Allowed values are AWSRebalanceRecommendations, CASTAIInterruptionPredictions.
+	// define the type of the spot interruption prediction to handle. The value "AWSRebalanceRecommendations" is deprecated; use "CASTAIInterruptionPredictions".
+	//
+	// Deprecated: The value "AWSRebalanceRecommendations" is deprecated. Cast AI ML predictions are now used for all spot interruption prediction.
 	SpotInterruptionPredictionsType *string `pulumi:"spotInterruptionPredictionsType"`
 }
 
@@ -1664,7 +1674,9 @@ type AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictionsInput i
 type AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictionsArgs struct {
 	// enable/disable spot interruption predictions.
 	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
-	// define the type of the spot interruption prediction to handle. Allowed values are AWSRebalanceRecommendations, CASTAIInterruptionPredictions.
+	// define the type of the spot interruption prediction to handle. The value "AWSRebalanceRecommendations" is deprecated; use "CASTAIInterruptionPredictions".
+	//
+	// Deprecated: The value "AWSRebalanceRecommendations" is deprecated. Cast AI ML predictions are now used for all spot interruption prediction.
 	SpotInterruptionPredictionsType pulumi.StringPtrInput `pulumi:"spotInterruptionPredictionsType"`
 }
 
@@ -1750,7 +1762,9 @@ func (o AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictionsOutp
 	return o.ApplyT(func(v AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictions) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
 }
 
-// define the type of the spot interruption prediction to handle. Allowed values are AWSRebalanceRecommendations, CASTAIInterruptionPredictions.
+// define the type of the spot interruption prediction to handle. The value "AWSRebalanceRecommendations" is deprecated; use "CASTAIInterruptionPredictions".
+//
+// Deprecated: The value "AWSRebalanceRecommendations" is deprecated. Cast AI ML predictions are now used for all spot interruption prediction.
 func (o AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictionsOutput) SpotInterruptionPredictionsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictions) *string {
 		return v.SpotInterruptionPredictionsType
@@ -1791,7 +1805,9 @@ func (o AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictionsPtrO
 	}).(pulumi.BoolPtrOutput)
 }
 
-// define the type of the spot interruption prediction to handle. Allowed values are AWSRebalanceRecommendations, CASTAIInterruptionPredictions.
+// define the type of the spot interruption prediction to handle. The value "AWSRebalanceRecommendations" is deprecated; use "CASTAIInterruptionPredictions".
+//
+// Deprecated: The value "AWSRebalanceRecommendations" is deprecated. Cast AI ML predictions are now used for all spot interruption prediction.
 func (o AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictionsPtrOutput) SpotInterruptionPredictionsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictions) *string {
 		if v == nil {
@@ -3127,6 +3143,8 @@ type EvictorAdvancedConfigEvictorAdvancedConfigPodSelector struct {
 	MatchExpressions []EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorMatchExpression `pulumi:"matchExpressions"`
 	MatchLabels      map[string]string                                                      `pulumi:"matchLabels"`
 	Namespace        *string                                                                `pulumi:"namespace"`
+	// Minimum number of pod replicas to keep running when evicting matched pods
+	ReplicasMin *int `pulumi:"replicasMin"`
 }
 
 // EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorInput is an input type that accepts EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorArgs and EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorOutput values.
@@ -3145,6 +3163,8 @@ type EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorArgs struct {
 	MatchExpressions EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorMatchExpressionArrayInput `pulumi:"matchExpressions"`
 	MatchLabels      pulumi.StringMapInput                                                          `pulumi:"matchLabels"`
 	Namespace        pulumi.StringPtrInput                                                          `pulumi:"namespace"`
+	// Minimum number of pod replicas to keep running when evicting matched pods
+	ReplicasMin pulumi.IntPtrInput `pulumi:"replicasMin"`
 }
 
 func (EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorArgs) ElementType() reflect.Type {
@@ -3214,6 +3234,11 @@ func (o EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorOutput) MatchLabels
 
 func (o EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EvictorAdvancedConfigEvictorAdvancedConfigPodSelector) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// Minimum number of pod replicas to keep running when evicting matched pods
+func (o EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorOutput) ReplicasMin() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v EvictorAdvancedConfigEvictorAdvancedConfigPodSelector) *int { return v.ReplicasMin }).(pulumi.IntPtrOutput)
 }
 
 type EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorArrayOutput struct{ *pulumi.OutputState }

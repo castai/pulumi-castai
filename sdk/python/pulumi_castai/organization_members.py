@@ -20,11 +20,12 @@ __all__ = ['OrganizationMembersArgs', 'OrganizationMembers']
 class OrganizationMembersArgs:
     def __init__(__self__, *,
                  organization_id: pulumi.Input[_builtins.str],
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 owners: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 viewers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 owners: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 viewers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         The set of arguments for constructing a OrganizationMembers resource.
+
         :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: A list of email addresses corresponding to users who should be given member access to the organization.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] owners: A list of email addresses corresponding to users who should be given owner access to the organization.
@@ -62,52 +63,53 @@ class OrganizationMembersArgs:
     @_builtins.property
     @pulumi.getter
     @_utilities.deprecated("""The 'members' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.""")
-    def members(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def members(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of email addresses corresponding to users who should be given member access to the organization.
         """
         return pulumi.get(self, "members")
 
     @members.setter
-    def members(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def members(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "members", value)
 
     @_builtins.property
     @pulumi.getter
     @_utilities.deprecated("""The 'owners' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.""")
-    def owners(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def owners(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of email addresses corresponding to users who should be given owner access to the organization.
         """
         return pulumi.get(self, "owners")
 
     @owners.setter
-    def owners(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def owners(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "owners", value)
 
     @_builtins.property
     @pulumi.getter
     @_utilities.deprecated("""The 'viewers' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.""")
-    def viewers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def viewers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of email addresses corresponding to users who should be given viewer access to the organization.
         """
         return pulumi.get(self, "viewers")
 
     @viewers.setter
-    def viewers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def viewers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "viewers", value)
 
 
 @pulumi.input_type
 class _OrganizationMembersState:
     def __init__(__self__, *,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 owners: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 viewers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 owners: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 viewers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         Input properties used for looking up and filtering OrganizationMembers resources.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: A list of email addresses corresponding to users who should be given member access to the organization.
         :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] owners: A list of email addresses corresponding to users who should be given owner access to the organization.
@@ -134,52 +136,52 @@ class _OrganizationMembersState:
     @_builtins.property
     @pulumi.getter
     @_utilities.deprecated("""The 'members' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.""")
-    def members(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def members(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of email addresses corresponding to users who should be given member access to the organization.
         """
         return pulumi.get(self, "members")
 
     @members.setter
-    def members(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def members(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "members", value)
 
     @_builtins.property
     @pulumi.getter(name="organizationId")
-    def organization_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI organization ID.
         """
         return pulumi.get(self, "organization_id")
 
     @organization_id.setter
-    def organization_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization_id", value)
 
     @_builtins.property
     @pulumi.getter
     @_utilities.deprecated("""The 'owners' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.""")
-    def owners(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def owners(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of email addresses corresponding to users who should be given owner access to the organization.
         """
         return pulumi.get(self, "owners")
 
     @owners.setter
-    def owners(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def owners(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "owners", value)
 
     @_builtins.property
     @pulumi.getter
     @_utilities.deprecated("""The 'viewers' field is deprecated. Use 'castai_role_bindings' resource instead for more granular role management. This field will be removed in a future version.""")
-    def viewers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def viewers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of email addresses corresponding to users who should be given viewer access to the organization.
         """
         return pulumi.get(self, "viewers")
 
     @viewers.setter
-    def viewers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def viewers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "viewers", value)
 
 
@@ -189,13 +191,14 @@ class OrganizationMembers(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 owners: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 viewers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 owners: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 viewers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         """
         Create a OrganizationMembers resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: A list of email addresses corresponding to users who should be given member access to the organization.
@@ -211,6 +214,7 @@ class OrganizationMembers(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a OrganizationMembers resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param OrganizationMembersArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -226,10 +230,10 @@ class OrganizationMembers(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 owners: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 viewers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 owners: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 viewers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -255,10 +259,10 @@ class OrganizationMembers(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            members: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-            owners: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            viewers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None) -> 'OrganizationMembers':
+            members: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+            owners: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            viewers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None) -> 'OrganizationMembers':
         """
         Get an existing OrganizationMembers resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

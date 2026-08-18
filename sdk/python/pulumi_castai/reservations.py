@@ -22,9 +22,10 @@ __all__ = ['ReservationsArgs', 'Reservations']
 class ReservationsArgs:
     def __init__(__self__, *,
                  reservations_csv: pulumi.Input[_builtins.str],
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Reservations resource.
+
         :param pulumi.Input[_builtins.str] reservations_csv: csv file containing reservations
         :param pulumi.Input[_builtins.str] organization_id: organization
         """
@@ -46,25 +47,26 @@ class ReservationsArgs:
 
     @_builtins.property
     @pulumi.getter(name="organizationId")
-    def organization_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         organization
         """
         return pulumi.get(self, "organization_id")
 
     @organization_id.setter
-    def organization_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization_id", value)
 
 
 @pulumi.input_type
 class _ReservationsState:
     def __init__(__self__, *,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 reservations: Optional[pulumi.Input[Sequence[pulumi.Input['ReservationsReservationArgs']]]] = None,
-                 reservations_csv: Optional[pulumi.Input[_builtins.str]] = None):
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 reservations: pulumi.Input[Optional[Sequence[pulumi.Input['ReservationsReservationArgs']]]] = None,
+                 reservations_csv: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Reservations resources.
+
         :param pulumi.Input[_builtins.str] organization_id: organization
         :param pulumi.Input[_builtins.str] reservations_csv: csv file containing reservations
         """
@@ -77,35 +79,35 @@ class _ReservationsState:
 
     @_builtins.property
     @pulumi.getter(name="organizationId")
-    def organization_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         organization
         """
         return pulumi.get(self, "organization_id")
 
     @organization_id.setter
-    def organization_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def reservations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ReservationsReservationArgs']]]]:
+    def reservations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ReservationsReservationArgs']]]]:
         return pulumi.get(self, "reservations")
 
     @reservations.setter
-    def reservations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ReservationsReservationArgs']]]]):
+    def reservations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ReservationsReservationArgs']]]]):
         pulumi.set(self, "reservations", value)
 
     @_builtins.property
     @pulumi.getter(name="reservationsCsv")
-    def reservations_csv(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reservations_csv(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         csv file containing reservations
         """
         return pulumi.get(self, "reservations_csv")
 
     @reservations_csv.setter
-    def reservations_csv(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reservations_csv(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reservations_csv", value)
 
 
@@ -115,11 +117,12 @@ class Reservations(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 reservations_csv: Optional[pulumi.Input[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 reservations_csv: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a Reservations resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] organization_id: organization
@@ -133,6 +136,7 @@ class Reservations(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a Reservations resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param ReservationsArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -148,8 +152,8 @@ class Reservations(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 reservations_csv: Optional[pulumi.Input[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 reservations_csv: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -174,9 +178,9 @@ class Reservations(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-            reservations: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ReservationsReservationArgs', 'ReservationsReservationArgsDict']]]]] = None,
-            reservations_csv: Optional[pulumi.Input[_builtins.str]] = None) -> 'Reservations':
+            organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+            reservations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ReservationsReservationArgs', 'ReservationsReservationArgsDict']]]]] = None,
+            reservations_csv: pulumi.Input[Optional[_builtins.str]] = None) -> 'Reservations':
         """
         Get an existing Reservations resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

@@ -1,0 +1,3 @@
+name: castai
+description: A Pulumi resource provider for castai.
+language: python

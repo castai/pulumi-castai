@@ -27,6 +27,8 @@ type EksCluster struct {
 	DeleteNodesOnDisconnect pulumi.BoolPtrOutput `pulumi:"deleteNodesOnDisconnect"`
 	// name of your EKS cluster
 	Name pulumi.StringOutput `pulumi:"name"`
+	// CAST AI organization ID
+	OrganizationId pulumi.StringOutput `pulumi:"organizationId"`
 	// AWS region where the cluster is placed
 	Region pulumi.StringOutput `pulumi:"region"`
 }
@@ -83,6 +85,8 @@ type eksClusterState struct {
 	DeleteNodesOnDisconnect *bool `pulumi:"deleteNodesOnDisconnect"`
 	// name of your EKS cluster
 	Name *string `pulumi:"name"`
+	// CAST AI organization ID
+	OrganizationId *string `pulumi:"organizationId"`
 	// AWS region where the cluster is placed
 	Region *string `pulumi:"region"`
 }
@@ -100,6 +104,8 @@ type EksClusterState struct {
 	DeleteNodesOnDisconnect pulumi.BoolPtrInput
 	// name of your EKS cluster
 	Name pulumi.StringPtrInput
+	// CAST AI organization ID
+	OrganizationId pulumi.StringPtrInput
 	// AWS region where the cluster is placed
 	Region pulumi.StringPtrInput
 }
@@ -250,6 +256,11 @@ func (o EksClusterOutput) DeleteNodesOnDisconnect() pulumi.BoolPtrOutput {
 // name of your EKS cluster
 func (o EksClusterOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *EksCluster) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// CAST AI organization ID
+func (o EksClusterOutput) OrganizationId() pulumi.StringOutput {
+	return o.ApplyT(func(v *EksCluster) pulumi.StringOutput { return v.OrganizationId }).(pulumi.StringOutput)
 }
 
 // AWS region where the cluster is placed

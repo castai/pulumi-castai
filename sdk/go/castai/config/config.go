@@ -36,3 +36,8 @@ func GetApiUrl(ctx *pulumi.Context) string {
 	}
 	return value
 }
+
+// CAST AI organization ID. Required when the API token has access to multiple organizations.
+func GetOrganizationId(ctx *pulumi.Context) string {
+	return config.Get(ctx, "castai:organizationId")
+}

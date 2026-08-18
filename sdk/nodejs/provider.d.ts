@@ -20,6 +20,10 @@ export declare class Provider extends pulumi.ProviderResource {
      */
     readonly apiUrl: pulumi.Output<string | undefined>;
     /**
+     * CAST AI organization ID. Required when the API token has access to multiple organizations.
+     */
+    readonly organizationId: pulumi.Output<string | undefined>;
+    /**
      * Create a Provider resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
@@ -39,11 +43,15 @@ export interface ProviderArgs {
     /**
      * The token used to connect to CAST AI API.
      */
-    apiToken?: pulumi.Input<string>;
+    apiToken?: pulumi.Input<string | undefined>;
     /**
      * CAST.AI API url.
      */
-    apiUrl?: pulumi.Input<string>;
+    apiUrl?: pulumi.Input<string | undefined>;
+    /**
+     * CAST AI organization ID. Required when the API token has access to multiple organizations.
+     */
+    organizationId?: pulumi.Input<string | undefined>;
 }
 export declare namespace Provider {
     /**
@@ -55,3 +63,4 @@ export declare namespace Provider {
         };
     }
 }
+//# sourceMappingURL=provider.d.ts.map

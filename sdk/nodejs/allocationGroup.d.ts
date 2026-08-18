@@ -55,27 +55,27 @@ export interface AllocationGroupState {
     /**
      * List of CAST AI cluster ids
      */
-    clusterIds?: pulumi.Input<pulumi.Input<string>[]>;
+    clusterIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Labels used to select workloads to track
      */
     labels?: pulumi.Input<{
         [key: string]: pulumi.Input<string>;
-    }>;
+    } | undefined>;
     /**
      * Operator with which to connect the labels
      * 	OR (default) - workload needs to have at least one label to be included
      * 	AND - workload needs to have all the labels to be included
      */
-    labelsOperator?: pulumi.Input<string>;
+    labelsOperator?: pulumi.Input<string | undefined>;
     /**
      * Allocation group name
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * List of cluster namespaces to track
      */
-    namespaces?: pulumi.Input<pulumi.Input<string>[]>;
+    namespaces?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 /**
  * The set of arguments for constructing a AllocationGroup resource.
@@ -84,25 +84,26 @@ export interface AllocationGroupArgs {
     /**
      * List of CAST AI cluster ids
      */
-    clusterIds?: pulumi.Input<pulumi.Input<string>[]>;
+    clusterIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Labels used to select workloads to track
      */
     labels?: pulumi.Input<{
         [key: string]: pulumi.Input<string>;
-    }>;
+    } | undefined>;
     /**
      * Operator with which to connect the labels
      * 	OR (default) - workload needs to have at least one label to be included
      * 	AND - workload needs to have all the labels to be included
      */
-    labelsOperator?: pulumi.Input<string>;
+    labelsOperator?: pulumi.Input<string | undefined>;
     /**
      * Allocation group name
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * List of cluster namespaces to track
      */
-    namespaces?: pulumi.Input<pulumi.Input<string>[]>;
+    namespaces?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
+//# sourceMappingURL=allocationGroup.d.ts.map

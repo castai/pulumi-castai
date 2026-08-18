@@ -31,15 +31,19 @@ __all__ = [
     'NodeConfigurationGkeSecondaryIpRange',
     'NodeConfigurationKops',
     'NodeTemplateConstraints',
+    'NodeTemplateConstraintsAws',
+    'NodeTemplateConstraintsAwsCapacityReservation',
     'NodeTemplateConstraintsCustomPriority',
     'NodeTemplateConstraintsDedicatedNodeAffinity',
     'NodeTemplateConstraintsDedicatedNodeAffinityAffinity',
+    'NodeTemplateConstraintsGcp',
     'NodeTemplateConstraintsGpu',
     'NodeTemplateConstraintsInstanceFamilies',
     'NodeTemplateConstraintsResourceLimits',
     'NodeTemplateCustomTaint',
     'NodeTemplateGpu',
     'NodeTemplateGpuSharingConfiguration',
+    'NodeTemplatePriceAdjustmentConfiguration',
 ]
 
 @pulumi.output_type
@@ -47,10 +51,14 @@ class NodeConfigurationAks(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "aksImageFamily":
+        if key == "acceleratedNetworking":
+            suggest = "accelerated_networking"
+        elif key == "aksImageFamily":
             suggest = "aks_image_family"
         elif key == "applicationSecurityGroups":
             suggest = "application_security_groups"
+        elif key == "enableEncryptionAtHost":
+            suggest = "enable_encryption_at_host"
         elif key == "ephemeralOsDisk":
             suggest = "ephemeral_os_disk"
         elif key == "maxPodsPerNode":
@@ -76,8 +84,10 @@ class NodeConfigurationAks(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 accelerated_networking: Optional[_builtins.str] = None,
                  aks_image_family: Optional[_builtins.str] = None,
                  application_security_groups: Optional[Sequence[_builtins.str]] = None,
+                 enable_encryption_at_host: Optional[_builtins.bool] = None,
                  ephemeral_os_disk: Optional['outputs.NodeConfigurationAksEphemeralOsDisk'] = None,
                  loadbalancers: Optional[Sequence['outputs.NodeConfigurationAksLoadbalancer']] = None,
                  max_pods_per_node: Optional[_builtins.int] = None,
@@ -86,8 +96,10 @@ class NodeConfigurationAks(dict):
                  pod_subnet_id: Optional[_builtins.str] = None,
                  public_ip: Optional['outputs.NodeConfigurationAksPublicIp'] = None):
         """
-        :param _builtins.str aks_image_family: Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,azure-linux,windows2019,windows2022)
+        :param _builtins.str accelerated_networking: Controls SR-IOV accelerated networking on the node NIC. Allowed values: `disabled` (force off regardless of SKU capability). When omitted, the field is not sent to the API and the API default applies.
+        :param _builtins.str aks_image_family: Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,ubuntu2204,ubuntu2404,azure-linux,windows2019,windows2022,windows2025)
         :param Sequence[_builtins.str] application_security_groups: Application security groups to be used for provisioned nodes
+        :param _builtins.bool enable_encryption_at_host: Whether to enable encryption at host for provisioned nodes. See https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption#encryption-at-host---end-to-end-encryption-for-your-vm-data
         :param 'NodeConfigurationAksEphemeralOsDiskArgs' ephemeral_os_disk: Ephemeral OS disk configuration for CAST provisioned nodes
         :param Sequence['NodeConfigurationAksLoadbalancerArgs'] loadbalancers: Load balancer configuration for CAST provisioned nodes
         :param _builtins.int max_pods_per_node: Maximum number of pods that can be run on a node, which affects how many IP addresses you will need for each node. Defaults to 30
@@ -96,10 +108,14 @@ class NodeConfigurationAks(dict):
         :param _builtins.str pod_subnet_id: ID of pod subnet to be used for provisioned nodes.
         :param 'NodeConfigurationAksPublicIpArgs' public_ip: Public IP configuration for CAST AI provisioned nodes
         """
+        if accelerated_networking is not None:
+            pulumi.set(__self__, "accelerated_networking", accelerated_networking)
         if aks_image_family is not None:
             pulumi.set(__self__, "aks_image_family", aks_image_family)
         if application_security_groups is not None:
             pulumi.set(__self__, "application_security_groups", application_security_groups)
+        if enable_encryption_at_host is not None:
+            pulumi.set(__self__, "enable_encryption_at_host", enable_encryption_at_host)
         if ephemeral_os_disk is not None:
             pulumi.set(__self__, "ephemeral_os_disk", ephemeral_os_disk)
         if loadbalancers is not None:
@@ -116,10 +132,18 @@ class NodeConfigurationAks(dict):
             pulumi.set(__self__, "public_ip", public_ip)
 
     @_builtins.property
+    @pulumi.getter(name="acceleratedNetworking")
+    def accelerated_networking(self) -> Optional[_builtins.str]:
+        """
+        Controls SR-IOV accelerated networking on the node NIC. Allowed values: `disabled` (force off regardless of SKU capability). When omitted, the field is not sent to the API and the API default applies.
+        """
+        return pulumi.get(self, "accelerated_networking")
+
+    @_builtins.property
     @pulumi.getter(name="aksImageFamily")
     def aks_image_family(self) -> Optional[_builtins.str]:
         """
-        Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,azure-linux,windows2019,windows2022)
+        Image OS Family to use when provisioning node in AKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (ubuntu,ubuntu2204,ubuntu2404,azure-linux,windows2019,windows2022,windows2025)
         """
         return pulumi.get(self, "aks_image_family")
 
@@ -130,6 +154,14 @@ class NodeConfigurationAks(dict):
         Application security groups to be used for provisioned nodes
         """
         return pulumi.get(self, "application_security_groups")
+
+    @_builtins.property
+    @pulumi.getter(name="enableEncryptionAtHost")
+    def enable_encryption_at_host(self) -> Optional[_builtins.bool]:
+        """
+        Whether to enable encryption at host for provisioned nodes. See https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption#encryption-at-host---end-to-end-encryption-for-your-vm-data
+        """
+        return pulumi.get(self, "enable_encryption_at_host")
 
     @_builtins.property
     @pulumi.getter(name="ephemeralOsDisk")
@@ -191,31 +223,33 @@ class NodeConfigurationAks(dict):
 @pulumi.output_type
 class NodeConfigurationAksEphemeralOsDisk(dict):
     def __init__(__self__, *,
-                 placement: _builtins.str,
-                 cache: Optional[_builtins.str] = None):
+                 cache: Optional[_builtins.str] = None,
+                 placement: Optional[_builtins.str] = None):
         """
-        :param _builtins.str placement: Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk
-        :param _builtins.str cache: Cache type for the ephemeral OS disk. One of: ReadOnly, ReadWrite
+        :param _builtins.str cache: Deprecated: this field has no effect. Ephemeral OS disks always use ReadOnly cache strategy
+        :param _builtins.str placement: Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk, nvmeDisk
         """
-        pulumi.set(__self__, "placement", placement)
         if cache is not None:
             pulumi.set(__self__, "cache", cache)
+        if placement is not None:
+            pulumi.set(__self__, "placement", placement)
 
     @_builtins.property
     @pulumi.getter
-    def placement(self) -> _builtins.str:
-        """
-        Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk
-        """
-        return pulumi.get(self, "placement")
-
-    @_builtins.property
-    @pulumi.getter
+    @_utilities.deprecated("""This field has no effect and will be removed in a future major version of the provider. Remove it from your configuration.""")
     def cache(self) -> Optional[_builtins.str]:
         """
-        Cache type for the ephemeral OS disk. One of: ReadOnly, ReadWrite
+        Deprecated: this field has no effect. Ephemeral OS disks always use ReadOnly cache strategy
         """
         return pulumi.get(self, "cache")
+
+    @_builtins.property
+    @pulumi.getter
+    def placement(self) -> Optional[_builtins.str]:
+        """
+        Placement of the ephemeral OS disk. One of: cacheDisk, resourceDisk, nvmeDisk
+        """
+        return pulumi.get(self, "placement")
 
 
 @pulumi.output_type
@@ -400,6 +434,8 @@ class NodeConfigurationEks(dict):
             suggest = "dns_cluster_ip"
         elif key == "eksImageFamily":
             suggest = "eks_image_family"
+        elif key == "enaQueueCountPerInterface":
+            suggest = "ena_queue_count_per_interface"
         elif key == "imdsHopLimit":
             suggest = "imds_hop_limit"
         elif key == "imdsV1":
@@ -441,6 +477,7 @@ class NodeConfigurationEks(dict):
                  security_groups: Sequence[_builtins.str],
                  dns_cluster_ip: Optional[_builtins.str] = None,
                  eks_image_family: Optional[_builtins.str] = None,
+                 ena_queue_count_per_interface: Optional[_builtins.int] = None,
                  imds_hop_limit: Optional[_builtins.int] = None,
                  imds_v1: Optional[_builtins.bool] = None,
                  ips_per_prefix: Optional[_builtins.int] = None,
@@ -458,9 +495,10 @@ class NodeConfigurationEks(dict):
         :param Sequence[_builtins.str] security_groups: Cluster's security groups configuration for CAST provisioned nodes
         :param _builtins.str dns_cluster_ip: IP address to use for DNS queries within the cluster
         :param _builtins.str eks_image_family: Image OS Family to use when provisioning node in EKS. If both image and family are provided, the system will use provided image and provisioning logic for given family. If only image family is provided, the system will attempt to resolve the latest image from that family based on kubernetes version and node architecture. If image family is omitted, a default family (based on cloud provider) will be used. See Cast.ai documentation for details. Possible values: (al2,al2023,bottlerocket)
-        :param _builtins.int imds_hop_limit: Allow configure the IMDSv2 hop limit, the default is 2
+        :param _builtins.int ena_queue_count_per_interface: Number of ENA queues per network interface.
+        :param _builtins.int imds_hop_limit: Allow configure the IMDSv2 hop limit, the default is 2. Setting to 1 disables access to most pods except pods running on host network.
         :param _builtins.bool imds_v1: When the value is true both IMDSv1 and IMDSv2 are enabled. Setting the value to false disables permanently IMDSv1 and might affect legacy workloads running on the node created with this configuration. The default is true if the flag isn't provided
-        :param _builtins.int ips_per_prefix: Number of IPs per prefix to be used for calculating max pods.
+        :param _builtins.int ips_per_prefix: Number of IPs per prefix to be used for calculating max pods. For IPv4 it should be 16. More info: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html#ec2-prefix-basics
         :param _builtins.str key_pair_id: AWS key pair ID to be used for CAST provisioned nodes. Has priority over ssh_public_key
         :param _builtins.str max_pods_per_node_formula: Formula to calculate the maximum number of pods that can be run on a node. The following list of variables will be bound to a number before evaluating and can be used in the formula: NUM_MAX_NET_INTERFACES, NUM_IP_PER_INTERFACE, NUM_IP_PER_PREFIX, NUM_CPU, NUM_RAM_GB .
         :param _builtins.str node_group_arn: Cluster's node group ARN used for CAST provisioned node pools. Required for hibernate/resume functionality
@@ -477,6 +515,8 @@ class NodeConfigurationEks(dict):
             pulumi.set(__self__, "dns_cluster_ip", dns_cluster_ip)
         if eks_image_family is not None:
             pulumi.set(__self__, "eks_image_family", eks_image_family)
+        if ena_queue_count_per_interface is not None:
+            pulumi.set(__self__, "ena_queue_count_per_interface", ena_queue_count_per_interface)
         if imds_hop_limit is not None:
             pulumi.set(__self__, "imds_hop_limit", imds_hop_limit)
         if imds_v1 is not None:
@@ -535,10 +575,18 @@ class NodeConfigurationEks(dict):
         return pulumi.get(self, "eks_image_family")
 
     @_builtins.property
+    @pulumi.getter(name="enaQueueCountPerInterface")
+    def ena_queue_count_per_interface(self) -> Optional[_builtins.int]:
+        """
+        Number of ENA queues per network interface.
+        """
+        return pulumi.get(self, "ena_queue_count_per_interface")
+
+    @_builtins.property
     @pulumi.getter(name="imdsHopLimit")
     def imds_hop_limit(self) -> Optional[_builtins.int]:
         """
-        Allow configure the IMDSv2 hop limit, the default is 2
+        Allow configure the IMDSv2 hop limit, the default is 2. Setting to 1 disables access to most pods except pods running on host network.
         """
         return pulumi.get(self, "imds_hop_limit")
 
@@ -554,7 +602,7 @@ class NodeConfigurationEks(dict):
     @pulumi.getter(name="ipsPerPrefix")
     def ips_per_prefix(self) -> Optional[_builtins.int]:
         """
-        Number of IPs per prefix to be used for calculating max pods.
+        Number of IPs per prefix to be used for calculating max pods. For IPv4 it should be 16. More info: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html#ec2-prefix-basics
         """
         return pulumi.get(self, "ips_per_prefix")
 
@@ -1023,6 +1071,8 @@ class NodeTemplateConstraints(dict):
             suggest = "max_cpu"
         elif key == "maxMemory":
             suggest = "max_memory"
+        elif key == "maxPricePerCpu":
+            suggest = "max_price_per_cpu"
         elif key == "minCpu":
             suggest = "min_cpu"
         elif key == "minMemory":
@@ -1062,6 +1112,7 @@ class NodeTemplateConstraints(dict):
     def __init__(__self__, *,
                  architecture_priorities: Optional[Sequence[_builtins.str]] = None,
                  architectures: Optional[Sequence[_builtins.str]] = None,
+                 aws: Optional['outputs.NodeTemplateConstraintsAws'] = None,
                  azs: Optional[Sequence[_builtins.str]] = None,
                  bare_metal: Optional[_builtins.str] = None,
                  burstable_instances: Optional[_builtins.str] = None,
@@ -1073,11 +1124,13 @@ class NodeTemplateConstraints(dict):
                  dedicated_node_affinities: Optional[Sequence['outputs.NodeTemplateConstraintsDedicatedNodeAffinity']] = None,
                  enable_spot_diversity: Optional[_builtins.bool] = None,
                  fallback_restore_rate_seconds: Optional[_builtins.int] = None,
+                 gcp: Optional['outputs.NodeTemplateConstraintsGcp'] = None,
                  gpu: Optional['outputs.NodeTemplateConstraintsGpu'] = None,
                  instance_families: Optional['outputs.NodeTemplateConstraintsInstanceFamilies'] = None,
                  is_gpu_only: Optional[_builtins.bool] = None,
                  max_cpu: Optional[_builtins.int] = None,
                  max_memory: Optional[_builtins.int] = None,
+                 max_price_per_cpu: Optional[_builtins.float] = None,
                  min_cpu: Optional[_builtins.int] = None,
                  min_memory: Optional[_builtins.int] = None,
                  on_demand: Optional[_builtins.bool] = None,
@@ -1095,6 +1148,7 @@ class NodeTemplateConstraints(dict):
         """
         :param Sequence[_builtins.str] architecture_priorities: Priority ordering of architectures, specifying no priority will pick cheapest. Allowed values: amd64, arm64.
         :param Sequence[_builtins.str] architectures: List of acceptable instance CPU architectures, the default is amd64. Allowed values: amd64, arm64.
+        :param 'NodeTemplateConstraintsAwsArgs' aws: AWS-specific constraints for the node template.
         :param Sequence[_builtins.str] azs: The list of AZ names to consider for the node template, if empty or not set all AZs are considered.
         :param _builtins.str bare_metal: Bare metal constraint, will only pick bare metal nodes if set to true. Will only pick non-bare metal nodes if false. Defaults to unspecified. Allowed values: true, false, unspecified.
         :param _builtins.str burstable_instances: Will include burstable instances when enabled otherwise they will be excluded. Supported values: `enabled`, `disabled` or ``.
@@ -1110,9 +1164,11 @@ class NodeTemplateConstraints(dict):
                 the sole tenancy or dedicated node (example: setting min CPU to 16).
         :param _builtins.bool enable_spot_diversity: Enable/disable spot diversity policy. When enabled, autoscaler will try to balance between diverse and cost optimal instance types.
         :param _builtins.int fallback_restore_rate_seconds: Fallback restore rate in seconds: defines how much time should pass before spot fallback should be attempted to be restored to real spot.
+        :param 'NodeTemplateConstraintsGcpArgs' gcp: GCP-specific constraints for the node template.
         :param _builtins.bool is_gpu_only: GPU instance constraint - will only pick nodes with GPU if true
         :param _builtins.int max_cpu: Max CPU cores per node.
         :param _builtins.int max_memory: Max Memory (Mib) per node.
+        :param _builtins.float max_price_per_cpu: Maximum price per vCPU threshold. When price adjustments are configured, the filter applies to the adjusted price.
         :param _builtins.int min_cpu: Min CPU cores per node.
         :param _builtins.int min_memory: Min Memory (Mib) per node.
         :param _builtins.bool on_demand: Should include on-demand instances in the considered pool.
@@ -1120,7 +1176,7 @@ class NodeTemplateConstraints(dict):
         :param _builtins.bool spot: Should include spot instances in the considered pool.
         :param _builtins.int spot_diversity_price_increase_limit_percent: Allowed node configuration price increase when diversifying instance types. E.g. if the value is 10%, then the overall price of diversified instance types can be 10% higher than the price of the optimal configuration.
         :param _builtins.bool spot_interruption_predictions_enabled: Enable/disable spot interruption predictions.
-        :param _builtins.str spot_interruption_predictions_type: Spot interruption predictions type. Can be either "aws-rebalance-recommendations" or "interruption-predictions".
+        :param _builtins.str spot_interruption_predictions_type: Spot interruption predictions type. Only "interruption-predictions" is supported.
         :param _builtins.bool spot_reliability_enabled: Enable/disable spot reliability. When enabled, autoscaler will create instances with highest reliability score within price increase threshold.
         :param _builtins.int spot_reliability_price_increase_limit_percent: Allowed node price increase when using spot reliability on ordering the instance types . E.g. if the value is 10%, then the overall price of instance types can be 10% higher than the price of the optimal configuration.
         :param _builtins.bool storage_optimized: Storage optimized instance constraint (deprecated).
@@ -1131,6 +1187,8 @@ class NodeTemplateConstraints(dict):
             pulumi.set(__self__, "architecture_priorities", architecture_priorities)
         if architectures is not None:
             pulumi.set(__self__, "architectures", architectures)
+        if aws is not None:
+            pulumi.set(__self__, "aws", aws)
         if azs is not None:
             pulumi.set(__self__, "azs", azs)
         if bare_metal is not None:
@@ -1153,6 +1211,8 @@ class NodeTemplateConstraints(dict):
             pulumi.set(__self__, "enable_spot_diversity", enable_spot_diversity)
         if fallback_restore_rate_seconds is not None:
             pulumi.set(__self__, "fallback_restore_rate_seconds", fallback_restore_rate_seconds)
+        if gcp is not None:
+            pulumi.set(__self__, "gcp", gcp)
         if gpu is not None:
             pulumi.set(__self__, "gpu", gpu)
         if instance_families is not None:
@@ -1163,6 +1223,8 @@ class NodeTemplateConstraints(dict):
             pulumi.set(__self__, "max_cpu", max_cpu)
         if max_memory is not None:
             pulumi.set(__self__, "max_memory", max_memory)
+        if max_price_per_cpu is not None:
+            pulumi.set(__self__, "max_price_per_cpu", max_price_per_cpu)
         if min_cpu is not None:
             pulumi.set(__self__, "min_cpu", min_cpu)
         if min_memory is not None:
@@ -1207,6 +1269,14 @@ class NodeTemplateConstraints(dict):
         List of acceptable instance CPU architectures, the default is amd64. Allowed values: amd64, arm64.
         """
         return pulumi.get(self, "architectures")
+
+    @_builtins.property
+    @pulumi.getter
+    def aws(self) -> Optional['outputs.NodeTemplateConstraintsAws']:
+        """
+        AWS-specific constraints for the node template.
+        """
+        return pulumi.get(self, "aws")
 
     @_builtins.property
     @pulumi.getter
@@ -1300,6 +1370,14 @@ class NodeTemplateConstraints(dict):
 
     @_builtins.property
     @pulumi.getter
+    def gcp(self) -> Optional['outputs.NodeTemplateConstraintsGcp']:
+        """
+        GCP-specific constraints for the node template.
+        """
+        return pulumi.get(self, "gcp")
+
+    @_builtins.property
+    @pulumi.getter
     def gpu(self) -> Optional['outputs.NodeTemplateConstraintsGpu']:
         return pulumi.get(self, "gpu")
 
@@ -1331,6 +1409,14 @@ class NodeTemplateConstraints(dict):
         Max Memory (Mib) per node.
         """
         return pulumi.get(self, "max_memory")
+
+    @_builtins.property
+    @pulumi.getter(name="maxPricePerCpu")
+    def max_price_per_cpu(self) -> Optional[_builtins.float]:
+        """
+        Maximum price per vCPU threshold. When price adjustments are configured, the filter applies to the adjusted price.
+        """
+        return pulumi.get(self, "max_price_per_cpu")
 
     @_builtins.property
     @pulumi.getter(name="minCpu")
@@ -1395,9 +1481,10 @@ class NodeTemplateConstraints(dict):
 
     @_builtins.property
     @pulumi.getter(name="spotInterruptionPredictionsType")
+    @_utilities.deprecated("""The value \"aws-rebalance-recommendations\" is deprecated and will be removed in a future major version. Cast AI ML predictions (\"interruption-predictions\") are now used for all spot interruption prediction.""")
     def spot_interruption_predictions_type(self) -> Optional[_builtins.str]:
         """
-        Spot interruption predictions type. Can be either "aws-rebalance-recommendations" or "interruption-predictions".
+        Spot interruption predictions type. Only "interruption-predictions" is supported.
         """
         return pulumi.get(self, "spot_interruption_predictions_type")
 
@@ -1440,6 +1527,102 @@ class NodeTemplateConstraints(dict):
         Spot instance fallback constraint - when true, on-demand instances will be created, when spots are unavailable.
         """
         return pulumi.get(self, "use_spot_fallbacks")
+
+
+@pulumi.output_type
+class NodeTemplateConstraintsAws(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "capacityReservations":
+            suggest = "capacity_reservations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeTemplateConstraintsAws. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeTemplateConstraintsAws.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeTemplateConstraintsAws.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 capacity_reservations: Optional[Sequence['outputs.NodeTemplateConstraintsAwsCapacityReservation']] = None):
+        """
+        :param Sequence['NodeTemplateConstraintsAwsCapacityReservationArgs'] capacity_reservations: Capacity reservations that this template can use for provisioning.
+        """
+        if capacity_reservations is not None:
+            pulumi.set(__self__, "capacity_reservations", capacity_reservations)
+
+    @_builtins.property
+    @pulumi.getter(name="capacityReservations")
+    def capacity_reservations(self) -> Optional[Sequence['outputs.NodeTemplateConstraintsAwsCapacityReservation']]:
+        """
+        Capacity reservations that this template can use for provisioning.
+        """
+        return pulumi.get(self, "capacity_reservations")
+
+
+@pulumi.output_type
+class NodeTemplateConstraintsAwsCapacityReservation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "capacityResourceGroupArn":
+            suggest = "capacity_resource_group_arn"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeTemplateConstraintsAwsCapacityReservation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeTemplateConstraintsAwsCapacityReservation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeTemplateConstraintsAwsCapacityReservation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 capacity_resource_group_arn: Optional[_builtins.str] = None,
+                 id: Optional[_builtins.str] = None,
+                 type: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str capacity_resource_group_arn: Capacity resource group ARN for UltraServer capacity blocks.
+        :param _builtins.str id: AWS capacity reservation ID.
+        :param _builtins.str type: Type of capacity reservation. Allowed values: ON_DEMAND_CAPACITY_RESERVATION, CAPACITY_BLOCK.
+        """
+        if capacity_resource_group_arn is not None:
+            pulumi.set(__self__, "capacity_resource_group_arn", capacity_resource_group_arn)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="capacityResourceGroupArn")
+    def capacity_resource_group_arn(self) -> Optional[_builtins.str]:
+        """
+        Capacity resource group ARN for UltraServer capacity blocks.
+        """
+        return pulumi.get(self, "capacity_resource_group_arn")
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> Optional[_builtins.str]:
+        """
+        AWS capacity reservation ID.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        Type of capacity reservation. Allowed values: ON_DEMAND_CAPACITY_RESERVATION, CAPACITY_BLOCK.
+        """
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type
@@ -1513,6 +1696,12 @@ class NodeTemplateConstraintsDedicatedNodeAffinity(dict):
             suggest = "az_name"
         elif key == "instanceTypes":
             suggest = "instance_types"
+        elif key == "cpusPerGpu":
+            suggest = "cpus_per_gpu"
+        elif key == "maxCpu":
+            suggest = "max_cpu"
+        elif key == "minGpusPerNode":
+            suggest = "min_gpus_per_node"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in NodeTemplateConstraintsDedicatedNodeAffinity. Access the value via the '{suggest}' property getter instead.")
@@ -1529,17 +1718,29 @@ class NodeTemplateConstraintsDedicatedNodeAffinity(dict):
                  az_name: _builtins.str,
                  instance_types: Sequence[_builtins.str],
                  name: _builtins.str,
-                 affinities: Optional[Sequence['outputs.NodeTemplateConstraintsDedicatedNodeAffinityAffinity']] = None):
+                 affinities: Optional[Sequence['outputs.NodeTemplateConstraintsDedicatedNodeAffinityAffinity']] = None,
+                 cpus_per_gpu: Optional[_builtins.int] = None,
+                 max_cpu: Optional[_builtins.int] = None,
+                 min_gpus_per_node: Optional[_builtins.int] = None):
         """
         :param _builtins.str az_name: Availability zone name.
         :param Sequence[_builtins.str] instance_types: Instance/node types in this node group.
         :param _builtins.str name: Name of node group.
+        :param _builtins.int cpus_per_gpu: Number of CPUs per GPU on the node.
+        :param _builtins.int max_cpu: Maximum number of CPUs that can be provisioned from this dedicated node affinity across all nodes for the specific node template. If not set, no CPU cap is applied. If cpus_per_gpu is set, max_cpu must be a multiple of cpus_per_gpu.
+        :param _builtins.int min_gpus_per_node: Minimal number of GPUs per node.
         """
         pulumi.set(__self__, "az_name", az_name)
         pulumi.set(__self__, "instance_types", instance_types)
         pulumi.set(__self__, "name", name)
         if affinities is not None:
             pulumi.set(__self__, "affinities", affinities)
+        if cpus_per_gpu is not None:
+            pulumi.set(__self__, "cpus_per_gpu", cpus_per_gpu)
+        if max_cpu is not None:
+            pulumi.set(__self__, "max_cpu", max_cpu)
+        if min_gpus_per_node is not None:
+            pulumi.set(__self__, "min_gpus_per_node", min_gpus_per_node)
 
     @_builtins.property
     @pulumi.getter(name="azName")
@@ -1569,6 +1770,30 @@ class NodeTemplateConstraintsDedicatedNodeAffinity(dict):
     @pulumi.getter
     def affinities(self) -> Optional[Sequence['outputs.NodeTemplateConstraintsDedicatedNodeAffinityAffinity']]:
         return pulumi.get(self, "affinities")
+
+    @_builtins.property
+    @pulumi.getter(name="cpusPerGpu")
+    def cpus_per_gpu(self) -> Optional[_builtins.int]:
+        """
+        Number of CPUs per GPU on the node.
+        """
+        return pulumi.get(self, "cpus_per_gpu")
+
+    @_builtins.property
+    @pulumi.getter(name="maxCpu")
+    def max_cpu(self) -> Optional[_builtins.int]:
+        """
+        Maximum number of CPUs that can be provisioned from this dedicated node affinity across all nodes for the specific node template. If not set, no CPU cap is applied. If cpus_per_gpu is set, max_cpu must be a multiple of cpus_per_gpu.
+        """
+        return pulumi.get(self, "max_cpu")
+
+    @_builtins.property
+    @pulumi.getter(name="minGpusPerNode")
+    def min_gpus_per_node(self) -> Optional[_builtins.int]:
+        """
+        Minimal number of GPUs per node.
+        """
+        return pulumi.get(self, "min_gpus_per_node")
 
 
 @pulumi.output_type
@@ -1612,12 +1837,50 @@ class NodeTemplateConstraintsDedicatedNodeAffinityAffinity(dict):
 
 
 @pulumi.output_type
+class NodeTemplateConstraintsGcp(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "capacityReservationIds":
+            suggest = "capacity_reservation_ids"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeTemplateConstraintsGcp. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeTemplateConstraintsGcp.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeTemplateConstraintsGcp.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 capacity_reservation_ids: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param Sequence[_builtins.str] capacity_reservation_ids: GCP capacity reservation IDs (numeric) that this template is allowed to use.
+        """
+        if capacity_reservation_ids is not None:
+            pulumi.set(__self__, "capacity_reservation_ids", capacity_reservation_ids)
+
+    @_builtins.property
+    @pulumi.getter(name="capacityReservationIds")
+    def capacity_reservation_ids(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        GCP capacity reservation IDs (numeric) that this template is allowed to use.
+        """
+        return pulumi.get(self, "capacity_reservation_ids")
+
+
+@pulumi.output_type
 class NodeTemplateConstraintsGpu(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
         if key == "excludeNames":
             suggest = "exclude_names"
+        elif key == "fractionalGpus":
+            suggest = "fractional_gpus"
         elif key == "includeNames":
             suggest = "include_names"
         elif key == "maxCount":
@@ -1638,12 +1901,14 @@ class NodeTemplateConstraintsGpu(dict):
 
     def __init__(__self__, *,
                  exclude_names: Optional[Sequence[_builtins.str]] = None,
+                 fractional_gpus: Optional[_builtins.str] = None,
                  include_names: Optional[Sequence[_builtins.str]] = None,
                  manufacturers: Optional[Sequence[_builtins.str]] = None,
                  max_count: Optional[_builtins.int] = None,
                  min_count: Optional[_builtins.int] = None):
         """
         :param Sequence[_builtins.str] exclude_names: Names of the GPUs to exclude.
+        :param _builtins.str fractional_gpus: Will include fractional GPU instances when enabled otherwise they will be excluded. Supported values: `enabled`, `disabled` or ``.
         :param Sequence[_builtins.str] include_names: Instance families to include when filtering (excludes all other families).
         :param Sequence[_builtins.str] manufacturers: Manufacturers of the gpus to select - NVIDIA, AMD.
         :param _builtins.int max_count: Max GPU count for the instance type to have.
@@ -1651,6 +1916,8 @@ class NodeTemplateConstraintsGpu(dict):
         """
         if exclude_names is not None:
             pulumi.set(__self__, "exclude_names", exclude_names)
+        if fractional_gpus is not None:
+            pulumi.set(__self__, "fractional_gpus", fractional_gpus)
         if include_names is not None:
             pulumi.set(__self__, "include_names", include_names)
         if manufacturers is not None:
@@ -1667,6 +1934,14 @@ class NodeTemplateConstraintsGpu(dict):
         Names of the GPUs to exclude.
         """
         return pulumi.get(self, "exclude_names")
+
+    @_builtins.property
+    @pulumi.getter(name="fractionalGpus")
+    def fractional_gpus(self) -> Optional[_builtins.str]:
+        """
+        Will include fractional GPU instances when enabled otherwise they will be excluded. Supported values: `enabled`, `disabled` or ``.
+        """
+        return pulumi.get(self, "fractional_gpus")
 
     @_builtins.property
     @pulumi.getter(name="includeNames")
@@ -1835,6 +2110,10 @@ class NodeTemplateGpu(dict):
             suggest = "enable_time_sharing"
         elif key == "sharingConfigurations":
             suggest = "sharing_configurations"
+        elif key == "sharingStrategy":
+            suggest = "sharing_strategy"
+        elif key == "userManagedGpuDrivers":
+            suggest = "user_managed_gpu_drivers"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in NodeTemplateGpu. Access the value via the '{suggest}' property getter instead.")
@@ -1850,11 +2129,15 @@ class NodeTemplateGpu(dict):
     def __init__(__self__, *,
                  default_shared_clients_per_gpu: Optional[_builtins.int] = None,
                  enable_time_sharing: Optional[_builtins.bool] = None,
-                 sharing_configurations: Optional[Sequence['outputs.NodeTemplateGpuSharingConfiguration']] = None):
+                 sharing_configurations: Optional[Sequence['outputs.NodeTemplateGpuSharingConfiguration']] = None,
+                 sharing_strategy: Optional[_builtins.str] = None,
+                 user_managed_gpu_drivers: Optional[_builtins.bool] = None):
         """
         :param _builtins.int default_shared_clients_per_gpu: Defines default number of shared clients per GPU.
-        :param _builtins.bool enable_time_sharing: Enable/disable GPU time-sharing.
+        :param _builtins.bool enable_time_sharing: Enable/disable GPU time-sharing. Deprecated: use sharing_strategy = "time-slicing" instead.
         :param Sequence['NodeTemplateGpuSharingConfigurationArgs'] sharing_configurations: Defines GPU sharing configurations for GPU devices.
+        :param _builtins.str sharing_strategy: GPU sharing strategy. Supported values: `time-slicing`, `mps`.
+        :param _builtins.bool user_managed_gpu_drivers: Enable/disable user-managed GPU drivers (for GKE clusters only).
         """
         if default_shared_clients_per_gpu is not None:
             pulumi.set(__self__, "default_shared_clients_per_gpu", default_shared_clients_per_gpu)
@@ -1862,6 +2145,10 @@ class NodeTemplateGpu(dict):
             pulumi.set(__self__, "enable_time_sharing", enable_time_sharing)
         if sharing_configurations is not None:
             pulumi.set(__self__, "sharing_configurations", sharing_configurations)
+        if sharing_strategy is not None:
+            pulumi.set(__self__, "sharing_strategy", sharing_strategy)
+        if user_managed_gpu_drivers is not None:
+            pulumi.set(__self__, "user_managed_gpu_drivers", user_managed_gpu_drivers)
 
     @_builtins.property
     @pulumi.getter(name="defaultSharedClientsPerGpu")
@@ -1873,9 +2160,10 @@ class NodeTemplateGpu(dict):
 
     @_builtins.property
     @pulumi.getter(name="enableTimeSharing")
+    @_utilities.deprecated("""Use sharing_strategy instead.""")
     def enable_time_sharing(self) -> Optional[_builtins.bool]:
         """
-        Enable/disable GPU time-sharing.
+        Enable/disable GPU time-sharing. Deprecated: use sharing_strategy = "time-slicing" instead.
         """
         return pulumi.get(self, "enable_time_sharing")
 
@@ -1886,6 +2174,22 @@ class NodeTemplateGpu(dict):
         Defines GPU sharing configurations for GPU devices.
         """
         return pulumi.get(self, "sharing_configurations")
+
+    @_builtins.property
+    @pulumi.getter(name="sharingStrategy")
+    def sharing_strategy(self) -> Optional[_builtins.str]:
+        """
+        GPU sharing strategy. Supported values: `time-slicing`, `mps`.
+        """
+        return pulumi.get(self, "sharing_strategy")
+
+    @_builtins.property
+    @pulumi.getter(name="userManagedGpuDrivers")
+    def user_managed_gpu_drivers(self) -> Optional[_builtins.bool]:
+        """
+        Enable/disable user-managed GPU drivers (for GKE clusters only).
+        """
+        return pulumi.get(self, "user_managed_gpu_drivers")
 
 
 @pulumi.output_type
@@ -1934,5 +2238,41 @@ class NodeTemplateGpuSharingConfiguration(dict):
         Defines number of shared clients for specific GPU device.
         """
         return pulumi.get(self, "shared_clients_per_gpu")
+
+
+@pulumi.output_type
+class NodeTemplatePriceAdjustmentConfiguration(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "instanceTypeAdjustments":
+            suggest = "instance_type_adjustments"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeTemplatePriceAdjustmentConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeTemplatePriceAdjustmentConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeTemplatePriceAdjustmentConfiguration.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 instance_type_adjustments: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        :param Mapping[str, _builtins.str] instance_type_adjustments: Map of instance type names to price adjustment multipliers (as strings). Example: {"r7a.xlarge": "1.0", "r7i.xlarge": "1.20"}
+        """
+        if instance_type_adjustments is not None:
+            pulumi.set(__self__, "instance_type_adjustments", instance_type_adjustments)
+
+    @_builtins.property
+    @pulumi.getter(name="instanceTypeAdjustments")
+    def instance_type_adjustments(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Map of instance type names to price adjustment multipliers (as strings). Example: {"r7a.xlarge": "1.0", "r7i.xlarge": "1.20"}
+        """
+        return pulumi.get(self, "instance_type_adjustments")
 
 

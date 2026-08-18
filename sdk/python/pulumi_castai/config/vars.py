@@ -34,3 +34,10 @@ class _ExportableConfig(types.ModuleType):
         """
         return __config__.get('apiUrl') or (_utilities.get_env('CASTAI_API_URL') or 'https://api.cast.ai')
 
+    @_builtins.property
+    def organization_id(self) -> Optional[str]:
+        """
+        CAST AI organization ID. Required when the API token has access to multiple organizations.
+        """
+        return __config__.get('organizationId')
+

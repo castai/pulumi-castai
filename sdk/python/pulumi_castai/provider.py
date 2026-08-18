@@ -19,12 +19,15 @@ __all__ = ['ProviderArgs', 'Provider']
 @pulumi.input_type
 class ProviderArgs:
     def __init__(__self__, *,
-                 api_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_url: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Provider resource.
+
         :param pulumi.Input[_builtins.str] api_token: The token used to connect to CAST AI API.
         :param pulumi.Input[_builtins.str] api_url: CAST.AI API url.
+        :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID. Required when the API token has access to multiple organizations.
         """
         if api_token is None:
             api_token = _utilities.get_env('CASTAI_API_TOKEN')
@@ -34,30 +37,44 @@ class ProviderArgs:
             api_url = (_utilities.get_env('CASTAI_API_URL') or 'https://api.cast.ai')
         if api_url is not None:
             pulumi.set(__self__, "api_url", api_url)
+        if organization_id is not None:
+            pulumi.set(__self__, "organization_id", organization_id)
 
     @_builtins.property
     @pulumi.getter(name="apiToken")
-    def api_token(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_token(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The token used to connect to CAST AI API.
         """
         return pulumi.get(self, "api_token")
 
     @api_token.setter
-    def api_token(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_token(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_token", value)
 
     @_builtins.property
     @pulumi.getter(name="apiUrl")
-    def api_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST.AI API url.
         """
         return pulumi.get(self, "api_url")
 
     @api_url.setter
-    def api_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_url", value)
+
+    @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        CAST AI organization ID. Required when the API token has access to multiple organizations.
+        """
+        return pulumi.get(self, "organization_id")
+
+    @organization_id.setter
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "organization_id", value)
 
 
 @pulumi.type_token("pulumi:providers:castai")
@@ -66,8 +83,9 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_url: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         The provider type for the castai package. By default, resources use package-wide configuration
@@ -75,10 +93,12 @@ class Provider(pulumi.ProviderResource):
         construction to achieve fine-grained programmatic control over provider settings. See the
         [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_token: The token used to connect to CAST AI API.
         :param pulumi.Input[_builtins.str] api_url: CAST.AI API url.
+        :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID. Required when the API token has access to multiple organizations.
         """
         ...
     @overload
@@ -91,6 +111,7 @@ class Provider(pulumi.ProviderResource):
         settings, however an explicit `Provider` instance may be created and passed during resource
         construction to achieve fine-grained programmatic control over provider settings. See the
         [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
+
 
         :param str resource_name: The name of the resource.
         :param ProviderArgs args: The arguments to use to populate this resource's properties.
@@ -107,8 +128,9 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_url: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -124,6 +146,7 @@ class Provider(pulumi.ProviderResource):
             if api_url is None:
                 api_url = (_utilities.get_env('CASTAI_API_URL') or 'https://api.cast.ai')
             __props__.__dict__["api_url"] = api_url
+            __props__.__dict__["organization_id"] = organization_id
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["apiToken"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Provider, __self__).__init__(
@@ -147,6 +170,14 @@ class Provider(pulumi.ProviderResource):
         CAST.AI API url.
         """
         return pulumi.get(self, "api_url")
+
+    @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        CAST AI organization ID. Required when the API token has access to multiple organizations.
+        """
+        return pulumi.get(self, "organization_id")
 
     @pulumi.output_type
     class TerraformConfigResult:

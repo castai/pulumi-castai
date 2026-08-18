@@ -25,7 +25,8 @@ type SecurityRuntimeRule struct {
 	IsBuiltIn pulumi.BoolOutput `pulumi:"isBuiltIn"`
 	// Key-value labels attached to the rule.
 	Labels pulumi.StringMapOutput `pulumi:"labels"`
-	Name   pulumi.StringOutput    `pulumi:"name"`
+	// Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+	Name pulumi.StringOutput `pulumi:"name"`
 	// Optional CEL expression for resource selection.
 	ResourceSelector pulumi.StringPtrOutput `pulumi:"resourceSelector"`
 	// The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
@@ -86,7 +87,8 @@ type securityRuntimeRuleState struct {
 	IsBuiltIn *bool `pulumi:"isBuiltIn"`
 	// Key-value labels attached to the rule.
 	Labels map[string]string `pulumi:"labels"`
-	Name   *string           `pulumi:"name"`
+	// Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+	Name *string `pulumi:"name"`
 	// Optional CEL expression for resource selection.
 	ResourceSelector *string `pulumi:"resourceSelector"`
 	// The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
@@ -112,7 +114,8 @@ type SecurityRuntimeRuleState struct {
 	IsBuiltIn pulumi.BoolPtrInput
 	// Key-value labels attached to the rule.
 	Labels pulumi.StringMapInput
-	Name   pulumi.StringPtrInput
+	// Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+	Name pulumi.StringPtrInput
 	// Optional CEL expression for resource selection.
 	ResourceSelector pulumi.StringPtrInput
 	// The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
@@ -138,7 +141,8 @@ type securityRuntimeRuleArgs struct {
 	Enabled *bool `pulumi:"enabled"`
 	// Key-value labels attached to the rule.
 	Labels map[string]string `pulumi:"labels"`
-	Name   *string           `pulumi:"name"`
+	// Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+	Name *string `pulumi:"name"`
 	// Optional CEL expression for resource selection.
 	ResourceSelector *string `pulumi:"resourceSelector"`
 	// The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
@@ -157,7 +161,8 @@ type SecurityRuntimeRuleArgs struct {
 	Enabled pulumi.BoolPtrInput
 	// Key-value labels attached to the rule.
 	Labels pulumi.StringMapInput
-	Name   pulumi.StringPtrInput
+	// Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+	Name pulumi.StringPtrInput
 	// Optional CEL expression for resource selection.
 	ResourceSelector pulumi.StringPtrInput
 	// The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
@@ -280,6 +285,7 @@ func (o SecurityRuntimeRuleOutput) Labels() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *SecurityRuntimeRule) pulumi.StringMapOutput { return v.Labels }).(pulumi.StringMapOutput)
 }
 
+// Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
 func (o SecurityRuntimeRuleOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *SecurityRuntimeRule) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }

@@ -25,6 +25,7 @@ __all__ = [
     'OrganizationGroupMember',
     'OrganizationGroupMemberMember',
     'SSOConnectionAad',
+    'SSOConnectionOidc',
     'SSOConnectionOkta',
     'ServiceAccountAuthor',
 ]
@@ -336,6 +337,79 @@ class SSOConnectionAad(dict):
         Azure AD client secret
         """
         return pulumi.get(self, "client_secret")
+
+
+@pulumi.output_type
+class SSOConnectionOidc(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clientId":
+            suggest = "client_id"
+        elif key == "clientSecret":
+            suggest = "client_secret"
+        elif key == "issuerUrl":
+            suggest = "issuer_url"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SSOConnectionOidc. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SSOConnectionOidc.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SSOConnectionOidc.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 client_id: _builtins.str,
+                 client_secret: _builtins.str,
+                 issuer_url: _builtins.str,
+                 type: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str client_id: OIDC client ID
+        :param _builtins.str client_secret: OIDC client secret
+        :param _builtins.str issuer_url: Issuer URL of the OpenID Connect provider
+        :param _builtins.str type: OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
+        """
+        pulumi.set(__self__, "client_id", client_id)
+        pulumi.set(__self__, "client_secret", client_secret)
+        pulumi.set(__self__, "issuer_url", issuer_url)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="clientId")
+    def client_id(self) -> _builtins.str:
+        """
+        OIDC client ID
+        """
+        return pulumi.get(self, "client_id")
+
+    @_builtins.property
+    @pulumi.getter(name="clientSecret")
+    def client_secret(self) -> _builtins.str:
+        """
+        OIDC client secret
+        """
+        return pulumi.get(self, "client_secret")
+
+    @_builtins.property
+    @pulumi.getter(name="issuerUrl")
+    def issuer_url(self) -> _builtins.str:
+        """
+        Issuer URL of the OpenID Connect provider
+        """
+        return pulumi.get(self, "issuer_url")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
+        """
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type

@@ -13,6 +13,1659 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type AiOptimizerHostedModelFallback struct {
+	Enabled    *bool   `pulumi:"enabled"`
+	Model      *string `pulumi:"model"`
+	ProviderId *string `pulumi:"providerId"`
+}
+
+// AiOptimizerHostedModelFallbackInput is an input type that accepts AiOptimizerHostedModelFallbackArgs and AiOptimizerHostedModelFallbackOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelFallbackInput` via:
+//
+//	AiOptimizerHostedModelFallbackArgs{...}
+type AiOptimizerHostedModelFallbackInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelFallbackOutput() AiOptimizerHostedModelFallbackOutput
+	ToAiOptimizerHostedModelFallbackOutputWithContext(context.Context) AiOptimizerHostedModelFallbackOutput
+}
+
+type AiOptimizerHostedModelFallbackArgs struct {
+	Enabled    pulumi.BoolPtrInput   `pulumi:"enabled"`
+	Model      pulumi.StringPtrInput `pulumi:"model"`
+	ProviderId pulumi.StringPtrInput `pulumi:"providerId"`
+}
+
+func (AiOptimizerHostedModelFallbackArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelFallback)(nil)).Elem()
+}
+
+func (i AiOptimizerHostedModelFallbackArgs) ToAiOptimizerHostedModelFallbackOutput() AiOptimizerHostedModelFallbackOutput {
+	return i.ToAiOptimizerHostedModelFallbackOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelFallbackArgs) ToAiOptimizerHostedModelFallbackOutputWithContext(ctx context.Context) AiOptimizerHostedModelFallbackOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelFallbackOutput)
+}
+
+func (i AiOptimizerHostedModelFallbackArgs) ToAiOptimizerHostedModelFallbackPtrOutput() AiOptimizerHostedModelFallbackPtrOutput {
+	return i.ToAiOptimizerHostedModelFallbackPtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelFallbackArgs) ToAiOptimizerHostedModelFallbackPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelFallbackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelFallbackOutput).ToAiOptimizerHostedModelFallbackPtrOutputWithContext(ctx)
+}
+
+// AiOptimizerHostedModelFallbackPtrInput is an input type that accepts AiOptimizerHostedModelFallbackArgs, AiOptimizerHostedModelFallbackPtr and AiOptimizerHostedModelFallbackPtrOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelFallbackPtrInput` via:
+//
+//	        AiOptimizerHostedModelFallbackArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerHostedModelFallbackPtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelFallbackPtrOutput() AiOptimizerHostedModelFallbackPtrOutput
+	ToAiOptimizerHostedModelFallbackPtrOutputWithContext(context.Context) AiOptimizerHostedModelFallbackPtrOutput
+}
+
+type aiOptimizerHostedModelFallbackPtrType AiOptimizerHostedModelFallbackArgs
+
+func AiOptimizerHostedModelFallbackPtr(v *AiOptimizerHostedModelFallbackArgs) AiOptimizerHostedModelFallbackPtrInput {
+	return (*aiOptimizerHostedModelFallbackPtrType)(v)
+}
+
+func (*aiOptimizerHostedModelFallbackPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelFallback)(nil)).Elem()
+}
+
+func (i *aiOptimizerHostedModelFallbackPtrType) ToAiOptimizerHostedModelFallbackPtrOutput() AiOptimizerHostedModelFallbackPtrOutput {
+	return i.ToAiOptimizerHostedModelFallbackPtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerHostedModelFallbackPtrType) ToAiOptimizerHostedModelFallbackPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelFallbackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelFallbackPtrOutput)
+}
+
+type AiOptimizerHostedModelFallbackOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelFallbackOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelFallback)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelFallbackOutput) ToAiOptimizerHostedModelFallbackOutput() AiOptimizerHostedModelFallbackOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelFallbackOutput) ToAiOptimizerHostedModelFallbackOutputWithContext(ctx context.Context) AiOptimizerHostedModelFallbackOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelFallbackOutput) ToAiOptimizerHostedModelFallbackPtrOutput() AiOptimizerHostedModelFallbackPtrOutput {
+	return o.ToAiOptimizerHostedModelFallbackPtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerHostedModelFallbackOutput) ToAiOptimizerHostedModelFallbackPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelFallbackPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerHostedModelFallback) *AiOptimizerHostedModelFallback {
+		return &v
+	}).(AiOptimizerHostedModelFallbackPtrOutput)
+}
+
+func (o AiOptimizerHostedModelFallbackOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelFallback) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+func (o AiOptimizerHostedModelFallbackOutput) Model() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelFallback) *string { return v.Model }).(pulumi.StringPtrOutput)
+}
+
+func (o AiOptimizerHostedModelFallbackOutput) ProviderId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelFallback) *string { return v.ProviderId }).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerHostedModelFallbackPtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelFallbackPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelFallback)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelFallbackPtrOutput) ToAiOptimizerHostedModelFallbackPtrOutput() AiOptimizerHostedModelFallbackPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelFallbackPtrOutput) ToAiOptimizerHostedModelFallbackPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelFallbackPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelFallbackPtrOutput) Elem() AiOptimizerHostedModelFallbackOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelFallback) AiOptimizerHostedModelFallback {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerHostedModelFallback
+		return ret
+	}).(AiOptimizerHostedModelFallbackOutput)
+}
+
+func (o AiOptimizerHostedModelFallbackPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelFallback) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o AiOptimizerHostedModelFallbackPtrOutput) Model() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelFallback) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Model
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o AiOptimizerHostedModelFallbackPtrOutput) ProviderId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelFallback) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ProviderId
+	}).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerHostedModelHibernation struct {
+	Enabled            *bool                                               `pulumi:"enabled"`
+	HibernateCondition AiOptimizerHostedModelHibernationHibernateCondition `pulumi:"hibernateCondition"`
+	ResumeCondition    AiOptimizerHostedModelHibernationResumeCondition    `pulumi:"resumeCondition"`
+}
+
+// AiOptimizerHostedModelHibernationInput is an input type that accepts AiOptimizerHostedModelHibernationArgs and AiOptimizerHostedModelHibernationOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelHibernationInput` via:
+//
+//	AiOptimizerHostedModelHibernationArgs{...}
+type AiOptimizerHostedModelHibernationInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelHibernationOutput() AiOptimizerHostedModelHibernationOutput
+	ToAiOptimizerHostedModelHibernationOutputWithContext(context.Context) AiOptimizerHostedModelHibernationOutput
+}
+
+type AiOptimizerHostedModelHibernationArgs struct {
+	Enabled            pulumi.BoolPtrInput                                      `pulumi:"enabled"`
+	HibernateCondition AiOptimizerHostedModelHibernationHibernateConditionInput `pulumi:"hibernateCondition"`
+	ResumeCondition    AiOptimizerHostedModelHibernationResumeConditionInput    `pulumi:"resumeCondition"`
+}
+
+func (AiOptimizerHostedModelHibernationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelHibernation)(nil)).Elem()
+}
+
+func (i AiOptimizerHostedModelHibernationArgs) ToAiOptimizerHostedModelHibernationOutput() AiOptimizerHostedModelHibernationOutput {
+	return i.ToAiOptimizerHostedModelHibernationOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelHibernationArgs) ToAiOptimizerHostedModelHibernationOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationOutput)
+}
+
+func (i AiOptimizerHostedModelHibernationArgs) ToAiOptimizerHostedModelHibernationPtrOutput() AiOptimizerHostedModelHibernationPtrOutput {
+	return i.ToAiOptimizerHostedModelHibernationPtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelHibernationArgs) ToAiOptimizerHostedModelHibernationPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationOutput).ToAiOptimizerHostedModelHibernationPtrOutputWithContext(ctx)
+}
+
+// AiOptimizerHostedModelHibernationPtrInput is an input type that accepts AiOptimizerHostedModelHibernationArgs, AiOptimizerHostedModelHibernationPtr and AiOptimizerHostedModelHibernationPtrOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelHibernationPtrInput` via:
+//
+//	        AiOptimizerHostedModelHibernationArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerHostedModelHibernationPtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelHibernationPtrOutput() AiOptimizerHostedModelHibernationPtrOutput
+	ToAiOptimizerHostedModelHibernationPtrOutputWithContext(context.Context) AiOptimizerHostedModelHibernationPtrOutput
+}
+
+type aiOptimizerHostedModelHibernationPtrType AiOptimizerHostedModelHibernationArgs
+
+func AiOptimizerHostedModelHibernationPtr(v *AiOptimizerHostedModelHibernationArgs) AiOptimizerHostedModelHibernationPtrInput {
+	return (*aiOptimizerHostedModelHibernationPtrType)(v)
+}
+
+func (*aiOptimizerHostedModelHibernationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelHibernation)(nil)).Elem()
+}
+
+func (i *aiOptimizerHostedModelHibernationPtrType) ToAiOptimizerHostedModelHibernationPtrOutput() AiOptimizerHostedModelHibernationPtrOutput {
+	return i.ToAiOptimizerHostedModelHibernationPtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerHostedModelHibernationPtrType) ToAiOptimizerHostedModelHibernationPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationPtrOutput)
+}
+
+type AiOptimizerHostedModelHibernationOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelHibernationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelHibernation)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelHibernationOutput) ToAiOptimizerHostedModelHibernationOutput() AiOptimizerHostedModelHibernationOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationOutput) ToAiOptimizerHostedModelHibernationOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationOutput) ToAiOptimizerHostedModelHibernationPtrOutput() AiOptimizerHostedModelHibernationPtrOutput {
+	return o.ToAiOptimizerHostedModelHibernationPtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerHostedModelHibernationOutput) ToAiOptimizerHostedModelHibernationPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerHostedModelHibernation) *AiOptimizerHostedModelHibernation {
+		return &v
+	}).(AiOptimizerHostedModelHibernationPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHibernationOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHibernation) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHibernationOutput) HibernateCondition() AiOptimizerHostedModelHibernationHibernateConditionOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHibernation) AiOptimizerHostedModelHibernationHibernateCondition {
+		return v.HibernateCondition
+	}).(AiOptimizerHostedModelHibernationHibernateConditionOutput)
+}
+
+func (o AiOptimizerHostedModelHibernationOutput) ResumeCondition() AiOptimizerHostedModelHibernationResumeConditionOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHibernation) AiOptimizerHostedModelHibernationResumeCondition {
+		return v.ResumeCondition
+	}).(AiOptimizerHostedModelHibernationResumeConditionOutput)
+}
+
+type AiOptimizerHostedModelHibernationPtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelHibernationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelHibernation)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelHibernationPtrOutput) ToAiOptimizerHostedModelHibernationPtrOutput() AiOptimizerHostedModelHibernationPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationPtrOutput) ToAiOptimizerHostedModelHibernationPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationPtrOutput) Elem() AiOptimizerHostedModelHibernationOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernation) AiOptimizerHostedModelHibernation {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerHostedModelHibernation
+		return ret
+	}).(AiOptimizerHostedModelHibernationOutput)
+}
+
+func (o AiOptimizerHostedModelHibernationPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernation) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHibernationPtrOutput) HibernateCondition() AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernation) *AiOptimizerHostedModelHibernationHibernateCondition {
+		if v == nil {
+			return nil
+		}
+		return &v.HibernateCondition
+	}).(AiOptimizerHostedModelHibernationHibernateConditionPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHibernationPtrOutput) ResumeCondition() AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernation) *AiOptimizerHostedModelHibernationResumeCondition {
+		if v == nil {
+			return nil
+		}
+		return &v.ResumeCondition
+	}).(AiOptimizerHostedModelHibernationResumeConditionPtrOutput)
+}
+
+type AiOptimizerHostedModelHibernationHibernateCondition struct {
+	// Time period for the condition evaluation.
+	Duration string `pulumi:"duration"`
+	// Request count threshold. Value of 0 is treated as not set.
+	RequestCount *int `pulumi:"requestCount"`
+}
+
+// AiOptimizerHostedModelHibernationHibernateConditionInput is an input type that accepts AiOptimizerHostedModelHibernationHibernateConditionArgs and AiOptimizerHostedModelHibernationHibernateConditionOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelHibernationHibernateConditionInput` via:
+//
+//	AiOptimizerHostedModelHibernationHibernateConditionArgs{...}
+type AiOptimizerHostedModelHibernationHibernateConditionInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelHibernationHibernateConditionOutput() AiOptimizerHostedModelHibernationHibernateConditionOutput
+	ToAiOptimizerHostedModelHibernationHibernateConditionOutputWithContext(context.Context) AiOptimizerHostedModelHibernationHibernateConditionOutput
+}
+
+type AiOptimizerHostedModelHibernationHibernateConditionArgs struct {
+	// Time period for the condition evaluation.
+	Duration pulumi.StringInput `pulumi:"duration"`
+	// Request count threshold. Value of 0 is treated as not set.
+	RequestCount pulumi.IntPtrInput `pulumi:"requestCount"`
+}
+
+func (AiOptimizerHostedModelHibernationHibernateConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelHibernationHibernateCondition)(nil)).Elem()
+}
+
+func (i AiOptimizerHostedModelHibernationHibernateConditionArgs) ToAiOptimizerHostedModelHibernationHibernateConditionOutput() AiOptimizerHostedModelHibernationHibernateConditionOutput {
+	return i.ToAiOptimizerHostedModelHibernationHibernateConditionOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelHibernationHibernateConditionArgs) ToAiOptimizerHostedModelHibernationHibernateConditionOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationHibernateConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationHibernateConditionOutput)
+}
+
+func (i AiOptimizerHostedModelHibernationHibernateConditionArgs) ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutput() AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return i.ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelHibernationHibernateConditionArgs) ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationHibernateConditionOutput).ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(ctx)
+}
+
+// AiOptimizerHostedModelHibernationHibernateConditionPtrInput is an input type that accepts AiOptimizerHostedModelHibernationHibernateConditionArgs, AiOptimizerHostedModelHibernationHibernateConditionPtr and AiOptimizerHostedModelHibernationHibernateConditionPtrOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelHibernationHibernateConditionPtrInput` via:
+//
+//	        AiOptimizerHostedModelHibernationHibernateConditionArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerHostedModelHibernationHibernateConditionPtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutput() AiOptimizerHostedModelHibernationHibernateConditionPtrOutput
+	ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(context.Context) AiOptimizerHostedModelHibernationHibernateConditionPtrOutput
+}
+
+type aiOptimizerHostedModelHibernationHibernateConditionPtrType AiOptimizerHostedModelHibernationHibernateConditionArgs
+
+func AiOptimizerHostedModelHibernationHibernateConditionPtr(v *AiOptimizerHostedModelHibernationHibernateConditionArgs) AiOptimizerHostedModelHibernationHibernateConditionPtrInput {
+	return (*aiOptimizerHostedModelHibernationHibernateConditionPtrType)(v)
+}
+
+func (*aiOptimizerHostedModelHibernationHibernateConditionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelHibernationHibernateCondition)(nil)).Elem()
+}
+
+func (i *aiOptimizerHostedModelHibernationHibernateConditionPtrType) ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutput() AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return i.ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerHostedModelHibernationHibernateConditionPtrType) ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationHibernateConditionPtrOutput)
+}
+
+type AiOptimizerHostedModelHibernationHibernateConditionOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelHibernationHibernateConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelHibernationHibernateCondition)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelHibernationHibernateConditionOutput) ToAiOptimizerHostedModelHibernationHibernateConditionOutput() AiOptimizerHostedModelHibernationHibernateConditionOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationHibernateConditionOutput) ToAiOptimizerHostedModelHibernationHibernateConditionOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationHibernateConditionOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationHibernateConditionOutput) ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutput() AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return o.ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerHostedModelHibernationHibernateConditionOutput) ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerHostedModelHibernationHibernateCondition) *AiOptimizerHostedModelHibernationHibernateCondition {
+		return &v
+	}).(AiOptimizerHostedModelHibernationHibernateConditionPtrOutput)
+}
+
+// Time period for the condition evaluation.
+func (o AiOptimizerHostedModelHibernationHibernateConditionOutput) Duration() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHibernationHibernateCondition) string { return v.Duration }).(pulumi.StringOutput)
+}
+
+// Request count threshold. Value of 0 is treated as not set.
+func (o AiOptimizerHostedModelHibernationHibernateConditionOutput) RequestCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHibernationHibernateCondition) *int { return v.RequestCount }).(pulumi.IntPtrOutput)
+}
+
+type AiOptimizerHostedModelHibernationHibernateConditionPtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelHibernationHibernateConditionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelHibernationHibernateCondition)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelHibernationHibernateConditionPtrOutput) ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutput() AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationHibernateConditionPtrOutput) ToAiOptimizerHostedModelHibernationHibernateConditionPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationHibernateConditionPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationHibernateConditionPtrOutput) Elem() AiOptimizerHostedModelHibernationHibernateConditionOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernationHibernateCondition) AiOptimizerHostedModelHibernationHibernateCondition {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerHostedModelHibernationHibernateCondition
+		return ret
+	}).(AiOptimizerHostedModelHibernationHibernateConditionOutput)
+}
+
+// Time period for the condition evaluation.
+func (o AiOptimizerHostedModelHibernationHibernateConditionPtrOutput) Duration() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernationHibernateCondition) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Duration
+	}).(pulumi.StringPtrOutput)
+}
+
+// Request count threshold. Value of 0 is treated as not set.
+func (o AiOptimizerHostedModelHibernationHibernateConditionPtrOutput) RequestCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernationHibernateCondition) *int {
+		if v == nil {
+			return nil
+		}
+		return v.RequestCount
+	}).(pulumi.IntPtrOutput)
+}
+
+type AiOptimizerHostedModelHibernationResumeCondition struct {
+	// Time period for the condition evaluation.
+	Duration string `pulumi:"duration"`
+	// Request count threshold. Value of 0 is treated as not set.
+	RequestCount *int `pulumi:"requestCount"`
+}
+
+// AiOptimizerHostedModelHibernationResumeConditionInput is an input type that accepts AiOptimizerHostedModelHibernationResumeConditionArgs and AiOptimizerHostedModelHibernationResumeConditionOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelHibernationResumeConditionInput` via:
+//
+//	AiOptimizerHostedModelHibernationResumeConditionArgs{...}
+type AiOptimizerHostedModelHibernationResumeConditionInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelHibernationResumeConditionOutput() AiOptimizerHostedModelHibernationResumeConditionOutput
+	ToAiOptimizerHostedModelHibernationResumeConditionOutputWithContext(context.Context) AiOptimizerHostedModelHibernationResumeConditionOutput
+}
+
+type AiOptimizerHostedModelHibernationResumeConditionArgs struct {
+	// Time period for the condition evaluation.
+	Duration pulumi.StringInput `pulumi:"duration"`
+	// Request count threshold. Value of 0 is treated as not set.
+	RequestCount pulumi.IntPtrInput `pulumi:"requestCount"`
+}
+
+func (AiOptimizerHostedModelHibernationResumeConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelHibernationResumeCondition)(nil)).Elem()
+}
+
+func (i AiOptimizerHostedModelHibernationResumeConditionArgs) ToAiOptimizerHostedModelHibernationResumeConditionOutput() AiOptimizerHostedModelHibernationResumeConditionOutput {
+	return i.ToAiOptimizerHostedModelHibernationResumeConditionOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelHibernationResumeConditionArgs) ToAiOptimizerHostedModelHibernationResumeConditionOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationResumeConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationResumeConditionOutput)
+}
+
+func (i AiOptimizerHostedModelHibernationResumeConditionArgs) ToAiOptimizerHostedModelHibernationResumeConditionPtrOutput() AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return i.ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelHibernationResumeConditionArgs) ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationResumeConditionOutput).ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(ctx)
+}
+
+// AiOptimizerHostedModelHibernationResumeConditionPtrInput is an input type that accepts AiOptimizerHostedModelHibernationResumeConditionArgs, AiOptimizerHostedModelHibernationResumeConditionPtr and AiOptimizerHostedModelHibernationResumeConditionPtrOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelHibernationResumeConditionPtrInput` via:
+//
+//	        AiOptimizerHostedModelHibernationResumeConditionArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerHostedModelHibernationResumeConditionPtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelHibernationResumeConditionPtrOutput() AiOptimizerHostedModelHibernationResumeConditionPtrOutput
+	ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(context.Context) AiOptimizerHostedModelHibernationResumeConditionPtrOutput
+}
+
+type aiOptimizerHostedModelHibernationResumeConditionPtrType AiOptimizerHostedModelHibernationResumeConditionArgs
+
+func AiOptimizerHostedModelHibernationResumeConditionPtr(v *AiOptimizerHostedModelHibernationResumeConditionArgs) AiOptimizerHostedModelHibernationResumeConditionPtrInput {
+	return (*aiOptimizerHostedModelHibernationResumeConditionPtrType)(v)
+}
+
+func (*aiOptimizerHostedModelHibernationResumeConditionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelHibernationResumeCondition)(nil)).Elem()
+}
+
+func (i *aiOptimizerHostedModelHibernationResumeConditionPtrType) ToAiOptimizerHostedModelHibernationResumeConditionPtrOutput() AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return i.ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerHostedModelHibernationResumeConditionPtrType) ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHibernationResumeConditionPtrOutput)
+}
+
+type AiOptimizerHostedModelHibernationResumeConditionOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelHibernationResumeConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelHibernationResumeCondition)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelHibernationResumeConditionOutput) ToAiOptimizerHostedModelHibernationResumeConditionOutput() AiOptimizerHostedModelHibernationResumeConditionOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationResumeConditionOutput) ToAiOptimizerHostedModelHibernationResumeConditionOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationResumeConditionOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationResumeConditionOutput) ToAiOptimizerHostedModelHibernationResumeConditionPtrOutput() AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return o.ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerHostedModelHibernationResumeConditionOutput) ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerHostedModelHibernationResumeCondition) *AiOptimizerHostedModelHibernationResumeCondition {
+		return &v
+	}).(AiOptimizerHostedModelHibernationResumeConditionPtrOutput)
+}
+
+// Time period for the condition evaluation.
+func (o AiOptimizerHostedModelHibernationResumeConditionOutput) Duration() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHibernationResumeCondition) string { return v.Duration }).(pulumi.StringOutput)
+}
+
+// Request count threshold. Value of 0 is treated as not set.
+func (o AiOptimizerHostedModelHibernationResumeConditionOutput) RequestCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHibernationResumeCondition) *int { return v.RequestCount }).(pulumi.IntPtrOutput)
+}
+
+type AiOptimizerHostedModelHibernationResumeConditionPtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelHibernationResumeConditionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelHibernationResumeCondition)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelHibernationResumeConditionPtrOutput) ToAiOptimizerHostedModelHibernationResumeConditionPtrOutput() AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationResumeConditionPtrOutput) ToAiOptimizerHostedModelHibernationResumeConditionPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHibernationResumeConditionPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHibernationResumeConditionPtrOutput) Elem() AiOptimizerHostedModelHibernationResumeConditionOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernationResumeCondition) AiOptimizerHostedModelHibernationResumeCondition {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerHostedModelHibernationResumeCondition
+		return ret
+	}).(AiOptimizerHostedModelHibernationResumeConditionOutput)
+}
+
+// Time period for the condition evaluation.
+func (o AiOptimizerHostedModelHibernationResumeConditionPtrOutput) Duration() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernationResumeCondition) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Duration
+	}).(pulumi.StringPtrOutput)
+}
+
+// Request count threshold. Value of 0 is treated as not set.
+func (o AiOptimizerHostedModelHibernationResumeConditionPtrOutput) RequestCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHibernationResumeCondition) *int {
+		if v == nil {
+			return nil
+		}
+		return v.RequestCount
+	}).(pulumi.IntPtrOutput)
+}
+
+type AiOptimizerHostedModelHorizontalAutoscaling struct {
+	Enabled      *bool   `pulumi:"enabled"`
+	MaxReplicas  int     `pulumi:"maxReplicas"`
+	MinReplicas  int     `pulumi:"minReplicas"`
+	TargetMetric string  `pulumi:"targetMetric"`
+	TargetValue  float64 `pulumi:"targetValue"`
+}
+
+// AiOptimizerHostedModelHorizontalAutoscalingInput is an input type that accepts AiOptimizerHostedModelHorizontalAutoscalingArgs and AiOptimizerHostedModelHorizontalAutoscalingOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelHorizontalAutoscalingInput` via:
+//
+//	AiOptimizerHostedModelHorizontalAutoscalingArgs{...}
+type AiOptimizerHostedModelHorizontalAutoscalingInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelHorizontalAutoscalingOutput() AiOptimizerHostedModelHorizontalAutoscalingOutput
+	ToAiOptimizerHostedModelHorizontalAutoscalingOutputWithContext(context.Context) AiOptimizerHostedModelHorizontalAutoscalingOutput
+}
+
+type AiOptimizerHostedModelHorizontalAutoscalingArgs struct {
+	Enabled      pulumi.BoolPtrInput `pulumi:"enabled"`
+	MaxReplicas  pulumi.IntInput     `pulumi:"maxReplicas"`
+	MinReplicas  pulumi.IntInput     `pulumi:"minReplicas"`
+	TargetMetric pulumi.StringInput  `pulumi:"targetMetric"`
+	TargetValue  pulumi.Float64Input `pulumi:"targetValue"`
+}
+
+func (AiOptimizerHostedModelHorizontalAutoscalingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelHorizontalAutoscaling)(nil)).Elem()
+}
+
+func (i AiOptimizerHostedModelHorizontalAutoscalingArgs) ToAiOptimizerHostedModelHorizontalAutoscalingOutput() AiOptimizerHostedModelHorizontalAutoscalingOutput {
+	return i.ToAiOptimizerHostedModelHorizontalAutoscalingOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelHorizontalAutoscalingArgs) ToAiOptimizerHostedModelHorizontalAutoscalingOutputWithContext(ctx context.Context) AiOptimizerHostedModelHorizontalAutoscalingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHorizontalAutoscalingOutput)
+}
+
+func (i AiOptimizerHostedModelHorizontalAutoscalingArgs) ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutput() AiOptimizerHostedModelHorizontalAutoscalingPtrOutput {
+	return i.ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelHorizontalAutoscalingArgs) ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHorizontalAutoscalingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHorizontalAutoscalingOutput).ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(ctx)
+}
+
+// AiOptimizerHostedModelHorizontalAutoscalingPtrInput is an input type that accepts AiOptimizerHostedModelHorizontalAutoscalingArgs, AiOptimizerHostedModelHorizontalAutoscalingPtr and AiOptimizerHostedModelHorizontalAutoscalingPtrOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelHorizontalAutoscalingPtrInput` via:
+//
+//	        AiOptimizerHostedModelHorizontalAutoscalingArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerHostedModelHorizontalAutoscalingPtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutput() AiOptimizerHostedModelHorizontalAutoscalingPtrOutput
+	ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(context.Context) AiOptimizerHostedModelHorizontalAutoscalingPtrOutput
+}
+
+type aiOptimizerHostedModelHorizontalAutoscalingPtrType AiOptimizerHostedModelHorizontalAutoscalingArgs
+
+func AiOptimizerHostedModelHorizontalAutoscalingPtr(v *AiOptimizerHostedModelHorizontalAutoscalingArgs) AiOptimizerHostedModelHorizontalAutoscalingPtrInput {
+	return (*aiOptimizerHostedModelHorizontalAutoscalingPtrType)(v)
+}
+
+func (*aiOptimizerHostedModelHorizontalAutoscalingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelHorizontalAutoscaling)(nil)).Elem()
+}
+
+func (i *aiOptimizerHostedModelHorizontalAutoscalingPtrType) ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutput() AiOptimizerHostedModelHorizontalAutoscalingPtrOutput {
+	return i.ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerHostedModelHorizontalAutoscalingPtrType) ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHorizontalAutoscalingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelHorizontalAutoscalingPtrOutput)
+}
+
+type AiOptimizerHostedModelHorizontalAutoscalingOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelHorizontalAutoscalingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelHorizontalAutoscaling)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) ToAiOptimizerHostedModelHorizontalAutoscalingOutput() AiOptimizerHostedModelHorizontalAutoscalingOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) ToAiOptimizerHostedModelHorizontalAutoscalingOutputWithContext(ctx context.Context) AiOptimizerHostedModelHorizontalAutoscalingOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutput() AiOptimizerHostedModelHorizontalAutoscalingPtrOutput {
+	return o.ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHorizontalAutoscalingPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerHostedModelHorizontalAutoscaling) *AiOptimizerHostedModelHorizontalAutoscaling {
+		return &v
+	}).(AiOptimizerHostedModelHorizontalAutoscalingPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHorizontalAutoscaling) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) MaxReplicas() pulumi.IntOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHorizontalAutoscaling) int { return v.MaxReplicas }).(pulumi.IntOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) MinReplicas() pulumi.IntOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHorizontalAutoscaling) int { return v.MinReplicas }).(pulumi.IntOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) TargetMetric() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelHorizontalAutoscaling) string { return v.TargetMetric }).(pulumi.StringOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingOutput) TargetValue() pulumi.Float64Output {
+	return o.ApplyT(func(v AiOptimizerHostedModelHorizontalAutoscaling) float64 { return v.TargetValue }).(pulumi.Float64Output)
+}
+
+type AiOptimizerHostedModelHorizontalAutoscalingPtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelHorizontalAutoscaling)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutput() AiOptimizerHostedModelHorizontalAutoscalingPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) ToAiOptimizerHostedModelHorizontalAutoscalingPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelHorizontalAutoscalingPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) Elem() AiOptimizerHostedModelHorizontalAutoscalingOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHorizontalAutoscaling) AiOptimizerHostedModelHorizontalAutoscaling {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerHostedModelHorizontalAutoscaling
+		return ret
+	}).(AiOptimizerHostedModelHorizontalAutoscalingOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHorizontalAutoscaling) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHorizontalAutoscaling) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.MaxReplicas
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) MinReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHorizontalAutoscaling) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.MinReplicas
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) TargetMetric() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHorizontalAutoscaling) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.TargetMetric
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o AiOptimizerHostedModelHorizontalAutoscalingPtrOutput) TargetValue() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelHorizontalAutoscaling) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.TargetValue
+	}).(pulumi.Float64PtrOutput)
+}
+
+type AiOptimizerHostedModelVllmConfig struct {
+	// HuggingFace token. Mutually exclusive with secret_name.
+	HuggingFaceToken *string `pulumi:"huggingFaceToken"`
+	// Kubernetes secret name containing the HuggingFace token.
+	SecretName *string `pulumi:"secretName"`
+}
+
+// AiOptimizerHostedModelVllmConfigInput is an input type that accepts AiOptimizerHostedModelVllmConfigArgs and AiOptimizerHostedModelVllmConfigOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelVllmConfigInput` via:
+//
+//	AiOptimizerHostedModelVllmConfigArgs{...}
+type AiOptimizerHostedModelVllmConfigInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelVllmConfigOutput() AiOptimizerHostedModelVllmConfigOutput
+	ToAiOptimizerHostedModelVllmConfigOutputWithContext(context.Context) AiOptimizerHostedModelVllmConfigOutput
+}
+
+type AiOptimizerHostedModelVllmConfigArgs struct {
+	// HuggingFace token. Mutually exclusive with secret_name.
+	HuggingFaceToken pulumi.StringPtrInput `pulumi:"huggingFaceToken"`
+	// Kubernetes secret name containing the HuggingFace token.
+	SecretName pulumi.StringPtrInput `pulumi:"secretName"`
+}
+
+func (AiOptimizerHostedModelVllmConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelVllmConfig)(nil)).Elem()
+}
+
+func (i AiOptimizerHostedModelVllmConfigArgs) ToAiOptimizerHostedModelVllmConfigOutput() AiOptimizerHostedModelVllmConfigOutput {
+	return i.ToAiOptimizerHostedModelVllmConfigOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelVllmConfigArgs) ToAiOptimizerHostedModelVllmConfigOutputWithContext(ctx context.Context) AiOptimizerHostedModelVllmConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelVllmConfigOutput)
+}
+
+func (i AiOptimizerHostedModelVllmConfigArgs) ToAiOptimizerHostedModelVllmConfigPtrOutput() AiOptimizerHostedModelVllmConfigPtrOutput {
+	return i.ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerHostedModelVllmConfigArgs) ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelVllmConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelVllmConfigOutput).ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(ctx)
+}
+
+// AiOptimizerHostedModelVllmConfigPtrInput is an input type that accepts AiOptimizerHostedModelVllmConfigArgs, AiOptimizerHostedModelVllmConfigPtr and AiOptimizerHostedModelVllmConfigPtrOutput values.
+// You can construct a concrete instance of `AiOptimizerHostedModelVllmConfigPtrInput` via:
+//
+//	        AiOptimizerHostedModelVllmConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerHostedModelVllmConfigPtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerHostedModelVllmConfigPtrOutput() AiOptimizerHostedModelVllmConfigPtrOutput
+	ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(context.Context) AiOptimizerHostedModelVllmConfigPtrOutput
+}
+
+type aiOptimizerHostedModelVllmConfigPtrType AiOptimizerHostedModelVllmConfigArgs
+
+func AiOptimizerHostedModelVllmConfigPtr(v *AiOptimizerHostedModelVllmConfigArgs) AiOptimizerHostedModelVllmConfigPtrInput {
+	return (*aiOptimizerHostedModelVllmConfigPtrType)(v)
+}
+
+func (*aiOptimizerHostedModelVllmConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelVllmConfig)(nil)).Elem()
+}
+
+func (i *aiOptimizerHostedModelVllmConfigPtrType) ToAiOptimizerHostedModelVllmConfigPtrOutput() AiOptimizerHostedModelVllmConfigPtrOutput {
+	return i.ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerHostedModelVllmConfigPtrType) ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelVllmConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerHostedModelVllmConfigPtrOutput)
+}
+
+type AiOptimizerHostedModelVllmConfigOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelVllmConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerHostedModelVllmConfig)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelVllmConfigOutput) ToAiOptimizerHostedModelVllmConfigOutput() AiOptimizerHostedModelVllmConfigOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelVllmConfigOutput) ToAiOptimizerHostedModelVllmConfigOutputWithContext(ctx context.Context) AiOptimizerHostedModelVllmConfigOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelVllmConfigOutput) ToAiOptimizerHostedModelVllmConfigPtrOutput() AiOptimizerHostedModelVllmConfigPtrOutput {
+	return o.ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerHostedModelVllmConfigOutput) ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelVllmConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerHostedModelVllmConfig) *AiOptimizerHostedModelVllmConfig {
+		return &v
+	}).(AiOptimizerHostedModelVllmConfigPtrOutput)
+}
+
+// HuggingFace token. Mutually exclusive with secret_name.
+func (o AiOptimizerHostedModelVllmConfigOutput) HuggingFaceToken() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelVllmConfig) *string { return v.HuggingFaceToken }).(pulumi.StringPtrOutput)
+}
+
+// Kubernetes secret name containing the HuggingFace token.
+func (o AiOptimizerHostedModelVllmConfigOutput) SecretName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiOptimizerHostedModelVllmConfig) *string { return v.SecretName }).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerHostedModelVllmConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerHostedModelVllmConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerHostedModelVllmConfig)(nil)).Elem()
+}
+
+func (o AiOptimizerHostedModelVllmConfigPtrOutput) ToAiOptimizerHostedModelVllmConfigPtrOutput() AiOptimizerHostedModelVllmConfigPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelVllmConfigPtrOutput) ToAiOptimizerHostedModelVllmConfigPtrOutputWithContext(ctx context.Context) AiOptimizerHostedModelVllmConfigPtrOutput {
+	return o
+}
+
+func (o AiOptimizerHostedModelVllmConfigPtrOutput) Elem() AiOptimizerHostedModelVllmConfigOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelVllmConfig) AiOptimizerHostedModelVllmConfig {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerHostedModelVllmConfig
+		return ret
+	}).(AiOptimizerHostedModelVllmConfigOutput)
+}
+
+// HuggingFace token. Mutually exclusive with secret_name.
+func (o AiOptimizerHostedModelVllmConfigPtrOutput) HuggingFaceToken() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelVllmConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HuggingFaceToken
+	}).(pulumi.StringPtrOutput)
+}
+
+// Kubernetes secret name containing the HuggingFace token.
+func (o AiOptimizerHostedModelVllmConfigPtrOutput) SecretName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerHostedModelVllmConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SecretName
+	}).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerModelRegistryGcs struct {
+	// GCS bucket name.
+	Bucket string `pulumi:"bucket"`
+	// Path prefix within the bucket.
+	Prefix *string `pulumi:"prefix"`
+	// Service account email generated by onboarding.
+	ServiceAccount *string `pulumi:"serviceAccount"`
+}
+
+// AiOptimizerModelRegistryGcsInput is an input type that accepts AiOptimizerModelRegistryGcsArgs and AiOptimizerModelRegistryGcsOutput values.
+// You can construct a concrete instance of `AiOptimizerModelRegistryGcsInput` via:
+//
+//	AiOptimizerModelRegistryGcsArgs{...}
+type AiOptimizerModelRegistryGcsInput interface {
+	pulumi.Input
+
+	ToAiOptimizerModelRegistryGcsOutput() AiOptimizerModelRegistryGcsOutput
+	ToAiOptimizerModelRegistryGcsOutputWithContext(context.Context) AiOptimizerModelRegistryGcsOutput
+}
+
+type AiOptimizerModelRegistryGcsArgs struct {
+	// GCS bucket name.
+	Bucket pulumi.StringInput `pulumi:"bucket"`
+	// Path prefix within the bucket.
+	Prefix pulumi.StringPtrInput `pulumi:"prefix"`
+	// Service account email generated by onboarding.
+	ServiceAccount pulumi.StringPtrInput `pulumi:"serviceAccount"`
+}
+
+func (AiOptimizerModelRegistryGcsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerModelRegistryGcs)(nil)).Elem()
+}
+
+func (i AiOptimizerModelRegistryGcsArgs) ToAiOptimizerModelRegistryGcsOutput() AiOptimizerModelRegistryGcsOutput {
+	return i.ToAiOptimizerModelRegistryGcsOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerModelRegistryGcsArgs) ToAiOptimizerModelRegistryGcsOutputWithContext(ctx context.Context) AiOptimizerModelRegistryGcsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelRegistryGcsOutput)
+}
+
+func (i AiOptimizerModelRegistryGcsArgs) ToAiOptimizerModelRegistryGcsPtrOutput() AiOptimizerModelRegistryGcsPtrOutput {
+	return i.ToAiOptimizerModelRegistryGcsPtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerModelRegistryGcsArgs) ToAiOptimizerModelRegistryGcsPtrOutputWithContext(ctx context.Context) AiOptimizerModelRegistryGcsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelRegistryGcsOutput).ToAiOptimizerModelRegistryGcsPtrOutputWithContext(ctx)
+}
+
+// AiOptimizerModelRegistryGcsPtrInput is an input type that accepts AiOptimizerModelRegistryGcsArgs, AiOptimizerModelRegistryGcsPtr and AiOptimizerModelRegistryGcsPtrOutput values.
+// You can construct a concrete instance of `AiOptimizerModelRegistryGcsPtrInput` via:
+//
+//	        AiOptimizerModelRegistryGcsArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerModelRegistryGcsPtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerModelRegistryGcsPtrOutput() AiOptimizerModelRegistryGcsPtrOutput
+	ToAiOptimizerModelRegistryGcsPtrOutputWithContext(context.Context) AiOptimizerModelRegistryGcsPtrOutput
+}
+
+type aiOptimizerModelRegistryGcsPtrType AiOptimizerModelRegistryGcsArgs
+
+func AiOptimizerModelRegistryGcsPtr(v *AiOptimizerModelRegistryGcsArgs) AiOptimizerModelRegistryGcsPtrInput {
+	return (*aiOptimizerModelRegistryGcsPtrType)(v)
+}
+
+func (*aiOptimizerModelRegistryGcsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerModelRegistryGcs)(nil)).Elem()
+}
+
+func (i *aiOptimizerModelRegistryGcsPtrType) ToAiOptimizerModelRegistryGcsPtrOutput() AiOptimizerModelRegistryGcsPtrOutput {
+	return i.ToAiOptimizerModelRegistryGcsPtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerModelRegistryGcsPtrType) ToAiOptimizerModelRegistryGcsPtrOutputWithContext(ctx context.Context) AiOptimizerModelRegistryGcsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelRegistryGcsPtrOutput)
+}
+
+type AiOptimizerModelRegistryGcsOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerModelRegistryGcsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerModelRegistryGcs)(nil)).Elem()
+}
+
+func (o AiOptimizerModelRegistryGcsOutput) ToAiOptimizerModelRegistryGcsOutput() AiOptimizerModelRegistryGcsOutput {
+	return o
+}
+
+func (o AiOptimizerModelRegistryGcsOutput) ToAiOptimizerModelRegistryGcsOutputWithContext(ctx context.Context) AiOptimizerModelRegistryGcsOutput {
+	return o
+}
+
+func (o AiOptimizerModelRegistryGcsOutput) ToAiOptimizerModelRegistryGcsPtrOutput() AiOptimizerModelRegistryGcsPtrOutput {
+	return o.ToAiOptimizerModelRegistryGcsPtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerModelRegistryGcsOutput) ToAiOptimizerModelRegistryGcsPtrOutputWithContext(ctx context.Context) AiOptimizerModelRegistryGcsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerModelRegistryGcs) *AiOptimizerModelRegistryGcs {
+		return &v
+	}).(AiOptimizerModelRegistryGcsPtrOutput)
+}
+
+// GCS bucket name.
+func (o AiOptimizerModelRegistryGcsOutput) Bucket() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerModelRegistryGcs) string { return v.Bucket }).(pulumi.StringOutput)
+}
+
+// Path prefix within the bucket.
+func (o AiOptimizerModelRegistryGcsOutput) Prefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiOptimizerModelRegistryGcs) *string { return v.Prefix }).(pulumi.StringPtrOutput)
+}
+
+// Service account email generated by onboarding.
+func (o AiOptimizerModelRegistryGcsOutput) ServiceAccount() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiOptimizerModelRegistryGcs) *string { return v.ServiceAccount }).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerModelRegistryGcsPtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerModelRegistryGcsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerModelRegistryGcs)(nil)).Elem()
+}
+
+func (o AiOptimizerModelRegistryGcsPtrOutput) ToAiOptimizerModelRegistryGcsPtrOutput() AiOptimizerModelRegistryGcsPtrOutput {
+	return o
+}
+
+func (o AiOptimizerModelRegistryGcsPtrOutput) ToAiOptimizerModelRegistryGcsPtrOutputWithContext(ctx context.Context) AiOptimizerModelRegistryGcsPtrOutput {
+	return o
+}
+
+func (o AiOptimizerModelRegistryGcsPtrOutput) Elem() AiOptimizerModelRegistryGcsOutput {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryGcs) AiOptimizerModelRegistryGcs {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerModelRegistryGcs
+		return ret
+	}).(AiOptimizerModelRegistryGcsOutput)
+}
+
+// GCS bucket name.
+func (o AiOptimizerModelRegistryGcsPtrOutput) Bucket() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryGcs) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Bucket
+	}).(pulumi.StringPtrOutput)
+}
+
+// Path prefix within the bucket.
+func (o AiOptimizerModelRegistryGcsPtrOutput) Prefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryGcs) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Prefix
+	}).(pulumi.StringPtrOutput)
+}
+
+// Service account email generated by onboarding.
+func (o AiOptimizerModelRegistryGcsPtrOutput) ServiceAccount() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryGcs) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceAccount
+	}).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerModelRegistryS3 struct {
+	// S3 bucket name.
+	Bucket string `pulumi:"bucket"`
+	// Path prefix within the bucket.
+	Prefix *string `pulumi:"prefix"`
+	// AWS region of the S3 bucket.
+	Region string `pulumi:"region"`
+	// IAM user name created by onboarding.
+	UserName *string `pulumi:"userName"`
+}
+
+// AiOptimizerModelRegistryS3Input is an input type that accepts AiOptimizerModelRegistryS3Args and AiOptimizerModelRegistryS3Output values.
+// You can construct a concrete instance of `AiOptimizerModelRegistryS3Input` via:
+//
+//	AiOptimizerModelRegistryS3Args{...}
+type AiOptimizerModelRegistryS3Input interface {
+	pulumi.Input
+
+	ToAiOptimizerModelRegistryS3Output() AiOptimizerModelRegistryS3Output
+	ToAiOptimizerModelRegistryS3OutputWithContext(context.Context) AiOptimizerModelRegistryS3Output
+}
+
+type AiOptimizerModelRegistryS3Args struct {
+	// S3 bucket name.
+	Bucket pulumi.StringInput `pulumi:"bucket"`
+	// Path prefix within the bucket.
+	Prefix pulumi.StringPtrInput `pulumi:"prefix"`
+	// AWS region of the S3 bucket.
+	Region pulumi.StringInput `pulumi:"region"`
+	// IAM user name created by onboarding.
+	UserName pulumi.StringPtrInput `pulumi:"userName"`
+}
+
+func (AiOptimizerModelRegistryS3Args) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerModelRegistryS3)(nil)).Elem()
+}
+
+func (i AiOptimizerModelRegistryS3Args) ToAiOptimizerModelRegistryS3Output() AiOptimizerModelRegistryS3Output {
+	return i.ToAiOptimizerModelRegistryS3OutputWithContext(context.Background())
+}
+
+func (i AiOptimizerModelRegistryS3Args) ToAiOptimizerModelRegistryS3OutputWithContext(ctx context.Context) AiOptimizerModelRegistryS3Output {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelRegistryS3Output)
+}
+
+func (i AiOptimizerModelRegistryS3Args) ToAiOptimizerModelRegistryS3PtrOutput() AiOptimizerModelRegistryS3PtrOutput {
+	return i.ToAiOptimizerModelRegistryS3PtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerModelRegistryS3Args) ToAiOptimizerModelRegistryS3PtrOutputWithContext(ctx context.Context) AiOptimizerModelRegistryS3PtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelRegistryS3Output).ToAiOptimizerModelRegistryS3PtrOutputWithContext(ctx)
+}
+
+// AiOptimizerModelRegistryS3PtrInput is an input type that accepts AiOptimizerModelRegistryS3Args, AiOptimizerModelRegistryS3Ptr and AiOptimizerModelRegistryS3PtrOutput values.
+// You can construct a concrete instance of `AiOptimizerModelRegistryS3PtrInput` via:
+//
+//	        AiOptimizerModelRegistryS3Args{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerModelRegistryS3PtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerModelRegistryS3PtrOutput() AiOptimizerModelRegistryS3PtrOutput
+	ToAiOptimizerModelRegistryS3PtrOutputWithContext(context.Context) AiOptimizerModelRegistryS3PtrOutput
+}
+
+type aiOptimizerModelRegistryS3PtrType AiOptimizerModelRegistryS3Args
+
+func AiOptimizerModelRegistryS3Ptr(v *AiOptimizerModelRegistryS3Args) AiOptimizerModelRegistryS3PtrInput {
+	return (*aiOptimizerModelRegistryS3PtrType)(v)
+}
+
+func (*aiOptimizerModelRegistryS3PtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerModelRegistryS3)(nil)).Elem()
+}
+
+func (i *aiOptimizerModelRegistryS3PtrType) ToAiOptimizerModelRegistryS3PtrOutput() AiOptimizerModelRegistryS3PtrOutput {
+	return i.ToAiOptimizerModelRegistryS3PtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerModelRegistryS3PtrType) ToAiOptimizerModelRegistryS3PtrOutputWithContext(ctx context.Context) AiOptimizerModelRegistryS3PtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelRegistryS3PtrOutput)
+}
+
+type AiOptimizerModelRegistryS3Output struct{ *pulumi.OutputState }
+
+func (AiOptimizerModelRegistryS3Output) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerModelRegistryS3)(nil)).Elem()
+}
+
+func (o AiOptimizerModelRegistryS3Output) ToAiOptimizerModelRegistryS3Output() AiOptimizerModelRegistryS3Output {
+	return o
+}
+
+func (o AiOptimizerModelRegistryS3Output) ToAiOptimizerModelRegistryS3OutputWithContext(ctx context.Context) AiOptimizerModelRegistryS3Output {
+	return o
+}
+
+func (o AiOptimizerModelRegistryS3Output) ToAiOptimizerModelRegistryS3PtrOutput() AiOptimizerModelRegistryS3PtrOutput {
+	return o.ToAiOptimizerModelRegistryS3PtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerModelRegistryS3Output) ToAiOptimizerModelRegistryS3PtrOutputWithContext(ctx context.Context) AiOptimizerModelRegistryS3PtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerModelRegistryS3) *AiOptimizerModelRegistryS3 {
+		return &v
+	}).(AiOptimizerModelRegistryS3PtrOutput)
+}
+
+// S3 bucket name.
+func (o AiOptimizerModelRegistryS3Output) Bucket() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerModelRegistryS3) string { return v.Bucket }).(pulumi.StringOutput)
+}
+
+// Path prefix within the bucket.
+func (o AiOptimizerModelRegistryS3Output) Prefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiOptimizerModelRegistryS3) *string { return v.Prefix }).(pulumi.StringPtrOutput)
+}
+
+// AWS region of the S3 bucket.
+func (o AiOptimizerModelRegistryS3Output) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerModelRegistryS3) string { return v.Region }).(pulumi.StringOutput)
+}
+
+// IAM user name created by onboarding.
+func (o AiOptimizerModelRegistryS3Output) UserName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AiOptimizerModelRegistryS3) *string { return v.UserName }).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerModelRegistryS3PtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerModelRegistryS3PtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerModelRegistryS3)(nil)).Elem()
+}
+
+func (o AiOptimizerModelRegistryS3PtrOutput) ToAiOptimizerModelRegistryS3PtrOutput() AiOptimizerModelRegistryS3PtrOutput {
+	return o
+}
+
+func (o AiOptimizerModelRegistryS3PtrOutput) ToAiOptimizerModelRegistryS3PtrOutputWithContext(ctx context.Context) AiOptimizerModelRegistryS3PtrOutput {
+	return o
+}
+
+func (o AiOptimizerModelRegistryS3PtrOutput) Elem() AiOptimizerModelRegistryS3Output {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryS3) AiOptimizerModelRegistryS3 {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerModelRegistryS3
+		return ret
+	}).(AiOptimizerModelRegistryS3Output)
+}
+
+// S3 bucket name.
+func (o AiOptimizerModelRegistryS3PtrOutput) Bucket() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Bucket
+	}).(pulumi.StringPtrOutput)
+}
+
+// Path prefix within the bucket.
+func (o AiOptimizerModelRegistryS3PtrOutput) Prefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Prefix
+	}).(pulumi.StringPtrOutput)
+}
+
+// AWS region of the S3 bucket.
+func (o AiOptimizerModelRegistryS3PtrOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Region
+	}).(pulumi.StringPtrOutput)
+}
+
+// IAM user name created by onboarding.
+func (o AiOptimizerModelRegistryS3PtrOutput) UserName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelRegistryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UserName
+	}).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerModelSpecsHuggingface struct {
+	// HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+	ModelName string `pulumi:"modelName"`
+}
+
+// AiOptimizerModelSpecsHuggingfaceInput is an input type that accepts AiOptimizerModelSpecsHuggingfaceArgs and AiOptimizerModelSpecsHuggingfaceOutput values.
+// You can construct a concrete instance of `AiOptimizerModelSpecsHuggingfaceInput` via:
+//
+//	AiOptimizerModelSpecsHuggingfaceArgs{...}
+type AiOptimizerModelSpecsHuggingfaceInput interface {
+	pulumi.Input
+
+	ToAiOptimizerModelSpecsHuggingfaceOutput() AiOptimizerModelSpecsHuggingfaceOutput
+	ToAiOptimizerModelSpecsHuggingfaceOutputWithContext(context.Context) AiOptimizerModelSpecsHuggingfaceOutput
+}
+
+type AiOptimizerModelSpecsHuggingfaceArgs struct {
+	// HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+	ModelName pulumi.StringInput `pulumi:"modelName"`
+}
+
+func (AiOptimizerModelSpecsHuggingfaceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerModelSpecsHuggingface)(nil)).Elem()
+}
+
+func (i AiOptimizerModelSpecsHuggingfaceArgs) ToAiOptimizerModelSpecsHuggingfaceOutput() AiOptimizerModelSpecsHuggingfaceOutput {
+	return i.ToAiOptimizerModelSpecsHuggingfaceOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerModelSpecsHuggingfaceArgs) ToAiOptimizerModelSpecsHuggingfaceOutputWithContext(ctx context.Context) AiOptimizerModelSpecsHuggingfaceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelSpecsHuggingfaceOutput)
+}
+
+func (i AiOptimizerModelSpecsHuggingfaceArgs) ToAiOptimizerModelSpecsHuggingfacePtrOutput() AiOptimizerModelSpecsHuggingfacePtrOutput {
+	return i.ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerModelSpecsHuggingfaceArgs) ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(ctx context.Context) AiOptimizerModelSpecsHuggingfacePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelSpecsHuggingfaceOutput).ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(ctx)
+}
+
+// AiOptimizerModelSpecsHuggingfacePtrInput is an input type that accepts AiOptimizerModelSpecsHuggingfaceArgs, AiOptimizerModelSpecsHuggingfacePtr and AiOptimizerModelSpecsHuggingfacePtrOutput values.
+// You can construct a concrete instance of `AiOptimizerModelSpecsHuggingfacePtrInput` via:
+//
+//	        AiOptimizerModelSpecsHuggingfaceArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerModelSpecsHuggingfacePtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerModelSpecsHuggingfacePtrOutput() AiOptimizerModelSpecsHuggingfacePtrOutput
+	ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(context.Context) AiOptimizerModelSpecsHuggingfacePtrOutput
+}
+
+type aiOptimizerModelSpecsHuggingfacePtrType AiOptimizerModelSpecsHuggingfaceArgs
+
+func AiOptimizerModelSpecsHuggingfacePtr(v *AiOptimizerModelSpecsHuggingfaceArgs) AiOptimizerModelSpecsHuggingfacePtrInput {
+	return (*aiOptimizerModelSpecsHuggingfacePtrType)(v)
+}
+
+func (*aiOptimizerModelSpecsHuggingfacePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerModelSpecsHuggingface)(nil)).Elem()
+}
+
+func (i *aiOptimizerModelSpecsHuggingfacePtrType) ToAiOptimizerModelSpecsHuggingfacePtrOutput() AiOptimizerModelSpecsHuggingfacePtrOutput {
+	return i.ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerModelSpecsHuggingfacePtrType) ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(ctx context.Context) AiOptimizerModelSpecsHuggingfacePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelSpecsHuggingfacePtrOutput)
+}
+
+type AiOptimizerModelSpecsHuggingfaceOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerModelSpecsHuggingfaceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerModelSpecsHuggingface)(nil)).Elem()
+}
+
+func (o AiOptimizerModelSpecsHuggingfaceOutput) ToAiOptimizerModelSpecsHuggingfaceOutput() AiOptimizerModelSpecsHuggingfaceOutput {
+	return o
+}
+
+func (o AiOptimizerModelSpecsHuggingfaceOutput) ToAiOptimizerModelSpecsHuggingfaceOutputWithContext(ctx context.Context) AiOptimizerModelSpecsHuggingfaceOutput {
+	return o
+}
+
+func (o AiOptimizerModelSpecsHuggingfaceOutput) ToAiOptimizerModelSpecsHuggingfacePtrOutput() AiOptimizerModelSpecsHuggingfacePtrOutput {
+	return o.ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerModelSpecsHuggingfaceOutput) ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(ctx context.Context) AiOptimizerModelSpecsHuggingfacePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerModelSpecsHuggingface) *AiOptimizerModelSpecsHuggingface {
+		return &v
+	}).(AiOptimizerModelSpecsHuggingfacePtrOutput)
+}
+
+// HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+func (o AiOptimizerModelSpecsHuggingfaceOutput) ModelName() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerModelSpecsHuggingface) string { return v.ModelName }).(pulumi.StringOutput)
+}
+
+type AiOptimizerModelSpecsHuggingfacePtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerModelSpecsHuggingfacePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerModelSpecsHuggingface)(nil)).Elem()
+}
+
+func (o AiOptimizerModelSpecsHuggingfacePtrOutput) ToAiOptimizerModelSpecsHuggingfacePtrOutput() AiOptimizerModelSpecsHuggingfacePtrOutput {
+	return o
+}
+
+func (o AiOptimizerModelSpecsHuggingfacePtrOutput) ToAiOptimizerModelSpecsHuggingfacePtrOutputWithContext(ctx context.Context) AiOptimizerModelSpecsHuggingfacePtrOutput {
+	return o
+}
+
+func (o AiOptimizerModelSpecsHuggingfacePtrOutput) Elem() AiOptimizerModelSpecsHuggingfaceOutput {
+	return o.ApplyT(func(v *AiOptimizerModelSpecsHuggingface) AiOptimizerModelSpecsHuggingface {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerModelSpecsHuggingface
+		return ret
+	}).(AiOptimizerModelSpecsHuggingfaceOutput)
+}
+
+// HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+func (o AiOptimizerModelSpecsHuggingfacePtrOutput) ModelName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelSpecsHuggingface) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ModelName
+	}).(pulumi.StringPtrOutput)
+}
+
+type AiOptimizerModelSpecsPrivateRegistry struct {
+	// Base model identifier.
+	BaseModelId string `pulumi:"baseModelId"`
+	// ID of the AiOptimizerModelRegistry resource.
+	RegistryId string `pulumi:"registryId"`
+}
+
+// AiOptimizerModelSpecsPrivateRegistryInput is an input type that accepts AiOptimizerModelSpecsPrivateRegistryArgs and AiOptimizerModelSpecsPrivateRegistryOutput values.
+// You can construct a concrete instance of `AiOptimizerModelSpecsPrivateRegistryInput` via:
+//
+//	AiOptimizerModelSpecsPrivateRegistryArgs{...}
+type AiOptimizerModelSpecsPrivateRegistryInput interface {
+	pulumi.Input
+
+	ToAiOptimizerModelSpecsPrivateRegistryOutput() AiOptimizerModelSpecsPrivateRegistryOutput
+	ToAiOptimizerModelSpecsPrivateRegistryOutputWithContext(context.Context) AiOptimizerModelSpecsPrivateRegistryOutput
+}
+
+type AiOptimizerModelSpecsPrivateRegistryArgs struct {
+	// Base model identifier.
+	BaseModelId pulumi.StringInput `pulumi:"baseModelId"`
+	// ID of the AiOptimizerModelRegistry resource.
+	RegistryId pulumi.StringInput `pulumi:"registryId"`
+}
+
+func (AiOptimizerModelSpecsPrivateRegistryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerModelSpecsPrivateRegistry)(nil)).Elem()
+}
+
+func (i AiOptimizerModelSpecsPrivateRegistryArgs) ToAiOptimizerModelSpecsPrivateRegistryOutput() AiOptimizerModelSpecsPrivateRegistryOutput {
+	return i.ToAiOptimizerModelSpecsPrivateRegistryOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerModelSpecsPrivateRegistryArgs) ToAiOptimizerModelSpecsPrivateRegistryOutputWithContext(ctx context.Context) AiOptimizerModelSpecsPrivateRegistryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelSpecsPrivateRegistryOutput)
+}
+
+func (i AiOptimizerModelSpecsPrivateRegistryArgs) ToAiOptimizerModelSpecsPrivateRegistryPtrOutput() AiOptimizerModelSpecsPrivateRegistryPtrOutput {
+	return i.ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(context.Background())
+}
+
+func (i AiOptimizerModelSpecsPrivateRegistryArgs) ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(ctx context.Context) AiOptimizerModelSpecsPrivateRegistryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelSpecsPrivateRegistryOutput).ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(ctx)
+}
+
+// AiOptimizerModelSpecsPrivateRegistryPtrInput is an input type that accepts AiOptimizerModelSpecsPrivateRegistryArgs, AiOptimizerModelSpecsPrivateRegistryPtr and AiOptimizerModelSpecsPrivateRegistryPtrOutput values.
+// You can construct a concrete instance of `AiOptimizerModelSpecsPrivateRegistryPtrInput` via:
+//
+//	        AiOptimizerModelSpecsPrivateRegistryArgs{...}
+//
+//	or:
+//
+//	        nil
+type AiOptimizerModelSpecsPrivateRegistryPtrInput interface {
+	pulumi.Input
+
+	ToAiOptimizerModelSpecsPrivateRegistryPtrOutput() AiOptimizerModelSpecsPrivateRegistryPtrOutput
+	ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(context.Context) AiOptimizerModelSpecsPrivateRegistryPtrOutput
+}
+
+type aiOptimizerModelSpecsPrivateRegistryPtrType AiOptimizerModelSpecsPrivateRegistryArgs
+
+func AiOptimizerModelSpecsPrivateRegistryPtr(v *AiOptimizerModelSpecsPrivateRegistryArgs) AiOptimizerModelSpecsPrivateRegistryPtrInput {
+	return (*aiOptimizerModelSpecsPrivateRegistryPtrType)(v)
+}
+
+func (*aiOptimizerModelSpecsPrivateRegistryPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerModelSpecsPrivateRegistry)(nil)).Elem()
+}
+
+func (i *aiOptimizerModelSpecsPrivateRegistryPtrType) ToAiOptimizerModelSpecsPrivateRegistryPtrOutput() AiOptimizerModelSpecsPrivateRegistryPtrOutput {
+	return i.ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(context.Background())
+}
+
+func (i *aiOptimizerModelSpecsPrivateRegistryPtrType) ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(ctx context.Context) AiOptimizerModelSpecsPrivateRegistryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AiOptimizerModelSpecsPrivateRegistryPtrOutput)
+}
+
+type AiOptimizerModelSpecsPrivateRegistryOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerModelSpecsPrivateRegistryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AiOptimizerModelSpecsPrivateRegistry)(nil)).Elem()
+}
+
+func (o AiOptimizerModelSpecsPrivateRegistryOutput) ToAiOptimizerModelSpecsPrivateRegistryOutput() AiOptimizerModelSpecsPrivateRegistryOutput {
+	return o
+}
+
+func (o AiOptimizerModelSpecsPrivateRegistryOutput) ToAiOptimizerModelSpecsPrivateRegistryOutputWithContext(ctx context.Context) AiOptimizerModelSpecsPrivateRegistryOutput {
+	return o
+}
+
+func (o AiOptimizerModelSpecsPrivateRegistryOutput) ToAiOptimizerModelSpecsPrivateRegistryPtrOutput() AiOptimizerModelSpecsPrivateRegistryPtrOutput {
+	return o.ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(context.Background())
+}
+
+func (o AiOptimizerModelSpecsPrivateRegistryOutput) ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(ctx context.Context) AiOptimizerModelSpecsPrivateRegistryPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AiOptimizerModelSpecsPrivateRegistry) *AiOptimizerModelSpecsPrivateRegistry {
+		return &v
+	}).(AiOptimizerModelSpecsPrivateRegistryPtrOutput)
+}
+
+// Base model identifier.
+func (o AiOptimizerModelSpecsPrivateRegistryOutput) BaseModelId() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerModelSpecsPrivateRegistry) string { return v.BaseModelId }).(pulumi.StringOutput)
+}
+
+// ID of the AiOptimizerModelRegistry resource.
+func (o AiOptimizerModelSpecsPrivateRegistryOutput) RegistryId() pulumi.StringOutput {
+	return o.ApplyT(func(v AiOptimizerModelSpecsPrivateRegistry) string { return v.RegistryId }).(pulumi.StringOutput)
+}
+
+type AiOptimizerModelSpecsPrivateRegistryPtrOutput struct{ *pulumi.OutputState }
+
+func (AiOptimizerModelSpecsPrivateRegistryPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AiOptimizerModelSpecsPrivateRegistry)(nil)).Elem()
+}
+
+func (o AiOptimizerModelSpecsPrivateRegistryPtrOutput) ToAiOptimizerModelSpecsPrivateRegistryPtrOutput() AiOptimizerModelSpecsPrivateRegistryPtrOutput {
+	return o
+}
+
+func (o AiOptimizerModelSpecsPrivateRegistryPtrOutput) ToAiOptimizerModelSpecsPrivateRegistryPtrOutputWithContext(ctx context.Context) AiOptimizerModelSpecsPrivateRegistryPtrOutput {
+	return o
+}
+
+func (o AiOptimizerModelSpecsPrivateRegistryPtrOutput) Elem() AiOptimizerModelSpecsPrivateRegistryOutput {
+	return o.ApplyT(func(v *AiOptimizerModelSpecsPrivateRegistry) AiOptimizerModelSpecsPrivateRegistry {
+		if v != nil {
+			return *v
+		}
+		var ret AiOptimizerModelSpecsPrivateRegistry
+		return ret
+	}).(AiOptimizerModelSpecsPrivateRegistryOutput)
+}
+
+// Base model identifier.
+func (o AiOptimizerModelSpecsPrivateRegistryPtrOutput) BaseModelId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelSpecsPrivateRegistry) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BaseModelId
+	}).(pulumi.StringPtrOutput)
+}
+
+// ID of the AiOptimizerModelRegistry resource.
+func (o AiOptimizerModelSpecsPrivateRegistryPtrOutput) RegistryId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AiOptimizerModelSpecsPrivateRegistry) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.RegistryId
+	}).(pulumi.StringPtrOutput)
+}
+
 type CommitmentsAzureReservation struct {
 	// Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
 	AllowedUsage *float64 `pulumi:"allowedUsage"`
@@ -365,6 +2018,8 @@ type CommitmentsCommitmentConfig struct {
 	AllowedUsage *float64 `pulumi:"allowedUsage"`
 	// List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
 	Assignments []CommitmentsCommitmentConfigAssignment `pulumi:"assignments"`
+	// If enabled, the commitment is automatically assigned to all clusters in the matching region. When disabled, only explicitly listed cluster assignments are used.
+	AutoAssignment *bool `pulumi:"autoAssignment"`
 	// Matcher used to map config to a commitment.
 	Matcher CommitmentsCommitmentConfigMatcher `pulumi:"matcher"`
 	// If enabled, it's possible to assign priorities to the assigned clusters.
@@ -391,6 +2046,8 @@ type CommitmentsCommitmentConfigArgs struct {
 	AllowedUsage pulumi.Float64PtrInput `pulumi:"allowedUsage"`
 	// List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
 	Assignments CommitmentsCommitmentConfigAssignmentArrayInput `pulumi:"assignments"`
+	// If enabled, the commitment is automatically assigned to all clusters in the matching region. When disabled, only explicitly listed cluster assignments are used.
+	AutoAssignment pulumi.BoolPtrInput `pulumi:"autoAssignment"`
 	// Matcher used to map config to a commitment.
 	Matcher CommitmentsCommitmentConfigMatcherInput `pulumi:"matcher"`
 	// If enabled, it's possible to assign priorities to the assigned clusters.
@@ -460,6 +2117,11 @@ func (o CommitmentsCommitmentConfigOutput) AllowedUsage() pulumi.Float64PtrOutpu
 // List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
 func (o CommitmentsCommitmentConfigOutput) Assignments() CommitmentsCommitmentConfigAssignmentArrayOutput {
 	return o.ApplyT(func(v CommitmentsCommitmentConfig) []CommitmentsCommitmentConfigAssignment { return v.Assignments }).(CommitmentsCommitmentConfigAssignmentArrayOutput)
+}
+
+// If enabled, the commitment is automatically assigned to all clusters in the matching region. When disabled, only explicitly listed cluster assignments are used.
+func (o CommitmentsCommitmentConfigOutput) AutoAssignment() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CommitmentsCommitmentConfig) *bool { return v.AutoAssignment }).(pulumi.BoolPtrOutput)
 }
 
 // Matcher used to map config to a commitment.
@@ -1016,6 +2678,4932 @@ func (o CommitmentsGcpCudAssignmentArrayOutput) Index(i pulumi.IntInput) Commitm
 	}).(CommitmentsGcpCudAssignmentOutput)
 }
 
+type PodMutationAffinity struct {
+	NodeAffinity *PodMutationAffinityNodeAffinity `pulumi:"nodeAffinity"`
+}
+
+// PodMutationAffinityInput is an input type that accepts PodMutationAffinityArgs and PodMutationAffinityOutput values.
+// You can construct a concrete instance of `PodMutationAffinityInput` via:
+//
+//	PodMutationAffinityArgs{...}
+type PodMutationAffinityInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityOutput() PodMutationAffinityOutput
+	ToPodMutationAffinityOutputWithContext(context.Context) PodMutationAffinityOutput
+}
+
+type PodMutationAffinityArgs struct {
+	NodeAffinity PodMutationAffinityNodeAffinityPtrInput `pulumi:"nodeAffinity"`
+}
+
+func (PodMutationAffinityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinity)(nil)).Elem()
+}
+
+func (i PodMutationAffinityArgs) ToPodMutationAffinityOutput() PodMutationAffinityOutput {
+	return i.ToPodMutationAffinityOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityArgs) ToPodMutationAffinityOutputWithContext(ctx context.Context) PodMutationAffinityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityOutput)
+}
+
+func (i PodMutationAffinityArgs) ToPodMutationAffinityPtrOutput() PodMutationAffinityPtrOutput {
+	return i.ToPodMutationAffinityPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityArgs) ToPodMutationAffinityPtrOutputWithContext(ctx context.Context) PodMutationAffinityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityOutput).ToPodMutationAffinityPtrOutputWithContext(ctx)
+}
+
+// PodMutationAffinityPtrInput is an input type that accepts PodMutationAffinityArgs, PodMutationAffinityPtr and PodMutationAffinityPtrOutput values.
+// You can construct a concrete instance of `PodMutationAffinityPtrInput` via:
+//
+//	        PodMutationAffinityArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationAffinityPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityPtrOutput() PodMutationAffinityPtrOutput
+	ToPodMutationAffinityPtrOutputWithContext(context.Context) PodMutationAffinityPtrOutput
+}
+
+type podMutationAffinityPtrType PodMutationAffinityArgs
+
+func PodMutationAffinityPtr(v *PodMutationAffinityArgs) PodMutationAffinityPtrInput {
+	return (*podMutationAffinityPtrType)(v)
+}
+
+func (*podMutationAffinityPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationAffinity)(nil)).Elem()
+}
+
+func (i *podMutationAffinityPtrType) ToPodMutationAffinityPtrOutput() PodMutationAffinityPtrOutput {
+	return i.ToPodMutationAffinityPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationAffinityPtrType) ToPodMutationAffinityPtrOutputWithContext(ctx context.Context) PodMutationAffinityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityPtrOutput)
+}
+
+type PodMutationAffinityOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinity)(nil)).Elem()
+}
+
+func (o PodMutationAffinityOutput) ToPodMutationAffinityOutput() PodMutationAffinityOutput {
+	return o
+}
+
+func (o PodMutationAffinityOutput) ToPodMutationAffinityOutputWithContext(ctx context.Context) PodMutationAffinityOutput {
+	return o
+}
+
+func (o PodMutationAffinityOutput) ToPodMutationAffinityPtrOutput() PodMutationAffinityPtrOutput {
+	return o.ToPodMutationAffinityPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationAffinityOutput) ToPodMutationAffinityPtrOutputWithContext(ctx context.Context) PodMutationAffinityPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationAffinity) *PodMutationAffinity {
+		return &v
+	}).(PodMutationAffinityPtrOutput)
+}
+
+func (o PodMutationAffinityOutput) NodeAffinity() PodMutationAffinityNodeAffinityPtrOutput {
+	return o.ApplyT(func(v PodMutationAffinity) *PodMutationAffinityNodeAffinity { return v.NodeAffinity }).(PodMutationAffinityNodeAffinityPtrOutput)
+}
+
+type PodMutationAffinityPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationAffinity)(nil)).Elem()
+}
+
+func (o PodMutationAffinityPtrOutput) ToPodMutationAffinityPtrOutput() PodMutationAffinityPtrOutput {
+	return o
+}
+
+func (o PodMutationAffinityPtrOutput) ToPodMutationAffinityPtrOutputWithContext(ctx context.Context) PodMutationAffinityPtrOutput {
+	return o
+}
+
+func (o PodMutationAffinityPtrOutput) Elem() PodMutationAffinityOutput {
+	return o.ApplyT(func(v *PodMutationAffinity) PodMutationAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationAffinity
+		return ret
+	}).(PodMutationAffinityOutput)
+}
+
+func (o PodMutationAffinityPtrOutput) NodeAffinity() PodMutationAffinityNodeAffinityPtrOutput {
+	return o.ApplyT(func(v *PodMutationAffinity) *PodMutationAffinityNodeAffinity {
+		if v == nil {
+			return nil
+		}
+		return v.NodeAffinity
+	}).(PodMutationAffinityNodeAffinityPtrOutput)
+}
+
+type PodMutationAffinityNodeAffinity struct {
+	PreferredDuringSchedulingIgnoredDuringExecutions []PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution `pulumi:"preferredDuringSchedulingIgnoredDuringExecutions"`
+}
+
+// PodMutationAffinityNodeAffinityInput is an input type that accepts PodMutationAffinityNodeAffinityArgs and PodMutationAffinityNodeAffinityOutput values.
+// You can construct a concrete instance of `PodMutationAffinityNodeAffinityInput` via:
+//
+//	PodMutationAffinityNodeAffinityArgs{...}
+type PodMutationAffinityNodeAffinityInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityNodeAffinityOutput() PodMutationAffinityNodeAffinityOutput
+	ToPodMutationAffinityNodeAffinityOutputWithContext(context.Context) PodMutationAffinityNodeAffinityOutput
+}
+
+type PodMutationAffinityNodeAffinityArgs struct {
+	PreferredDuringSchedulingIgnoredDuringExecutions PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput `pulumi:"preferredDuringSchedulingIgnoredDuringExecutions"`
+}
+
+func (PodMutationAffinityNodeAffinityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinityNodeAffinity)(nil)).Elem()
+}
+
+func (i PodMutationAffinityNodeAffinityArgs) ToPodMutationAffinityNodeAffinityOutput() PodMutationAffinityNodeAffinityOutput {
+	return i.ToPodMutationAffinityNodeAffinityOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityNodeAffinityArgs) ToPodMutationAffinityNodeAffinityOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityNodeAffinityOutput)
+}
+
+func (i PodMutationAffinityNodeAffinityArgs) ToPodMutationAffinityNodeAffinityPtrOutput() PodMutationAffinityNodeAffinityPtrOutput {
+	return i.ToPodMutationAffinityNodeAffinityPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityNodeAffinityArgs) ToPodMutationAffinityNodeAffinityPtrOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityNodeAffinityOutput).ToPodMutationAffinityNodeAffinityPtrOutputWithContext(ctx)
+}
+
+// PodMutationAffinityNodeAffinityPtrInput is an input type that accepts PodMutationAffinityNodeAffinityArgs, PodMutationAffinityNodeAffinityPtr and PodMutationAffinityNodeAffinityPtrOutput values.
+// You can construct a concrete instance of `PodMutationAffinityNodeAffinityPtrInput` via:
+//
+//	        PodMutationAffinityNodeAffinityArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationAffinityNodeAffinityPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityNodeAffinityPtrOutput() PodMutationAffinityNodeAffinityPtrOutput
+	ToPodMutationAffinityNodeAffinityPtrOutputWithContext(context.Context) PodMutationAffinityNodeAffinityPtrOutput
+}
+
+type podMutationAffinityNodeAffinityPtrType PodMutationAffinityNodeAffinityArgs
+
+func PodMutationAffinityNodeAffinityPtr(v *PodMutationAffinityNodeAffinityArgs) PodMutationAffinityNodeAffinityPtrInput {
+	return (*podMutationAffinityNodeAffinityPtrType)(v)
+}
+
+func (*podMutationAffinityNodeAffinityPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationAffinityNodeAffinity)(nil)).Elem()
+}
+
+func (i *podMutationAffinityNodeAffinityPtrType) ToPodMutationAffinityNodeAffinityPtrOutput() PodMutationAffinityNodeAffinityPtrOutput {
+	return i.ToPodMutationAffinityNodeAffinityPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationAffinityNodeAffinityPtrType) ToPodMutationAffinityNodeAffinityPtrOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityNodeAffinityPtrOutput)
+}
+
+type PodMutationAffinityNodeAffinityOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityNodeAffinityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinityNodeAffinity)(nil)).Elem()
+}
+
+func (o PodMutationAffinityNodeAffinityOutput) ToPodMutationAffinityNodeAffinityOutput() PodMutationAffinityNodeAffinityOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityOutput) ToPodMutationAffinityNodeAffinityOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityOutput) ToPodMutationAffinityNodeAffinityPtrOutput() PodMutationAffinityNodeAffinityPtrOutput {
+	return o.ToPodMutationAffinityNodeAffinityPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationAffinityNodeAffinityOutput) ToPodMutationAffinityNodeAffinityPtrOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationAffinityNodeAffinity) *PodMutationAffinityNodeAffinity {
+		return &v
+	}).(PodMutationAffinityNodeAffinityPtrOutput)
+}
+
+func (o PodMutationAffinityNodeAffinityOutput) PreferredDuringSchedulingIgnoredDuringExecutions() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return o.ApplyT(func(v PodMutationAffinityNodeAffinity) []PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution {
+		return v.PreferredDuringSchedulingIgnoredDuringExecutions
+	}).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput)
+}
+
+type PodMutationAffinityNodeAffinityPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityNodeAffinityPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationAffinityNodeAffinity)(nil)).Elem()
+}
+
+func (o PodMutationAffinityNodeAffinityPtrOutput) ToPodMutationAffinityNodeAffinityPtrOutput() PodMutationAffinityNodeAffinityPtrOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPtrOutput) ToPodMutationAffinityNodeAffinityPtrOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPtrOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPtrOutput) Elem() PodMutationAffinityNodeAffinityOutput {
+	return o.ApplyT(func(v *PodMutationAffinityNodeAffinity) PodMutationAffinityNodeAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationAffinityNodeAffinity
+		return ret
+	}).(PodMutationAffinityNodeAffinityOutput)
+}
+
+func (o PodMutationAffinityNodeAffinityPtrOutput) PreferredDuringSchedulingIgnoredDuringExecutions() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return o.ApplyT(func(v *PodMutationAffinityNodeAffinity) []PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution {
+		if v == nil {
+			return nil
+		}
+		return v.PreferredDuringSchedulingIgnoredDuringExecutions
+	}).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput)
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution struct {
+	Preference PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference `pulumi:"preference"`
+	// Weight of the node affinity term.
+	Weight int `pulumi:"weight"`
+}
+
+// PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput is an input type that accepts PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs and PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput values.
+// You can construct a concrete instance of `PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput` via:
+//
+//	PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs{...}
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutputWithContext(context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs struct {
+	Preference PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput `pulumi:"preference"`
+	// Weight of the node affinity term.
+	Weight pulumi.IntInput `pulumi:"weight"`
+}
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)(nil)).Elem()
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return i.ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput)
+}
+
+// PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput is an input type that accepts PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray and PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput values.
+// You can construct a concrete instance of `PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput` via:
+//
+//	PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray{ PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs{...} }
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutputWithContext(context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray []PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)(nil)).Elem()
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return i.ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput)
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)(nil)).Elem()
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) Preference() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return o.ApplyT(func(v PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference {
+		return v.Preference
+	}).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput)
+}
+
+// Weight of the node affinity term.
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) Weight() pulumi.IntOutput {
+	return o.ApplyT(func(v PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution) int {
+		return v.Weight
+	}).(pulumi.IntOutput)
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)(nil)).Elem()
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput) Index(i pulumi.IntInput) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution {
+		return vs[0].([]PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)[vs[1].(int)]
+	}).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput)
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference struct {
+	MatchExpressions []PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression `pulumi:"matchExpressions"`
+}
+
+// PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput is an input type that accepts PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs and PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput values.
+// You can construct a concrete instance of `PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput` via:
+//
+//	PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs{...}
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutputWithContext(context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs struct {
+	MatchExpressions PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput `pulumi:"matchExpressions"`
+}
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference)(nil)).Elem()
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return i.ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput)
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference)(nil)).Elem()
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput) MatchExpressions() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return o.ApplyT(func(v PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference) []PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression {
+		return v.MatchExpressions
+	}).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput)
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression struct {
+	Key      string   `pulumi:"key"`
+	Operator string   `pulumi:"operator"`
+	Values   []string `pulumi:"values"`
+}
+
+// PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput is an input type that accepts PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs and PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput values.
+// You can construct a concrete instance of `PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput` via:
+//
+//	PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs{...}
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutputWithContext(context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs struct {
+	Key      pulumi.StringInput      `pulumi:"key"`
+	Operator pulumi.StringInput      `pulumi:"operator"`
+	Values   pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)(nil)).Elem()
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return i.ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput)
+}
+
+// PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput is an input type that accepts PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray and PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput values.
+// You can construct a concrete instance of `PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput` via:
+//
+//	PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray{ PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs{...} }
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput
+	ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutputWithContext(context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray []PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)(nil)).Elem()
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return i.ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput)
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)(nil)).Elem()
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression) string {
+		return v.Key
+	}).(pulumi.StringOutput)
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression) string {
+		return v.Operator
+	}).(pulumi.StringOutput)
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression) []string {
+		return v.Values
+	}).(pulumi.StringArrayOutput)
+}
+
+type PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)(nil)).Elem()
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput() PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput) ToPodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutputWithContext(ctx context.Context) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return o
+}
+
+func (o PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput) Index(i pulumi.IntInput) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression {
+		return vs[0].([]PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)[vs[1].(int)]
+	}).(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput)
+}
+
+type PodMutationDistributionGroup struct {
+	Configuration PodMutationDistributionGroupConfiguration `pulumi:"configuration"`
+	// Unique name for this distribution group.
+	Name string `pulumi:"name"`
+	// Percentage of pods (0-100) that should receive this configuration.
+	Percentage int `pulumi:"percentage"`
+}
+
+// PodMutationDistributionGroupInput is an input type that accepts PodMutationDistributionGroupArgs and PodMutationDistributionGroupOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupInput` via:
+//
+//	PodMutationDistributionGroupArgs{...}
+type PodMutationDistributionGroupInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupOutput() PodMutationDistributionGroupOutput
+	ToPodMutationDistributionGroupOutputWithContext(context.Context) PodMutationDistributionGroupOutput
+}
+
+type PodMutationDistributionGroupArgs struct {
+	Configuration PodMutationDistributionGroupConfigurationInput `pulumi:"configuration"`
+	// Unique name for this distribution group.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Percentage of pods (0-100) that should receive this configuration.
+	Percentage pulumi.IntInput `pulumi:"percentage"`
+}
+
+func (PodMutationDistributionGroupArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroup)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupArgs) ToPodMutationDistributionGroupOutput() PodMutationDistributionGroupOutput {
+	return i.ToPodMutationDistributionGroupOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupArgs) ToPodMutationDistributionGroupOutputWithContext(ctx context.Context) PodMutationDistributionGroupOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupOutput)
+}
+
+// PodMutationDistributionGroupArrayInput is an input type that accepts PodMutationDistributionGroupArray and PodMutationDistributionGroupArrayOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupArrayInput` via:
+//
+//	PodMutationDistributionGroupArray{ PodMutationDistributionGroupArgs{...} }
+type PodMutationDistributionGroupArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupArrayOutput() PodMutationDistributionGroupArrayOutput
+	ToPodMutationDistributionGroupArrayOutputWithContext(context.Context) PodMutationDistributionGroupArrayOutput
+}
+
+type PodMutationDistributionGroupArray []PodMutationDistributionGroupInput
+
+func (PodMutationDistributionGroupArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationDistributionGroup)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupArray) ToPodMutationDistributionGroupArrayOutput() PodMutationDistributionGroupArrayOutput {
+	return i.ToPodMutationDistributionGroupArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupArray) ToPodMutationDistributionGroupArrayOutputWithContext(ctx context.Context) PodMutationDistributionGroupArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupArrayOutput)
+}
+
+type PodMutationDistributionGroupOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroup)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupOutput) ToPodMutationDistributionGroupOutput() PodMutationDistributionGroupOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupOutput) ToPodMutationDistributionGroupOutputWithContext(ctx context.Context) PodMutationDistributionGroupOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupOutput) Configuration() PodMutationDistributionGroupConfigurationOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroup) PodMutationDistributionGroupConfiguration { return v.Configuration }).(PodMutationDistributionGroupConfigurationOutput)
+}
+
+// Unique name for this distribution group.
+func (o PodMutationDistributionGroupOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroup) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Percentage of pods (0-100) that should receive this configuration.
+func (o PodMutationDistributionGroupOutput) Percentage() pulumi.IntOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroup) int { return v.Percentage }).(pulumi.IntOutput)
+}
+
+type PodMutationDistributionGroupArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationDistributionGroup)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupArrayOutput) ToPodMutationDistributionGroupArrayOutput() PodMutationDistributionGroupArrayOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupArrayOutput) ToPodMutationDistributionGroupArrayOutputWithContext(ctx context.Context) PodMutationDistributionGroupArrayOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupArrayOutput) Index(i pulumi.IntInput) PodMutationDistributionGroupOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationDistributionGroup {
+		return vs[0].([]PodMutationDistributionGroup)[vs[1].(int)]
+	}).(PodMutationDistributionGroupOutput)
+}
+
+type PodMutationDistributionGroupConfiguration struct {
+	// Affinity to apply to the pods.
+	Affinity *PodMutationDistributionGroupConfigurationAffinity `pulumi:"affinity"`
+	// Annotations to add to the pods.
+	Annotations map[string]string `pulumi:"annotations"`
+	// Labels to add to the pods.
+	Labels map[string]string `pulumi:"labels"`
+	// Node selector to apply to the pods (add/remove key-value pairs).
+	NodeSelector *PodMutationDistributionGroupConfigurationNodeSelector `pulumi:"nodeSelector"`
+	// Node template names to consolidate.
+	NodeTemplatesToConsolidates []string `pulumi:"nodeTemplatesToConsolidates"`
+	// JSON patch to apply to pods. Must be a JSON array of patch operations.
+	Patch *string `pulumi:"patch"`
+	// Spot instance type: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+	SpotType *string `pulumi:"spotType"`
+	// Tolerations to apply to the pods.
+	Tolerations []PodMutationDistributionGroupConfigurationToleration `pulumi:"tolerations"`
+}
+
+// PodMutationDistributionGroupConfigurationInput is an input type that accepts PodMutationDistributionGroupConfigurationArgs and PodMutationDistributionGroupConfigurationOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationInput` via:
+//
+//	PodMutationDistributionGroupConfigurationArgs{...}
+type PodMutationDistributionGroupConfigurationInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationOutput() PodMutationDistributionGroupConfigurationOutput
+	ToPodMutationDistributionGroupConfigurationOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationOutput
+}
+
+type PodMutationDistributionGroupConfigurationArgs struct {
+	// Affinity to apply to the pods.
+	Affinity PodMutationDistributionGroupConfigurationAffinityPtrInput `pulumi:"affinity"`
+	// Annotations to add to the pods.
+	Annotations pulumi.StringMapInput `pulumi:"annotations"`
+	// Labels to add to the pods.
+	Labels pulumi.StringMapInput `pulumi:"labels"`
+	// Node selector to apply to the pods (add/remove key-value pairs).
+	NodeSelector PodMutationDistributionGroupConfigurationNodeSelectorPtrInput `pulumi:"nodeSelector"`
+	// Node template names to consolidate.
+	NodeTemplatesToConsolidates pulumi.StringArrayInput `pulumi:"nodeTemplatesToConsolidates"`
+	// JSON patch to apply to pods. Must be a JSON array of patch operations.
+	Patch pulumi.StringPtrInput `pulumi:"patch"`
+	// Spot instance type: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+	SpotType pulumi.StringPtrInput `pulumi:"spotType"`
+	// Tolerations to apply to the pods.
+	Tolerations PodMutationDistributionGroupConfigurationTolerationArrayInput `pulumi:"tolerations"`
+}
+
+func (PodMutationDistributionGroupConfigurationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfiguration)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationArgs) ToPodMutationDistributionGroupConfigurationOutput() PodMutationDistributionGroupConfigurationOutput {
+	return i.ToPodMutationDistributionGroupConfigurationOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationArgs) ToPodMutationDistributionGroupConfigurationOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationOutput)
+}
+
+type PodMutationDistributionGroupConfigurationOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfiguration)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationOutput) ToPodMutationDistributionGroupConfigurationOutput() PodMutationDistributionGroupConfigurationOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationOutput) ToPodMutationDistributionGroupConfigurationOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationOutput {
+	return o
+}
+
+// Affinity to apply to the pods.
+func (o PodMutationDistributionGroupConfigurationOutput) Affinity() PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfiguration) *PodMutationDistributionGroupConfigurationAffinity {
+		return v.Affinity
+	}).(PodMutationDistributionGroupConfigurationAffinityPtrOutput)
+}
+
+// Annotations to add to the pods.
+func (o PodMutationDistributionGroupConfigurationOutput) Annotations() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfiguration) map[string]string { return v.Annotations }).(pulumi.StringMapOutput)
+}
+
+// Labels to add to the pods.
+func (o PodMutationDistributionGroupConfigurationOutput) Labels() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfiguration) map[string]string { return v.Labels }).(pulumi.StringMapOutput)
+}
+
+// Node selector to apply to the pods (add/remove key-value pairs).
+func (o PodMutationDistributionGroupConfigurationOutput) NodeSelector() PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfiguration) *PodMutationDistributionGroupConfigurationNodeSelector {
+		return v.NodeSelector
+	}).(PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput)
+}
+
+// Node template names to consolidate.
+func (o PodMutationDistributionGroupConfigurationOutput) NodeTemplatesToConsolidates() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfiguration) []string { return v.NodeTemplatesToConsolidates }).(pulumi.StringArrayOutput)
+}
+
+// JSON patch to apply to pods. Must be a JSON array of patch operations.
+func (o PodMutationDistributionGroupConfigurationOutput) Patch() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfiguration) *string { return v.Patch }).(pulumi.StringPtrOutput)
+}
+
+// Spot instance type: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+func (o PodMutationDistributionGroupConfigurationOutput) SpotType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfiguration) *string { return v.SpotType }).(pulumi.StringPtrOutput)
+}
+
+// Tolerations to apply to the pods.
+func (o PodMutationDistributionGroupConfigurationOutput) Tolerations() PodMutationDistributionGroupConfigurationTolerationArrayOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfiguration) []PodMutationDistributionGroupConfigurationToleration {
+		return v.Tolerations
+	}).(PodMutationDistributionGroupConfigurationTolerationArrayOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinity struct {
+	NodeAffinity *PodMutationDistributionGroupConfigurationAffinityNodeAffinity `pulumi:"nodeAffinity"`
+}
+
+// PodMutationDistributionGroupConfigurationAffinityInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityArgs and PodMutationDistributionGroupConfigurationAffinityOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityInput` via:
+//
+//	PodMutationDistributionGroupConfigurationAffinityArgs{...}
+type PodMutationDistributionGroupConfigurationAffinityInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityOutput() PodMutationDistributionGroupConfigurationAffinityOutput
+	ToPodMutationDistributionGroupConfigurationAffinityOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityOutput
+}
+
+type PodMutationDistributionGroupConfigurationAffinityArgs struct {
+	NodeAffinity PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrInput `pulumi:"nodeAffinity"`
+}
+
+func (PodMutationDistributionGroupConfigurationAffinityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinity)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityArgs) ToPodMutationDistributionGroupConfigurationAffinityOutput() PodMutationDistributionGroupConfigurationAffinityOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityArgs) ToPodMutationDistributionGroupConfigurationAffinityOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityOutput)
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityArgs) ToPodMutationDistributionGroupConfigurationAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityArgs) ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityOutput).ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(ctx)
+}
+
+// PodMutationDistributionGroupConfigurationAffinityPtrInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityArgs, PodMutationDistributionGroupConfigurationAffinityPtr and PodMutationDistributionGroupConfigurationAffinityPtrOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityPtrInput` via:
+//
+//	        PodMutationDistributionGroupConfigurationAffinityArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationDistributionGroupConfigurationAffinityPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityPtrOutput
+	ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityPtrOutput
+}
+
+type podMutationDistributionGroupConfigurationAffinityPtrType PodMutationDistributionGroupConfigurationAffinityArgs
+
+func PodMutationDistributionGroupConfigurationAffinityPtr(v *PodMutationDistributionGroupConfigurationAffinityArgs) PodMutationDistributionGroupConfigurationAffinityPtrInput {
+	return (*podMutationDistributionGroupConfigurationAffinityPtrType)(v)
+}
+
+func (*podMutationDistributionGroupConfigurationAffinityPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationDistributionGroupConfigurationAffinity)(nil)).Elem()
+}
+
+func (i *podMutationDistributionGroupConfigurationAffinityPtrType) ToPodMutationDistributionGroupConfigurationAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationDistributionGroupConfigurationAffinityPtrType) ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityPtrOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinity)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityOutput) ToPodMutationDistributionGroupConfigurationAffinityOutput() PodMutationDistributionGroupConfigurationAffinityOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityOutput) ToPodMutationDistributionGroupConfigurationAffinityOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityOutput) ToPodMutationDistributionGroupConfigurationAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return o.ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityOutput) ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationDistributionGroupConfigurationAffinity) *PodMutationDistributionGroupConfigurationAffinity {
+		return &v
+	}).(PodMutationDistributionGroupConfigurationAffinityPtrOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityOutput) NodeAffinity() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationAffinity) *PodMutationDistributionGroupConfigurationAffinityNodeAffinity {
+		return v.NodeAffinity
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationDistributionGroupConfigurationAffinity)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityPtrOutput) ToPodMutationDistributionGroupConfigurationAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityPtrOutput) ToPodMutationDistributionGroupConfigurationAffinityPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityPtrOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityPtrOutput) Elem() PodMutationDistributionGroupConfigurationAffinityOutput {
+	return o.ApplyT(func(v *PodMutationDistributionGroupConfigurationAffinity) PodMutationDistributionGroupConfigurationAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationDistributionGroupConfigurationAffinity
+		return ret
+	}).(PodMutationDistributionGroupConfigurationAffinityOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityPtrOutput) NodeAffinity() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return o.ApplyT(func(v *PodMutationDistributionGroupConfigurationAffinity) *PodMutationDistributionGroupConfigurationAffinityNodeAffinity {
+		if v == nil {
+			return nil
+		}
+		return v.NodeAffinity
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinity struct {
+	PreferredDuringSchedulingIgnoredDuringExecutions []PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution `pulumi:"preferredDuringSchedulingIgnoredDuringExecutions"`
+}
+
+// PodMutationDistributionGroupConfigurationAffinityNodeAffinityInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs and PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityNodeAffinityInput` via:
+//
+//	PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs{...}
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs struct {
+	PreferredDuringSchedulingIgnoredDuringExecutions PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput `pulumi:"preferredDuringSchedulingIgnoredDuringExecutions"`
+}
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinity)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput)
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput).ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(ctx)
+}
+
+// PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs, PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtr and PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrInput` via:
+//
+//	        PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput
+}
+
+type podMutationDistributionGroupConfigurationAffinityNodeAffinityPtrType PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs
+
+func PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtr(v *PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrInput {
+	return (*podMutationDistributionGroupConfigurationAffinityNodeAffinityPtrType)(v)
+}
+
+func (*podMutationDistributionGroupConfigurationAffinityNodeAffinityPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationDistributionGroupConfigurationAffinityNodeAffinity)(nil)).Elem()
+}
+
+func (i *podMutationDistributionGroupConfigurationAffinityNodeAffinityPtrType) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationDistributionGroupConfigurationAffinityNodeAffinityPtrType) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinity)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return o.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationDistributionGroupConfigurationAffinityNodeAffinity) *PodMutationDistributionGroupConfigurationAffinityNodeAffinity {
+		return &v
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput) PreferredDuringSchedulingIgnoredDuringExecutions() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationAffinityNodeAffinity) []PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution {
+		return v.PreferredDuringSchedulingIgnoredDuringExecutions
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationDistributionGroupConfigurationAffinityNodeAffinity)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput) Elem() PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput {
+	return o.ApplyT(func(v *PodMutationDistributionGroupConfigurationAffinityNodeAffinity) PodMutationDistributionGroupConfigurationAffinityNodeAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationDistributionGroupConfigurationAffinityNodeAffinity
+		return ret
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput) PreferredDuringSchedulingIgnoredDuringExecutions() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return o.ApplyT(func(v *PodMutationDistributionGroupConfigurationAffinityNodeAffinity) []PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution {
+		if v == nil {
+			return nil
+		}
+		return v.PreferredDuringSchedulingIgnoredDuringExecutions
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution struct {
+	Preference PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference `pulumi:"preference"`
+	// Weight of the node affinity term.
+	Weight int `pulumi:"weight"`
+}
+
+// PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs and PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput` via:
+//
+//	PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs{...}
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs struct {
+	Preference PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput `pulumi:"preference"`
+	// Weight of the node affinity term.
+	Weight pulumi.IntInput `pulumi:"weight"`
+}
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput)
+}
+
+// PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray and PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput` via:
+//
+//	PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray{ PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs{...} }
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray []PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) Preference() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference {
+		return v.Preference
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput)
+}
+
+// Weight of the node affinity term.
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput) Weight() pulumi.IntOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution) int {
+		return v.Weight
+	}).(pulumi.IntOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput) Index(i pulumi.IntInput) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution {
+		return vs[0].([]PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution)[vs[1].(int)]
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference struct {
+	MatchExpressions []PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression `pulumi:"matchExpressions"`
+}
+
+// PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs and PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput` via:
+//
+//	PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs{...}
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs struct {
+	MatchExpressions PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput `pulumi:"matchExpressions"`
+}
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput) MatchExpressions() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference) []PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression {
+		return v.MatchExpressions
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression struct {
+	Key      string   `pulumi:"key"`
+	Operator string   `pulumi:"operator"`
+	Values   []string `pulumi:"values"`
+}
+
+// PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs and PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput` via:
+//
+//	PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs{...}
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs struct {
+	Key      pulumi.StringInput      `pulumi:"key"`
+	Operator pulumi.StringInput      `pulumi:"operator"`
+	Values   pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput)
+}
+
+// PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput is an input type that accepts PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray and PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput` via:
+//
+//	PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray{ PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs{...} }
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput
+	ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray []PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return i.ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression) string {
+		return v.Key
+	}).(pulumi.StringOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression) string {
+		return v.Operator
+	}).(pulumi.StringOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression) []string {
+		return v.Values
+	}).(pulumi.StringArrayOutput)
+}
+
+type PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput() PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput) ToPodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput) Index(i pulumi.IntInput) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression {
+		return vs[0].([]PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression)[vs[1].(int)]
+	}).(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput)
+}
+
+type PodMutationDistributionGroupConfigurationNodeSelector struct {
+	Add    map[string]string `pulumi:"add"`
+	Remove map[string]string `pulumi:"remove"`
+}
+
+// PodMutationDistributionGroupConfigurationNodeSelectorInput is an input type that accepts PodMutationDistributionGroupConfigurationNodeSelectorArgs and PodMutationDistributionGroupConfigurationNodeSelectorOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationNodeSelectorInput` via:
+//
+//	PodMutationDistributionGroupConfigurationNodeSelectorArgs{...}
+type PodMutationDistributionGroupConfigurationNodeSelectorInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationNodeSelectorOutput() PodMutationDistributionGroupConfigurationNodeSelectorOutput
+	ToPodMutationDistributionGroupConfigurationNodeSelectorOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationNodeSelectorOutput
+}
+
+type PodMutationDistributionGroupConfigurationNodeSelectorArgs struct {
+	Add    pulumi.StringMapInput `pulumi:"add"`
+	Remove pulumi.StringMapInput `pulumi:"remove"`
+}
+
+func (PodMutationDistributionGroupConfigurationNodeSelectorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationNodeSelector)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationNodeSelectorArgs) ToPodMutationDistributionGroupConfigurationNodeSelectorOutput() PodMutationDistributionGroupConfigurationNodeSelectorOutput {
+	return i.ToPodMutationDistributionGroupConfigurationNodeSelectorOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationNodeSelectorArgs) ToPodMutationDistributionGroupConfigurationNodeSelectorOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationNodeSelectorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationNodeSelectorOutput)
+}
+
+func (i PodMutationDistributionGroupConfigurationNodeSelectorArgs) ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutput() PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return i.ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationNodeSelectorArgs) ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationNodeSelectorOutput).ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(ctx)
+}
+
+// PodMutationDistributionGroupConfigurationNodeSelectorPtrInput is an input type that accepts PodMutationDistributionGroupConfigurationNodeSelectorArgs, PodMutationDistributionGroupConfigurationNodeSelectorPtr and PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationNodeSelectorPtrInput` via:
+//
+//	        PodMutationDistributionGroupConfigurationNodeSelectorArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationDistributionGroupConfigurationNodeSelectorPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutput() PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput
+	ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput
+}
+
+type podMutationDistributionGroupConfigurationNodeSelectorPtrType PodMutationDistributionGroupConfigurationNodeSelectorArgs
+
+func PodMutationDistributionGroupConfigurationNodeSelectorPtr(v *PodMutationDistributionGroupConfigurationNodeSelectorArgs) PodMutationDistributionGroupConfigurationNodeSelectorPtrInput {
+	return (*podMutationDistributionGroupConfigurationNodeSelectorPtrType)(v)
+}
+
+func (*podMutationDistributionGroupConfigurationNodeSelectorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationDistributionGroupConfigurationNodeSelector)(nil)).Elem()
+}
+
+func (i *podMutationDistributionGroupConfigurationNodeSelectorPtrType) ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutput() PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return i.ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationDistributionGroupConfigurationNodeSelectorPtrType) ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput)
+}
+
+type PodMutationDistributionGroupConfigurationNodeSelectorOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationNodeSelectorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationNodeSelector)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorOutput) ToPodMutationDistributionGroupConfigurationNodeSelectorOutput() PodMutationDistributionGroupConfigurationNodeSelectorOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorOutput) ToPodMutationDistributionGroupConfigurationNodeSelectorOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationNodeSelectorOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorOutput) ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutput() PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return o.ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorOutput) ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationDistributionGroupConfigurationNodeSelector) *PodMutationDistributionGroupConfigurationNodeSelector {
+		return &v
+	}).(PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorOutput) Add() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationNodeSelector) map[string]string { return v.Add }).(pulumi.StringMapOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorOutput) Remove() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationNodeSelector) map[string]string { return v.Remove }).(pulumi.StringMapOutput)
+}
+
+type PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationDistributionGroupConfigurationNodeSelector)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput) ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutput() PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput) ToPodMutationDistributionGroupConfigurationNodeSelectorPtrOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput) Elem() PodMutationDistributionGroupConfigurationNodeSelectorOutput {
+	return o.ApplyT(func(v *PodMutationDistributionGroupConfigurationNodeSelector) PodMutationDistributionGroupConfigurationNodeSelector {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationDistributionGroupConfigurationNodeSelector
+		return ret
+	}).(PodMutationDistributionGroupConfigurationNodeSelectorOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput) Add() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *PodMutationDistributionGroupConfigurationNodeSelector) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Add
+	}).(pulumi.StringMapOutput)
+}
+
+func (o PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput) Remove() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *PodMutationDistributionGroupConfigurationNodeSelector) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Remove
+	}).(pulumi.StringMapOutput)
+}
+
+type PodMutationDistributionGroupConfigurationToleration struct {
+	// Toleration effect.
+	Effect *string `pulumi:"effect"`
+	// Toleration key.
+	Key *string `pulumi:"key"`
+	// Toleration operator.
+	Operator *string `pulumi:"operator"`
+	// Toleration seconds.
+	TolerationSeconds *int `pulumi:"tolerationSeconds"`
+	// Toleration value.
+	Value *string `pulumi:"value"`
+}
+
+// PodMutationDistributionGroupConfigurationTolerationInput is an input type that accepts PodMutationDistributionGroupConfigurationTolerationArgs and PodMutationDistributionGroupConfigurationTolerationOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationTolerationInput` via:
+//
+//	PodMutationDistributionGroupConfigurationTolerationArgs{...}
+type PodMutationDistributionGroupConfigurationTolerationInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationTolerationOutput() PodMutationDistributionGroupConfigurationTolerationOutput
+	ToPodMutationDistributionGroupConfigurationTolerationOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationTolerationOutput
+}
+
+type PodMutationDistributionGroupConfigurationTolerationArgs struct {
+	// Toleration effect.
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	// Toleration key.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// Toleration operator.
+	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	// Toleration seconds.
+	TolerationSeconds pulumi.IntPtrInput `pulumi:"tolerationSeconds"`
+	// Toleration value.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (PodMutationDistributionGroupConfigurationTolerationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationToleration)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationTolerationArgs) ToPodMutationDistributionGroupConfigurationTolerationOutput() PodMutationDistributionGroupConfigurationTolerationOutput {
+	return i.ToPodMutationDistributionGroupConfigurationTolerationOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationTolerationArgs) ToPodMutationDistributionGroupConfigurationTolerationOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationTolerationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationTolerationOutput)
+}
+
+// PodMutationDistributionGroupConfigurationTolerationArrayInput is an input type that accepts PodMutationDistributionGroupConfigurationTolerationArray and PodMutationDistributionGroupConfigurationTolerationArrayOutput values.
+// You can construct a concrete instance of `PodMutationDistributionGroupConfigurationTolerationArrayInput` via:
+//
+//	PodMutationDistributionGroupConfigurationTolerationArray{ PodMutationDistributionGroupConfigurationTolerationArgs{...} }
+type PodMutationDistributionGroupConfigurationTolerationArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationDistributionGroupConfigurationTolerationArrayOutput() PodMutationDistributionGroupConfigurationTolerationArrayOutput
+	ToPodMutationDistributionGroupConfigurationTolerationArrayOutputWithContext(context.Context) PodMutationDistributionGroupConfigurationTolerationArrayOutput
+}
+
+type PodMutationDistributionGroupConfigurationTolerationArray []PodMutationDistributionGroupConfigurationTolerationInput
+
+func (PodMutationDistributionGroupConfigurationTolerationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationDistributionGroupConfigurationToleration)(nil)).Elem()
+}
+
+func (i PodMutationDistributionGroupConfigurationTolerationArray) ToPodMutationDistributionGroupConfigurationTolerationArrayOutput() PodMutationDistributionGroupConfigurationTolerationArrayOutput {
+	return i.ToPodMutationDistributionGroupConfigurationTolerationArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationDistributionGroupConfigurationTolerationArray) ToPodMutationDistributionGroupConfigurationTolerationArrayOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationTolerationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationDistributionGroupConfigurationTolerationArrayOutput)
+}
+
+type PodMutationDistributionGroupConfigurationTolerationOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationTolerationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationDistributionGroupConfigurationToleration)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationTolerationOutput) ToPodMutationDistributionGroupConfigurationTolerationOutput() PodMutationDistributionGroupConfigurationTolerationOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationTolerationOutput) ToPodMutationDistributionGroupConfigurationTolerationOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationTolerationOutput {
+	return o
+}
+
+// Toleration effect.
+func (o PodMutationDistributionGroupConfigurationTolerationOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationToleration) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+// Toleration key.
+func (o PodMutationDistributionGroupConfigurationTolerationOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationToleration) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// Toleration operator.
+func (o PodMutationDistributionGroupConfigurationTolerationOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationToleration) *string { return v.Operator }).(pulumi.StringPtrOutput)
+}
+
+// Toleration seconds.
+func (o PodMutationDistributionGroupConfigurationTolerationOutput) TolerationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationToleration) *int { return v.TolerationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// Toleration value.
+func (o PodMutationDistributionGroupConfigurationTolerationOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationDistributionGroupConfigurationToleration) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type PodMutationDistributionGroupConfigurationTolerationArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationDistributionGroupConfigurationTolerationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationDistributionGroupConfigurationToleration)(nil)).Elem()
+}
+
+func (o PodMutationDistributionGroupConfigurationTolerationArrayOutput) ToPodMutationDistributionGroupConfigurationTolerationArrayOutput() PodMutationDistributionGroupConfigurationTolerationArrayOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationTolerationArrayOutput) ToPodMutationDistributionGroupConfigurationTolerationArrayOutputWithContext(ctx context.Context) PodMutationDistributionGroupConfigurationTolerationArrayOutput {
+	return o
+}
+
+func (o PodMutationDistributionGroupConfigurationTolerationArrayOutput) Index(i pulumi.IntInput) PodMutationDistributionGroupConfigurationTolerationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationDistributionGroupConfigurationToleration {
+		return vs[0].([]PodMutationDistributionGroupConfigurationToleration)[vs[1].(int)]
+	}).(PodMutationDistributionGroupConfigurationTolerationOutput)
+}
+
+type PodMutationFilterV2 struct {
+	// Pod filter for labels.
+	Pod *PodMutationFilterV2Pod `pulumi:"pod"`
+	// Workload filter for kinds, names, and namespaces.
+	Workload *PodMutationFilterV2Workload `pulumi:"workload"`
+}
+
+// PodMutationFilterV2Input is an input type that accepts PodMutationFilterV2Args and PodMutationFilterV2Output values.
+// You can construct a concrete instance of `PodMutationFilterV2Input` via:
+//
+//	PodMutationFilterV2Args{...}
+type PodMutationFilterV2Input interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2Output() PodMutationFilterV2Output
+	ToPodMutationFilterV2OutputWithContext(context.Context) PodMutationFilterV2Output
+}
+
+type PodMutationFilterV2Args struct {
+	// Pod filter for labels.
+	Pod PodMutationFilterV2PodPtrInput `pulumi:"pod"`
+	// Workload filter for kinds, names, and namespaces.
+	Workload PodMutationFilterV2WorkloadPtrInput `pulumi:"workload"`
+}
+
+func (PodMutationFilterV2Args) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2Args) ToPodMutationFilterV2Output() PodMutationFilterV2Output {
+	return i.ToPodMutationFilterV2OutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2Args) ToPodMutationFilterV2OutputWithContext(ctx context.Context) PodMutationFilterV2Output {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2Output)
+}
+
+func (i PodMutationFilterV2Args) ToPodMutationFilterV2PtrOutput() PodMutationFilterV2PtrOutput {
+	return i.ToPodMutationFilterV2PtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2Args) ToPodMutationFilterV2PtrOutputWithContext(ctx context.Context) PodMutationFilterV2PtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2Output).ToPodMutationFilterV2PtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PtrInput is an input type that accepts PodMutationFilterV2Args, PodMutationFilterV2Ptr and PodMutationFilterV2PtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PtrInput` via:
+//
+//	        PodMutationFilterV2Args{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PtrOutput() PodMutationFilterV2PtrOutput
+	ToPodMutationFilterV2PtrOutputWithContext(context.Context) PodMutationFilterV2PtrOutput
+}
+
+type podMutationFilterV2PtrType PodMutationFilterV2Args
+
+func PodMutationFilterV2Ptr(v *PodMutationFilterV2Args) PodMutationFilterV2PtrInput {
+	return (*podMutationFilterV2PtrType)(v)
+}
+
+func (*podMutationFilterV2PtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PtrType) ToPodMutationFilterV2PtrOutput() PodMutationFilterV2PtrOutput {
+	return i.ToPodMutationFilterV2PtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PtrType) ToPodMutationFilterV2PtrOutputWithContext(ctx context.Context) PodMutationFilterV2PtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PtrOutput)
+}
+
+type PodMutationFilterV2Output struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2Output) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2Output) ToPodMutationFilterV2Output() PodMutationFilterV2Output {
+	return o
+}
+
+func (o PodMutationFilterV2Output) ToPodMutationFilterV2OutputWithContext(ctx context.Context) PodMutationFilterV2Output {
+	return o
+}
+
+func (o PodMutationFilterV2Output) ToPodMutationFilterV2PtrOutput() PodMutationFilterV2PtrOutput {
+	return o.ToPodMutationFilterV2PtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2Output) ToPodMutationFilterV2PtrOutputWithContext(ctx context.Context) PodMutationFilterV2PtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2) *PodMutationFilterV2 {
+		return &v
+	}).(PodMutationFilterV2PtrOutput)
+}
+
+// Pod filter for labels.
+func (o PodMutationFilterV2Output) Pod() PodMutationFilterV2PodPtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2) *PodMutationFilterV2Pod { return v.Pod }).(PodMutationFilterV2PodPtrOutput)
+}
+
+// Workload filter for kinds, names, and namespaces.
+func (o PodMutationFilterV2Output) Workload() PodMutationFilterV2WorkloadPtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2) *PodMutationFilterV2Workload { return v.Workload }).(PodMutationFilterV2WorkloadPtrOutput)
+}
+
+type PodMutationFilterV2PtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PtrOutput) ToPodMutationFilterV2PtrOutput() PodMutationFilterV2PtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PtrOutput) ToPodMutationFilterV2PtrOutputWithContext(ctx context.Context) PodMutationFilterV2PtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PtrOutput) Elem() PodMutationFilterV2Output {
+	return o.ApplyT(func(v *PodMutationFilterV2) PodMutationFilterV2 {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2
+		return ret
+	}).(PodMutationFilterV2Output)
+}
+
+// Pod filter for labels.
+func (o PodMutationFilterV2PtrOutput) Pod() PodMutationFilterV2PodPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2) *PodMutationFilterV2Pod {
+		if v == nil {
+			return nil
+		}
+		return v.Pod
+	}).(PodMutationFilterV2PodPtrOutput)
+}
+
+// Workload filter for kinds, names, and namespaces.
+func (o PodMutationFilterV2PtrOutput) Workload() PodMutationFilterV2WorkloadPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2) *PodMutationFilterV2Workload {
+		if v == nil {
+			return nil
+		}
+		return v.Workload
+	}).(PodMutationFilterV2WorkloadPtrOutput)
+}
+
+type PodMutationFilterV2Pod struct {
+	ExcludeLabelsFilter *PodMutationFilterV2PodExcludeLabelsFilter `pulumi:"excludeLabelsFilter"`
+	LabelsFilter        *PodMutationFilterV2PodLabelsFilter        `pulumi:"labelsFilter"`
+	// Tolerations filter for matching pods by their tolerations.
+	TolerationsFilter *PodMutationFilterV2PodTolerationsFilter `pulumi:"tolerationsFilter"`
+}
+
+// PodMutationFilterV2PodInput is an input type that accepts PodMutationFilterV2PodArgs and PodMutationFilterV2PodOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodInput` via:
+//
+//	PodMutationFilterV2PodArgs{...}
+type PodMutationFilterV2PodInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodOutput() PodMutationFilterV2PodOutput
+	ToPodMutationFilterV2PodOutputWithContext(context.Context) PodMutationFilterV2PodOutput
+}
+
+type PodMutationFilterV2PodArgs struct {
+	ExcludeLabelsFilter PodMutationFilterV2PodExcludeLabelsFilterPtrInput `pulumi:"excludeLabelsFilter"`
+	LabelsFilter        PodMutationFilterV2PodLabelsFilterPtrInput        `pulumi:"labelsFilter"`
+	// Tolerations filter for matching pods by their tolerations.
+	TolerationsFilter PodMutationFilterV2PodTolerationsFilterPtrInput `pulumi:"tolerationsFilter"`
+}
+
+func (PodMutationFilterV2PodArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2Pod)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodArgs) ToPodMutationFilterV2PodOutput() PodMutationFilterV2PodOutput {
+	return i.ToPodMutationFilterV2PodOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodArgs) ToPodMutationFilterV2PodOutputWithContext(ctx context.Context) PodMutationFilterV2PodOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodOutput)
+}
+
+func (i PodMutationFilterV2PodArgs) ToPodMutationFilterV2PodPtrOutput() PodMutationFilterV2PodPtrOutput {
+	return i.ToPodMutationFilterV2PodPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodArgs) ToPodMutationFilterV2PodPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodOutput).ToPodMutationFilterV2PodPtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PodPtrInput is an input type that accepts PodMutationFilterV2PodArgs, PodMutationFilterV2PodPtr and PodMutationFilterV2PodPtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodPtrInput` via:
+//
+//	        PodMutationFilterV2PodArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PodPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodPtrOutput() PodMutationFilterV2PodPtrOutput
+	ToPodMutationFilterV2PodPtrOutputWithContext(context.Context) PodMutationFilterV2PodPtrOutput
+}
+
+type podMutationFilterV2PodPtrType PodMutationFilterV2PodArgs
+
+func PodMutationFilterV2PodPtr(v *PodMutationFilterV2PodArgs) PodMutationFilterV2PodPtrInput {
+	return (*podMutationFilterV2PodPtrType)(v)
+}
+
+func (*podMutationFilterV2PodPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2Pod)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PodPtrType) ToPodMutationFilterV2PodPtrOutput() PodMutationFilterV2PodPtrOutput {
+	return i.ToPodMutationFilterV2PodPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PodPtrType) ToPodMutationFilterV2PodPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodPtrOutput)
+}
+
+type PodMutationFilterV2PodOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2Pod)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodOutput) ToPodMutationFilterV2PodOutput() PodMutationFilterV2PodOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodOutput) ToPodMutationFilterV2PodOutputWithContext(ctx context.Context) PodMutationFilterV2PodOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodOutput) ToPodMutationFilterV2PodPtrOutput() PodMutationFilterV2PodPtrOutput {
+	return o.ToPodMutationFilterV2PodPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2PodOutput) ToPodMutationFilterV2PodPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2Pod) *PodMutationFilterV2Pod {
+		return &v
+	}).(PodMutationFilterV2PodPtrOutput)
+}
+
+func (o PodMutationFilterV2PodOutput) ExcludeLabelsFilter() PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Pod) *PodMutationFilterV2PodExcludeLabelsFilter {
+		return v.ExcludeLabelsFilter
+	}).(PodMutationFilterV2PodExcludeLabelsFilterPtrOutput)
+}
+
+func (o PodMutationFilterV2PodOutput) LabelsFilter() PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Pod) *PodMutationFilterV2PodLabelsFilter { return v.LabelsFilter }).(PodMutationFilterV2PodLabelsFilterPtrOutput)
+}
+
+// Tolerations filter for matching pods by their tolerations.
+func (o PodMutationFilterV2PodOutput) TolerationsFilter() PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Pod) *PodMutationFilterV2PodTolerationsFilter { return v.TolerationsFilter }).(PodMutationFilterV2PodTolerationsFilterPtrOutput)
+}
+
+type PodMutationFilterV2PodPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2Pod)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodPtrOutput) ToPodMutationFilterV2PodPtrOutput() PodMutationFilterV2PodPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodPtrOutput) ToPodMutationFilterV2PodPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodPtrOutput) Elem() PodMutationFilterV2PodOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Pod) PodMutationFilterV2Pod {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2Pod
+		return ret
+	}).(PodMutationFilterV2PodOutput)
+}
+
+func (o PodMutationFilterV2PodPtrOutput) ExcludeLabelsFilter() PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Pod) *PodMutationFilterV2PodExcludeLabelsFilter {
+		if v == nil {
+			return nil
+		}
+		return v.ExcludeLabelsFilter
+	}).(PodMutationFilterV2PodExcludeLabelsFilterPtrOutput)
+}
+
+func (o PodMutationFilterV2PodPtrOutput) LabelsFilter() PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Pod) *PodMutationFilterV2PodLabelsFilter {
+		if v == nil {
+			return nil
+		}
+		return v.LabelsFilter
+	}).(PodMutationFilterV2PodLabelsFilterPtrOutput)
+}
+
+// Tolerations filter for matching pods by their tolerations.
+func (o PodMutationFilterV2PodPtrOutput) TolerationsFilter() PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Pod) *PodMutationFilterV2PodTolerationsFilter {
+		if v == nil {
+			return nil
+		}
+		return v.TolerationsFilter
+	}).(PodMutationFilterV2PodTolerationsFilterPtrOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilter struct {
+	Matchers []PodMutationFilterV2PodExcludeLabelsFilterMatcher `pulumi:"matchers"`
+	// Logical operator to combine label matchers: AND or OR.
+	Operator string `pulumi:"operator"`
+}
+
+// PodMutationFilterV2PodExcludeLabelsFilterInput is an input type that accepts PodMutationFilterV2PodExcludeLabelsFilterArgs and PodMutationFilterV2PodExcludeLabelsFilterOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodExcludeLabelsFilterInput` via:
+//
+//	PodMutationFilterV2PodExcludeLabelsFilterArgs{...}
+type PodMutationFilterV2PodExcludeLabelsFilterInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodExcludeLabelsFilterOutput() PodMutationFilterV2PodExcludeLabelsFilterOutput
+	ToPodMutationFilterV2PodExcludeLabelsFilterOutputWithContext(context.Context) PodMutationFilterV2PodExcludeLabelsFilterOutput
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterArgs struct {
+	Matchers PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayInput `pulumi:"matchers"`
+	// Logical operator to combine label matchers: AND or OR.
+	Operator pulumi.StringInput `pulumi:"operator"`
+}
+
+func (PodMutationFilterV2PodExcludeLabelsFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilter)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterArgs) ToPodMutationFilterV2PodExcludeLabelsFilterOutput() PodMutationFilterV2PodExcludeLabelsFilterOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterArgs) ToPodMutationFilterV2PodExcludeLabelsFilterOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterOutput)
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterArgs) ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutput() PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterArgs) ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterOutput).ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PodExcludeLabelsFilterPtrInput is an input type that accepts PodMutationFilterV2PodExcludeLabelsFilterArgs, PodMutationFilterV2PodExcludeLabelsFilterPtr and PodMutationFilterV2PodExcludeLabelsFilterPtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodExcludeLabelsFilterPtrInput` via:
+//
+//	        PodMutationFilterV2PodExcludeLabelsFilterArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PodExcludeLabelsFilterPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutput() PodMutationFilterV2PodExcludeLabelsFilterPtrOutput
+	ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(context.Context) PodMutationFilterV2PodExcludeLabelsFilterPtrOutput
+}
+
+type podMutationFilterV2PodExcludeLabelsFilterPtrType PodMutationFilterV2PodExcludeLabelsFilterArgs
+
+func PodMutationFilterV2PodExcludeLabelsFilterPtr(v *PodMutationFilterV2PodExcludeLabelsFilterArgs) PodMutationFilterV2PodExcludeLabelsFilterPtrInput {
+	return (*podMutationFilterV2PodExcludeLabelsFilterPtrType)(v)
+}
+
+func (*podMutationFilterV2PodExcludeLabelsFilterPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodExcludeLabelsFilter)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PodExcludeLabelsFilterPtrType) ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutput() PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PodExcludeLabelsFilterPtrType) ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterPtrOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodExcludeLabelsFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilter)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterOutput) ToPodMutationFilterV2PodExcludeLabelsFilterOutput() PodMutationFilterV2PodExcludeLabelsFilterOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterOutput) ToPodMutationFilterV2PodExcludeLabelsFilterOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterOutput) ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutput() PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return o.ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterOutput) ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2PodExcludeLabelsFilter) *PodMutationFilterV2PodExcludeLabelsFilter {
+		return &v
+	}).(PodMutationFilterV2PodExcludeLabelsFilterPtrOutput)
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterOutput) Matchers() PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodExcludeLabelsFilter) []PodMutationFilterV2PodExcludeLabelsFilterMatcher {
+		return v.Matchers
+	}).(PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput)
+}
+
+// Logical operator to combine label matchers: AND or OR.
+func (o PodMutationFilterV2PodExcludeLabelsFilterOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodExcludeLabelsFilter) string { return v.Operator }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodExcludeLabelsFilterPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodExcludeLabelsFilter)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterPtrOutput) ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutput() PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterPtrOutput) ToPodMutationFilterV2PodExcludeLabelsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterPtrOutput) Elem() PodMutationFilterV2PodExcludeLabelsFilterOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodExcludeLabelsFilter) PodMutationFilterV2PodExcludeLabelsFilter {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2PodExcludeLabelsFilter
+		return ret
+	}).(PodMutationFilterV2PodExcludeLabelsFilterOutput)
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterPtrOutput) Matchers() PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodExcludeLabelsFilter) []PodMutationFilterV2PodExcludeLabelsFilterMatcher {
+		if v == nil {
+			return nil
+		}
+		return v.Matchers
+	}).(PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput)
+}
+
+// Logical operator to combine label matchers: AND or OR.
+func (o PodMutationFilterV2PodExcludeLabelsFilterPtrOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodExcludeLabelsFilter) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Operator
+	}).(pulumi.StringPtrOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcher struct {
+	Key   PodMutationFilterV2PodExcludeLabelsFilterMatcherKey    `pulumi:"key"`
+	Value *PodMutationFilterV2PodExcludeLabelsFilterMatcherValue `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodExcludeLabelsFilterMatcherInput is an input type that accepts PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs and PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodExcludeLabelsFilterMatcherInput` via:
+//
+//	PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs{...}
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherOutputWithContext(context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs struct {
+	Key   PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyInput      `pulumi:"key"`
+	Value PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcher)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterMatcherOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput)
+}
+
+// PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayInput is an input type that accepts PodMutationFilterV2PodExcludeLabelsFilterMatcherArray and PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayInput` via:
+//
+//	PodMutationFilterV2PodExcludeLabelsFilterMatcherArray{ PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs{...} }
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutputWithContext(context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherArray []PodMutationFilterV2PodExcludeLabelsFilterMatcherInput
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2PodExcludeLabelsFilterMatcher)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherArray) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherArray) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcher)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput) Key() PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodExcludeLabelsFilterMatcher) PodMutationFilterV2PodExcludeLabelsFilterMatcherKey {
+		return v.Key
+	}).(PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput)
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput) Value() PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodExcludeLabelsFilterMatcher) *PodMutationFilterV2PodExcludeLabelsFilterMatcherValue {
+		return v.Value
+	}).(PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2PodExcludeLabelsFilterMatcher)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2PodExcludeLabelsFilterMatcher {
+		return vs[0].([]PodMutationFilterV2PodExcludeLabelsFilterMatcher)[vs[1].(int)]
+	}).(PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherKey struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyInput is an input type that accepts PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs and PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyInput` via:
+//
+//	PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs{...}
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutputWithContext(context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherKey)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherKey)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodExcludeLabelsFilterMatcherKey) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodExcludeLabelsFilterMatcherKey) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherValue struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodExcludeLabelsFilterMatcherValueInput is an input type that accepts PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs and PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodExcludeLabelsFilterMatcherValueInput` via:
+//
+//	PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs{...}
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherValueInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutputWithContext(context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherValue)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput)
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput).ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrInput is an input type that accepts PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs, PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtr and PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrInput` via:
+//
+//	        PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput
+	ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput
+}
+
+type podMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrType PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs
+
+func PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtr(v *PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs) PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrInput {
+	return (*podMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrType)(v)
+}
+
+func (*podMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodExcludeLabelsFilterMatcherValue)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrType) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return i.ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrType) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherValue)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return o.ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2PodExcludeLabelsFilterMatcherValue) *PodMutationFilterV2PodExcludeLabelsFilterMatcherValue {
+		return &v
+	}).(PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput)
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodExcludeLabelsFilterMatcherValue) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodExcludeLabelsFilterMatcherValue) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodExcludeLabelsFilterMatcherValue)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput) ToPodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput) Elem() PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodExcludeLabelsFilterMatcherValue) PodMutationFilterV2PodExcludeLabelsFilterMatcherValue {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2PodExcludeLabelsFilterMatcherValue
+		return ret
+	}).(PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput)
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodExcludeLabelsFilterMatcherValue) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodExcludeLabelsFilterMatcherValue) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilter struct {
+	Matchers []PodMutationFilterV2PodLabelsFilterMatcher `pulumi:"matchers"`
+	// Logical operator to combine label matchers: AND or OR.
+	Operator string `pulumi:"operator"`
+}
+
+// PodMutationFilterV2PodLabelsFilterInput is an input type that accepts PodMutationFilterV2PodLabelsFilterArgs and PodMutationFilterV2PodLabelsFilterOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodLabelsFilterInput` via:
+//
+//	PodMutationFilterV2PodLabelsFilterArgs{...}
+type PodMutationFilterV2PodLabelsFilterInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodLabelsFilterOutput() PodMutationFilterV2PodLabelsFilterOutput
+	ToPodMutationFilterV2PodLabelsFilterOutputWithContext(context.Context) PodMutationFilterV2PodLabelsFilterOutput
+}
+
+type PodMutationFilterV2PodLabelsFilterArgs struct {
+	Matchers PodMutationFilterV2PodLabelsFilterMatcherArrayInput `pulumi:"matchers"`
+	// Logical operator to combine label matchers: AND or OR.
+	Operator pulumi.StringInput `pulumi:"operator"`
+}
+
+func (PodMutationFilterV2PodLabelsFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodLabelsFilter)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodLabelsFilterArgs) ToPodMutationFilterV2PodLabelsFilterOutput() PodMutationFilterV2PodLabelsFilterOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodLabelsFilterArgs) ToPodMutationFilterV2PodLabelsFilterOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterOutput)
+}
+
+func (i PodMutationFilterV2PodLabelsFilterArgs) ToPodMutationFilterV2PodLabelsFilterPtrOutput() PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodLabelsFilterArgs) ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterOutput).ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PodLabelsFilterPtrInput is an input type that accepts PodMutationFilterV2PodLabelsFilterArgs, PodMutationFilterV2PodLabelsFilterPtr and PodMutationFilterV2PodLabelsFilterPtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodLabelsFilterPtrInput` via:
+//
+//	        PodMutationFilterV2PodLabelsFilterArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PodLabelsFilterPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodLabelsFilterPtrOutput() PodMutationFilterV2PodLabelsFilterPtrOutput
+	ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(context.Context) PodMutationFilterV2PodLabelsFilterPtrOutput
+}
+
+type podMutationFilterV2PodLabelsFilterPtrType PodMutationFilterV2PodLabelsFilterArgs
+
+func PodMutationFilterV2PodLabelsFilterPtr(v *PodMutationFilterV2PodLabelsFilterArgs) PodMutationFilterV2PodLabelsFilterPtrInput {
+	return (*podMutationFilterV2PodLabelsFilterPtrType)(v)
+}
+
+func (*podMutationFilterV2PodLabelsFilterPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodLabelsFilter)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PodLabelsFilterPtrType) ToPodMutationFilterV2PodLabelsFilterPtrOutput() PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PodLabelsFilterPtrType) ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterPtrOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodLabelsFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodLabelsFilter)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodLabelsFilterOutput) ToPodMutationFilterV2PodLabelsFilterOutput() PodMutationFilterV2PodLabelsFilterOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterOutput) ToPodMutationFilterV2PodLabelsFilterOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterOutput) ToPodMutationFilterV2PodLabelsFilterPtrOutput() PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return o.ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2PodLabelsFilterOutput) ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2PodLabelsFilter) *PodMutationFilterV2PodLabelsFilter {
+		return &v
+	}).(PodMutationFilterV2PodLabelsFilterPtrOutput)
+}
+
+func (o PodMutationFilterV2PodLabelsFilterOutput) Matchers() PodMutationFilterV2PodLabelsFilterMatcherArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodLabelsFilter) []PodMutationFilterV2PodLabelsFilterMatcher {
+		return v.Matchers
+	}).(PodMutationFilterV2PodLabelsFilterMatcherArrayOutput)
+}
+
+// Logical operator to combine label matchers: AND or OR.
+func (o PodMutationFilterV2PodLabelsFilterOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodLabelsFilter) string { return v.Operator }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodLabelsFilterPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodLabelsFilter)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodLabelsFilterPtrOutput) ToPodMutationFilterV2PodLabelsFilterPtrOutput() PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterPtrOutput) ToPodMutationFilterV2PodLabelsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterPtrOutput) Elem() PodMutationFilterV2PodLabelsFilterOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodLabelsFilter) PodMutationFilterV2PodLabelsFilter {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2PodLabelsFilter
+		return ret
+	}).(PodMutationFilterV2PodLabelsFilterOutput)
+}
+
+func (o PodMutationFilterV2PodLabelsFilterPtrOutput) Matchers() PodMutationFilterV2PodLabelsFilterMatcherArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodLabelsFilter) []PodMutationFilterV2PodLabelsFilterMatcher {
+		if v == nil {
+			return nil
+		}
+		return v.Matchers
+	}).(PodMutationFilterV2PodLabelsFilterMatcherArrayOutput)
+}
+
+// Logical operator to combine label matchers: AND or OR.
+func (o PodMutationFilterV2PodLabelsFilterPtrOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodLabelsFilter) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Operator
+	}).(pulumi.StringPtrOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcher struct {
+	Key   PodMutationFilterV2PodLabelsFilterMatcherKey    `pulumi:"key"`
+	Value *PodMutationFilterV2PodLabelsFilterMatcherValue `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodLabelsFilterMatcherInput is an input type that accepts PodMutationFilterV2PodLabelsFilterMatcherArgs and PodMutationFilterV2PodLabelsFilterMatcherOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodLabelsFilterMatcherInput` via:
+//
+//	PodMutationFilterV2PodLabelsFilterMatcherArgs{...}
+type PodMutationFilterV2PodLabelsFilterMatcherInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodLabelsFilterMatcherOutput() PodMutationFilterV2PodLabelsFilterMatcherOutput
+	ToPodMutationFilterV2PodLabelsFilterMatcherOutputWithContext(context.Context) PodMutationFilterV2PodLabelsFilterMatcherOutput
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherArgs struct {
+	Key   PodMutationFilterV2PodLabelsFilterMatcherKeyInput      `pulumi:"key"`
+	Value PodMutationFilterV2PodLabelsFilterMatcherValuePtrInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodLabelsFilterMatcherArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcher)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherArgs) ToPodMutationFilterV2PodLabelsFilterMatcherOutput() PodMutationFilterV2PodLabelsFilterMatcherOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterMatcherOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherArgs) ToPodMutationFilterV2PodLabelsFilterMatcherOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterMatcherOutput)
+}
+
+// PodMutationFilterV2PodLabelsFilterMatcherArrayInput is an input type that accepts PodMutationFilterV2PodLabelsFilterMatcherArray and PodMutationFilterV2PodLabelsFilterMatcherArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodLabelsFilterMatcherArrayInput` via:
+//
+//	PodMutationFilterV2PodLabelsFilterMatcherArray{ PodMutationFilterV2PodLabelsFilterMatcherArgs{...} }
+type PodMutationFilterV2PodLabelsFilterMatcherArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodLabelsFilterMatcherArrayOutput() PodMutationFilterV2PodLabelsFilterMatcherArrayOutput
+	ToPodMutationFilterV2PodLabelsFilterMatcherArrayOutputWithContext(context.Context) PodMutationFilterV2PodLabelsFilterMatcherArrayOutput
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherArray []PodMutationFilterV2PodLabelsFilterMatcherInput
+
+func (PodMutationFilterV2PodLabelsFilterMatcherArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2PodLabelsFilterMatcher)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherArray) ToPodMutationFilterV2PodLabelsFilterMatcherArrayOutput() PodMutationFilterV2PodLabelsFilterMatcherArrayOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterMatcherArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherArray) ToPodMutationFilterV2PodLabelsFilterMatcherArrayOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterMatcherArrayOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodLabelsFilterMatcherOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcher)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherOutput) ToPodMutationFilterV2PodLabelsFilterMatcherOutput() PodMutationFilterV2PodLabelsFilterMatcherOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherOutput) ToPodMutationFilterV2PodLabelsFilterMatcherOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherOutput) Key() PodMutationFilterV2PodLabelsFilterMatcherKeyOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodLabelsFilterMatcher) PodMutationFilterV2PodLabelsFilterMatcherKey {
+		return v.Key
+	}).(PodMutationFilterV2PodLabelsFilterMatcherKeyOutput)
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherOutput) Value() PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodLabelsFilterMatcher) *PodMutationFilterV2PodLabelsFilterMatcherValue {
+		return v.Value
+	}).(PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodLabelsFilterMatcherArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2PodLabelsFilterMatcher)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherArrayOutput) ToPodMutationFilterV2PodLabelsFilterMatcherArrayOutput() PodMutationFilterV2PodLabelsFilterMatcherArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherArrayOutput) ToPodMutationFilterV2PodLabelsFilterMatcherArrayOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2PodLabelsFilterMatcherOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2PodLabelsFilterMatcher {
+		return vs[0].([]PodMutationFilterV2PodLabelsFilterMatcher)[vs[1].(int)]
+	}).(PodMutationFilterV2PodLabelsFilterMatcherOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherKey struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodLabelsFilterMatcherKeyInput is an input type that accepts PodMutationFilterV2PodLabelsFilterMatcherKeyArgs and PodMutationFilterV2PodLabelsFilterMatcherKeyOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodLabelsFilterMatcherKeyInput` via:
+//
+//	PodMutationFilterV2PodLabelsFilterMatcherKeyArgs{...}
+type PodMutationFilterV2PodLabelsFilterMatcherKeyInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodLabelsFilterMatcherKeyOutput() PodMutationFilterV2PodLabelsFilterMatcherKeyOutput
+	ToPodMutationFilterV2PodLabelsFilterMatcherKeyOutputWithContext(context.Context) PodMutationFilterV2PodLabelsFilterMatcherKeyOutput
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherKeyArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodLabelsFilterMatcherKeyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherKey)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherKeyArgs) ToPodMutationFilterV2PodLabelsFilterMatcherKeyOutput() PodMutationFilterV2PodLabelsFilterMatcherKeyOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterMatcherKeyOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherKeyArgs) ToPodMutationFilterV2PodLabelsFilterMatcherKeyOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherKeyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterMatcherKeyOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherKeyOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodLabelsFilterMatcherKeyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherKey)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherKeyOutput) ToPodMutationFilterV2PodLabelsFilterMatcherKeyOutput() PodMutationFilterV2PodLabelsFilterMatcherKeyOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherKeyOutput) ToPodMutationFilterV2PodLabelsFilterMatcherKeyOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherKeyOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodLabelsFilterMatcherKeyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodLabelsFilterMatcherKey) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodLabelsFilterMatcherKeyOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodLabelsFilterMatcherKey) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherValue struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodLabelsFilterMatcherValueInput is an input type that accepts PodMutationFilterV2PodLabelsFilterMatcherValueArgs and PodMutationFilterV2PodLabelsFilterMatcherValueOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodLabelsFilterMatcherValueInput` via:
+//
+//	PodMutationFilterV2PodLabelsFilterMatcherValueArgs{...}
+type PodMutationFilterV2PodLabelsFilterMatcherValueInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodLabelsFilterMatcherValueOutput() PodMutationFilterV2PodLabelsFilterMatcherValueOutput
+	ToPodMutationFilterV2PodLabelsFilterMatcherValueOutputWithContext(context.Context) PodMutationFilterV2PodLabelsFilterMatcherValueOutput
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherValueArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodLabelsFilterMatcherValueArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherValue)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherValueArgs) ToPodMutationFilterV2PodLabelsFilterMatcherValueOutput() PodMutationFilterV2PodLabelsFilterMatcherValueOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterMatcherValueOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherValueArgs) ToPodMutationFilterV2PodLabelsFilterMatcherValueOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherValueOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterMatcherValueOutput)
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherValueArgs) ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodLabelsFilterMatcherValueArgs) ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterMatcherValueOutput).ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PodLabelsFilterMatcherValuePtrInput is an input type that accepts PodMutationFilterV2PodLabelsFilterMatcherValueArgs, PodMutationFilterV2PodLabelsFilterMatcherValuePtr and PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodLabelsFilterMatcherValuePtrInput` via:
+//
+//	        PodMutationFilterV2PodLabelsFilterMatcherValueArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PodLabelsFilterMatcherValuePtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput
+	ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(context.Context) PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput
+}
+
+type podMutationFilterV2PodLabelsFilterMatcherValuePtrType PodMutationFilterV2PodLabelsFilterMatcherValueArgs
+
+func PodMutationFilterV2PodLabelsFilterMatcherValuePtr(v *PodMutationFilterV2PodLabelsFilterMatcherValueArgs) PodMutationFilterV2PodLabelsFilterMatcherValuePtrInput {
+	return (*podMutationFilterV2PodLabelsFilterMatcherValuePtrType)(v)
+}
+
+func (*podMutationFilterV2PodLabelsFilterMatcherValuePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodLabelsFilterMatcherValue)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PodLabelsFilterMatcherValuePtrType) ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return i.ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PodLabelsFilterMatcherValuePtrType) ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherValueOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodLabelsFilterMatcherValueOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherValue)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherValueOutput) ToPodMutationFilterV2PodLabelsFilterMatcherValueOutput() PodMutationFilterV2PodLabelsFilterMatcherValueOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherValueOutput) ToPodMutationFilterV2PodLabelsFilterMatcherValueOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherValueOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherValueOutput) ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return o.ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherValueOutput) ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2PodLabelsFilterMatcherValue) *PodMutationFilterV2PodLabelsFilterMatcherValue {
+		return &v
+	}).(PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput)
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodLabelsFilterMatcherValueOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodLabelsFilterMatcherValue) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodLabelsFilterMatcherValueOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodLabelsFilterMatcherValue) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodLabelsFilterMatcherValue)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput) ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput() PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput) ToPodMutationFilterV2PodLabelsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput) Elem() PodMutationFilterV2PodLabelsFilterMatcherValueOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodLabelsFilterMatcherValue) PodMutationFilterV2PodLabelsFilterMatcherValue {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2PodLabelsFilterMatcherValue
+		return ret
+	}).(PodMutationFilterV2PodLabelsFilterMatcherValueOutput)
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodLabelsFilterMatcherValue) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodLabelsFilterMatcherValue) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilter struct {
+	Matchers []PodMutationFilterV2PodTolerationsFilterMatcher `pulumi:"matchers"`
+	// Logical operator to combine toleration matchers: AND or OR.
+	Operator string `pulumi:"operator"`
+}
+
+// PodMutationFilterV2PodTolerationsFilterInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterArgs and PodMutationFilterV2PodTolerationsFilterOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterInput` via:
+//
+//	PodMutationFilterV2PodTolerationsFilterArgs{...}
+type PodMutationFilterV2PodTolerationsFilterInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterOutput() PodMutationFilterV2PodTolerationsFilterOutput
+	ToPodMutationFilterV2PodTolerationsFilterOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterOutput
+}
+
+type PodMutationFilterV2PodTolerationsFilterArgs struct {
+	Matchers PodMutationFilterV2PodTolerationsFilterMatcherArrayInput `pulumi:"matchers"`
+	// Logical operator to combine toleration matchers: AND or OR.
+	Operator pulumi.StringInput `pulumi:"operator"`
+}
+
+func (PodMutationFilterV2PodTolerationsFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilter)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterArgs) ToPodMutationFilterV2PodTolerationsFilterOutput() PodMutationFilterV2PodTolerationsFilterOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterArgs) ToPodMutationFilterV2PodTolerationsFilterOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterOutput)
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterArgs) ToPodMutationFilterV2PodTolerationsFilterPtrOutput() PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterArgs) ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterOutput).ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PodTolerationsFilterPtrInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterArgs, PodMutationFilterV2PodTolerationsFilterPtr and PodMutationFilterV2PodTolerationsFilterPtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterPtrInput` via:
+//
+//	        PodMutationFilterV2PodTolerationsFilterArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PodTolerationsFilterPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterPtrOutput() PodMutationFilterV2PodTolerationsFilterPtrOutput
+	ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterPtrOutput
+}
+
+type podMutationFilterV2PodTolerationsFilterPtrType PodMutationFilterV2PodTolerationsFilterArgs
+
+func PodMutationFilterV2PodTolerationsFilterPtr(v *PodMutationFilterV2PodTolerationsFilterArgs) PodMutationFilterV2PodTolerationsFilterPtrInput {
+	return (*podMutationFilterV2PodTolerationsFilterPtrType)(v)
+}
+
+func (*podMutationFilterV2PodTolerationsFilterPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodTolerationsFilter)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PodTolerationsFilterPtrType) ToPodMutationFilterV2PodTolerationsFilterPtrOutput() PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PodTolerationsFilterPtrType) ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterPtrOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilter)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterOutput) ToPodMutationFilterV2PodTolerationsFilterOutput() PodMutationFilterV2PodTolerationsFilterOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterOutput) ToPodMutationFilterV2PodTolerationsFilterOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterOutput) ToPodMutationFilterV2PodTolerationsFilterPtrOutput() PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return o.ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterOutput) ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2PodTolerationsFilter) *PodMutationFilterV2PodTolerationsFilter {
+		return &v
+	}).(PodMutationFilterV2PodTolerationsFilterPtrOutput)
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterOutput) Matchers() PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilter) []PodMutationFilterV2PodTolerationsFilterMatcher {
+		return v.Matchers
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput)
+}
+
+// Logical operator to combine toleration matchers: AND or OR.
+func (o PodMutationFilterV2PodTolerationsFilterOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilter) string { return v.Operator }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodTolerationsFilter)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterPtrOutput) ToPodMutationFilterV2PodTolerationsFilterPtrOutput() PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterPtrOutput) ToPodMutationFilterV2PodTolerationsFilterPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterPtrOutput) Elem() PodMutationFilterV2PodTolerationsFilterOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilter) PodMutationFilterV2PodTolerationsFilter {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2PodTolerationsFilter
+		return ret
+	}).(PodMutationFilterV2PodTolerationsFilterOutput)
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterPtrOutput) Matchers() PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilter) []PodMutationFilterV2PodTolerationsFilterMatcher {
+		if v == nil {
+			return nil
+		}
+		return v.Matchers
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput)
+}
+
+// Logical operator to combine toleration matchers: AND or OR.
+func (o PodMutationFilterV2PodTolerationsFilterPtrOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilter) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Operator
+	}).(pulumi.StringPtrOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcher struct {
+	Key      PodMutationFilterV2PodTolerationsFilterMatcherKey       `pulumi:"key"`
+	Operator *PodMutationFilterV2PodTolerationsFilterMatcherOperator `pulumi:"operator"`
+	Value    *PodMutationFilterV2PodTolerationsFilterMatcherValue    `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodTolerationsFilterMatcherInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterMatcherArgs and PodMutationFilterV2PodTolerationsFilterMatcherOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterMatcherInput` via:
+//
+//	PodMutationFilterV2PodTolerationsFilterMatcherArgs{...}
+type PodMutationFilterV2PodTolerationsFilterMatcherInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterMatcherOutput() PodMutationFilterV2PodTolerationsFilterMatcherOutput
+	ToPodMutationFilterV2PodTolerationsFilterMatcherOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOutput
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherArgs struct {
+	Key      PodMutationFilterV2PodTolerationsFilterMatcherKeyInput         `pulumi:"key"`
+	Operator PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrInput `pulumi:"operator"`
+	Value    PodMutationFilterV2PodTolerationsFilterMatcherValuePtrInput    `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcher)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherOutput() PodMutationFilterV2PodTolerationsFilterMatcherOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherOutput)
+}
+
+// PodMutationFilterV2PodTolerationsFilterMatcherArrayInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterMatcherArray and PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterMatcherArrayInput` via:
+//
+//	PodMutationFilterV2PodTolerationsFilterMatcherArray{ PodMutationFilterV2PodTolerationsFilterMatcherArgs{...} }
+type PodMutationFilterV2PodTolerationsFilterMatcherArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterMatcherArrayOutput() PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput
+	ToPodMutationFilterV2PodTolerationsFilterMatcherArrayOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherArray []PodMutationFilterV2PodTolerationsFilterMatcherInput
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2PodTolerationsFilterMatcher)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherArray) ToPodMutationFilterV2PodTolerationsFilterMatcherArrayOutput() PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherArray) ToPodMutationFilterV2PodTolerationsFilterMatcherArrayOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcher)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherOutput() PodMutationFilterV2PodTolerationsFilterMatcherOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOutput) Key() PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcher) PodMutationFilterV2PodTolerationsFilterMatcherKey {
+		return v.Key
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput)
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOutput) Operator() PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcher) *PodMutationFilterV2PodTolerationsFilterMatcherOperator {
+		return v.Operator
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput)
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOutput) Value() PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcher) *PodMutationFilterV2PodTolerationsFilterMatcherValue {
+		return v.Value
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2PodTolerationsFilterMatcher)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherArrayOutput() PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherArrayOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2PodTolerationsFilterMatcherOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2PodTolerationsFilterMatcher {
+		return vs[0].([]PodMutationFilterV2PodTolerationsFilterMatcher)[vs[1].(int)]
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherKey struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodTolerationsFilterMatcherKeyInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs and PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterMatcherKeyInput` via:
+//
+//	PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs{...}
+type PodMutationFilterV2PodTolerationsFilterMatcherKeyInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterMatcherKeyOutput() PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput
+	ToPodMutationFilterV2PodTolerationsFilterMatcherKeyOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherKey)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherKeyOutput() PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherKeyOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherKeyOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherKey)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherKeyOutput() PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherKeyOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcherKey) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcherKey) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherOperator struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodTolerationsFilterMatcherOperatorInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs and PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterMatcherOperatorInput` via:
+//
+//	PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs{...}
+type PodMutationFilterV2PodTolerationsFilterMatcherOperatorInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput() PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput
+	ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherOperator)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput() PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput)
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput).ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs, PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtr and PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrInput` via:
+//
+//	        PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput
+	ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput
+}
+
+type podMutationFilterV2PodTolerationsFilterMatcherOperatorPtrType PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs
+
+func PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtr(v *PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs) PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrInput {
+	return (*podMutationFilterV2PodTolerationsFilterMatcherOperatorPtrType)(v)
+}
+
+func (*podMutationFilterV2PodTolerationsFilterMatcherOperatorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodTolerationsFilterMatcherOperator)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PodTolerationsFilterMatcherOperatorPtrType) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PodTolerationsFilterMatcherOperatorPtrType) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherOperator)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput() PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return o.ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2PodTolerationsFilterMatcherOperator) *PodMutationFilterV2PodTolerationsFilterMatcherOperator {
+		return &v
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput)
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcherOperator) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcherOperator) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodTolerationsFilterMatcherOperator)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput) Elem() PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilterMatcherOperator) PodMutationFilterV2PodTolerationsFilterMatcherOperator {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2PodTolerationsFilterMatcherOperator
+		return ret
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput)
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilterMatcherOperator) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilterMatcherOperator) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherValue struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2PodTolerationsFilterMatcherValueInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterMatcherValueArgs and PodMutationFilterV2PodTolerationsFilterMatcherValueOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterMatcherValueInput` via:
+//
+//	PodMutationFilterV2PodTolerationsFilterMatcherValueArgs{...}
+type PodMutationFilterV2PodTolerationsFilterMatcherValueInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterMatcherValueOutput() PodMutationFilterV2PodTolerationsFilterMatcherValueOutput
+	ToPodMutationFilterV2PodTolerationsFilterMatcherValueOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterMatcherValueOutput
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherValueArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherValueArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherValue)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherValueArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherValueOutput() PodMutationFilterV2PodTolerationsFilterMatcherValueOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherValueOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherValueArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherValueOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherValueOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherValueOutput)
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherValueArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2PodTolerationsFilterMatcherValueArgs) ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherValueOutput).ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2PodTolerationsFilterMatcherValuePtrInput is an input type that accepts PodMutationFilterV2PodTolerationsFilterMatcherValueArgs, PodMutationFilterV2PodTolerationsFilterMatcherValuePtr and PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2PodTolerationsFilterMatcherValuePtrInput` via:
+//
+//	        PodMutationFilterV2PodTolerationsFilterMatcherValueArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2PodTolerationsFilterMatcherValuePtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput
+	ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(context.Context) PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput
+}
+
+type podMutationFilterV2PodTolerationsFilterMatcherValuePtrType PodMutationFilterV2PodTolerationsFilterMatcherValueArgs
+
+func PodMutationFilterV2PodTolerationsFilterMatcherValuePtr(v *PodMutationFilterV2PodTolerationsFilterMatcherValueArgs) PodMutationFilterV2PodTolerationsFilterMatcherValuePtrInput {
+	return (*podMutationFilterV2PodTolerationsFilterMatcherValuePtrType)(v)
+}
+
+func (*podMutationFilterV2PodTolerationsFilterMatcherValuePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodTolerationsFilterMatcherValue)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2PodTolerationsFilterMatcherValuePtrType) ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return i.ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2PodTolerationsFilterMatcherValuePtrType) ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherValueOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherValueOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherValue)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValueOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherValueOutput() PodMutationFilterV2PodTolerationsFilterMatcherValueOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValueOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherValueOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherValueOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValueOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return o.ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValueOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2PodTolerationsFilterMatcherValue) *PodMutationFilterV2PodTolerationsFilterMatcherValue {
+		return &v
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput)
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValueOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcherValue) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValueOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2PodTolerationsFilterMatcherValue) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2PodTolerationsFilterMatcherValue)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput() PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput) ToPodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutputWithContext(ctx context.Context) PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput) Elem() PodMutationFilterV2PodTolerationsFilterMatcherValueOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilterMatcherValue) PodMutationFilterV2PodTolerationsFilterMatcherValue {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2PodTolerationsFilterMatcherValue
+		return ret
+	}).(PodMutationFilterV2PodTolerationsFilterMatcherValueOutput)
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilterMatcherValue) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2PodTolerationsFilterMatcherValue) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
+type PodMutationFilterV2Workload struct {
+	ExcludeKinds      []PodMutationFilterV2WorkloadExcludeKind      `pulumi:"excludeKinds"`
+	ExcludeNames      []PodMutationFilterV2WorkloadExcludeName      `pulumi:"excludeNames"`
+	ExcludeNamespaces []PodMutationFilterV2WorkloadExcludeNamespace `pulumi:"excludeNamespaces"`
+	Kinds             []PodMutationFilterV2WorkloadKind             `pulumi:"kinds"`
+	Names             []PodMutationFilterV2WorkloadName             `pulumi:"names"`
+	Namespaces        []PodMutationFilterV2WorkloadNamespace        `pulumi:"namespaces"`
+}
+
+// PodMutationFilterV2WorkloadInput is an input type that accepts PodMutationFilterV2WorkloadArgs and PodMutationFilterV2WorkloadOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadInput` via:
+//
+//	PodMutationFilterV2WorkloadArgs{...}
+type PodMutationFilterV2WorkloadInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadOutput() PodMutationFilterV2WorkloadOutput
+	ToPodMutationFilterV2WorkloadOutputWithContext(context.Context) PodMutationFilterV2WorkloadOutput
+}
+
+type PodMutationFilterV2WorkloadArgs struct {
+	ExcludeKinds      PodMutationFilterV2WorkloadExcludeKindArrayInput      `pulumi:"excludeKinds"`
+	ExcludeNames      PodMutationFilterV2WorkloadExcludeNameArrayInput      `pulumi:"excludeNames"`
+	ExcludeNamespaces PodMutationFilterV2WorkloadExcludeNamespaceArrayInput `pulumi:"excludeNamespaces"`
+	Kinds             PodMutationFilterV2WorkloadKindArrayInput             `pulumi:"kinds"`
+	Names             PodMutationFilterV2WorkloadNameArrayInput             `pulumi:"names"`
+	Namespaces        PodMutationFilterV2WorkloadNamespaceArrayInput        `pulumi:"namespaces"`
+}
+
+func (PodMutationFilterV2WorkloadArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2Workload)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadArgs) ToPodMutationFilterV2WorkloadOutput() PodMutationFilterV2WorkloadOutput {
+	return i.ToPodMutationFilterV2WorkloadOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadArgs) ToPodMutationFilterV2WorkloadOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadOutput)
+}
+
+func (i PodMutationFilterV2WorkloadArgs) ToPodMutationFilterV2WorkloadPtrOutput() PodMutationFilterV2WorkloadPtrOutput {
+	return i.ToPodMutationFilterV2WorkloadPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadArgs) ToPodMutationFilterV2WorkloadPtrOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadOutput).ToPodMutationFilterV2WorkloadPtrOutputWithContext(ctx)
+}
+
+// PodMutationFilterV2WorkloadPtrInput is an input type that accepts PodMutationFilterV2WorkloadArgs, PodMutationFilterV2WorkloadPtr and PodMutationFilterV2WorkloadPtrOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadPtrInput` via:
+//
+//	        PodMutationFilterV2WorkloadArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationFilterV2WorkloadPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadPtrOutput() PodMutationFilterV2WorkloadPtrOutput
+	ToPodMutationFilterV2WorkloadPtrOutputWithContext(context.Context) PodMutationFilterV2WorkloadPtrOutput
+}
+
+type podMutationFilterV2WorkloadPtrType PodMutationFilterV2WorkloadArgs
+
+func PodMutationFilterV2WorkloadPtr(v *PodMutationFilterV2WorkloadArgs) PodMutationFilterV2WorkloadPtrInput {
+	return (*podMutationFilterV2WorkloadPtrType)(v)
+}
+
+func (*podMutationFilterV2WorkloadPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2Workload)(nil)).Elem()
+}
+
+func (i *podMutationFilterV2WorkloadPtrType) ToPodMutationFilterV2WorkloadPtrOutput() PodMutationFilterV2WorkloadPtrOutput {
+	return i.ToPodMutationFilterV2WorkloadPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationFilterV2WorkloadPtrType) ToPodMutationFilterV2WorkloadPtrOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadPtrOutput)
+}
+
+type PodMutationFilterV2WorkloadOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2Workload)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadOutput) ToPodMutationFilterV2WorkloadOutput() PodMutationFilterV2WorkloadOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadOutput) ToPodMutationFilterV2WorkloadOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadOutput) ToPodMutationFilterV2WorkloadPtrOutput() PodMutationFilterV2WorkloadPtrOutput {
+	return o.ToPodMutationFilterV2WorkloadPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationFilterV2WorkloadOutput) ToPodMutationFilterV2WorkloadPtrOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationFilterV2Workload) *PodMutationFilterV2Workload {
+		return &v
+	}).(PodMutationFilterV2WorkloadPtrOutput)
+}
+
+func (o PodMutationFilterV2WorkloadOutput) ExcludeKinds() PodMutationFilterV2WorkloadExcludeKindArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadExcludeKind { return v.ExcludeKinds }).(PodMutationFilterV2WorkloadExcludeKindArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadOutput) ExcludeNames() PodMutationFilterV2WorkloadExcludeNameArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadExcludeName { return v.ExcludeNames }).(PodMutationFilterV2WorkloadExcludeNameArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadOutput) ExcludeNamespaces() PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadExcludeNamespace {
+		return v.ExcludeNamespaces
+	}).(PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadOutput) Kinds() PodMutationFilterV2WorkloadKindArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadKind { return v.Kinds }).(PodMutationFilterV2WorkloadKindArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadOutput) Names() PodMutationFilterV2WorkloadNameArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadName { return v.Names }).(PodMutationFilterV2WorkloadNameArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadOutput) Namespaces() PodMutationFilterV2WorkloadNamespaceArrayOutput {
+	return o.ApplyT(func(v PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadNamespace { return v.Namespaces }).(PodMutationFilterV2WorkloadNamespaceArrayOutput)
+}
+
+type PodMutationFilterV2WorkloadPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationFilterV2Workload)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) ToPodMutationFilterV2WorkloadPtrOutput() PodMutationFilterV2WorkloadPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) ToPodMutationFilterV2WorkloadPtrOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadPtrOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) Elem() PodMutationFilterV2WorkloadOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Workload) PodMutationFilterV2Workload {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationFilterV2Workload
+		return ret
+	}).(PodMutationFilterV2WorkloadOutput)
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) ExcludeKinds() PodMutationFilterV2WorkloadExcludeKindArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadExcludeKind {
+		if v == nil {
+			return nil
+		}
+		return v.ExcludeKinds
+	}).(PodMutationFilterV2WorkloadExcludeKindArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) ExcludeNames() PodMutationFilterV2WorkloadExcludeNameArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadExcludeName {
+		if v == nil {
+			return nil
+		}
+		return v.ExcludeNames
+	}).(PodMutationFilterV2WorkloadExcludeNameArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) ExcludeNamespaces() PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadExcludeNamespace {
+		if v == nil {
+			return nil
+		}
+		return v.ExcludeNamespaces
+	}).(PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) Kinds() PodMutationFilterV2WorkloadKindArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadKind {
+		if v == nil {
+			return nil
+		}
+		return v.Kinds
+	}).(PodMutationFilterV2WorkloadKindArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) Names() PodMutationFilterV2WorkloadNameArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadName {
+		if v == nil {
+			return nil
+		}
+		return v.Names
+	}).(PodMutationFilterV2WorkloadNameArrayOutput)
+}
+
+func (o PodMutationFilterV2WorkloadPtrOutput) Namespaces() PodMutationFilterV2WorkloadNamespaceArrayOutput {
+	return o.ApplyT(func(v *PodMutationFilterV2Workload) []PodMutationFilterV2WorkloadNamespace {
+		if v == nil {
+			return nil
+		}
+		return v.Namespaces
+	}).(PodMutationFilterV2WorkloadNamespaceArrayOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeKind struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2WorkloadExcludeKindInput is an input type that accepts PodMutationFilterV2WorkloadExcludeKindArgs and PodMutationFilterV2WorkloadExcludeKindOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadExcludeKindInput` via:
+//
+//	PodMutationFilterV2WorkloadExcludeKindArgs{...}
+type PodMutationFilterV2WorkloadExcludeKindInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadExcludeKindOutput() PodMutationFilterV2WorkloadExcludeKindOutput
+	ToPodMutationFilterV2WorkloadExcludeKindOutputWithContext(context.Context) PodMutationFilterV2WorkloadExcludeKindOutput
+}
+
+type PodMutationFilterV2WorkloadExcludeKindArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2WorkloadExcludeKindArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeKind)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadExcludeKindArgs) ToPodMutationFilterV2WorkloadExcludeKindOutput() PodMutationFilterV2WorkloadExcludeKindOutput {
+	return i.ToPodMutationFilterV2WorkloadExcludeKindOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadExcludeKindArgs) ToPodMutationFilterV2WorkloadExcludeKindOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeKindOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadExcludeKindOutput)
+}
+
+// PodMutationFilterV2WorkloadExcludeKindArrayInput is an input type that accepts PodMutationFilterV2WorkloadExcludeKindArray and PodMutationFilterV2WorkloadExcludeKindArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadExcludeKindArrayInput` via:
+//
+//	PodMutationFilterV2WorkloadExcludeKindArray{ PodMutationFilterV2WorkloadExcludeKindArgs{...} }
+type PodMutationFilterV2WorkloadExcludeKindArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadExcludeKindArrayOutput() PodMutationFilterV2WorkloadExcludeKindArrayOutput
+	ToPodMutationFilterV2WorkloadExcludeKindArrayOutputWithContext(context.Context) PodMutationFilterV2WorkloadExcludeKindArrayOutput
+}
+
+type PodMutationFilterV2WorkloadExcludeKindArray []PodMutationFilterV2WorkloadExcludeKindInput
+
+func (PodMutationFilterV2WorkloadExcludeKindArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadExcludeKind)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadExcludeKindArray) ToPodMutationFilterV2WorkloadExcludeKindArrayOutput() PodMutationFilterV2WorkloadExcludeKindArrayOutput {
+	return i.ToPodMutationFilterV2WorkloadExcludeKindArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadExcludeKindArray) ToPodMutationFilterV2WorkloadExcludeKindArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeKindArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadExcludeKindArrayOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeKindOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadExcludeKindOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeKind)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadExcludeKindOutput) ToPodMutationFilterV2WorkloadExcludeKindOutput() PodMutationFilterV2WorkloadExcludeKindOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeKindOutput) ToPodMutationFilterV2WorkloadExcludeKindOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeKindOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2WorkloadExcludeKindOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadExcludeKind) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2WorkloadExcludeKindOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadExcludeKind) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeKindArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadExcludeKindArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadExcludeKind)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadExcludeKindArrayOutput) ToPodMutationFilterV2WorkloadExcludeKindArrayOutput() PodMutationFilterV2WorkloadExcludeKindArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeKindArrayOutput) ToPodMutationFilterV2WorkloadExcludeKindArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeKindArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeKindArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2WorkloadExcludeKindOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2WorkloadExcludeKind {
+		return vs[0].([]PodMutationFilterV2WorkloadExcludeKind)[vs[1].(int)]
+	}).(PodMutationFilterV2WorkloadExcludeKindOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeName struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2WorkloadExcludeNameInput is an input type that accepts PodMutationFilterV2WorkloadExcludeNameArgs and PodMutationFilterV2WorkloadExcludeNameOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadExcludeNameInput` via:
+//
+//	PodMutationFilterV2WorkloadExcludeNameArgs{...}
+type PodMutationFilterV2WorkloadExcludeNameInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadExcludeNameOutput() PodMutationFilterV2WorkloadExcludeNameOutput
+	ToPodMutationFilterV2WorkloadExcludeNameOutputWithContext(context.Context) PodMutationFilterV2WorkloadExcludeNameOutput
+}
+
+type PodMutationFilterV2WorkloadExcludeNameArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2WorkloadExcludeNameArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeName)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadExcludeNameArgs) ToPodMutationFilterV2WorkloadExcludeNameOutput() PodMutationFilterV2WorkloadExcludeNameOutput {
+	return i.ToPodMutationFilterV2WorkloadExcludeNameOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadExcludeNameArgs) ToPodMutationFilterV2WorkloadExcludeNameOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeNameOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadExcludeNameOutput)
+}
+
+// PodMutationFilterV2WorkloadExcludeNameArrayInput is an input type that accepts PodMutationFilterV2WorkloadExcludeNameArray and PodMutationFilterV2WorkloadExcludeNameArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadExcludeNameArrayInput` via:
+//
+//	PodMutationFilterV2WorkloadExcludeNameArray{ PodMutationFilterV2WorkloadExcludeNameArgs{...} }
+type PodMutationFilterV2WorkloadExcludeNameArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadExcludeNameArrayOutput() PodMutationFilterV2WorkloadExcludeNameArrayOutput
+	ToPodMutationFilterV2WorkloadExcludeNameArrayOutputWithContext(context.Context) PodMutationFilterV2WorkloadExcludeNameArrayOutput
+}
+
+type PodMutationFilterV2WorkloadExcludeNameArray []PodMutationFilterV2WorkloadExcludeNameInput
+
+func (PodMutationFilterV2WorkloadExcludeNameArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadExcludeName)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadExcludeNameArray) ToPodMutationFilterV2WorkloadExcludeNameArrayOutput() PodMutationFilterV2WorkloadExcludeNameArrayOutput {
+	return i.ToPodMutationFilterV2WorkloadExcludeNameArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadExcludeNameArray) ToPodMutationFilterV2WorkloadExcludeNameArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeNameArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadExcludeNameArrayOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeNameOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadExcludeNameOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeName)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNameOutput) ToPodMutationFilterV2WorkloadExcludeNameOutput() PodMutationFilterV2WorkloadExcludeNameOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNameOutput) ToPodMutationFilterV2WorkloadExcludeNameOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeNameOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2WorkloadExcludeNameOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadExcludeName) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2WorkloadExcludeNameOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadExcludeName) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeNameArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadExcludeNameArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadExcludeName)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNameArrayOutput) ToPodMutationFilterV2WorkloadExcludeNameArrayOutput() PodMutationFilterV2WorkloadExcludeNameArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNameArrayOutput) ToPodMutationFilterV2WorkloadExcludeNameArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeNameArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNameArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2WorkloadExcludeNameOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2WorkloadExcludeName {
+		return vs[0].([]PodMutationFilterV2WorkloadExcludeName)[vs[1].(int)]
+	}).(PodMutationFilterV2WorkloadExcludeNameOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeNamespace struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2WorkloadExcludeNamespaceInput is an input type that accepts PodMutationFilterV2WorkloadExcludeNamespaceArgs and PodMutationFilterV2WorkloadExcludeNamespaceOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadExcludeNamespaceInput` via:
+//
+//	PodMutationFilterV2WorkloadExcludeNamespaceArgs{...}
+type PodMutationFilterV2WorkloadExcludeNamespaceInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadExcludeNamespaceOutput() PodMutationFilterV2WorkloadExcludeNamespaceOutput
+	ToPodMutationFilterV2WorkloadExcludeNamespaceOutputWithContext(context.Context) PodMutationFilterV2WorkloadExcludeNamespaceOutput
+}
+
+type PodMutationFilterV2WorkloadExcludeNamespaceArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2WorkloadExcludeNamespaceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeNamespace)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadExcludeNamespaceArgs) ToPodMutationFilterV2WorkloadExcludeNamespaceOutput() PodMutationFilterV2WorkloadExcludeNamespaceOutput {
+	return i.ToPodMutationFilterV2WorkloadExcludeNamespaceOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadExcludeNamespaceArgs) ToPodMutationFilterV2WorkloadExcludeNamespaceOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeNamespaceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadExcludeNamespaceOutput)
+}
+
+// PodMutationFilterV2WorkloadExcludeNamespaceArrayInput is an input type that accepts PodMutationFilterV2WorkloadExcludeNamespaceArray and PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadExcludeNamespaceArrayInput` via:
+//
+//	PodMutationFilterV2WorkloadExcludeNamespaceArray{ PodMutationFilterV2WorkloadExcludeNamespaceArgs{...} }
+type PodMutationFilterV2WorkloadExcludeNamespaceArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadExcludeNamespaceArrayOutput() PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput
+	ToPodMutationFilterV2WorkloadExcludeNamespaceArrayOutputWithContext(context.Context) PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput
+}
+
+type PodMutationFilterV2WorkloadExcludeNamespaceArray []PodMutationFilterV2WorkloadExcludeNamespaceInput
+
+func (PodMutationFilterV2WorkloadExcludeNamespaceArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadExcludeNamespace)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadExcludeNamespaceArray) ToPodMutationFilterV2WorkloadExcludeNamespaceArrayOutput() PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput {
+	return i.ToPodMutationFilterV2WorkloadExcludeNamespaceArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadExcludeNamespaceArray) ToPodMutationFilterV2WorkloadExcludeNamespaceArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeNamespaceOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadExcludeNamespaceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeNamespace)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNamespaceOutput) ToPodMutationFilterV2WorkloadExcludeNamespaceOutput() PodMutationFilterV2WorkloadExcludeNamespaceOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNamespaceOutput) ToPodMutationFilterV2WorkloadExcludeNamespaceOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeNamespaceOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2WorkloadExcludeNamespaceOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadExcludeNamespace) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2WorkloadExcludeNamespaceOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadExcludeNamespace) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadExcludeNamespace)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput) ToPodMutationFilterV2WorkloadExcludeNamespaceArrayOutput() PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput) ToPodMutationFilterV2WorkloadExcludeNamespaceArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2WorkloadExcludeNamespaceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2WorkloadExcludeNamespace {
+		return vs[0].([]PodMutationFilterV2WorkloadExcludeNamespace)[vs[1].(int)]
+	}).(PodMutationFilterV2WorkloadExcludeNamespaceOutput)
+}
+
+type PodMutationFilterV2WorkloadKind struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2WorkloadKindInput is an input type that accepts PodMutationFilterV2WorkloadKindArgs and PodMutationFilterV2WorkloadKindOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadKindInput` via:
+//
+//	PodMutationFilterV2WorkloadKindArgs{...}
+type PodMutationFilterV2WorkloadKindInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadKindOutput() PodMutationFilterV2WorkloadKindOutput
+	ToPodMutationFilterV2WorkloadKindOutputWithContext(context.Context) PodMutationFilterV2WorkloadKindOutput
+}
+
+type PodMutationFilterV2WorkloadKindArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2WorkloadKindArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadKind)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadKindArgs) ToPodMutationFilterV2WorkloadKindOutput() PodMutationFilterV2WorkloadKindOutput {
+	return i.ToPodMutationFilterV2WorkloadKindOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadKindArgs) ToPodMutationFilterV2WorkloadKindOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadKindOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadKindOutput)
+}
+
+// PodMutationFilterV2WorkloadKindArrayInput is an input type that accepts PodMutationFilterV2WorkloadKindArray and PodMutationFilterV2WorkloadKindArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadKindArrayInput` via:
+//
+//	PodMutationFilterV2WorkloadKindArray{ PodMutationFilterV2WorkloadKindArgs{...} }
+type PodMutationFilterV2WorkloadKindArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadKindArrayOutput() PodMutationFilterV2WorkloadKindArrayOutput
+	ToPodMutationFilterV2WorkloadKindArrayOutputWithContext(context.Context) PodMutationFilterV2WorkloadKindArrayOutput
+}
+
+type PodMutationFilterV2WorkloadKindArray []PodMutationFilterV2WorkloadKindInput
+
+func (PodMutationFilterV2WorkloadKindArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadKind)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadKindArray) ToPodMutationFilterV2WorkloadKindArrayOutput() PodMutationFilterV2WorkloadKindArrayOutput {
+	return i.ToPodMutationFilterV2WorkloadKindArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadKindArray) ToPodMutationFilterV2WorkloadKindArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadKindArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadKindArrayOutput)
+}
+
+type PodMutationFilterV2WorkloadKindOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadKindOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadKind)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadKindOutput) ToPodMutationFilterV2WorkloadKindOutput() PodMutationFilterV2WorkloadKindOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadKindOutput) ToPodMutationFilterV2WorkloadKindOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadKindOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2WorkloadKindOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadKind) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2WorkloadKindOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadKind) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2WorkloadKindArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadKindArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadKind)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadKindArrayOutput) ToPodMutationFilterV2WorkloadKindArrayOutput() PodMutationFilterV2WorkloadKindArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadKindArrayOutput) ToPodMutationFilterV2WorkloadKindArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadKindArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadKindArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2WorkloadKindOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2WorkloadKind {
+		return vs[0].([]PodMutationFilterV2WorkloadKind)[vs[1].(int)]
+	}).(PodMutationFilterV2WorkloadKindOutput)
+}
+
+type PodMutationFilterV2WorkloadName struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2WorkloadNameInput is an input type that accepts PodMutationFilterV2WorkloadNameArgs and PodMutationFilterV2WorkloadNameOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadNameInput` via:
+//
+//	PodMutationFilterV2WorkloadNameArgs{...}
+type PodMutationFilterV2WorkloadNameInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadNameOutput() PodMutationFilterV2WorkloadNameOutput
+	ToPodMutationFilterV2WorkloadNameOutputWithContext(context.Context) PodMutationFilterV2WorkloadNameOutput
+}
+
+type PodMutationFilterV2WorkloadNameArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2WorkloadNameArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadName)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadNameArgs) ToPodMutationFilterV2WorkloadNameOutput() PodMutationFilterV2WorkloadNameOutput {
+	return i.ToPodMutationFilterV2WorkloadNameOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadNameArgs) ToPodMutationFilterV2WorkloadNameOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadNameOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadNameOutput)
+}
+
+// PodMutationFilterV2WorkloadNameArrayInput is an input type that accepts PodMutationFilterV2WorkloadNameArray and PodMutationFilterV2WorkloadNameArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadNameArrayInput` via:
+//
+//	PodMutationFilterV2WorkloadNameArray{ PodMutationFilterV2WorkloadNameArgs{...} }
+type PodMutationFilterV2WorkloadNameArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadNameArrayOutput() PodMutationFilterV2WorkloadNameArrayOutput
+	ToPodMutationFilterV2WorkloadNameArrayOutputWithContext(context.Context) PodMutationFilterV2WorkloadNameArrayOutput
+}
+
+type PodMutationFilterV2WorkloadNameArray []PodMutationFilterV2WorkloadNameInput
+
+func (PodMutationFilterV2WorkloadNameArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadName)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadNameArray) ToPodMutationFilterV2WorkloadNameArrayOutput() PodMutationFilterV2WorkloadNameArrayOutput {
+	return i.ToPodMutationFilterV2WorkloadNameArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadNameArray) ToPodMutationFilterV2WorkloadNameArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadNameArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadNameArrayOutput)
+}
+
+type PodMutationFilterV2WorkloadNameOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadNameOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadName)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadNameOutput) ToPodMutationFilterV2WorkloadNameOutput() PodMutationFilterV2WorkloadNameOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadNameOutput) ToPodMutationFilterV2WorkloadNameOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadNameOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2WorkloadNameOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadName) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2WorkloadNameOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadName) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2WorkloadNameArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadNameArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadName)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadNameArrayOutput) ToPodMutationFilterV2WorkloadNameArrayOutput() PodMutationFilterV2WorkloadNameArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadNameArrayOutput) ToPodMutationFilterV2WorkloadNameArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadNameArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadNameArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2WorkloadNameOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2WorkloadName {
+		return vs[0].([]PodMutationFilterV2WorkloadName)[vs[1].(int)]
+	}).(PodMutationFilterV2WorkloadNameOutput)
+}
+
+type PodMutationFilterV2WorkloadNamespace struct {
+	// Matcher type: EXACT or REGEX.
+	Type string `pulumi:"type"`
+	// Value to match against.
+	Value string `pulumi:"value"`
+}
+
+// PodMutationFilterV2WorkloadNamespaceInput is an input type that accepts PodMutationFilterV2WorkloadNamespaceArgs and PodMutationFilterV2WorkloadNamespaceOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadNamespaceInput` via:
+//
+//	PodMutationFilterV2WorkloadNamespaceArgs{...}
+type PodMutationFilterV2WorkloadNamespaceInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadNamespaceOutput() PodMutationFilterV2WorkloadNamespaceOutput
+	ToPodMutationFilterV2WorkloadNamespaceOutputWithContext(context.Context) PodMutationFilterV2WorkloadNamespaceOutput
+}
+
+type PodMutationFilterV2WorkloadNamespaceArgs struct {
+	// Matcher type: EXACT or REGEX.
+	Type pulumi.StringInput `pulumi:"type"`
+	// Value to match against.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PodMutationFilterV2WorkloadNamespaceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadNamespace)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadNamespaceArgs) ToPodMutationFilterV2WorkloadNamespaceOutput() PodMutationFilterV2WorkloadNamespaceOutput {
+	return i.ToPodMutationFilterV2WorkloadNamespaceOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadNamespaceArgs) ToPodMutationFilterV2WorkloadNamespaceOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadNamespaceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadNamespaceOutput)
+}
+
+// PodMutationFilterV2WorkloadNamespaceArrayInput is an input type that accepts PodMutationFilterV2WorkloadNamespaceArray and PodMutationFilterV2WorkloadNamespaceArrayOutput values.
+// You can construct a concrete instance of `PodMutationFilterV2WorkloadNamespaceArrayInput` via:
+//
+//	PodMutationFilterV2WorkloadNamespaceArray{ PodMutationFilterV2WorkloadNamespaceArgs{...} }
+type PodMutationFilterV2WorkloadNamespaceArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationFilterV2WorkloadNamespaceArrayOutput() PodMutationFilterV2WorkloadNamespaceArrayOutput
+	ToPodMutationFilterV2WorkloadNamespaceArrayOutputWithContext(context.Context) PodMutationFilterV2WorkloadNamespaceArrayOutput
+}
+
+type PodMutationFilterV2WorkloadNamespaceArray []PodMutationFilterV2WorkloadNamespaceInput
+
+func (PodMutationFilterV2WorkloadNamespaceArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadNamespace)(nil)).Elem()
+}
+
+func (i PodMutationFilterV2WorkloadNamespaceArray) ToPodMutationFilterV2WorkloadNamespaceArrayOutput() PodMutationFilterV2WorkloadNamespaceArrayOutput {
+	return i.ToPodMutationFilterV2WorkloadNamespaceArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationFilterV2WorkloadNamespaceArray) ToPodMutationFilterV2WorkloadNamespaceArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadNamespaceArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationFilterV2WorkloadNamespaceArrayOutput)
+}
+
+type PodMutationFilterV2WorkloadNamespaceOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadNamespaceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationFilterV2WorkloadNamespace)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadNamespaceOutput) ToPodMutationFilterV2WorkloadNamespaceOutput() PodMutationFilterV2WorkloadNamespaceOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadNamespaceOutput) ToPodMutationFilterV2WorkloadNamespaceOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadNamespaceOutput {
+	return o
+}
+
+// Matcher type: EXACT or REGEX.
+func (o PodMutationFilterV2WorkloadNamespaceOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadNamespace) string { return v.Type }).(pulumi.StringOutput)
+}
+
+// Value to match against.
+func (o PodMutationFilterV2WorkloadNamespaceOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PodMutationFilterV2WorkloadNamespace) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PodMutationFilterV2WorkloadNamespaceArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationFilterV2WorkloadNamespaceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationFilterV2WorkloadNamespace)(nil)).Elem()
+}
+
+func (o PodMutationFilterV2WorkloadNamespaceArrayOutput) ToPodMutationFilterV2WorkloadNamespaceArrayOutput() PodMutationFilterV2WorkloadNamespaceArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadNamespaceArrayOutput) ToPodMutationFilterV2WorkloadNamespaceArrayOutputWithContext(ctx context.Context) PodMutationFilterV2WorkloadNamespaceArrayOutput {
+	return o
+}
+
+func (o PodMutationFilterV2WorkloadNamespaceArrayOutput) Index(i pulumi.IntInput) PodMutationFilterV2WorkloadNamespaceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationFilterV2WorkloadNamespace {
+		return vs[0].([]PodMutationFilterV2WorkloadNamespace)[vs[1].(int)]
+	}).(PodMutationFilterV2WorkloadNamespaceOutput)
+}
+
+type PodMutationNodeSelector struct {
+	Add    map[string]string `pulumi:"add"`
+	Remove map[string]string `pulumi:"remove"`
+}
+
+// PodMutationNodeSelectorInput is an input type that accepts PodMutationNodeSelectorArgs and PodMutationNodeSelectorOutput values.
+// You can construct a concrete instance of `PodMutationNodeSelectorInput` via:
+//
+//	PodMutationNodeSelectorArgs{...}
+type PodMutationNodeSelectorInput interface {
+	pulumi.Input
+
+	ToPodMutationNodeSelectorOutput() PodMutationNodeSelectorOutput
+	ToPodMutationNodeSelectorOutputWithContext(context.Context) PodMutationNodeSelectorOutput
+}
+
+type PodMutationNodeSelectorArgs struct {
+	Add    pulumi.StringMapInput `pulumi:"add"`
+	Remove pulumi.StringMapInput `pulumi:"remove"`
+}
+
+func (PodMutationNodeSelectorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationNodeSelector)(nil)).Elem()
+}
+
+func (i PodMutationNodeSelectorArgs) ToPodMutationNodeSelectorOutput() PodMutationNodeSelectorOutput {
+	return i.ToPodMutationNodeSelectorOutputWithContext(context.Background())
+}
+
+func (i PodMutationNodeSelectorArgs) ToPodMutationNodeSelectorOutputWithContext(ctx context.Context) PodMutationNodeSelectorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationNodeSelectorOutput)
+}
+
+func (i PodMutationNodeSelectorArgs) ToPodMutationNodeSelectorPtrOutput() PodMutationNodeSelectorPtrOutput {
+	return i.ToPodMutationNodeSelectorPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationNodeSelectorArgs) ToPodMutationNodeSelectorPtrOutputWithContext(ctx context.Context) PodMutationNodeSelectorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationNodeSelectorOutput).ToPodMutationNodeSelectorPtrOutputWithContext(ctx)
+}
+
+// PodMutationNodeSelectorPtrInput is an input type that accepts PodMutationNodeSelectorArgs, PodMutationNodeSelectorPtr and PodMutationNodeSelectorPtrOutput values.
+// You can construct a concrete instance of `PodMutationNodeSelectorPtrInput` via:
+//
+//	        PodMutationNodeSelectorArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationNodeSelectorPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationNodeSelectorPtrOutput() PodMutationNodeSelectorPtrOutput
+	ToPodMutationNodeSelectorPtrOutputWithContext(context.Context) PodMutationNodeSelectorPtrOutput
+}
+
+type podMutationNodeSelectorPtrType PodMutationNodeSelectorArgs
+
+func PodMutationNodeSelectorPtr(v *PodMutationNodeSelectorArgs) PodMutationNodeSelectorPtrInput {
+	return (*podMutationNodeSelectorPtrType)(v)
+}
+
+func (*podMutationNodeSelectorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationNodeSelector)(nil)).Elem()
+}
+
+func (i *podMutationNodeSelectorPtrType) ToPodMutationNodeSelectorPtrOutput() PodMutationNodeSelectorPtrOutput {
+	return i.ToPodMutationNodeSelectorPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationNodeSelectorPtrType) ToPodMutationNodeSelectorPtrOutputWithContext(ctx context.Context) PodMutationNodeSelectorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationNodeSelectorPtrOutput)
+}
+
+type PodMutationNodeSelectorOutput struct{ *pulumi.OutputState }
+
+func (PodMutationNodeSelectorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationNodeSelector)(nil)).Elem()
+}
+
+func (o PodMutationNodeSelectorOutput) ToPodMutationNodeSelectorOutput() PodMutationNodeSelectorOutput {
+	return o
+}
+
+func (o PodMutationNodeSelectorOutput) ToPodMutationNodeSelectorOutputWithContext(ctx context.Context) PodMutationNodeSelectorOutput {
+	return o
+}
+
+func (o PodMutationNodeSelectorOutput) ToPodMutationNodeSelectorPtrOutput() PodMutationNodeSelectorPtrOutput {
+	return o.ToPodMutationNodeSelectorPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationNodeSelectorOutput) ToPodMutationNodeSelectorPtrOutputWithContext(ctx context.Context) PodMutationNodeSelectorPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationNodeSelector) *PodMutationNodeSelector {
+		return &v
+	}).(PodMutationNodeSelectorPtrOutput)
+}
+
+func (o PodMutationNodeSelectorOutput) Add() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PodMutationNodeSelector) map[string]string { return v.Add }).(pulumi.StringMapOutput)
+}
+
+func (o PodMutationNodeSelectorOutput) Remove() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PodMutationNodeSelector) map[string]string { return v.Remove }).(pulumi.StringMapOutput)
+}
+
+type PodMutationNodeSelectorPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationNodeSelectorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationNodeSelector)(nil)).Elem()
+}
+
+func (o PodMutationNodeSelectorPtrOutput) ToPodMutationNodeSelectorPtrOutput() PodMutationNodeSelectorPtrOutput {
+	return o
+}
+
+func (o PodMutationNodeSelectorPtrOutput) ToPodMutationNodeSelectorPtrOutputWithContext(ctx context.Context) PodMutationNodeSelectorPtrOutput {
+	return o
+}
+
+func (o PodMutationNodeSelectorPtrOutput) Elem() PodMutationNodeSelectorOutput {
+	return o.ApplyT(func(v *PodMutationNodeSelector) PodMutationNodeSelector {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationNodeSelector
+		return ret
+	}).(PodMutationNodeSelectorOutput)
+}
+
+func (o PodMutationNodeSelectorPtrOutput) Add() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *PodMutationNodeSelector) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Add
+	}).(pulumi.StringMapOutput)
+}
+
+func (o PodMutationNodeSelectorPtrOutput) Remove() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *PodMutationNodeSelector) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Remove
+	}).(pulumi.StringMapOutput)
+}
+
+type PodMutationPodEviction struct {
+	// Whether non-conforming pods are eligible for eviction.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// PodMutationPodEvictionInput is an input type that accepts PodMutationPodEvictionArgs and PodMutationPodEvictionOutput values.
+// You can construct a concrete instance of `PodMutationPodEvictionInput` via:
+//
+//	PodMutationPodEvictionArgs{...}
+type PodMutationPodEvictionInput interface {
+	pulumi.Input
+
+	ToPodMutationPodEvictionOutput() PodMutationPodEvictionOutput
+	ToPodMutationPodEvictionOutputWithContext(context.Context) PodMutationPodEvictionOutput
+}
+
+type PodMutationPodEvictionArgs struct {
+	// Whether non-conforming pods are eligible for eviction.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (PodMutationPodEvictionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationPodEviction)(nil)).Elem()
+}
+
+func (i PodMutationPodEvictionArgs) ToPodMutationPodEvictionOutput() PodMutationPodEvictionOutput {
+	return i.ToPodMutationPodEvictionOutputWithContext(context.Background())
+}
+
+func (i PodMutationPodEvictionArgs) ToPodMutationPodEvictionOutputWithContext(ctx context.Context) PodMutationPodEvictionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationPodEvictionOutput)
+}
+
+func (i PodMutationPodEvictionArgs) ToPodMutationPodEvictionPtrOutput() PodMutationPodEvictionPtrOutput {
+	return i.ToPodMutationPodEvictionPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationPodEvictionArgs) ToPodMutationPodEvictionPtrOutputWithContext(ctx context.Context) PodMutationPodEvictionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationPodEvictionOutput).ToPodMutationPodEvictionPtrOutputWithContext(ctx)
+}
+
+// PodMutationPodEvictionPtrInput is an input type that accepts PodMutationPodEvictionArgs, PodMutationPodEvictionPtr and PodMutationPodEvictionPtrOutput values.
+// You can construct a concrete instance of `PodMutationPodEvictionPtrInput` via:
+//
+//	        PodMutationPodEvictionArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationPodEvictionPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationPodEvictionPtrOutput() PodMutationPodEvictionPtrOutput
+	ToPodMutationPodEvictionPtrOutputWithContext(context.Context) PodMutationPodEvictionPtrOutput
+}
+
+type podMutationPodEvictionPtrType PodMutationPodEvictionArgs
+
+func PodMutationPodEvictionPtr(v *PodMutationPodEvictionArgs) PodMutationPodEvictionPtrInput {
+	return (*podMutationPodEvictionPtrType)(v)
+}
+
+func (*podMutationPodEvictionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationPodEviction)(nil)).Elem()
+}
+
+func (i *podMutationPodEvictionPtrType) ToPodMutationPodEvictionPtrOutput() PodMutationPodEvictionPtrOutput {
+	return i.ToPodMutationPodEvictionPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationPodEvictionPtrType) ToPodMutationPodEvictionPtrOutputWithContext(ctx context.Context) PodMutationPodEvictionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationPodEvictionPtrOutput)
+}
+
+type PodMutationPodEvictionOutput struct{ *pulumi.OutputState }
+
+func (PodMutationPodEvictionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationPodEviction)(nil)).Elem()
+}
+
+func (o PodMutationPodEvictionOutput) ToPodMutationPodEvictionOutput() PodMutationPodEvictionOutput {
+	return o
+}
+
+func (o PodMutationPodEvictionOutput) ToPodMutationPodEvictionOutputWithContext(ctx context.Context) PodMutationPodEvictionOutput {
+	return o
+}
+
+func (o PodMutationPodEvictionOutput) ToPodMutationPodEvictionPtrOutput() PodMutationPodEvictionPtrOutput {
+	return o.ToPodMutationPodEvictionPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationPodEvictionOutput) ToPodMutationPodEvictionPtrOutputWithContext(ctx context.Context) PodMutationPodEvictionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationPodEviction) *PodMutationPodEviction {
+		return &v
+	}).(PodMutationPodEvictionPtrOutput)
+}
+
+// Whether non-conforming pods are eligible for eviction.
+func (o PodMutationPodEvictionOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v PodMutationPodEviction) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type PodMutationPodEvictionPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationPodEvictionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationPodEviction)(nil)).Elem()
+}
+
+func (o PodMutationPodEvictionPtrOutput) ToPodMutationPodEvictionPtrOutput() PodMutationPodEvictionPtrOutput {
+	return o
+}
+
+func (o PodMutationPodEvictionPtrOutput) ToPodMutationPodEvictionPtrOutputWithContext(ctx context.Context) PodMutationPodEvictionPtrOutput {
+	return o
+}
+
+func (o PodMutationPodEvictionPtrOutput) Elem() PodMutationPodEvictionOutput {
+	return o.ApplyT(func(v *PodMutationPodEviction) PodMutationPodEviction {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationPodEviction
+		return ret
+	}).(PodMutationPodEvictionOutput)
+}
+
+// Whether non-conforming pods are eligible for eviction.
+func (o PodMutationPodEvictionPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PodMutationPodEviction) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type PodMutationSpotConfig struct {
+	// Percentage of pods (0-100) that receive spot scheduling constraints.
+	DistributionPercentage *int `pulumi:"distributionPercentage"`
+	// Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+	SpotMode *string `pulumi:"spotMode"`
+}
+
+// PodMutationSpotConfigInput is an input type that accepts PodMutationSpotConfigArgs and PodMutationSpotConfigOutput values.
+// You can construct a concrete instance of `PodMutationSpotConfigInput` via:
+//
+//	PodMutationSpotConfigArgs{...}
+type PodMutationSpotConfigInput interface {
+	pulumi.Input
+
+	ToPodMutationSpotConfigOutput() PodMutationSpotConfigOutput
+	ToPodMutationSpotConfigOutputWithContext(context.Context) PodMutationSpotConfigOutput
+}
+
+type PodMutationSpotConfigArgs struct {
+	// Percentage of pods (0-100) that receive spot scheduling constraints.
+	DistributionPercentage pulumi.IntPtrInput `pulumi:"distributionPercentage"`
+	// Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+	SpotMode pulumi.StringPtrInput `pulumi:"spotMode"`
+}
+
+func (PodMutationSpotConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationSpotConfig)(nil)).Elem()
+}
+
+func (i PodMutationSpotConfigArgs) ToPodMutationSpotConfigOutput() PodMutationSpotConfigOutput {
+	return i.ToPodMutationSpotConfigOutputWithContext(context.Background())
+}
+
+func (i PodMutationSpotConfigArgs) ToPodMutationSpotConfigOutputWithContext(ctx context.Context) PodMutationSpotConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationSpotConfigOutput)
+}
+
+func (i PodMutationSpotConfigArgs) ToPodMutationSpotConfigPtrOutput() PodMutationSpotConfigPtrOutput {
+	return i.ToPodMutationSpotConfigPtrOutputWithContext(context.Background())
+}
+
+func (i PodMutationSpotConfigArgs) ToPodMutationSpotConfigPtrOutputWithContext(ctx context.Context) PodMutationSpotConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationSpotConfigOutput).ToPodMutationSpotConfigPtrOutputWithContext(ctx)
+}
+
+// PodMutationSpotConfigPtrInput is an input type that accepts PodMutationSpotConfigArgs, PodMutationSpotConfigPtr and PodMutationSpotConfigPtrOutput values.
+// You can construct a concrete instance of `PodMutationSpotConfigPtrInput` via:
+//
+//	        PodMutationSpotConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodMutationSpotConfigPtrInput interface {
+	pulumi.Input
+
+	ToPodMutationSpotConfigPtrOutput() PodMutationSpotConfigPtrOutput
+	ToPodMutationSpotConfigPtrOutputWithContext(context.Context) PodMutationSpotConfigPtrOutput
+}
+
+type podMutationSpotConfigPtrType PodMutationSpotConfigArgs
+
+func PodMutationSpotConfigPtr(v *PodMutationSpotConfigArgs) PodMutationSpotConfigPtrInput {
+	return (*podMutationSpotConfigPtrType)(v)
+}
+
+func (*podMutationSpotConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationSpotConfig)(nil)).Elem()
+}
+
+func (i *podMutationSpotConfigPtrType) ToPodMutationSpotConfigPtrOutput() PodMutationSpotConfigPtrOutput {
+	return i.ToPodMutationSpotConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *podMutationSpotConfigPtrType) ToPodMutationSpotConfigPtrOutputWithContext(ctx context.Context) PodMutationSpotConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationSpotConfigPtrOutput)
+}
+
+type PodMutationSpotConfigOutput struct{ *pulumi.OutputState }
+
+func (PodMutationSpotConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationSpotConfig)(nil)).Elem()
+}
+
+func (o PodMutationSpotConfigOutput) ToPodMutationSpotConfigOutput() PodMutationSpotConfigOutput {
+	return o
+}
+
+func (o PodMutationSpotConfigOutput) ToPodMutationSpotConfigOutputWithContext(ctx context.Context) PodMutationSpotConfigOutput {
+	return o
+}
+
+func (o PodMutationSpotConfigOutput) ToPodMutationSpotConfigPtrOutput() PodMutationSpotConfigPtrOutput {
+	return o.ToPodMutationSpotConfigPtrOutputWithContext(context.Background())
+}
+
+func (o PodMutationSpotConfigOutput) ToPodMutationSpotConfigPtrOutputWithContext(ctx context.Context) PodMutationSpotConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodMutationSpotConfig) *PodMutationSpotConfig {
+		return &v
+	}).(PodMutationSpotConfigPtrOutput)
+}
+
+// Percentage of pods (0-100) that receive spot scheduling constraints.
+func (o PodMutationSpotConfigOutput) DistributionPercentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodMutationSpotConfig) *int { return v.DistributionPercentage }).(pulumi.IntPtrOutput)
+}
+
+// Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+func (o PodMutationSpotConfigOutput) SpotMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationSpotConfig) *string { return v.SpotMode }).(pulumi.StringPtrOutput)
+}
+
+type PodMutationSpotConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (PodMutationSpotConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodMutationSpotConfig)(nil)).Elem()
+}
+
+func (o PodMutationSpotConfigPtrOutput) ToPodMutationSpotConfigPtrOutput() PodMutationSpotConfigPtrOutput {
+	return o
+}
+
+func (o PodMutationSpotConfigPtrOutput) ToPodMutationSpotConfigPtrOutputWithContext(ctx context.Context) PodMutationSpotConfigPtrOutput {
+	return o
+}
+
+func (o PodMutationSpotConfigPtrOutput) Elem() PodMutationSpotConfigOutput {
+	return o.ApplyT(func(v *PodMutationSpotConfig) PodMutationSpotConfig {
+		if v != nil {
+			return *v
+		}
+		var ret PodMutationSpotConfig
+		return ret
+	}).(PodMutationSpotConfigOutput)
+}
+
+// Percentage of pods (0-100) that receive spot scheduling constraints.
+func (o PodMutationSpotConfigPtrOutput) DistributionPercentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodMutationSpotConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DistributionPercentage
+	}).(pulumi.IntPtrOutput)
+}
+
+// Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+func (o PodMutationSpotConfigPtrOutput) SpotMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodMutationSpotConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SpotMode
+	}).(pulumi.StringPtrOutput)
+}
+
+type PodMutationToleration struct {
+	// Toleration effect.
+	Effect *string `pulumi:"effect"`
+	// Toleration key.
+	Key *string `pulumi:"key"`
+	// Toleration operator.
+	Operator *string `pulumi:"operator"`
+	// Toleration seconds.
+	TolerationSeconds *int `pulumi:"tolerationSeconds"`
+	// Toleration value.
+	Value *string `pulumi:"value"`
+}
+
+// PodMutationTolerationInput is an input type that accepts PodMutationTolerationArgs and PodMutationTolerationOutput values.
+// You can construct a concrete instance of `PodMutationTolerationInput` via:
+//
+//	PodMutationTolerationArgs{...}
+type PodMutationTolerationInput interface {
+	pulumi.Input
+
+	ToPodMutationTolerationOutput() PodMutationTolerationOutput
+	ToPodMutationTolerationOutputWithContext(context.Context) PodMutationTolerationOutput
+}
+
+type PodMutationTolerationArgs struct {
+	// Toleration effect.
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	// Toleration key.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// Toleration operator.
+	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	// Toleration seconds.
+	TolerationSeconds pulumi.IntPtrInput `pulumi:"tolerationSeconds"`
+	// Toleration value.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (PodMutationTolerationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationToleration)(nil)).Elem()
+}
+
+func (i PodMutationTolerationArgs) ToPodMutationTolerationOutput() PodMutationTolerationOutput {
+	return i.ToPodMutationTolerationOutputWithContext(context.Background())
+}
+
+func (i PodMutationTolerationArgs) ToPodMutationTolerationOutputWithContext(ctx context.Context) PodMutationTolerationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationTolerationOutput)
+}
+
+// PodMutationTolerationArrayInput is an input type that accepts PodMutationTolerationArray and PodMutationTolerationArrayOutput values.
+// You can construct a concrete instance of `PodMutationTolerationArrayInput` via:
+//
+//	PodMutationTolerationArray{ PodMutationTolerationArgs{...} }
+type PodMutationTolerationArrayInput interface {
+	pulumi.Input
+
+	ToPodMutationTolerationArrayOutput() PodMutationTolerationArrayOutput
+	ToPodMutationTolerationArrayOutputWithContext(context.Context) PodMutationTolerationArrayOutput
+}
+
+type PodMutationTolerationArray []PodMutationTolerationInput
+
+func (PodMutationTolerationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationToleration)(nil)).Elem()
+}
+
+func (i PodMutationTolerationArray) ToPodMutationTolerationArrayOutput() PodMutationTolerationArrayOutput {
+	return i.ToPodMutationTolerationArrayOutputWithContext(context.Background())
+}
+
+func (i PodMutationTolerationArray) ToPodMutationTolerationArrayOutputWithContext(ctx context.Context) PodMutationTolerationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodMutationTolerationArrayOutput)
+}
+
+type PodMutationTolerationOutput struct{ *pulumi.OutputState }
+
+func (PodMutationTolerationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodMutationToleration)(nil)).Elem()
+}
+
+func (o PodMutationTolerationOutput) ToPodMutationTolerationOutput() PodMutationTolerationOutput {
+	return o
+}
+
+func (o PodMutationTolerationOutput) ToPodMutationTolerationOutputWithContext(ctx context.Context) PodMutationTolerationOutput {
+	return o
+}
+
+// Toleration effect.
+func (o PodMutationTolerationOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationToleration) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+// Toleration key.
+func (o PodMutationTolerationOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationToleration) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// Toleration operator.
+func (o PodMutationTolerationOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationToleration) *string { return v.Operator }).(pulumi.StringPtrOutput)
+}
+
+// Toleration seconds.
+func (o PodMutationTolerationOutput) TolerationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodMutationToleration) *int { return v.TolerationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// Toleration value.
+func (o PodMutationTolerationOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodMutationToleration) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type PodMutationTolerationArrayOutput struct{ *pulumi.OutputState }
+
+func (PodMutationTolerationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodMutationToleration)(nil)).Elem()
+}
+
+func (o PodMutationTolerationArrayOutput) ToPodMutationTolerationArrayOutput() PodMutationTolerationArrayOutput {
+	return o
+}
+
+func (o PodMutationTolerationArrayOutput) ToPodMutationTolerationArrayOutputWithContext(ctx context.Context) PodMutationTolerationArrayOutput {
+	return o
+}
+
+func (o PodMutationTolerationArrayOutput) Index(i pulumi.IntInput) PodMutationTolerationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodMutationToleration {
+		return vs[0].([]PodMutationToleration)[vs[1].(int)]
+	}).(PodMutationTolerationOutput)
+}
+
 type ReservationsReservation struct {
 	// amount of reserved instances
 	Count string `pulumi:"count"`
@@ -1195,6 +7783,26 @@ func (o ReservationsReservationArrayOutput) Index(i pulumi.IntInput) Reservation
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelFallbackInput)(nil)).Elem(), AiOptimizerHostedModelFallbackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelFallbackPtrInput)(nil)).Elem(), AiOptimizerHostedModelFallbackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelHibernationInput)(nil)).Elem(), AiOptimizerHostedModelHibernationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelHibernationPtrInput)(nil)).Elem(), AiOptimizerHostedModelHibernationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelHibernationHibernateConditionInput)(nil)).Elem(), AiOptimizerHostedModelHibernationHibernateConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelHibernationHibernateConditionPtrInput)(nil)).Elem(), AiOptimizerHostedModelHibernationHibernateConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelHibernationResumeConditionInput)(nil)).Elem(), AiOptimizerHostedModelHibernationResumeConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelHibernationResumeConditionPtrInput)(nil)).Elem(), AiOptimizerHostedModelHibernationResumeConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelHorizontalAutoscalingInput)(nil)).Elem(), AiOptimizerHostedModelHorizontalAutoscalingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelHorizontalAutoscalingPtrInput)(nil)).Elem(), AiOptimizerHostedModelHorizontalAutoscalingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelVllmConfigInput)(nil)).Elem(), AiOptimizerHostedModelVllmConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerHostedModelVllmConfigPtrInput)(nil)).Elem(), AiOptimizerHostedModelVllmConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerModelRegistryGcsInput)(nil)).Elem(), AiOptimizerModelRegistryGcsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerModelRegistryGcsPtrInput)(nil)).Elem(), AiOptimizerModelRegistryGcsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerModelRegistryS3Input)(nil)).Elem(), AiOptimizerModelRegistryS3Args{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerModelRegistryS3PtrInput)(nil)).Elem(), AiOptimizerModelRegistryS3Args{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerModelSpecsHuggingfaceInput)(nil)).Elem(), AiOptimizerModelSpecsHuggingfaceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerModelSpecsHuggingfacePtrInput)(nil)).Elem(), AiOptimizerModelSpecsHuggingfaceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerModelSpecsPrivateRegistryInput)(nil)).Elem(), AiOptimizerModelSpecsPrivateRegistryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AiOptimizerModelSpecsPrivateRegistryPtrInput)(nil)).Elem(), AiOptimizerModelSpecsPrivateRegistryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CommitmentsAzureReservationInput)(nil)).Elem(), CommitmentsAzureReservationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CommitmentsAzureReservationArrayInput)(nil)).Elem(), CommitmentsAzureReservationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CommitmentsAzureReservationAssignmentInput)(nil)).Elem(), CommitmentsAzureReservationAssignmentArgs{})
@@ -1208,8 +7816,102 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CommitmentsGcpCudArrayInput)(nil)).Elem(), CommitmentsGcpCudArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CommitmentsGcpCudAssignmentInput)(nil)).Elem(), CommitmentsGcpCudAssignmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CommitmentsGcpCudAssignmentArrayInput)(nil)).Elem(), CommitmentsGcpCudAssignmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityInput)(nil)).Elem(), PodMutationAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityPtrInput)(nil)).Elem(), PodMutationAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityNodeAffinityInput)(nil)).Elem(), PodMutationAffinityNodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityNodeAffinityPtrInput)(nil)).Elem(), PodMutationAffinityNodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput)(nil)).Elem(), PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput)(nil)).Elem(), PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput)(nil)).Elem(), PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput)(nil)).Elem(), PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput)(nil)).Elem(), PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupInput)(nil)).Elem(), PodMutationDistributionGroupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupArrayInput)(nil)).Elem(), PodMutationDistributionGroupArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityPtrInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityNodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationNodeSelectorInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationNodeSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationNodeSelectorPtrInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationNodeSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationTolerationInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationTolerationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationDistributionGroupConfigurationTolerationArrayInput)(nil)).Elem(), PodMutationDistributionGroupConfigurationTolerationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2Input)(nil)).Elem(), PodMutationFilterV2Args{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PtrInput)(nil)).Elem(), PodMutationFilterV2Args{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodInput)(nil)).Elem(), PodMutationFilterV2PodArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodPtrInput)(nil)).Elem(), PodMutationFilterV2PodArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterInput)(nil)).Elem(), PodMutationFilterV2PodExcludeLabelsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterPtrInput)(nil)).Elem(), PodMutationFilterV2PodExcludeLabelsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherInput)(nil)).Elem(), PodMutationFilterV2PodExcludeLabelsFilterMatcherArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayInput)(nil)).Elem(), PodMutationFilterV2PodExcludeLabelsFilterMatcherArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyInput)(nil)).Elem(), PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherValueInput)(nil)).Elem(), PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrInput)(nil)).Elem(), PodMutationFilterV2PodExcludeLabelsFilterMatcherValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterInput)(nil)).Elem(), PodMutationFilterV2PodLabelsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterPtrInput)(nil)).Elem(), PodMutationFilterV2PodLabelsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherInput)(nil)).Elem(), PodMutationFilterV2PodLabelsFilterMatcherArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherArrayInput)(nil)).Elem(), PodMutationFilterV2PodLabelsFilterMatcherArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherKeyInput)(nil)).Elem(), PodMutationFilterV2PodLabelsFilterMatcherKeyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherValueInput)(nil)).Elem(), PodMutationFilterV2PodLabelsFilterMatcherValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodLabelsFilterMatcherValuePtrInput)(nil)).Elem(), PodMutationFilterV2PodLabelsFilterMatcherValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterPtrInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterMatcherArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherArrayInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterMatcherArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherKeyInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterMatcherKeyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherOperatorInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterMatcherOperatorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherValueInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterMatcherValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2PodTolerationsFilterMatcherValuePtrInput)(nil)).Elem(), PodMutationFilterV2PodTolerationsFilterMatcherValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadInput)(nil)).Elem(), PodMutationFilterV2WorkloadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadPtrInput)(nil)).Elem(), PodMutationFilterV2WorkloadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeKindInput)(nil)).Elem(), PodMutationFilterV2WorkloadExcludeKindArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeKindArrayInput)(nil)).Elem(), PodMutationFilterV2WorkloadExcludeKindArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeNameInput)(nil)).Elem(), PodMutationFilterV2WorkloadExcludeNameArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeNameArrayInput)(nil)).Elem(), PodMutationFilterV2WorkloadExcludeNameArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeNamespaceInput)(nil)).Elem(), PodMutationFilterV2WorkloadExcludeNamespaceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadExcludeNamespaceArrayInput)(nil)).Elem(), PodMutationFilterV2WorkloadExcludeNamespaceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadKindInput)(nil)).Elem(), PodMutationFilterV2WorkloadKindArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadKindArrayInput)(nil)).Elem(), PodMutationFilterV2WorkloadKindArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadNameInput)(nil)).Elem(), PodMutationFilterV2WorkloadNameArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadNameArrayInput)(nil)).Elem(), PodMutationFilterV2WorkloadNameArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadNamespaceInput)(nil)).Elem(), PodMutationFilterV2WorkloadNamespaceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationFilterV2WorkloadNamespaceArrayInput)(nil)).Elem(), PodMutationFilterV2WorkloadNamespaceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationNodeSelectorInput)(nil)).Elem(), PodMutationNodeSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationNodeSelectorPtrInput)(nil)).Elem(), PodMutationNodeSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationPodEvictionInput)(nil)).Elem(), PodMutationPodEvictionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationPodEvictionPtrInput)(nil)).Elem(), PodMutationPodEvictionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationSpotConfigInput)(nil)).Elem(), PodMutationSpotConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationSpotConfigPtrInput)(nil)).Elem(), PodMutationSpotConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationTolerationInput)(nil)).Elem(), PodMutationTolerationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodMutationTolerationArrayInput)(nil)).Elem(), PodMutationTolerationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReservationsReservationInput)(nil)).Elem(), ReservationsReservationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReservationsReservationArrayInput)(nil)).Elem(), ReservationsReservationArray{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelFallbackOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelFallbackPtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelHibernationOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelHibernationPtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelHibernationHibernateConditionOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelHibernationHibernateConditionPtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelHibernationResumeConditionOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelHibernationResumeConditionPtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelHorizontalAutoscalingOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelHorizontalAutoscalingPtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelVllmConfigOutput{})
+	pulumi.RegisterOutputType(AiOptimizerHostedModelVllmConfigPtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerModelRegistryGcsOutput{})
+	pulumi.RegisterOutputType(AiOptimizerModelRegistryGcsPtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerModelRegistryS3Output{})
+	pulumi.RegisterOutputType(AiOptimizerModelRegistryS3PtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerModelSpecsHuggingfaceOutput{})
+	pulumi.RegisterOutputType(AiOptimizerModelSpecsHuggingfacePtrOutput{})
+	pulumi.RegisterOutputType(AiOptimizerModelSpecsPrivateRegistryOutput{})
+	pulumi.RegisterOutputType(AiOptimizerModelSpecsPrivateRegistryPtrOutput{})
 	pulumi.RegisterOutputType(CommitmentsAzureReservationOutput{})
 	pulumi.RegisterOutputType(CommitmentsAzureReservationArrayOutput{})
 	pulumi.RegisterOutputType(CommitmentsAzureReservationAssignmentOutput{})
@@ -1223,6 +7925,80 @@ func init() {
 	pulumi.RegisterOutputType(CommitmentsGcpCudArrayOutput{})
 	pulumi.RegisterOutputType(CommitmentsGcpCudAssignmentOutput{})
 	pulumi.RegisterOutputType(CommitmentsGcpCudAssignmentArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityNodeAffinityOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityNodeAffinityPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput{})
+	pulumi.RegisterOutputType(PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityNodeAffinityOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressionArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationNodeSelectorOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationNodeSelectorPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationTolerationOutput{})
+	pulumi.RegisterOutputType(PodMutationDistributionGroupConfigurationTolerationArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2Output{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodExcludeLabelsFilterOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodExcludeLabelsFilterPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodExcludeLabelsFilterMatcherOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodExcludeLabelsFilterMatcherArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodExcludeLabelsFilterMatcherKeyOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodExcludeLabelsFilterMatcherValueOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodExcludeLabelsFilterMatcherValuePtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodLabelsFilterOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodLabelsFilterPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodLabelsFilterMatcherOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodLabelsFilterMatcherArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodLabelsFilterMatcherKeyOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodLabelsFilterMatcherValueOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodLabelsFilterMatcherValuePtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterMatcherOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterMatcherArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterMatcherKeyOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterMatcherOperatorOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterMatcherOperatorPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterMatcherValueOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2PodTolerationsFilterMatcherValuePtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadExcludeKindOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadExcludeKindArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadExcludeNameOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadExcludeNameArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadExcludeNamespaceOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadExcludeNamespaceArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadKindOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadKindArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadNameOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadNameArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadNamespaceOutput{})
+	pulumi.RegisterOutputType(PodMutationFilterV2WorkloadNamespaceArrayOutput{})
+	pulumi.RegisterOutputType(PodMutationNodeSelectorOutput{})
+	pulumi.RegisterOutputType(PodMutationNodeSelectorPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationPodEvictionOutput{})
+	pulumi.RegisterOutputType(PodMutationPodEvictionPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationSpotConfigOutput{})
+	pulumi.RegisterOutputType(PodMutationSpotConfigPtrOutput{})
+	pulumi.RegisterOutputType(PodMutationTolerationOutput{})
+	pulumi.RegisterOutputType(PodMutationTolerationArrayOutput{})
 	pulumi.RegisterOutputType(ReservationsReservationOutput{})
 	pulumi.RegisterOutputType(ReservationsReservationArrayOutput{})
 }

@@ -30,8 +30,8 @@ export declare class EksUserArn extends pulumi.CustomResource {
  * Input properties used for looking up and filtering EksUserArn resources.
  */
 export interface EksUserArnState {
-    arn?: pulumi.Input<string>;
-    clusterId?: pulumi.Input<string>;
+    arn?: pulumi.Input<string | undefined>;
+    clusterId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a EksUserArn resource.
@@ -39,3 +39,4 @@ export interface EksUserArnState {
 export interface EksUserArnArgs {
     clusterId: pulumi.Input<string>;
 }
+//# sourceMappingURL=eksUserArn.d.ts.map

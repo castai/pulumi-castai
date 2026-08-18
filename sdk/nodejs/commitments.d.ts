@@ -38,6 +38,14 @@ export declare class Commitments extends pulumi.CustomResource {
      */
     readonly gcpCudsJson: pulumi.Output<string | undefined>;
     /**
+     * Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+     */
+    readonly importMode: pulumi.Output<string | undefined>;
+    /**
+     * Organization ID. If not provided, will be fetched from the API using the authentication token.
+     */
+    readonly organizationId: pulumi.Output<string | undefined>;
+    /**
      * Create a Commitments resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
@@ -53,23 +61,31 @@ export interface CommitmentsState {
     /**
      * List of Azure reservations.
      */
-    azureReservations?: pulumi.Input<pulumi.Input<inputs.CommitmentsAzureReservation>[]>;
+    azureReservations?: pulumi.Input<pulumi.Input<inputs.CommitmentsAzureReservation>[] | undefined>;
     /**
      * CSV file containing reservations exported from Azure.
      */
-    azureReservationsCsv?: pulumi.Input<string>;
+    azureReservationsCsv?: pulumi.Input<string | undefined>;
     /**
      * List of commitment configurations.
      */
-    commitmentConfigs?: pulumi.Input<pulumi.Input<inputs.CommitmentsCommitmentConfig>[]>;
+    commitmentConfigs?: pulumi.Input<pulumi.Input<inputs.CommitmentsCommitmentConfig>[] | undefined>;
     /**
      * List of GCP CUDs.
      */
-    gcpCuds?: pulumi.Input<pulumi.Input<inputs.CommitmentsGcpCud>[]>;
+    gcpCuds?: pulumi.Input<pulumi.Input<inputs.CommitmentsGcpCud>[] | undefined>;
     /**
      * JSON file containing CUDs exported from GCP.
      */
-    gcpCudsJson?: pulumi.Input<string>;
+    gcpCudsJson?: pulumi.Input<string | undefined>;
+    /**
+     * Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+     */
+    importMode?: pulumi.Input<string | undefined>;
+    /**
+     * Organization ID. If not provided, will be fetched from the API using the authentication token.
+     */
+    organizationId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a Commitments resource.
@@ -78,13 +94,22 @@ export interface CommitmentsArgs {
     /**
      * CSV file containing reservations exported from Azure.
      */
-    azureReservationsCsv?: pulumi.Input<string>;
+    azureReservationsCsv?: pulumi.Input<string | undefined>;
     /**
      * List of commitment configurations.
      */
-    commitmentConfigs?: pulumi.Input<pulumi.Input<inputs.CommitmentsCommitmentConfig>[]>;
+    commitmentConfigs?: pulumi.Input<pulumi.Input<inputs.CommitmentsCommitmentConfig>[] | undefined>;
     /**
      * JSON file containing CUDs exported from GCP.
      */
-    gcpCudsJson?: pulumi.Input<string>;
+    gcpCudsJson?: pulumi.Input<string | undefined>;
+    /**
+     * Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+     */
+    importMode?: pulumi.Input<string | undefined>;
+    /**
+     * Organization ID. If not provided, will be fetched from the API using the authentication token.
+     */
+    organizationId?: pulumi.Input<string | undefined>;
 }
+//# sourceMappingURL=commitments.d.ts.map

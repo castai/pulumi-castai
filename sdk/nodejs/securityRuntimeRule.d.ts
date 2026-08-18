@@ -37,6 +37,9 @@ export declare class SecurityRuntimeRule extends pulumi.CustomResource {
     readonly labels: pulumi.Output<{
         [key: string]: string;
     } | undefined>;
+    /**
+     * Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+     */
     readonly name: pulumi.Output<string>;
     /**
      * Optional CEL expression for resource selection.
@@ -78,50 +81,53 @@ export interface SecurityRuntimeRuleState {
     /**
      * Number of anomalies detected using this rule.
      */
-    anomaliesCount?: pulumi.Input<number>;
+    anomaliesCount?: pulumi.Input<number | undefined>;
     /**
      * Category of the rule.
      */
-    category?: pulumi.Input<string>;
+    category?: pulumi.Input<string | undefined>;
     /**
      * Whether the rule is enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Indicates whether the rule is a built-in rule.
      */
-    isBuiltIn?: pulumi.Input<boolean>;
+    isBuiltIn?: pulumi.Input<boolean | undefined>;
     /**
      * Key-value labels attached to the rule.
      */
     labels?: pulumi.Input<{
         [key: string]: pulumi.Input<string>;
-    }>;
-    name?: pulumi.Input<string>;
+    } | undefined>;
+    /**
+     * Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+     */
+    name?: pulumi.Input<string | undefined>;
     /**
      * Optional CEL expression for resource selection.
      */
-    resourceSelector?: pulumi.Input<string>;
+    resourceSelector?: pulumi.Input<string | undefined>;
     /**
      * The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
      */
-    ruleEngineType?: pulumi.Input<string>;
+    ruleEngineType?: pulumi.Input<string | undefined>;
     /**
      * CEL rule expression text.
      */
-    ruleText?: pulumi.Input<string>;
+    ruleText?: pulumi.Input<string | undefined>;
     /**
      * Severity of the rule. One of SEVERITY_CRITICAL, SEVERITY_HIGH, SEVERITY_MEDIUM, SEVERITY_LOW, SEVERITY_NONE.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
     /**
      * Type of the rule (internal value).
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
     /**
      * Custom lists used in this rule, if any.
      */
-    usedCustomLists?: pulumi.Input<pulumi.Input<string>[]>;
+    usedCustomLists?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 /**
  * The set of arguments for constructing a SecurityRuntimeRule resource.
@@ -130,26 +136,29 @@ export interface SecurityRuntimeRuleArgs {
     /**
      * Category of the rule.
      */
-    category?: pulumi.Input<string>;
+    category?: pulumi.Input<string | undefined>;
     /**
      * Whether the rule is enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Key-value labels attached to the rule.
      */
     labels?: pulumi.Input<{
         [key: string]: pulumi.Input<string>;
-    }>;
-    name?: pulumi.Input<string>;
+    } | undefined>;
+    /**
+     * Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+     */
+    name?: pulumi.Input<string | undefined>;
     /**
      * Optional CEL expression for resource selection.
      */
-    resourceSelector?: pulumi.Input<string>;
+    resourceSelector?: pulumi.Input<string | undefined>;
     /**
      * The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
      */
-    ruleEngineType?: pulumi.Input<string>;
+    ruleEngineType?: pulumi.Input<string | undefined>;
     /**
      * CEL rule expression text.
      */
@@ -159,3 +168,4 @@ export interface SecurityRuntimeRuleArgs {
      */
     severity: pulumi.Input<string>;
 }
+//# sourceMappingURL=securityRuntimeRule.d.ts.map

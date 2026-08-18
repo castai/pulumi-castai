@@ -40,6 +40,10 @@ export declare class EksCluster extends pulumi.CustomResource {
      */
     readonly name: pulumi.Output<string>;
     /**
+     * CAST AI organization ID
+     */
+    readonly organizationId: pulumi.Output<string>;
+    /**
      * AWS region where the cluster is placed
      */
     readonly region: pulumi.Output<string>;
@@ -59,31 +63,35 @@ export interface EksClusterState {
     /**
      * ID of AWS account
      */
-    accountId?: pulumi.Input<string>;
+    accountId?: pulumi.Input<string | undefined>;
     /**
      * AWS IAM role ARN that will be assumed by CAST AI user. This role should allow `sts:AssumeRole` action for CAST AI user.
      */
-    assumeRoleArn?: pulumi.Input<string>;
+    assumeRoleArn?: pulumi.Input<string | undefined>;
     /**
      * computed value to store cluster token
      */
-    clusterToken?: pulumi.Input<string>;
+    clusterToken?: pulumi.Input<string | undefined>;
     /**
      * CAST AI internal credentials ID
      */
-    credentialsId?: pulumi.Input<string>;
+    credentialsId?: pulumi.Input<string | undefined>;
     /**
      * Should CAST AI remove nodes managed by CAST AI on disconnect
      */
-    deleteNodesOnDisconnect?: pulumi.Input<boolean>;
+    deleteNodesOnDisconnect?: pulumi.Input<boolean | undefined>;
     /**
      * name of your EKS cluster
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * CAST AI organization ID
+     */
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * AWS region where the cluster is placed
      */
-    region?: pulumi.Input<string>;
+    region?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a EksCluster resource.
@@ -96,17 +104,18 @@ export interface EksClusterArgs {
     /**
      * AWS IAM role ARN that will be assumed by CAST AI user. This role should allow `sts:AssumeRole` action for CAST AI user.
      */
-    assumeRoleArn?: pulumi.Input<string>;
+    assumeRoleArn?: pulumi.Input<string | undefined>;
     /**
      * Should CAST AI remove nodes managed by CAST AI on disconnect
      */
-    deleteNodesOnDisconnect?: pulumi.Input<boolean>;
+    deleteNodesOnDisconnect?: pulumi.Input<boolean | undefined>;
     /**
      * name of your EKS cluster
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * AWS region where the cluster is placed
      */
     region: pulumi.Input<string>;
 }
+//# sourceMappingURL=eksCluster.d.ts.map

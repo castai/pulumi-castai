@@ -39,11 +39,11 @@ export interface WorkloadScalingPolicyOrderState {
     /**
      * CAST AI cluster id
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * List of scaling policy IDs in the order they should be applied.
      */
-    policyIds?: pulumi.Input<pulumi.Input<string>[]>;
+    policyIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 /**
  * The set of arguments for constructing a WorkloadScalingPolicyOrder resource.
@@ -58,3 +58,4 @@ export interface WorkloadScalingPolicyOrderArgs {
      */
     policyIds: pulumi.Input<pulumi.Input<string>[]>;
 }
+//# sourceMappingURL=workloadScalingPolicyOrder.d.ts.map

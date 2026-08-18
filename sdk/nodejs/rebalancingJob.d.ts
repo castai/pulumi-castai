@@ -43,15 +43,15 @@ export interface RebalancingJobState {
     /**
      * CAST AI cluster id.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * The job will only be executed if it's enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Rebalancing schedule of this job.
      */
-    rebalancingScheduleId?: pulumi.Input<string>;
+    rebalancingScheduleId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a RebalancingJob resource.
@@ -64,9 +64,10 @@ export interface RebalancingJobArgs {
     /**
      * The job will only be executed if it's enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Rebalancing schedule of this job.
      */
     rebalancingScheduleId: pulumi.Input<string>;
 }
+//# sourceMappingURL=rebalancingJob.d.ts.map

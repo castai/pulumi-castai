@@ -16,6 +16,16 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
+    'AiOptimizerHostedModelFallback',
+    'AiOptimizerHostedModelHibernation',
+    'AiOptimizerHostedModelHibernationHibernateCondition',
+    'AiOptimizerHostedModelHibernationResumeCondition',
+    'AiOptimizerHostedModelHorizontalAutoscaling',
+    'AiOptimizerHostedModelVllmConfig',
+    'AiOptimizerModelRegistryGcs',
+    'AiOptimizerModelRegistryS3',
+    'AiOptimizerModelSpecsHuggingface',
+    'AiOptimizerModelSpecsPrivateRegistry',
     'CommitmentsAzureReservation',
     'CommitmentsAzureReservationAssignment',
     'CommitmentsCommitmentConfig',
@@ -23,8 +33,560 @@ __all__ = [
     'CommitmentsCommitmentConfigMatcher',
     'CommitmentsGcpCud',
     'CommitmentsGcpCudAssignment',
+    'PodMutationAffinity',
+    'PodMutationAffinityNodeAffinity',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference',
+    'PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression',
+    'PodMutationDistributionGroup',
+    'PodMutationDistributionGroupConfiguration',
+    'PodMutationDistributionGroupConfigurationAffinity',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinity',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference',
+    'PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression',
+    'PodMutationDistributionGroupConfigurationNodeSelector',
+    'PodMutationDistributionGroupConfigurationToleration',
+    'PodMutationFilterV2',
+    'PodMutationFilterV2Pod',
+    'PodMutationFilterV2PodExcludeLabelsFilter',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcher',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcherKey',
+    'PodMutationFilterV2PodExcludeLabelsFilterMatcherValue',
+    'PodMutationFilterV2PodLabelsFilter',
+    'PodMutationFilterV2PodLabelsFilterMatcher',
+    'PodMutationFilterV2PodLabelsFilterMatcherKey',
+    'PodMutationFilterV2PodLabelsFilterMatcherValue',
+    'PodMutationFilterV2PodTolerationsFilter',
+    'PodMutationFilterV2PodTolerationsFilterMatcher',
+    'PodMutationFilterV2PodTolerationsFilterMatcherKey',
+    'PodMutationFilterV2PodTolerationsFilterMatcherOperator',
+    'PodMutationFilterV2PodTolerationsFilterMatcherValue',
+    'PodMutationFilterV2Workload',
+    'PodMutationFilterV2WorkloadExcludeKind',
+    'PodMutationFilterV2WorkloadExcludeName',
+    'PodMutationFilterV2WorkloadExcludeNamespace',
+    'PodMutationFilterV2WorkloadKind',
+    'PodMutationFilterV2WorkloadName',
+    'PodMutationFilterV2WorkloadNamespace',
+    'PodMutationNodeSelector',
+    'PodMutationPodEviction',
+    'PodMutationSpotConfig',
+    'PodMutationToleration',
     'ReservationsReservation',
 ]
+
+@pulumi.output_type
+class AiOptimizerHostedModelFallback(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "providerId":
+            suggest = "provider_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerHostedModelFallback. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerHostedModelFallback.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerHostedModelFallback.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: Optional[_builtins.bool] = None,
+                 model: Optional[_builtins.str] = None,
+                 provider_id: Optional[_builtins.str] = None):
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if model is not None:
+            pulumi.set(__self__, "model", model)
+        if provider_id is not None:
+            pulumi.set(__self__, "provider_id", provider_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def model(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "model")
+
+    @_builtins.property
+    @pulumi.getter(name="providerId")
+    def provider_id(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "provider_id")
+
+
+@pulumi.output_type
+class AiOptimizerHostedModelHibernation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "hibernateCondition":
+            suggest = "hibernate_condition"
+        elif key == "resumeCondition":
+            suggest = "resume_condition"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerHostedModelHibernation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerHostedModelHibernation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerHostedModelHibernation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hibernate_condition: 'outputs.AiOptimizerHostedModelHibernationHibernateCondition',
+                 resume_condition: 'outputs.AiOptimizerHostedModelHibernationResumeCondition',
+                 enabled: Optional[_builtins.bool] = None):
+        pulumi.set(__self__, "hibernate_condition", hibernate_condition)
+        pulumi.set(__self__, "resume_condition", resume_condition)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="hibernateCondition")
+    def hibernate_condition(self) -> 'outputs.AiOptimizerHostedModelHibernationHibernateCondition':
+        return pulumi.get(self, "hibernate_condition")
+
+    @_builtins.property
+    @pulumi.getter(name="resumeCondition")
+    def resume_condition(self) -> 'outputs.AiOptimizerHostedModelHibernationResumeCondition':
+        return pulumi.get(self, "resume_condition")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class AiOptimizerHostedModelHibernationHibernateCondition(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "requestCount":
+            suggest = "request_count"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerHostedModelHibernationHibernateCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerHostedModelHibernationHibernateCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerHostedModelHibernationHibernateCondition.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 duration: _builtins.str,
+                 request_count: Optional[_builtins.int] = None):
+        """
+        :param _builtins.str duration: Time period for the condition evaluation.
+        :param _builtins.int request_count: Request count threshold. Value of 0 is treated as not set.
+        """
+        pulumi.set(__self__, "duration", duration)
+        if request_count is not None:
+            pulumi.set(__self__, "request_count", request_count)
+
+    @_builtins.property
+    @pulumi.getter
+    def duration(self) -> _builtins.str:
+        """
+        Time period for the condition evaluation.
+        """
+        return pulumi.get(self, "duration")
+
+    @_builtins.property
+    @pulumi.getter(name="requestCount")
+    def request_count(self) -> Optional[_builtins.int]:
+        """
+        Request count threshold. Value of 0 is treated as not set.
+        """
+        return pulumi.get(self, "request_count")
+
+
+@pulumi.output_type
+class AiOptimizerHostedModelHibernationResumeCondition(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "requestCount":
+            suggest = "request_count"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerHostedModelHibernationResumeCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerHostedModelHibernationResumeCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerHostedModelHibernationResumeCondition.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 duration: _builtins.str,
+                 request_count: Optional[_builtins.int] = None):
+        """
+        :param _builtins.str duration: Time period for the condition evaluation.
+        :param _builtins.int request_count: Request count threshold. Value of 0 is treated as not set.
+        """
+        pulumi.set(__self__, "duration", duration)
+        if request_count is not None:
+            pulumi.set(__self__, "request_count", request_count)
+
+    @_builtins.property
+    @pulumi.getter
+    def duration(self) -> _builtins.str:
+        """
+        Time period for the condition evaluation.
+        """
+        return pulumi.get(self, "duration")
+
+    @_builtins.property
+    @pulumi.getter(name="requestCount")
+    def request_count(self) -> Optional[_builtins.int]:
+        """
+        Request count threshold. Value of 0 is treated as not set.
+        """
+        return pulumi.get(self, "request_count")
+
+
+@pulumi.output_type
+class AiOptimizerHostedModelHorizontalAutoscaling(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxReplicas":
+            suggest = "max_replicas"
+        elif key == "minReplicas":
+            suggest = "min_replicas"
+        elif key == "targetMetric":
+            suggest = "target_metric"
+        elif key == "targetValue":
+            suggest = "target_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerHostedModelHorizontalAutoscaling. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerHostedModelHorizontalAutoscaling.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerHostedModelHorizontalAutoscaling.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 max_replicas: _builtins.int,
+                 min_replicas: _builtins.int,
+                 target_metric: _builtins.str,
+                 target_value: _builtins.float,
+                 enabled: Optional[_builtins.bool] = None):
+        pulumi.set(__self__, "max_replicas", max_replicas)
+        pulumi.set(__self__, "min_replicas", min_replicas)
+        pulumi.set(__self__, "target_metric", target_metric)
+        pulumi.set(__self__, "target_value", target_value)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="maxReplicas")
+    def max_replicas(self) -> _builtins.int:
+        return pulumi.get(self, "max_replicas")
+
+    @_builtins.property
+    @pulumi.getter(name="minReplicas")
+    def min_replicas(self) -> _builtins.int:
+        return pulumi.get(self, "min_replicas")
+
+    @_builtins.property
+    @pulumi.getter(name="targetMetric")
+    def target_metric(self) -> _builtins.str:
+        return pulumi.get(self, "target_metric")
+
+    @_builtins.property
+    @pulumi.getter(name="targetValue")
+    def target_value(self) -> _builtins.float:
+        return pulumi.get(self, "target_value")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class AiOptimizerHostedModelVllmConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "huggingFaceToken":
+            suggest = "hugging_face_token"
+        elif key == "secretName":
+            suggest = "secret_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerHostedModelVllmConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerHostedModelVllmConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerHostedModelVllmConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hugging_face_token: Optional[_builtins.str] = None,
+                 secret_name: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str hugging_face_token: HuggingFace token. Mutually exclusive with secret_name.
+        :param _builtins.str secret_name: Kubernetes secret name containing the HuggingFace token.
+        """
+        if hugging_face_token is not None:
+            pulumi.set(__self__, "hugging_face_token", hugging_face_token)
+        if secret_name is not None:
+            pulumi.set(__self__, "secret_name", secret_name)
+
+    @_builtins.property
+    @pulumi.getter(name="huggingFaceToken")
+    def hugging_face_token(self) -> Optional[_builtins.str]:
+        """
+        HuggingFace token. Mutually exclusive with secret_name.
+        """
+        return pulumi.get(self, "hugging_face_token")
+
+    @_builtins.property
+    @pulumi.getter(name="secretName")
+    def secret_name(self) -> Optional[_builtins.str]:
+        """
+        Kubernetes secret name containing the HuggingFace token.
+        """
+        return pulumi.get(self, "secret_name")
+
+
+@pulumi.output_type
+class AiOptimizerModelRegistryGcs(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "serviceAccount":
+            suggest = "service_account"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerModelRegistryGcs. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerModelRegistryGcs.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerModelRegistryGcs.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 bucket: _builtins.str,
+                 prefix: Optional[_builtins.str] = None,
+                 service_account: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str bucket: GCS bucket name.
+        :param _builtins.str prefix: Path prefix within the bucket.
+        :param _builtins.str service_account: Service account email generated by onboarding.
+        """
+        pulumi.set(__self__, "bucket", bucket)
+        if prefix is not None:
+            pulumi.set(__self__, "prefix", prefix)
+        if service_account is not None:
+            pulumi.set(__self__, "service_account", service_account)
+
+    @_builtins.property
+    @pulumi.getter
+    def bucket(self) -> _builtins.str:
+        """
+        GCS bucket name.
+        """
+        return pulumi.get(self, "bucket")
+
+    @_builtins.property
+    @pulumi.getter
+    def prefix(self) -> Optional[_builtins.str]:
+        """
+        Path prefix within the bucket.
+        """
+        return pulumi.get(self, "prefix")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceAccount")
+    def service_account(self) -> Optional[_builtins.str]:
+        """
+        Service account email generated by onboarding.
+        """
+        return pulumi.get(self, "service_account")
+
+
+@pulumi.output_type
+class AiOptimizerModelRegistryS3(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "userName":
+            suggest = "user_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerModelRegistryS3. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerModelRegistryS3.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerModelRegistryS3.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 bucket: _builtins.str,
+                 region: _builtins.str,
+                 prefix: Optional[_builtins.str] = None,
+                 user_name: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str bucket: S3 bucket name.
+        :param _builtins.str region: AWS region of the S3 bucket.
+        :param _builtins.str prefix: Path prefix within the bucket.
+        :param _builtins.str user_name: IAM user name created by onboarding.
+        """
+        pulumi.set(__self__, "bucket", bucket)
+        pulumi.set(__self__, "region", region)
+        if prefix is not None:
+            pulumi.set(__self__, "prefix", prefix)
+        if user_name is not None:
+            pulumi.set(__self__, "user_name", user_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def bucket(self) -> _builtins.str:
+        """
+        S3 bucket name.
+        """
+        return pulumi.get(self, "bucket")
+
+    @_builtins.property
+    @pulumi.getter
+    def region(self) -> _builtins.str:
+        """
+        AWS region of the S3 bucket.
+        """
+        return pulumi.get(self, "region")
+
+    @_builtins.property
+    @pulumi.getter
+    def prefix(self) -> Optional[_builtins.str]:
+        """
+        Path prefix within the bucket.
+        """
+        return pulumi.get(self, "prefix")
+
+    @_builtins.property
+    @pulumi.getter(name="userName")
+    def user_name(self) -> Optional[_builtins.str]:
+        """
+        IAM user name created by onboarding.
+        """
+        return pulumi.get(self, "user_name")
+
+
+@pulumi.output_type
+class AiOptimizerModelSpecsHuggingface(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "modelName":
+            suggest = "model_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerModelSpecsHuggingface. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerModelSpecsHuggingface.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerModelSpecsHuggingface.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 model_name: _builtins.str):
+        """
+        :param _builtins.str model_name: HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+        """
+        pulumi.set(__self__, "model_name", model_name)
+
+    @_builtins.property
+    @pulumi.getter(name="modelName")
+    def model_name(self) -> _builtins.str:
+        """
+        HuggingFace model name (e.g. meta-llama/Llama-3.1-8B-Instruct).
+        """
+        return pulumi.get(self, "model_name")
+
+
+@pulumi.output_type
+class AiOptimizerModelSpecsPrivateRegistry(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "baseModelId":
+            suggest = "base_model_id"
+        elif key == "registryId":
+            suggest = "registry_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AiOptimizerModelSpecsPrivateRegistry. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AiOptimizerModelSpecsPrivateRegistry.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AiOptimizerModelSpecsPrivateRegistry.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 base_model_id: _builtins.str,
+                 registry_id: _builtins.str):
+        """
+        :param _builtins.str base_model_id: Base model identifier.
+        :param _builtins.str registry_id: ID of the AiOptimizerModelRegistry resource.
+        """
+        pulumi.set(__self__, "base_model_id", base_model_id)
+        pulumi.set(__self__, "registry_id", registry_id)
+
+    @_builtins.property
+    @pulumi.getter(name="baseModelId")
+    def base_model_id(self) -> _builtins.str:
+        """
+        Base model identifier.
+        """
+        return pulumi.get(self, "base_model_id")
+
+    @_builtins.property
+    @pulumi.getter(name="registryId")
+    def registry_id(self) -> _builtins.str:
+        """
+        ID of the AiOptimizerModelRegistry resource.
+        """
+        return pulumi.get(self, "registry_id")
+
 
 @pulumi.output_type
 class CommitmentsAzureReservation(dict):
@@ -313,6 +875,8 @@ class CommitmentsCommitmentConfig(dict):
         suggest = None
         if key == "allowedUsage":
             suggest = "allowed_usage"
+        elif key == "autoAssignment":
+            suggest = "auto_assignment"
         elif key == "scalingStrategy":
             suggest = "scaling_strategy"
 
@@ -331,6 +895,7 @@ class CommitmentsCommitmentConfig(dict):
                  matcher: 'outputs.CommitmentsCommitmentConfigMatcher',
                  allowed_usage: Optional[_builtins.float] = None,
                  assignments: Optional[Sequence['outputs.CommitmentsCommitmentConfigAssignment']] = None,
+                 auto_assignment: Optional[_builtins.bool] = None,
                  prioritization: Optional[_builtins.bool] = None,
                  scaling_strategy: Optional[_builtins.str] = None,
                  status: Optional[_builtins.str] = None):
@@ -338,6 +903,7 @@ class CommitmentsCommitmentConfig(dict):
         :param 'CommitmentsCommitmentConfigMatcherArgs' matcher: Matcher used to map config to a commitment.
         :param _builtins.float allowed_usage: Allowed usage of the commitment. The value is between 0 (0%) and 1 (100%).
         :param Sequence['CommitmentsCommitmentConfigAssignmentArgs'] assignments: List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
+        :param _builtins.bool auto_assignment: If enabled, the commitment is automatically assigned to all clusters in the matching region. When disabled, only explicitly listed cluster assignments are used.
         :param _builtins.bool prioritization: If enabled, it's possible to assign priorities to the assigned clusters.
         :param _builtins.str scaling_strategy: Scaling strategy of the commitment in CAST AI. One of: Default, CPUBased, RamBased
         :param _builtins.str status: Status of the commitment in CAST AI.
@@ -347,6 +913,8 @@ class CommitmentsCommitmentConfig(dict):
             pulumi.set(__self__, "allowed_usage", allowed_usage)
         if assignments is not None:
             pulumi.set(__self__, "assignments", assignments)
+        if auto_assignment is not None:
+            pulumi.set(__self__, "auto_assignment", auto_assignment)
         if prioritization is not None:
             pulumi.set(__self__, "prioritization", prioritization)
         if scaling_strategy is not None:
@@ -377,6 +945,14 @@ class CommitmentsCommitmentConfig(dict):
         List of assigned clusters for the commitment. If prioritization is enabled, the order of the assignments indicates the priority. The first assignment has the highest priority.
         """
         return pulumi.get(self, "assignments")
+
+    @_builtins.property
+    @pulumi.getter(name="autoAssignment")
+    def auto_assignment(self) -> Optional[_builtins.bool]:
+        """
+        If enabled, the commitment is automatically assigned to all clusters in the matching region. When disabled, only explicitly listed cluster assignments are used.
+        """
+        return pulumi.get(self, "auto_assignment")
 
     @_builtins.property
     @pulumi.getter
@@ -755,6 +1331,1409 @@ class CommitmentsGcpCudAssignment(dict):
         Priority of the assignment. The lower the value, the higher the priority. 1 is the highest priority.
         """
         return pulumi.get(self, "priority")
+
+
+@pulumi.output_type
+class PodMutationAffinity(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeAffinity":
+            suggest = "node_affinity"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationAffinity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationAffinity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationAffinity.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 node_affinity: Optional['outputs.PodMutationAffinityNodeAffinity'] = None):
+        if node_affinity is not None:
+            pulumi.set(__self__, "node_affinity", node_affinity)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAffinity")
+    def node_affinity(self) -> Optional['outputs.PodMutationAffinityNodeAffinity']:
+        return pulumi.get(self, "node_affinity")
+
+
+@pulumi.output_type
+class PodMutationAffinityNodeAffinity(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preferredDuringSchedulingIgnoredDuringExecutions":
+            suggest = "preferred_during_scheduling_ignored_during_executions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationAffinityNodeAffinity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationAffinityNodeAffinity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationAffinityNodeAffinity.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 preferred_during_scheduling_ignored_during_executions: Optional[Sequence['outputs.PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution']] = None):
+        if preferred_during_scheduling_ignored_during_executions is not None:
+            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_executions", preferred_during_scheduling_ignored_during_executions)
+
+    @_builtins.property
+    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecutions")
+    def preferred_during_scheduling_ignored_during_executions(self) -> Optional[Sequence['outputs.PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution']]:
+        return pulumi.get(self, "preferred_during_scheduling_ignored_during_executions")
+
+
+@pulumi.output_type
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution(dict):
+    def __init__(__self__, *,
+                 preference: 'outputs.PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference',
+                 weight: _builtins.int):
+        """
+        :param _builtins.int weight: Weight of the node affinity term.
+        """
+        pulumi.set(__self__, "preference", preference)
+        pulumi.set(__self__, "weight", weight)
+
+    @_builtins.property
+    @pulumi.getter
+    def preference(self) -> 'outputs.PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference':
+        return pulumi.get(self, "preference")
+
+    @_builtins.property
+    @pulumi.getter
+    def weight(self) -> _builtins.int:
+        """
+        Weight of the node affinity term.
+        """
+        return pulumi.get(self, "weight")
+
+
+@pulumi.output_type
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchExpressions":
+            suggest = "match_expressions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 match_expressions: Optional[Sequence['outputs.PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression']] = None):
+        if match_expressions is not None:
+            pulumi.set(__self__, "match_expressions", match_expressions)
+
+    @_builtins.property
+    @pulumi.getter(name="matchExpressions")
+    def match_expressions(self) -> Optional[Sequence['outputs.PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression']]:
+        return pulumi.get(self, "match_expressions")
+
+
+@pulumi.output_type
+class PodMutationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression(dict):
+    def __init__(__self__, *,
+                 key: _builtins.str,
+                 operator: _builtins.str,
+                 values: Optional[Sequence[_builtins.str]] = None):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "operator", operator)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> _builtins.str:
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> _builtins.str:
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[_builtins.str]]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroup(dict):
+    def __init__(__self__, *,
+                 configuration: 'outputs.PodMutationDistributionGroupConfiguration',
+                 name: _builtins.str,
+                 percentage: _builtins.int):
+        """
+        :param _builtins.str name: Unique name for this distribution group.
+        :param _builtins.int percentage: Percentage of pods (0-100) that should receive this configuration.
+        """
+        pulumi.set(__self__, "configuration", configuration)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "percentage", percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def configuration(self) -> 'outputs.PodMutationDistributionGroupConfiguration':
+        return pulumi.get(self, "configuration")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        Unique name for this distribution group.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def percentage(self) -> _builtins.int:
+        """
+        Percentage of pods (0-100) that should receive this configuration.
+        """
+        return pulumi.get(self, "percentage")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroupConfiguration(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeSelector":
+            suggest = "node_selector"
+        elif key == "nodeTemplatesToConsolidates":
+            suggest = "node_templates_to_consolidates"
+        elif key == "spotType":
+            suggest = "spot_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationDistributionGroupConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationDistributionGroupConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationDistributionGroupConfiguration.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 affinity: Optional['outputs.PodMutationDistributionGroupConfigurationAffinity'] = None,
+                 annotations: Optional[Mapping[str, _builtins.str]] = None,
+                 labels: Optional[Mapping[str, _builtins.str]] = None,
+                 node_selector: Optional['outputs.PodMutationDistributionGroupConfigurationNodeSelector'] = None,
+                 node_templates_to_consolidates: Optional[Sequence[_builtins.str]] = None,
+                 patch: Optional[_builtins.str] = None,
+                 spot_type: Optional[_builtins.str] = None,
+                 tolerations: Optional[Sequence['outputs.PodMutationDistributionGroupConfigurationToleration']] = None):
+        """
+        :param 'PodMutationDistributionGroupConfigurationAffinityArgs' affinity: Affinity to apply to the pods.
+        :param Mapping[str, _builtins.str] annotations: Annotations to add to the pods.
+        :param Mapping[str, _builtins.str] labels: Labels to add to the pods.
+        :param 'PodMutationDistributionGroupConfigurationNodeSelectorArgs' node_selector: Node selector to apply to the pods (add/remove key-value pairs).
+        :param Sequence[_builtins.str] node_templates_to_consolidates: Node template names to consolidate.
+        :param _builtins.str patch: JSON patch to apply to pods. Must be a JSON array of patch operations.
+        :param _builtins.str spot_type: Spot instance type: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+        :param Sequence['PodMutationDistributionGroupConfigurationTolerationArgs'] tolerations: Tolerations to apply to the pods.
+        """
+        if affinity is not None:
+            pulumi.set(__self__, "affinity", affinity)
+        if annotations is not None:
+            pulumi.set(__self__, "annotations", annotations)
+        if labels is not None:
+            pulumi.set(__self__, "labels", labels)
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if node_templates_to_consolidates is not None:
+            pulumi.set(__self__, "node_templates_to_consolidates", node_templates_to_consolidates)
+        if patch is not None:
+            pulumi.set(__self__, "patch", patch)
+        if spot_type is not None:
+            pulumi.set(__self__, "spot_type", spot_type)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+
+    @_builtins.property
+    @pulumi.getter
+    def affinity(self) -> Optional['outputs.PodMutationDistributionGroupConfigurationAffinity']:
+        """
+        Affinity to apply to the pods.
+        """
+        return pulumi.get(self, "affinity")
+
+    @_builtins.property
+    @pulumi.getter
+    def annotations(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Annotations to add to the pods.
+        """
+        return pulumi.get(self, "annotations")
+
+    @_builtins.property
+    @pulumi.getter
+    def labels(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Labels to add to the pods.
+        """
+        return pulumi.get(self, "labels")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> Optional['outputs.PodMutationDistributionGroupConfigurationNodeSelector']:
+        """
+        Node selector to apply to the pods (add/remove key-value pairs).
+        """
+        return pulumi.get(self, "node_selector")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeTemplatesToConsolidates")
+    def node_templates_to_consolidates(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Node template names to consolidate.
+        """
+        return pulumi.get(self, "node_templates_to_consolidates")
+
+    @_builtins.property
+    @pulumi.getter
+    def patch(self) -> Optional[_builtins.str]:
+        """
+        JSON patch to apply to pods. Must be a JSON array of patch operations.
+        """
+        return pulumi.get(self, "patch")
+
+    @_builtins.property
+    @pulumi.getter(name="spotType")
+    def spot_type(self) -> Optional[_builtins.str]:
+        """
+        Spot instance type: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+        """
+        return pulumi.get(self, "spot_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def tolerations(self) -> Optional[Sequence['outputs.PodMutationDistributionGroupConfigurationToleration']]:
+        """
+        Tolerations to apply to the pods.
+        """
+        return pulumi.get(self, "tolerations")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroupConfigurationAffinity(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeAffinity":
+            suggest = "node_affinity"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationDistributionGroupConfigurationAffinity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationDistributionGroupConfigurationAffinity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationDistributionGroupConfigurationAffinity.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 node_affinity: Optional['outputs.PodMutationDistributionGroupConfigurationAffinityNodeAffinity'] = None):
+        if node_affinity is not None:
+            pulumi.set(__self__, "node_affinity", node_affinity)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAffinity")
+    def node_affinity(self) -> Optional['outputs.PodMutationDistributionGroupConfigurationAffinityNodeAffinity']:
+        return pulumi.get(self, "node_affinity")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinity(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preferredDuringSchedulingIgnoredDuringExecutions":
+            suggest = "preferred_during_scheduling_ignored_during_executions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationDistributionGroupConfigurationAffinityNodeAffinity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationDistributionGroupConfigurationAffinityNodeAffinity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationDistributionGroupConfigurationAffinityNodeAffinity.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 preferred_during_scheduling_ignored_during_executions: Optional[Sequence['outputs.PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution']] = None):
+        if preferred_during_scheduling_ignored_during_executions is not None:
+            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_executions", preferred_during_scheduling_ignored_during_executions)
+
+    @_builtins.property
+    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecutions")
+    def preferred_during_scheduling_ignored_during_executions(self) -> Optional[Sequence['outputs.PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution']]:
+        return pulumi.get(self, "preferred_during_scheduling_ignored_during_executions")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution(dict):
+    def __init__(__self__, *,
+                 preference: 'outputs.PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference',
+                 weight: _builtins.int):
+        """
+        :param _builtins.int weight: Weight of the node affinity term.
+        """
+        pulumi.set(__self__, "preference", preference)
+        pulumi.set(__self__, "weight", weight)
+
+    @_builtins.property
+    @pulumi.getter
+    def preference(self) -> 'outputs.PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference':
+        return pulumi.get(self, "preference")
+
+    @_builtins.property
+    @pulumi.getter
+    def weight(self) -> _builtins.int:
+        """
+        Weight of the node affinity term.
+        """
+        return pulumi.get(self, "weight")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchExpressions":
+            suggest = "match_expressions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 match_expressions: Optional[Sequence['outputs.PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression']] = None):
+        if match_expressions is not None:
+            pulumi.set(__self__, "match_expressions", match_expressions)
+
+    @_builtins.property
+    @pulumi.getter(name="matchExpressions")
+    def match_expressions(self) -> Optional[Sequence['outputs.PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression']]:
+        return pulumi.get(self, "match_expressions")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroupConfigurationAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpression(dict):
+    def __init__(__self__, *,
+                 key: _builtins.str,
+                 operator: _builtins.str,
+                 values: Optional[Sequence[_builtins.str]] = None):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "operator", operator)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> _builtins.str:
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> _builtins.str:
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[_builtins.str]]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroupConfigurationNodeSelector(dict):
+    def __init__(__self__, *,
+                 add: Optional[Mapping[str, _builtins.str]] = None,
+                 remove: Optional[Mapping[str, _builtins.str]] = None):
+        if add is not None:
+            pulumi.set(__self__, "add", add)
+        if remove is not None:
+            pulumi.set(__self__, "remove", remove)
+
+    @_builtins.property
+    @pulumi.getter
+    def add(self) -> Optional[Mapping[str, _builtins.str]]:
+        return pulumi.get(self, "add")
+
+    @_builtins.property
+    @pulumi.getter
+    def remove(self) -> Optional[Mapping[str, _builtins.str]]:
+        return pulumi.get(self, "remove")
+
+
+@pulumi.output_type
+class PodMutationDistributionGroupConfigurationToleration(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "tolerationSeconds":
+            suggest = "toleration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationDistributionGroupConfigurationToleration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationDistributionGroupConfigurationToleration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationDistributionGroupConfigurationToleration.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 effect: Optional[_builtins.str] = None,
+                 key: Optional[_builtins.str] = None,
+                 operator: Optional[_builtins.str] = None,
+                 toleration_seconds: Optional[_builtins.int] = None,
+                 value: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str effect: Toleration effect.
+        :param _builtins.str key: Toleration key.
+        :param _builtins.str operator: Toleration operator.
+        :param _builtins.int toleration_seconds: Toleration seconds.
+        :param _builtins.str value: Toleration value.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if toleration_seconds is not None:
+            pulumi.set(__self__, "toleration_seconds", toleration_seconds)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def effect(self) -> Optional[_builtins.str]:
+        """
+        Toleration effect.
+        """
+        return pulumi.get(self, "effect")
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[_builtins.str]:
+        """
+        Toleration key.
+        """
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> Optional[_builtins.str]:
+        """
+        Toleration operator.
+        """
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter(name="tolerationSeconds")
+    def toleration_seconds(self) -> Optional[_builtins.int]:
+        """
+        Toleration seconds.
+        """
+        return pulumi.get(self, "toleration_seconds")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[_builtins.str]:
+        """
+        Toleration value.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2(dict):
+    def __init__(__self__, *,
+                 pod: Optional['outputs.PodMutationFilterV2Pod'] = None,
+                 workload: Optional['outputs.PodMutationFilterV2Workload'] = None):
+        """
+        :param 'PodMutationFilterV2PodArgs' pod: Pod filter for labels.
+        :param 'PodMutationFilterV2WorkloadArgs' workload: Workload filter for kinds, names, and namespaces.
+        """
+        if pod is not None:
+            pulumi.set(__self__, "pod", pod)
+        if workload is not None:
+            pulumi.set(__self__, "workload", workload)
+
+    @_builtins.property
+    @pulumi.getter
+    def pod(self) -> Optional['outputs.PodMutationFilterV2Pod']:
+        """
+        Pod filter for labels.
+        """
+        return pulumi.get(self, "pod")
+
+    @_builtins.property
+    @pulumi.getter
+    def workload(self) -> Optional['outputs.PodMutationFilterV2Workload']:
+        """
+        Workload filter for kinds, names, and namespaces.
+        """
+        return pulumi.get(self, "workload")
+
+
+@pulumi.output_type
+class PodMutationFilterV2Pod(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "excludeLabelsFilter":
+            suggest = "exclude_labels_filter"
+        elif key == "labelsFilter":
+            suggest = "labels_filter"
+        elif key == "tolerationsFilter":
+            suggest = "tolerations_filter"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationFilterV2Pod. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationFilterV2Pod.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationFilterV2Pod.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 exclude_labels_filter: Optional['outputs.PodMutationFilterV2PodExcludeLabelsFilter'] = None,
+                 labels_filter: Optional['outputs.PodMutationFilterV2PodLabelsFilter'] = None,
+                 tolerations_filter: Optional['outputs.PodMutationFilterV2PodTolerationsFilter'] = None):
+        """
+        :param 'PodMutationFilterV2PodTolerationsFilterArgs' tolerations_filter: Tolerations filter for matching pods by their tolerations.
+        """
+        if exclude_labels_filter is not None:
+            pulumi.set(__self__, "exclude_labels_filter", exclude_labels_filter)
+        if labels_filter is not None:
+            pulumi.set(__self__, "labels_filter", labels_filter)
+        if tolerations_filter is not None:
+            pulumi.set(__self__, "tolerations_filter", tolerations_filter)
+
+    @_builtins.property
+    @pulumi.getter(name="excludeLabelsFilter")
+    def exclude_labels_filter(self) -> Optional['outputs.PodMutationFilterV2PodExcludeLabelsFilter']:
+        return pulumi.get(self, "exclude_labels_filter")
+
+    @_builtins.property
+    @pulumi.getter(name="labelsFilter")
+    def labels_filter(self) -> Optional['outputs.PodMutationFilterV2PodLabelsFilter']:
+        return pulumi.get(self, "labels_filter")
+
+    @_builtins.property
+    @pulumi.getter(name="tolerationsFilter")
+    def tolerations_filter(self) -> Optional['outputs.PodMutationFilterV2PodTolerationsFilter']:
+        """
+        Tolerations filter for matching pods by their tolerations.
+        """
+        return pulumi.get(self, "tolerations_filter")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodExcludeLabelsFilter(dict):
+    def __init__(__self__, *,
+                 matchers: Sequence['outputs.PodMutationFilterV2PodExcludeLabelsFilterMatcher'],
+                 operator: _builtins.str):
+        """
+        :param _builtins.str operator: Logical operator to combine label matchers: AND or OR.
+        """
+        pulumi.set(__self__, "matchers", matchers)
+        pulumi.set(__self__, "operator", operator)
+
+    @_builtins.property
+    @pulumi.getter
+    def matchers(self) -> Sequence['outputs.PodMutationFilterV2PodExcludeLabelsFilterMatcher']:
+        return pulumi.get(self, "matchers")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> _builtins.str:
+        """
+        Logical operator to combine label matchers: AND or OR.
+        """
+        return pulumi.get(self, "operator")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodExcludeLabelsFilterMatcher(dict):
+    def __init__(__self__, *,
+                 key: 'outputs.PodMutationFilterV2PodExcludeLabelsFilterMatcherKey',
+                 value: Optional['outputs.PodMutationFilterV2PodExcludeLabelsFilterMatcherValue'] = None):
+        pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> 'outputs.PodMutationFilterV2PodExcludeLabelsFilterMatcherKey':
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional['outputs.PodMutationFilterV2PodExcludeLabelsFilterMatcherValue']:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodExcludeLabelsFilterMatcherKey(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodExcludeLabelsFilterMatcherValue(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodLabelsFilter(dict):
+    def __init__(__self__, *,
+                 matchers: Sequence['outputs.PodMutationFilterV2PodLabelsFilterMatcher'],
+                 operator: _builtins.str):
+        """
+        :param _builtins.str operator: Logical operator to combine label matchers: AND or OR.
+        """
+        pulumi.set(__self__, "matchers", matchers)
+        pulumi.set(__self__, "operator", operator)
+
+    @_builtins.property
+    @pulumi.getter
+    def matchers(self) -> Sequence['outputs.PodMutationFilterV2PodLabelsFilterMatcher']:
+        return pulumi.get(self, "matchers")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> _builtins.str:
+        """
+        Logical operator to combine label matchers: AND or OR.
+        """
+        return pulumi.get(self, "operator")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodLabelsFilterMatcher(dict):
+    def __init__(__self__, *,
+                 key: 'outputs.PodMutationFilterV2PodLabelsFilterMatcherKey',
+                 value: Optional['outputs.PodMutationFilterV2PodLabelsFilterMatcherValue'] = None):
+        pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> 'outputs.PodMutationFilterV2PodLabelsFilterMatcherKey':
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional['outputs.PodMutationFilterV2PodLabelsFilterMatcherValue']:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodLabelsFilterMatcherKey(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodLabelsFilterMatcherValue(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodTolerationsFilter(dict):
+    def __init__(__self__, *,
+                 matchers: Sequence['outputs.PodMutationFilterV2PodTolerationsFilterMatcher'],
+                 operator: _builtins.str):
+        """
+        :param _builtins.str operator: Logical operator to combine toleration matchers: AND or OR.
+        """
+        pulumi.set(__self__, "matchers", matchers)
+        pulumi.set(__self__, "operator", operator)
+
+    @_builtins.property
+    @pulumi.getter
+    def matchers(self) -> Sequence['outputs.PodMutationFilterV2PodTolerationsFilterMatcher']:
+        return pulumi.get(self, "matchers")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> _builtins.str:
+        """
+        Logical operator to combine toleration matchers: AND or OR.
+        """
+        return pulumi.get(self, "operator")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodTolerationsFilterMatcher(dict):
+    def __init__(__self__, *,
+                 key: 'outputs.PodMutationFilterV2PodTolerationsFilterMatcherKey',
+                 operator: Optional['outputs.PodMutationFilterV2PodTolerationsFilterMatcherOperator'] = None,
+                 value: Optional['outputs.PodMutationFilterV2PodTolerationsFilterMatcherValue'] = None):
+        pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> 'outputs.PodMutationFilterV2PodTolerationsFilterMatcherKey':
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> Optional['outputs.PodMutationFilterV2PodTolerationsFilterMatcherOperator']:
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional['outputs.PodMutationFilterV2PodTolerationsFilterMatcherValue']:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodTolerationsFilterMatcherKey(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodTolerationsFilterMatcherOperator(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2PodTolerationsFilterMatcherValue(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2Workload(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "excludeKinds":
+            suggest = "exclude_kinds"
+        elif key == "excludeNames":
+            suggest = "exclude_names"
+        elif key == "excludeNamespaces":
+            suggest = "exclude_namespaces"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationFilterV2Workload. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationFilterV2Workload.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationFilterV2Workload.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 exclude_kinds: Optional[Sequence['outputs.PodMutationFilterV2WorkloadExcludeKind']] = None,
+                 exclude_names: Optional[Sequence['outputs.PodMutationFilterV2WorkloadExcludeName']] = None,
+                 exclude_namespaces: Optional[Sequence['outputs.PodMutationFilterV2WorkloadExcludeNamespace']] = None,
+                 kinds: Optional[Sequence['outputs.PodMutationFilterV2WorkloadKind']] = None,
+                 names: Optional[Sequence['outputs.PodMutationFilterV2WorkloadName']] = None,
+                 namespaces: Optional[Sequence['outputs.PodMutationFilterV2WorkloadNamespace']] = None):
+        if exclude_kinds is not None:
+            pulumi.set(__self__, "exclude_kinds", exclude_kinds)
+        if exclude_names is not None:
+            pulumi.set(__self__, "exclude_names", exclude_names)
+        if exclude_namespaces is not None:
+            pulumi.set(__self__, "exclude_namespaces", exclude_namespaces)
+        if kinds is not None:
+            pulumi.set(__self__, "kinds", kinds)
+        if names is not None:
+            pulumi.set(__self__, "names", names)
+        if namespaces is not None:
+            pulumi.set(__self__, "namespaces", namespaces)
+
+    @_builtins.property
+    @pulumi.getter(name="excludeKinds")
+    def exclude_kinds(self) -> Optional[Sequence['outputs.PodMutationFilterV2WorkloadExcludeKind']]:
+        return pulumi.get(self, "exclude_kinds")
+
+    @_builtins.property
+    @pulumi.getter(name="excludeNames")
+    def exclude_names(self) -> Optional[Sequence['outputs.PodMutationFilterV2WorkloadExcludeName']]:
+        return pulumi.get(self, "exclude_names")
+
+    @_builtins.property
+    @pulumi.getter(name="excludeNamespaces")
+    def exclude_namespaces(self) -> Optional[Sequence['outputs.PodMutationFilterV2WorkloadExcludeNamespace']]:
+        return pulumi.get(self, "exclude_namespaces")
+
+    @_builtins.property
+    @pulumi.getter
+    def kinds(self) -> Optional[Sequence['outputs.PodMutationFilterV2WorkloadKind']]:
+        return pulumi.get(self, "kinds")
+
+    @_builtins.property
+    @pulumi.getter
+    def names(self) -> Optional[Sequence['outputs.PodMutationFilterV2WorkloadName']]:
+        return pulumi.get(self, "names")
+
+    @_builtins.property
+    @pulumi.getter
+    def namespaces(self) -> Optional[Sequence['outputs.PodMutationFilterV2WorkloadNamespace']]:
+        return pulumi.get(self, "namespaces")
+
+
+@pulumi.output_type
+class PodMutationFilterV2WorkloadExcludeKind(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2WorkloadExcludeName(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2WorkloadExcludeNamespace(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2WorkloadKind(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2WorkloadName(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationFilterV2WorkloadNamespace(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 value: _builtins.str):
+        """
+        :param _builtins.str type: Matcher type: EXACT or REGEX.
+        :param _builtins.str value: Value to match against.
+        """
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Matcher type: EXACT or REGEX.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        Value to match against.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodMutationNodeSelector(dict):
+    def __init__(__self__, *,
+                 add: Optional[Mapping[str, _builtins.str]] = None,
+                 remove: Optional[Mapping[str, _builtins.str]] = None):
+        if add is not None:
+            pulumi.set(__self__, "add", add)
+        if remove is not None:
+            pulumi.set(__self__, "remove", remove)
+
+    @_builtins.property
+    @pulumi.getter
+    def add(self) -> Optional[Mapping[str, _builtins.str]]:
+        return pulumi.get(self, "add")
+
+    @_builtins.property
+    @pulumi.getter
+    def remove(self) -> Optional[Mapping[str, _builtins.str]]:
+        return pulumi.get(self, "remove")
+
+
+@pulumi.output_type
+class PodMutationPodEviction(dict):
+    def __init__(__self__, *,
+                 enabled: _builtins.bool):
+        """
+        :param _builtins.bool enabled: Whether non-conforming pods are eligible for eviction.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Whether non-conforming pods are eligible for eviction.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class PodMutationSpotConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "distributionPercentage":
+            suggest = "distribution_percentage"
+        elif key == "spotMode":
+            suggest = "spot_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationSpotConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationSpotConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationSpotConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 distribution_percentage: Optional[_builtins.int] = None,
+                 spot_mode: Optional[_builtins.str] = None):
+        """
+        :param _builtins.int distribution_percentage: Percentage of pods (0-100) that receive spot scheduling constraints.
+        :param _builtins.str spot_mode: Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+        """
+        if distribution_percentage is not None:
+            pulumi.set(__self__, "distribution_percentage", distribution_percentage)
+        if spot_mode is not None:
+            pulumi.set(__self__, "spot_mode", spot_mode)
+
+    @_builtins.property
+    @pulumi.getter(name="distributionPercentage")
+    def distribution_percentage(self) -> Optional[_builtins.int]:
+        """
+        Percentage of pods (0-100) that receive spot scheduling constraints.
+        """
+        return pulumi.get(self, "distribution_percentage")
+
+    @_builtins.property
+    @pulumi.getter(name="spotMode")
+    def spot_mode(self) -> Optional[_builtins.str]:
+        """
+        Spot mode: OPTIONAL_SPOT, USE_ONLY_SPOT, or PREFERRED_SPOT.
+        """
+        return pulumi.get(self, "spot_mode")
+
+
+@pulumi.output_type
+class PodMutationToleration(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "tolerationSeconds":
+            suggest = "toleration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodMutationToleration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodMutationToleration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodMutationToleration.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 effect: Optional[_builtins.str] = None,
+                 key: Optional[_builtins.str] = None,
+                 operator: Optional[_builtins.str] = None,
+                 toleration_seconds: Optional[_builtins.int] = None,
+                 value: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str effect: Toleration effect.
+        :param _builtins.str key: Toleration key.
+        :param _builtins.str operator: Toleration operator.
+        :param _builtins.int toleration_seconds: Toleration seconds.
+        :param _builtins.str value: Toleration value.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if toleration_seconds is not None:
+            pulumi.set(__self__, "toleration_seconds", toleration_seconds)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def effect(self) -> Optional[_builtins.str]:
+        """
+        Toleration effect.
+        """
+        return pulumi.get(self, "effect")
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[_builtins.str]:
+        """
+        Toleration key.
+        """
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> Optional[_builtins.str]:
+        """
+        Toleration operator.
+        """
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter(name="tolerationSeconds")
+    def toleration_seconds(self) -> Optional[_builtins.int]:
+        """
+        Toleration seconds.
+        """
+        return pulumi.get(self, "toleration_seconds")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[_builtins.str]:
+        """
+        Toleration value.
+        """
+        return pulumi.get(self, "value")
 
 
 @pulumi.output_type

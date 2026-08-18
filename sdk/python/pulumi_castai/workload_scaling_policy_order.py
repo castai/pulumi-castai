@@ -23,6 +23,7 @@ class WorkloadScalingPolicyOrderArgs:
                  policy_ids: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
         """
         The set of arguments for constructing a WorkloadScalingPolicyOrder resource.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] policy_ids: List of scaling policy IDs in the order they should be applied.
         """
@@ -57,10 +58,11 @@ class WorkloadScalingPolicyOrderArgs:
 @pulumi.input_type
 class _WorkloadScalingPolicyOrderState:
     def __init__(__self__, *,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 policy_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 policy_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         Input properties used for looking up and filtering WorkloadScalingPolicyOrder resources.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] policy_ids: List of scaling policy IDs in the order they should be applied.
         """
@@ -71,26 +73,26 @@ class _WorkloadScalingPolicyOrderState:
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter(name="policyIds")
-    def policy_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def policy_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of scaling policy IDs in the order they should be applied.
         """
         return pulumi.get(self, "policy_ids")
 
     @policy_ids.setter
-    def policy_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def policy_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "policy_ids", value)
 
 
@@ -100,11 +102,12 @@ class WorkloadScalingPolicyOrder(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 policy_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 policy_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         """
         Create a WorkloadScalingPolicyOrder resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
@@ -118,6 +121,7 @@ class WorkloadScalingPolicyOrder(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a WorkloadScalingPolicyOrder resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param WorkloadScalingPolicyOrderArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -133,8 +137,8 @@ class WorkloadScalingPolicyOrder(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 policy_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 policy_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -160,8 +164,8 @@ class WorkloadScalingPolicyOrder(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            policy_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None) -> 'WorkloadScalingPolicyOrder':
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            policy_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None) -> 'WorkloadScalingPolicyOrder':
         """
         Get an existing WorkloadScalingPolicyOrder resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

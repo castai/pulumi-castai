@@ -25,17 +25,22 @@ class WorkloadScalingPolicyArgs:
                  cpu: pulumi.Input['_workload.WorkloadScalingPolicyCpuArgs'],
                  management_option: pulumi.Input[_builtins.str],
                  memory: pulumi.Input['_workload.WorkloadScalingPolicyMemoryArgs'],
-                 anti_affinity: Optional[pulumi.Input['_workload.WorkloadScalingPolicyAntiAffinityArgs']] = None,
-                 assignment_rules: Optional[pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]] = None,
-                 confidence: Optional[pulumi.Input['_workload.WorkloadScalingPolicyConfidenceArgs']] = None,
-                 downscaling: Optional[pulumi.Input['_workload.WorkloadScalingPolicyDownscalingArgs']] = None,
-                 memory_event: Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryEventArgs']] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 predictive_scaling: Optional[pulumi.Input['_workload.WorkloadScalingPolicyPredictiveScalingArgs']] = None,
-                 rollout_behavior: Optional[pulumi.Input['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']] = None,
-                 startup: Optional[pulumi.Input['_workload.WorkloadScalingPolicyStartupArgs']] = None):
+                 anomaly_detection: pulumi.Input[Optional['_workload.WorkloadScalingPolicyAnomalyDetectionArgs']] = None,
+                 anti_affinity: pulumi.Input[Optional['_workload.WorkloadScalingPolicyAntiAffinityArgs']] = None,
+                 assignment_rules: pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]] = None,
+                 confidence: pulumi.Input[Optional['_workload.WorkloadScalingPolicyConfidenceArgs']] = None,
+                 downscaling: pulumi.Input[Optional['_workload.WorkloadScalingPolicyDownscalingArgs']] = None,
+                 excluded_containers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 hpa_converters: pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyHpaConverterArgs']]]] = None,
+                 jvm: pulumi.Input[Optional['_workload.WorkloadScalingPolicyJvmArgs']] = None,
+                 memory_event: pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryEventArgs']] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 predictive_scaling: pulumi.Input[Optional['_workload.WorkloadScalingPolicyPredictiveScalingArgs']] = None,
+                 rollout_behavior: pulumi.Input[Optional['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']] = None,
+                 startup: pulumi.Input[Optional['_workload.WorkloadScalingPolicyStartupArgs']] = None):
         """
         The set of arguments for constructing a WorkloadScalingPolicy resource.
+
         :param pulumi.Input[_builtins.str] apply_type: Recommendation apply type.
                	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
                	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
@@ -43,8 +48,12 @@ class WorkloadScalingPolicyArgs:
         :param pulumi.Input[_builtins.str] management_option: Defines possible options for workload management.
                	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
                	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
+        :param pulumi.Input['_workload.WorkloadScalingPolicyAnomalyDetectionArgs'] anomaly_detection: Defines anomaly detection settings for the scaling policy.
         :param pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]] assignment_rules: Allows defining conditions for automatically assigning workloads to this scaling policy.
         :param pulumi.Input['_workload.WorkloadScalingPolicyConfidenceArgs'] confidence: Defines the confidence settings for applying recommendations.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] excluded_containers: Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+        :param pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyHpaConverterArgs']]] hpa_converters: Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+        :param pulumi.Input['_workload.WorkloadScalingPolicyJvmArgs'] jvm: JVM optimization settings.
         :param pulumi.Input[_builtins.str] name: Scaling policy name
         :param pulumi.Input['_workload.WorkloadScalingPolicyRolloutBehaviorArgs'] rollout_behavior: Defines the rollout behavior used when applying recommendations. Prerequisites:
                	- Applicable to Deployment resources that support running as multi-replica.
@@ -58,6 +67,8 @@ class WorkloadScalingPolicyArgs:
         pulumi.set(__self__, "cpu", cpu)
         pulumi.set(__self__, "management_option", management_option)
         pulumi.set(__self__, "memory", memory)
+        if anomaly_detection is not None:
+            pulumi.set(__self__, "anomaly_detection", anomaly_detection)
         if anti_affinity is not None:
             pulumi.set(__self__, "anti_affinity", anti_affinity)
         if assignment_rules is not None:
@@ -66,6 +77,12 @@ class WorkloadScalingPolicyArgs:
             pulumi.set(__self__, "confidence", confidence)
         if downscaling is not None:
             pulumi.set(__self__, "downscaling", downscaling)
+        if excluded_containers is not None:
+            pulumi.set(__self__, "excluded_containers", excluded_containers)
+        if hpa_converters is not None:
+            pulumi.set(__self__, "hpa_converters", hpa_converters)
+        if jvm is not None:
+            pulumi.set(__self__, "jvm", jvm)
         if memory_event is not None:
             pulumi.set(__self__, "memory_event", memory_event)
         if name is not None:
@@ -136,80 +153,128 @@ class WorkloadScalingPolicyArgs:
         pulumi.set(self, "memory", value)
 
     @_builtins.property
+    @pulumi.getter(name="anomalyDetection")
+    def anomaly_detection(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyAnomalyDetectionArgs']]:
+        """
+        Defines anomaly detection settings for the scaling policy.
+        """
+        return pulumi.get(self, "anomaly_detection")
+
+    @anomaly_detection.setter
+    def anomaly_detection(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyAnomalyDetectionArgs']]):
+        pulumi.set(self, "anomaly_detection", value)
+
+    @_builtins.property
     @pulumi.getter(name="antiAffinity")
-    def anti_affinity(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyAntiAffinityArgs']]:
+    def anti_affinity(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyAntiAffinityArgs']]:
         return pulumi.get(self, "anti_affinity")
 
     @anti_affinity.setter
-    def anti_affinity(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyAntiAffinityArgs']]):
+    def anti_affinity(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyAntiAffinityArgs']]):
         pulumi.set(self, "anti_affinity", value)
 
     @_builtins.property
     @pulumi.getter(name="assignmentRules")
-    def assignment_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]]:
+    def assignment_rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]]:
         """
         Allows defining conditions for automatically assigning workloads to this scaling policy.
         """
         return pulumi.get(self, "assignment_rules")
 
     @assignment_rules.setter
-    def assignment_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]]):
+    def assignment_rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]]):
         pulumi.set(self, "assignment_rules", value)
 
     @_builtins.property
     @pulumi.getter
-    def confidence(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyConfidenceArgs']]:
+    def confidence(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyConfidenceArgs']]:
         """
         Defines the confidence settings for applying recommendations.
         """
         return pulumi.get(self, "confidence")
 
     @confidence.setter
-    def confidence(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyConfidenceArgs']]):
+    def confidence(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyConfidenceArgs']]):
         pulumi.set(self, "confidence", value)
 
     @_builtins.property
     @pulumi.getter
-    def downscaling(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyDownscalingArgs']]:
+    def downscaling(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyDownscalingArgs']]:
         return pulumi.get(self, "downscaling")
 
     @downscaling.setter
-    def downscaling(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyDownscalingArgs']]):
+    def downscaling(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyDownscalingArgs']]):
         pulumi.set(self, "downscaling", value)
 
     @_builtins.property
+    @pulumi.getter(name="excludedContainers")
+    def excluded_containers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+        """
+        return pulumi.get(self, "excluded_containers")
+
+    @excluded_containers.setter
+    def excluded_containers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "excluded_containers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hpaConverters")
+    def hpa_converters(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyHpaConverterArgs']]]]:
+        """
+        Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+        """
+        return pulumi.get(self, "hpa_converters")
+
+    @hpa_converters.setter
+    def hpa_converters(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyHpaConverterArgs']]]]):
+        pulumi.set(self, "hpa_converters", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def jvm(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyJvmArgs']]:
+        """
+        JVM optimization settings.
+        """
+        return pulumi.get(self, "jvm")
+
+    @jvm.setter
+    def jvm(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyJvmArgs']]):
+        pulumi.set(self, "jvm", value)
+
+    @_builtins.property
     @pulumi.getter(name="memoryEvent")
-    def memory_event(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryEventArgs']]:
+    def memory_event(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryEventArgs']]:
         return pulumi.get(self, "memory_event")
 
     @memory_event.setter
-    def memory_event(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryEventArgs']]):
+    def memory_event(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryEventArgs']]):
         pulumi.set(self, "memory_event", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Scaling policy name
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="predictiveScaling")
-    def predictive_scaling(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyPredictiveScalingArgs']]:
+    def predictive_scaling(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyPredictiveScalingArgs']]:
         return pulumi.get(self, "predictive_scaling")
 
     @predictive_scaling.setter
-    def predictive_scaling(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyPredictiveScalingArgs']]):
+    def predictive_scaling(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyPredictiveScalingArgs']]):
         pulumi.set(self, "predictive_scaling", value)
 
     @_builtins.property
     @pulumi.getter(name="rolloutBehavior")
-    def rollout_behavior(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']]:
+    def rollout_behavior(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']]:
         """
         Defines the rollout behavior used when applying recommendations. Prerequisites:
         	- Applicable to Deployment resources that support running as multi-replica.
@@ -221,44 +286,53 @@ class WorkloadScalingPolicyArgs:
         return pulumi.get(self, "rollout_behavior")
 
     @rollout_behavior.setter
-    def rollout_behavior(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']]):
+    def rollout_behavior(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']]):
         pulumi.set(self, "rollout_behavior", value)
 
     @_builtins.property
     @pulumi.getter
-    def startup(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyStartupArgs']]:
+    def startup(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyStartupArgs']]:
         return pulumi.get(self, "startup")
 
     @startup.setter
-    def startup(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyStartupArgs']]):
+    def startup(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyStartupArgs']]):
         pulumi.set(self, "startup", value)
 
 
 @pulumi.input_type
 class _WorkloadScalingPolicyState:
     def __init__(__self__, *,
-                 anti_affinity: Optional[pulumi.Input['_workload.WorkloadScalingPolicyAntiAffinityArgs']] = None,
-                 apply_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 assignment_rules: Optional[pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 confidence: Optional[pulumi.Input['_workload.WorkloadScalingPolicyConfidenceArgs']] = None,
-                 cpu: Optional[pulumi.Input['_workload.WorkloadScalingPolicyCpuArgs']] = None,
-                 downscaling: Optional[pulumi.Input['_workload.WorkloadScalingPolicyDownscalingArgs']] = None,
-                 management_option: Optional[pulumi.Input[_builtins.str]] = None,
-                 memory: Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryArgs']] = None,
-                 memory_event: Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryEventArgs']] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 predictive_scaling: Optional[pulumi.Input['_workload.WorkloadScalingPolicyPredictiveScalingArgs']] = None,
-                 rollout_behavior: Optional[pulumi.Input['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']] = None,
-                 startup: Optional[pulumi.Input['_workload.WorkloadScalingPolicyStartupArgs']] = None):
+                 anomaly_detection: pulumi.Input[Optional['_workload.WorkloadScalingPolicyAnomalyDetectionArgs']] = None,
+                 anti_affinity: pulumi.Input[Optional['_workload.WorkloadScalingPolicyAntiAffinityArgs']] = None,
+                 apply_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 assignment_rules: pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 confidence: pulumi.Input[Optional['_workload.WorkloadScalingPolicyConfidenceArgs']] = None,
+                 cpu: pulumi.Input[Optional['_workload.WorkloadScalingPolicyCpuArgs']] = None,
+                 downscaling: pulumi.Input[Optional['_workload.WorkloadScalingPolicyDownscalingArgs']] = None,
+                 excluded_containers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 hpa_converters: pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyHpaConverterArgs']]]] = None,
+                 jvm: pulumi.Input[Optional['_workload.WorkloadScalingPolicyJvmArgs']] = None,
+                 management_option: pulumi.Input[Optional[_builtins.str]] = None,
+                 memory: pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryArgs']] = None,
+                 memory_event: pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryEventArgs']] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 predictive_scaling: pulumi.Input[Optional['_workload.WorkloadScalingPolicyPredictiveScalingArgs']] = None,
+                 rollout_behavior: pulumi.Input[Optional['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']] = None,
+                 startup: pulumi.Input[Optional['_workload.WorkloadScalingPolicyStartupArgs']] = None):
         """
         Input properties used for looking up and filtering WorkloadScalingPolicy resources.
+
+        :param pulumi.Input['_workload.WorkloadScalingPolicyAnomalyDetectionArgs'] anomaly_detection: Defines anomaly detection settings for the scaling policy.
         :param pulumi.Input[_builtins.str] apply_type: Recommendation apply type.
                	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
                	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
         :param pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]] assignment_rules: Allows defining conditions for automatically assigning workloads to this scaling policy.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input['_workload.WorkloadScalingPolicyConfidenceArgs'] confidence: Defines the confidence settings for applying recommendations.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] excluded_containers: Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+        :param pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyHpaConverterArgs']]] hpa_converters: Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+        :param pulumi.Input['_workload.WorkloadScalingPolicyJvmArgs'] jvm: JVM optimization settings.
         :param pulumi.Input[_builtins.str] management_option: Defines possible options for workload management.
                	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
                	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
@@ -270,6 +344,8 @@ class _WorkloadScalingPolicyState:
                	- Recommendation apply type is "immediate".
                	- Cluster has workload-autoscaler component version v0.35.3 or higher.
         """
+        if anomaly_detection is not None:
+            pulumi.set(__self__, "anomaly_detection", anomaly_detection)
         if anti_affinity is not None:
             pulumi.set(__self__, "anti_affinity", anti_affinity)
         if apply_type is not None:
@@ -284,6 +360,12 @@ class _WorkloadScalingPolicyState:
             pulumi.set(__self__, "cpu", cpu)
         if downscaling is not None:
             pulumi.set(__self__, "downscaling", downscaling)
+        if excluded_containers is not None:
+            pulumi.set(__self__, "excluded_containers", excluded_containers)
+        if hpa_converters is not None:
+            pulumi.set(__self__, "hpa_converters", hpa_converters)
+        if jvm is not None:
+            pulumi.set(__self__, "jvm", jvm)
         if management_option is not None:
             pulumi.set(__self__, "management_option", management_option)
         if memory is not None:
@@ -300,17 +382,29 @@ class _WorkloadScalingPolicyState:
             pulumi.set(__self__, "startup", startup)
 
     @_builtins.property
+    @pulumi.getter(name="anomalyDetection")
+    def anomaly_detection(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyAnomalyDetectionArgs']]:
+        """
+        Defines anomaly detection settings for the scaling policy.
+        """
+        return pulumi.get(self, "anomaly_detection")
+
+    @anomaly_detection.setter
+    def anomaly_detection(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyAnomalyDetectionArgs']]):
+        pulumi.set(self, "anomaly_detection", value)
+
+    @_builtins.property
     @pulumi.getter(name="antiAffinity")
-    def anti_affinity(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyAntiAffinityArgs']]:
+    def anti_affinity(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyAntiAffinityArgs']]:
         return pulumi.get(self, "anti_affinity")
 
     @anti_affinity.setter
-    def anti_affinity(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyAntiAffinityArgs']]):
+    def anti_affinity(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyAntiAffinityArgs']]):
         pulumi.set(self, "anti_affinity", value)
 
     @_builtins.property
     @pulumi.getter(name="applyType")
-    def apply_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def apply_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Recommendation apply type.
         	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
@@ -319,66 +413,102 @@ class _WorkloadScalingPolicyState:
         return pulumi.get(self, "apply_type")
 
     @apply_type.setter
-    def apply_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def apply_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "apply_type", value)
 
     @_builtins.property
     @pulumi.getter(name="assignmentRules")
-    def assignment_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]]:
+    def assignment_rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]]:
         """
         Allows defining conditions for automatically assigning workloads to this scaling policy.
         """
         return pulumi.get(self, "assignment_rules")
 
     @assignment_rules.setter
-    def assignment_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]]):
+    def assignment_rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyAssignmentRuleArgs']]]]):
         pulumi.set(self, "assignment_rules", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def confidence(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyConfidenceArgs']]:
+    def confidence(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyConfidenceArgs']]:
         """
         Defines the confidence settings for applying recommendations.
         """
         return pulumi.get(self, "confidence")
 
     @confidence.setter
-    def confidence(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyConfidenceArgs']]):
+    def confidence(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyConfidenceArgs']]):
         pulumi.set(self, "confidence", value)
 
     @_builtins.property
     @pulumi.getter
-    def cpu(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyCpuArgs']]:
+    def cpu(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyCpuArgs']]:
         return pulumi.get(self, "cpu")
 
     @cpu.setter
-    def cpu(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyCpuArgs']]):
+    def cpu(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyCpuArgs']]):
         pulumi.set(self, "cpu", value)
 
     @_builtins.property
     @pulumi.getter
-    def downscaling(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyDownscalingArgs']]:
+    def downscaling(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyDownscalingArgs']]:
         return pulumi.get(self, "downscaling")
 
     @downscaling.setter
-    def downscaling(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyDownscalingArgs']]):
+    def downscaling(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyDownscalingArgs']]):
         pulumi.set(self, "downscaling", value)
 
     @_builtins.property
+    @pulumi.getter(name="excludedContainers")
+    def excluded_containers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+        """
+        return pulumi.get(self, "excluded_containers")
+
+    @excluded_containers.setter
+    def excluded_containers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "excluded_containers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hpaConverters")
+    def hpa_converters(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyHpaConverterArgs']]]]:
+        """
+        Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+        """
+        return pulumi.get(self, "hpa_converters")
+
+    @hpa_converters.setter
+    def hpa_converters(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_workload.WorkloadScalingPolicyHpaConverterArgs']]]]):
+        pulumi.set(self, "hpa_converters", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def jvm(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyJvmArgs']]:
+        """
+        JVM optimization settings.
+        """
+        return pulumi.get(self, "jvm")
+
+    @jvm.setter
+    def jvm(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyJvmArgs']]):
+        pulumi.set(self, "jvm", value)
+
+    @_builtins.property
     @pulumi.getter(name="managementOption")
-    def management_option(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def management_option(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Defines possible options for workload management.
         	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
@@ -387,51 +517,51 @@ class _WorkloadScalingPolicyState:
         return pulumi.get(self, "management_option")
 
     @management_option.setter
-    def management_option(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def management_option(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "management_option", value)
 
     @_builtins.property
     @pulumi.getter
-    def memory(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryArgs']]:
+    def memory(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryArgs']]:
         return pulumi.get(self, "memory")
 
     @memory.setter
-    def memory(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryArgs']]):
+    def memory(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryArgs']]):
         pulumi.set(self, "memory", value)
 
     @_builtins.property
     @pulumi.getter(name="memoryEvent")
-    def memory_event(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryEventArgs']]:
+    def memory_event(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryEventArgs']]:
         return pulumi.get(self, "memory_event")
 
     @memory_event.setter
-    def memory_event(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyMemoryEventArgs']]):
+    def memory_event(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyMemoryEventArgs']]):
         pulumi.set(self, "memory_event", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Scaling policy name
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="predictiveScaling")
-    def predictive_scaling(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyPredictiveScalingArgs']]:
+    def predictive_scaling(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyPredictiveScalingArgs']]:
         return pulumi.get(self, "predictive_scaling")
 
     @predictive_scaling.setter
-    def predictive_scaling(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyPredictiveScalingArgs']]):
+    def predictive_scaling(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyPredictiveScalingArgs']]):
         pulumi.set(self, "predictive_scaling", value)
 
     @_builtins.property
     @pulumi.getter(name="rolloutBehavior")
-    def rollout_behavior(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']]:
+    def rollout_behavior(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']]:
         """
         Defines the rollout behavior used when applying recommendations. Prerequisites:
         	- Applicable to Deployment resources that support running as multi-replica.
@@ -443,16 +573,16 @@ class _WorkloadScalingPolicyState:
         return pulumi.get(self, "rollout_behavior")
 
     @rollout_behavior.setter
-    def rollout_behavior(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']]):
+    def rollout_behavior(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyRolloutBehaviorArgs']]):
         pulumi.set(self, "rollout_behavior", value)
 
     @_builtins.property
     @pulumi.getter
-    def startup(self) -> Optional[pulumi.Input['_workload.WorkloadScalingPolicyStartupArgs']]:
+    def startup(self) -> pulumi.Input[Optional['_workload.WorkloadScalingPolicyStartupArgs']]:
         return pulumi.get(self, "startup")
 
     @startup.setter
-    def startup(self, value: Optional[pulumi.Input['_workload.WorkloadScalingPolicyStartupArgs']]):
+    def startup(self, value: pulumi.Input[Optional['_workload.WorkloadScalingPolicyStartupArgs']]):
         pulumi.set(self, "startup", value)
 
 
@@ -462,31 +592,40 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 anti_affinity: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyAntiAffinityArgs', '_workload.WorkloadScalingPolicyAntiAffinityArgsDict']]] = None,
-                 apply_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 assignment_rules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyAssignmentRuleArgs', '_workload.WorkloadScalingPolicyAssignmentRuleArgsDict']]]]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 confidence: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyConfidenceArgs', '_workload.WorkloadScalingPolicyConfidenceArgsDict']]] = None,
-                 cpu: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyCpuArgs', '_workload.WorkloadScalingPolicyCpuArgsDict']]] = None,
-                 downscaling: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyDownscalingArgs', '_workload.WorkloadScalingPolicyDownscalingArgsDict']]] = None,
-                 management_option: Optional[pulumi.Input[_builtins.str]] = None,
-                 memory: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyMemoryArgs', '_workload.WorkloadScalingPolicyMemoryArgsDict']]] = None,
-                 memory_event: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyMemoryEventArgs', '_workload.WorkloadScalingPolicyMemoryEventArgsDict']]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 predictive_scaling: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyPredictiveScalingArgs', '_workload.WorkloadScalingPolicyPredictiveScalingArgsDict']]] = None,
-                 rollout_behavior: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyRolloutBehaviorArgs', '_workload.WorkloadScalingPolicyRolloutBehaviorArgsDict']]] = None,
-                 startup: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyStartupArgs', '_workload.WorkloadScalingPolicyStartupArgsDict']]] = None,
+                 anomaly_detection: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyAnomalyDetectionArgs', '_workload.WorkloadScalingPolicyAnomalyDetectionArgsDict']]] = None,
+                 anti_affinity: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyAntiAffinityArgs', '_workload.WorkloadScalingPolicyAntiAffinityArgsDict']]] = None,
+                 apply_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 assignment_rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyAssignmentRuleArgs', '_workload.WorkloadScalingPolicyAssignmentRuleArgsDict']]]]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 confidence: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyConfidenceArgs', '_workload.WorkloadScalingPolicyConfidenceArgsDict']]] = None,
+                 cpu: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyCpuArgs', '_workload.WorkloadScalingPolicyCpuArgsDict']]] = None,
+                 downscaling: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyDownscalingArgs', '_workload.WorkloadScalingPolicyDownscalingArgsDict']]] = None,
+                 excluded_containers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 hpa_converters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyHpaConverterArgs', '_workload.WorkloadScalingPolicyHpaConverterArgsDict']]]]] = None,
+                 jvm: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyJvmArgs', '_workload.WorkloadScalingPolicyJvmArgsDict']]] = None,
+                 management_option: pulumi.Input[Optional[_builtins.str]] = None,
+                 memory: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyMemoryArgs', '_workload.WorkloadScalingPolicyMemoryArgsDict']]] = None,
+                 memory_event: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyMemoryEventArgs', '_workload.WorkloadScalingPolicyMemoryEventArgsDict']]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 predictive_scaling: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyPredictiveScalingArgs', '_workload.WorkloadScalingPolicyPredictiveScalingArgsDict']]] = None,
+                 rollout_behavior: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyRolloutBehaviorArgs', '_workload.WorkloadScalingPolicyRolloutBehaviorArgsDict']]] = None,
+                 startup: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyStartupArgs', '_workload.WorkloadScalingPolicyStartupArgsDict']]] = None,
                  __props__=None):
         """
         Create a WorkloadScalingPolicy resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Union['_workload.WorkloadScalingPolicyAnomalyDetectionArgs', '_workload.WorkloadScalingPolicyAnomalyDetectionArgsDict']] anomaly_detection: Defines anomaly detection settings for the scaling policy.
         :param pulumi.Input[_builtins.str] apply_type: Recommendation apply type.
                	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
                	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
         :param pulumi.Input[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyAssignmentRuleArgs', '_workload.WorkloadScalingPolicyAssignmentRuleArgsDict']]]] assignment_rules: Allows defining conditions for automatically assigning workloads to this scaling policy.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input[Union['_workload.WorkloadScalingPolicyConfidenceArgs', '_workload.WorkloadScalingPolicyConfidenceArgsDict']] confidence: Defines the confidence settings for applying recommendations.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] excluded_containers: Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyHpaConverterArgs', '_workload.WorkloadScalingPolicyHpaConverterArgsDict']]]] hpa_converters: Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+        :param pulumi.Input[Union['_workload.WorkloadScalingPolicyJvmArgs', '_workload.WorkloadScalingPolicyJvmArgsDict']] jvm: JVM optimization settings.
         :param pulumi.Input[_builtins.str] management_option: Defines possible options for workload management.
                	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
                	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
@@ -506,6 +645,7 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a WorkloadScalingPolicy resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param WorkloadScalingPolicyArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -521,20 +661,24 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 anti_affinity: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyAntiAffinityArgs', '_workload.WorkloadScalingPolicyAntiAffinityArgsDict']]] = None,
-                 apply_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 assignment_rules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyAssignmentRuleArgs', '_workload.WorkloadScalingPolicyAssignmentRuleArgsDict']]]]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 confidence: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyConfidenceArgs', '_workload.WorkloadScalingPolicyConfidenceArgsDict']]] = None,
-                 cpu: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyCpuArgs', '_workload.WorkloadScalingPolicyCpuArgsDict']]] = None,
-                 downscaling: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyDownscalingArgs', '_workload.WorkloadScalingPolicyDownscalingArgsDict']]] = None,
-                 management_option: Optional[pulumi.Input[_builtins.str]] = None,
-                 memory: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyMemoryArgs', '_workload.WorkloadScalingPolicyMemoryArgsDict']]] = None,
-                 memory_event: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyMemoryEventArgs', '_workload.WorkloadScalingPolicyMemoryEventArgsDict']]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 predictive_scaling: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyPredictiveScalingArgs', '_workload.WorkloadScalingPolicyPredictiveScalingArgsDict']]] = None,
-                 rollout_behavior: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyRolloutBehaviorArgs', '_workload.WorkloadScalingPolicyRolloutBehaviorArgsDict']]] = None,
-                 startup: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyStartupArgs', '_workload.WorkloadScalingPolicyStartupArgsDict']]] = None,
+                 anomaly_detection: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyAnomalyDetectionArgs', '_workload.WorkloadScalingPolicyAnomalyDetectionArgsDict']]] = None,
+                 anti_affinity: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyAntiAffinityArgs', '_workload.WorkloadScalingPolicyAntiAffinityArgsDict']]] = None,
+                 apply_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 assignment_rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyAssignmentRuleArgs', '_workload.WorkloadScalingPolicyAssignmentRuleArgsDict']]]]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 confidence: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyConfidenceArgs', '_workload.WorkloadScalingPolicyConfidenceArgsDict']]] = None,
+                 cpu: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyCpuArgs', '_workload.WorkloadScalingPolicyCpuArgsDict']]] = None,
+                 downscaling: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyDownscalingArgs', '_workload.WorkloadScalingPolicyDownscalingArgsDict']]] = None,
+                 excluded_containers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 hpa_converters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyHpaConverterArgs', '_workload.WorkloadScalingPolicyHpaConverterArgsDict']]]]] = None,
+                 jvm: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyJvmArgs', '_workload.WorkloadScalingPolicyJvmArgsDict']]] = None,
+                 management_option: pulumi.Input[Optional[_builtins.str]] = None,
+                 memory: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyMemoryArgs', '_workload.WorkloadScalingPolicyMemoryArgsDict']]] = None,
+                 memory_event: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyMemoryEventArgs', '_workload.WorkloadScalingPolicyMemoryEventArgsDict']]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 predictive_scaling: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyPredictiveScalingArgs', '_workload.WorkloadScalingPolicyPredictiveScalingArgsDict']]] = None,
+                 rollout_behavior: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyRolloutBehaviorArgs', '_workload.WorkloadScalingPolicyRolloutBehaviorArgsDict']]] = None,
+                 startup: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyStartupArgs', '_workload.WorkloadScalingPolicyStartupArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -544,6 +688,7 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = WorkloadScalingPolicyArgs.__new__(WorkloadScalingPolicyArgs)
 
+            __props__.__dict__["anomaly_detection"] = anomaly_detection
             __props__.__dict__["anti_affinity"] = anti_affinity
             if apply_type is None and not opts.urn:
                 raise TypeError("Missing required property 'apply_type'")
@@ -557,6 +702,9 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
                 raise TypeError("Missing required property 'cpu'")
             __props__.__dict__["cpu"] = cpu
             __props__.__dict__["downscaling"] = downscaling
+            __props__.__dict__["excluded_containers"] = excluded_containers
+            __props__.__dict__["hpa_converters"] = hpa_converters
+            __props__.__dict__["jvm"] = jvm
             if management_option is None and not opts.urn:
                 raise TypeError("Missing required property 'management_option'")
             __props__.__dict__["management_option"] = management_option
@@ -578,20 +726,24 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            anti_affinity: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyAntiAffinityArgs', '_workload.WorkloadScalingPolicyAntiAffinityArgsDict']]] = None,
-            apply_type: Optional[pulumi.Input[_builtins.str]] = None,
-            assignment_rules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyAssignmentRuleArgs', '_workload.WorkloadScalingPolicyAssignmentRuleArgsDict']]]]] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            confidence: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyConfidenceArgs', '_workload.WorkloadScalingPolicyConfidenceArgsDict']]] = None,
-            cpu: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyCpuArgs', '_workload.WorkloadScalingPolicyCpuArgsDict']]] = None,
-            downscaling: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyDownscalingArgs', '_workload.WorkloadScalingPolicyDownscalingArgsDict']]] = None,
-            management_option: Optional[pulumi.Input[_builtins.str]] = None,
-            memory: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyMemoryArgs', '_workload.WorkloadScalingPolicyMemoryArgsDict']]] = None,
-            memory_event: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyMemoryEventArgs', '_workload.WorkloadScalingPolicyMemoryEventArgsDict']]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            predictive_scaling: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyPredictiveScalingArgs', '_workload.WorkloadScalingPolicyPredictiveScalingArgsDict']]] = None,
-            rollout_behavior: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyRolloutBehaviorArgs', '_workload.WorkloadScalingPolicyRolloutBehaviorArgsDict']]] = None,
-            startup: Optional[pulumi.Input[Union['_workload.WorkloadScalingPolicyStartupArgs', '_workload.WorkloadScalingPolicyStartupArgsDict']]] = None) -> 'WorkloadScalingPolicy':
+            anomaly_detection: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyAnomalyDetectionArgs', '_workload.WorkloadScalingPolicyAnomalyDetectionArgsDict']]] = None,
+            anti_affinity: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyAntiAffinityArgs', '_workload.WorkloadScalingPolicyAntiAffinityArgsDict']]] = None,
+            apply_type: pulumi.Input[Optional[_builtins.str]] = None,
+            assignment_rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyAssignmentRuleArgs', '_workload.WorkloadScalingPolicyAssignmentRuleArgsDict']]]]] = None,
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            confidence: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyConfidenceArgs', '_workload.WorkloadScalingPolicyConfidenceArgsDict']]] = None,
+            cpu: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyCpuArgs', '_workload.WorkloadScalingPolicyCpuArgsDict']]] = None,
+            downscaling: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyDownscalingArgs', '_workload.WorkloadScalingPolicyDownscalingArgsDict']]] = None,
+            excluded_containers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            hpa_converters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyHpaConverterArgs', '_workload.WorkloadScalingPolicyHpaConverterArgsDict']]]]] = None,
+            jvm: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyJvmArgs', '_workload.WorkloadScalingPolicyJvmArgsDict']]] = None,
+            management_option: pulumi.Input[Optional[_builtins.str]] = None,
+            memory: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyMemoryArgs', '_workload.WorkloadScalingPolicyMemoryArgsDict']]] = None,
+            memory_event: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyMemoryEventArgs', '_workload.WorkloadScalingPolicyMemoryEventArgsDict']]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            predictive_scaling: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyPredictiveScalingArgs', '_workload.WorkloadScalingPolicyPredictiveScalingArgsDict']]] = None,
+            rollout_behavior: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyRolloutBehaviorArgs', '_workload.WorkloadScalingPolicyRolloutBehaviorArgsDict']]] = None,
+            startup: pulumi.Input[Optional[Union['_workload.WorkloadScalingPolicyStartupArgs', '_workload.WorkloadScalingPolicyStartupArgsDict']]] = None) -> 'WorkloadScalingPolicy':
         """
         Get an existing WorkloadScalingPolicy resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -599,12 +751,16 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Union['_workload.WorkloadScalingPolicyAnomalyDetectionArgs', '_workload.WorkloadScalingPolicyAnomalyDetectionArgsDict']] anomaly_detection: Defines anomaly detection settings for the scaling policy.
         :param pulumi.Input[_builtins.str] apply_type: Recommendation apply type.
                	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
                	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
         :param pulumi.Input[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyAssignmentRuleArgs', '_workload.WorkloadScalingPolicyAssignmentRuleArgsDict']]]] assignment_rules: Allows defining conditions for automatically assigning workloads to this scaling policy.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         :param pulumi.Input[Union['_workload.WorkloadScalingPolicyConfidenceArgs', '_workload.WorkloadScalingPolicyConfidenceArgsDict']] confidence: Defines the confidence settings for applying recommendations.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] excluded_containers: Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['_workload.WorkloadScalingPolicyHpaConverterArgs', '_workload.WorkloadScalingPolicyHpaConverterArgsDict']]]] hpa_converters: Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+        :param pulumi.Input[Union['_workload.WorkloadScalingPolicyJvmArgs', '_workload.WorkloadScalingPolicyJvmArgsDict']] jvm: JVM optimization settings.
         :param pulumi.Input[_builtins.str] management_option: Defines possible options for workload management.
                	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
                	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
@@ -620,6 +776,7 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
 
         __props__ = _WorkloadScalingPolicyState.__new__(_WorkloadScalingPolicyState)
 
+        __props__.__dict__["anomaly_detection"] = anomaly_detection
         __props__.__dict__["anti_affinity"] = anti_affinity
         __props__.__dict__["apply_type"] = apply_type
         __props__.__dict__["assignment_rules"] = assignment_rules
@@ -627,6 +784,9 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
         __props__.__dict__["confidence"] = confidence
         __props__.__dict__["cpu"] = cpu
         __props__.__dict__["downscaling"] = downscaling
+        __props__.__dict__["excluded_containers"] = excluded_containers
+        __props__.__dict__["hpa_converters"] = hpa_converters
+        __props__.__dict__["jvm"] = jvm
         __props__.__dict__["management_option"] = management_option
         __props__.__dict__["memory"] = memory
         __props__.__dict__["memory_event"] = memory_event
@@ -635,6 +795,14 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
         __props__.__dict__["rollout_behavior"] = rollout_behavior
         __props__.__dict__["startup"] = startup
         return WorkloadScalingPolicy(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="anomalyDetection")
+    def anomaly_detection(self) -> pulumi.Output[Optional['_workload.outputs.WorkloadScalingPolicyAnomalyDetection']]:
+        """
+        Defines anomaly detection settings for the scaling policy.
+        """
+        return pulumi.get(self, "anomaly_detection")
 
     @_builtins.property
     @pulumi.getter(name="antiAffinity")
@@ -684,6 +852,30 @@ class WorkloadScalingPolicy(pulumi.CustomResource):
     @pulumi.getter
     def downscaling(self) -> pulumi.Output[Optional['_workload.outputs.WorkloadScalingPolicyDownscaling']]:
         return pulumi.get(self, "downscaling")
+
+    @_builtins.property
+    @pulumi.getter(name="excludedContainers")
+    def excluded_containers(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+        """
+        return pulumi.get(self, "excluded_containers")
+
+    @_builtins.property
+    @pulumi.getter(name="hpaConverters")
+    def hpa_converters(self) -> pulumi.Output[Optional[Sequence['_workload.outputs.WorkloadScalingPolicyHpaConverter']]]:
+        """
+        Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+        """
+        return pulumi.get(self, "hpa_converters")
+
+    @_builtins.property
+    @pulumi.getter
+    def jvm(self) -> pulumi.Output[Optional['_workload.outputs.WorkloadScalingPolicyJvm']]:
+        """
+        JVM optimization settings.
+        """
+        return pulumi.get(self, "jvm")
 
     @_builtins.property
     @pulumi.getter(name="managementOption")

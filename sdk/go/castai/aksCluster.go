@@ -19,19 +19,23 @@ type AksCluster struct {
 	// Azure AD application ID that is created and used by CAST AI.
 	ClientId pulumi.StringOutput `pulumi:"clientId"`
 	// Azure AD application password that will be used by CAST AI.
-	ClientSecret pulumi.StringOutput `pulumi:"clientSecret"`
+	ClientSecret pulumi.StringPtrOutput `pulumi:"clientSecret"`
 	// CAST AI cluster token.
 	ClusterToken pulumi.StringOutput `pulumi:"clusterToken"`
 	// CAST AI internal credentials ID
 	CredentialsId pulumi.StringOutput `pulumi:"credentialsId"`
 	// Should CAST AI remove nodes managed by CAST.AI on disconnect.
 	DeleteNodesOnDisconnect pulumi.BoolPtrOutput `pulumi:"deleteNodesOnDisconnect"`
+	// Azure federation used by CAST AI for secretless auth via impersonation.
+	FederationId pulumi.StringPtrOutput `pulumi:"federationId"`
 	// HTTP proxy configuration for CAST AI nodes and node components.
 	HttpProxyConfig azure.AksClusterHttpProxyConfigPtrOutput `pulumi:"httpProxyConfig"`
 	// AKS cluster name.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Azure resource group in which nodes are and will be created.
 	NodeResourceGroup pulumi.StringOutput `pulumi:"nodeResourceGroup"`
+	// CAST AI organization ID
+	OrganizationId pulumi.StringOutput `pulumi:"organizationId"`
 	// AKS cluster region.
 	Region pulumi.StringOutput `pulumi:"region"`
 	// ID of the Azure subscription.
@@ -50,9 +54,6 @@ func NewAksCluster(ctx *pulumi.Context,
 	if args.ClientId == nil {
 		return nil, errors.New("invalid value for required argument 'ClientId'")
 	}
-	if args.ClientSecret == nil {
-		return nil, errors.New("invalid value for required argument 'ClientSecret'")
-	}
 	if args.NodeResourceGroup == nil {
 		return nil, errors.New("invalid value for required argument 'NodeResourceGroup'")
 	}
@@ -66,7 +67,7 @@ func NewAksCluster(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'TenantId'")
 	}
 	if args.ClientSecret != nil {
-		args.ClientSecret = pulumi.ToSecret(args.ClientSecret).(pulumi.StringInput)
+		args.ClientSecret = pulumi.ToSecret(args.ClientSecret).(pulumi.StringPtrInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"clientSecret",
@@ -106,12 +107,16 @@ type aksClusterState struct {
 	CredentialsId *string `pulumi:"credentialsId"`
 	// Should CAST AI remove nodes managed by CAST.AI on disconnect.
 	DeleteNodesOnDisconnect *bool `pulumi:"deleteNodesOnDisconnect"`
+	// Azure federation used by CAST AI for secretless auth via impersonation.
+	FederationId *string `pulumi:"federationId"`
 	// HTTP proxy configuration for CAST AI nodes and node components.
 	HttpProxyConfig *azure.AksClusterHttpProxyConfig `pulumi:"httpProxyConfig"`
 	// AKS cluster name.
 	Name *string `pulumi:"name"`
 	// Azure resource group in which nodes are and will be created.
 	NodeResourceGroup *string `pulumi:"nodeResourceGroup"`
+	// CAST AI organization ID
+	OrganizationId *string `pulumi:"organizationId"`
 	// AKS cluster region.
 	Region *string `pulumi:"region"`
 	// ID of the Azure subscription.
@@ -131,12 +136,16 @@ type AksClusterState struct {
 	CredentialsId pulumi.StringPtrInput
 	// Should CAST AI remove nodes managed by CAST.AI on disconnect.
 	DeleteNodesOnDisconnect pulumi.BoolPtrInput
+	// Azure federation used by CAST AI for secretless auth via impersonation.
+	FederationId pulumi.StringPtrInput
 	// HTTP proxy configuration for CAST AI nodes and node components.
 	HttpProxyConfig azure.AksClusterHttpProxyConfigPtrInput
 	// AKS cluster name.
 	Name pulumi.StringPtrInput
 	// Azure resource group in which nodes are and will be created.
 	NodeResourceGroup pulumi.StringPtrInput
+	// CAST AI organization ID
+	OrganizationId pulumi.StringPtrInput
 	// AKS cluster region.
 	Region pulumi.StringPtrInput
 	// ID of the Azure subscription.
@@ -153,9 +162,11 @@ type aksClusterArgs struct {
 	// Azure AD application ID that is created and used by CAST AI.
 	ClientId string `pulumi:"clientId"`
 	// Azure AD application password that will be used by CAST AI.
-	ClientSecret string `pulumi:"clientSecret"`
+	ClientSecret *string `pulumi:"clientSecret"`
 	// Should CAST AI remove nodes managed by CAST.AI on disconnect.
 	DeleteNodesOnDisconnect *bool `pulumi:"deleteNodesOnDisconnect"`
+	// Azure federation used by CAST AI for secretless auth via impersonation.
+	FederationId *string `pulumi:"federationId"`
 	// HTTP proxy configuration for CAST AI nodes and node components.
 	HttpProxyConfig *azure.AksClusterHttpProxyConfig `pulumi:"httpProxyConfig"`
 	// AKS cluster name.
@@ -175,9 +186,11 @@ type AksClusterArgs struct {
 	// Azure AD application ID that is created and used by CAST AI.
 	ClientId pulumi.StringInput
 	// Azure AD application password that will be used by CAST AI.
-	ClientSecret pulumi.StringInput
+	ClientSecret pulumi.StringPtrInput
 	// Should CAST AI remove nodes managed by CAST.AI on disconnect.
 	DeleteNodesOnDisconnect pulumi.BoolPtrInput
+	// Azure federation used by CAST AI for secretless auth via impersonation.
+	FederationId pulumi.StringPtrInput
 	// HTTP proxy configuration for CAST AI nodes and node components.
 	HttpProxyConfig azure.AksClusterHttpProxyConfigPtrInput
 	// AKS cluster name.
@@ -285,8 +298,8 @@ func (o AksClusterOutput) ClientId() pulumi.StringOutput {
 }
 
 // Azure AD application password that will be used by CAST AI.
-func (o AksClusterOutput) ClientSecret() pulumi.StringOutput {
-	return o.ApplyT(func(v *AksCluster) pulumi.StringOutput { return v.ClientSecret }).(pulumi.StringOutput)
+func (o AksClusterOutput) ClientSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AksCluster) pulumi.StringPtrOutput { return v.ClientSecret }).(pulumi.StringPtrOutput)
 }
 
 // CAST AI cluster token.
@@ -304,6 +317,11 @@ func (o AksClusterOutput) DeleteNodesOnDisconnect() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AksCluster) pulumi.BoolPtrOutput { return v.DeleteNodesOnDisconnect }).(pulumi.BoolPtrOutput)
 }
 
+// Azure federation used by CAST AI for secretless auth via impersonation.
+func (o AksClusterOutput) FederationId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AksCluster) pulumi.StringPtrOutput { return v.FederationId }).(pulumi.StringPtrOutput)
+}
+
 // HTTP proxy configuration for CAST AI nodes and node components.
 func (o AksClusterOutput) HttpProxyConfig() azure.AksClusterHttpProxyConfigPtrOutput {
 	return o.ApplyT(func(v *AksCluster) azure.AksClusterHttpProxyConfigPtrOutput { return v.HttpProxyConfig }).(azure.AksClusterHttpProxyConfigPtrOutput)
@@ -317,6 +335,11 @@ func (o AksClusterOutput) Name() pulumi.StringOutput {
 // Azure resource group in which nodes are and will be created.
 func (o AksClusterOutput) NodeResourceGroup() pulumi.StringOutput {
 	return o.ApplyT(func(v *AksCluster) pulumi.StringOutput { return v.NodeResourceGroup }).(pulumi.StringOutput)
+}
+
+// CAST AI organization ID
+func (o AksClusterOutput) OrganizationId() pulumi.StringOutput {
+	return o.ApplyT(func(v *AksCluster) pulumi.StringOutput { return v.OrganizationId }).(pulumi.StringOutput)
 }
 
 // AKS cluster region.

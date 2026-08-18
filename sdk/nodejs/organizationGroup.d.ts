@@ -46,16 +46,16 @@ export interface OrganizationGroupState {
     /**
      * Description of the group.
      */
-    description?: pulumi.Input<string>;
-    members?: pulumi.Input<pulumi.Input<inputs.organization.OrganizationGroupMember>[]>;
+    description?: pulumi.Input<string | undefined>;
+    members?: pulumi.Input<pulumi.Input<inputs.organization.OrganizationGroupMember>[] | undefined>;
     /**
      * Name of the group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * CAST AI organization ID.
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a OrganizationGroup resource.
@@ -64,14 +64,15 @@ export interface OrganizationGroupArgs {
     /**
      * Description of the group.
      */
-    description?: pulumi.Input<string>;
-    members?: pulumi.Input<pulumi.Input<inputs.organization.OrganizationGroupMember>[]>;
+    description?: pulumi.Input<string | undefined>;
+    members?: pulumi.Input<pulumi.Input<inputs.organization.OrganizationGroupMember>[] | undefined>;
     /**
      * Name of the group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * CAST AI organization ID.
      */
     organizationId: pulumi.Input<string>;
 }
+//# sourceMappingURL=organizationGroup.d.ts.map
