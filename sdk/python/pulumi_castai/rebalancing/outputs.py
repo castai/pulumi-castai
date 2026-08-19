@@ -16,26 +16,6 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
-    'GetHibernationScheduleDataSourceClusterAssignmentResult',
-    'GetHibernationScheduleDataSourceClusterAssignmentAssignmentResult',
-    'GetHibernationScheduleDataSourcePauseConfigResult',
-    'GetHibernationScheduleDataSourcePauseConfigScheduleResult',
-    'GetHibernationScheduleDataSourceResumeConfigResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeResult',
-    'GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigResult',
-    'GetHibernationScheduleDataSourceResumeConfigScheduleResult',
-    'GetRebalancingScheduleDataSourceLaunchConfigurationResult',
-    'GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigResult',
-    'GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsResult',
-    'GetRebalancingScheduleDataSourceScheduleResult',
-    'GetRebalancingScheduleDataSourceTriggerConditionResult',
     'HibernationScheduleClusterAssignments',
     'HibernationScheduleClusterAssignmentsAssignment',
     'HibernationSchedulePauseConfig',
@@ -53,815 +33,32 @@ __all__ = [
     'HibernationScheduleResumeConfigSchedule',
     'RebalancingScheduleLaunchConfiguration',
     'RebalancingScheduleLaunchConfigurationAggressiveModeConfig',
+    'RebalancingScheduleLaunchConfigurationDrainFailureConfig',
     'RebalancingScheduleLaunchConfigurationExecutionConditions',
     'RebalancingScheduleSchedule',
     'RebalancingScheduleTriggerConditions',
+    'GetHibernationScheduleClusterAssignmentResult',
+    'GetHibernationScheduleClusterAssignmentAssignmentResult',
+    'GetHibernationSchedulePauseConfigResult',
+    'GetHibernationSchedulePauseConfigScheduleResult',
+    'GetHibernationScheduleResumeConfigResult',
+    'GetHibernationScheduleResumeConfigJobConfigResult',
+    'GetHibernationScheduleResumeConfigJobConfigNodeConfigResult',
+    'GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigResult',
+    'GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintResult',
+    'GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityResult',
+    'GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityResult',
+    'GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigResult',
+    'GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeResult',
+    'GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigResult',
+    'GetHibernationScheduleResumeConfigScheduleResult',
+    'GetRebalancingScheduleLaunchConfigurationResult',
+    'GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigResult',
+    'GetRebalancingScheduleLaunchConfigurationDrainFailureConfigResult',
+    'GetRebalancingScheduleLaunchConfigurationExecutionConditionsResult',
+    'GetRebalancingScheduleScheduleResult',
+    'GetRebalancingScheduleTriggerConditionResult',
 ]
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceClusterAssignmentResult(dict):
-    def __init__(__self__, *,
-                 assignments: Optional[Sequence['outputs.GetHibernationScheduleDataSourceClusterAssignmentAssignmentResult']] = None):
-        if assignments is not None:
-            pulumi.set(__self__, "assignments", assignments)
-
-    @_builtins.property
-    @pulumi.getter
-    def assignments(self) -> Optional[Sequence['outputs.GetHibernationScheduleDataSourceClusterAssignmentAssignmentResult']]:
-        return pulumi.get(self, "assignments")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceClusterAssignmentAssignmentResult(dict):
-    def __init__(__self__, *,
-                 cluster_id: _builtins.str):
-        """
-        :param _builtins.str cluster_id: ID of the cluster.
-        """
-        pulumi.set(__self__, "cluster_id", cluster_id)
-
-    @_builtins.property
-    @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> _builtins.str:
-        """
-        ID of the cluster.
-        """
-        return pulumi.get(self, "cluster_id")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourcePauseConfigResult(dict):
-    def __init__(__self__, *,
-                 enabled: _builtins.bool,
-                 schedule: 'outputs.GetHibernationScheduleDataSourcePauseConfigScheduleResult'):
-        """
-        :param _builtins.bool enabled: Enables or disables the pause configuration.
-        """
-        pulumi.set(__self__, "enabled", enabled)
-        pulumi.set(__self__, "schedule", schedule)
-
-    @_builtins.property
-    @pulumi.getter
-    def enabled(self) -> _builtins.bool:
-        """
-        Enables or disables the pause configuration.
-        """
-        return pulumi.get(self, "enabled")
-
-    @_builtins.property
-    @pulumi.getter
-    def schedule(self) -> 'outputs.GetHibernationScheduleDataSourcePauseConfigScheduleResult':
-        return pulumi.get(self, "schedule")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourcePauseConfigScheduleResult(dict):
-    def __init__(__self__, *,
-                 cron_expression: _builtins.str):
-        """
-        :param _builtins.str cron_expression: Cron expression defining when the schedule should trigger.
-               
-                 The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-               
-                 Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
-               ```
-                 In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-               
-                 To retrieve a list of available timezone values, you can use the following API endpoint:
-               
-                 GET https://api.cast.ai/v1/time-zones
-               
-                 When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-        pulumi.set(__self__, "cron_expression", cron_expression)
-
-    @_builtins.property
-    @pulumi.getter(name="cronExpression")
-    def cron_expression(self) -> _builtins.str:
-        """
-        Cron expression defining when the schedule should trigger.
-
-          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-
-          Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
-        ```
-          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-
-          To retrieve a list of available timezone values, you can use the following API endpoint:
-
-          GET https://api.cast.ai/v1/time-zones
-
-          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-        return pulumi.get(self, "cron_expression")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigResult(dict):
-    def __init__(__self__, *,
-                 enabled: _builtins.bool,
-                 job_config: 'outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigResult',
-                 schedule: 'outputs.GetHibernationScheduleDataSourceResumeConfigScheduleResult'):
-        """
-        :param _builtins.bool enabled: Enables or disables the pause configuration.
-        """
-        pulumi.set(__self__, "enabled", enabled)
-        pulumi.set(__self__, "job_config", job_config)
-        pulumi.set(__self__, "schedule", schedule)
-
-    @_builtins.property
-    @pulumi.getter
-    def enabled(self) -> _builtins.bool:
-        """
-        Enables or disables the pause configuration.
-        """
-        return pulumi.get(self, "enabled")
-
-    @_builtins.property
-    @pulumi.getter(name="jobConfig")
-    def job_config(self) -> 'outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigResult':
-        return pulumi.get(self, "job_config")
-
-    @_builtins.property
-    @pulumi.getter
-    def schedule(self) -> 'outputs.GetHibernationScheduleDataSourceResumeConfigScheduleResult':
-        return pulumi.get(self, "schedule")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigResult(dict):
-    def __init__(__self__, *,
-                 node_config: 'outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigResult'):
-        pulumi.set(__self__, "node_config", node_config)
-
-    @_builtins.property
-    @pulumi.getter(name="nodeConfig")
-    def node_config(self) -> 'outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigResult':
-        return pulumi.get(self, "node_config")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigResult(dict):
-    def __init__(__self__, *,
-                 instance_type: _builtins.str,
-                 config_id: Optional[_builtins.str] = None,
-                 config_name: Optional[_builtins.str] = None,
-                 gpu_config: Optional['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigResult'] = None,
-                 kubernetes_labels: Optional[Mapping[str, _builtins.str]] = None,
-                 kubernetes_taints: Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintResult']] = None,
-                 node_affinities: Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityResult']] = None,
-                 spot_configs: Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigResult']] = None,
-                 subnet_id: Optional[_builtins.str] = None,
-                 volumes: Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeResult']] = None,
-                 zone: Optional[_builtins.str] = None):
-        """
-        :param _builtins.str instance_type: Instance type.
-        :param _builtins.str config_id: ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
-        :param _builtins.str config_name: Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
-        :param Mapping[str, _builtins.str] kubernetes_labels: Custom labels to be added to the node.
-        :param Sequence['GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs'] kubernetes_taints: Custom taints to be added to the node created from this configuration.
-        :param Sequence['GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs'] node_affinities: Custom taints to be added to the node created from this configuration.
-        :param Sequence['GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs'] spot_configs: Custom taints to be added to the node created from this configuration.
-        :param _builtins.str subnet_id: Node subnet ID.
-        :param _builtins.str zone: Zone of the node.
-        """
-        pulumi.set(__self__, "instance_type", instance_type)
-        if config_id is not None:
-            pulumi.set(__self__, "config_id", config_id)
-        if config_name is not None:
-            pulumi.set(__self__, "config_name", config_name)
-        if gpu_config is not None:
-            pulumi.set(__self__, "gpu_config", gpu_config)
-        if kubernetes_labels is not None:
-            pulumi.set(__self__, "kubernetes_labels", kubernetes_labels)
-        if kubernetes_taints is not None:
-            pulumi.set(__self__, "kubernetes_taints", kubernetes_taints)
-        if node_affinities is not None:
-            pulumi.set(__self__, "node_affinities", node_affinities)
-        if spot_configs is not None:
-            pulumi.set(__self__, "spot_configs", spot_configs)
-        if subnet_id is not None:
-            pulumi.set(__self__, "subnet_id", subnet_id)
-        if volumes is not None:
-            pulumi.set(__self__, "volumes", volumes)
-        if zone is not None:
-            pulumi.set(__self__, "zone", zone)
-
-    @_builtins.property
-    @pulumi.getter(name="instanceType")
-    def instance_type(self) -> _builtins.str:
-        """
-        Instance type.
-        """
-        return pulumi.get(self, "instance_type")
-
-    @_builtins.property
-    @pulumi.getter(name="configId")
-    def config_id(self) -> Optional[_builtins.str]:
-        """
-        ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
-        """
-        return pulumi.get(self, "config_id")
-
-    @_builtins.property
-    @pulumi.getter(name="configName")
-    def config_name(self) -> Optional[_builtins.str]:
-        """
-        Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
-        """
-        return pulumi.get(self, "config_name")
-
-    @_builtins.property
-    @pulumi.getter(name="gpuConfig")
-    def gpu_config(self) -> Optional['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigResult']:
-        return pulumi.get(self, "gpu_config")
-
-    @_builtins.property
-    @pulumi.getter(name="kubernetesLabels")
-    def kubernetes_labels(self) -> Optional[Mapping[str, _builtins.str]]:
-        """
-        Custom labels to be added to the node.
-        """
-        return pulumi.get(self, "kubernetes_labels")
-
-    @_builtins.property
-    @pulumi.getter(name="kubernetesTaints")
-    def kubernetes_taints(self) -> Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintResult']]:
-        """
-        Custom taints to be added to the node created from this configuration.
-        """
-        return pulumi.get(self, "kubernetes_taints")
-
-    @_builtins.property
-    @pulumi.getter(name="nodeAffinities")
-    def node_affinities(self) -> Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityResult']]:
-        """
-        Custom taints to be added to the node created from this configuration.
-        """
-        return pulumi.get(self, "node_affinities")
-
-    @_builtins.property
-    @pulumi.getter(name="spotConfigs")
-    def spot_configs(self) -> Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigResult']]:
-        """
-        Custom taints to be added to the node created from this configuration.
-        """
-        return pulumi.get(self, "spot_configs")
-
-    @_builtins.property
-    @pulumi.getter(name="subnetId")
-    def subnet_id(self) -> Optional[_builtins.str]:
-        """
-        Node subnet ID.
-        """
-        return pulumi.get(self, "subnet_id")
-
-    @_builtins.property
-    @pulumi.getter
-    def volumes(self) -> Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeResult']]:
-        return pulumi.get(self, "volumes")
-
-    @_builtins.property
-    @pulumi.getter
-    def zone(self) -> Optional[_builtins.str]:
-        """
-        Zone of the node.
-        """
-        return pulumi.get(self, "zone")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigResult(dict):
-    def __init__(__self__, *,
-                 count: _builtins.int,
-                 type: Optional[_builtins.str] = None):
-        """
-        :param _builtins.int count: Number of GPUs.
-        :param _builtins.str type: GPU type.
-        """
-        pulumi.set(__self__, "count", count)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @_builtins.property
-    @pulumi.getter
-    def count(self) -> _builtins.int:
-        """
-        Number of GPUs.
-        """
-        return pulumi.get(self, "count")
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> Optional[_builtins.str]:
-        """
-        GPU type.
-        """
-        return pulumi.get(self, "type")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintResult(dict):
-    def __init__(__self__, *,
-                 key: _builtins.str,
-                 effect: Optional[_builtins.str] = None,
-                 value: Optional[_builtins.str] = None):
-        """
-        :param _builtins.str key: Key of a taint to be added to nodes created from this template.
-        :param _builtins.str effect: Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
-        :param _builtins.str value: Value of a taint to be added to nodes created from this template.
-        """
-        pulumi.set(__self__, "key", key)
-        if effect is not None:
-            pulumi.set(__self__, "effect", effect)
-        if value is not None:
-            pulumi.set(__self__, "value", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def key(self) -> _builtins.str:
-        """
-        Key of a taint to be added to nodes created from this template.
-        """
-        return pulumi.get(self, "key")
-
-    @_builtins.property
-    @pulumi.getter
-    def effect(self) -> Optional[_builtins.str]:
-        """
-        Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
-        """
-        return pulumi.get(self, "effect")
-
-    @_builtins.property
-    @pulumi.getter
-    def value(self) -> Optional[_builtins.str]:
-        """
-        Value of a taint to be added to nodes created from this template.
-        """
-        return pulumi.get(self, "value")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityResult(dict):
-    def __init__(__self__, *,
-                 dedicated_group: _builtins.str,
-                 affinities: Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityResult']] = None):
-        """
-        :param _builtins.str dedicated_group: Key of a taint to be added to nodes created from this template.
-        """
-        pulumi.set(__self__, "dedicated_group", dedicated_group)
-        if affinities is not None:
-            pulumi.set(__self__, "affinities", affinities)
-
-    @_builtins.property
-    @pulumi.getter(name="dedicatedGroup")
-    def dedicated_group(self) -> _builtins.str:
-        """
-        Key of a taint to be added to nodes created from this template.
-        """
-        return pulumi.get(self, "dedicated_group")
-
-    @_builtins.property
-    @pulumi.getter
-    def affinities(self) -> Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityResult']]:
-        return pulumi.get(self, "affinities")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityResult(dict):
-    def __init__(__self__, *,
-                 key: _builtins.str,
-                 operator: _builtins.str,
-                 values: Sequence[_builtins.str]):
-        """
-        :param _builtins.str key: Key of the node affinity selector.
-        :param _builtins.str operator: Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
-        :param Sequence[_builtins.str] values: Values of the node affinity selector.
-        """
-        pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "operator", operator)
-        pulumi.set(__self__, "values", values)
-
-    @_builtins.property
-    @pulumi.getter
-    def key(self) -> _builtins.str:
-        """
-        Key of the node affinity selector.
-        """
-        return pulumi.get(self, "key")
-
-    @_builtins.property
-    @pulumi.getter
-    def operator(self) -> _builtins.str:
-        """
-        Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
-        """
-        return pulumi.get(self, "operator")
-
-    @_builtins.property
-    @pulumi.getter
-    def values(self) -> Sequence[_builtins.str]:
-        """
-        Values of the node affinity selector.
-        """
-        return pulumi.get(self, "values")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigResult(dict):
-    def __init__(__self__, *,
-                 price_hourly: Optional[_builtins.str] = None,
-                 spot: Optional[_builtins.bool] = None):
-        """
-        :param _builtins.str price_hourly: Spot instance price. Applicable only for AWS nodes.
-        :param _builtins.bool spot: Whether node should be created as spot instance.
-        """
-        if price_hourly is not None:
-            pulumi.set(__self__, "price_hourly", price_hourly)
-        if spot is not None:
-            pulumi.set(__self__, "spot", spot)
-
-    @_builtins.property
-    @pulumi.getter(name="priceHourly")
-    def price_hourly(self) -> Optional[_builtins.str]:
-        """
-        Spot instance price. Applicable only for AWS nodes.
-        """
-        return pulumi.get(self, "price_hourly")
-
-    @_builtins.property
-    @pulumi.getter
-    def spot(self) -> Optional[_builtins.bool]:
-        """
-        Whether node should be created as spot instance.
-        """
-        return pulumi.get(self, "spot")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeResult(dict):
-    def __init__(__self__, *,
-                 raid_configs: Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigResult']] = None,
-                 size_gib: Optional[_builtins.int] = None):
-        """
-        :param _builtins.int size_gib: Volume size in GiB.
-        """
-        if raid_configs is not None:
-            pulumi.set(__self__, "raid_configs", raid_configs)
-        if size_gib is not None:
-            pulumi.set(__self__, "size_gib", size_gib)
-
-    @_builtins.property
-    @pulumi.getter(name="raidConfigs")
-    def raid_configs(self) -> Optional[Sequence['outputs.GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigResult']]:
-        return pulumi.get(self, "raid_configs")
-
-    @_builtins.property
-    @pulumi.getter(name="sizeGib")
-    def size_gib(self) -> Optional[_builtins.int]:
-        """
-        Volume size in GiB.
-        """
-        return pulumi.get(self, "size_gib")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigResult(dict):
-    def __init__(__self__, *,
-                 chunk_size_kb: Optional[_builtins.int] = None):
-        """
-        :param _builtins.int chunk_size_kb: Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
-        """
-        if chunk_size_kb is not None:
-            pulumi.set(__self__, "chunk_size_kb", chunk_size_kb)
-
-    @_builtins.property
-    @pulumi.getter(name="chunkSizeKb")
-    def chunk_size_kb(self) -> Optional[_builtins.int]:
-        """
-        Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
-        """
-        return pulumi.get(self, "chunk_size_kb")
-
-
-@pulumi.output_type
-class GetHibernationScheduleDataSourceResumeConfigScheduleResult(dict):
-    def __init__(__self__, *,
-                 cron_expression: _builtins.str):
-        """
-        :param _builtins.str cron_expression: Cron expression defining when the schedule should trigger.
-               
-                 The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-               
-                 Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
-               ```
-                 In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-               
-                 To retrieve a list of available timezone values, you can use the following API endpoint:
-               
-                 GET https://api.cast.ai/v1/time-zones
-               
-                 When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-        pulumi.set(__self__, "cron_expression", cron_expression)
-
-    @_builtins.property
-    @pulumi.getter(name="cronExpression")
-    def cron_expression(self) -> _builtins.str:
-        """
-        Cron expression defining when the schedule should trigger.
-
-          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-
-          Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
-        ```
-          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-
-          To retrieve a list of available timezone values, you can use the following API endpoint:
-
-          GET https://api.cast.ai/v1/time-zones
-
-          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-        return pulumi.get(self, "cron_expression")
-
-
-@pulumi.output_type
-class GetRebalancingScheduleDataSourceLaunchConfigurationResult(dict):
-    def __init__(__self__, *,
-                 aggressive_mode: Optional[_builtins.bool] = None,
-                 aggressive_mode_config: Optional['outputs.GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigResult'] = None,
-                 execution_conditions: Optional['outputs.GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsResult'] = None,
-                 keep_drain_timeout_nodes: Optional[_builtins.bool] = None,
-                 node_ttl_seconds: Optional[_builtins.int] = None,
-                 num_targeted_nodes: Optional[_builtins.int] = None,
-                 rebalancing_min_nodes: Optional[_builtins.int] = None,
-                 selector: Optional[_builtins.str] = None,
-                 target_node_selection_algorithm: Optional[_builtins.str] = None):
-        """
-        :param _builtins.bool aggressive_mode: When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
-        :param 'GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs' aggressive_mode_config: Advanced configuration for aggressive rebalancing mode.
-        :param _builtins.bool keep_drain_timeout_nodes: Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
-        :param _builtins.int node_ttl_seconds: Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
-        :param _builtins.int num_targeted_nodes: Maximum number of nodes that will be selected for rebalancing.
-        :param _builtins.int rebalancing_min_nodes: Minimum number of nodes that should be kept in the cluster after rebalancing.
-        :param _builtins.str selector: Node selector in JSON format.
-        :param _builtins.str target_node_selection_algorithm: Defines the algorithm used to select the target nodes for rebalancing.
-        """
-        if aggressive_mode is not None:
-            pulumi.set(__self__, "aggressive_mode", aggressive_mode)
-        if aggressive_mode_config is not None:
-            pulumi.set(__self__, "aggressive_mode_config", aggressive_mode_config)
-        if execution_conditions is not None:
-            pulumi.set(__self__, "execution_conditions", execution_conditions)
-        if keep_drain_timeout_nodes is not None:
-            pulumi.set(__self__, "keep_drain_timeout_nodes", keep_drain_timeout_nodes)
-        if node_ttl_seconds is not None:
-            pulumi.set(__self__, "node_ttl_seconds", node_ttl_seconds)
-        if num_targeted_nodes is not None:
-            pulumi.set(__self__, "num_targeted_nodes", num_targeted_nodes)
-        if rebalancing_min_nodes is not None:
-            pulumi.set(__self__, "rebalancing_min_nodes", rebalancing_min_nodes)
-        if selector is not None:
-            pulumi.set(__self__, "selector", selector)
-        if target_node_selection_algorithm is not None:
-            pulumi.set(__self__, "target_node_selection_algorithm", target_node_selection_algorithm)
-
-    @_builtins.property
-    @pulumi.getter(name="aggressiveMode")
-    def aggressive_mode(self) -> Optional[_builtins.bool]:
-        """
-        When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
-        """
-        return pulumi.get(self, "aggressive_mode")
-
-    @_builtins.property
-    @pulumi.getter(name="aggressiveModeConfig")
-    def aggressive_mode_config(self) -> Optional['outputs.GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigResult']:
-        """
-        Advanced configuration for aggressive rebalancing mode.
-        """
-        return pulumi.get(self, "aggressive_mode_config")
-
-    @_builtins.property
-    @pulumi.getter(name="executionConditions")
-    def execution_conditions(self) -> Optional['outputs.GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsResult']:
-        return pulumi.get(self, "execution_conditions")
-
-    @_builtins.property
-    @pulumi.getter(name="keepDrainTimeoutNodes")
-    def keep_drain_timeout_nodes(self) -> Optional[_builtins.bool]:
-        """
-        Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
-        """
-        return pulumi.get(self, "keep_drain_timeout_nodes")
-
-    @_builtins.property
-    @pulumi.getter(name="nodeTtlSeconds")
-    def node_ttl_seconds(self) -> Optional[_builtins.int]:
-        """
-        Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
-        """
-        return pulumi.get(self, "node_ttl_seconds")
-
-    @_builtins.property
-    @pulumi.getter(name="numTargetedNodes")
-    def num_targeted_nodes(self) -> Optional[_builtins.int]:
-        """
-        Maximum number of nodes that will be selected for rebalancing.
-        """
-        return pulumi.get(self, "num_targeted_nodes")
-
-    @_builtins.property
-    @pulumi.getter(name="rebalancingMinNodes")
-    def rebalancing_min_nodes(self) -> Optional[_builtins.int]:
-        """
-        Minimum number of nodes that should be kept in the cluster after rebalancing.
-        """
-        return pulumi.get(self, "rebalancing_min_nodes")
-
-    @_builtins.property
-    @pulumi.getter
-    def selector(self) -> Optional[_builtins.str]:
-        """
-        Node selector in JSON format.
-        """
-        return pulumi.get(self, "selector")
-
-    @_builtins.property
-    @pulumi.getter(name="targetNodeSelectionAlgorithm")
-    def target_node_selection_algorithm(self) -> Optional[_builtins.str]:
-        """
-        Defines the algorithm used to select the target nodes for rebalancing.
-        """
-        return pulumi.get(self, "target_node_selection_algorithm")
-
-
-@pulumi.output_type
-class GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigResult(dict):
-    def __init__(__self__, *,
-                 ignore_local_persistent_volumes: _builtins.bool,
-                 ignore_problem_job_pods: _builtins.bool,
-                 ignore_problem_pods_without_controller: _builtins.bool,
-                 ignore_problem_removal_disabled_pods: _builtins.bool):
-        """
-        :param _builtins.bool ignore_local_persistent_volumes: Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
-        :param _builtins.bool ignore_problem_job_pods: Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
-        :param _builtins.bool ignore_problem_pods_without_controller: Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
-        :param _builtins.bool ignore_problem_removal_disabled_pods: Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
-        """
-        pulumi.set(__self__, "ignore_local_persistent_volumes", ignore_local_persistent_volumes)
-        pulumi.set(__self__, "ignore_problem_job_pods", ignore_problem_job_pods)
-        pulumi.set(__self__, "ignore_problem_pods_without_controller", ignore_problem_pods_without_controller)
-        pulumi.set(__self__, "ignore_problem_removal_disabled_pods", ignore_problem_removal_disabled_pods)
-
-    @_builtins.property
-    @pulumi.getter(name="ignoreLocalPersistentVolumes")
-    def ignore_local_persistent_volumes(self) -> _builtins.bool:
-        """
-        Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
-        """
-        return pulumi.get(self, "ignore_local_persistent_volumes")
-
-    @_builtins.property
-    @pulumi.getter(name="ignoreProblemJobPods")
-    def ignore_problem_job_pods(self) -> _builtins.bool:
-        """
-        Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
-        """
-        return pulumi.get(self, "ignore_problem_job_pods")
-
-    @_builtins.property
-    @pulumi.getter(name="ignoreProblemPodsWithoutController")
-    def ignore_problem_pods_without_controller(self) -> _builtins.bool:
-        """
-        Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
-        """
-        return pulumi.get(self, "ignore_problem_pods_without_controller")
-
-    @_builtins.property
-    @pulumi.getter(name="ignoreProblemRemovalDisabledPods")
-    def ignore_problem_removal_disabled_pods(self) -> _builtins.bool:
-        """
-        Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
-        """
-        return pulumi.get(self, "ignore_problem_removal_disabled_pods")
-
-
-@pulumi.output_type
-class GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsResult(dict):
-    def __init__(__self__, *,
-                 enabled: _builtins.bool,
-                 achieved_savings_percentage: Optional[_builtins.int] = None):
-        """
-        :param _builtins.bool enabled: Enables or disables the execution conditions.
-        :param _builtins.int achieved_savings_percentage: The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
-        """
-        pulumi.set(__self__, "enabled", enabled)
-        if achieved_savings_percentage is not None:
-            pulumi.set(__self__, "achieved_savings_percentage", achieved_savings_percentage)
-
-    @_builtins.property
-    @pulumi.getter
-    def enabled(self) -> _builtins.bool:
-        """
-        Enables or disables the execution conditions.
-        """
-        return pulumi.get(self, "enabled")
-
-    @_builtins.property
-    @pulumi.getter(name="achievedSavingsPercentage")
-    def achieved_savings_percentage(self) -> Optional[_builtins.int]:
-        """
-        The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
-        """
-        return pulumi.get(self, "achieved_savings_percentage")
-
-
-@pulumi.output_type
-class GetRebalancingScheduleDataSourceScheduleResult(dict):
-    def __init__(__self__, *,
-                 cron: _builtins.str):
-        """
-        :param _builtins.str cron: Cron expression defining when the schedule should trigger.
-               
-                 The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-               
-                 Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
-               ```
-                 In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-               
-                 To retrieve a list of available timezone values, you can use the following API endpoint:
-               
-                 GET https://api.cast.ai/v1/time-zones
-               
-                 When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-        pulumi.set(__self__, "cron", cron)
-
-    @_builtins.property
-    @pulumi.getter
-    def cron(self) -> _builtins.str:
-        """
-        Cron expression defining when the schedule should trigger.
-
-          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-
-          Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
-        ```
-          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-
-          To retrieve a list of available timezone values, you can use the following API endpoint:
-
-          GET https://api.cast.ai/v1/time-zones
-
-          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-        return pulumi.get(self, "cron")
-
-
-@pulumi.output_type
-class GetRebalancingScheduleDataSourceTriggerConditionResult(dict):
-    def __init__(__self__, *,
-                 savings_percentage: _builtins.float,
-                 ignore_savings: Optional[_builtins.bool] = None):
-        """
-        :param _builtins.float savings_percentage: Defines the minimum percentage of savings expected.
-        :param _builtins.bool ignore_savings: If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
-        """
-        pulumi.set(__self__, "savings_percentage", savings_percentage)
-        if ignore_savings is not None:
-            pulumi.set(__self__, "ignore_savings", ignore_savings)
-
-    @_builtins.property
-    @pulumi.getter(name="savingsPercentage")
-    def savings_percentage(self) -> _builtins.float:
-        """
-        Defines the minimum percentage of savings expected.
-        """
-        return pulumi.get(self, "savings_percentage")
-
-    @_builtins.property
-    @pulumi.getter(name="ignoreSavings")
-    def ignore_savings(self) -> Optional[_builtins.bool]:
-        """
-        If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
-        """
-        return pulumi.get(self, "ignore_savings")
-
 
 @pulumi.output_type
 class HibernationScheduleClusterAssignments(dict):
@@ -963,8 +160,8 @@ class HibernationSchedulePauseConfigSchedule(dict):
                  The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
                
                  Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
                ```
                  In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
                
@@ -985,8 +182,8 @@ class HibernationSchedulePauseConfigSchedule(dict):
           The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
           Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
         ```
           In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
@@ -1552,8 +749,8 @@ class HibernationScheduleResumeConfigSchedule(dict):
                  The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
                
                  Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
                ```
                  In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
                
@@ -1574,8 +771,8 @@ class HibernationScheduleResumeConfigSchedule(dict):
           The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
           Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
         ```
           In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
@@ -1597,6 +794,8 @@ class RebalancingScheduleLaunchConfiguration(dict):
             suggest = "aggressive_mode"
         elif key == "aggressiveModeConfig":
             suggest = "aggressive_mode_config"
+        elif key == "drainFailureConfig":
+            suggest = "drain_failure_config"
         elif key == "executionConditions":
             suggest = "execution_conditions"
         elif key == "keepDrainTimeoutNodes":
@@ -1624,6 +823,7 @@ class RebalancingScheduleLaunchConfiguration(dict):
     def __init__(__self__, *,
                  aggressive_mode: Optional[_builtins.bool] = None,
                  aggressive_mode_config: Optional['outputs.RebalancingScheduleLaunchConfigurationAggressiveModeConfig'] = None,
+                 drain_failure_config: Optional['outputs.RebalancingScheduleLaunchConfigurationDrainFailureConfig'] = None,
                  execution_conditions: Optional['outputs.RebalancingScheduleLaunchConfigurationExecutionConditions'] = None,
                  keep_drain_timeout_nodes: Optional[_builtins.bool] = None,
                  node_ttl_seconds: Optional[_builtins.int] = None,
@@ -1632,11 +832,12 @@ class RebalancingScheduleLaunchConfiguration(dict):
                  selector: Optional[_builtins.str] = None,
                  target_node_selection_algorithm: Optional[_builtins.str] = None):
         """
-        :param _builtins.bool aggressive_mode: When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
-        :param 'RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs' aggressive_mode_config: Advanced configuration for aggressive rebalancing mode.
+        :param _builtins.bool aggressive_mode: Deprecated: Use aggressive_mode_config instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+        :param 'RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs' aggressive_mode_config: Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressive_mode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressive_mode` is set to `true`, it takes precedence over this option.
+        :param 'RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs' drain_failure_config: Configures behavior when a node fails to drain during rebalancing. Relevant only when `keep_drain_timeout_nodes` is true.
         :param _builtins.bool keep_drain_timeout_nodes: Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
         :param _builtins.int node_ttl_seconds: Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
-        :param _builtins.int num_targeted_nodes: Maximum number of nodes that will be selected for rebalancing.
+        :param _builtins.int num_targeted_nodes: Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
         :param _builtins.int rebalancing_min_nodes: Minimum number of nodes that should be kept in the cluster after rebalancing.
         :param _builtins.str selector: Node selector in JSON format.
         :param _builtins.str target_node_selection_algorithm: Defines the algorithm used to select the target nodes for rebalancing.
@@ -1645,6 +846,8 @@ class RebalancingScheduleLaunchConfiguration(dict):
             pulumi.set(__self__, "aggressive_mode", aggressive_mode)
         if aggressive_mode_config is not None:
             pulumi.set(__self__, "aggressive_mode_config", aggressive_mode_config)
+        if drain_failure_config is not None:
+            pulumi.set(__self__, "drain_failure_config", drain_failure_config)
         if execution_conditions is not None:
             pulumi.set(__self__, "execution_conditions", execution_conditions)
         if keep_drain_timeout_nodes is not None:
@@ -1662,9 +865,10 @@ class RebalancingScheduleLaunchConfiguration(dict):
 
     @_builtins.property
     @pulumi.getter(name="aggressiveMode")
+    @_utilities.deprecated("""For equivalent behaviour use aggresive_mode_config = {ignore_local_persistent_volumes = true, ignore_problem_job_pods = true, ignore_problem_removal_disabled_pods = true, ignore_problem_pods_without_controller = true}""")
     def aggressive_mode(self) -> Optional[_builtins.bool]:
         """
-        When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+        Deprecated: Use aggressive_mode_config instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
         """
         return pulumi.get(self, "aggressive_mode")
 
@@ -1672,9 +876,17 @@ class RebalancingScheduleLaunchConfiguration(dict):
     @pulumi.getter(name="aggressiveModeConfig")
     def aggressive_mode_config(self) -> Optional['outputs.RebalancingScheduleLaunchConfigurationAggressiveModeConfig']:
         """
-        Advanced configuration for aggressive rebalancing mode.
+        Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressive_mode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressive_mode` is set to `true`, it takes precedence over this option.
         """
         return pulumi.get(self, "aggressive_mode_config")
+
+    @_builtins.property
+    @pulumi.getter(name="drainFailureConfig")
+    def drain_failure_config(self) -> Optional['outputs.RebalancingScheduleLaunchConfigurationDrainFailureConfig']:
+        """
+        Configures behavior when a node fails to drain during rebalancing. Relevant only when `keep_drain_timeout_nodes` is true.
+        """
+        return pulumi.get(self, "drain_failure_config")
 
     @_builtins.property
     @pulumi.getter(name="executionConditions")
@@ -1701,7 +913,7 @@ class RebalancingScheduleLaunchConfiguration(dict):
     @pulumi.getter(name="numTargetedNodes")
     def num_targeted_nodes(self) -> Optional[_builtins.int]:
         """
-        Maximum number of nodes that will be selected for rebalancing.
+        Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
         """
         return pulumi.get(self, "num_targeted_nodes")
 
@@ -1805,6 +1017,56 @@ class RebalancingScheduleLaunchConfigurationAggressiveModeConfig(dict):
 
 
 @pulumi.output_type
+class RebalancingScheduleLaunchConfigurationDrainFailureConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "disableUncordon":
+            suggest = "disable_uncordon"
+        elif key == "uncordonAfterSeconds":
+            suggest = "uncordon_after_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RebalancingScheduleLaunchConfigurationDrainFailureConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RebalancingScheduleLaunchConfigurationDrainFailureConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RebalancingScheduleLaunchConfigurationDrainFailureConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 disable_uncordon: Optional[_builtins.bool] = None,
+                 uncordon_after_seconds: Optional[_builtins.int] = None):
+        """
+        :param _builtins.bool disable_uncordon: When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+        :param _builtins.int uncordon_after_seconds: Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disable_uncordon` is true.
+        """
+        if disable_uncordon is not None:
+            pulumi.set(__self__, "disable_uncordon", disable_uncordon)
+        if uncordon_after_seconds is not None:
+            pulumi.set(__self__, "uncordon_after_seconds", uncordon_after_seconds)
+
+    @_builtins.property
+    @pulumi.getter(name="disableUncordon")
+    def disable_uncordon(self) -> Optional[_builtins.bool]:
+        """
+        When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+        """
+        return pulumi.get(self, "disable_uncordon")
+
+    @_builtins.property
+    @pulumi.getter(name="uncordonAfterSeconds")
+    def uncordon_after_seconds(self) -> Optional[_builtins.int]:
+        """
+        Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disable_uncordon` is true.
+        """
+        return pulumi.get(self, "uncordon_after_seconds")
+
+
+@pulumi.output_type
 class RebalancingScheduleLaunchConfigurationExecutionConditions(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1861,8 +1123,8 @@ class RebalancingScheduleSchedule(dict):
                  The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
                
                  Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
                ```
                  In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
                
@@ -1883,8 +1145,8 @@ class RebalancingScheduleSchedule(dict):
           The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
           Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
         ```
           In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
@@ -1918,6 +1180,855 @@ class RebalancingScheduleTriggerConditions(dict):
         RebalancingScheduleTriggerConditions.__key_warning(key)
         return super().get(key, default)
 
+    def __init__(__self__, *,
+                 savings_percentage: _builtins.float,
+                 ignore_savings: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.float savings_percentage: Defines the minimum percentage of savings expected.
+        :param _builtins.bool ignore_savings: If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
+        """
+        pulumi.set(__self__, "savings_percentage", savings_percentage)
+        if ignore_savings is not None:
+            pulumi.set(__self__, "ignore_savings", ignore_savings)
+
+    @_builtins.property
+    @pulumi.getter(name="savingsPercentage")
+    def savings_percentage(self) -> _builtins.float:
+        """
+        Defines the minimum percentage of savings expected.
+        """
+        return pulumi.get(self, "savings_percentage")
+
+    @_builtins.property
+    @pulumi.getter(name="ignoreSavings")
+    def ignore_savings(self) -> Optional[_builtins.bool]:
+        """
+        If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
+        """
+        return pulumi.get(self, "ignore_savings")
+
+
+@pulumi.output_type
+class GetHibernationScheduleClusterAssignmentResult(dict):
+    def __init__(__self__, *,
+                 assignments: Optional[Sequence['outputs.GetHibernationScheduleClusterAssignmentAssignmentResult']] = None):
+        if assignments is not None:
+            pulumi.set(__self__, "assignments", assignments)
+
+    @_builtins.property
+    @pulumi.getter
+    def assignments(self) -> Optional[Sequence['outputs.GetHibernationScheduleClusterAssignmentAssignmentResult']]:
+        return pulumi.get(self, "assignments")
+
+
+@pulumi.output_type
+class GetHibernationScheduleClusterAssignmentAssignmentResult(dict):
+    def __init__(__self__, *,
+                 cluster_id: _builtins.str):
+        """
+        :param _builtins.str cluster_id: ID of the cluster.
+        """
+        pulumi.set(__self__, "cluster_id", cluster_id)
+
+    @_builtins.property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> _builtins.str:
+        """
+        ID of the cluster.
+        """
+        return pulumi.get(self, "cluster_id")
+
+
+@pulumi.output_type
+class GetHibernationSchedulePauseConfigResult(dict):
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 schedule: 'outputs.GetHibernationSchedulePauseConfigScheduleResult'):
+        """
+        :param _builtins.bool enabled: Enables or disables the pause configuration.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "schedule", schedule)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Enables or disables the pause configuration.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def schedule(self) -> 'outputs.GetHibernationSchedulePauseConfigScheduleResult':
+        return pulumi.get(self, "schedule")
+
+
+@pulumi.output_type
+class GetHibernationSchedulePauseConfigScheduleResult(dict):
+    def __init__(__self__, *,
+                 cron_expression: _builtins.str):
+        """
+        :param _builtins.str cron_expression: Cron expression defining when the schedule should trigger.
+               
+                 The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+               
+                 Example:
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
+               ```
+                 In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+               
+                 To retrieve a list of available timezone values, you can use the following API endpoint:
+               
+                 GET https://api.cast.ai/v1/time-zones
+               
+                 When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+        """
+        pulumi.set(__self__, "cron_expression", cron_expression)
+
+    @_builtins.property
+    @pulumi.getter(name="cronExpression")
+    def cron_expression(self) -> _builtins.str:
+        """
+        Cron expression defining when the schedule should trigger.
+
+          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+
+          Example:
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
+        ```
+          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+
+          To retrieve a list of available timezone values, you can use the following API endpoint:
+
+          GET https://api.cast.ai/v1/time-zones
+
+          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+        """
+        return pulumi.get(self, "cron_expression")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigResult(dict):
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 job_config: 'outputs.GetHibernationScheduleResumeConfigJobConfigResult',
+                 schedule: 'outputs.GetHibernationScheduleResumeConfigScheduleResult'):
+        """
+        :param _builtins.bool enabled: Enables or disables the pause configuration.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "job_config", job_config)
+        pulumi.set(__self__, "schedule", schedule)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Enables or disables the pause configuration.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="jobConfig")
+    def job_config(self) -> 'outputs.GetHibernationScheduleResumeConfigJobConfigResult':
+        return pulumi.get(self, "job_config")
+
+    @_builtins.property
+    @pulumi.getter
+    def schedule(self) -> 'outputs.GetHibernationScheduleResumeConfigScheduleResult':
+        return pulumi.get(self, "schedule")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigResult(dict):
+    def __init__(__self__, *,
+                 node_config: 'outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigResult'):
+        pulumi.set(__self__, "node_config", node_config)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeConfig")
+    def node_config(self) -> 'outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigResult':
+        return pulumi.get(self, "node_config")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigNodeConfigResult(dict):
+    def __init__(__self__, *,
+                 instance_type: _builtins.str,
+                 config_id: Optional[_builtins.str] = None,
+                 config_name: Optional[_builtins.str] = None,
+                 gpu_config: Optional['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigResult'] = None,
+                 kubernetes_labels: Optional[Mapping[str, _builtins.str]] = None,
+                 kubernetes_taints: Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintResult']] = None,
+                 node_affinities: Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityResult']] = None,
+                 spot_configs: Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigResult']] = None,
+                 subnet_id: Optional[_builtins.str] = None,
+                 volumes: Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeResult']] = None,
+                 zone: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str instance_type: Instance type.
+        :param _builtins.str config_id: ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
+        :param _builtins.str config_name: Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
+        :param Mapping[str, _builtins.str] kubernetes_labels: Custom labels to be added to the node.
+        :param Sequence['GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs'] kubernetes_taints: Custom taints to be added to the node created from this configuration.
+        :param Sequence['GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs'] node_affinities: Custom taints to be added to the node created from this configuration.
+        :param Sequence['GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs'] spot_configs: Custom taints to be added to the node created from this configuration.
+        :param _builtins.str subnet_id: Node subnet ID.
+        :param _builtins.str zone: Zone of the node.
+        """
+        pulumi.set(__self__, "instance_type", instance_type)
+        if config_id is not None:
+            pulumi.set(__self__, "config_id", config_id)
+        if config_name is not None:
+            pulumi.set(__self__, "config_name", config_name)
+        if gpu_config is not None:
+            pulumi.set(__self__, "gpu_config", gpu_config)
+        if kubernetes_labels is not None:
+            pulumi.set(__self__, "kubernetes_labels", kubernetes_labels)
+        if kubernetes_taints is not None:
+            pulumi.set(__self__, "kubernetes_taints", kubernetes_taints)
+        if node_affinities is not None:
+            pulumi.set(__self__, "node_affinities", node_affinities)
+        if spot_configs is not None:
+            pulumi.set(__self__, "spot_configs", spot_configs)
+        if subnet_id is not None:
+            pulumi.set(__self__, "subnet_id", subnet_id)
+        if volumes is not None:
+            pulumi.set(__self__, "volumes", volumes)
+        if zone is not None:
+            pulumi.set(__self__, "zone", zone)
+
+    @_builtins.property
+    @pulumi.getter(name="instanceType")
+    def instance_type(self) -> _builtins.str:
+        """
+        Instance type.
+        """
+        return pulumi.get(self, "instance_type")
+
+    @_builtins.property
+    @pulumi.getter(name="configId")
+    def config_id(self) -> Optional[_builtins.str]:
+        """
+        ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
+        """
+        return pulumi.get(self, "config_id")
+
+    @_builtins.property
+    @pulumi.getter(name="configName")
+    def config_name(self) -> Optional[_builtins.str]:
+        """
+        Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
+        """
+        return pulumi.get(self, "config_name")
+
+    @_builtins.property
+    @pulumi.getter(name="gpuConfig")
+    def gpu_config(self) -> Optional['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigResult']:
+        return pulumi.get(self, "gpu_config")
+
+    @_builtins.property
+    @pulumi.getter(name="kubernetesLabels")
+    def kubernetes_labels(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Custom labels to be added to the node.
+        """
+        return pulumi.get(self, "kubernetes_labels")
+
+    @_builtins.property
+    @pulumi.getter(name="kubernetesTaints")
+    def kubernetes_taints(self) -> Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintResult']]:
+        """
+        Custom taints to be added to the node created from this configuration.
+        """
+        return pulumi.get(self, "kubernetes_taints")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAffinities")
+    def node_affinities(self) -> Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityResult']]:
+        """
+        Custom taints to be added to the node created from this configuration.
+        """
+        return pulumi.get(self, "node_affinities")
+
+    @_builtins.property
+    @pulumi.getter(name="spotConfigs")
+    def spot_configs(self) -> Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigResult']]:
+        """
+        Custom taints to be added to the node created from this configuration.
+        """
+        return pulumi.get(self, "spot_configs")
+
+    @_builtins.property
+    @pulumi.getter(name="subnetId")
+    def subnet_id(self) -> Optional[_builtins.str]:
+        """
+        Node subnet ID.
+        """
+        return pulumi.get(self, "subnet_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def volumes(self) -> Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeResult']]:
+        return pulumi.get(self, "volumes")
+
+    @_builtins.property
+    @pulumi.getter
+    def zone(self) -> Optional[_builtins.str]:
+        """
+        Zone of the node.
+        """
+        return pulumi.get(self, "zone")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigResult(dict):
+    def __init__(__self__, *,
+                 count: _builtins.int,
+                 type: Optional[_builtins.str] = None):
+        """
+        :param _builtins.int count: Number of GPUs.
+        :param _builtins.str type: GPU type.
+        """
+        pulumi.set(__self__, "count", count)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def count(self) -> _builtins.int:
+        """
+        Number of GPUs.
+        """
+        return pulumi.get(self, "count")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        GPU type.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintResult(dict):
+    def __init__(__self__, *,
+                 key: _builtins.str,
+                 effect: Optional[_builtins.str] = None,
+                 value: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str key: Key of a taint to be added to nodes created from this template.
+        :param _builtins.str effect: Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
+        :param _builtins.str value: Value of a taint to be added to nodes created from this template.
+        """
+        pulumi.set(__self__, "key", key)
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> _builtins.str:
+        """
+        Key of a taint to be added to nodes created from this template.
+        """
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def effect(self) -> Optional[_builtins.str]:
+        """
+        Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
+        """
+        return pulumi.get(self, "effect")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[_builtins.str]:
+        """
+        Value of a taint to be added to nodes created from this template.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityResult(dict):
+    def __init__(__self__, *,
+                 dedicated_group: _builtins.str,
+                 affinities: Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityResult']] = None):
+        """
+        :param _builtins.str dedicated_group: Key of a taint to be added to nodes created from this template.
+        """
+        pulumi.set(__self__, "dedicated_group", dedicated_group)
+        if affinities is not None:
+            pulumi.set(__self__, "affinities", affinities)
+
+    @_builtins.property
+    @pulumi.getter(name="dedicatedGroup")
+    def dedicated_group(self) -> _builtins.str:
+        """
+        Key of a taint to be added to nodes created from this template.
+        """
+        return pulumi.get(self, "dedicated_group")
+
+    @_builtins.property
+    @pulumi.getter
+    def affinities(self) -> Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityResult']]:
+        return pulumi.get(self, "affinities")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityResult(dict):
+    def __init__(__self__, *,
+                 key: _builtins.str,
+                 operator: _builtins.str,
+                 values: Sequence[_builtins.str]):
+        """
+        :param _builtins.str key: Key of the node affinity selector.
+        :param _builtins.str operator: Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
+        :param Sequence[_builtins.str] values: Values of the node affinity selector.
+        """
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "operator", operator)
+        pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> _builtins.str:
+        """
+        Key of the node affinity selector.
+        """
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> _builtins.str:
+        """
+        Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
+        """
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Sequence[_builtins.str]:
+        """
+        Values of the node affinity selector.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigResult(dict):
+    def __init__(__self__, *,
+                 price_hourly: Optional[_builtins.str] = None,
+                 spot: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str price_hourly: Spot instance price. Applicable only for AWS nodes.
+        :param _builtins.bool spot: Whether node should be created as spot instance.
+        """
+        if price_hourly is not None:
+            pulumi.set(__self__, "price_hourly", price_hourly)
+        if spot is not None:
+            pulumi.set(__self__, "spot", spot)
+
+    @_builtins.property
+    @pulumi.getter(name="priceHourly")
+    def price_hourly(self) -> Optional[_builtins.str]:
+        """
+        Spot instance price. Applicable only for AWS nodes.
+        """
+        return pulumi.get(self, "price_hourly")
+
+    @_builtins.property
+    @pulumi.getter
+    def spot(self) -> Optional[_builtins.bool]:
+        """
+        Whether node should be created as spot instance.
+        """
+        return pulumi.get(self, "spot")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeResult(dict):
+    def __init__(__self__, *,
+                 raid_configs: Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigResult']] = None,
+                 size_gib: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int size_gib: Volume size in GiB.
+        """
+        if raid_configs is not None:
+            pulumi.set(__self__, "raid_configs", raid_configs)
+        if size_gib is not None:
+            pulumi.set(__self__, "size_gib", size_gib)
+
+    @_builtins.property
+    @pulumi.getter(name="raidConfigs")
+    def raid_configs(self) -> Optional[Sequence['outputs.GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigResult']]:
+        return pulumi.get(self, "raid_configs")
+
+    @_builtins.property
+    @pulumi.getter(name="sizeGib")
+    def size_gib(self) -> Optional[_builtins.int]:
+        """
+        Volume size in GiB.
+        """
+        return pulumi.get(self, "size_gib")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigResult(dict):
+    def __init__(__self__, *,
+                 chunk_size_kb: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int chunk_size_kb: Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
+        """
+        if chunk_size_kb is not None:
+            pulumi.set(__self__, "chunk_size_kb", chunk_size_kb)
+
+    @_builtins.property
+    @pulumi.getter(name="chunkSizeKb")
+    def chunk_size_kb(self) -> Optional[_builtins.int]:
+        """
+        Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
+        """
+        return pulumi.get(self, "chunk_size_kb")
+
+
+@pulumi.output_type
+class GetHibernationScheduleResumeConfigScheduleResult(dict):
+    def __init__(__self__, *,
+                 cron_expression: _builtins.str):
+        """
+        :param _builtins.str cron_expression: Cron expression defining when the schedule should trigger.
+               
+                 The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+               
+                 Example:
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
+               ```
+                 In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+               
+                 To retrieve a list of available timezone values, you can use the following API endpoint:
+               
+                 GET https://api.cast.ai/v1/time-zones
+               
+                 When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+        """
+        pulumi.set(__self__, "cron_expression", cron_expression)
+
+    @_builtins.property
+    @pulumi.getter(name="cronExpression")
+    def cron_expression(self) -> _builtins.str:
+        """
+        Cron expression defining when the schedule should trigger.
+
+          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+
+          Example:
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
+        ```
+          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+
+          To retrieve a list of available timezone values, you can use the following API endpoint:
+
+          GET https://api.cast.ai/v1/time-zones
+
+          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+        """
+        return pulumi.get(self, "cron_expression")
+
+
+@pulumi.output_type
+class GetRebalancingScheduleLaunchConfigurationResult(dict):
+    def __init__(__self__, *,
+                 aggressive_mode: Optional[_builtins.bool] = None,
+                 aggressive_mode_config: Optional['outputs.GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigResult'] = None,
+                 drain_failure_config: Optional['outputs.GetRebalancingScheduleLaunchConfigurationDrainFailureConfigResult'] = None,
+                 execution_conditions: Optional['outputs.GetRebalancingScheduleLaunchConfigurationExecutionConditionsResult'] = None,
+                 keep_drain_timeout_nodes: Optional[_builtins.bool] = None,
+                 node_ttl_seconds: Optional[_builtins.int] = None,
+                 num_targeted_nodes: Optional[_builtins.int] = None,
+                 rebalancing_min_nodes: Optional[_builtins.int] = None,
+                 selector: Optional[_builtins.str] = None,
+                 target_node_selection_algorithm: Optional[_builtins.str] = None):
+        """
+        :param _builtins.bool aggressive_mode: Deprecated: Use aggressive_mode_config instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+        :param 'GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs' aggressive_mode_config: Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressive_mode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressive_mode` is set to `true`, it takes precedence over this option.
+        :param 'GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs' drain_failure_config: Configures behavior when a node fails to drain during rebalancing. Relevant only when `keep_drain_timeout_nodes` is true.
+        :param _builtins.bool keep_drain_timeout_nodes: Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
+        :param _builtins.int node_ttl_seconds: Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
+        :param _builtins.int num_targeted_nodes: Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
+        :param _builtins.int rebalancing_min_nodes: Minimum number of nodes that should be kept in the cluster after rebalancing.
+        :param _builtins.str selector: Node selector in JSON format.
+        :param _builtins.str target_node_selection_algorithm: Defines the algorithm used to select the target nodes for rebalancing.
+        """
+        if aggressive_mode is not None:
+            pulumi.set(__self__, "aggressive_mode", aggressive_mode)
+        if aggressive_mode_config is not None:
+            pulumi.set(__self__, "aggressive_mode_config", aggressive_mode_config)
+        if drain_failure_config is not None:
+            pulumi.set(__self__, "drain_failure_config", drain_failure_config)
+        if execution_conditions is not None:
+            pulumi.set(__self__, "execution_conditions", execution_conditions)
+        if keep_drain_timeout_nodes is not None:
+            pulumi.set(__self__, "keep_drain_timeout_nodes", keep_drain_timeout_nodes)
+        if node_ttl_seconds is not None:
+            pulumi.set(__self__, "node_ttl_seconds", node_ttl_seconds)
+        if num_targeted_nodes is not None:
+            pulumi.set(__self__, "num_targeted_nodes", num_targeted_nodes)
+        if rebalancing_min_nodes is not None:
+            pulumi.set(__self__, "rebalancing_min_nodes", rebalancing_min_nodes)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if target_node_selection_algorithm is not None:
+            pulumi.set(__self__, "target_node_selection_algorithm", target_node_selection_algorithm)
+
+    @_builtins.property
+    @pulumi.getter(name="aggressiveMode")
+    @_utilities.deprecated("""For equivalent behaviour use aggresive_mode_config = {ignore_local_persistent_volumes = true, ignore_problem_job_pods = true, ignore_problem_removal_disabled_pods = true, ignore_problem_pods_without_controller = true}""")
+    def aggressive_mode(self) -> Optional[_builtins.bool]:
+        """
+        Deprecated: Use aggressive_mode_config instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+        """
+        return pulumi.get(self, "aggressive_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="aggressiveModeConfig")
+    def aggressive_mode_config(self) -> Optional['outputs.GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigResult']:
+        """
+        Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressive_mode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressive_mode` is set to `true`, it takes precedence over this option.
+        """
+        return pulumi.get(self, "aggressive_mode_config")
+
+    @_builtins.property
+    @pulumi.getter(name="drainFailureConfig")
+    def drain_failure_config(self) -> Optional['outputs.GetRebalancingScheduleLaunchConfigurationDrainFailureConfigResult']:
+        """
+        Configures behavior when a node fails to drain during rebalancing. Relevant only when `keep_drain_timeout_nodes` is true.
+        """
+        return pulumi.get(self, "drain_failure_config")
+
+    @_builtins.property
+    @pulumi.getter(name="executionConditions")
+    def execution_conditions(self) -> Optional['outputs.GetRebalancingScheduleLaunchConfigurationExecutionConditionsResult']:
+        return pulumi.get(self, "execution_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="keepDrainTimeoutNodes")
+    def keep_drain_timeout_nodes(self) -> Optional[_builtins.bool]:
+        """
+        Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
+        """
+        return pulumi.get(self, "keep_drain_timeout_nodes")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeTtlSeconds")
+    def node_ttl_seconds(self) -> Optional[_builtins.int]:
+        """
+        Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
+        """
+        return pulumi.get(self, "node_ttl_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="numTargetedNodes")
+    def num_targeted_nodes(self) -> Optional[_builtins.int]:
+        """
+        Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
+        """
+        return pulumi.get(self, "num_targeted_nodes")
+
+    @_builtins.property
+    @pulumi.getter(name="rebalancingMinNodes")
+    def rebalancing_min_nodes(self) -> Optional[_builtins.int]:
+        """
+        Minimum number of nodes that should be kept in the cluster after rebalancing.
+        """
+        return pulumi.get(self, "rebalancing_min_nodes")
+
+    @_builtins.property
+    @pulumi.getter
+    def selector(self) -> Optional[_builtins.str]:
+        """
+        Node selector in JSON format.
+        """
+        return pulumi.get(self, "selector")
+
+    @_builtins.property
+    @pulumi.getter(name="targetNodeSelectionAlgorithm")
+    def target_node_selection_algorithm(self) -> Optional[_builtins.str]:
+        """
+        Defines the algorithm used to select the target nodes for rebalancing.
+        """
+        return pulumi.get(self, "target_node_selection_algorithm")
+
+
+@pulumi.output_type
+class GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigResult(dict):
+    def __init__(__self__, *,
+                 ignore_local_persistent_volumes: _builtins.bool,
+                 ignore_problem_job_pods: _builtins.bool,
+                 ignore_problem_pods_without_controller: _builtins.bool,
+                 ignore_problem_removal_disabled_pods: _builtins.bool):
+        """
+        :param _builtins.bool ignore_local_persistent_volumes: Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
+        :param _builtins.bool ignore_problem_job_pods: Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
+        :param _builtins.bool ignore_problem_pods_without_controller: Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
+        :param _builtins.bool ignore_problem_removal_disabled_pods: Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
+        """
+        pulumi.set(__self__, "ignore_local_persistent_volumes", ignore_local_persistent_volumes)
+        pulumi.set(__self__, "ignore_problem_job_pods", ignore_problem_job_pods)
+        pulumi.set(__self__, "ignore_problem_pods_without_controller", ignore_problem_pods_without_controller)
+        pulumi.set(__self__, "ignore_problem_removal_disabled_pods", ignore_problem_removal_disabled_pods)
+
+    @_builtins.property
+    @pulumi.getter(name="ignoreLocalPersistentVolumes")
+    def ignore_local_persistent_volumes(self) -> _builtins.bool:
+        """
+        Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
+        """
+        return pulumi.get(self, "ignore_local_persistent_volumes")
+
+    @_builtins.property
+    @pulumi.getter(name="ignoreProblemJobPods")
+    def ignore_problem_job_pods(self) -> _builtins.bool:
+        """
+        Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
+        """
+        return pulumi.get(self, "ignore_problem_job_pods")
+
+    @_builtins.property
+    @pulumi.getter(name="ignoreProblemPodsWithoutController")
+    def ignore_problem_pods_without_controller(self) -> _builtins.bool:
+        """
+        Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
+        """
+        return pulumi.get(self, "ignore_problem_pods_without_controller")
+
+    @_builtins.property
+    @pulumi.getter(name="ignoreProblemRemovalDisabledPods")
+    def ignore_problem_removal_disabled_pods(self) -> _builtins.bool:
+        """
+        Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
+        """
+        return pulumi.get(self, "ignore_problem_removal_disabled_pods")
+
+
+@pulumi.output_type
+class GetRebalancingScheduleLaunchConfigurationDrainFailureConfigResult(dict):
+    def __init__(__self__, *,
+                 disable_uncordon: Optional[_builtins.bool] = None,
+                 uncordon_after_seconds: Optional[_builtins.int] = None):
+        """
+        :param _builtins.bool disable_uncordon: When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+        :param _builtins.int uncordon_after_seconds: Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disable_uncordon` is true.
+        """
+        if disable_uncordon is not None:
+            pulumi.set(__self__, "disable_uncordon", disable_uncordon)
+        if uncordon_after_seconds is not None:
+            pulumi.set(__self__, "uncordon_after_seconds", uncordon_after_seconds)
+
+    @_builtins.property
+    @pulumi.getter(name="disableUncordon")
+    def disable_uncordon(self) -> Optional[_builtins.bool]:
+        """
+        When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+        """
+        return pulumi.get(self, "disable_uncordon")
+
+    @_builtins.property
+    @pulumi.getter(name="uncordonAfterSeconds")
+    def uncordon_after_seconds(self) -> Optional[_builtins.int]:
+        """
+        Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disable_uncordon` is true.
+        """
+        return pulumi.get(self, "uncordon_after_seconds")
+
+
+@pulumi.output_type
+class GetRebalancingScheduleLaunchConfigurationExecutionConditionsResult(dict):
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 achieved_savings_percentage: Optional[_builtins.int] = None):
+        """
+        :param _builtins.bool enabled: Enables or disables the execution conditions.
+        :param _builtins.int achieved_savings_percentage: The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        if achieved_savings_percentage is not None:
+            pulumi.set(__self__, "achieved_savings_percentage", achieved_savings_percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Enables or disables the execution conditions.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="achievedSavingsPercentage")
+    def achieved_savings_percentage(self) -> Optional[_builtins.int]:
+        """
+        The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
+        """
+        return pulumi.get(self, "achieved_savings_percentage")
+
+
+@pulumi.output_type
+class GetRebalancingScheduleScheduleResult(dict):
+    def __init__(__self__, *,
+                 cron: _builtins.str):
+        """
+        :param _builtins.str cron: Cron expression defining when the schedule should trigger.
+               
+                 The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+               
+                 Example:
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
+               ```
+                 In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+               
+                 To retrieve a list of available timezone values, you can use the following API endpoint:
+               
+                 GET https://api.cast.ai/v1/time-zones
+               
+                 When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+        """
+        pulumi.set(__self__, "cron", cron)
+
+    @_builtins.property
+    @pulumi.getter
+    def cron(self) -> _builtins.str:
+        """
+        Cron expression defining when the schedule should trigger.
+
+          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+
+          Example:
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
+        ```
+          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+
+          To retrieve a list of available timezone values, you can use the following API endpoint:
+
+          GET https://api.cast.ai/v1/time-zones
+
+          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+        """
+        return pulumi.get(self, "cron")
+
+
+@pulumi.output_type
+class GetRebalancingScheduleTriggerConditionResult(dict):
     def __init__(__self__, *,
                  savings_percentage: _builtins.float,
                  ignore_savings: Optional[_builtins.bool] = None):

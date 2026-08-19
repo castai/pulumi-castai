@@ -21,17 +21,22 @@ __all__ = ['SSOConnectionArgs', 'SSOConnection']
 class SSOConnectionArgs:
     def __init__(__self__, *,
                  email_domain: pulumi.Input[_builtins.str],
-                 aad: Optional[pulumi.Input['_organization.SSOConnectionAadArgs']] = None,
-                 additional_email_domains: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 okta: Optional[pulumi.Input['_organization.SSOConnectionOktaArgs']] = None):
+                 aad: pulumi.Input[Optional['_organization.SSOConnectionAadArgs']] = None,
+                 additional_email_domains: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 oidc: pulumi.Input[Optional['_organization.SSOConnectionOidcArgs']] = None,
+                 okta: pulumi.Input[Optional['_organization.SSOConnectionOktaArgs']] = None,
+                 synchronize_user_groups: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a SSOConnection resource.
+
         :param pulumi.Input[_builtins.str] email_domain: Email domain of the connection
         :param pulumi.Input['_organization.SSOConnectionAadArgs'] aad: Azure AD connector
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] additional_email_domains: Additional email domains that will be allowed to sign in via the connection
         :param pulumi.Input[_builtins.str] name: Connection name
+        :param pulumi.Input['_organization.SSOConnectionOidcArgs'] oidc: OIDC connector (e.g. Keycloak)
         :param pulumi.Input['_organization.SSOConnectionOktaArgs'] okta: Okta connector
+        :param pulumi.Input[_builtins.bool] synchronize_user_groups: When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
         """
         pulumi.set(__self__, "email_domain", email_domain)
         if aad is not None:
@@ -40,8 +45,12 @@ class SSOConnectionArgs:
             pulumi.set(__self__, "additional_email_domains", additional_email_domains)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if oidc is not None:
+            pulumi.set(__self__, "oidc", oidc)
         if okta is not None:
             pulumi.set(__self__, "okta", okta)
+        if synchronize_user_groups is not None:
+            pulumi.set(__self__, "synchronize_user_groups", synchronize_user_groups)
 
     @_builtins.property
     @pulumi.getter(name="emailDomain")
@@ -57,68 +66,99 @@ class SSOConnectionArgs:
 
     @_builtins.property
     @pulumi.getter
-    def aad(self) -> Optional[pulumi.Input['_organization.SSOConnectionAadArgs']]:
+    def aad(self) -> pulumi.Input[Optional['_organization.SSOConnectionAadArgs']]:
         """
         Azure AD connector
         """
         return pulumi.get(self, "aad")
 
     @aad.setter
-    def aad(self, value: Optional[pulumi.Input['_organization.SSOConnectionAadArgs']]):
+    def aad(self, value: pulumi.Input[Optional['_organization.SSOConnectionAadArgs']]):
         pulumi.set(self, "aad", value)
 
     @_builtins.property
     @pulumi.getter(name="additionalEmailDomains")
-    def additional_email_domains(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def additional_email_domains(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Additional email domains that will be allowed to sign in via the connection
         """
         return pulumi.get(self, "additional_email_domains")
 
     @additional_email_domains.setter
-    def additional_email_domains(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def additional_email_domains(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "additional_email_domains", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Connection name
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def okta(self) -> Optional[pulumi.Input['_organization.SSOConnectionOktaArgs']]:
+    def oidc(self) -> pulumi.Input[Optional['_organization.SSOConnectionOidcArgs']]:
+        """
+        OIDC connector (e.g. Keycloak)
+        """
+        return pulumi.get(self, "oidc")
+
+    @oidc.setter
+    def oidc(self, value: pulumi.Input[Optional['_organization.SSOConnectionOidcArgs']]):
+        pulumi.set(self, "oidc", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def okta(self) -> pulumi.Input[Optional['_organization.SSOConnectionOktaArgs']]:
         """
         Okta connector
         """
         return pulumi.get(self, "okta")
 
     @okta.setter
-    def okta(self, value: Optional[pulumi.Input['_organization.SSOConnectionOktaArgs']]):
+    def okta(self, value: pulumi.Input[Optional['_organization.SSOConnectionOktaArgs']]):
         pulumi.set(self, "okta", value)
+
+    @_builtins.property
+    @pulumi.getter(name="synchronizeUserGroups")
+    def synchronize_user_groups(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+        """
+        return pulumi.get(self, "synchronize_user_groups")
+
+    @synchronize_user_groups.setter
+    def synchronize_user_groups(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "synchronize_user_groups", value)
 
 
 @pulumi.input_type
 class _SSOConnectionState:
     def __init__(__self__, *,
-                 aad: Optional[pulumi.Input['_organization.SSOConnectionAadArgs']] = None,
-                 additional_email_domains: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 email_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 okta: Optional[pulumi.Input['_organization.SSOConnectionOktaArgs']] = None):
+                 aad: pulumi.Input[Optional['_organization.SSOConnectionAadArgs']] = None,
+                 additional_email_domains: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 email_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 oidc: pulumi.Input[Optional['_organization.SSOConnectionOidcArgs']] = None,
+                 okta: pulumi.Input[Optional['_organization.SSOConnectionOktaArgs']] = None,
+                 sync_auth_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 synchronize_user_groups: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering SSOConnection resources.
+
         :param pulumi.Input['_organization.SSOConnectionAadArgs'] aad: Azure AD connector
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] additional_email_domains: Additional email domains that will be allowed to sign in via the connection
         :param pulumi.Input[_builtins.str] email_domain: Email domain of the connection
         :param pulumi.Input[_builtins.str] name: Connection name
+        :param pulumi.Input['_organization.SSOConnectionOidcArgs'] oidc: OIDC connector (e.g. Keycloak)
         :param pulumi.Input['_organization.SSOConnectionOktaArgs'] okta: Okta connector
+        :param pulumi.Input[_builtins.str] sync_auth_token: Auth token generated when synchronize_user_groups is enabled. Only populated on the transition from false to true.
+        :param pulumi.Input[_builtins.bool] synchronize_user_groups: When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
         """
         if aad is not None:
             pulumi.set(__self__, "aad", aad)
@@ -128,68 +168,110 @@ class _SSOConnectionState:
             pulumi.set(__self__, "email_domain", email_domain)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if oidc is not None:
+            pulumi.set(__self__, "oidc", oidc)
         if okta is not None:
             pulumi.set(__self__, "okta", okta)
+        if sync_auth_token is not None:
+            pulumi.set(__self__, "sync_auth_token", sync_auth_token)
+        if synchronize_user_groups is not None:
+            pulumi.set(__self__, "synchronize_user_groups", synchronize_user_groups)
 
     @_builtins.property
     @pulumi.getter
-    def aad(self) -> Optional[pulumi.Input['_organization.SSOConnectionAadArgs']]:
+    def aad(self) -> pulumi.Input[Optional['_organization.SSOConnectionAadArgs']]:
         """
         Azure AD connector
         """
         return pulumi.get(self, "aad")
 
     @aad.setter
-    def aad(self, value: Optional[pulumi.Input['_organization.SSOConnectionAadArgs']]):
+    def aad(self, value: pulumi.Input[Optional['_organization.SSOConnectionAadArgs']]):
         pulumi.set(self, "aad", value)
 
     @_builtins.property
     @pulumi.getter(name="additionalEmailDomains")
-    def additional_email_domains(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def additional_email_domains(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Additional email domains that will be allowed to sign in via the connection
         """
         return pulumi.get(self, "additional_email_domains")
 
     @additional_email_domains.setter
-    def additional_email_domains(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def additional_email_domains(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "additional_email_domains", value)
 
     @_builtins.property
     @pulumi.getter(name="emailDomain")
-    def email_domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def email_domain(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Email domain of the connection
         """
         return pulumi.get(self, "email_domain")
 
     @email_domain.setter
-    def email_domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def email_domain(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "email_domain", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Connection name
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def okta(self) -> Optional[pulumi.Input['_organization.SSOConnectionOktaArgs']]:
+    def oidc(self) -> pulumi.Input[Optional['_organization.SSOConnectionOidcArgs']]:
+        """
+        OIDC connector (e.g. Keycloak)
+        """
+        return pulumi.get(self, "oidc")
+
+    @oidc.setter
+    def oidc(self, value: pulumi.Input[Optional['_organization.SSOConnectionOidcArgs']]):
+        pulumi.set(self, "oidc", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def okta(self) -> pulumi.Input[Optional['_organization.SSOConnectionOktaArgs']]:
         """
         Okta connector
         """
         return pulumi.get(self, "okta")
 
     @okta.setter
-    def okta(self, value: Optional[pulumi.Input['_organization.SSOConnectionOktaArgs']]):
+    def okta(self, value: pulumi.Input[Optional['_organization.SSOConnectionOktaArgs']]):
         pulumi.set(self, "okta", value)
+
+    @_builtins.property
+    @pulumi.getter(name="syncAuthToken")
+    def sync_auth_token(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Auth token generated when synchronize_user_groups is enabled. Only populated on the transition from false to true.
+        """
+        return pulumi.get(self, "sync_auth_token")
+
+    @sync_auth_token.setter
+    def sync_auth_token(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "sync_auth_token", value)
+
+    @_builtins.property
+    @pulumi.getter(name="synchronizeUserGroups")
+    def synchronize_user_groups(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+        """
+        return pulumi.get(self, "synchronize_user_groups")
+
+    @synchronize_user_groups.setter
+    def synchronize_user_groups(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "synchronize_user_groups", value)
 
 
 @pulumi.type_token("castai:organization:SSOConnection")
@@ -198,21 +280,26 @@ class SSOConnection(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 aad: Optional[pulumi.Input[Union['_organization.SSOConnectionAadArgs', '_organization.SSOConnectionAadArgsDict']]] = None,
-                 additional_email_domains: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 email_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 okta: Optional[pulumi.Input[Union['_organization.SSOConnectionOktaArgs', '_organization.SSOConnectionOktaArgsDict']]] = None,
+                 aad: pulumi.Input[Optional[Union['_organization.SSOConnectionAadArgs', '_organization.SSOConnectionAadArgsDict']]] = None,
+                 additional_email_domains: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 email_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 oidc: pulumi.Input[Optional[Union['_organization.SSOConnectionOidcArgs', '_organization.SSOConnectionOidcArgsDict']]] = None,
+                 okta: pulumi.Input[Optional[Union['_organization.SSOConnectionOktaArgs', '_organization.SSOConnectionOktaArgsDict']]] = None,
+                 synchronize_user_groups: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         Create a SSOConnection resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Union['_organization.SSOConnectionAadArgs', '_organization.SSOConnectionAadArgsDict']] aad: Azure AD connector
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] additional_email_domains: Additional email domains that will be allowed to sign in via the connection
         :param pulumi.Input[_builtins.str] email_domain: Email domain of the connection
         :param pulumi.Input[_builtins.str] name: Connection name
+        :param pulumi.Input[Union['_organization.SSOConnectionOidcArgs', '_organization.SSOConnectionOidcArgsDict']] oidc: OIDC connector (e.g. Keycloak)
         :param pulumi.Input[Union['_organization.SSOConnectionOktaArgs', '_organization.SSOConnectionOktaArgsDict']] okta: Okta connector
+        :param pulumi.Input[_builtins.bool] synchronize_user_groups: When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
         """
         ...
     @overload
@@ -222,6 +309,7 @@ class SSOConnection(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a SSOConnection resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param SSOConnectionArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -237,11 +325,13 @@ class SSOConnection(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 aad: Optional[pulumi.Input[Union['_organization.SSOConnectionAadArgs', '_organization.SSOConnectionAadArgsDict']]] = None,
-                 additional_email_domains: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 email_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 okta: Optional[pulumi.Input[Union['_organization.SSOConnectionOktaArgs', '_organization.SSOConnectionOktaArgsDict']]] = None,
+                 aad: pulumi.Input[Optional[Union['_organization.SSOConnectionAadArgs', '_organization.SSOConnectionAadArgsDict']]] = None,
+                 additional_email_domains: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 email_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 oidc: pulumi.Input[Optional[Union['_organization.SSOConnectionOidcArgs', '_organization.SSOConnectionOidcArgsDict']]] = None,
+                 okta: pulumi.Input[Optional[Union['_organization.SSOConnectionOktaArgs', '_organization.SSOConnectionOktaArgsDict']]] = None,
+                 synchronize_user_groups: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -257,7 +347,12 @@ class SSOConnection(pulumi.CustomResource):
                 raise TypeError("Missing required property 'email_domain'")
             __props__.__dict__["email_domain"] = email_domain
             __props__.__dict__["name"] = name
+            __props__.__dict__["oidc"] = oidc
             __props__.__dict__["okta"] = okta
+            __props__.__dict__["synchronize_user_groups"] = synchronize_user_groups
+            __props__.__dict__["sync_auth_token"] = None
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["syncAuthToken"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(SSOConnection, __self__).__init__(
             'castai:organization:SSOConnection',
             resource_name,
@@ -268,11 +363,14 @@ class SSOConnection(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            aad: Optional[pulumi.Input[Union['_organization.SSOConnectionAadArgs', '_organization.SSOConnectionAadArgsDict']]] = None,
-            additional_email_domains: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            email_domain: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            okta: Optional[pulumi.Input[Union['_organization.SSOConnectionOktaArgs', '_organization.SSOConnectionOktaArgsDict']]] = None) -> 'SSOConnection':
+            aad: pulumi.Input[Optional[Union['_organization.SSOConnectionAadArgs', '_organization.SSOConnectionAadArgsDict']]] = None,
+            additional_email_domains: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            email_domain: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            oidc: pulumi.Input[Optional[Union['_organization.SSOConnectionOidcArgs', '_organization.SSOConnectionOidcArgsDict']]] = None,
+            okta: pulumi.Input[Optional[Union['_organization.SSOConnectionOktaArgs', '_organization.SSOConnectionOktaArgsDict']]] = None,
+            sync_auth_token: pulumi.Input[Optional[_builtins.str]] = None,
+            synchronize_user_groups: pulumi.Input[Optional[_builtins.bool]] = None) -> 'SSOConnection':
         """
         Get an existing SSOConnection resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -284,7 +382,10 @@ class SSOConnection(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] additional_email_domains: Additional email domains that will be allowed to sign in via the connection
         :param pulumi.Input[_builtins.str] email_domain: Email domain of the connection
         :param pulumi.Input[_builtins.str] name: Connection name
+        :param pulumi.Input[Union['_organization.SSOConnectionOidcArgs', '_organization.SSOConnectionOidcArgsDict']] oidc: OIDC connector (e.g. Keycloak)
         :param pulumi.Input[Union['_organization.SSOConnectionOktaArgs', '_organization.SSOConnectionOktaArgsDict']] okta: Okta connector
+        :param pulumi.Input[_builtins.str] sync_auth_token: Auth token generated when synchronize_user_groups is enabled. Only populated on the transition from false to true.
+        :param pulumi.Input[_builtins.bool] synchronize_user_groups: When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -294,7 +395,10 @@ class SSOConnection(pulumi.CustomResource):
         __props__.__dict__["additional_email_domains"] = additional_email_domains
         __props__.__dict__["email_domain"] = email_domain
         __props__.__dict__["name"] = name
+        __props__.__dict__["oidc"] = oidc
         __props__.__dict__["okta"] = okta
+        __props__.__dict__["sync_auth_token"] = sync_auth_token
+        __props__.__dict__["synchronize_user_groups"] = synchronize_user_groups
         return SSOConnection(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -331,9 +435,33 @@ class SSOConnection(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
+    def oidc(self) -> pulumi.Output[Optional['_organization.outputs.SSOConnectionOidc']]:
+        """
+        OIDC connector (e.g. Keycloak)
+        """
+        return pulumi.get(self, "oidc")
+
+    @_builtins.property
+    @pulumi.getter
     def okta(self) -> pulumi.Output[Optional['_organization.outputs.SSOConnectionOkta']]:
         """
         Okta connector
         """
         return pulumi.get(self, "okta")
+
+    @_builtins.property
+    @pulumi.getter(name="syncAuthToken")
+    def sync_auth_token(self) -> pulumi.Output[_builtins.str]:
+        """
+        Auth token generated when synchronize_user_groups is enabled. Only populated on the transition from false to true.
+        """
+        return pulumi.get(self, "sync_auth_token")
+
+    @_builtins.property
+    @pulumi.getter(name="synchronizeUserGroups")
+    def synchronize_user_groups(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+        """
+        return pulumi.get(self, "synchronize_user_groups")
 

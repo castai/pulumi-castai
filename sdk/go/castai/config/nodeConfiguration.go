@@ -37,7 +37,8 @@ type NodeConfiguration struct {
 	KubeletConfig pulumi.StringPtrOutput `pulumi:"kubeletConfig"`
 	// Minimal disk size in GiB. Defaults to 100, min 30, max 65536
 	MinDiskSize pulumi.IntPtrOutput `pulumi:"minDiskSize"`
-	Name        pulumi.StringOutput `pulumi:"name"`
+	// Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+	Name pulumi.StringOutput `pulumi:"name"`
 	// SSH public key to be used for provisioned nodes
 	SshPublicKey pulumi.StringPtrOutput `pulumi:"sshPublicKey"`
 	// Subnet ids to be used for provisioned nodes
@@ -103,8 +104,9 @@ type nodeConfigurationState struct {
 	// Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
 	KubeletConfig *string `pulumi:"kubeletConfig"`
 	// Minimal disk size in GiB. Defaults to 100, min 30, max 65536
-	MinDiskSize *int    `pulumi:"minDiskSize"`
-	Name        *string `pulumi:"name"`
+	MinDiskSize *int `pulumi:"minDiskSize"`
+	// Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+	Name *string `pulumi:"name"`
 	// SSH public key to be used for provisioned nodes
 	SshPublicKey *string `pulumi:"sshPublicKey"`
 	// Subnet ids to be used for provisioned nodes
@@ -136,7 +138,8 @@ type NodeConfigurationState struct {
 	KubeletConfig pulumi.StringPtrInput
 	// Minimal disk size in GiB. Defaults to 100, min 30, max 65536
 	MinDiskSize pulumi.IntPtrInput
-	Name        pulumi.StringPtrInput
+	// Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+	Name pulumi.StringPtrInput
 	// SSH public key to be used for provisioned nodes
 	SshPublicKey pulumi.StringPtrInput
 	// Subnet ids to be used for provisioned nodes
@@ -171,8 +174,9 @@ type nodeConfigurationArgs struct {
 	// Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
 	KubeletConfig *string `pulumi:"kubeletConfig"`
 	// Minimal disk size in GiB. Defaults to 100, min 30, max 65536
-	MinDiskSize *int    `pulumi:"minDiskSize"`
-	Name        *string `pulumi:"name"`
+	MinDiskSize *int `pulumi:"minDiskSize"`
+	// Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+	Name *string `pulumi:"name"`
 	// SSH public key to be used for provisioned nodes
 	SshPublicKey *string `pulumi:"sshPublicKey"`
 	// Subnet ids to be used for provisioned nodes
@@ -205,7 +209,8 @@ type NodeConfigurationArgs struct {
 	KubeletConfig pulumi.StringPtrInput
 	// Minimal disk size in GiB. Defaults to 100, min 30, max 65536
 	MinDiskSize pulumi.IntPtrInput
-	Name        pulumi.StringPtrInput
+	// Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+	Name pulumi.StringPtrInput
 	// SSH public key to be used for provisioned nodes
 	SshPublicKey pulumi.StringPtrInput
 	// Subnet ids to be used for provisioned nodes
@@ -362,6 +367,7 @@ func (o NodeConfigurationOutput) MinDiskSize() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *NodeConfiguration) pulumi.IntPtrOutput { return v.MinDiskSize }).(pulumi.IntPtrOutput)
 }
 
+// Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
 func (o NodeConfigurationOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *NodeConfiguration) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }

@@ -34,9 +34,21 @@ export declare class SSOConnection extends pulumi.CustomResource {
      */
     readonly name: pulumi.Output<string>;
     /**
+     * OIDC connector (e.g. Keycloak)
+     */
+    readonly oidc: pulumi.Output<outputs.organization.SSOConnectionOidc | undefined>;
+    /**
      * Okta connector
      */
     readonly okta: pulumi.Output<outputs.organization.SSOConnectionOkta | undefined>;
+    /**
+     * Auth token generated when synchronizeUserGroups is enabled. Only populated on the transition from false to true.
+     */
+    readonly syncAuthToken: pulumi.Output<string>;
+    /**
+     * When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+     */
+    readonly synchronizeUserGroups: pulumi.Output<boolean | undefined>;
     /**
      * Create a SSOConnection resource with the given unique name, arguments, and options.
      *
@@ -53,23 +65,35 @@ export interface SSOConnectionState {
     /**
      * Azure AD connector
      */
-    aad?: pulumi.Input<inputs.organization.SSOConnectionAad>;
+    aad?: pulumi.Input<inputs.organization.SSOConnectionAad | undefined>;
     /**
      * Additional email domains that will be allowed to sign in via the connection
      */
-    additionalEmailDomains?: pulumi.Input<pulumi.Input<string>[]>;
+    additionalEmailDomains?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Email domain of the connection
      */
-    emailDomain?: pulumi.Input<string>;
+    emailDomain?: pulumi.Input<string | undefined>;
     /**
      * Connection name
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * OIDC connector (e.g. Keycloak)
+     */
+    oidc?: pulumi.Input<inputs.organization.SSOConnectionOidc | undefined>;
     /**
      * Okta connector
      */
-    okta?: pulumi.Input<inputs.organization.SSOConnectionOkta>;
+    okta?: pulumi.Input<inputs.organization.SSOConnectionOkta | undefined>;
+    /**
+     * Auth token generated when synchronizeUserGroups is enabled. Only populated on the transition from false to true.
+     */
+    syncAuthToken?: pulumi.Input<string | undefined>;
+    /**
+     * When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+     */
+    synchronizeUserGroups?: pulumi.Input<boolean | undefined>;
 }
 /**
  * The set of arguments for constructing a SSOConnection resource.
@@ -78,11 +102,11 @@ export interface SSOConnectionArgs {
     /**
      * Azure AD connector
      */
-    aad?: pulumi.Input<inputs.organization.SSOConnectionAad>;
+    aad?: pulumi.Input<inputs.organization.SSOConnectionAad | undefined>;
     /**
      * Additional email domains that will be allowed to sign in via the connection
      */
-    additionalEmailDomains?: pulumi.Input<pulumi.Input<string>[]>;
+    additionalEmailDomains?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Email domain of the connection
      */
@@ -90,9 +114,18 @@ export interface SSOConnectionArgs {
     /**
      * Connection name
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * OIDC connector (e.g. Keycloak)
+     */
+    oidc?: pulumi.Input<inputs.organization.SSOConnectionOidc | undefined>;
     /**
      * Okta connector
      */
-    okta?: pulumi.Input<inputs.organization.SSOConnectionOkta>;
+    okta?: pulumi.Input<inputs.organization.SSOConnectionOkta | undefined>;
+    /**
+     * When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+     */
+    synchronizeUserGroups?: pulumi.Input<boolean | undefined>;
 }
+//# sourceMappingURL=ssoconnection.d.ts.map

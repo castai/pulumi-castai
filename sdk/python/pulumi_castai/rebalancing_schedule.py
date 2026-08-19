@@ -23,9 +23,10 @@ class RebalancingScheduleArgs:
                  launch_configuration: pulumi.Input['_rebalancing.RebalancingScheduleLaunchConfigurationArgs'],
                  schedule: pulumi.Input['_rebalancing.RebalancingScheduleScheduleArgs'],
                  trigger_conditions: pulumi.Input['_rebalancing.RebalancingScheduleTriggerConditionsArgs'],
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a RebalancingSchedule resource.
+
         :param pulumi.Input[_builtins.str] name: Name of the schedule.
         """
         pulumi.set(__self__, "launch_configuration", launch_configuration)
@@ -63,26 +64,27 @@ class RebalancingScheduleArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the schedule.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
 class _RebalancingScheduleState:
     def __init__(__self__, *,
-                 launch_configuration: Optional[pulumi.Input['_rebalancing.RebalancingScheduleLaunchConfigurationArgs']] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 schedule: Optional[pulumi.Input['_rebalancing.RebalancingScheduleScheduleArgs']] = None,
-                 trigger_conditions: Optional[pulumi.Input['_rebalancing.RebalancingScheduleTriggerConditionsArgs']] = None):
+                 launch_configuration: pulumi.Input[Optional['_rebalancing.RebalancingScheduleLaunchConfigurationArgs']] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 schedule: pulumi.Input[Optional['_rebalancing.RebalancingScheduleScheduleArgs']] = None,
+                 trigger_conditions: pulumi.Input[Optional['_rebalancing.RebalancingScheduleTriggerConditionsArgs']] = None):
         """
         Input properties used for looking up and filtering RebalancingSchedule resources.
+
         :param pulumi.Input[_builtins.str] name: Name of the schedule.
         """
         if launch_configuration is not None:
@@ -96,41 +98,41 @@ class _RebalancingScheduleState:
 
     @_builtins.property
     @pulumi.getter(name="launchConfiguration")
-    def launch_configuration(self) -> Optional[pulumi.Input['_rebalancing.RebalancingScheduleLaunchConfigurationArgs']]:
+    def launch_configuration(self) -> pulumi.Input[Optional['_rebalancing.RebalancingScheduleLaunchConfigurationArgs']]:
         return pulumi.get(self, "launch_configuration")
 
     @launch_configuration.setter
-    def launch_configuration(self, value: Optional[pulumi.Input['_rebalancing.RebalancingScheduleLaunchConfigurationArgs']]):
+    def launch_configuration(self, value: pulumi.Input[Optional['_rebalancing.RebalancingScheduleLaunchConfigurationArgs']]):
         pulumi.set(self, "launch_configuration", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the schedule.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def schedule(self) -> Optional[pulumi.Input['_rebalancing.RebalancingScheduleScheduleArgs']]:
+    def schedule(self) -> pulumi.Input[Optional['_rebalancing.RebalancingScheduleScheduleArgs']]:
         return pulumi.get(self, "schedule")
 
     @schedule.setter
-    def schedule(self, value: Optional[pulumi.Input['_rebalancing.RebalancingScheduleScheduleArgs']]):
+    def schedule(self, value: pulumi.Input[Optional['_rebalancing.RebalancingScheduleScheduleArgs']]):
         pulumi.set(self, "schedule", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerConditions")
-    def trigger_conditions(self) -> Optional[pulumi.Input['_rebalancing.RebalancingScheduleTriggerConditionsArgs']]:
+    def trigger_conditions(self) -> pulumi.Input[Optional['_rebalancing.RebalancingScheduleTriggerConditionsArgs']]:
         return pulumi.get(self, "trigger_conditions")
 
     @trigger_conditions.setter
-    def trigger_conditions(self, value: Optional[pulumi.Input['_rebalancing.RebalancingScheduleTriggerConditionsArgs']]):
+    def trigger_conditions(self, value: pulumi.Input[Optional['_rebalancing.RebalancingScheduleTriggerConditionsArgs']]):
         pulumi.set(self, "trigger_conditions", value)
 
 
@@ -140,13 +142,14 @@ class RebalancingSchedule(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 launch_configuration: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleLaunchConfigurationArgs', '_rebalancing.RebalancingScheduleLaunchConfigurationArgsDict']]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 schedule: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleScheduleArgs', '_rebalancing.RebalancingScheduleScheduleArgsDict']]] = None,
-                 trigger_conditions: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleTriggerConditionsArgs', '_rebalancing.RebalancingScheduleTriggerConditionsArgsDict']]] = None,
+                 launch_configuration: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleLaunchConfigurationArgs', '_rebalancing.RebalancingScheduleLaunchConfigurationArgsDict']]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 schedule: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleScheduleArgs', '_rebalancing.RebalancingScheduleScheduleArgsDict']]] = None,
+                 trigger_conditions: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleTriggerConditionsArgs', '_rebalancing.RebalancingScheduleTriggerConditionsArgsDict']]] = None,
                  __props__=None):
         """
         Create a RebalancingSchedule resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: Name of the schedule.
@@ -159,6 +162,7 @@ class RebalancingSchedule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a RebalancingSchedule resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param RebalancingScheduleArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -174,10 +178,10 @@ class RebalancingSchedule(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 launch_configuration: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleLaunchConfigurationArgs', '_rebalancing.RebalancingScheduleLaunchConfigurationArgsDict']]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 schedule: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleScheduleArgs', '_rebalancing.RebalancingScheduleScheduleArgsDict']]] = None,
-                 trigger_conditions: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleTriggerConditionsArgs', '_rebalancing.RebalancingScheduleTriggerConditionsArgsDict']]] = None,
+                 launch_configuration: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleLaunchConfigurationArgs', '_rebalancing.RebalancingScheduleLaunchConfigurationArgsDict']]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 schedule: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleScheduleArgs', '_rebalancing.RebalancingScheduleScheduleArgsDict']]] = None,
+                 trigger_conditions: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleTriggerConditionsArgs', '_rebalancing.RebalancingScheduleTriggerConditionsArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -207,10 +211,10 @@ class RebalancingSchedule(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            launch_configuration: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleLaunchConfigurationArgs', '_rebalancing.RebalancingScheduleLaunchConfigurationArgsDict']]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            schedule: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleScheduleArgs', '_rebalancing.RebalancingScheduleScheduleArgsDict']]] = None,
-            trigger_conditions: Optional[pulumi.Input[Union['_rebalancing.RebalancingScheduleTriggerConditionsArgs', '_rebalancing.RebalancingScheduleTriggerConditionsArgsDict']]] = None) -> 'RebalancingSchedule':
+            launch_configuration: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleLaunchConfigurationArgs', '_rebalancing.RebalancingScheduleLaunchConfigurationArgsDict']]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            schedule: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleScheduleArgs', '_rebalancing.RebalancingScheduleScheduleArgsDict']]] = None,
+            trigger_conditions: pulumi.Input[Optional[Union['_rebalancing.RebalancingScheduleTriggerConditionsArgs', '_rebalancing.RebalancingScheduleTriggerConditionsArgsDict']]] = None) -> 'RebalancingSchedule':
         """
         Get an existing RebalancingSchedule resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

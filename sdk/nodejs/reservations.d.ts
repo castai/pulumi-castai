@@ -42,12 +42,12 @@ export interface ReservationsState {
     /**
      * organization
      */
-    organizationId?: pulumi.Input<string>;
-    reservations?: pulumi.Input<pulumi.Input<inputs.ReservationsReservation>[]>;
+    organizationId?: pulumi.Input<string | undefined>;
+    reservations?: pulumi.Input<pulumi.Input<inputs.ReservationsReservation>[] | undefined>;
     /**
      * csv file containing reservations
      */
-    reservationsCsv?: pulumi.Input<string>;
+    reservationsCsv?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a Reservations resource.
@@ -56,9 +56,10 @@ export interface ReservationsArgs {
     /**
      * organization
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * csv file containing reservations
      */
     reservationsCsv: pulumi.Input<string>;
 }
+//# sourceMappingURL=reservations.d.ts.map

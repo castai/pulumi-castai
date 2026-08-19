@@ -12,19 +12,54 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.types = exports.rebalancing = exports.config = exports.WorkloadScalingPolicyOrder = exports.WorkloadScalingPolicy = exports.SSOConnection = exports.ServiceAccountKey = exports.ServiceAccount = exports.SecurityRuntimeRule = exports.RoleBindings = exports.Reservations = exports.RebalancingSchedule = exports.RebalancingJob = exports.OrganizationMembers = exports.OrganizationGroup = exports.HibernationSchedule = exports.GkeClusterId = exports.GkeCluster = exports.getWorkloadScalingPolicyOrderDataSourceOutput = exports.getWorkloadScalingPolicyOrderDataSource = exports.getRebalancingScheduleDataSourceOutput = exports.getRebalancingScheduleDataSource = exports.getOrganizationDataSourceOutput = exports.getOrganizationDataSource = exports.getHibernationScheduleDataSourceOutput = exports.getHibernationScheduleDataSource = exports.getGkePoliciesDataSourceOutput = exports.getGkePoliciesDataSource = exports.getEksUserArnDataSourceOutput = exports.getEksUserArnDataSource = exports.getEksSettingsDataSourceOutput = exports.getEksSettingsDataSource = exports.EvictorAdvancedConfig = exports.EnterpriseRoleBinding = exports.EnterpriseGroup = exports.EksUserArn = exports.EksClusterId = exports.EksCluster = exports.Commitments = exports.Autoscaler = exports.AllocationGroup = exports.AksCluster = void 0;
-const pulumi = require("@pulumi/pulumi");
-const utilities = require("./utilities");
+exports.WorkloadCustomMetricsDataSource = exports.SSOConnection = exports.ServiceAccountKey = exports.ServiceAccount = exports.SecurityRuntimeRule = exports.RoleBindings = exports.Reservations = exports.RebalancingSchedule = exports.RebalancingJob = exports.PodMutation = exports.OrganizationMembers = exports.OrganizationGroup = exports.HibernationSchedule = exports.GkeClusterId = exports.GkeCluster = exports.getWorkloadScalingPolicyOrderOutput = exports.getWorkloadScalingPolicyOrder = exports.getWorkloadScalingPoliciesOutput = exports.getWorkloadScalingPolicies = exports.getRebalancingScheduleOutput = exports.getRebalancingSchedule = exports.getOrganizationOutput = exports.getOrganization = exports.getImpersonationServiceAccountOutput = exports.getImpersonationServiceAccount = exports.getHibernationScheduleOutput = exports.getHibernationSchedule = exports.getGkePoliciesOutput = exports.getGkePolicies = exports.getEksSettingsOutput = exports.getEksSettings = exports.getCacheGroupOutput = exports.getCacheGroup = exports.EvictorAdvancedConfig = exports.EnterpriseServiceAccount = exports.EnterpriseRoleBinding = exports.EnterpriseGroup = exports.EksUserArn = exports.EksClusterId = exports.EksCluster = exports.Commitments = exports.CacheRule = exports.CacheGroup = exports.CacheConfiguration = exports.Autoscaler = exports.AllocationGroup = exports.AksCluster = exports.AiOptimizerModelSpecs = exports.AiOptimizerModelRegistry = exports.AiOptimizerHostedModel = void 0;
+exports.types = exports.rebalancing = exports.config = exports.WorkloadScalingPolicyOrder = exports.WorkloadScalingPolicy = void 0;
+const pulumi = __importStar(require("@pulumi/pulumi"));
+const utilities = __importStar(require("./utilities"));
+exports.AiOptimizerHostedModel = null;
+utilities.lazyLoad(exports, ["AiOptimizerHostedModel"], () => require("./aiOptimizerHostedModel"));
+exports.AiOptimizerModelRegistry = null;
+utilities.lazyLoad(exports, ["AiOptimizerModelRegistry"], () => require("./aiOptimizerModelRegistry"));
+exports.AiOptimizerModelSpecs = null;
+utilities.lazyLoad(exports, ["AiOptimizerModelSpecs"], () => require("./aiOptimizerModelSpecs"));
 exports.AksCluster = null;
 utilities.lazyLoad(exports, ["AksCluster"], () => require("./aksCluster"));
 exports.AllocationGroup = null;
 utilities.lazyLoad(exports, ["AllocationGroup"], () => require("./allocationGroup"));
 exports.Autoscaler = null;
 utilities.lazyLoad(exports, ["Autoscaler"], () => require("./autoscaler"));
+exports.CacheConfiguration = null;
+utilities.lazyLoad(exports, ["CacheConfiguration"], () => require("./cacheConfiguration"));
+exports.CacheGroup = null;
+utilities.lazyLoad(exports, ["CacheGroup"], () => require("./cacheGroup"));
+exports.CacheRule = null;
+utilities.lazyLoad(exports, ["CacheRule"], () => require("./cacheRule"));
 exports.Commitments = null;
 utilities.lazyLoad(exports, ["Commitments"], () => require("./commitments"));
 exports.EksCluster = null;
@@ -37,29 +72,37 @@ exports.EnterpriseGroup = null;
 utilities.lazyLoad(exports, ["EnterpriseGroup"], () => require("./enterpriseGroup"));
 exports.EnterpriseRoleBinding = null;
 utilities.lazyLoad(exports, ["EnterpriseRoleBinding"], () => require("./enterpriseRoleBinding"));
+exports.EnterpriseServiceAccount = null;
+utilities.lazyLoad(exports, ["EnterpriseServiceAccount"], () => require("./enterpriseServiceAccount"));
 exports.EvictorAdvancedConfig = null;
 utilities.lazyLoad(exports, ["EvictorAdvancedConfig"], () => require("./evictorAdvancedConfig"));
-exports.getEksSettingsDataSource = null;
-exports.getEksSettingsDataSourceOutput = null;
-utilities.lazyLoad(exports, ["getEksSettingsDataSource", "getEksSettingsDataSourceOutput"], () => require("./getEksSettingsDataSource"));
-exports.getEksUserArnDataSource = null;
-exports.getEksUserArnDataSourceOutput = null;
-utilities.lazyLoad(exports, ["getEksUserArnDataSource", "getEksUserArnDataSourceOutput"], () => require("./getEksUserArnDataSource"));
-exports.getGkePoliciesDataSource = null;
-exports.getGkePoliciesDataSourceOutput = null;
-utilities.lazyLoad(exports, ["getGkePoliciesDataSource", "getGkePoliciesDataSourceOutput"], () => require("./getGkePoliciesDataSource"));
-exports.getHibernationScheduleDataSource = null;
-exports.getHibernationScheduleDataSourceOutput = null;
-utilities.lazyLoad(exports, ["getHibernationScheduleDataSource", "getHibernationScheduleDataSourceOutput"], () => require("./getHibernationScheduleDataSource"));
-exports.getOrganizationDataSource = null;
-exports.getOrganizationDataSourceOutput = null;
-utilities.lazyLoad(exports, ["getOrganizationDataSource", "getOrganizationDataSourceOutput"], () => require("./getOrganizationDataSource"));
-exports.getRebalancingScheduleDataSource = null;
-exports.getRebalancingScheduleDataSourceOutput = null;
-utilities.lazyLoad(exports, ["getRebalancingScheduleDataSource", "getRebalancingScheduleDataSourceOutput"], () => require("./getRebalancingScheduleDataSource"));
-exports.getWorkloadScalingPolicyOrderDataSource = null;
-exports.getWorkloadScalingPolicyOrderDataSourceOutput = null;
-utilities.lazyLoad(exports, ["getWorkloadScalingPolicyOrderDataSource", "getWorkloadScalingPolicyOrderDataSourceOutput"], () => require("./getWorkloadScalingPolicyOrderDataSource"));
+exports.getCacheGroup = null;
+exports.getCacheGroupOutput = null;
+utilities.lazyLoad(exports, ["getCacheGroup", "getCacheGroupOutput"], () => require("./getCacheGroup"));
+exports.getEksSettings = null;
+exports.getEksSettingsOutput = null;
+utilities.lazyLoad(exports, ["getEksSettings", "getEksSettingsOutput"], () => require("./getEksSettings"));
+exports.getGkePolicies = null;
+exports.getGkePoliciesOutput = null;
+utilities.lazyLoad(exports, ["getGkePolicies", "getGkePoliciesOutput"], () => require("./getGkePolicies"));
+exports.getHibernationSchedule = null;
+exports.getHibernationScheduleOutput = null;
+utilities.lazyLoad(exports, ["getHibernationSchedule", "getHibernationScheduleOutput"], () => require("./getHibernationSchedule"));
+exports.getImpersonationServiceAccount = null;
+exports.getImpersonationServiceAccountOutput = null;
+utilities.lazyLoad(exports, ["getImpersonationServiceAccount", "getImpersonationServiceAccountOutput"], () => require("./getImpersonationServiceAccount"));
+exports.getOrganization = null;
+exports.getOrganizationOutput = null;
+utilities.lazyLoad(exports, ["getOrganization", "getOrganizationOutput"], () => require("./getOrganization"));
+exports.getRebalancingSchedule = null;
+exports.getRebalancingScheduleOutput = null;
+utilities.lazyLoad(exports, ["getRebalancingSchedule", "getRebalancingScheduleOutput"], () => require("./getRebalancingSchedule"));
+exports.getWorkloadScalingPolicies = null;
+exports.getWorkloadScalingPoliciesOutput = null;
+utilities.lazyLoad(exports, ["getWorkloadScalingPolicies", "getWorkloadScalingPoliciesOutput"], () => require("./getWorkloadScalingPolicies"));
+exports.getWorkloadScalingPolicyOrder = null;
+exports.getWorkloadScalingPolicyOrderOutput = null;
+utilities.lazyLoad(exports, ["getWorkloadScalingPolicyOrder", "getWorkloadScalingPolicyOrderOutput"], () => require("./getWorkloadScalingPolicyOrder"));
 exports.GkeCluster = null;
 utilities.lazyLoad(exports, ["GkeCluster"], () => require("./gkeCluster"));
 exports.GkeClusterId = null;
@@ -70,6 +113,8 @@ exports.OrganizationGroup = null;
 utilities.lazyLoad(exports, ["OrganizationGroup"], () => require("./organizationGroup"));
 exports.OrganizationMembers = null;
 utilities.lazyLoad(exports, ["OrganizationMembers"], () => require("./organizationMembers"));
+exports.PodMutation = null;
+utilities.lazyLoad(exports, ["PodMutation"], () => require("./podMutation"));
 __exportStar(require("./provider"), exports);
 const provider_1 = require("./provider");
 exports.RebalancingJob = null;
@@ -88,16 +133,18 @@ exports.ServiceAccountKey = null;
 utilities.lazyLoad(exports, ["ServiceAccountKey"], () => require("./serviceAccountKey"));
 exports.SSOConnection = null;
 utilities.lazyLoad(exports, ["SSOConnection"], () => require("./ssoconnection"));
+exports.WorkloadCustomMetricsDataSource = null;
+utilities.lazyLoad(exports, ["WorkloadCustomMetricsDataSource"], () => require("./workloadCustomMetricsDataSource"));
 exports.WorkloadScalingPolicy = null;
 utilities.lazyLoad(exports, ["WorkloadScalingPolicy"], () => require("./workloadScalingPolicy"));
 exports.WorkloadScalingPolicyOrder = null;
 utilities.lazyLoad(exports, ["WorkloadScalingPolicyOrder"], () => require("./workloadScalingPolicyOrder"));
 // Export sub-modules:
-const config = require("./config");
+const config = __importStar(require("./config"));
 exports.config = config;
-const rebalancing = require("./rebalancing");
+const rebalancing = __importStar(require("./rebalancing"));
 exports.rebalancing = rebalancing;
-const types = require("./types");
+const types = __importStar(require("./types"));
 exports.types = types;
 const _module = {
     version: utilities.getVersion(),
@@ -115,6 +162,12 @@ const _module = {
                 return new exports.EksUserArn(name, undefined, { urn });
             case "castai:azure:AksCluster":
                 return new exports.AksCluster(name, undefined, { urn });
+            case "castai:cache:CacheConfiguration":
+                return new exports.CacheConfiguration(name, undefined, { urn });
+            case "castai:cache:CacheGroup":
+                return new exports.CacheGroup(name, undefined, { urn });
+            case "castai:cache:CacheRule":
+                return new exports.CacheRule(name, undefined, { urn });
             case "castai:gcp:GkeCluster":
                 return new exports.GkeCluster(name, undefined, { urn });
             case "castai:gcp:GkeClusterId":
@@ -123,16 +176,26 @@ const _module = {
                 return new exports.EnterpriseRoleBinding(name, undefined, { urn });
             case "castai:iam:RoleBindings":
                 return new exports.RoleBindings(name, undefined, { urn });
+            case "castai:index/aiOptimizer:AiOptimizerHostedModel":
+                return new exports.AiOptimizerHostedModel(name, undefined, { urn });
+            case "castai:index/aiOptimizer:AiOptimizerModelRegistry":
+                return new exports.AiOptimizerModelRegistry(name, undefined, { urn });
+            case "castai:index/aiOptimizer:AiOptimizerModelSpecs":
+                return new exports.AiOptimizerModelSpecs(name, undefined, { urn });
             case "castai:index:AllocationGroup":
                 return new exports.AllocationGroup(name, undefined, { urn });
             case "castai:index:Commitments":
                 return new exports.Commitments(name, undefined, { urn });
+            case "castai:index:PodMutation":
+                return new exports.PodMutation(name, undefined, { urn });
             case "castai:index:Reservations":
                 return new exports.Reservations(name, undefined, { urn });
             case "castai:index:SecurityRuntimeRule":
                 return new exports.SecurityRuntimeRule(name, undefined, { urn });
             case "castai:organization:EnterpriseGroup":
                 return new exports.EnterpriseGroup(name, undefined, { urn });
+            case "castai:organization:EnterpriseServiceAccount":
+                return new exports.EnterpriseServiceAccount(name, undefined, { urn });
             case "castai:organization:OrganizationGroup":
                 return new exports.OrganizationGroup(name, undefined, { urn });
             case "castai:organization:OrganizationMembers":
@@ -149,6 +212,8 @@ const _module = {
                 return new exports.RebalancingJob(name, undefined, { urn });
             case "castai:rebalancing:RebalancingSchedule":
                 return new exports.RebalancingSchedule(name, undefined, { urn });
+            case "castai:workload:WorkloadCustomMetricsDataSource":
+                return new exports.WorkloadCustomMetricsDataSource(name, undefined, { urn });
             case "castai:workload:WorkloadScalingPolicy":
                 return new exports.WorkloadScalingPolicy(name, undefined, { urn });
             case "castai:workload:WorkloadScalingPolicyOrder":
@@ -161,9 +226,11 @@ const _module = {
 pulumi.runtime.registerResourceModule("castai", "autoscaling", _module);
 pulumi.runtime.registerResourceModule("castai", "aws", _module);
 pulumi.runtime.registerResourceModule("castai", "azure", _module);
+pulumi.runtime.registerResourceModule("castai", "cache", _module);
 pulumi.runtime.registerResourceModule("castai", "gcp", _module);
 pulumi.runtime.registerResourceModule("castai", "iam", _module);
 pulumi.runtime.registerResourceModule("castai", "index", _module);
+pulumi.runtime.registerResourceModule("castai", "index/aiOptimizer", _module);
 pulumi.runtime.registerResourceModule("castai", "organization", _module);
 pulumi.runtime.registerResourceModule("castai", "rebalancing", _module);
 pulumi.runtime.registerResourceModule("castai", "workload", _module);

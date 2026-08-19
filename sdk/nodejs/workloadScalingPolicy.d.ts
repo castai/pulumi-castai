@@ -17,6 +17,10 @@ export declare class WorkloadScalingPolicy extends pulumi.CustomResource {
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
     static isInstance(obj: any): obj is WorkloadScalingPolicy;
+    /**
+     * Defines anomaly detection settings for the scaling policy.
+     */
+    readonly anomalyDetection: pulumi.Output<outputs.workload.WorkloadScalingPolicyAnomalyDetection | undefined>;
     readonly antiAffinity: pulumi.Output<outputs.workload.WorkloadScalingPolicyAntiAffinity | undefined>;
     /**
      * Recommendation apply type.
@@ -38,6 +42,18 @@ export declare class WorkloadScalingPolicy extends pulumi.CustomResource {
     readonly confidence: pulumi.Output<outputs.workload.WorkloadScalingPolicyConfidence | undefined>;
     readonly cpu: pulumi.Output<outputs.workload.WorkloadScalingPolicyCpu>;
     readonly downscaling: pulumi.Output<outputs.workload.WorkloadScalingPolicyDownscaling | undefined>;
+    /**
+     * Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+     */
+    readonly excludedContainers: pulumi.Output<string[] | undefined>;
+    /**
+     * Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+     */
+    readonly hpaConverters: pulumi.Output<outputs.workload.WorkloadScalingPolicyHpaConverter[] | undefined>;
+    /**
+     * JVM optimization settings.
+     */
+    readonly jvm: pulumi.Output<outputs.workload.WorkloadScalingPolicyJvm | undefined>;
     /**
      * Defines possible options for workload management.
      * 	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
@@ -74,40 +90,56 @@ export declare class WorkloadScalingPolicy extends pulumi.CustomResource {
  * Input properties used for looking up and filtering WorkloadScalingPolicy resources.
  */
 export interface WorkloadScalingPolicyState {
-    antiAffinity?: pulumi.Input<inputs.workload.WorkloadScalingPolicyAntiAffinity>;
+    /**
+     * Defines anomaly detection settings for the scaling policy.
+     */
+    anomalyDetection?: pulumi.Input<inputs.workload.WorkloadScalingPolicyAnomalyDetection | undefined>;
+    antiAffinity?: pulumi.Input<inputs.workload.WorkloadScalingPolicyAntiAffinity | undefined>;
     /**
      * Recommendation apply type.
      * 	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
      * 	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
      */
-    applyType?: pulumi.Input<string>;
+    applyType?: pulumi.Input<string | undefined>;
     /**
      * Allows defining conditions for automatically assigning workloads to this scaling policy.
      */
-    assignmentRules?: pulumi.Input<pulumi.Input<inputs.workload.WorkloadScalingPolicyAssignmentRule>[]>;
+    assignmentRules?: pulumi.Input<pulumi.Input<inputs.workload.WorkloadScalingPolicyAssignmentRule>[] | undefined>;
     /**
      * CAST AI cluster id
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * Defines the confidence settings for applying recommendations.
      */
-    confidence?: pulumi.Input<inputs.workload.WorkloadScalingPolicyConfidence>;
-    cpu?: pulumi.Input<inputs.workload.WorkloadScalingPolicyCpu>;
-    downscaling?: pulumi.Input<inputs.workload.WorkloadScalingPolicyDownscaling>;
+    confidence?: pulumi.Input<inputs.workload.WorkloadScalingPolicyConfidence | undefined>;
+    cpu?: pulumi.Input<inputs.workload.WorkloadScalingPolicyCpu | undefined>;
+    downscaling?: pulumi.Input<inputs.workload.WorkloadScalingPolicyDownscaling | undefined>;
+    /**
+     * Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+     */
+    excludedContainers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+     */
+    hpaConverters?: pulumi.Input<pulumi.Input<inputs.workload.WorkloadScalingPolicyHpaConverter>[] | undefined>;
+    /**
+     * JVM optimization settings.
+     */
+    jvm?: pulumi.Input<inputs.workload.WorkloadScalingPolicyJvm | undefined>;
     /**
      * Defines possible options for workload management.
      * 	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
      * 	- MANAGED - workload watched (metrics collected), CAST AI may perform actions on the workload.
      */
-    managementOption?: pulumi.Input<string>;
-    memory?: pulumi.Input<inputs.workload.WorkloadScalingPolicyMemory>;
-    memoryEvent?: pulumi.Input<inputs.workload.WorkloadScalingPolicyMemoryEvent>;
+    managementOption?: pulumi.Input<string | undefined>;
+    memory?: pulumi.Input<inputs.workload.WorkloadScalingPolicyMemory | undefined>;
+    memoryEvent?: pulumi.Input<inputs.workload.WorkloadScalingPolicyMemoryEvent | undefined>;
     /**
      * Scaling policy name
      */
-    name?: pulumi.Input<string>;
-    predictiveScaling?: pulumi.Input<inputs.workload.WorkloadScalingPolicyPredictiveScaling>;
+    name?: pulumi.Input<string | undefined>;
+    predictiveScaling?: pulumi.Input<inputs.workload.WorkloadScalingPolicyPredictiveScaling | undefined>;
     /**
      * Defines the rollout behavior used when applying recommendations. Prerequisites:
      * 	- Applicable to Deployment resources that support running as multi-replica.
@@ -116,14 +148,18 @@ export interface WorkloadScalingPolicyState {
      * 	- Recommendation apply type is "immediate".
      * 	- Cluster has workload-autoscaler component version v0.35.3 or higher.
      */
-    rolloutBehavior?: pulumi.Input<inputs.workload.WorkloadScalingPolicyRolloutBehavior>;
-    startup?: pulumi.Input<inputs.workload.WorkloadScalingPolicyStartup>;
+    rolloutBehavior?: pulumi.Input<inputs.workload.WorkloadScalingPolicyRolloutBehavior | undefined>;
+    startup?: pulumi.Input<inputs.workload.WorkloadScalingPolicyStartup | undefined>;
 }
 /**
  * The set of arguments for constructing a WorkloadScalingPolicy resource.
  */
 export interface WorkloadScalingPolicyArgs {
-    antiAffinity?: pulumi.Input<inputs.workload.WorkloadScalingPolicyAntiAffinity>;
+    /**
+     * Defines anomaly detection settings for the scaling policy.
+     */
+    anomalyDetection?: pulumi.Input<inputs.workload.WorkloadScalingPolicyAnomalyDetection | undefined>;
+    antiAffinity?: pulumi.Input<inputs.workload.WorkloadScalingPolicyAntiAffinity | undefined>;
     /**
      * Recommendation apply type.
      * 	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
@@ -133,7 +169,7 @@ export interface WorkloadScalingPolicyArgs {
     /**
      * Allows defining conditions for automatically assigning workloads to this scaling policy.
      */
-    assignmentRules?: pulumi.Input<pulumi.Input<inputs.workload.WorkloadScalingPolicyAssignmentRule>[]>;
+    assignmentRules?: pulumi.Input<pulumi.Input<inputs.workload.WorkloadScalingPolicyAssignmentRule>[] | undefined>;
     /**
      * CAST AI cluster id
      */
@@ -141,9 +177,21 @@ export interface WorkloadScalingPolicyArgs {
     /**
      * Defines the confidence settings for applying recommendations.
      */
-    confidence?: pulumi.Input<inputs.workload.WorkloadScalingPolicyConfidence>;
+    confidence?: pulumi.Input<inputs.workload.WorkloadScalingPolicyConfidence | undefined>;
     cpu: pulumi.Input<inputs.workload.WorkloadScalingPolicyCpu>;
-    downscaling?: pulumi.Input<inputs.workload.WorkloadScalingPolicyDownscaling>;
+    downscaling?: pulumi.Input<inputs.workload.WorkloadScalingPolicyDownscaling | undefined>;
+    /**
+     * Defines containers to be excluded from receiving recommendations. The containers are matched by exact name.
+     */
+    excludedContainers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Configuration for converting existing HPAs when VPA is the sole optimization. If HPA management is enabled, it takes precedence over this setting.
+     */
+    hpaConverters?: pulumi.Input<pulumi.Input<inputs.workload.WorkloadScalingPolicyHpaConverter>[] | undefined>;
+    /**
+     * JVM optimization settings.
+     */
+    jvm?: pulumi.Input<inputs.workload.WorkloadScalingPolicyJvm | undefined>;
     /**
      * Defines possible options for workload management.
      * 	- READ_ONLY - workload watched (metrics collected), but no actions performed by CAST AI.
@@ -151,12 +199,12 @@ export interface WorkloadScalingPolicyArgs {
      */
     managementOption: pulumi.Input<string>;
     memory: pulumi.Input<inputs.workload.WorkloadScalingPolicyMemory>;
-    memoryEvent?: pulumi.Input<inputs.workload.WorkloadScalingPolicyMemoryEvent>;
+    memoryEvent?: pulumi.Input<inputs.workload.WorkloadScalingPolicyMemoryEvent | undefined>;
     /**
      * Scaling policy name
      */
-    name?: pulumi.Input<string>;
-    predictiveScaling?: pulumi.Input<inputs.workload.WorkloadScalingPolicyPredictiveScaling>;
+    name?: pulumi.Input<string | undefined>;
+    predictiveScaling?: pulumi.Input<inputs.workload.WorkloadScalingPolicyPredictiveScaling | undefined>;
     /**
      * Defines the rollout behavior used when applying recommendations. Prerequisites:
      * 	- Applicable to Deployment resources that support running as multi-replica.
@@ -165,6 +213,7 @@ export interface WorkloadScalingPolicyArgs {
      * 	- Recommendation apply type is "immediate".
      * 	- Cluster has workload-autoscaler component version v0.35.3 or higher.
      */
-    rolloutBehavior?: pulumi.Input<inputs.workload.WorkloadScalingPolicyRolloutBehavior>;
-    startup?: pulumi.Input<inputs.workload.WorkloadScalingPolicyStartup>;
+    rolloutBehavior?: pulumi.Input<inputs.workload.WorkloadScalingPolicyRolloutBehavior | undefined>;
+    startup?: pulumi.Input<inputs.workload.WorkloadScalingPolicyStartup | undefined>;
 }
+//# sourceMappingURL=workloadScalingPolicy.d.ts.map

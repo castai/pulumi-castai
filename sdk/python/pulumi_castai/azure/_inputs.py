@@ -19,31 +19,26 @@ __all__ = [
     'AksClusterHttpProxyConfigArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class AksClusterHttpProxyConfigArgsDict(TypedDict):
-        http_proxy: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Address to use for proxying HTTP requests.
-        """
-        https_proxy: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Address to use for proxying HTTPS/TLS requests.
-        """
-        no_proxies: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        List of destinations that should not go through proxy.
-        """
-elif False:
-    AksClusterHttpProxyConfigArgsDict: TypeAlias = Mapping[str, Any]
+class AksClusterHttpProxyConfigArgsDict(TypedDict):
+    http_proxy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Address to use for proxying HTTP requests.
+    """
+    https_proxy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Address to use for proxying HTTPS/TLS requests.
+    """
+    no_proxies: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    List of destinations that should not go through proxy.
+    """
 
 @pulumi.input_type
 class AksClusterHttpProxyConfigArgs:
     def __init__(__self__, *,
-                 http_proxy: Optional[pulumi.Input[_builtins.str]] = None,
-                 https_proxy: Optional[pulumi.Input[_builtins.str]] = None,
-                 no_proxies: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 http_proxy: pulumi.Input[Optional[_builtins.str]] = None,
+                 https_proxy: pulumi.Input[Optional[_builtins.str]] = None,
+                 no_proxies: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         :param pulumi.Input[_builtins.str] http_proxy: Address to use for proxying HTTP requests.
         :param pulumi.Input[_builtins.str] https_proxy: Address to use for proxying HTTPS/TLS requests.
@@ -58,38 +53,38 @@ class AksClusterHttpProxyConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="httpProxy")
-    def http_proxy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def http_proxy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Address to use for proxying HTTP requests.
         """
         return pulumi.get(self, "http_proxy")
 
     @http_proxy.setter
-    def http_proxy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def http_proxy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "http_proxy", value)
 
     @_builtins.property
     @pulumi.getter(name="httpsProxy")
-    def https_proxy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def https_proxy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Address to use for proxying HTTPS/TLS requests.
         """
         return pulumi.get(self, "https_proxy")
 
     @https_proxy.setter
-    def https_proxy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def https_proxy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "https_proxy", value)
 
     @_builtins.property
     @pulumi.getter(name="noProxies")
-    def no_proxies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def no_proxies(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of destinations that should not go through proxy.
         """
         return pulumi.get(self, "no_proxies")
 
     @no_proxies.setter
-    def no_proxies(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def no_proxies(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "no_proxies", value)
 
 

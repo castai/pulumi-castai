@@ -61,31 +61,31 @@ export interface EnterpriseRoleBindingState {
     /**
      * Description of the role binding.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Enterprise organization ID.
      */
-    enterpriseId?: pulumi.Input<string>;
+    enterpriseId?: pulumi.Input<string | undefined>;
     /**
      * Name of the role binding.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Organization ID (either enterprise or it's child) where the role binding is created.
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * Role UUID to bind.
      */
-    roleId?: pulumi.Input<string>;
+    roleId?: pulumi.Input<string | undefined>;
     /**
      * Scopes (organization or cluster) for this role binding.
      */
-    scopes?: pulumi.Input<inputs.iam.EnterpriseRoleBindingScopes>;
+    scopes?: pulumi.Input<inputs.iam.EnterpriseRoleBindingScopes | undefined>;
     /**
      * Subjects (users, service accounts, groups) for this role binding.
      */
-    subjects?: pulumi.Input<inputs.iam.EnterpriseRoleBindingSubjects>;
+    subjects?: pulumi.Input<inputs.iam.EnterpriseRoleBindingSubjects | undefined>;
 }
 /**
  * The set of arguments for constructing a EnterpriseRoleBinding resource.
@@ -94,7 +94,7 @@ export interface EnterpriseRoleBindingArgs {
     /**
      * Description of the role binding.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Enterprise organization ID.
      */
@@ -102,7 +102,7 @@ export interface EnterpriseRoleBindingArgs {
     /**
      * Name of the role binding.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Organization ID (either enterprise or it's child) where the role binding is created.
      */
@@ -120,3 +120,4 @@ export interface EnterpriseRoleBindingArgs {
      */
     subjects: pulumi.Input<inputs.iam.EnterpriseRoleBindingSubjects>;
 }
+//# sourceMappingURL=enterpriseRoleBinding.d.ts.map

@@ -24,8 +24,14 @@ type SSOConnection struct {
 	EmailDomain pulumi.StringOutput `pulumi:"emailDomain"`
 	// Connection name
 	Name pulumi.StringOutput `pulumi:"name"`
+	// OIDC connector (e.g. Keycloak)
+	Oidc organization.SSOConnectionOidcPtrOutput `pulumi:"oidc"`
 	// Okta connector
 	Okta organization.SSOConnectionOktaPtrOutput `pulumi:"okta"`
+	// Auth token generated when synchronizeUserGroups is enabled. Only populated on the transition from false to true.
+	SyncAuthToken pulumi.StringOutput `pulumi:"syncAuthToken"`
+	// When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+	SynchronizeUserGroups pulumi.BoolPtrOutput `pulumi:"synchronizeUserGroups"`
 }
 
 // NewSSOConnection registers a new resource with the given unique name, arguments, and options.
@@ -38,6 +44,10 @@ func NewSSOConnection(ctx *pulumi.Context,
 	if args.EmailDomain == nil {
 		return nil, errors.New("invalid value for required argument 'EmailDomain'")
 	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"syncAuthToken",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource SSOConnection
 	err := ctx.RegisterResource("castai:organization:SSOConnection", name, args, &resource, opts...)
@@ -69,8 +79,14 @@ type ssoconnectionState struct {
 	EmailDomain *string `pulumi:"emailDomain"`
 	// Connection name
 	Name *string `pulumi:"name"`
+	// OIDC connector (e.g. Keycloak)
+	Oidc *organization.SSOConnectionOidc `pulumi:"oidc"`
 	// Okta connector
 	Okta *organization.SSOConnectionOkta `pulumi:"okta"`
+	// Auth token generated when synchronizeUserGroups is enabled. Only populated on the transition from false to true.
+	SyncAuthToken *string `pulumi:"syncAuthToken"`
+	// When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+	SynchronizeUserGroups *bool `pulumi:"synchronizeUserGroups"`
 }
 
 type SSOConnectionState struct {
@@ -82,8 +98,14 @@ type SSOConnectionState struct {
 	EmailDomain pulumi.StringPtrInput
 	// Connection name
 	Name pulumi.StringPtrInput
+	// OIDC connector (e.g. Keycloak)
+	Oidc organization.SSOConnectionOidcPtrInput
 	// Okta connector
 	Okta organization.SSOConnectionOktaPtrInput
+	// Auth token generated when synchronizeUserGroups is enabled. Only populated on the transition from false to true.
+	SyncAuthToken pulumi.StringPtrInput
+	// When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+	SynchronizeUserGroups pulumi.BoolPtrInput
 }
 
 func (SSOConnectionState) ElementType() reflect.Type {
@@ -99,8 +121,12 @@ type ssoconnectionArgs struct {
 	EmailDomain string `pulumi:"emailDomain"`
 	// Connection name
 	Name *string `pulumi:"name"`
+	// OIDC connector (e.g. Keycloak)
+	Oidc *organization.SSOConnectionOidc `pulumi:"oidc"`
 	// Okta connector
 	Okta *organization.SSOConnectionOkta `pulumi:"okta"`
+	// When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+	SynchronizeUserGroups *bool `pulumi:"synchronizeUserGroups"`
 }
 
 // The set of arguments for constructing a SSOConnection resource.
@@ -113,8 +139,12 @@ type SSOConnectionArgs struct {
 	EmailDomain pulumi.StringInput
 	// Connection name
 	Name pulumi.StringPtrInput
+	// OIDC connector (e.g. Keycloak)
+	Oidc organization.SSOConnectionOidcPtrInput
 	// Okta connector
 	Okta organization.SSOConnectionOktaPtrInput
+	// When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+	SynchronizeUserGroups pulumi.BoolPtrInput
 }
 
 func (SSOConnectionArgs) ElementType() reflect.Type {
@@ -224,9 +254,24 @@ func (o SSOConnectionOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *SSOConnection) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// OIDC connector (e.g. Keycloak)
+func (o SSOConnectionOutput) Oidc() organization.SSOConnectionOidcPtrOutput {
+	return o.ApplyT(func(v *SSOConnection) organization.SSOConnectionOidcPtrOutput { return v.Oidc }).(organization.SSOConnectionOidcPtrOutput)
+}
+
 // Okta connector
 func (o SSOConnectionOutput) Okta() organization.SSOConnectionOktaPtrOutput {
 	return o.ApplyT(func(v *SSOConnection) organization.SSOConnectionOktaPtrOutput { return v.Okta }).(organization.SSOConnectionOktaPtrOutput)
+}
+
+// Auth token generated when synchronizeUserGroups is enabled. Only populated on the transition from false to true.
+func (o SSOConnectionOutput) SyncAuthToken() pulumi.StringOutput {
+	return o.ApplyT(func(v *SSOConnection) pulumi.StringOutput { return v.SyncAuthToken }).(pulumi.StringOutput)
+}
+
+// When enabled, user groups from the identity provider will be synchronized with CAST AI. A sync auth token is generated on activation and stored in sync_auth_token.
+func (o SSOConnectionOutput) SynchronizeUserGroups() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SSOConnection) pulumi.BoolPtrOutput { return v.SynchronizeUserGroups }).(pulumi.BoolPtrOutput)
 }
 
 type SSOConnectionArrayOutput struct{ *pulumi.OutputState }

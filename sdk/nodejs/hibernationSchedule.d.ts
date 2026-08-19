@@ -45,27 +45,27 @@ export declare class HibernationSchedule extends pulumi.CustomResource {
  * Input properties used for looking up and filtering HibernationSchedule resources.
  */
 export interface HibernationScheduleState {
-    clusterAssignments?: pulumi.Input<inputs.rebalancing.HibernationScheduleClusterAssignments>;
+    clusterAssignments?: pulumi.Input<inputs.rebalancing.HibernationScheduleClusterAssignments | undefined>;
     /**
      * Enables or disables the schedule.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Name of the schedule.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * ID of the organization. If not provided, then will attempt to infer it using CAST AI API client.
      */
-    organizationId?: pulumi.Input<string>;
-    pauseConfig?: pulumi.Input<inputs.rebalancing.HibernationSchedulePauseConfig>;
-    resumeConfig?: pulumi.Input<inputs.rebalancing.HibernationScheduleResumeConfig>;
+    organizationId?: pulumi.Input<string | undefined>;
+    pauseConfig?: pulumi.Input<inputs.rebalancing.HibernationSchedulePauseConfig | undefined>;
+    resumeConfig?: pulumi.Input<inputs.rebalancing.HibernationScheduleResumeConfig | undefined>;
 }
 /**
  * The set of arguments for constructing a HibernationSchedule resource.
  */
 export interface HibernationScheduleArgs {
-    clusterAssignments?: pulumi.Input<inputs.rebalancing.HibernationScheduleClusterAssignments>;
+    clusterAssignments?: pulumi.Input<inputs.rebalancing.HibernationScheduleClusterAssignments | undefined>;
     /**
      * Enables or disables the schedule.
      */
@@ -73,11 +73,12 @@ export interface HibernationScheduleArgs {
     /**
      * Name of the schedule.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * ID of the organization. If not provided, then will attempt to infer it using CAST AI API client.
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
     pauseConfig: pulumi.Input<inputs.rebalancing.HibernationSchedulePauseConfig>;
     resumeConfig: pulumi.Input<inputs.rebalancing.HibernationScheduleResumeConfig>;
 }
+//# sourceMappingURL=hibernationSchedule.d.ts.map

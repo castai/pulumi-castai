@@ -15,10 +15,6 @@ else:
 from .. import _utilities
 
 __all__ = [
-    'GetHibernationScheduleDataSourceClusterAssignmentArgs',
-    'GetHibernationScheduleDataSourceClusterAssignmentArgsDict',
-    'GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs',
-    'GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgsDict',
     'HibernationScheduleClusterAssignmentsArgs',
     'HibernationScheduleClusterAssignmentsArgsDict',
     'HibernationScheduleClusterAssignmentsAssignmentArgs',
@@ -53,101 +49,45 @@ __all__ = [
     'RebalancingScheduleLaunchConfigurationArgsDict',
     'RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs',
     'RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgsDict',
+    'RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs',
+    'RebalancingScheduleLaunchConfigurationDrainFailureConfigArgsDict',
     'RebalancingScheduleLaunchConfigurationExecutionConditionsArgs',
     'RebalancingScheduleLaunchConfigurationExecutionConditionsArgsDict',
     'RebalancingScheduleScheduleArgs',
     'RebalancingScheduleScheduleArgsDict',
     'RebalancingScheduleTriggerConditionsArgs',
     'RebalancingScheduleTriggerConditionsArgsDict',
+    'GetHibernationScheduleClusterAssignmentArgs',
+    'GetHibernationScheduleClusterAssignmentArgsDict',
+    'GetHibernationScheduleClusterAssignmentAssignmentArgs',
+    'GetHibernationScheduleClusterAssignmentAssignmentArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class GetHibernationScheduleDataSourceClusterAssignmentArgsDict(TypedDict):
-        assignments: NotRequired[Sequence['GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgsDict']]
-elif False:
-    GetHibernationScheduleDataSourceClusterAssignmentArgsDict: TypeAlias = Mapping[str, Any]
-
-@pulumi.input_type
-class GetHibernationScheduleDataSourceClusterAssignmentArgs:
-    def __init__(__self__, *,
-                 assignments: Optional[Sequence['GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs']] = None):
-        if assignments is not None:
-            pulumi.set(__self__, "assignments", assignments)
-
-    @_builtins.property
-    @pulumi.getter
-    def assignments(self) -> Optional[Sequence['GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs']]:
-        return pulumi.get(self, "assignments")
-
-    @assignments.setter
-    def assignments(self, value: Optional[Sequence['GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs']]):
-        pulumi.set(self, "assignments", value)
-
-
-if not MYPY:
-    class GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgsDict(TypedDict):
-        cluster_id: _builtins.str
-        """
-        ID of the cluster.
-        """
-elif False:
-    GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgsDict: TypeAlias = Mapping[str, Any]
-
-@pulumi.input_type
-class GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs:
-    def __init__(__self__, *,
-                 cluster_id: _builtins.str):
-        """
-        :param _builtins.str cluster_id: ID of the cluster.
-        """
-        pulumi.set(__self__, "cluster_id", cluster_id)
-
-    @_builtins.property
-    @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> _builtins.str:
-        """
-        ID of the cluster.
-        """
-        return pulumi.get(self, "cluster_id")
-
-    @cluster_id.setter
-    def cluster_id(self, value: _builtins.str):
-        pulumi.set(self, "cluster_id", value)
-
-
-if not MYPY:
-    class HibernationScheduleClusterAssignmentsArgsDict(TypedDict):
-        assignments: NotRequired[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleClusterAssignmentsAssignmentArgsDict']]]]
-elif False:
-    HibernationScheduleClusterAssignmentsArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleClusterAssignmentsArgsDict(TypedDict):
+    assignments: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleClusterAssignmentsAssignmentArgsDict']]]]]
 
 @pulumi.input_type
 class HibernationScheduleClusterAssignmentsArgs:
     def __init__(__self__, *,
-                 assignments: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleClusterAssignmentsAssignmentArgs']]]] = None):
+                 assignments: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleClusterAssignmentsAssignmentArgs']]]] = None):
         if assignments is not None:
             pulumi.set(__self__, "assignments", assignments)
 
     @_builtins.property
     @pulumi.getter
-    def assignments(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleClusterAssignmentsAssignmentArgs']]]]:
+    def assignments(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleClusterAssignmentsAssignmentArgs']]]]:
         return pulumi.get(self, "assignments")
 
     @assignments.setter
-    def assignments(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleClusterAssignmentsAssignmentArgs']]]]):
+    def assignments(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleClusterAssignmentsAssignmentArgs']]]]):
         pulumi.set(self, "assignments", value)
 
 
-if not MYPY:
-    class HibernationScheduleClusterAssignmentsAssignmentArgsDict(TypedDict):
-        cluster_id: pulumi.Input[_builtins.str]
-        """
-        ID of the cluster.
-        """
-elif False:
-    HibernationScheduleClusterAssignmentsAssignmentArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleClusterAssignmentsAssignmentArgsDict(TypedDict):
+    cluster_id: pulumi.Input[_builtins.str]
+    """
+    ID of the cluster.
+    """
 
 @pulumi.input_type
 class HibernationScheduleClusterAssignmentsAssignmentArgs:
@@ -171,15 +111,12 @@ class HibernationScheduleClusterAssignmentsAssignmentArgs:
         pulumi.set(self, "cluster_id", value)
 
 
-if not MYPY:
-    class HibernationSchedulePauseConfigArgsDict(TypedDict):
-        enabled: pulumi.Input[_builtins.bool]
-        """
-        Enables or disables the pause configuration.
-        """
-        schedule: pulumi.Input['HibernationSchedulePauseConfigScheduleArgsDict']
-elif False:
-    HibernationSchedulePauseConfigArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationSchedulePauseConfigArgsDict(TypedDict):
+    enabled: pulumi.Input[_builtins.bool]
+    """
+    Enables or disables the pause configuration.
+    """
+    schedule: pulumi.Input['HibernationSchedulePauseConfigScheduleArgsDict']
 
 @pulumi.input_type
 class HibernationSchedulePauseConfigArgs:
@@ -214,28 +151,25 @@ class HibernationSchedulePauseConfigArgs:
         pulumi.set(self, "schedule", value)
 
 
-if not MYPY:
-    class HibernationSchedulePauseConfigScheduleArgsDict(TypedDict):
-        cron_expression: pulumi.Input[_builtins.str]
-        """
-        Cron expression defining when the schedule should trigger.
+class HibernationSchedulePauseConfigScheduleArgsDict(TypedDict):
+    cron_expression: pulumi.Input[_builtins.str]
+    """
+    Cron expression defining when the schedule should trigger.
 
-          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+      The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
-          Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
-        ```
-          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+      Example:
+    ```plaintext
+    CRON_TZ=America/New_York 0 12 * * ?
+    ```
+      In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
-          To retrieve a list of available timezone values, you can use the following API endpoint:
+      To retrieve a list of available timezone values, you can use the following API endpoint:
 
-          GET https://api.cast.ai/v1/time-zones
+      GET https://api.cast.ai/v1/time-zones
 
-          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-elif False:
-    HibernationSchedulePauseConfigScheduleArgsDict: TypeAlias = Mapping[str, Any]
+      When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+    """
 
 @pulumi.input_type
 class HibernationSchedulePauseConfigScheduleArgs:
@@ -247,8 +181,8 @@ class HibernationSchedulePauseConfigScheduleArgs:
                  The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
                
                  Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
                ```
                  In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
                
@@ -269,8 +203,8 @@ class HibernationSchedulePauseConfigScheduleArgs:
           The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
           Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
         ```
           In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
@@ -287,16 +221,13 @@ class HibernationSchedulePauseConfigScheduleArgs:
         pulumi.set(self, "cron_expression", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigArgsDict(TypedDict):
-        enabled: pulumi.Input[_builtins.bool]
-        """
-        Enables or disables the pause configuration.
-        """
-        job_config: pulumi.Input['HibernationScheduleResumeConfigJobConfigArgsDict']
-        schedule: pulumi.Input['HibernationScheduleResumeConfigScheduleArgsDict']
-elif False:
-    HibernationScheduleResumeConfigArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigArgsDict(TypedDict):
+    enabled: pulumi.Input[_builtins.bool]
+    """
+    Enables or disables the pause configuration.
+    """
+    job_config: pulumi.Input['HibernationScheduleResumeConfigJobConfigArgsDict']
+    schedule: pulumi.Input['HibernationScheduleResumeConfigScheduleArgsDict']
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigArgs:
@@ -342,11 +273,8 @@ class HibernationScheduleResumeConfigArgs:
         pulumi.set(self, "schedule", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigArgsDict(TypedDict):
-        node_config: pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigArgsDict']
-elif False:
-    HibernationScheduleResumeConfigJobConfigArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigArgsDict(TypedDict):
+    node_config: pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigArgsDict']
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigArgs:
@@ -364,63 +292,60 @@ class HibernationScheduleResumeConfigJobConfigArgs:
         pulumi.set(self, "node_config", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigNodeConfigArgsDict(TypedDict):
-        instance_type: pulumi.Input[_builtins.str]
-        """
-        Instance type.
-        """
-        config_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
-        """
-        config_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
-        """
-        gpu_config: NotRequired[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgsDict']]
-        kubernetes_labels: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
-        """
-        Custom labels to be added to the node.
-        """
-        kubernetes_taints: NotRequired[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgsDict']]]]
-        """
-        Custom taints to be added to the node created from this configuration.
-        """
-        node_affinities: NotRequired[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgsDict']]]]
-        """
-        Custom taints to be added to the node created from this configuration.
-        """
-        spot_configs: NotRequired[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgsDict']]]]
-        """
-        Custom taints to be added to the node created from this configuration.
-        """
-        subnet_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Node subnet ID.
-        """
-        volumes: NotRequired[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgsDict']]]]
-        zone: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Zone of the node.
-        """
-elif False:
-    HibernationScheduleResumeConfigJobConfigNodeConfigArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigNodeConfigArgsDict(TypedDict):
+    instance_type: pulumi.Input[_builtins.str]
+    """
+    Instance type.
+    """
+    config_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
+    """
+    config_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
+    """
+    gpu_config: NotRequired[pulumi.Input[Optional['HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgsDict']]]
+    kubernetes_labels: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Custom labels to be added to the node.
+    """
+    kubernetes_taints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgsDict']]]]]
+    """
+    Custom taints to be added to the node created from this configuration.
+    """
+    node_affinities: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgsDict']]]]]
+    """
+    Custom taints to be added to the node created from this configuration.
+    """
+    spot_configs: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgsDict']]]]]
+    """
+    Custom taints to be added to the node created from this configuration.
+    """
+    subnet_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Node subnet ID.
+    """
+    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgsDict']]]]]
+    zone: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Zone of the node.
+    """
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigNodeConfigArgs:
     def __init__(__self__, *,
                  instance_type: pulumi.Input[_builtins.str],
-                 config_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 config_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 gpu_config: Optional[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs']] = None,
-                 kubernetes_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 kubernetes_taints: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs']]]] = None,
-                 node_affinities: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs']]]] = None,
-                 spot_configs: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs']]]] = None,
-                 subnet_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs']]]] = None,
-                 zone: Optional[pulumi.Input[_builtins.str]] = None):
+                 config_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 config_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 gpu_config: pulumi.Input[Optional['HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs']] = None,
+                 kubernetes_labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 kubernetes_taints: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs']]]] = None,
+                 node_affinities: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs']]]] = None,
+                 spot_configs: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs']]]] = None,
+                 subnet_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 volumes: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs']]]] = None,
+                 zone: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] instance_type: Instance type.
         :param pulumi.Input[_builtins.str] config_id: ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
@@ -468,137 +393,134 @@ class HibernationScheduleResumeConfigJobConfigNodeConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="configId")
-    def config_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def config_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
         """
         return pulumi.get(self, "config_id")
 
     @config_id.setter
-    def config_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def config_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "config_id", value)
 
     @_builtins.property
     @pulumi.getter(name="configName")
-    def config_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def config_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
         """
         return pulumi.get(self, "config_name")
 
     @config_name.setter
-    def config_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def config_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "config_name", value)
 
     @_builtins.property
     @pulumi.getter(name="gpuConfig")
-    def gpu_config(self) -> Optional[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs']]:
+    def gpu_config(self) -> pulumi.Input[Optional['HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs']]:
         return pulumi.get(self, "gpu_config")
 
     @gpu_config.setter
-    def gpu_config(self, value: Optional[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs']]):
+    def gpu_config(self, value: pulumi.Input[Optional['HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs']]):
         pulumi.set(self, "gpu_config", value)
 
     @_builtins.property
     @pulumi.getter(name="kubernetesLabels")
-    def kubernetes_labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def kubernetes_labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Custom labels to be added to the node.
         """
         return pulumi.get(self, "kubernetes_labels")
 
     @kubernetes_labels.setter
-    def kubernetes_labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def kubernetes_labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "kubernetes_labels", value)
 
     @_builtins.property
     @pulumi.getter(name="kubernetesTaints")
-    def kubernetes_taints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs']]]]:
+    def kubernetes_taints(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs']]]]:
         """
         Custom taints to be added to the node created from this configuration.
         """
         return pulumi.get(self, "kubernetes_taints")
 
     @kubernetes_taints.setter
-    def kubernetes_taints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs']]]]):
+    def kubernetes_taints(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs']]]]):
         pulumi.set(self, "kubernetes_taints", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeAffinities")
-    def node_affinities(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs']]]]:
+    def node_affinities(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs']]]]:
         """
         Custom taints to be added to the node created from this configuration.
         """
         return pulumi.get(self, "node_affinities")
 
     @node_affinities.setter
-    def node_affinities(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs']]]]):
+    def node_affinities(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs']]]]):
         pulumi.set(self, "node_affinities", value)
 
     @_builtins.property
     @pulumi.getter(name="spotConfigs")
-    def spot_configs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs']]]]:
+    def spot_configs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs']]]]:
         """
         Custom taints to be added to the node created from this configuration.
         """
         return pulumi.get(self, "spot_configs")
 
     @spot_configs.setter
-    def spot_configs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs']]]]):
+    def spot_configs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs']]]]):
         pulumi.set(self, "spot_configs", value)
 
     @_builtins.property
     @pulumi.getter(name="subnetId")
-    def subnet_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def subnet_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Node subnet ID.
         """
         return pulumi.get(self, "subnet_id")
 
     @subnet_id.setter
-    def subnet_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def subnet_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "subnet_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def volumes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs']]]]:
+    def volumes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs']]]]:
         return pulumi.get(self, "volumes")
 
     @volumes.setter
-    def volumes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs']]]]):
+    def volumes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs']]]]):
         pulumi.set(self, "volumes", value)
 
     @_builtins.property
     @pulumi.getter
-    def zone(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def zone(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Zone of the node.
         """
         return pulumi.get(self, "zone")
 
     @zone.setter
-    def zone(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def zone(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "zone", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgsDict(TypedDict):
-        count: pulumi.Input[_builtins.int]
-        """
-        Number of GPUs.
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        GPU type.
-        """
-elif False:
-    HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgsDict(TypedDict):
+    count: pulumi.Input[_builtins.int]
+    """
+    Number of GPUs.
+    """
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    GPU type.
+    """
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs:
     def __init__(__self__, *,
                  count: pulumi.Input[_builtins.int],
-                 type: Optional[pulumi.Input[_builtins.str]] = None):
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.int] count: Number of GPUs.
         :param pulumi.Input[_builtins.str] type: GPU type.
@@ -621,40 +543,37 @@ class HibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GPU type.
         """
         return pulumi.get(self, "type")
 
     @type.setter
-    def type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgsDict(TypedDict):
-        key: pulumi.Input[_builtins.str]
-        """
-        Key of a taint to be added to nodes created from this template.
-        """
-        effect: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
-        """
-        value: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Value of a taint to be added to nodes created from this template.
-        """
-elif False:
-    HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgsDict(TypedDict):
+    key: pulumi.Input[_builtins.str]
+    """
+    Key of a taint to be added to nodes created from this template.
+    """
+    effect: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
+    """
+    value: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Value of a taint to be added to nodes created from this template.
+    """
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[_builtins.str],
-                 effect: Optional[pulumi.Input[_builtins.str]] = None,
-                 value: Optional[pulumi.Input[_builtins.str]] = None):
+                 effect: pulumi.Input[Optional[_builtins.str]] = None,
+                 value: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] key: Key of a taint to be added to nodes created from this template.
         :param pulumi.Input[_builtins.str] effect: Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
@@ -680,44 +599,41 @@ class HibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs:
 
     @_builtins.property
     @pulumi.getter
-    def effect(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def effect(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
         """
         return pulumi.get(self, "effect")
 
     @effect.setter
-    def effect(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def effect(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "effect", value)
 
     @_builtins.property
     @pulumi.getter
-    def value(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def value(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Value of a taint to be added to nodes created from this template.
         """
         return pulumi.get(self, "value")
 
     @value.setter
-    def value(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def value(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "value", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgsDict(TypedDict):
-        dedicated_group: pulumi.Input[_builtins.str]
-        """
-        Key of a taint to be added to nodes created from this template.
-        """
-        affinities: NotRequired[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgsDict']]]]
-elif False:
-    HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgsDict(TypedDict):
+    dedicated_group: pulumi.Input[_builtins.str]
+    """
+    Key of a taint to be added to nodes created from this template.
+    """
+    affinities: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgsDict']]]]]
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs:
     def __init__(__self__, *,
                  dedicated_group: pulumi.Input[_builtins.str],
-                 affinities: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs']]]] = None):
+                 affinities: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs']]]] = None):
         """
         :param pulumi.Input[_builtins.str] dedicated_group: Key of a taint to be added to nodes created from this template.
         """
@@ -739,30 +655,27 @@ class HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs:
 
     @_builtins.property
     @pulumi.getter
-    def affinities(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs']]]]:
+    def affinities(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs']]]]:
         return pulumi.get(self, "affinities")
 
     @affinities.setter
-    def affinities(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs']]]]):
+    def affinities(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs']]]]):
         pulumi.set(self, "affinities", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgsDict(TypedDict):
-        key: pulumi.Input[_builtins.str]
-        """
-        Key of the node affinity selector.
-        """
-        operator: pulumi.Input[_builtins.str]
-        """
-        Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
-        """
-        values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
-        """
-        Values of the node affinity selector.
-        """
-elif False:
-    HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgsDict(TypedDict):
+    key: pulumi.Input[_builtins.str]
+    """
+    Key of the node affinity selector.
+    """
+    operator: pulumi.Input[_builtins.str]
+    """
+    Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
+    """
+    values: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    Values of the node affinity selector.
+    """
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs:
@@ -816,24 +729,21 @@ class HibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs
         pulumi.set(self, "values", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgsDict(TypedDict):
-        price_hourly: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Spot instance price. Applicable only for AWS nodes.
-        """
-        spot: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether node should be created as spot instance.
-        """
-elif False:
-    HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgsDict(TypedDict):
+    price_hourly: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Spot instance price. Applicable only for AWS nodes.
+    """
+    spot: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether node should be created as spot instance.
+    """
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs:
     def __init__(__self__, *,
-                 price_hourly: Optional[pulumi.Input[_builtins.str]] = None,
-                 spot: Optional[pulumi.Input[_builtins.bool]] = None):
+                 price_hourly: pulumi.Input[Optional[_builtins.str]] = None,
+                 spot: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         :param pulumi.Input[_builtins.str] price_hourly: Spot instance price. Applicable only for AWS nodes.
         :param pulumi.Input[_builtins.bool] spot: Whether node should be created as spot instance.
@@ -845,44 +755,41 @@ class HibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="priceHourly")
-    def price_hourly(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def price_hourly(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Spot instance price. Applicable only for AWS nodes.
         """
         return pulumi.get(self, "price_hourly")
 
     @price_hourly.setter
-    def price_hourly(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def price_hourly(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "price_hourly", value)
 
     @_builtins.property
     @pulumi.getter
-    def spot(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def spot(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether node should be created as spot instance.
         """
         return pulumi.get(self, "spot")
 
     @spot.setter
-    def spot(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def spot(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "spot", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgsDict(TypedDict):
-        raid_configs: NotRequired[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgsDict']]]]
-        size_gib: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Volume size in GiB.
-        """
-elif False:
-    HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgsDict(TypedDict):
+    raid_configs: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgsDict']]]]]
+    size_gib: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Volume size in GiB.
+    """
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs:
     def __init__(__self__, *,
-                 raid_configs: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs']]]] = None,
-                 size_gib: Optional[pulumi.Input[_builtins.int]] = None):
+                 raid_configs: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs']]]] = None,
+                 size_gib: pulumi.Input[Optional[_builtins.int]] = None):
         """
         :param pulumi.Input[_builtins.int] size_gib: Volume size in GiB.
         """
@@ -893,39 +800,36 @@ class HibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs:
 
     @_builtins.property
     @pulumi.getter(name="raidConfigs")
-    def raid_configs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs']]]]:
+    def raid_configs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs']]]]:
         return pulumi.get(self, "raid_configs")
 
     @raid_configs.setter
-    def raid_configs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs']]]]):
+    def raid_configs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs']]]]):
         pulumi.set(self, "raid_configs", value)
 
     @_builtins.property
     @pulumi.getter(name="sizeGib")
-    def size_gib(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def size_gib(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Volume size in GiB.
         """
         return pulumi.get(self, "size_gib")
 
     @size_gib.setter
-    def size_gib(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def size_gib(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "size_gib", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgsDict(TypedDict):
-        chunk_size_kb: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
-        """
-elif False:
-    HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgsDict: TypeAlias = Mapping[str, Any]
+class HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgsDict(TypedDict):
+    chunk_size_kb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
+    """
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs:
     def __init__(__self__, *,
-                 chunk_size_kb: Optional[pulumi.Input[_builtins.int]] = None):
+                 chunk_size_kb: pulumi.Input[Optional[_builtins.int]] = None):
         """
         :param pulumi.Input[_builtins.int] chunk_size_kb: Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
         """
@@ -934,39 +838,36 @@ class HibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="chunkSizeKb")
-    def chunk_size_kb(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def chunk_size_kb(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
         """
         return pulumi.get(self, "chunk_size_kb")
 
     @chunk_size_kb.setter
-    def chunk_size_kb(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def chunk_size_kb(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "chunk_size_kb", value)
 
 
-if not MYPY:
-    class HibernationScheduleResumeConfigScheduleArgsDict(TypedDict):
-        cron_expression: pulumi.Input[_builtins.str]
-        """
-        Cron expression defining when the schedule should trigger.
+class HibernationScheduleResumeConfigScheduleArgsDict(TypedDict):
+    cron_expression: pulumi.Input[_builtins.str]
+    """
+    Cron expression defining when the schedule should trigger.
 
-          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+      The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
-          Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
-        ```
-          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+      Example:
+    ```plaintext
+    CRON_TZ=America/New_York 0 12 * * ?
+    ```
+      In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
-          To retrieve a list of available timezone values, you can use the following API endpoint:
+      To retrieve a list of available timezone values, you can use the following API endpoint:
 
-          GET https://api.cast.ai/v1/time-zones
+      GET https://api.cast.ai/v1/time-zones
 
-          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-elif False:
-    HibernationScheduleResumeConfigScheduleArgsDict: TypeAlias = Mapping[str, Any]
+      When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+    """
 
 @pulumi.input_type
 class HibernationScheduleResumeConfigScheduleArgs:
@@ -978,8 +879,8 @@ class HibernationScheduleResumeConfigScheduleArgs:
                  The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
                
                  Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
                ```
                  In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
                
@@ -1000,8 +901,8 @@ class HibernationScheduleResumeConfigScheduleArgs:
           The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
           Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
         ```
           In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
@@ -1018,70 +919,78 @@ class HibernationScheduleResumeConfigScheduleArgs:
         pulumi.set(self, "cron_expression", value)
 
 
-if not MYPY:
-    class RebalancingScheduleLaunchConfigurationArgsDict(TypedDict):
-        aggressive_mode: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
-        """
-        aggressive_mode_config: NotRequired[pulumi.Input['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgsDict']]
-        """
-        Advanced configuration for aggressive rebalancing mode.
-        """
-        execution_conditions: NotRequired[pulumi.Input['RebalancingScheduleLaunchConfigurationExecutionConditionsArgsDict']]
-        keep_drain_timeout_nodes: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
-        """
-        node_ttl_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
-        """
-        num_targeted_nodes: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Maximum number of nodes that will be selected for rebalancing.
-        """
-        rebalancing_min_nodes: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Minimum number of nodes that should be kept in the cluster after rebalancing.
-        """
-        selector: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Node selector in JSON format.
-        """
-        target_node_selection_algorithm: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Defines the algorithm used to select the target nodes for rebalancing.
-        """
-elif False:
-    RebalancingScheduleLaunchConfigurationArgsDict: TypeAlias = Mapping[str, Any]
+class RebalancingScheduleLaunchConfigurationArgsDict(TypedDict):
+    aggressive_mode: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Deprecated: Use aggressive_mode_config instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+    """
+    aggressive_mode_config: NotRequired[pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgsDict']]]
+    """
+    Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressive_mode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressive_mode` is set to `true`, it takes precedence over this option.
+    """
+    drain_failure_config: NotRequired[pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationDrainFailureConfigArgsDict']]]
+    """
+    Configures behavior when a node fails to drain during rebalancing. Relevant only when `keep_drain_timeout_nodes` is true.
+    """
+    execution_conditions: NotRequired[pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationExecutionConditionsArgsDict']]]
+    keep_drain_timeout_nodes: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
+    """
+    node_ttl_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
+    """
+    num_targeted_nodes: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
+    """
+    rebalancing_min_nodes: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Minimum number of nodes that should be kept in the cluster after rebalancing.
+    """
+    selector: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Node selector in JSON format.
+    """
+    target_node_selection_algorithm: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Defines the algorithm used to select the target nodes for rebalancing.
+    """
 
 @pulumi.input_type
 class RebalancingScheduleLaunchConfigurationArgs:
     def __init__(__self__, *,
-                 aggressive_mode: Optional[pulumi.Input[_builtins.bool]] = None,
-                 aggressive_mode_config: Optional[pulumi.Input['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs']] = None,
-                 execution_conditions: Optional[pulumi.Input['RebalancingScheduleLaunchConfigurationExecutionConditionsArgs']] = None,
-                 keep_drain_timeout_nodes: Optional[pulumi.Input[_builtins.bool]] = None,
-                 node_ttl_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 num_targeted_nodes: Optional[pulumi.Input[_builtins.int]] = None,
-                 rebalancing_min_nodes: Optional[pulumi.Input[_builtins.int]] = None,
-                 selector: Optional[pulumi.Input[_builtins.str]] = None,
-                 target_node_selection_algorithm: Optional[pulumi.Input[_builtins.str]] = None):
+                 aggressive_mode: pulumi.Input[Optional[_builtins.bool]] = None,
+                 aggressive_mode_config: pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs']] = None,
+                 drain_failure_config: pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs']] = None,
+                 execution_conditions: pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationExecutionConditionsArgs']] = None,
+                 keep_drain_timeout_nodes: pulumi.Input[Optional[_builtins.bool]] = None,
+                 node_ttl_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 num_targeted_nodes: pulumi.Input[Optional[_builtins.int]] = None,
+                 rebalancing_min_nodes: pulumi.Input[Optional[_builtins.int]] = None,
+                 selector: pulumi.Input[Optional[_builtins.str]] = None,
+                 target_node_selection_algorithm: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        :param pulumi.Input[_builtins.bool] aggressive_mode: When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
-        :param pulumi.Input['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs'] aggressive_mode_config: Advanced configuration for aggressive rebalancing mode.
+        :param pulumi.Input[_builtins.bool] aggressive_mode: Deprecated: Use aggressive_mode_config instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+        :param pulumi.Input['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs'] aggressive_mode_config: Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressive_mode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressive_mode` is set to `true`, it takes precedence over this option.
+        :param pulumi.Input['RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs'] drain_failure_config: Configures behavior when a node fails to drain during rebalancing. Relevant only when `keep_drain_timeout_nodes` is true.
         :param pulumi.Input[_builtins.bool] keep_drain_timeout_nodes: Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
         :param pulumi.Input[_builtins.int] node_ttl_seconds: Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
-        :param pulumi.Input[_builtins.int] num_targeted_nodes: Maximum number of nodes that will be selected for rebalancing.
+        :param pulumi.Input[_builtins.int] num_targeted_nodes: Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
         :param pulumi.Input[_builtins.int] rebalancing_min_nodes: Minimum number of nodes that should be kept in the cluster after rebalancing.
         :param pulumi.Input[_builtins.str] selector: Node selector in JSON format.
         :param pulumi.Input[_builtins.str] target_node_selection_algorithm: Defines the algorithm used to select the target nodes for rebalancing.
         """
         if aggressive_mode is not None:
+            warnings.warn("""For equivalent behaviour use aggresive_mode_config = {ignore_local_persistent_volumes = true, ignore_problem_job_pods = true, ignore_problem_removal_disabled_pods = true, ignore_problem_pods_without_controller = true}""", DeprecationWarning)
+            pulumi.log.warn("""aggressive_mode is deprecated: For equivalent behaviour use aggresive_mode_config = {ignore_local_persistent_volumes = true, ignore_problem_job_pods = true, ignore_problem_removal_disabled_pods = true, ignore_problem_pods_without_controller = true}""")
+        if aggressive_mode is not None:
             pulumi.set(__self__, "aggressive_mode", aggressive_mode)
         if aggressive_mode_config is not None:
             pulumi.set(__self__, "aggressive_mode_config", aggressive_mode_config)
+        if drain_failure_config is not None:
+            pulumi.set(__self__, "drain_failure_config", drain_failure_config)
         if execution_conditions is not None:
             pulumi.set(__self__, "execution_conditions", execution_conditions)
         if keep_drain_timeout_nodes is not None:
@@ -1099,130 +1008,140 @@ class RebalancingScheduleLaunchConfigurationArgs:
 
     @_builtins.property
     @pulumi.getter(name="aggressiveMode")
-    def aggressive_mode(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    @_utilities.deprecated("""For equivalent behaviour use aggresive_mode_config = {ignore_local_persistent_volumes = true, ignore_problem_job_pods = true, ignore_problem_removal_disabled_pods = true, ignore_problem_pods_without_controller = true}""")
+    def aggressive_mode(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+        Deprecated: Use aggressive_mode_config instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
         """
         return pulumi.get(self, "aggressive_mode")
 
     @aggressive_mode.setter
-    def aggressive_mode(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def aggressive_mode(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "aggressive_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="aggressiveModeConfig")
-    def aggressive_mode_config(self) -> Optional[pulumi.Input['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs']]:
+    def aggressive_mode_config(self) -> pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs']]:
         """
-        Advanced configuration for aggressive rebalancing mode.
+        Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressive_mode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressive_mode` is set to `true`, it takes precedence over this option.
         """
         return pulumi.get(self, "aggressive_mode_config")
 
     @aggressive_mode_config.setter
-    def aggressive_mode_config(self, value: Optional[pulumi.Input['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs']]):
+    def aggressive_mode_config(self, value: pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs']]):
         pulumi.set(self, "aggressive_mode_config", value)
 
     @_builtins.property
+    @pulumi.getter(name="drainFailureConfig")
+    def drain_failure_config(self) -> pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs']]:
+        """
+        Configures behavior when a node fails to drain during rebalancing. Relevant only when `keep_drain_timeout_nodes` is true.
+        """
+        return pulumi.get(self, "drain_failure_config")
+
+    @drain_failure_config.setter
+    def drain_failure_config(self, value: pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs']]):
+        pulumi.set(self, "drain_failure_config", value)
+
+    @_builtins.property
     @pulumi.getter(name="executionConditions")
-    def execution_conditions(self) -> Optional[pulumi.Input['RebalancingScheduleLaunchConfigurationExecutionConditionsArgs']]:
+    def execution_conditions(self) -> pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationExecutionConditionsArgs']]:
         return pulumi.get(self, "execution_conditions")
 
     @execution_conditions.setter
-    def execution_conditions(self, value: Optional[pulumi.Input['RebalancingScheduleLaunchConfigurationExecutionConditionsArgs']]):
+    def execution_conditions(self, value: pulumi.Input[Optional['RebalancingScheduleLaunchConfigurationExecutionConditionsArgs']]):
         pulumi.set(self, "execution_conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="keepDrainTimeoutNodes")
-    def keep_drain_timeout_nodes(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def keep_drain_timeout_nodes(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
         """
         return pulumi.get(self, "keep_drain_timeout_nodes")
 
     @keep_drain_timeout_nodes.setter
-    def keep_drain_timeout_nodes(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def keep_drain_timeout_nodes(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "keep_drain_timeout_nodes", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeTtlSeconds")
-    def node_ttl_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def node_ttl_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
         """
         return pulumi.get(self, "node_ttl_seconds")
 
     @node_ttl_seconds.setter
-    def node_ttl_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def node_ttl_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "node_ttl_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="numTargetedNodes")
-    def num_targeted_nodes(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def num_targeted_nodes(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Maximum number of nodes that will be selected for rebalancing.
+        Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
         """
         return pulumi.get(self, "num_targeted_nodes")
 
     @num_targeted_nodes.setter
-    def num_targeted_nodes(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def num_targeted_nodes(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "num_targeted_nodes", value)
 
     @_builtins.property
     @pulumi.getter(name="rebalancingMinNodes")
-    def rebalancing_min_nodes(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def rebalancing_min_nodes(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimum number of nodes that should be kept in the cluster after rebalancing.
         """
         return pulumi.get(self, "rebalancing_min_nodes")
 
     @rebalancing_min_nodes.setter
-    def rebalancing_min_nodes(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def rebalancing_min_nodes(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "rebalancing_min_nodes", value)
 
     @_builtins.property
     @pulumi.getter
-    def selector(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def selector(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Node selector in JSON format.
         """
         return pulumi.get(self, "selector")
 
     @selector.setter
-    def selector(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def selector(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "selector", value)
 
     @_builtins.property
     @pulumi.getter(name="targetNodeSelectionAlgorithm")
-    def target_node_selection_algorithm(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def target_node_selection_algorithm(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Defines the algorithm used to select the target nodes for rebalancing.
         """
         return pulumi.get(self, "target_node_selection_algorithm")
 
     @target_node_selection_algorithm.setter
-    def target_node_selection_algorithm(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def target_node_selection_algorithm(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "target_node_selection_algorithm", value)
 
 
-if not MYPY:
-    class RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgsDict(TypedDict):
-        ignore_local_persistent_volumes: pulumi.Input[_builtins.bool]
-        """
-        Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
-        """
-        ignore_problem_job_pods: pulumi.Input[_builtins.bool]
-        """
-        Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
-        """
-        ignore_problem_pods_without_controller: pulumi.Input[_builtins.bool]
-        """
-        Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
-        """
-        ignore_problem_removal_disabled_pods: pulumi.Input[_builtins.bool]
-        """
-        Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
-        """
-elif False:
-    RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgsDict: TypeAlias = Mapping[str, Any]
+class RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgsDict(TypedDict):
+    ignore_local_persistent_volumes: pulumi.Input[_builtins.bool]
+    """
+    Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
+    """
+    ignore_problem_job_pods: pulumi.Input[_builtins.bool]
+    """
+    Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
+    """
+    ignore_problem_pods_without_controller: pulumi.Input[_builtins.bool]
+    """
+    Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
+    """
+    ignore_problem_removal_disabled_pods: pulumi.Input[_builtins.bool]
+    """
+    Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
+    """
 
 @pulumi.input_type
 class RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs:
@@ -1291,24 +1210,70 @@ class RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs:
         pulumi.set(self, "ignore_problem_removal_disabled_pods", value)
 
 
-if not MYPY:
-    class RebalancingScheduleLaunchConfigurationExecutionConditionsArgsDict(TypedDict):
-        enabled: pulumi.Input[_builtins.bool]
+class RebalancingScheduleLaunchConfigurationDrainFailureConfigArgsDict(TypedDict):
+    disable_uncordon: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+    """
+    uncordon_after_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disable_uncordon` is true.
+    """
+
+@pulumi.input_type
+class RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs:
+    def __init__(__self__, *,
+                 disable_uncordon: pulumi.Input[Optional[_builtins.bool]] = None,
+                 uncordon_after_seconds: pulumi.Input[Optional[_builtins.int]] = None):
         """
-        Enables or disables the execution conditions.
+        :param pulumi.Input[_builtins.bool] disable_uncordon: When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+        :param pulumi.Input[_builtins.int] uncordon_after_seconds: Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disable_uncordon` is true.
         """
-        achieved_savings_percentage: NotRequired[pulumi.Input[_builtins.int]]
+        if disable_uncordon is not None:
+            pulumi.set(__self__, "disable_uncordon", disable_uncordon)
+        if uncordon_after_seconds is not None:
+            pulumi.set(__self__, "uncordon_after_seconds", uncordon_after_seconds)
+
+    @_builtins.property
+    @pulumi.getter(name="disableUncordon")
+    def disable_uncordon(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
+        When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
         """
-elif False:
-    RebalancingScheduleLaunchConfigurationExecutionConditionsArgsDict: TypeAlias = Mapping[str, Any]
+        return pulumi.get(self, "disable_uncordon")
+
+    @disable_uncordon.setter
+    def disable_uncordon(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "disable_uncordon", value)
+
+    @_builtins.property
+    @pulumi.getter(name="uncordonAfterSeconds")
+    def uncordon_after_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disable_uncordon` is true.
+        """
+        return pulumi.get(self, "uncordon_after_seconds")
+
+    @uncordon_after_seconds.setter
+    def uncordon_after_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "uncordon_after_seconds", value)
+
+
+class RebalancingScheduleLaunchConfigurationExecutionConditionsArgsDict(TypedDict):
+    enabled: pulumi.Input[_builtins.bool]
+    """
+    Enables or disables the execution conditions.
+    """
+    achieved_savings_percentage: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
+    """
 
 @pulumi.input_type
 class RebalancingScheduleLaunchConfigurationExecutionConditionsArgs:
     def __init__(__self__, *,
                  enabled: pulumi.Input[_builtins.bool],
-                 achieved_savings_percentage: Optional[pulumi.Input[_builtins.int]] = None):
+                 achieved_savings_percentage: pulumi.Input[Optional[_builtins.int]] = None):
         """
         :param pulumi.Input[_builtins.bool] enabled: Enables or disables the execution conditions.
         :param pulumi.Input[_builtins.int] achieved_savings_percentage: The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
@@ -1331,39 +1296,36 @@ class RebalancingScheduleLaunchConfigurationExecutionConditionsArgs:
 
     @_builtins.property
     @pulumi.getter(name="achievedSavingsPercentage")
-    def achieved_savings_percentage(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def achieved_savings_percentage(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
         """
         return pulumi.get(self, "achieved_savings_percentage")
 
     @achieved_savings_percentage.setter
-    def achieved_savings_percentage(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def achieved_savings_percentage(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "achieved_savings_percentage", value)
 
 
-if not MYPY:
-    class RebalancingScheduleScheduleArgsDict(TypedDict):
-        cron: pulumi.Input[_builtins.str]
-        """
-        Cron expression defining when the schedule should trigger.
+class RebalancingScheduleScheduleArgsDict(TypedDict):
+    cron: pulumi.Input[_builtins.str]
+    """
+    Cron expression defining when the schedule should trigger.
 
-          The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+      The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
-          Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
-        ```
-          In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+      Example:
+    ```plaintext
+    CRON_TZ=America/New_York 0 12 * * ?
+    ```
+      In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
-          To retrieve a list of available timezone values, you can use the following API endpoint:
+      To retrieve a list of available timezone values, you can use the following API endpoint:
 
-          GET https://api.cast.ai/v1/time-zones
+      GET https://api.cast.ai/v1/time-zones
 
-          When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-        """
-elif False:
-    RebalancingScheduleScheduleArgsDict: TypeAlias = Mapping[str, Any]
+      When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+    """
 
 @pulumi.input_type
 class RebalancingScheduleScheduleArgs:
@@ -1375,8 +1337,8 @@ class RebalancingScheduleScheduleArgs:
                  The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
                
                  Example:
-                 ```plaintext
-                 CRON_TZ=America/New_York 0 12 * * ?
+               ```plaintext
+               CRON_TZ=America/New_York 0 12 * * ?
                ```
                  In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
                
@@ -1397,8 +1359,8 @@ class RebalancingScheduleScheduleArgs:
           The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
 
           Example:
-          ```plaintext
-          CRON_TZ=America/New_York 0 12 * * ?
+        ```plaintext
+        CRON_TZ=America/New_York 0 12 * * ?
         ```
           In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
 
@@ -1415,24 +1377,21 @@ class RebalancingScheduleScheduleArgs:
         pulumi.set(self, "cron", value)
 
 
-if not MYPY:
-    class RebalancingScheduleTriggerConditionsArgsDict(TypedDict):
-        savings_percentage: pulumi.Input[_builtins.float]
-        """
-        Defines the minimum percentage of savings expected.
-        """
-        ignore_savings: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
-        """
-elif False:
-    RebalancingScheduleTriggerConditionsArgsDict: TypeAlias = Mapping[str, Any]
+class RebalancingScheduleTriggerConditionsArgsDict(TypedDict):
+    savings_percentage: pulumi.Input[_builtins.float]
+    """
+    Defines the minimum percentage of savings expected.
+    """
+    ignore_savings: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
+    """
 
 @pulumi.input_type
 class RebalancingScheduleTriggerConditionsArgs:
     def __init__(__self__, *,
                  savings_percentage: pulumi.Input[_builtins.float],
-                 ignore_savings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 ignore_savings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         :param pulumi.Input[_builtins.float] savings_percentage: Defines the minimum percentage of savings expected.
         :param pulumi.Input[_builtins.bool] ignore_savings: If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
@@ -1455,14 +1414,62 @@ class RebalancingScheduleTriggerConditionsArgs:
 
     @_builtins.property
     @pulumi.getter(name="ignoreSavings")
-    def ignore_savings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ignore_savings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
         """
         return pulumi.get(self, "ignore_savings")
 
     @ignore_savings.setter
-    def ignore_savings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ignore_savings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ignore_savings", value)
+
+
+class GetHibernationScheduleClusterAssignmentArgsDict(TypedDict):
+    assignments: NotRequired[Sequence['GetHibernationScheduleClusterAssignmentAssignmentArgsDict']]
+
+@pulumi.input_type
+class GetHibernationScheduleClusterAssignmentArgs:
+    def __init__(__self__, *,
+                 assignments: Optional[Sequence['GetHibernationScheduleClusterAssignmentAssignmentArgs']] = None):
+        if assignments is not None:
+            pulumi.set(__self__, "assignments", assignments)
+
+    @_builtins.property
+    @pulumi.getter
+    def assignments(self) -> Optional[Sequence['GetHibernationScheduleClusterAssignmentAssignmentArgs']]:
+        return pulumi.get(self, "assignments")
+
+    @assignments.setter
+    def assignments(self, value: Optional[Sequence['GetHibernationScheduleClusterAssignmentAssignmentArgs']]):
+        pulumi.set(self, "assignments", value)
+
+
+class GetHibernationScheduleClusterAssignmentAssignmentArgsDict(TypedDict):
+    cluster_id: _builtins.str
+    """
+    ID of the cluster.
+    """
+
+@pulumi.input_type
+class GetHibernationScheduleClusterAssignmentAssignmentArgs:
+    def __init__(__self__, *,
+                 cluster_id: _builtins.str):
+        """
+        :param _builtins.str cluster_id: ID of the cluster.
+        """
+        pulumi.set(__self__, "cluster_id", cluster_id)
+
+    @_builtins.property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> _builtins.str:
+        """
+        ID of the cluster.
+        """
+        return pulumi.get(self, "cluster_id")
+
+    @cluster_id.setter
+    def cluster_id(self, value: _builtins.str):
+        pulumi.set(self, "cluster_id", value)
 
 

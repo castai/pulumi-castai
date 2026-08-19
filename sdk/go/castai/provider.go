@@ -22,6 +22,8 @@ type Provider struct {
 	ApiToken pulumi.StringPtrOutput `pulumi:"apiToken"`
 	// CAST.AI API url.
 	ApiUrl pulumi.StringPtrOutput `pulumi:"apiUrl"`
+	// CAST AI organization ID. Required when the API token has access to multiple organizations.
+	OrganizationId pulumi.StringPtrOutput `pulumi:"organizationId"`
 }
 
 // NewProvider registers a new resource with the given unique name, arguments, and options.
@@ -62,6 +64,8 @@ type providerArgs struct {
 	ApiToken *string `pulumi:"apiToken"`
 	// CAST.AI API url.
 	ApiUrl *string `pulumi:"apiUrl"`
+	// CAST AI organization ID. Required when the API token has access to multiple organizations.
+	OrganizationId *string `pulumi:"organizationId"`
 }
 
 // The set of arguments for constructing a Provider resource.
@@ -70,6 +74,8 @@ type ProviderArgs struct {
 	ApiToken pulumi.StringPtrInput
 	// CAST.AI API url.
 	ApiUrl pulumi.StringPtrInput
+	// CAST AI organization ID. Required when the API token has access to multiple organizations.
+	OrganizationId pulumi.StringPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {
@@ -140,6 +146,11 @@ func (o ProviderOutput) ApiToken() pulumi.StringPtrOutput {
 // CAST.AI API url.
 func (o ProviderOutput) ApiUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiUrl }).(pulumi.StringPtrOutput)
+}
+
+// CAST AI organization ID. Required when the API token has access to multiple organizations.
+func (o ProviderOutput) OrganizationId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.OrganizationId }).(pulumi.StringPtrOutput)
 }
 
 func init() {

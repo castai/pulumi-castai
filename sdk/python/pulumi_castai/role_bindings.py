@@ -23,11 +23,12 @@ class RoleBindingsArgs:
                  organization_id: pulumi.Input[_builtins.str],
                  role_id: pulumi.Input[_builtins.str],
                  subjects: pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsSubjectArgs']]],
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 scopes: Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]] = None):
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 scopes: pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]] = None):
         """
         The set of arguments for constructing a RoleBindings resource.
+
         :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID.
         :param pulumi.Input[_builtins.str] role_id: ID of role from role binding.
         :param pulumi.Input[_builtins.str] description: Description of the role binding.
@@ -79,52 +80,53 @@ class RoleBindingsArgs:
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Description of the role binding.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of role binding.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def scopes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]]:
+    def scopes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]]:
         """
         Scopes of the role binding.
         """
         return pulumi.get(self, "scopes")
 
     @scopes.setter
-    def scopes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]]):
+    def scopes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]]):
         pulumi.set(self, "scopes", value)
 
 
 @pulumi.input_type
 class _RoleBindingsState:
     def __init__(__self__, *,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 role_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 scopes: Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]] = None,
-                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsSubjectArgs']]]] = None):
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 role_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 scopes: pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]] = None,
+                 subjects: pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsSubjectArgs']]]] = None):
         """
         Input properties used for looking up and filtering RoleBindings resources.
+
         :param pulumi.Input[_builtins.str] description: Description of the role binding.
         :param pulumi.Input[_builtins.str] name: Name of role binding.
         :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID.
@@ -146,71 +148,71 @@ class _RoleBindingsState:
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Description of the role binding.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of role binding.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="organizationId")
-    def organization_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI organization ID.
         """
         return pulumi.get(self, "organization_id")
 
     @organization_id.setter
-    def organization_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization_id", value)
 
     @_builtins.property
     @pulumi.getter(name="roleId")
-    def role_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def role_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of role from role binding.
         """
         return pulumi.get(self, "role_id")
 
     @role_id.setter
-    def role_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def role_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "role_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def scopes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]]:
+    def scopes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]]:
         """
         Scopes of the role binding.
         """
         return pulumi.get(self, "scopes")
 
     @scopes.setter
-    def scopes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]]):
+    def scopes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsScopeArgs']]]]):
         pulumi.set(self, "scopes", value)
 
     @_builtins.property
     @pulumi.getter
-    def subjects(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsSubjectArgs']]]]:
+    def subjects(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsSubjectArgs']]]]:
         return pulumi.get(self, "subjects")
 
     @subjects.setter
-    def subjects(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_iam.RoleBindingsSubjectArgs']]]]):
+    def subjects(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_iam.RoleBindingsSubjectArgs']]]]):
         pulumi.set(self, "subjects", value)
 
 
@@ -220,15 +222,16 @@ class RoleBindings(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 role_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 scopes: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_iam.RoleBindingsScopeArgs', '_iam.RoleBindingsScopeArgsDict']]]]] = None,
-                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_iam.RoleBindingsSubjectArgs', '_iam.RoleBindingsSubjectArgsDict']]]]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 role_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 scopes: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_iam.RoleBindingsScopeArgs', '_iam.RoleBindingsScopeArgsDict']]]]] = None,
+                 subjects: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_iam.RoleBindingsSubjectArgs', '_iam.RoleBindingsSubjectArgsDict']]]]] = None,
                  __props__=None):
         """
         Create a RoleBindings resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] description: Description of the role binding.
@@ -245,6 +248,7 @@ class RoleBindings(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a RoleBindings resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param RoleBindingsArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -260,12 +264,12 @@ class RoleBindings(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 role_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 scopes: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_iam.RoleBindingsScopeArgs', '_iam.RoleBindingsScopeArgsDict']]]]] = None,
-                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_iam.RoleBindingsSubjectArgs', '_iam.RoleBindingsSubjectArgsDict']]]]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 role_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 scopes: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_iam.RoleBindingsScopeArgs', '_iam.RoleBindingsScopeArgsDict']]]]] = None,
+                 subjects: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_iam.RoleBindingsSubjectArgs', '_iam.RoleBindingsSubjectArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -297,12 +301,12 @@ class RoleBindings(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-            role_id: Optional[pulumi.Input[_builtins.str]] = None,
-            scopes: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_iam.RoleBindingsScopeArgs', '_iam.RoleBindingsScopeArgsDict']]]]] = None,
-            subjects: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_iam.RoleBindingsSubjectArgs', '_iam.RoleBindingsSubjectArgsDict']]]]] = None) -> 'RoleBindings':
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+            role_id: pulumi.Input[Optional[_builtins.str]] = None,
+            scopes: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_iam.RoleBindingsScopeArgs', '_iam.RoleBindingsScopeArgsDict']]]]] = None,
+            subjects: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_iam.RoleBindingsSubjectArgs', '_iam.RoleBindingsSubjectArgsDict']]]]] = None) -> 'RoleBindings':
         """
         Get an existing RoleBindings resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

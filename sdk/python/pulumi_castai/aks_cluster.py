@@ -21,34 +21,40 @@ __all__ = ['AksClusterArgs', 'AksCluster']
 class AksClusterArgs:
     def __init__(__self__, *,
                  client_id: pulumi.Input[_builtins.str],
-                 client_secret: pulumi.Input[_builtins.str],
                  node_resource_group: pulumi.Input[_builtins.str],
                  region: pulumi.Input[_builtins.str],
                  subscription_id: pulumi.Input[_builtins.str],
                  tenant_id: pulumi.Input[_builtins.str],
-                 delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-                 http_proxy_config: Optional[pulumi.Input['_azure.AksClusterHttpProxyConfigArgs']] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 client_secret: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+                 federation_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 http_proxy_config: pulumi.Input[Optional['_azure.AksClusterHttpProxyConfigArgs']] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a AksCluster resource.
+
         :param pulumi.Input[_builtins.str] client_id: Azure AD application ID that is created and used by CAST AI.
-        :param pulumi.Input[_builtins.str] client_secret: Azure AD application password that will be used by CAST AI.
         :param pulumi.Input[_builtins.str] node_resource_group: Azure resource group in which nodes are and will be created.
         :param pulumi.Input[_builtins.str] region: AKS cluster region.
         :param pulumi.Input[_builtins.str] subscription_id: ID of the Azure subscription.
         :param pulumi.Input[_builtins.str] tenant_id: Azure AD tenant ID from the used subscription.
+        :param pulumi.Input[_builtins.str] client_secret: Azure AD application password that will be used by CAST AI.
         :param pulumi.Input[_builtins.bool] delete_nodes_on_disconnect: Should CAST AI remove nodes managed by CAST.AI on disconnect.
+        :param pulumi.Input[_builtins.str] federation_id: Azure federation used by CAST AI for secretless auth via impersonation.
         :param pulumi.Input['_azure.AksClusterHttpProxyConfigArgs'] http_proxy_config: HTTP proxy configuration for CAST AI nodes and node components.
         :param pulumi.Input[_builtins.str] name: AKS cluster name.
         """
         pulumi.set(__self__, "client_id", client_id)
-        pulumi.set(__self__, "client_secret", client_secret)
         pulumi.set(__self__, "node_resource_group", node_resource_group)
         pulumi.set(__self__, "region", region)
         pulumi.set(__self__, "subscription_id", subscription_id)
         pulumi.set(__self__, "tenant_id", tenant_id)
+        if client_secret is not None:
+            pulumi.set(__self__, "client_secret", client_secret)
         if delete_nodes_on_disconnect is not None:
             pulumi.set(__self__, "delete_nodes_on_disconnect", delete_nodes_on_disconnect)
+        if federation_id is not None:
+            pulumi.set(__self__, "federation_id", federation_id)
         if http_proxy_config is not None:
             pulumi.set(__self__, "http_proxy_config", http_proxy_config)
         if name is not None:
@@ -65,18 +71,6 @@ class AksClusterArgs:
     @client_id.setter
     def client_id(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "client_id", value)
-
-    @_builtins.property
-    @pulumi.getter(name="clientSecret")
-    def client_secret(self) -> pulumi.Input[_builtins.str]:
-        """
-        Azure AD application password that will be used by CAST AI.
-        """
-        return pulumi.get(self, "client_secret")
-
-    @client_secret.setter
-    def client_secret(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "client_secret", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeResourceGroup")
@@ -127,66 +121,95 @@ class AksClusterArgs:
         pulumi.set(self, "tenant_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="clientSecret")
+    def client_secret(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Azure AD application password that will be used by CAST AI.
+        """
+        return pulumi.get(self, "client_secret")
+
+    @client_secret.setter
+    def client_secret(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "client_secret", value)
+
+    @_builtins.property
     @pulumi.getter(name="deleteNodesOnDisconnect")
-    def delete_nodes_on_disconnect(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def delete_nodes_on_disconnect(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Should CAST AI remove nodes managed by CAST.AI on disconnect.
         """
         return pulumi.get(self, "delete_nodes_on_disconnect")
 
     @delete_nodes_on_disconnect.setter
-    def delete_nodes_on_disconnect(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def delete_nodes_on_disconnect(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "delete_nodes_on_disconnect", value)
 
     @_builtins.property
+    @pulumi.getter(name="federationId")
+    def federation_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Azure federation used by CAST AI for secretless auth via impersonation.
+        """
+        return pulumi.get(self, "federation_id")
+
+    @federation_id.setter
+    def federation_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "federation_id", value)
+
+    @_builtins.property
     @pulumi.getter(name="httpProxyConfig")
-    def http_proxy_config(self) -> Optional[pulumi.Input['_azure.AksClusterHttpProxyConfigArgs']]:
+    def http_proxy_config(self) -> pulumi.Input[Optional['_azure.AksClusterHttpProxyConfigArgs']]:
         """
         HTTP proxy configuration for CAST AI nodes and node components.
         """
         return pulumi.get(self, "http_proxy_config")
 
     @http_proxy_config.setter
-    def http_proxy_config(self, value: Optional[pulumi.Input['_azure.AksClusterHttpProxyConfigArgs']]):
+    def http_proxy_config(self, value: pulumi.Input[Optional['_azure.AksClusterHttpProxyConfigArgs']]):
         pulumi.set(self, "http_proxy_config", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         AKS cluster name.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
 class _AksClusterState:
     def __init__(__self__, *,
-                 client_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 client_secret: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 credentials_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-                 http_proxy_config: Optional[pulumi.Input['_azure.AksClusterHttpProxyConfigArgs']] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 node_resource_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 region: Optional[pulumi.Input[_builtins.str]] = None,
-                 subscription_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 tenant_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 client_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 client_secret: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 credentials_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+                 federation_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 http_proxy_config: pulumi.Input[Optional['_azure.AksClusterHttpProxyConfigArgs']] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 node_resource_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 region: pulumi.Input[Optional[_builtins.str]] = None,
+                 subscription_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 tenant_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering AksCluster resources.
+
         :param pulumi.Input[_builtins.str] client_id: Azure AD application ID that is created and used by CAST AI.
         :param pulumi.Input[_builtins.str] client_secret: Azure AD application password that will be used by CAST AI.
         :param pulumi.Input[_builtins.str] cluster_token: CAST AI cluster token.
         :param pulumi.Input[_builtins.str] credentials_id: CAST AI internal credentials ID
         :param pulumi.Input[_builtins.bool] delete_nodes_on_disconnect: Should CAST AI remove nodes managed by CAST.AI on disconnect.
+        :param pulumi.Input[_builtins.str] federation_id: Azure federation used by CAST AI for secretless auth via impersonation.
         :param pulumi.Input['_azure.AksClusterHttpProxyConfigArgs'] http_proxy_config: HTTP proxy configuration for CAST AI nodes and node components.
         :param pulumi.Input[_builtins.str] name: AKS cluster name.
         :param pulumi.Input[_builtins.str] node_resource_group: Azure resource group in which nodes are and will be created.
+        :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID
         :param pulumi.Input[_builtins.str] region: AKS cluster region.
         :param pulumi.Input[_builtins.str] subscription_id: ID of the Azure subscription.
         :param pulumi.Input[_builtins.str] tenant_id: Azure AD tenant ID from the used subscription.
@@ -201,12 +224,16 @@ class _AksClusterState:
             pulumi.set(__self__, "credentials_id", credentials_id)
         if delete_nodes_on_disconnect is not None:
             pulumi.set(__self__, "delete_nodes_on_disconnect", delete_nodes_on_disconnect)
+        if federation_id is not None:
+            pulumi.set(__self__, "federation_id", federation_id)
         if http_proxy_config is not None:
             pulumi.set(__self__, "http_proxy_config", http_proxy_config)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if node_resource_group is not None:
             pulumi.set(__self__, "node_resource_group", node_resource_group)
+        if organization_id is not None:
+            pulumi.set(__self__, "organization_id", organization_id)
         if region is not None:
             pulumi.set(__self__, "region", region)
         if subscription_id is not None:
@@ -216,134 +243,158 @@ class _AksClusterState:
 
     @_builtins.property
     @pulumi.getter(name="clientId")
-    def client_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def client_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Azure AD application ID that is created and used by CAST AI.
         """
         return pulumi.get(self, "client_id")
 
     @client_id.setter
-    def client_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def client_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "client_id", value)
 
     @_builtins.property
     @pulumi.getter(name="clientSecret")
-    def client_secret(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def client_secret(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Azure AD application password that will be used by CAST AI.
         """
         return pulumi.get(self, "client_secret")
 
     @client_secret.setter
-    def client_secret(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def client_secret(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "client_secret", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterToken")
-    def cluster_token(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_token(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster token.
         """
         return pulumi.get(self, "cluster_token")
 
     @cluster_token.setter
-    def cluster_token(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_token(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_token", value)
 
     @_builtins.property
     @pulumi.getter(name="credentialsId")
-    def credentials_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def credentials_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI internal credentials ID
         """
         return pulumi.get(self, "credentials_id")
 
     @credentials_id.setter
-    def credentials_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def credentials_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "credentials_id", value)
 
     @_builtins.property
     @pulumi.getter(name="deleteNodesOnDisconnect")
-    def delete_nodes_on_disconnect(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def delete_nodes_on_disconnect(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Should CAST AI remove nodes managed by CAST.AI on disconnect.
         """
         return pulumi.get(self, "delete_nodes_on_disconnect")
 
     @delete_nodes_on_disconnect.setter
-    def delete_nodes_on_disconnect(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def delete_nodes_on_disconnect(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "delete_nodes_on_disconnect", value)
 
     @_builtins.property
+    @pulumi.getter(name="federationId")
+    def federation_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Azure federation used by CAST AI for secretless auth via impersonation.
+        """
+        return pulumi.get(self, "federation_id")
+
+    @federation_id.setter
+    def federation_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "federation_id", value)
+
+    @_builtins.property
     @pulumi.getter(name="httpProxyConfig")
-    def http_proxy_config(self) -> Optional[pulumi.Input['_azure.AksClusterHttpProxyConfigArgs']]:
+    def http_proxy_config(self) -> pulumi.Input[Optional['_azure.AksClusterHttpProxyConfigArgs']]:
         """
         HTTP proxy configuration for CAST AI nodes and node components.
         """
         return pulumi.get(self, "http_proxy_config")
 
     @http_proxy_config.setter
-    def http_proxy_config(self, value: Optional[pulumi.Input['_azure.AksClusterHttpProxyConfigArgs']]):
+    def http_proxy_config(self, value: pulumi.Input[Optional['_azure.AksClusterHttpProxyConfigArgs']]):
         pulumi.set(self, "http_proxy_config", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         AKS cluster name.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeResourceGroup")
-    def node_resource_group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def node_resource_group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Azure resource group in which nodes are and will be created.
         """
         return pulumi.get(self, "node_resource_group")
 
     @node_resource_group.setter
-    def node_resource_group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def node_resource_group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "node_resource_group", value)
 
     @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        CAST AI organization ID
+        """
+        return pulumi.get(self, "organization_id")
+
+    @organization_id.setter
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "organization_id", value)
+
+    @_builtins.property
     @pulumi.getter
-    def region(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def region(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         AKS cluster region.
         """
         return pulumi.get(self, "region")
 
     @region.setter
-    def region(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def region(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "region", value)
 
     @_builtins.property
     @pulumi.getter(name="subscriptionId")
-    def subscription_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def subscription_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the Azure subscription.
         """
         return pulumi.get(self, "subscription_id")
 
     @subscription_id.setter
-    def subscription_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def subscription_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "subscription_id", value)
 
     @_builtins.property
     @pulumi.getter(name="tenantId")
-    def tenant_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def tenant_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Azure AD tenant ID from the used subscription.
         """
         return pulumi.get(self, "tenant_id")
 
     @tenant_id.setter
-    def tenant_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def tenant_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "tenant_id", value)
 
 
@@ -353,23 +404,26 @@ class AksCluster(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 client_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 client_secret: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-                 http_proxy_config: Optional[pulumi.Input[Union['_azure.AksClusterHttpProxyConfigArgs', '_azure.AksClusterHttpProxyConfigArgsDict']]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 node_resource_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 region: Optional[pulumi.Input[_builtins.str]] = None,
-                 subscription_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 tenant_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 client_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 client_secret: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+                 federation_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 http_proxy_config: pulumi.Input[Optional[Union['_azure.AksClusterHttpProxyConfigArgs', '_azure.AksClusterHttpProxyConfigArgsDict']]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 node_resource_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 region: pulumi.Input[Optional[_builtins.str]] = None,
+                 subscription_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 tenant_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a AksCluster resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] client_id: Azure AD application ID that is created and used by CAST AI.
         :param pulumi.Input[_builtins.str] client_secret: Azure AD application password that will be used by CAST AI.
         :param pulumi.Input[_builtins.bool] delete_nodes_on_disconnect: Should CAST AI remove nodes managed by CAST.AI on disconnect.
+        :param pulumi.Input[_builtins.str] federation_id: Azure federation used by CAST AI for secretless auth via impersonation.
         :param pulumi.Input[Union['_azure.AksClusterHttpProxyConfigArgs', '_azure.AksClusterHttpProxyConfigArgsDict']] http_proxy_config: HTTP proxy configuration for CAST AI nodes and node components.
         :param pulumi.Input[_builtins.str] name: AKS cluster name.
         :param pulumi.Input[_builtins.str] node_resource_group: Azure resource group in which nodes are and will be created.
@@ -385,6 +439,7 @@ class AksCluster(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a AksCluster resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param AksClusterArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -400,15 +455,16 @@ class AksCluster(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 client_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 client_secret: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-                 http_proxy_config: Optional[pulumi.Input[Union['_azure.AksClusterHttpProxyConfigArgs', '_azure.AksClusterHttpProxyConfigArgsDict']]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 node_resource_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 region: Optional[pulumi.Input[_builtins.str]] = None,
-                 subscription_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 tenant_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 client_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 client_secret: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+                 federation_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 http_proxy_config: pulumi.Input[Optional[Union['_azure.AksClusterHttpProxyConfigArgs', '_azure.AksClusterHttpProxyConfigArgsDict']]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 node_resource_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 region: pulumi.Input[Optional[_builtins.str]] = None,
+                 subscription_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 tenant_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -421,10 +477,9 @@ class AksCluster(pulumi.CustomResource):
             if client_id is None and not opts.urn:
                 raise TypeError("Missing required property 'client_id'")
             __props__.__dict__["client_id"] = client_id
-            if client_secret is None and not opts.urn:
-                raise TypeError("Missing required property 'client_secret'")
             __props__.__dict__["client_secret"] = None if client_secret is None else pulumi.Output.secret(client_secret)
             __props__.__dict__["delete_nodes_on_disconnect"] = delete_nodes_on_disconnect
+            __props__.__dict__["federation_id"] = federation_id
             __props__.__dict__["http_proxy_config"] = http_proxy_config
             __props__.__dict__["name"] = name
             if node_resource_group is None and not opts.urn:
@@ -441,6 +496,7 @@ class AksCluster(pulumi.CustomResource):
             __props__.__dict__["tenant_id"] = tenant_id
             __props__.__dict__["cluster_token"] = None
             __props__.__dict__["credentials_id"] = None
+            __props__.__dict__["organization_id"] = None
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["clientSecret", "clusterToken"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(AksCluster, __self__).__init__(
@@ -453,17 +509,19 @@ class AksCluster(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            client_id: Optional[pulumi.Input[_builtins.str]] = None,
-            client_secret: Optional[pulumi.Input[_builtins.str]] = None,
-            cluster_token: Optional[pulumi.Input[_builtins.str]] = None,
-            credentials_id: Optional[pulumi.Input[_builtins.str]] = None,
-            delete_nodes_on_disconnect: Optional[pulumi.Input[_builtins.bool]] = None,
-            http_proxy_config: Optional[pulumi.Input[Union['_azure.AksClusterHttpProxyConfigArgs', '_azure.AksClusterHttpProxyConfigArgsDict']]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            node_resource_group: Optional[pulumi.Input[_builtins.str]] = None,
-            region: Optional[pulumi.Input[_builtins.str]] = None,
-            subscription_id: Optional[pulumi.Input[_builtins.str]] = None,
-            tenant_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'AksCluster':
+            client_id: pulumi.Input[Optional[_builtins.str]] = None,
+            client_secret: pulumi.Input[Optional[_builtins.str]] = None,
+            cluster_token: pulumi.Input[Optional[_builtins.str]] = None,
+            credentials_id: pulumi.Input[Optional[_builtins.str]] = None,
+            delete_nodes_on_disconnect: pulumi.Input[Optional[_builtins.bool]] = None,
+            federation_id: pulumi.Input[Optional[_builtins.str]] = None,
+            http_proxy_config: pulumi.Input[Optional[Union['_azure.AksClusterHttpProxyConfigArgs', '_azure.AksClusterHttpProxyConfigArgsDict']]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            node_resource_group: pulumi.Input[Optional[_builtins.str]] = None,
+            organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+            region: pulumi.Input[Optional[_builtins.str]] = None,
+            subscription_id: pulumi.Input[Optional[_builtins.str]] = None,
+            tenant_id: pulumi.Input[Optional[_builtins.str]] = None) -> 'AksCluster':
         """
         Get an existing AksCluster resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -476,9 +534,11 @@ class AksCluster(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] cluster_token: CAST AI cluster token.
         :param pulumi.Input[_builtins.str] credentials_id: CAST AI internal credentials ID
         :param pulumi.Input[_builtins.bool] delete_nodes_on_disconnect: Should CAST AI remove nodes managed by CAST.AI on disconnect.
+        :param pulumi.Input[_builtins.str] federation_id: Azure federation used by CAST AI for secretless auth via impersonation.
         :param pulumi.Input[Union['_azure.AksClusterHttpProxyConfigArgs', '_azure.AksClusterHttpProxyConfigArgsDict']] http_proxy_config: HTTP proxy configuration for CAST AI nodes and node components.
         :param pulumi.Input[_builtins.str] name: AKS cluster name.
         :param pulumi.Input[_builtins.str] node_resource_group: Azure resource group in which nodes are and will be created.
+        :param pulumi.Input[_builtins.str] organization_id: CAST AI organization ID
         :param pulumi.Input[_builtins.str] region: AKS cluster region.
         :param pulumi.Input[_builtins.str] subscription_id: ID of the Azure subscription.
         :param pulumi.Input[_builtins.str] tenant_id: Azure AD tenant ID from the used subscription.
@@ -492,9 +552,11 @@ class AksCluster(pulumi.CustomResource):
         __props__.__dict__["cluster_token"] = cluster_token
         __props__.__dict__["credentials_id"] = credentials_id
         __props__.__dict__["delete_nodes_on_disconnect"] = delete_nodes_on_disconnect
+        __props__.__dict__["federation_id"] = federation_id
         __props__.__dict__["http_proxy_config"] = http_proxy_config
         __props__.__dict__["name"] = name
         __props__.__dict__["node_resource_group"] = node_resource_group
+        __props__.__dict__["organization_id"] = organization_id
         __props__.__dict__["region"] = region
         __props__.__dict__["subscription_id"] = subscription_id
         __props__.__dict__["tenant_id"] = tenant_id
@@ -510,7 +572,7 @@ class AksCluster(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="clientSecret")
-    def client_secret(self) -> pulumi.Output[_builtins.str]:
+    def client_secret(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
         Azure AD application password that will be used by CAST AI.
         """
@@ -541,6 +603,14 @@ class AksCluster(pulumi.CustomResource):
         return pulumi.get(self, "delete_nodes_on_disconnect")
 
     @_builtins.property
+    @pulumi.getter(name="federationId")
+    def federation_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Azure federation used by CAST AI for secretless auth via impersonation.
+        """
+        return pulumi.get(self, "federation_id")
+
+    @_builtins.property
     @pulumi.getter(name="httpProxyConfig")
     def http_proxy_config(self) -> pulumi.Output[Optional['_azure.outputs.AksClusterHttpProxyConfig']]:
         """
@@ -563,6 +633,14 @@ class AksCluster(pulumi.CustomResource):
         Azure resource group in which nodes are and will be created.
         """
         return pulumi.get(self, "node_resource_group")
+
+    @_builtins.property
+    @pulumi.getter(name="organizationId")
+    def organization_id(self) -> pulumi.Output[_builtins.str]:
+        """
+        CAST AI organization ID
+        """
+        return pulumi.get(self, "organization_id")
 
     @_builtins.property
     @pulumi.getter

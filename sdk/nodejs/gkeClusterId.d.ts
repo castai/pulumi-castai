@@ -36,6 +36,10 @@ export declare class GkeClusterId extends pulumi.CustomResource {
      */
     readonly name: pulumi.Output<string>;
     /**
+     * CAST AI organization ID
+     */
+    readonly organizationId: pulumi.Output<string>;
+    /**
      * GCP project id
      */
     readonly projectId: pulumi.Output<string>;
@@ -55,27 +59,31 @@ export interface GkeClusterIdState {
     /**
      * Service account email in cast project
      */
-    castServiceAccount?: pulumi.Input<string>;
+    castServiceAccount?: pulumi.Input<string | undefined>;
     /**
      * Service account email in client project
      */
-    clientServiceAccount?: pulumi.Input<string>;
+    clientServiceAccount?: pulumi.Input<string | undefined>;
     /**
      * CAST.AI agent cluster token
      */
-    clusterToken?: pulumi.Input<string>;
+    clusterToken?: pulumi.Input<string | undefined>;
     /**
      * GCP cluster zone in case of zonal or region in case of regional cluster
      */
-    location?: pulumi.Input<string>;
+    location?: pulumi.Input<string | undefined>;
     /**
      * GKE cluster name
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * CAST AI organization ID
+     */
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * GCP project id
      */
-    projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a GkeClusterId resource.
@@ -84,11 +92,11 @@ export interface GkeClusterIdArgs {
     /**
      * Service account email in cast project
      */
-    castServiceAccount?: pulumi.Input<string>;
+    castServiceAccount?: pulumi.Input<string | undefined>;
     /**
      * Service account email in client project
      */
-    clientServiceAccount?: pulumi.Input<string>;
+    clientServiceAccount?: pulumi.Input<string | undefined>;
     /**
      * GCP cluster zone in case of zonal or region in case of regional cluster
      */
@@ -96,9 +104,10 @@ export interface GkeClusterIdArgs {
     /**
      * GKE cluster name
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * GCP project id
      */
     projectId: pulumi.Input<string>;
 }
+//# sourceMappingURL=gkeClusterId.d.ts.map

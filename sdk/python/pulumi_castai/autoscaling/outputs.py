@@ -213,7 +213,7 @@ class AutoscalerAutoscalerSettingsClusterLimitsCpu(dict):
                  min_cores: Optional[_builtins.int] = None):
         """
         :param _builtins.int max_cores: defines the maximum allowed amount of vCPUs in the whole cluster.
-        :param _builtins.int min_cores: defines the minimum allowed amount of CPUs in the whole cluster.
+        :param _builtins.int min_cores: defines the minimum allowed amount of CPUs in the whole cluster. This field is deprecated.
         """
         if max_cores is not None:
             pulumi.set(__self__, "max_cores", max_cores)
@@ -230,9 +230,10 @@ class AutoscalerAutoscalerSettingsClusterLimitsCpu(dict):
 
     @_builtins.property
     @pulumi.getter(name="minCores")
+    @_utilities.deprecated("""This field is deprecated and will be removed in a future major version of the provider.""")
     def min_cores(self) -> Optional[_builtins.int]:
         """
-        defines the minimum allowed amount of CPUs in the whole cluster.
+        defines the minimum allowed amount of CPUs in the whole cluster. This field is deprecated.
         """
         return pulumi.get(self, "min_cores")
 
@@ -659,7 +660,7 @@ class AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictions(dict)
                  spot_interruption_predictions_type: Optional[_builtins.str] = None):
         """
         :param _builtins.bool enabled: enable/disable spot interruption predictions.
-        :param _builtins.str spot_interruption_predictions_type: define the type of the spot interruption prediction to handle. Allowed values are AWSRebalanceRecommendations, CASTAIInterruptionPredictions.
+        :param _builtins.str spot_interruption_predictions_type: define the type of the spot interruption prediction to handle. The value "AWSRebalanceRecommendations" is deprecated; use "CASTAIInterruptionPredictions".
         """
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
@@ -676,9 +677,10 @@ class AutoscalerAutoscalerSettingsSpotInstancesSpotInterruptionPredictions(dict)
 
     @_builtins.property
     @pulumi.getter(name="spotInterruptionPredictionsType")
+    @_utilities.deprecated("""The value \"AWSRebalanceRecommendations\" is deprecated. Cast AI ML predictions are now used for all spot interruption prediction.""")
     def spot_interruption_predictions_type(self) -> Optional[_builtins.str]:
         """
-        define the type of the spot interruption prediction to handle. Allowed values are AWSRebalanceRecommendations, CASTAIInterruptionPredictions.
+        define the type of the spot interruption prediction to handle. The value "AWSRebalanceRecommendations" is deprecated; use "CASTAIInterruptionPredictions".
         """
         return pulumi.get(self, "spot_interruption_predictions_type")
 
@@ -1186,6 +1188,8 @@ class EvictorAdvancedConfigEvictorAdvancedConfigPodSelector(dict):
             suggest = "match_expressions"
         elif key == "matchLabels":
             suggest = "match_labels"
+        elif key == "replicasMin":
+            suggest = "replicas_min"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in EvictorAdvancedConfigEvictorAdvancedConfigPodSelector. Access the value via the '{suggest}' property getter instead.")
@@ -1202,7 +1206,11 @@ class EvictorAdvancedConfigEvictorAdvancedConfigPodSelector(dict):
                  kind: Optional[_builtins.str] = None,
                  match_expressions: Optional[Sequence['outputs.EvictorAdvancedConfigEvictorAdvancedConfigPodSelectorMatchExpression']] = None,
                  match_labels: Optional[Mapping[str, _builtins.str]] = None,
-                 namespace: Optional[_builtins.str] = None):
+                 namespace: Optional[_builtins.str] = None,
+                 replicas_min: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int replicas_min: Minimum number of pod replicas to keep running when evicting matched pods
+        """
         if kind is not None:
             pulumi.set(__self__, "kind", kind)
         if match_expressions is not None:
@@ -1211,6 +1219,8 @@ class EvictorAdvancedConfigEvictorAdvancedConfigPodSelector(dict):
             pulumi.set(__self__, "match_labels", match_labels)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
+        if replicas_min is not None:
+            pulumi.set(__self__, "replicas_min", replicas_min)
 
     @_builtins.property
     @pulumi.getter
@@ -1231,6 +1241,14 @@ class EvictorAdvancedConfigEvictorAdvancedConfigPodSelector(dict):
     @pulumi.getter
     def namespace(self) -> Optional[_builtins.str]:
         return pulumi.get(self, "namespace")
+
+    @_builtins.property
+    @pulumi.getter(name="replicasMin")
+    def replicas_min(self) -> Optional[_builtins.int]:
+        """
+        Minimum number of pod replicas to keep running when evicting matched pods
+        """
+        return pulumi.get(self, "replicas_min")
 
 
 @pulumi.output_type

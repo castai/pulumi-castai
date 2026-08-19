@@ -17,6 +17,10 @@ export declare class EksClusterId extends pulumi.CustomResource {
     static isInstance(obj: any): obj is EksClusterId;
     readonly accountId: pulumi.Output<string>;
     readonly clusterName: pulumi.Output<string>;
+    /**
+     * CAST AI organization ID
+     */
+    readonly organizationId: pulumi.Output<string>;
     readonly region: pulumi.Output<string>;
     /**
      * Create a EksClusterId resource with the given unique name, arguments, and options.
@@ -31,9 +35,13 @@ export declare class EksClusterId extends pulumi.CustomResource {
  * Input properties used for looking up and filtering EksClusterId resources.
  */
 export interface EksClusterIdState {
-    accountId?: pulumi.Input<string>;
-    clusterName?: pulumi.Input<string>;
-    region?: pulumi.Input<string>;
+    accountId?: pulumi.Input<string | undefined>;
+    clusterName?: pulumi.Input<string | undefined>;
+    /**
+     * CAST AI organization ID
+     */
+    organizationId?: pulumi.Input<string | undefined>;
+    region?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a EksClusterId resource.
@@ -43,3 +51,4 @@ export interface EksClusterIdArgs {
     clusterName: pulumi.Input<string>;
     region: pulumi.Input<string>;
 }
+//# sourceMappingURL=eksClusterId.d.ts.map

@@ -20,11 +20,12 @@ __all__ = ['AutoscalerArgs', 'Autoscaler']
 @pulumi.input_type
 class AutoscalerArgs:
     def __init__(__self__, *,
-                 autoscaler_policies_json: Optional[pulumi.Input[_builtins.str]] = None,
-                 autoscaler_settings: Optional[pulumi.Input['_autoscaling.AutoscalerAutoscalerSettingsArgs']] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 autoscaler_policies_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 autoscaler_settings: pulumi.Input[Optional['_autoscaling.AutoscalerAutoscalerSettingsArgs']] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Autoscaler resource.
+
         :param pulumi.Input[_builtins.str] autoscaler_policies_json: autoscaler policies JSON string to override current autoscaler settings
         :param pulumi.Input['_autoscaling.AutoscalerAutoscalerSettingsArgs'] autoscaler_settings: autoscaler policy definitions to override current autoscaler settings
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
@@ -42,55 +43,59 @@ class AutoscalerArgs:
     @_builtins.property
     @pulumi.getter(name="autoscalerPoliciesJson")
     @_utilities.deprecated("""use autoscaler_settings instead. See README for example: https://github.com/castai/terraform-provider-castai?tab=readme-ov-file#migrating-from-6xx-to-7xx""")
-    def autoscaler_policies_json(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def autoscaler_policies_json(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         autoscaler policies JSON string to override current autoscaler settings
         """
         return pulumi.get(self, "autoscaler_policies_json")
 
     @autoscaler_policies_json.setter
-    def autoscaler_policies_json(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def autoscaler_policies_json(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "autoscaler_policies_json", value)
 
     @_builtins.property
     @pulumi.getter(name="autoscalerSettings")
-    def autoscaler_settings(self) -> Optional[pulumi.Input['_autoscaling.AutoscalerAutoscalerSettingsArgs']]:
+    def autoscaler_settings(self) -> pulumi.Input[Optional['_autoscaling.AutoscalerAutoscalerSettingsArgs']]:
         """
         autoscaler policy definitions to override current autoscaler settings
         """
         return pulumi.get(self, "autoscaler_settings")
 
     @autoscaler_settings.setter
-    def autoscaler_settings(self, value: Optional[pulumi.Input['_autoscaling.AutoscalerAutoscalerSettingsArgs']]):
+    def autoscaler_settings(self, value: pulumi.Input[Optional['_autoscaling.AutoscalerAutoscalerSettingsArgs']]):
         pulumi.set(self, "autoscaler_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
 
 @pulumi.input_type
 class _AutoscalerState:
     def __init__(__self__, *,
-                 autoscaler_policies: Optional[pulumi.Input[_builtins.str]] = None,
-                 autoscaler_policies_json: Optional[pulumi.Input[_builtins.str]] = None,
-                 autoscaler_settings: Optional[pulumi.Input['_autoscaling.AutoscalerAutoscalerSettingsArgs']] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 autoscaler_policies: pulumi.Input[Optional[_builtins.str]] = None,
+                 autoscaler_policies_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 autoscaler_settings: pulumi.Input[Optional['_autoscaling.AutoscalerAutoscalerSettingsArgs']] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Autoscaler resources.
+
         :param pulumi.Input[_builtins.str] autoscaler_policies: computed value to store full policies configuration
         :param pulumi.Input[_builtins.str] autoscaler_policies_json: autoscaler policies JSON string to override current autoscaler settings
         :param pulumi.Input['_autoscaling.AutoscalerAutoscalerSettingsArgs'] autoscaler_settings: autoscaler policy definitions to override current autoscaler settings
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id
         """
+        if autoscaler_policies is not None:
+            warnings.warn("""This field is deprecated and will be removed in the next major version. Use autoscaler_settings to configure and manage autoscaler policies.""", DeprecationWarning)
+            pulumi.log.warn("""autoscaler_policies is deprecated: This field is deprecated and will be removed in the next major version. Use autoscaler_settings to configure and manage autoscaler policies.""")
         if autoscaler_policies is not None:
             pulumi.set(__self__, "autoscaler_policies", autoscaler_policies)
         if autoscaler_policies_json is not None:
@@ -105,51 +110,52 @@ class _AutoscalerState:
 
     @_builtins.property
     @pulumi.getter(name="autoscalerPolicies")
-    def autoscaler_policies(self) -> Optional[pulumi.Input[_builtins.str]]:
+    @_utilities.deprecated("""This field is deprecated and will be removed in the next major version. Use autoscaler_settings to configure and manage autoscaler policies.""")
+    def autoscaler_policies(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         computed value to store full policies configuration
         """
         return pulumi.get(self, "autoscaler_policies")
 
     @autoscaler_policies.setter
-    def autoscaler_policies(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def autoscaler_policies(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "autoscaler_policies", value)
 
     @_builtins.property
     @pulumi.getter(name="autoscalerPoliciesJson")
     @_utilities.deprecated("""use autoscaler_settings instead. See README for example: https://github.com/castai/terraform-provider-castai?tab=readme-ov-file#migrating-from-6xx-to-7xx""")
-    def autoscaler_policies_json(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def autoscaler_policies_json(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         autoscaler policies JSON string to override current autoscaler settings
         """
         return pulumi.get(self, "autoscaler_policies_json")
 
     @autoscaler_policies_json.setter
-    def autoscaler_policies_json(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def autoscaler_policies_json(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "autoscaler_policies_json", value)
 
     @_builtins.property
     @pulumi.getter(name="autoscalerSettings")
-    def autoscaler_settings(self) -> Optional[pulumi.Input['_autoscaling.AutoscalerAutoscalerSettingsArgs']]:
+    def autoscaler_settings(self) -> pulumi.Input[Optional['_autoscaling.AutoscalerAutoscalerSettingsArgs']]:
         """
         autoscaler policy definitions to override current autoscaler settings
         """
         return pulumi.get(self, "autoscaler_settings")
 
     @autoscaler_settings.setter
-    def autoscaler_settings(self, value: Optional[pulumi.Input['_autoscaling.AutoscalerAutoscalerSettingsArgs']]):
+    def autoscaler_settings(self, value: pulumi.Input[Optional['_autoscaling.AutoscalerAutoscalerSettingsArgs']]):
         pulumi.set(self, "autoscaler_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
 
@@ -159,12 +165,13 @@ class Autoscaler(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 autoscaler_policies_json: Optional[pulumi.Input[_builtins.str]] = None,
-                 autoscaler_settings: Optional[pulumi.Input[Union['_autoscaling.AutoscalerAutoscalerSettingsArgs', '_autoscaling.AutoscalerAutoscalerSettingsArgsDict']]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 autoscaler_policies_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 autoscaler_settings: pulumi.Input[Optional[Union['_autoscaling.AutoscalerAutoscalerSettingsArgs', '_autoscaling.AutoscalerAutoscalerSettingsArgsDict']]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a Autoscaler resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] autoscaler_policies_json: autoscaler policies JSON string to override current autoscaler settings
@@ -179,6 +186,7 @@ class Autoscaler(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a Autoscaler resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param AutoscalerArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -194,9 +202,9 @@ class Autoscaler(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 autoscaler_policies_json: Optional[pulumi.Input[_builtins.str]] = None,
-                 autoscaler_settings: Optional[pulumi.Input[Union['_autoscaling.AutoscalerAutoscalerSettingsArgs', '_autoscaling.AutoscalerAutoscalerSettingsArgsDict']]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 autoscaler_policies_json: pulumi.Input[Optional[_builtins.str]] = None,
+                 autoscaler_settings: pulumi.Input[Optional[Union['_autoscaling.AutoscalerAutoscalerSettingsArgs', '_autoscaling.AutoscalerAutoscalerSettingsArgsDict']]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -220,10 +228,10 @@ class Autoscaler(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            autoscaler_policies: Optional[pulumi.Input[_builtins.str]] = None,
-            autoscaler_policies_json: Optional[pulumi.Input[_builtins.str]] = None,
-            autoscaler_settings: Optional[pulumi.Input[Union['_autoscaling.AutoscalerAutoscalerSettingsArgs', '_autoscaling.AutoscalerAutoscalerSettingsArgsDict']]] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'Autoscaler':
+            autoscaler_policies: pulumi.Input[Optional[_builtins.str]] = None,
+            autoscaler_policies_json: pulumi.Input[Optional[_builtins.str]] = None,
+            autoscaler_settings: pulumi.Input[Optional[Union['_autoscaling.AutoscalerAutoscalerSettingsArgs', '_autoscaling.AutoscalerAutoscalerSettingsArgsDict']]] = None,
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None) -> 'Autoscaler':
         """
         Get an existing Autoscaler resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -248,6 +256,7 @@ class Autoscaler(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="autoscalerPolicies")
+    @_utilities.deprecated("""This field is deprecated and will be removed in the next major version. Use autoscaler_settings to configure and manage autoscaler policies.""")
     def autoscaler_policies(self) -> pulumi.Output[_builtins.str]:
         """
         computed value to store full policies configuration

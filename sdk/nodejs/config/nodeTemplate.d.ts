@@ -18,7 +18,7 @@ export declare class NodeTemplate extends pulumi.CustomResource {
      */
     static isInstance(obj: any): obj is NodeTemplate;
     /**
-     * Marks whether CLM should be enabled for nodes created from this template.
+     * Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
      */
     readonly clmEnabled: pulumi.Output<boolean | undefined>;
     /**
@@ -49,13 +49,17 @@ export declare class NodeTemplate extends pulumi.CustomResource {
      */
     readonly customTaints: pulumi.Output<outputs.config.NodeTemplateCustomTaint[] | undefined>;
     /**
+     * List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+     */
+    readonly edgeLocationIds: pulumi.Output<string[] | undefined>;
+    /**
      * GPU configuration.
      */
     readonly gpu: pulumi.Output<outputs.config.NodeTemplateGpu | undefined>;
     /**
-     * Flag whether the node template is default.
+     * Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
      */
-    readonly isDefault: pulumi.Output<boolean | undefined>;
+    readonly isDefault: pulumi.Output<boolean>;
     /**
      * Flag whether the node template is enabled and considered for autoscaling.
      */
@@ -64,6 +68,10 @@ export declare class NodeTemplate extends pulumi.CustomResource {
      * Name of the node template.
      */
     readonly name: pulumi.Output<string>;
+    /**
+     * Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+     */
+    readonly priceAdjustmentConfiguration: pulumi.Output<outputs.config.NodeTemplatePriceAdjustmentConfiguration | undefined>;
     /**
      * Minimum nodes that will be kept when rebalancing nodes using this node template.
      */
@@ -86,118 +94,135 @@ export declare class NodeTemplate extends pulumi.CustomResource {
  */
 export interface NodeTemplateState {
     /**
-     * Marks whether CLM should be enabled for nodes created from this template.
+     * Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
      */
-    clmEnabled?: pulumi.Input<boolean>;
+    clmEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * CAST AI cluster id.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * CAST AI node configuration id to be used for node template.
      */
-    configurationId?: pulumi.Input<string>;
-    constraints?: pulumi.Input<inputs.config.NodeTemplateConstraints>;
+    configurationId?: pulumi.Input<string | undefined>;
+    constraints?: pulumi.Input<inputs.config.NodeTemplateConstraints | undefined>;
     /**
      * Marks whether custom instances should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
      */
-    customInstancesEnabled?: pulumi.Input<boolean>;
+    customInstancesEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Marks whether custom instances with extended memory should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
      */
-    customInstancesWithExtendedMemoryEnabled?: pulumi.Input<boolean>;
+    customInstancesWithExtendedMemoryEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Custom labels to be added to nodes created from this template.
      */
     customLabels?: pulumi.Input<{
         [key: string]: pulumi.Input<string>;
-    }>;
+    } | undefined>;
     /**
      * Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
      */
-    customTaints?: pulumi.Input<pulumi.Input<inputs.config.NodeTemplateCustomTaint>[]>;
+    customTaints?: pulumi.Input<pulumi.Input<inputs.config.NodeTemplateCustomTaint>[] | undefined>;
+    /**
+     * List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+     */
+    edgeLocationIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * GPU configuration.
      */
-    gpu?: pulumi.Input<inputs.config.NodeTemplateGpu>;
+    gpu?: pulumi.Input<inputs.config.NodeTemplateGpu | undefined>;
     /**
-     * Flag whether the node template is default.
+     * Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
      */
-    isDefault?: pulumi.Input<boolean>;
+    isDefault?: pulumi.Input<boolean | undefined>;
     /**
      * Flag whether the node template is enabled and considered for autoscaling.
      */
-    isEnabled?: pulumi.Input<boolean>;
+    isEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Name of the node template.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+     */
+    priceAdjustmentConfiguration?: pulumi.Input<inputs.config.NodeTemplatePriceAdjustmentConfiguration | undefined>;
     /**
      * Minimum nodes that will be kept when rebalancing nodes using this node template.
      */
-    rebalancingConfigMinNodes?: pulumi.Input<number>;
+    rebalancingConfigMinNodes?: pulumi.Input<number | undefined>;
     /**
      * Marks whether the templated nodes will have a taint.
      */
-    shouldTaint?: pulumi.Input<boolean>;
+    shouldTaint?: pulumi.Input<boolean | undefined>;
 }
 /**
  * The set of arguments for constructing a NodeTemplate resource.
  */
 export interface NodeTemplateArgs {
     /**
-     * Marks whether CLM should be enabled for nodes created from this template.
+     * Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
      */
-    clmEnabled?: pulumi.Input<boolean>;
+    clmEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * CAST AI cluster id.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * CAST AI node configuration id to be used for node template.
      */
-    configurationId?: pulumi.Input<string>;
-    constraints?: pulumi.Input<inputs.config.NodeTemplateConstraints>;
+    configurationId?: pulumi.Input<string | undefined>;
+    constraints?: pulumi.Input<inputs.config.NodeTemplateConstraints | undefined>;
     /**
      * Marks whether custom instances should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
      */
-    customInstancesEnabled?: pulumi.Input<boolean>;
+    customInstancesEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Marks whether custom instances with extended memory should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
      */
-    customInstancesWithExtendedMemoryEnabled?: pulumi.Input<boolean>;
+    customInstancesWithExtendedMemoryEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Custom labels to be added to nodes created from this template.
      */
     customLabels?: pulumi.Input<{
         [key: string]: pulumi.Input<string>;
-    }>;
+    } | undefined>;
     /**
      * Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
      */
-    customTaints?: pulumi.Input<pulumi.Input<inputs.config.NodeTemplateCustomTaint>[]>;
+    customTaints?: pulumi.Input<pulumi.Input<inputs.config.NodeTemplateCustomTaint>[] | undefined>;
+    /**
+     * List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castaiEdgeLocation resources.
+     */
+    edgeLocationIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * GPU configuration.
      */
-    gpu?: pulumi.Input<inputs.config.NodeTemplateGpu>;
+    gpu?: pulumi.Input<inputs.config.NodeTemplateGpu | undefined>;
     /**
-     * Flag whether the node template is default.
+     * Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
      */
-    isDefault?: pulumi.Input<boolean>;
+    isDefault?: pulumi.Input<boolean | undefined>;
     /**
      * Flag whether the node template is enabled and considered for autoscaling.
      */
-    isEnabled?: pulumi.Input<boolean>;
+    isEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Name of the node template.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+     */
+    priceAdjustmentConfiguration?: pulumi.Input<inputs.config.NodeTemplatePriceAdjustmentConfiguration | undefined>;
     /**
      * Minimum nodes that will be kept when rebalancing nodes using this node template.
      */
-    rebalancingConfigMinNodes?: pulumi.Input<number>;
+    rebalancingConfigMinNodes?: pulumi.Input<number | undefined>;
     /**
      * Marks whether the templated nodes will have a taint.
      */
-    shouldTaint?: pulumi.Input<boolean>;
+    shouldTaint?: pulumi.Input<boolean | undefined>;
 }
+//# sourceMappingURL=nodeTemplate.d.ts.map

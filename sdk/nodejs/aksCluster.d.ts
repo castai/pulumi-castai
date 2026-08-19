@@ -24,7 +24,7 @@ export declare class AksCluster extends pulumi.CustomResource {
     /**
      * Azure AD application password that will be used by CAST AI.
      */
-    readonly clientSecret: pulumi.Output<string>;
+    readonly clientSecret: pulumi.Output<string | undefined>;
     /**
      * CAST AI cluster token.
      */
@@ -38,6 +38,10 @@ export declare class AksCluster extends pulumi.CustomResource {
      */
     readonly deleteNodesOnDisconnect: pulumi.Output<boolean | undefined>;
     /**
+     * Azure federation used by CAST AI for secretless auth via impersonation.
+     */
+    readonly federationId: pulumi.Output<string | undefined>;
+    /**
      * HTTP proxy configuration for CAST AI nodes and node components.
      */
     readonly httpProxyConfig: pulumi.Output<outputs.azure.AksClusterHttpProxyConfig | undefined>;
@@ -49,6 +53,10 @@ export declare class AksCluster extends pulumi.CustomResource {
      * Azure resource group in which nodes are and will be created.
      */
     readonly nodeResourceGroup: pulumi.Output<string>;
+    /**
+     * CAST AI organization ID
+     */
+    readonly organizationId: pulumi.Output<string>;
     /**
      * AKS cluster region.
      */
@@ -77,47 +85,55 @@ export interface AksClusterState {
     /**
      * Azure AD application ID that is created and used by CAST AI.
      */
-    clientId?: pulumi.Input<string>;
+    clientId?: pulumi.Input<string | undefined>;
     /**
      * Azure AD application password that will be used by CAST AI.
      */
-    clientSecret?: pulumi.Input<string>;
+    clientSecret?: pulumi.Input<string | undefined>;
     /**
      * CAST AI cluster token.
      */
-    clusterToken?: pulumi.Input<string>;
+    clusterToken?: pulumi.Input<string | undefined>;
     /**
      * CAST AI internal credentials ID
      */
-    credentialsId?: pulumi.Input<string>;
+    credentialsId?: pulumi.Input<string | undefined>;
     /**
      * Should CAST AI remove nodes managed by CAST.AI on disconnect.
      */
-    deleteNodesOnDisconnect?: pulumi.Input<boolean>;
+    deleteNodesOnDisconnect?: pulumi.Input<boolean | undefined>;
+    /**
+     * Azure federation used by CAST AI for secretless auth via impersonation.
+     */
+    federationId?: pulumi.Input<string | undefined>;
     /**
      * HTTP proxy configuration for CAST AI nodes and node components.
      */
-    httpProxyConfig?: pulumi.Input<inputs.azure.AksClusterHttpProxyConfig>;
+    httpProxyConfig?: pulumi.Input<inputs.azure.AksClusterHttpProxyConfig | undefined>;
     /**
      * AKS cluster name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Azure resource group in which nodes are and will be created.
      */
-    nodeResourceGroup?: pulumi.Input<string>;
+    nodeResourceGroup?: pulumi.Input<string | undefined>;
+    /**
+     * CAST AI organization ID
+     */
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * AKS cluster region.
      */
-    region?: pulumi.Input<string>;
+    region?: pulumi.Input<string | undefined>;
     /**
      * ID of the Azure subscription.
      */
-    subscriptionId?: pulumi.Input<string>;
+    subscriptionId?: pulumi.Input<string | undefined>;
     /**
      * Azure AD tenant ID from the used subscription.
      */
-    tenantId?: pulumi.Input<string>;
+    tenantId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a AksCluster resource.
@@ -130,19 +146,23 @@ export interface AksClusterArgs {
     /**
      * Azure AD application password that will be used by CAST AI.
      */
-    clientSecret: pulumi.Input<string>;
+    clientSecret?: pulumi.Input<string | undefined>;
     /**
      * Should CAST AI remove nodes managed by CAST.AI on disconnect.
      */
-    deleteNodesOnDisconnect?: pulumi.Input<boolean>;
+    deleteNodesOnDisconnect?: pulumi.Input<boolean | undefined>;
+    /**
+     * Azure federation used by CAST AI for secretless auth via impersonation.
+     */
+    federationId?: pulumi.Input<string | undefined>;
     /**
      * HTTP proxy configuration for CAST AI nodes and node components.
      */
-    httpProxyConfig?: pulumi.Input<inputs.azure.AksClusterHttpProxyConfig>;
+    httpProxyConfig?: pulumi.Input<inputs.azure.AksClusterHttpProxyConfig | undefined>;
     /**
      * AKS cluster name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Azure resource group in which nodes are and will be created.
      */
@@ -160,3 +180,4 @@ export interface AksClusterArgs {
      */
     tenantId: pulumi.Input<string>;
 }
+//# sourceMappingURL=aksCluster.d.ts.map

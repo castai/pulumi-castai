@@ -21,19 +21,21 @@ class SecurityRuntimeRuleArgs:
     def __init__(__self__, *,
                  rule_text: pulumi.Input[_builtins.str],
                  severity: pulumi.Input[_builtins.str],
-                 category: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 resource_selector: Optional[pulumi.Input[_builtins.str]] = None,
-                 rule_engine_type: Optional[pulumi.Input[_builtins.str]] = None):
+                 category: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_selector: pulumi.Input[Optional[_builtins.str]] = None,
+                 rule_engine_type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a SecurityRuntimeRule resource.
+
         :param pulumi.Input[_builtins.str] rule_text: CEL rule expression text.
         :param pulumi.Input[_builtins.str] severity: Severity of the rule. One of SEVERITY_CRITICAL, SEVERITY_HIGH, SEVERITY_MEDIUM, SEVERITY_LOW, SEVERITY_NONE.
         :param pulumi.Input[_builtins.str] category: Category of the rule.
         :param pulumi.Input[_builtins.bool] enabled: Whether the rule is enabled.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] labels: Key-value labels attached to the rule.
+        :param pulumi.Input[_builtins.str] name: Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
         :param pulumi.Input[_builtins.str] resource_selector: Optional CEL expression for resource selection.
         :param pulumi.Input[_builtins.str] rule_engine_type: The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
         """
@@ -78,96 +80,101 @@ class SecurityRuntimeRuleArgs:
 
     @_builtins.property
     @pulumi.getter
-    def category(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def category(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Category of the rule.
         """
         return pulumi.get(self, "category")
 
     @category.setter
-    def category(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def category(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "category", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the rule is enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Key-value labels attached to the rule.
         """
         return pulumi.get(self, "labels")
 
     @labels.setter
-    def labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "labels", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceSelector")
-    def resource_selector(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_selector(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional CEL expression for resource selection.
         """
         return pulumi.get(self, "resource_selector")
 
     @resource_selector.setter
-    def resource_selector(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_selector(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="ruleEngineType")
-    def rule_engine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def rule_engine_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
         """
         return pulumi.get(self, "rule_engine_type")
 
     @rule_engine_type.setter
-    def rule_engine_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def rule_engine_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "rule_engine_type", value)
 
 
 @pulumi.input_type
 class _SecurityRuntimeRuleState:
     def __init__(__self__, *,
-                 anomalies_count: Optional[pulumi.Input[_builtins.int]] = None,
-                 category: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_built_in: Optional[pulumi.Input[_builtins.bool]] = None,
-                 labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 resource_selector: Optional[pulumi.Input[_builtins.str]] = None,
-                 rule_engine_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 rule_text: Optional[pulumi.Input[_builtins.str]] = None,
-                 severity: Optional[pulumi.Input[_builtins.str]] = None,
-                 type: Optional[pulumi.Input[_builtins.str]] = None,
-                 used_custom_lists: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 anomalies_count: pulumi.Input[Optional[_builtins.int]] = None,
+                 category: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_built_in: pulumi.Input[Optional[_builtins.bool]] = None,
+                 labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_selector: pulumi.Input[Optional[_builtins.str]] = None,
+                 rule_engine_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 rule_text: pulumi.Input[Optional[_builtins.str]] = None,
+                 severity: pulumi.Input[Optional[_builtins.str]] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None,
+                 used_custom_lists: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         Input properties used for looking up and filtering SecurityRuntimeRule resources.
+
         :param pulumi.Input[_builtins.int] anomalies_count: Number of anomalies detected using this rule.
         :param pulumi.Input[_builtins.str] category: Category of the rule.
         :param pulumi.Input[_builtins.bool] enabled: Whether the rule is enabled.
         :param pulumi.Input[_builtins.bool] is_built_in: Indicates whether the rule is a built-in rule.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] labels: Key-value labels attached to the rule.
+        :param pulumi.Input[_builtins.str] name: Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
         :param pulumi.Input[_builtins.str] resource_selector: Optional CEL expression for resource selection.
         :param pulumi.Input[_builtins.str] rule_engine_type: The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
         :param pulumi.Input[_builtins.str] rule_text: CEL rule expression text.
@@ -202,143 +209,146 @@ class _SecurityRuntimeRuleState:
 
     @_builtins.property
     @pulumi.getter(name="anomaliesCount")
-    def anomalies_count(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def anomalies_count(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Number of anomalies detected using this rule.
         """
         return pulumi.get(self, "anomalies_count")
 
     @anomalies_count.setter
-    def anomalies_count(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def anomalies_count(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "anomalies_count", value)
 
     @_builtins.property
     @pulumi.getter
-    def category(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def category(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Category of the rule.
         """
         return pulumi.get(self, "category")
 
     @category.setter
-    def category(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def category(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "category", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the rule is enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="isBuiltIn")
-    def is_built_in(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_built_in(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Indicates whether the rule is a built-in rule.
         """
         return pulumi.get(self, "is_built_in")
 
     @is_built_in.setter
-    def is_built_in(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_built_in(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_built_in", value)
 
     @_builtins.property
     @pulumi.getter
-    def labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Key-value labels attached to the rule.
         """
         return pulumi.get(self, "labels")
 
     @labels.setter
-    def labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "labels", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceSelector")
-    def resource_selector(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_selector(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional CEL expression for resource selection.
         """
         return pulumi.get(self, "resource_selector")
 
     @resource_selector.setter
-    def resource_selector(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_selector(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="ruleEngineType")
-    def rule_engine_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def rule_engine_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
         """
         return pulumi.get(self, "rule_engine_type")
 
     @rule_engine_type.setter
-    def rule_engine_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def rule_engine_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "rule_engine_type", value)
 
     @_builtins.property
     @pulumi.getter(name="ruleText")
-    def rule_text(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def rule_text(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CEL rule expression text.
         """
         return pulumi.get(self, "rule_text")
 
     @rule_text.setter
-    def rule_text(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def rule_text(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "rule_text", value)
 
     @_builtins.property
     @pulumi.getter
-    def severity(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def severity(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Severity of the rule. One of SEVERITY_CRITICAL, SEVERITY_HIGH, SEVERITY_MEDIUM, SEVERITY_LOW, SEVERITY_NONE.
         """
         return pulumi.get(self, "severity")
 
     @severity.setter
-    def severity(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def severity(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "severity", value)
 
     @_builtins.property
     @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Type of the rule (internal value).
         """
         return pulumi.get(self, "type")
 
     @type.setter
-    def type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "type", value)
 
     @_builtins.property
     @pulumi.getter(name="usedCustomLists")
-    def used_custom_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def used_custom_lists(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Custom lists used in this rule, if any.
         """
         return pulumi.get(self, "used_custom_lists")
 
     @used_custom_lists.setter
-    def used_custom_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def used_custom_lists(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "used_custom_lists", value)
 
 
@@ -348,22 +358,24 @@ class SecurityRuntimeRule(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 category: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 resource_selector: Optional[pulumi.Input[_builtins.str]] = None,
-                 rule_engine_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 rule_text: Optional[pulumi.Input[_builtins.str]] = None,
-                 severity: Optional[pulumi.Input[_builtins.str]] = None,
+                 category: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_selector: pulumi.Input[Optional[_builtins.str]] = None,
+                 rule_engine_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 rule_text: pulumi.Input[Optional[_builtins.str]] = None,
+                 severity: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a SecurityRuntimeRule resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] category: Category of the rule.
         :param pulumi.Input[_builtins.bool] enabled: Whether the rule is enabled.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] labels: Key-value labels attached to the rule.
+        :param pulumi.Input[_builtins.str] name: Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
         :param pulumi.Input[_builtins.str] resource_selector: Optional CEL expression for resource selection.
         :param pulumi.Input[_builtins.str] rule_engine_type: The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
         :param pulumi.Input[_builtins.str] rule_text: CEL rule expression text.
@@ -377,6 +389,7 @@ class SecurityRuntimeRule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a SecurityRuntimeRule resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param SecurityRuntimeRuleArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -392,14 +405,14 @@ class SecurityRuntimeRule(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 category: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 resource_selector: Optional[pulumi.Input[_builtins.str]] = None,
-                 rule_engine_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 rule_text: Optional[pulumi.Input[_builtins.str]] = None,
-                 severity: Optional[pulumi.Input[_builtins.str]] = None,
+                 category: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_selector: pulumi.Input[Optional[_builtins.str]] = None,
+                 rule_engine_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 rule_text: pulumi.Input[Optional[_builtins.str]] = None,
+                 severity: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -435,18 +448,18 @@ class SecurityRuntimeRule(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            anomalies_count: Optional[pulumi.Input[_builtins.int]] = None,
-            category: Optional[pulumi.Input[_builtins.str]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            is_built_in: Optional[pulumi.Input[_builtins.bool]] = None,
-            labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            resource_selector: Optional[pulumi.Input[_builtins.str]] = None,
-            rule_engine_type: Optional[pulumi.Input[_builtins.str]] = None,
-            rule_text: Optional[pulumi.Input[_builtins.str]] = None,
-            severity: Optional[pulumi.Input[_builtins.str]] = None,
-            type: Optional[pulumi.Input[_builtins.str]] = None,
-            used_custom_lists: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None) -> 'SecurityRuntimeRule':
+            anomalies_count: pulumi.Input[Optional[_builtins.int]] = None,
+            category: pulumi.Input[Optional[_builtins.str]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            is_built_in: pulumi.Input[Optional[_builtins.bool]] = None,
+            labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            resource_selector: pulumi.Input[Optional[_builtins.str]] = None,
+            rule_engine_type: pulumi.Input[Optional[_builtins.str]] = None,
+            rule_text: pulumi.Input[Optional[_builtins.str]] = None,
+            severity: pulumi.Input[Optional[_builtins.str]] = None,
+            type: pulumi.Input[Optional[_builtins.str]] = None,
+            used_custom_lists: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None) -> 'SecurityRuntimeRule':
         """
         Get an existing SecurityRuntimeRule resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -459,6 +472,7 @@ class SecurityRuntimeRule(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] enabled: Whether the rule is enabled.
         :param pulumi.Input[_builtins.bool] is_built_in: Indicates whether the rule is a built-in rule.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] labels: Key-value labels attached to the rule.
+        :param pulumi.Input[_builtins.str] name: Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
         :param pulumi.Input[_builtins.str] resource_selector: Optional CEL expression for resource selection.
         :param pulumi.Input[_builtins.str] rule_engine_type: The engine type used to evaluate the rule. Only RULE_ENGINE_TYPE_CEL is currently supported.
         :param pulumi.Input[_builtins.str] rule_text: CEL rule expression text.
@@ -527,6 +541,9 @@ class SecurityRuntimeRule(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
+        """
+        Unique name of the runtime security rule. Name is used as resource identifier in Terraform.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property

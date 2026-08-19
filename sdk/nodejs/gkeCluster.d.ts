@@ -40,6 +40,10 @@ export declare class GkeCluster extends pulumi.CustomResource {
      */
     readonly name: pulumi.Output<string>;
     /**
+     * CAST AI organization ID
+     */
+    readonly organizationId: pulumi.Output<string>;
+    /**
      * GCP project id
      */
     readonly projectId: pulumi.Output<string>;
@@ -59,31 +63,35 @@ export interface GkeClusterState {
     /**
      * CAST.AI agent cluster token
      */
-    clusterToken?: pulumi.Input<string>;
+    clusterToken?: pulumi.Input<string | undefined>;
     /**
      * CAST AI credentials id for cluster
      */
-    credentialsId?: pulumi.Input<string>;
+    credentialsId?: pulumi.Input<string | undefined>;
     /**
      * GCP credentials.json from ServiceAccount with credentials for CAST AI
      */
-    credentialsJson?: pulumi.Input<string>;
+    credentialsJson?: pulumi.Input<string | undefined>;
     /**
      * Should CAST AI remove nodes managed by CAST.AI on disconnect
      */
-    deleteNodesOnDisconnect?: pulumi.Input<boolean>;
+    deleteNodesOnDisconnect?: pulumi.Input<boolean | undefined>;
     /**
      * GCP cluster zone in case of zonal or region in case of regional cluster
      */
-    location?: pulumi.Input<string>;
+    location?: pulumi.Input<string | undefined>;
     /**
      * GKE cluster name
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * CAST AI organization ID
+     */
+    organizationId?: pulumi.Input<string | undefined>;
     /**
      * GCP project id
      */
-    projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a GkeCluster resource.
@@ -92,11 +100,11 @@ export interface GkeClusterArgs {
     /**
      * GCP credentials.json from ServiceAccount with credentials for CAST AI
      */
-    credentialsJson?: pulumi.Input<string>;
+    credentialsJson?: pulumi.Input<string | undefined>;
     /**
      * Should CAST AI remove nodes managed by CAST.AI on disconnect
      */
-    deleteNodesOnDisconnect?: pulumi.Input<boolean>;
+    deleteNodesOnDisconnect?: pulumi.Input<boolean | undefined>;
     /**
      * GCP cluster zone in case of zonal or region in case of regional cluster
      */
@@ -104,9 +112,10 @@ export interface GkeClusterArgs {
     /**
      * GKE cluster name
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * GCP project id
      */
     projectId: pulumi.Input<string>;
 }
+//# sourceMappingURL=gkeCluster.d.ts.map

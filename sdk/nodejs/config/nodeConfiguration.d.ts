@@ -57,6 +57,9 @@ export declare class NodeConfiguration extends pulumi.CustomResource {
      * Minimal disk size in GiB. Defaults to 100, min 30, max 65536
      */
     readonly minDiskSize: pulumi.Output<number | undefined>;
+    /**
+     * Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+     */
     readonly name: pulumi.Output<string>;
     /**
      * SSH public key to be used for provisioned nodes
@@ -85,67 +88,70 @@ export declare class NodeConfiguration extends pulumi.CustomResource {
  * Input properties used for looking up and filtering NodeConfiguration resources.
  */
 export interface NodeConfigurationState {
-    aks?: pulumi.Input<inputs.config.NodeConfigurationAks>;
+    aks?: pulumi.Input<inputs.config.NodeConfigurationAks | undefined>;
     /**
      * CAST AI cluster id
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * Optional container runtime to be used by kubelet. Applicable for EKS only.  Supported values include: `dockerd`, `containerd`
      */
-    containerRuntime?: pulumi.Input<string>;
+    containerRuntime?: pulumi.Input<string | undefined>;
     /**
      * Disk to CPU ratio. Sets the number of GiBs to be added for every CPU on the node. Defaults to 0
      */
-    diskCpuRatio?: pulumi.Input<number>;
+    diskCpuRatio?: pulumi.Input<number | undefined>;
     /**
      * Optional docker daemon configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
      */
-    dockerConfig?: pulumi.Input<string>;
+    dockerConfig?: pulumi.Input<string | undefined>;
     /**
      * Timeout in seconds for draining the node. Defaults to 0
      */
-    drainTimeoutSec?: pulumi.Input<number>;
-    eks?: pulumi.Input<inputs.config.NodeConfigurationEks>;
-    gke?: pulumi.Input<inputs.config.NodeConfigurationGke>;
+    drainTimeoutSec?: pulumi.Input<number | undefined>;
+    eks?: pulumi.Input<inputs.config.NodeConfigurationEks | undefined>;
+    gke?: pulumi.Input<inputs.config.NodeConfigurationGke | undefined>;
     /**
      * Image to be used while provisioning the node. If nothing is provided will be resolved to latest available image based on Image family, Kubernetes version and node architecture if possible. See Cast.ai documentation for details.
      */
-    image?: pulumi.Input<string>;
+    image?: pulumi.Input<string | undefined>;
     /**
      * Init script to be run on your instance at launch. Should not contain any sensitive data. Value should be base64 encoded
      */
-    initScript?: pulumi.Input<string>;
-    kops?: pulumi.Input<inputs.config.NodeConfigurationKops>;
+    initScript?: pulumi.Input<string | undefined>;
+    kops?: pulumi.Input<inputs.config.NodeConfigurationKops | undefined>;
     /**
      * Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
      */
-    kubeletConfig?: pulumi.Input<string>;
+    kubeletConfig?: pulumi.Input<string | undefined>;
     /**
      * Minimal disk size in GiB. Defaults to 100, min 30, max 65536
      */
-    minDiskSize?: pulumi.Input<number>;
-    name?: pulumi.Input<string>;
+    minDiskSize?: pulumi.Input<number | undefined>;
+    /**
+     * Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+     */
+    name?: pulumi.Input<string | undefined>;
     /**
      * SSH public key to be used for provisioned nodes
      */
-    sshPublicKey?: pulumi.Input<string>;
+    sshPublicKey?: pulumi.Input<string | undefined>;
     /**
      * Subnet ids to be used for provisioned nodes
      */
-    subnets?: pulumi.Input<pulumi.Input<string>[]>;
+    subnets?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Tags to be added on cloud instances for provisioned nodes
      */
     tags?: pulumi.Input<{
         [key: string]: pulumi.Input<string>;
-    }>;
+    } | undefined>;
 }
 /**
  * The set of arguments for constructing a NodeConfiguration resource.
  */
 export interface NodeConfigurationArgs {
-    aks?: pulumi.Input<inputs.config.NodeConfigurationAks>;
+    aks?: pulumi.Input<inputs.config.NodeConfigurationAks | undefined>;
     /**
      * CAST AI cluster id
      */
@@ -153,43 +159,46 @@ export interface NodeConfigurationArgs {
     /**
      * Optional container runtime to be used by kubelet. Applicable for EKS only.  Supported values include: `dockerd`, `containerd`
      */
-    containerRuntime?: pulumi.Input<string>;
+    containerRuntime?: pulumi.Input<string | undefined>;
     /**
      * Disk to CPU ratio. Sets the number of GiBs to be added for every CPU on the node. Defaults to 0
      */
-    diskCpuRatio?: pulumi.Input<number>;
+    diskCpuRatio?: pulumi.Input<number | undefined>;
     /**
      * Optional docker daemon configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
      */
-    dockerConfig?: pulumi.Input<string>;
+    dockerConfig?: pulumi.Input<string | undefined>;
     /**
      * Timeout in seconds for draining the node. Defaults to 0
      */
-    drainTimeoutSec?: pulumi.Input<number>;
-    eks?: pulumi.Input<inputs.config.NodeConfigurationEks>;
-    gke?: pulumi.Input<inputs.config.NodeConfigurationGke>;
+    drainTimeoutSec?: pulumi.Input<number | undefined>;
+    eks?: pulumi.Input<inputs.config.NodeConfigurationEks | undefined>;
+    gke?: pulumi.Input<inputs.config.NodeConfigurationGke | undefined>;
     /**
      * Image to be used while provisioning the node. If nothing is provided will be resolved to latest available image based on Image family, Kubernetes version and node architecture if possible. See Cast.ai documentation for details.
      */
-    image?: pulumi.Input<string>;
+    image?: pulumi.Input<string | undefined>;
     /**
      * Init script to be run on your instance at launch. Should not contain any sensitive data. Value should be base64 encoded
      */
-    initScript?: pulumi.Input<string>;
-    kops?: pulumi.Input<inputs.config.NodeConfigurationKops>;
+    initScript?: pulumi.Input<string | undefined>;
+    kops?: pulumi.Input<inputs.config.NodeConfigurationKops | undefined>;
     /**
      * Optional kubelet configuration properties in JSON format. Provide only properties that you want to override. Applicable for EKS only. [Available values](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/)
      */
-    kubeletConfig?: pulumi.Input<string>;
+    kubeletConfig?: pulumi.Input<string | undefined>;
     /**
      * Minimal disk size in GiB. Defaults to 100, min 30, max 65536
      */
-    minDiskSize?: pulumi.Input<number>;
-    name?: pulumi.Input<string>;
+    minDiskSize?: pulumi.Input<number | undefined>;
+    /**
+     * Name of the node configuration. It must be unique within the cluster. In case of cluster is reonboarded to Terraform, when previously it was onboarded with CAST AI UI, and the name corresponds to previously created node configuration this resource will override existing configuration instead of creating new.
+     */
+    name?: pulumi.Input<string | undefined>;
     /**
      * SSH public key to be used for provisioned nodes
      */
-    sshPublicKey?: pulumi.Input<string>;
+    sshPublicKey?: pulumi.Input<string | undefined>;
     /**
      * Subnet ids to be used for provisioned nodes
      */
@@ -199,5 +208,6 @@ export interface NodeConfigurationArgs {
      */
     tags?: pulumi.Input<{
         [key: string]: pulumi.Input<string>;
-    }>;
+    } | undefined>;
 }
+//# sourceMappingURL=nodeConfiguration.d.ts.map

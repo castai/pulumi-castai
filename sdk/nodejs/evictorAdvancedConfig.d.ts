@@ -41,11 +41,11 @@ export interface EvictorAdvancedConfigState {
     /**
      * CAST AI cluster id.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * evictor advanced configuration to target specific node/pod
      */
-    evictorAdvancedConfigs?: pulumi.Input<pulumi.Input<inputs.autoscaling.EvictorAdvancedConfigEvictorAdvancedConfig>[]>;
+    evictorAdvancedConfigs?: pulumi.Input<pulumi.Input<inputs.autoscaling.EvictorAdvancedConfigEvictorAdvancedConfig>[] | undefined>;
 }
 /**
  * The set of arguments for constructing a EvictorAdvancedConfig resource.
@@ -60,3 +60,4 @@ export interface EvictorAdvancedConfigArgs {
      */
     evictorAdvancedConfigs: pulumi.Input<pulumi.Input<inputs.autoscaling.EvictorAdvancedConfigEvictorAdvancedConfig>[]>;
 }
+//# sourceMappingURL=evictorAdvancedConfig.d.ts.map

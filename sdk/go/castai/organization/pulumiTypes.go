@@ -1022,6 +1022,200 @@ func (o SSOConnectionAadPtrOutput) ClientSecret() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type SSOConnectionOidc struct {
+	// OIDC client ID
+	ClientId string `pulumi:"clientId"`
+	// OIDC client secret
+	ClientSecret string `pulumi:"clientSecret"`
+	// Issuer URL of the OpenID Connect provider
+	IssuerUrl string `pulumi:"issuerUrl"`
+	// OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
+	Type *string `pulumi:"type"`
+}
+
+// SSOConnectionOidcInput is an input type that accepts SSOConnectionOidcArgs and SSOConnectionOidcOutput values.
+// You can construct a concrete instance of `SSOConnectionOidcInput` via:
+//
+//	SSOConnectionOidcArgs{...}
+type SSOConnectionOidcInput interface {
+	pulumi.Input
+
+	ToSSOConnectionOidcOutput() SSOConnectionOidcOutput
+	ToSSOConnectionOidcOutputWithContext(context.Context) SSOConnectionOidcOutput
+}
+
+type SSOConnectionOidcArgs struct {
+	// OIDC client ID
+	ClientId pulumi.StringInput `pulumi:"clientId"`
+	// OIDC client secret
+	ClientSecret pulumi.StringInput `pulumi:"clientSecret"`
+	// Issuer URL of the OpenID Connect provider
+	IssuerUrl pulumi.StringInput `pulumi:"issuerUrl"`
+	// OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (SSOConnectionOidcArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SSOConnectionOidc)(nil)).Elem()
+}
+
+func (i SSOConnectionOidcArgs) ToSSOConnectionOidcOutput() SSOConnectionOidcOutput {
+	return i.ToSSOConnectionOidcOutputWithContext(context.Background())
+}
+
+func (i SSOConnectionOidcArgs) ToSSOConnectionOidcOutputWithContext(ctx context.Context) SSOConnectionOidcOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SSOConnectionOidcOutput)
+}
+
+func (i SSOConnectionOidcArgs) ToSSOConnectionOidcPtrOutput() SSOConnectionOidcPtrOutput {
+	return i.ToSSOConnectionOidcPtrOutputWithContext(context.Background())
+}
+
+func (i SSOConnectionOidcArgs) ToSSOConnectionOidcPtrOutputWithContext(ctx context.Context) SSOConnectionOidcPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SSOConnectionOidcOutput).ToSSOConnectionOidcPtrOutputWithContext(ctx)
+}
+
+// SSOConnectionOidcPtrInput is an input type that accepts SSOConnectionOidcArgs, SSOConnectionOidcPtr and SSOConnectionOidcPtrOutput values.
+// You can construct a concrete instance of `SSOConnectionOidcPtrInput` via:
+//
+//	        SSOConnectionOidcArgs{...}
+//
+//	or:
+//
+//	        nil
+type SSOConnectionOidcPtrInput interface {
+	pulumi.Input
+
+	ToSSOConnectionOidcPtrOutput() SSOConnectionOidcPtrOutput
+	ToSSOConnectionOidcPtrOutputWithContext(context.Context) SSOConnectionOidcPtrOutput
+}
+
+type ssoconnectionOidcPtrType SSOConnectionOidcArgs
+
+func SSOConnectionOidcPtr(v *SSOConnectionOidcArgs) SSOConnectionOidcPtrInput {
+	return (*ssoconnectionOidcPtrType)(v)
+}
+
+func (*ssoconnectionOidcPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SSOConnectionOidc)(nil)).Elem()
+}
+
+func (i *ssoconnectionOidcPtrType) ToSSOConnectionOidcPtrOutput() SSOConnectionOidcPtrOutput {
+	return i.ToSSOConnectionOidcPtrOutputWithContext(context.Background())
+}
+
+func (i *ssoconnectionOidcPtrType) ToSSOConnectionOidcPtrOutputWithContext(ctx context.Context) SSOConnectionOidcPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SSOConnectionOidcPtrOutput)
+}
+
+type SSOConnectionOidcOutput struct{ *pulumi.OutputState }
+
+func (SSOConnectionOidcOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SSOConnectionOidc)(nil)).Elem()
+}
+
+func (o SSOConnectionOidcOutput) ToSSOConnectionOidcOutput() SSOConnectionOidcOutput {
+	return o
+}
+
+func (o SSOConnectionOidcOutput) ToSSOConnectionOidcOutputWithContext(ctx context.Context) SSOConnectionOidcOutput {
+	return o
+}
+
+func (o SSOConnectionOidcOutput) ToSSOConnectionOidcPtrOutput() SSOConnectionOidcPtrOutput {
+	return o.ToSSOConnectionOidcPtrOutputWithContext(context.Background())
+}
+
+func (o SSOConnectionOidcOutput) ToSSOConnectionOidcPtrOutputWithContext(ctx context.Context) SSOConnectionOidcPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SSOConnectionOidc) *SSOConnectionOidc {
+		return &v
+	}).(SSOConnectionOidcPtrOutput)
+}
+
+// OIDC client ID
+func (o SSOConnectionOidcOutput) ClientId() pulumi.StringOutput {
+	return o.ApplyT(func(v SSOConnectionOidc) string { return v.ClientId }).(pulumi.StringOutput)
+}
+
+// OIDC client secret
+func (o SSOConnectionOidcOutput) ClientSecret() pulumi.StringOutput {
+	return o.ApplyT(func(v SSOConnectionOidc) string { return v.ClientSecret }).(pulumi.StringOutput)
+}
+
+// Issuer URL of the OpenID Connect provider
+func (o SSOConnectionOidcOutput) IssuerUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v SSOConnectionOidc) string { return v.IssuerUrl }).(pulumi.StringOutput)
+}
+
+// OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
+func (o SSOConnectionOidcOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SSOConnectionOidc) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type SSOConnectionOidcPtrOutput struct{ *pulumi.OutputState }
+
+func (SSOConnectionOidcPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SSOConnectionOidc)(nil)).Elem()
+}
+
+func (o SSOConnectionOidcPtrOutput) ToSSOConnectionOidcPtrOutput() SSOConnectionOidcPtrOutput {
+	return o
+}
+
+func (o SSOConnectionOidcPtrOutput) ToSSOConnectionOidcPtrOutputWithContext(ctx context.Context) SSOConnectionOidcPtrOutput {
+	return o
+}
+
+func (o SSOConnectionOidcPtrOutput) Elem() SSOConnectionOidcOutput {
+	return o.ApplyT(func(v *SSOConnectionOidc) SSOConnectionOidc {
+		if v != nil {
+			return *v
+		}
+		var ret SSOConnectionOidc
+		return ret
+	}).(SSOConnectionOidcOutput)
+}
+
+// OIDC client ID
+func (o SSOConnectionOidcPtrOutput) ClientId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SSOConnectionOidc) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ClientId
+	}).(pulumi.StringPtrOutput)
+}
+
+// OIDC client secret
+func (o SSOConnectionOidcPtrOutput) ClientSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SSOConnectionOidc) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ClientSecret
+	}).(pulumi.StringPtrOutput)
+}
+
+// Issuer URL of the OpenID Connect provider
+func (o SSOConnectionOidcPtrOutput) IssuerUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SSOConnectionOidc) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.IssuerUrl
+	}).(pulumi.StringPtrOutput)
+}
+
+// OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
+func (o SSOConnectionOidcPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SSOConnectionOidc) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
 type SSOConnectionOkta struct {
 	// Okta client ID
 	ClientId string `pulumi:"clientId"`
@@ -1322,6 +1516,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*OrganizationGroupMemberMemberArrayInput)(nil)).Elem(), OrganizationGroupMemberMemberArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SSOConnectionAadInput)(nil)).Elem(), SSOConnectionAadArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SSOConnectionAadPtrInput)(nil)).Elem(), SSOConnectionAadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SSOConnectionOidcInput)(nil)).Elem(), SSOConnectionOidcArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SSOConnectionOidcPtrInput)(nil)).Elem(), SSOConnectionOidcArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SSOConnectionOktaInput)(nil)).Elem(), SSOConnectionOktaArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SSOConnectionOktaPtrInput)(nil)).Elem(), SSOConnectionOktaArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountAuthorInput)(nil)).Elem(), ServiceAccountAuthorArgs{})
@@ -1344,6 +1540,8 @@ func init() {
 	pulumi.RegisterOutputType(OrganizationGroupMemberMemberArrayOutput{})
 	pulumi.RegisterOutputType(SSOConnectionAadOutput{})
 	pulumi.RegisterOutputType(SSOConnectionAadPtrOutput{})
+	pulumi.RegisterOutputType(SSOConnectionOidcOutput{})
+	pulumi.RegisterOutputType(SSOConnectionOidcPtrOutput{})
 	pulumi.RegisterOutputType(SSOConnectionOktaOutput{})
 	pulumi.RegisterOutputType(SSOConnectionOktaPtrOutput{})
 	pulumi.RegisterOutputType(ServiceAccountAuthorOutput{})

@@ -53,23 +53,23 @@ export interface ServiceAccountState {
     /**
      * Author of the service account.
      */
-    authors?: pulumi.Input<pulumi.Input<inputs.organization.ServiceAccountAuthor>[]>;
+    authors?: pulumi.Input<pulumi.Input<inputs.organization.ServiceAccountAuthor>[] | undefined>;
     /**
      * Description of the service account.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Email of the service account.
      */
-    email?: pulumi.Input<string>;
+    email?: pulumi.Input<string | undefined>;
     /**
      * Name of the service account.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * ID of the organization.
      */
-    organizationId?: pulumi.Input<string>;
+    organizationId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a ServiceAccount resource.
@@ -78,13 +78,14 @@ export interface ServiceAccountArgs {
     /**
      * Description of the service account.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Name of the service account.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * ID of the organization.
      */
     organizationId: pulumi.Input<string>;
 }
+//# sourceMappingURL=serviceAccount.d.ts.map

@@ -21,33 +21,38 @@ __all__ = ['NodeTemplateArgs', 'NodeTemplate']
 @pulumi.input_type
 class NodeTemplateArgs:
     def __init__(__self__, *,
-                 clm_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 configuration_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 constraints: Optional[pulumi.Input['NodeTemplateConstraintsArgs']] = None,
-                 custom_instances_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_instances_with_extended_memory_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 custom_taints: Optional[pulumi.Input[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]] = None,
-                 gpu: Optional[pulumi.Input['NodeTemplateGpuArgs']] = None,
-                 is_default: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 rebalancing_config_min_nodes: Optional[pulumi.Input[_builtins.int]] = None,
-                 should_taint: Optional[pulumi.Input[_builtins.bool]] = None):
+                 clm_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 configuration_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 constraints: pulumi.Input[Optional['NodeTemplateConstraintsArgs']] = None,
+                 custom_instances_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_instances_with_extended_memory_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 custom_taints: pulumi.Input[Optional[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]] = None,
+                 edge_location_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 gpu: pulumi.Input[Optional['NodeTemplateGpuArgs']] = None,
+                 is_default: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 price_adjustment_configuration: pulumi.Input[Optional['NodeTemplatePriceAdjustmentConfigurationArgs']] = None,
+                 rebalancing_config_min_nodes: pulumi.Input[Optional[_builtins.int]] = None,
+                 should_taint: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a NodeTemplate resource.
-        :param pulumi.Input[_builtins.bool] clm_enabled: Marks whether CLM should be enabled for nodes created from this template.
+
+        :param pulumi.Input[_builtins.bool] clm_enabled: Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
         :param pulumi.Input[_builtins.str] configuration_id: CAST AI node configuration id to be used for node template.
         :param pulumi.Input[_builtins.bool] custom_instances_enabled: Marks whether custom instances should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         :param pulumi.Input[_builtins.bool] custom_instances_with_extended_memory_enabled: Marks whether custom instances with extended memory should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] custom_labels: Custom labels to be added to nodes created from this template.
         :param pulumi.Input[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]] custom_taints: Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] edge_location_ids: List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castai_edge_location resources.
         :param pulumi.Input['NodeTemplateGpuArgs'] gpu: GPU configuration.
-        :param pulumi.Input[_builtins.bool] is_default: Flag whether the node template is default.
+        :param pulumi.Input[_builtins.bool] is_default: Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
         :param pulumi.Input[_builtins.bool] is_enabled: Flag whether the node template is enabled and considered for autoscaling.
         :param pulumi.Input[_builtins.str] name: Name of the node template.
+        :param pulumi.Input['NodeTemplatePriceAdjustmentConfigurationArgs'] price_adjustment_configuration: Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
         :param pulumi.Input[_builtins.int] rebalancing_config_min_nodes: Minimum nodes that will be kept when rebalancing nodes using this node template.
         :param pulumi.Input[_builtins.bool] should_taint: Marks whether the templated nodes will have a taint.
         """
@@ -67,6 +72,8 @@ class NodeTemplateArgs:
             pulumi.set(__self__, "custom_labels", custom_labels)
         if custom_taints is not None:
             pulumi.set(__self__, "custom_taints", custom_taints)
+        if edge_location_ids is not None:
+            pulumi.set(__self__, "edge_location_ids", edge_location_ids)
         if gpu is not None:
             pulumi.set(__self__, "gpu", gpu)
         if is_default is not None:
@@ -75,6 +82,8 @@ class NodeTemplateArgs:
             pulumi.set(__self__, "is_enabled", is_enabled)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if price_adjustment_configuration is not None:
+            pulumi.set(__self__, "price_adjustment_configuration", price_adjustment_configuration)
         if rebalancing_config_min_nodes is not None:
             pulumi.set(__self__, "rebalancing_config_min_nodes", rebalancing_config_min_nodes)
         if should_taint is not None:
@@ -82,200 +91,229 @@ class NodeTemplateArgs:
 
     @_builtins.property
     @pulumi.getter(name="clmEnabled")
-    def clm_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def clm_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Marks whether CLM should be enabled for nodes created from this template.
+        Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
         """
         return pulumi.get(self, "clm_enabled")
 
     @clm_enabled.setter
-    def clm_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def clm_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "clm_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter(name="configurationId")
-    def configuration_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def configuration_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI node configuration id to be used for node template.
         """
         return pulumi.get(self, "configuration_id")
 
     @configuration_id.setter
-    def configuration_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def configuration_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "configuration_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def constraints(self) -> Optional[pulumi.Input['NodeTemplateConstraintsArgs']]:
+    def constraints(self) -> pulumi.Input[Optional['NodeTemplateConstraintsArgs']]:
         return pulumi.get(self, "constraints")
 
     @constraints.setter
-    def constraints(self, value: Optional[pulumi.Input['NodeTemplateConstraintsArgs']]):
+    def constraints(self, value: pulumi.Input[Optional['NodeTemplateConstraintsArgs']]):
         pulumi.set(self, "constraints", value)
 
     @_builtins.property
     @pulumi.getter(name="customInstancesEnabled")
-    def custom_instances_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def custom_instances_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Marks whether custom instances should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         """
         return pulumi.get(self, "custom_instances_enabled")
 
     @custom_instances_enabled.setter
-    def custom_instances_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def custom_instances_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "custom_instances_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="customInstancesWithExtendedMemoryEnabled")
-    def custom_instances_with_extended_memory_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def custom_instances_with_extended_memory_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Marks whether custom instances with extended memory should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         """
         return pulumi.get(self, "custom_instances_with_extended_memory_enabled")
 
     @custom_instances_with_extended_memory_enabled.setter
-    def custom_instances_with_extended_memory_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def custom_instances_with_extended_memory_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "custom_instances_with_extended_memory_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="customLabels")
-    def custom_labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def custom_labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Custom labels to be added to nodes created from this template.
         """
         return pulumi.get(self, "custom_labels")
 
     @custom_labels.setter
-    def custom_labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def custom_labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "custom_labels", value)
 
     @_builtins.property
     @pulumi.getter(name="customTaints")
-    def custom_taints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]]:
+    def custom_taints(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]]:
         """
         Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
         """
         return pulumi.get(self, "custom_taints")
 
     @custom_taints.setter
-    def custom_taints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]]):
+    def custom_taints(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]]):
         pulumi.set(self, "custom_taints", value)
 
     @_builtins.property
+    @pulumi.getter(name="edgeLocationIds")
+    def edge_location_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castai_edge_location resources.
+        """
+        return pulumi.get(self, "edge_location_ids")
+
+    @edge_location_ids.setter
+    def edge_location_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "edge_location_ids", value)
+
+    @_builtins.property
     @pulumi.getter
-    def gpu(self) -> Optional[pulumi.Input['NodeTemplateGpuArgs']]:
+    def gpu(self) -> pulumi.Input[Optional['NodeTemplateGpuArgs']]:
         """
         GPU configuration.
         """
         return pulumi.get(self, "gpu")
 
     @gpu.setter
-    def gpu(self, value: Optional[pulumi.Input['NodeTemplateGpuArgs']]):
+    def gpu(self, value: pulumi.Input[Optional['NodeTemplateGpuArgs']]):
         pulumi.set(self, "gpu", value)
 
     @_builtins.property
     @pulumi.getter(name="isDefault")
-    def is_default(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_default(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Flag whether the node template is default.
+        Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
         """
         return pulumi.get(self, "is_default")
 
     @is_default.setter
-    def is_default(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_default(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_default", value)
 
     @_builtins.property
     @pulumi.getter(name="isEnabled")
-    def is_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Flag whether the node template is enabled and considered for autoscaling.
         """
         return pulumi.get(self, "is_enabled")
 
     @is_enabled.setter
-    def is_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the node template.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="priceAdjustmentConfiguration")
+    def price_adjustment_configuration(self) -> pulumi.Input[Optional['NodeTemplatePriceAdjustmentConfigurationArgs']]:
+        """
+        Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+        """
+        return pulumi.get(self, "price_adjustment_configuration")
+
+    @price_adjustment_configuration.setter
+    def price_adjustment_configuration(self, value: pulumi.Input[Optional['NodeTemplatePriceAdjustmentConfigurationArgs']]):
+        pulumi.set(self, "price_adjustment_configuration", value)
+
+    @_builtins.property
     @pulumi.getter(name="rebalancingConfigMinNodes")
-    def rebalancing_config_min_nodes(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def rebalancing_config_min_nodes(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimum nodes that will be kept when rebalancing nodes using this node template.
         """
         return pulumi.get(self, "rebalancing_config_min_nodes")
 
     @rebalancing_config_min_nodes.setter
-    def rebalancing_config_min_nodes(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def rebalancing_config_min_nodes(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "rebalancing_config_min_nodes", value)
 
     @_builtins.property
     @pulumi.getter(name="shouldTaint")
-    def should_taint(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def should_taint(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Marks whether the templated nodes will have a taint.
         """
         return pulumi.get(self, "should_taint")
 
     @should_taint.setter
-    def should_taint(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def should_taint(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "should_taint", value)
 
 
 @pulumi.input_type
 class _NodeTemplateState:
     def __init__(__self__, *,
-                 clm_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 configuration_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 constraints: Optional[pulumi.Input['NodeTemplateConstraintsArgs']] = None,
-                 custom_instances_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_instances_with_extended_memory_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 custom_taints: Optional[pulumi.Input[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]] = None,
-                 gpu: Optional[pulumi.Input['NodeTemplateGpuArgs']] = None,
-                 is_default: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 rebalancing_config_min_nodes: Optional[pulumi.Input[_builtins.int]] = None,
-                 should_taint: Optional[pulumi.Input[_builtins.bool]] = None):
+                 clm_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 configuration_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 constraints: pulumi.Input[Optional['NodeTemplateConstraintsArgs']] = None,
+                 custom_instances_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_instances_with_extended_memory_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 custom_taints: pulumi.Input[Optional[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]] = None,
+                 edge_location_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 gpu: pulumi.Input[Optional['NodeTemplateGpuArgs']] = None,
+                 is_default: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 price_adjustment_configuration: pulumi.Input[Optional['NodeTemplatePriceAdjustmentConfigurationArgs']] = None,
+                 rebalancing_config_min_nodes: pulumi.Input[Optional[_builtins.int]] = None,
+                 should_taint: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering NodeTemplate resources.
-        :param pulumi.Input[_builtins.bool] clm_enabled: Marks whether CLM should be enabled for nodes created from this template.
+
+        :param pulumi.Input[_builtins.bool] clm_enabled: Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
         :param pulumi.Input[_builtins.str] configuration_id: CAST AI node configuration id to be used for node template.
         :param pulumi.Input[_builtins.bool] custom_instances_enabled: Marks whether custom instances should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         :param pulumi.Input[_builtins.bool] custom_instances_with_extended_memory_enabled: Marks whether custom instances with extended memory should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] custom_labels: Custom labels to be added to nodes created from this template.
         :param pulumi.Input[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]] custom_taints: Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] edge_location_ids: List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castai_edge_location resources.
         :param pulumi.Input['NodeTemplateGpuArgs'] gpu: GPU configuration.
-        :param pulumi.Input[_builtins.bool] is_default: Flag whether the node template is default.
+        :param pulumi.Input[_builtins.bool] is_default: Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
         :param pulumi.Input[_builtins.bool] is_enabled: Flag whether the node template is enabled and considered for autoscaling.
         :param pulumi.Input[_builtins.str] name: Name of the node template.
+        :param pulumi.Input['NodeTemplatePriceAdjustmentConfigurationArgs'] price_adjustment_configuration: Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
         :param pulumi.Input[_builtins.int] rebalancing_config_min_nodes: Minimum nodes that will be kept when rebalancing nodes using this node template.
         :param pulumi.Input[_builtins.bool] should_taint: Marks whether the templated nodes will have a taint.
         """
@@ -295,6 +333,8 @@ class _NodeTemplateState:
             pulumi.set(__self__, "custom_labels", custom_labels)
         if custom_taints is not None:
             pulumi.set(__self__, "custom_taints", custom_taints)
+        if edge_location_ids is not None:
+            pulumi.set(__self__, "edge_location_ids", edge_location_ids)
         if gpu is not None:
             pulumi.set(__self__, "gpu", gpu)
         if is_default is not None:
@@ -303,6 +343,8 @@ class _NodeTemplateState:
             pulumi.set(__self__, "is_enabled", is_enabled)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if price_adjustment_configuration is not None:
+            pulumi.set(__self__, "price_adjustment_configuration", price_adjustment_configuration)
         if rebalancing_config_min_nodes is not None:
             pulumi.set(__self__, "rebalancing_config_min_nodes", rebalancing_config_min_nodes)
         if should_taint is not None:
@@ -310,167 +352,191 @@ class _NodeTemplateState:
 
     @_builtins.property
     @pulumi.getter(name="clmEnabled")
-    def clm_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def clm_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Marks whether CLM should be enabled for nodes created from this template.
+        Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
         """
         return pulumi.get(self, "clm_enabled")
 
     @clm_enabled.setter
-    def clm_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def clm_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "clm_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter(name="configurationId")
-    def configuration_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def configuration_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI node configuration id to be used for node template.
         """
         return pulumi.get(self, "configuration_id")
 
     @configuration_id.setter
-    def configuration_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def configuration_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "configuration_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def constraints(self) -> Optional[pulumi.Input['NodeTemplateConstraintsArgs']]:
+    def constraints(self) -> pulumi.Input[Optional['NodeTemplateConstraintsArgs']]:
         return pulumi.get(self, "constraints")
 
     @constraints.setter
-    def constraints(self, value: Optional[pulumi.Input['NodeTemplateConstraintsArgs']]):
+    def constraints(self, value: pulumi.Input[Optional['NodeTemplateConstraintsArgs']]):
         pulumi.set(self, "constraints", value)
 
     @_builtins.property
     @pulumi.getter(name="customInstancesEnabled")
-    def custom_instances_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def custom_instances_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Marks whether custom instances should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         """
         return pulumi.get(self, "custom_instances_enabled")
 
     @custom_instances_enabled.setter
-    def custom_instances_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def custom_instances_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "custom_instances_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="customInstancesWithExtendedMemoryEnabled")
-    def custom_instances_with_extended_memory_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def custom_instances_with_extended_memory_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Marks whether custom instances with extended memory should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         """
         return pulumi.get(self, "custom_instances_with_extended_memory_enabled")
 
     @custom_instances_with_extended_memory_enabled.setter
-    def custom_instances_with_extended_memory_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def custom_instances_with_extended_memory_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "custom_instances_with_extended_memory_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="customLabels")
-    def custom_labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def custom_labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Custom labels to be added to nodes created from this template.
         """
         return pulumi.get(self, "custom_labels")
 
     @custom_labels.setter
-    def custom_labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def custom_labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "custom_labels", value)
 
     @_builtins.property
     @pulumi.getter(name="customTaints")
-    def custom_taints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]]:
+    def custom_taints(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]]:
         """
         Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
         """
         return pulumi.get(self, "custom_taints")
 
     @custom_taints.setter
-    def custom_taints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]]):
+    def custom_taints(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NodeTemplateCustomTaintArgs']]]]):
         pulumi.set(self, "custom_taints", value)
 
     @_builtins.property
+    @pulumi.getter(name="edgeLocationIds")
+    def edge_location_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castai_edge_location resources.
+        """
+        return pulumi.get(self, "edge_location_ids")
+
+    @edge_location_ids.setter
+    def edge_location_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "edge_location_ids", value)
+
+    @_builtins.property
     @pulumi.getter
-    def gpu(self) -> Optional[pulumi.Input['NodeTemplateGpuArgs']]:
+    def gpu(self) -> pulumi.Input[Optional['NodeTemplateGpuArgs']]:
         """
         GPU configuration.
         """
         return pulumi.get(self, "gpu")
 
     @gpu.setter
-    def gpu(self, value: Optional[pulumi.Input['NodeTemplateGpuArgs']]):
+    def gpu(self, value: pulumi.Input[Optional['NodeTemplateGpuArgs']]):
         pulumi.set(self, "gpu", value)
 
     @_builtins.property
     @pulumi.getter(name="isDefault")
-    def is_default(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_default(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Flag whether the node template is default.
+        Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
         """
         return pulumi.get(self, "is_default")
 
     @is_default.setter
-    def is_default(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_default(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_default", value)
 
     @_builtins.property
     @pulumi.getter(name="isEnabled")
-    def is_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Flag whether the node template is enabled and considered for autoscaling.
         """
         return pulumi.get(self, "is_enabled")
 
     @is_enabled.setter
-    def is_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the node template.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="priceAdjustmentConfiguration")
+    def price_adjustment_configuration(self) -> pulumi.Input[Optional['NodeTemplatePriceAdjustmentConfigurationArgs']]:
+        """
+        Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+        """
+        return pulumi.get(self, "price_adjustment_configuration")
+
+    @price_adjustment_configuration.setter
+    def price_adjustment_configuration(self, value: pulumi.Input[Optional['NodeTemplatePriceAdjustmentConfigurationArgs']]):
+        pulumi.set(self, "price_adjustment_configuration", value)
+
+    @_builtins.property
     @pulumi.getter(name="rebalancingConfigMinNodes")
-    def rebalancing_config_min_nodes(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def rebalancing_config_min_nodes(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimum nodes that will be kept when rebalancing nodes using this node template.
         """
         return pulumi.get(self, "rebalancing_config_min_nodes")
 
     @rebalancing_config_min_nodes.setter
-    def rebalancing_config_min_nodes(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def rebalancing_config_min_nodes(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "rebalancing_config_min_nodes", value)
 
     @_builtins.property
     @pulumi.getter(name="shouldTaint")
-    def should_taint(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def should_taint(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Marks whether the templated nodes will have a taint.
         """
         return pulumi.get(self, "should_taint")
 
     @should_taint.setter
-    def should_taint(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def should_taint(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "should_taint", value)
 
 
@@ -480,36 +546,41 @@ class NodeTemplate(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 clm_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 configuration_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 constraints: Optional[pulumi.Input[Union['NodeTemplateConstraintsArgs', 'NodeTemplateConstraintsArgsDict']]] = None,
-                 custom_instances_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_instances_with_extended_memory_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 custom_taints: Optional[pulumi.Input[Sequence[pulumi.Input[Union['NodeTemplateCustomTaintArgs', 'NodeTemplateCustomTaintArgsDict']]]]] = None,
-                 gpu: Optional[pulumi.Input[Union['NodeTemplateGpuArgs', 'NodeTemplateGpuArgsDict']]] = None,
-                 is_default: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 rebalancing_config_min_nodes: Optional[pulumi.Input[_builtins.int]] = None,
-                 should_taint: Optional[pulumi.Input[_builtins.bool]] = None,
+                 clm_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 configuration_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 constraints: pulumi.Input[Optional[Union['NodeTemplateConstraintsArgs', 'NodeTemplateConstraintsArgsDict']]] = None,
+                 custom_instances_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_instances_with_extended_memory_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 custom_taints: pulumi.Input[Optional[Sequence[pulumi.Input[Union['NodeTemplateCustomTaintArgs', 'NodeTemplateCustomTaintArgsDict']]]]] = None,
+                 edge_location_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 gpu: pulumi.Input[Optional[Union['NodeTemplateGpuArgs', 'NodeTemplateGpuArgsDict']]] = None,
+                 is_default: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 price_adjustment_configuration: pulumi.Input[Optional[Union['NodeTemplatePriceAdjustmentConfigurationArgs', 'NodeTemplatePriceAdjustmentConfigurationArgsDict']]] = None,
+                 rebalancing_config_min_nodes: pulumi.Input[Optional[_builtins.int]] = None,
+                 should_taint: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         Create a NodeTemplate resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] clm_enabled: Marks whether CLM should be enabled for nodes created from this template.
+        :param pulumi.Input[_builtins.bool] clm_enabled: Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
         :param pulumi.Input[_builtins.str] configuration_id: CAST AI node configuration id to be used for node template.
         :param pulumi.Input[_builtins.bool] custom_instances_enabled: Marks whether custom instances should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         :param pulumi.Input[_builtins.bool] custom_instances_with_extended_memory_enabled: Marks whether custom instances with extended memory should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] custom_labels: Custom labels to be added to nodes created from this template.
         :param pulumi.Input[Sequence[pulumi.Input[Union['NodeTemplateCustomTaintArgs', 'NodeTemplateCustomTaintArgsDict']]]] custom_taints: Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] edge_location_ids: List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castai_edge_location resources.
         :param pulumi.Input[Union['NodeTemplateGpuArgs', 'NodeTemplateGpuArgsDict']] gpu: GPU configuration.
-        :param pulumi.Input[_builtins.bool] is_default: Flag whether the node template is default.
+        :param pulumi.Input[_builtins.bool] is_default: Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
         :param pulumi.Input[_builtins.bool] is_enabled: Flag whether the node template is enabled and considered for autoscaling.
         :param pulumi.Input[_builtins.str] name: Name of the node template.
+        :param pulumi.Input[Union['NodeTemplatePriceAdjustmentConfigurationArgs', 'NodeTemplatePriceAdjustmentConfigurationArgsDict']] price_adjustment_configuration: Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
         :param pulumi.Input[_builtins.int] rebalancing_config_min_nodes: Minimum nodes that will be kept when rebalancing nodes using this node template.
         :param pulumi.Input[_builtins.bool] should_taint: Marks whether the templated nodes will have a taint.
         """
@@ -521,6 +592,7 @@ class NodeTemplate(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a NodeTemplate resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param NodeTemplateArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -536,20 +608,22 @@ class NodeTemplate(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 clm_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 configuration_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 constraints: Optional[pulumi.Input[Union['NodeTemplateConstraintsArgs', 'NodeTemplateConstraintsArgsDict']]] = None,
-                 custom_instances_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_instances_with_extended_memory_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 custom_taints: Optional[pulumi.Input[Sequence[pulumi.Input[Union['NodeTemplateCustomTaintArgs', 'NodeTemplateCustomTaintArgsDict']]]]] = None,
-                 gpu: Optional[pulumi.Input[Union['NodeTemplateGpuArgs', 'NodeTemplateGpuArgsDict']]] = None,
-                 is_default: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 rebalancing_config_min_nodes: Optional[pulumi.Input[_builtins.int]] = None,
-                 should_taint: Optional[pulumi.Input[_builtins.bool]] = None,
+                 clm_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 configuration_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 constraints: pulumi.Input[Optional[Union['NodeTemplateConstraintsArgs', 'NodeTemplateConstraintsArgsDict']]] = None,
+                 custom_instances_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_instances_with_extended_memory_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 custom_taints: pulumi.Input[Optional[Sequence[pulumi.Input[Union['NodeTemplateCustomTaintArgs', 'NodeTemplateCustomTaintArgsDict']]]]] = None,
+                 edge_location_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 gpu: pulumi.Input[Optional[Union['NodeTemplateGpuArgs', 'NodeTemplateGpuArgsDict']]] = None,
+                 is_default: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 price_adjustment_configuration: pulumi.Input[Optional[Union['NodeTemplatePriceAdjustmentConfigurationArgs', 'NodeTemplatePriceAdjustmentConfigurationArgsDict']]] = None,
+                 rebalancing_config_min_nodes: pulumi.Input[Optional[_builtins.int]] = None,
+                 should_taint: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -567,10 +641,12 @@ class NodeTemplate(pulumi.CustomResource):
             __props__.__dict__["custom_instances_with_extended_memory_enabled"] = custom_instances_with_extended_memory_enabled
             __props__.__dict__["custom_labels"] = custom_labels
             __props__.__dict__["custom_taints"] = custom_taints
+            __props__.__dict__["edge_location_ids"] = edge_location_ids
             __props__.__dict__["gpu"] = gpu
             __props__.__dict__["is_default"] = is_default
             __props__.__dict__["is_enabled"] = is_enabled
             __props__.__dict__["name"] = name
+            __props__.__dict__["price_adjustment_configuration"] = price_adjustment_configuration
             __props__.__dict__["rebalancing_config_min_nodes"] = rebalancing_config_min_nodes
             __props__.__dict__["should_taint"] = should_taint
         super(NodeTemplate, __self__).__init__(
@@ -583,20 +659,22 @@ class NodeTemplate(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            clm_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            configuration_id: Optional[pulumi.Input[_builtins.str]] = None,
-            constraints: Optional[pulumi.Input[Union['NodeTemplateConstraintsArgs', 'NodeTemplateConstraintsArgsDict']]] = None,
-            custom_instances_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            custom_instances_with_extended_memory_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            custom_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-            custom_taints: Optional[pulumi.Input[Sequence[pulumi.Input[Union['NodeTemplateCustomTaintArgs', 'NodeTemplateCustomTaintArgsDict']]]]] = None,
-            gpu: Optional[pulumi.Input[Union['NodeTemplateGpuArgs', 'NodeTemplateGpuArgsDict']]] = None,
-            is_default: Optional[pulumi.Input[_builtins.bool]] = None,
-            is_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            rebalancing_config_min_nodes: Optional[pulumi.Input[_builtins.int]] = None,
-            should_taint: Optional[pulumi.Input[_builtins.bool]] = None) -> 'NodeTemplate':
+            clm_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            configuration_id: pulumi.Input[Optional[_builtins.str]] = None,
+            constraints: pulumi.Input[Optional[Union['NodeTemplateConstraintsArgs', 'NodeTemplateConstraintsArgsDict']]] = None,
+            custom_instances_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            custom_instances_with_extended_memory_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            custom_labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+            custom_taints: pulumi.Input[Optional[Sequence[pulumi.Input[Union['NodeTemplateCustomTaintArgs', 'NodeTemplateCustomTaintArgsDict']]]]] = None,
+            edge_location_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            gpu: pulumi.Input[Optional[Union['NodeTemplateGpuArgs', 'NodeTemplateGpuArgsDict']]] = None,
+            is_default: pulumi.Input[Optional[_builtins.bool]] = None,
+            is_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            price_adjustment_configuration: pulumi.Input[Optional[Union['NodeTemplatePriceAdjustmentConfigurationArgs', 'NodeTemplatePriceAdjustmentConfigurationArgsDict']]] = None,
+            rebalancing_config_min_nodes: pulumi.Input[Optional[_builtins.int]] = None,
+            should_taint: pulumi.Input[Optional[_builtins.bool]] = None) -> 'NodeTemplate':
         """
         Get an existing NodeTemplate resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -604,17 +682,19 @@ class NodeTemplate(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] clm_enabled: Marks whether CLM should be enabled for nodes created from this template.
+        :param pulumi.Input[_builtins.bool] clm_enabled: Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
         :param pulumi.Input[_builtins.str] configuration_id: CAST AI node configuration id to be used for node template.
         :param pulumi.Input[_builtins.bool] custom_instances_enabled: Marks whether custom instances should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         :param pulumi.Input[_builtins.bool] custom_instances_with_extended_memory_enabled: Marks whether custom instances with extended memory should be used when deciding which parts of inventory are available. Custom instances are only supported in GCP.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] custom_labels: Custom labels to be added to nodes created from this template.
         :param pulumi.Input[Sequence[pulumi.Input[Union['NodeTemplateCustomTaintArgs', 'NodeTemplateCustomTaintArgsDict']]]] custom_taints: Custom taints to be added to the nodes created from this template. `shouldTaint` has to be `true` in order to create/update the node template with custom taints. If `shouldTaint` is `true`, but no custom taints are provided, the nodes will be tainted with the default node template taint.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] edge_location_ids: List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castai_edge_location resources.
         :param pulumi.Input[Union['NodeTemplateGpuArgs', 'NodeTemplateGpuArgsDict']] gpu: GPU configuration.
-        :param pulumi.Input[_builtins.bool] is_default: Flag whether the node template is default.
+        :param pulumi.Input[_builtins.bool] is_default: Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
         :param pulumi.Input[_builtins.bool] is_enabled: Flag whether the node template is enabled and considered for autoscaling.
         :param pulumi.Input[_builtins.str] name: Name of the node template.
+        :param pulumi.Input[Union['NodeTemplatePriceAdjustmentConfigurationArgs', 'NodeTemplatePriceAdjustmentConfigurationArgsDict']] price_adjustment_configuration: Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
         :param pulumi.Input[_builtins.int] rebalancing_config_min_nodes: Minimum nodes that will be kept when rebalancing nodes using this node template.
         :param pulumi.Input[_builtins.bool] should_taint: Marks whether the templated nodes will have a taint.
         """
@@ -630,10 +710,12 @@ class NodeTemplate(pulumi.CustomResource):
         __props__.__dict__["custom_instances_with_extended_memory_enabled"] = custom_instances_with_extended_memory_enabled
         __props__.__dict__["custom_labels"] = custom_labels
         __props__.__dict__["custom_taints"] = custom_taints
+        __props__.__dict__["edge_location_ids"] = edge_location_ids
         __props__.__dict__["gpu"] = gpu
         __props__.__dict__["is_default"] = is_default
         __props__.__dict__["is_enabled"] = is_enabled
         __props__.__dict__["name"] = name
+        __props__.__dict__["price_adjustment_configuration"] = price_adjustment_configuration
         __props__.__dict__["rebalancing_config_min_nodes"] = rebalancing_config_min_nodes
         __props__.__dict__["should_taint"] = should_taint
         return NodeTemplate(resource_name, opts=opts, __props__=__props__)
@@ -642,7 +724,7 @@ class NodeTemplate(pulumi.CustomResource):
     @pulumi.getter(name="clmEnabled")
     def clm_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Marks whether CLM should be enabled for nodes created from this template.
+        Marks whether Container Live Migration (CLM) should be enabled for nodes created from this template. Supported on EKS, GKE, and AKS clusters. CLM-enabled nodes participate in live workload migration during rebalancing, scale-down, and node lifecycle events.
         """
         return pulumi.get(self, "clm_enabled")
 
@@ -700,6 +782,14 @@ class NodeTemplate(pulumi.CustomResource):
         return pulumi.get(self, "custom_taints")
 
     @_builtins.property
+    @pulumi.getter(name="edgeLocationIds")
+    def edge_location_ids(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        List of edge location IDs to associate with this node template. Must be valid UUIDs referencing castai_edge_location resources.
+        """
+        return pulumi.get(self, "edge_location_ids")
+
+    @_builtins.property
     @pulumi.getter
     def gpu(self) -> pulumi.Output[Optional['outputs.NodeTemplateGpu']]:
         """
@@ -709,9 +799,9 @@ class NodeTemplate(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="isDefault")
-    def is_default(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def is_default(self) -> pulumi.Output[_builtins.bool]:
         """
-        Flag whether the node template is default.
+        Flag whether the node template is default. It's is always set to 'true' on 'default-by-castai' node template and 'false' otherwise.
         """
         return pulumi.get(self, "is_default")
 
@@ -730,6 +820,14 @@ class NodeTemplate(pulumi.CustomResource):
         Name of the node template.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="priceAdjustmentConfiguration")
+    def price_adjustment_configuration(self) -> pulumi.Output[Optional['outputs.NodeTemplatePriceAdjustmentConfiguration']]:
+        """
+        Configuration for adjusting instance type prices during autoscaling. Adjustments only affect placement decisions, not cost reporting.
+        """
+        return pulumi.get(self, "price_adjustment_configuration")
 
     @_builtins.property
     @pulumi.getter(name="rebalancingConfigMinNodes")

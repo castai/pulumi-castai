@@ -24,6 +24,10 @@ type Commitments struct {
 	GcpCuds CommitmentsGcpCudArrayOutput `pulumi:"gcpCuds"`
 	// JSON file containing CUDs exported from GCP.
 	GcpCudsJson pulumi.StringPtrOutput `pulumi:"gcpCudsJson"`
+	// Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+	ImportMode pulumi.StringPtrOutput `pulumi:"importMode"`
+	// Organization ID. If not provided, will be fetched from the API using the authentication token.
+	OrganizationId pulumi.StringPtrOutput `pulumi:"organizationId"`
 }
 
 // NewCommitments registers a new resource with the given unique name, arguments, and options.
@@ -66,6 +70,10 @@ type commitmentsState struct {
 	GcpCuds []CommitmentsGcpCud `pulumi:"gcpCuds"`
 	// JSON file containing CUDs exported from GCP.
 	GcpCudsJson *string `pulumi:"gcpCudsJson"`
+	// Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+	ImportMode *string `pulumi:"importMode"`
+	// Organization ID. If not provided, will be fetched from the API using the authentication token.
+	OrganizationId *string `pulumi:"organizationId"`
 }
 
 type CommitmentsState struct {
@@ -79,6 +87,10 @@ type CommitmentsState struct {
 	GcpCuds CommitmentsGcpCudArrayInput
 	// JSON file containing CUDs exported from GCP.
 	GcpCudsJson pulumi.StringPtrInput
+	// Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+	ImportMode pulumi.StringPtrInput
+	// Organization ID. If not provided, will be fetched from the API using the authentication token.
+	OrganizationId pulumi.StringPtrInput
 }
 
 func (CommitmentsState) ElementType() reflect.Type {
@@ -92,6 +104,10 @@ type commitmentsArgs struct {
 	CommitmentConfigs []CommitmentsCommitmentConfig `pulumi:"commitmentConfigs"`
 	// JSON file containing CUDs exported from GCP.
 	GcpCudsJson *string `pulumi:"gcpCudsJson"`
+	// Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+	ImportMode *string `pulumi:"importMode"`
+	// Organization ID. If not provided, will be fetched from the API using the authentication token.
+	OrganizationId *string `pulumi:"organizationId"`
 }
 
 // The set of arguments for constructing a Commitments resource.
@@ -102,6 +118,10 @@ type CommitmentsArgs struct {
 	CommitmentConfigs CommitmentsCommitmentConfigArrayInput
 	// JSON file containing CUDs exported from GCP.
 	GcpCudsJson pulumi.StringPtrInput
+	// Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+	ImportMode pulumi.StringPtrInput
+	// Organization ID. If not provided, will be fetched from the API using the authentication token.
+	OrganizationId pulumi.StringPtrInput
 }
 
 func (CommitmentsArgs) ElementType() reflect.Type {
@@ -214,6 +234,16 @@ func (o CommitmentsOutput) GcpCuds() CommitmentsGcpCudArrayOutput {
 // JSON file containing CUDs exported from GCP.
 func (o CommitmentsOutput) GcpCudsJson() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Commitments) pulumi.StringPtrOutput { return v.GcpCudsJson }).(pulumi.StringPtrOutput)
+}
+
+// Import mode. OVERWRITE replaces all commitments for the CSP. APPEND upserts without deleting existing ones.
+func (o CommitmentsOutput) ImportMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Commitments) pulumi.StringPtrOutput { return v.ImportMode }).(pulumi.StringPtrOutput)
+}
+
+// Organization ID. If not provided, will be fetched from the API using the authentication token.
+func (o CommitmentsOutput) OrganizationId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Commitments) pulumi.StringPtrOutput { return v.OrganizationId }).(pulumi.StringPtrOutput)
 }
 
 type CommitmentsArrayOutput struct{ *pulumi.OutputState }

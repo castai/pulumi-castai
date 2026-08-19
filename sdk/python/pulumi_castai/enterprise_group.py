@@ -22,12 +22,13 @@ class EnterpriseGroupArgs:
     def __init__(__self__, *,
                  enterprise_id: pulumi.Input[_builtins.str],
                  organization_id: pulumi.Input[_builtins.str],
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 role_bindings: Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]] = None):
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 role_bindings: pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]] = None):
         """
         The set of arguments for constructing a EnterpriseGroup resource.
+
         :param pulumi.Input[_builtins.str] enterprise_id: Enterprise organization ID.
         :param pulumi.Input[_builtins.str] organization_id: Target organization ID for the group.
         :param pulumi.Input[_builtins.str] description: Description of the group.
@@ -72,64 +73,65 @@ class EnterpriseGroupArgs:
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Description of the group.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def members(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]]:
+    def members(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]]:
         """
         List of group members.
         """
         return pulumi.get(self, "members")
 
     @members.setter
-    def members(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]]):
+    def members(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]]):
         pulumi.set(self, "members", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the group.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="roleBindings")
-    def role_bindings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]]:
+    def role_bindings(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]]:
         """
         List of role bindings for the group.
         """
         return pulumi.get(self, "role_bindings")
 
     @role_bindings.setter
-    def role_bindings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]]):
+    def role_bindings(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]]):
         pulumi.set(self, "role_bindings", value)
 
 
 @pulumi.input_type
 class _EnterpriseGroupState:
     def __init__(__self__, *,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 enterprise_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 role_bindings: Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]] = None):
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 enterprise_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 role_bindings: pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]] = None):
         """
         Input properties used for looking up and filtering EnterpriseGroup resources.
+
         :param pulumi.Input[_builtins.str] description: Description of the group.
         :param pulumi.Input[_builtins.str] enterprise_id: Enterprise organization ID.
         :param pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]] members: List of group members.
@@ -152,74 +154,74 @@ class _EnterpriseGroupState:
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Description of the group.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="enterpriseId")
-    def enterprise_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def enterprise_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Enterprise organization ID.
         """
         return pulumi.get(self, "enterprise_id")
 
     @enterprise_id.setter
-    def enterprise_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def enterprise_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "enterprise_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def members(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]]:
+    def members(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]]:
         """
         List of group members.
         """
         return pulumi.get(self, "members")
 
     @members.setter
-    def members(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]]):
+    def members(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupMemberArgs']]]]):
         pulumi.set(self, "members", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the group.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="organizationId")
-    def organization_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Target organization ID for the group.
         """
         return pulumi.get(self, "organization_id")
 
     @organization_id.setter
-    def organization_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization_id", value)
 
     @_builtins.property
     @pulumi.getter(name="roleBindings")
-    def role_bindings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]]:
+    def role_bindings(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]]:
         """
         List of role bindings for the group.
         """
         return pulumi.get(self, "role_bindings")
 
     @role_bindings.setter
-    def role_bindings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]]):
+    def role_bindings(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_organization.EnterpriseGroupRoleBindingArgs']]]]):
         pulumi.set(self, "role_bindings", value)
 
 
@@ -229,15 +231,16 @@ class EnterpriseGroup(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 enterprise_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupMemberArgs', '_organization.EnterpriseGroupMemberArgsDict']]]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 role_bindings: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupRoleBindingArgs', '_organization.EnterpriseGroupRoleBindingArgsDict']]]]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 enterprise_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupMemberArgs', '_organization.EnterpriseGroupMemberArgsDict']]]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 role_bindings: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupRoleBindingArgs', '_organization.EnterpriseGroupRoleBindingArgsDict']]]]] = None,
                  __props__=None):
         """
         Create a EnterpriseGroup resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] description: Description of the group.
@@ -255,6 +258,7 @@ class EnterpriseGroup(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a EnterpriseGroup resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param EnterpriseGroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -270,12 +274,12 @@ class EnterpriseGroup(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 enterprise_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupMemberArgs', '_organization.EnterpriseGroupMemberArgsDict']]]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 role_bindings: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupRoleBindingArgs', '_organization.EnterpriseGroupRoleBindingArgsDict']]]]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 enterprise_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupMemberArgs', '_organization.EnterpriseGroupMemberArgsDict']]]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 role_bindings: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupRoleBindingArgs', '_organization.EnterpriseGroupRoleBindingArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -305,12 +309,12 @@ class EnterpriseGroup(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            enterprise_id: Optional[pulumi.Input[_builtins.str]] = None,
-            members: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupMemberArgs', '_organization.EnterpriseGroupMemberArgsDict']]]]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-            role_bindings: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupRoleBindingArgs', '_organization.EnterpriseGroupRoleBindingArgsDict']]]]] = None) -> 'EnterpriseGroup':
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            enterprise_id: pulumi.Input[Optional[_builtins.str]] = None,
+            members: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupMemberArgs', '_organization.EnterpriseGroupMemberArgsDict']]]]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+            role_bindings: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_organization.EnterpriseGroupRoleBindingArgs', '_organization.EnterpriseGroupRoleBindingArgsDict']]]]] = None) -> 'EnterpriseGroup':
         """
         Get an existing EnterpriseGroup resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

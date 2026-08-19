@@ -13,2382 +13,6 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-type GetHibernationScheduleDataSourceClusterAssignment struct {
-	Assignments []GetHibernationScheduleDataSourceClusterAssignmentAssignment `pulumi:"assignments"`
-}
-
-// GetHibernationScheduleDataSourceClusterAssignmentInput is an input type that accepts GetHibernationScheduleDataSourceClusterAssignmentArgs and GetHibernationScheduleDataSourceClusterAssignmentOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceClusterAssignmentInput` via:
-//
-//	GetHibernationScheduleDataSourceClusterAssignmentArgs{...}
-type GetHibernationScheduleDataSourceClusterAssignmentInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceClusterAssignmentOutput() GetHibernationScheduleDataSourceClusterAssignmentOutput
-	ToGetHibernationScheduleDataSourceClusterAssignmentOutputWithContext(context.Context) GetHibernationScheduleDataSourceClusterAssignmentOutput
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentArgs struct {
-	Assignments GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayInput `pulumi:"assignments"`
-}
-
-func (GetHibernationScheduleDataSourceClusterAssignmentArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceClusterAssignment)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceClusterAssignmentArgs) ToGetHibernationScheduleDataSourceClusterAssignmentOutput() GetHibernationScheduleDataSourceClusterAssignmentOutput {
-	return i.ToGetHibernationScheduleDataSourceClusterAssignmentOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceClusterAssignmentArgs) ToGetHibernationScheduleDataSourceClusterAssignmentOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceClusterAssignmentOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceClusterAssignmentOutput)
-}
-
-// GetHibernationScheduleDataSourceClusterAssignmentArrayInput is an input type that accepts GetHibernationScheduleDataSourceClusterAssignmentArray and GetHibernationScheduleDataSourceClusterAssignmentArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceClusterAssignmentArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceClusterAssignmentArray{ GetHibernationScheduleDataSourceClusterAssignmentArgs{...} }
-type GetHibernationScheduleDataSourceClusterAssignmentArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceClusterAssignmentArrayOutput() GetHibernationScheduleDataSourceClusterAssignmentArrayOutput
-	ToGetHibernationScheduleDataSourceClusterAssignmentArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceClusterAssignmentArrayOutput
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentArray []GetHibernationScheduleDataSourceClusterAssignmentInput
-
-func (GetHibernationScheduleDataSourceClusterAssignmentArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceClusterAssignment)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceClusterAssignmentArray) ToGetHibernationScheduleDataSourceClusterAssignmentArrayOutput() GetHibernationScheduleDataSourceClusterAssignmentArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceClusterAssignmentArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceClusterAssignmentArray) ToGetHibernationScheduleDataSourceClusterAssignmentArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceClusterAssignmentArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceClusterAssignmentArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceClusterAssignmentOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceClusterAssignment)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentOutput) ToGetHibernationScheduleDataSourceClusterAssignmentOutput() GetHibernationScheduleDataSourceClusterAssignmentOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentOutput) ToGetHibernationScheduleDataSourceClusterAssignmentOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceClusterAssignmentOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentOutput) Assignments() GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceClusterAssignment) []GetHibernationScheduleDataSourceClusterAssignmentAssignment {
-		return v.Assignments
-	}).(GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceClusterAssignmentArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceClusterAssignment)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentArrayOutput) ToGetHibernationScheduleDataSourceClusterAssignmentArrayOutput() GetHibernationScheduleDataSourceClusterAssignmentArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentArrayOutput) ToGetHibernationScheduleDataSourceClusterAssignmentArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceClusterAssignmentArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceClusterAssignmentOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceClusterAssignment {
-		return vs[0].([]GetHibernationScheduleDataSourceClusterAssignment)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceClusterAssignmentOutput)
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentAssignment struct {
-	// ID of the cluster.
-	ClusterId string `pulumi:"clusterId"`
-}
-
-// GetHibernationScheduleDataSourceClusterAssignmentAssignmentInput is an input type that accepts GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs and GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceClusterAssignmentAssignmentInput` via:
-//
-//	GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs{...}
-type GetHibernationScheduleDataSourceClusterAssignmentAssignmentInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput() GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput
-	ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentOutputWithContext(context.Context) GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs struct {
-	// ID of the cluster.
-	ClusterId pulumi.StringInput `pulumi:"clusterId"`
-}
-
-func (GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceClusterAssignmentAssignment)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs) ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput() GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput {
-	return i.ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs) ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput)
-}
-
-// GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayInput is an input type that accepts GetHibernationScheduleDataSourceClusterAssignmentAssignmentArray and GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceClusterAssignmentAssignmentArray{ GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs{...} }
-type GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput() GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput
-	ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentAssignmentArray []GetHibernationScheduleDataSourceClusterAssignmentAssignmentInput
-
-func (GetHibernationScheduleDataSourceClusterAssignmentAssignmentArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceClusterAssignmentAssignment)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceClusterAssignmentAssignmentArray) ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput() GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceClusterAssignmentAssignmentArray) ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceClusterAssignmentAssignment)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput) ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput() GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput) ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput {
-	return o
-}
-
-// ID of the cluster.
-func (o GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput) ClusterId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceClusterAssignmentAssignment) string { return v.ClusterId }).(pulumi.StringOutput)
-}
-
-type GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceClusterAssignmentAssignment)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput) ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput() GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput) ToGetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceClusterAssignmentAssignment {
-		return vs[0].([]GetHibernationScheduleDataSourceClusterAssignmentAssignment)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput)
-}
-
-type GetHibernationScheduleDataSourcePauseConfig struct {
-	// Enables or disables the pause configuration.
-	Enabled  bool                                                `pulumi:"enabled"`
-	Schedule GetHibernationScheduleDataSourcePauseConfigSchedule `pulumi:"schedule"`
-}
-
-// GetHibernationScheduleDataSourcePauseConfigInput is an input type that accepts GetHibernationScheduleDataSourcePauseConfigArgs and GetHibernationScheduleDataSourcePauseConfigOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourcePauseConfigInput` via:
-//
-//	GetHibernationScheduleDataSourcePauseConfigArgs{...}
-type GetHibernationScheduleDataSourcePauseConfigInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourcePauseConfigOutput() GetHibernationScheduleDataSourcePauseConfigOutput
-	ToGetHibernationScheduleDataSourcePauseConfigOutputWithContext(context.Context) GetHibernationScheduleDataSourcePauseConfigOutput
-}
-
-type GetHibernationScheduleDataSourcePauseConfigArgs struct {
-	// Enables or disables the pause configuration.
-	Enabled  pulumi.BoolInput                                         `pulumi:"enabled"`
-	Schedule GetHibernationScheduleDataSourcePauseConfigScheduleInput `pulumi:"schedule"`
-}
-
-func (GetHibernationScheduleDataSourcePauseConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourcePauseConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourcePauseConfigArgs) ToGetHibernationScheduleDataSourcePauseConfigOutput() GetHibernationScheduleDataSourcePauseConfigOutput {
-	return i.ToGetHibernationScheduleDataSourcePauseConfigOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourcePauseConfigArgs) ToGetHibernationScheduleDataSourcePauseConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourcePauseConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourcePauseConfigOutput)
-}
-
-// GetHibernationScheduleDataSourcePauseConfigArrayInput is an input type that accepts GetHibernationScheduleDataSourcePauseConfigArray and GetHibernationScheduleDataSourcePauseConfigArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourcePauseConfigArrayInput` via:
-//
-//	GetHibernationScheduleDataSourcePauseConfigArray{ GetHibernationScheduleDataSourcePauseConfigArgs{...} }
-type GetHibernationScheduleDataSourcePauseConfigArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourcePauseConfigArrayOutput() GetHibernationScheduleDataSourcePauseConfigArrayOutput
-	ToGetHibernationScheduleDataSourcePauseConfigArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourcePauseConfigArrayOutput
-}
-
-type GetHibernationScheduleDataSourcePauseConfigArray []GetHibernationScheduleDataSourcePauseConfigInput
-
-func (GetHibernationScheduleDataSourcePauseConfigArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourcePauseConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourcePauseConfigArray) ToGetHibernationScheduleDataSourcePauseConfigArrayOutput() GetHibernationScheduleDataSourcePauseConfigArrayOutput {
-	return i.ToGetHibernationScheduleDataSourcePauseConfigArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourcePauseConfigArray) ToGetHibernationScheduleDataSourcePauseConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourcePauseConfigArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourcePauseConfigArrayOutput)
-}
-
-type GetHibernationScheduleDataSourcePauseConfigOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourcePauseConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourcePauseConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourcePauseConfigOutput) ToGetHibernationScheduleDataSourcePauseConfigOutput() GetHibernationScheduleDataSourcePauseConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourcePauseConfigOutput) ToGetHibernationScheduleDataSourcePauseConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourcePauseConfigOutput {
-	return o
-}
-
-// Enables or disables the pause configuration.
-func (o GetHibernationScheduleDataSourcePauseConfigOutput) Enabled() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourcePauseConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
-}
-
-func (o GetHibernationScheduleDataSourcePauseConfigOutput) Schedule() GetHibernationScheduleDataSourcePauseConfigScheduleOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourcePauseConfig) GetHibernationScheduleDataSourcePauseConfigSchedule {
-		return v.Schedule
-	}).(GetHibernationScheduleDataSourcePauseConfigScheduleOutput)
-}
-
-type GetHibernationScheduleDataSourcePauseConfigArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourcePauseConfigArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourcePauseConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourcePauseConfigArrayOutput) ToGetHibernationScheduleDataSourcePauseConfigArrayOutput() GetHibernationScheduleDataSourcePauseConfigArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourcePauseConfigArrayOutput) ToGetHibernationScheduleDataSourcePauseConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourcePauseConfigArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourcePauseConfigArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourcePauseConfigOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourcePauseConfig {
-		return vs[0].([]GetHibernationScheduleDataSourcePauseConfig)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourcePauseConfigOutput)
-}
-
-type GetHibernationScheduleDataSourcePauseConfigSchedule struct {
-	// Cron expression defining when the schedule should trigger.
-	//
-	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-	//
-	//   Example:
-	//
-	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-	//
-	//   To retrieve a list of available timezone values, you can use the following API endpoint:
-	//
-	//   GET https://api.cast.ai/v1/time-zones
-	//
-	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-	CronExpression string `pulumi:"cronExpression"`
-}
-
-// GetHibernationScheduleDataSourcePauseConfigScheduleInput is an input type that accepts GetHibernationScheduleDataSourcePauseConfigScheduleArgs and GetHibernationScheduleDataSourcePauseConfigScheduleOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourcePauseConfigScheduleInput` via:
-//
-//	GetHibernationScheduleDataSourcePauseConfigScheduleArgs{...}
-type GetHibernationScheduleDataSourcePauseConfigScheduleInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourcePauseConfigScheduleOutput() GetHibernationScheduleDataSourcePauseConfigScheduleOutput
-	ToGetHibernationScheduleDataSourcePauseConfigScheduleOutputWithContext(context.Context) GetHibernationScheduleDataSourcePauseConfigScheduleOutput
-}
-
-type GetHibernationScheduleDataSourcePauseConfigScheduleArgs struct {
-	// Cron expression defining when the schedule should trigger.
-	//
-	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-	//
-	//   Example:
-	//
-	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-	//
-	//   To retrieve a list of available timezone values, you can use the following API endpoint:
-	//
-	//   GET https://api.cast.ai/v1/time-zones
-	//
-	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-	CronExpression pulumi.StringInput `pulumi:"cronExpression"`
-}
-
-func (GetHibernationScheduleDataSourcePauseConfigScheduleArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourcePauseConfigSchedule)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourcePauseConfigScheduleArgs) ToGetHibernationScheduleDataSourcePauseConfigScheduleOutput() GetHibernationScheduleDataSourcePauseConfigScheduleOutput {
-	return i.ToGetHibernationScheduleDataSourcePauseConfigScheduleOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourcePauseConfigScheduleArgs) ToGetHibernationScheduleDataSourcePauseConfigScheduleOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourcePauseConfigScheduleOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourcePauseConfigScheduleOutput)
-}
-
-type GetHibernationScheduleDataSourcePauseConfigScheduleOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourcePauseConfigScheduleOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourcePauseConfigSchedule)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourcePauseConfigScheduleOutput) ToGetHibernationScheduleDataSourcePauseConfigScheduleOutput() GetHibernationScheduleDataSourcePauseConfigScheduleOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourcePauseConfigScheduleOutput) ToGetHibernationScheduleDataSourcePauseConfigScheduleOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourcePauseConfigScheduleOutput {
-	return o
-}
-
-// Cron expression defining when the schedule should trigger.
-//
-//	The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-//
-//	Example:
-//
-//	In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-//
-//	To retrieve a list of available timezone values, you can use the following API endpoint:
-//
-//	GET https://api.cast.ai/v1/time-zones
-//
-//	When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-func (o GetHibernationScheduleDataSourcePauseConfigScheduleOutput) CronExpression() pulumi.StringOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourcePauseConfigSchedule) string { return v.CronExpression }).(pulumi.StringOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfig struct {
-	// Enables or disables the pause configuration.
-	Enabled   bool                                                  `pulumi:"enabled"`
-	JobConfig GetHibernationScheduleDataSourceResumeConfigJobConfig `pulumi:"jobConfig"`
-	Schedule  GetHibernationScheduleDataSourceResumeConfigSchedule  `pulumi:"schedule"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigArgs and GetHibernationScheduleDataSourceResumeConfigOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigOutput() GetHibernationScheduleDataSourceResumeConfigOutput
-	ToGetHibernationScheduleDataSourceResumeConfigOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigArgs struct {
-	// Enables or disables the pause configuration.
-	Enabled   pulumi.BoolInput                                           `pulumi:"enabled"`
-	JobConfig GetHibernationScheduleDataSourceResumeConfigJobConfigInput `pulumi:"jobConfig"`
-	Schedule  GetHibernationScheduleDataSourceResumeConfigScheduleInput  `pulumi:"schedule"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigOutput() GetHibernationScheduleDataSourceResumeConfigOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigOutput)
-}
-
-// GetHibernationScheduleDataSourceResumeConfigArrayInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigArray and GetHibernationScheduleDataSourceResumeConfigArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigArray{ GetHibernationScheduleDataSourceResumeConfigArgs{...} }
-type GetHibernationScheduleDataSourceResumeConfigArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigArrayOutput
-	ToGetHibernationScheduleDataSourceResumeConfigArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigArrayOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigArray []GetHibernationScheduleDataSourceResumeConfigInput
-
-func (GetHibernationScheduleDataSourceResumeConfigArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigArray) ToGetHibernationScheduleDataSourceResumeConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigArray) ToGetHibernationScheduleDataSourceResumeConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigOutput() GetHibernationScheduleDataSourceResumeConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigOutput {
-	return o
-}
-
-// Enables or disables the pause configuration.
-func (o GetHibernationScheduleDataSourceResumeConfigOutput) Enabled() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigOutput) JobConfig() GetHibernationScheduleDataSourceResumeConfigJobConfigOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfig) GetHibernationScheduleDataSourceResumeConfigJobConfig {
-		return v.JobConfig
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigOutput)
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigOutput) Schedule() GetHibernationScheduleDataSourceResumeConfigScheduleOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfig) GetHibernationScheduleDataSourceResumeConfigSchedule {
-		return v.Schedule
-	}).(GetHibernationScheduleDataSourceResumeConfigScheduleOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceResumeConfigOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceResumeConfig {
-		return vs[0].([]GetHibernationScheduleDataSourceResumeConfig)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceResumeConfigOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfig struct {
-	NodeConfig GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig `pulumi:"nodeConfig"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigArgs struct {
-	NodeConfig GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigInput `pulumi:"nodeConfig"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigOutput) NodeConfig() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfig) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig {
-		return v.NodeConfig
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig struct {
-	// ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
-	ConfigId *string `pulumi:"configId"`
-	// Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
-	ConfigName *string                                                                   `pulumi:"configName"`
-	GpuConfig  *GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig `pulumi:"gpuConfig"`
-	// Instance type.
-	InstanceType string `pulumi:"instanceType"`
-	// Custom labels to be added to the node.
-	KubernetesLabels map[string]string `pulumi:"kubernetesLabels"`
-	// Custom taints to be added to the node created from this configuration.
-	KubernetesTaints []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint `pulumi:"kubernetesTaints"`
-	// Custom taints to be added to the node created from this configuration.
-	NodeAffinities []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity `pulumi:"nodeAffinities"`
-	// Custom taints to be added to the node created from this configuration.
-	SpotConfigs []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig `pulumi:"spotConfigs"`
-	// Node subnet ID.
-	SubnetId *string                                                                 `pulumi:"subnetId"`
-	Volumes  []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume `pulumi:"volumes"`
-	// Zone of the node.
-	Zone *string `pulumi:"zone"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigArgs struct {
-	// ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
-	ConfigId pulumi.StringPtrInput `pulumi:"configId"`
-	// Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
-	ConfigName pulumi.StringPtrInput                                                            `pulumi:"configName"`
-	GpuConfig  GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrInput `pulumi:"gpuConfig"`
-	// Instance type.
-	InstanceType pulumi.StringInput `pulumi:"instanceType"`
-	// Custom labels to be added to the node.
-	KubernetesLabels pulumi.StringMapInput `pulumi:"kubernetesLabels"`
-	// Custom taints to be added to the node created from this configuration.
-	KubernetesTaints GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput `pulumi:"kubernetesTaints"`
-	// Custom taints to be added to the node created from this configuration.
-	NodeAffinities GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayInput `pulumi:"nodeAffinities"`
-	// Custom taints to be added to the node created from this configuration.
-	SpotConfigs GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayInput `pulumi:"spotConfigs"`
-	// Node subnet ID.
-	SubnetId pulumi.StringPtrInput                                                           `pulumi:"subnetId"`
-	Volumes  GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayInput `pulumi:"volumes"`
-	// Zone of the node.
-	Zone pulumi.StringPtrInput `pulumi:"zone"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput {
-	return o
-}
-
-// ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) ConfigId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) *string { return v.ConfigId }).(pulumi.StringPtrOutput)
-}
-
-// Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) ConfigName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) *string { return v.ConfigName }).(pulumi.StringPtrOutput)
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) GpuConfig() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) *GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig {
-		return v.GpuConfig
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput)
-}
-
-// Instance type.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) InstanceType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) string { return v.InstanceType }).(pulumi.StringOutput)
-}
-
-// Custom labels to be added to the node.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) KubernetesLabels() pulumi.StringMapOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) map[string]string {
-		return v.KubernetesLabels
-	}).(pulumi.StringMapOutput)
-}
-
-// Custom taints to be added to the node created from this configuration.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) KubernetesTaints() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint {
-		return v.KubernetesTaints
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput)
-}
-
-// Custom taints to be added to the node created from this configuration.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) NodeAffinities() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity {
-		return v.NodeAffinities
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput)
-}
-
-// Custom taints to be added to the node created from this configuration.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) SpotConfigs() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig {
-		return v.SpotConfigs
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput)
-}
-
-// Node subnet ID.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) SubnetId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) *string { return v.SubnetId }).(pulumi.StringPtrOutput)
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) Volumes() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume {
-		return v.Volumes
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput)
-}
-
-// Zone of the node.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput) Zone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfig) *string { return v.Zone }).(pulumi.StringPtrOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig struct {
-	// Number of GPUs.
-	Count int `pulumi:"count"`
-	// GPU type.
-	Type *string `pulumi:"type"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs struct {
-	// Number of GPUs.
-	Count pulumi.IntInput `pulumi:"count"`
-	// GPU type.
-	Type pulumi.StringPtrInput `pulumi:"type"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput)
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput).ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx)
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs, GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtr and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrInput` via:
-//
-//	        GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs{...}
-//
-//	or:
-//
-//	        nil
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput
-}
-
-type getHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrType GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs
-
-func GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtr(v *GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrInput {
-	return (*getHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrType)(v)
-}
-
-func (*getHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig)(nil)).Elem()
-}
-
-func (i *getHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrType) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(context.Background())
-}
-
-func (i *getHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrType) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return o.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(context.Background())
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig) *GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig {
-		return &v
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput)
-}
-
-// Number of GPUs.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput) Count() pulumi.IntOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig) int { return v.Count }).(pulumi.IntOutput)
-}
-
-// GPU type.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig) *string {
-		return v.Type
-	}).(pulumi.StringPtrOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) Elem() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput {
-	return o.ApplyT(func(v *GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig {
-		if v != nil {
-			return *v
-		}
-		var ret GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig
-		return ret
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput)
-}
-
-// Number of GPUs.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) Count() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig) *int {
-		if v == nil {
-			return nil
-		}
-		return &v.Count
-	}).(pulumi.IntPtrOutput)
-}
-
-// GPU type.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfig) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Type
-	}).(pulumi.StringPtrOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint struct {
-	// Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
-	Effect *string `pulumi:"effect"`
-	// Key of a taint to be added to nodes created from this template.
-	Key string `pulumi:"key"`
-	// Value of a taint to be added to nodes created from this template.
-	Value *string `pulumi:"value"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs struct {
-	// Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
-	Effect pulumi.StringPtrInput `pulumi:"effect"`
-	// Key of a taint to be added to nodes created from this template.
-	Key pulumi.StringInput `pulumi:"key"`
-	// Value of a taint to be added to nodes created from this template.
-	Value pulumi.StringPtrInput `pulumi:"value"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput)
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArray and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArray{ GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs{...} }
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArray []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintInput
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
-	return o
-}
-
-// Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput) Effect() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint) *string {
-		return v.Effect
-	}).(pulumi.StringPtrOutput)
-}
-
-// Key of a taint to be added to nodes created from this template.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput) Key() pulumi.StringOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint) string {
-		return v.Key
-	}).(pulumi.StringOutput)
-}
-
-// Value of a taint to be added to nodes created from this template.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput) Value() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint) *string {
-		return v.Value
-	}).(pulumi.StringPtrOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint {
-		return vs[0].([]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaint)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity struct {
-	Affinities []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity `pulumi:"affinities"`
-	// Key of a taint to be added to nodes created from this template.
-	DedicatedGroup string `pulumi:"dedicatedGroup"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs struct {
-	Affinities GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput `pulumi:"affinities"`
-	// Key of a taint to be added to nodes created from this template.
-	DedicatedGroup pulumi.StringInput `pulumi:"dedicatedGroup"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput)
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArray and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArray{ GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs{...} }
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArray []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityInput
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput) Affinities() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity) []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity {
-		return v.Affinities
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput)
-}
-
-// Key of a taint to be added to nodes created from this template.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput) DedicatedGroup() pulumi.StringOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity) string {
-		return v.DedicatedGroup
-	}).(pulumi.StringOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity {
-		return vs[0].([]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinity)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity struct {
-	// Key of the node affinity selector.
-	Key string `pulumi:"key"`
-	// Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
-	Operator string `pulumi:"operator"`
-	// Values of the node affinity selector.
-	Values []string `pulumi:"values"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs struct {
-	// Key of the node affinity selector.
-	Key pulumi.StringInput `pulumi:"key"`
-	// Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
-	Operator pulumi.StringInput `pulumi:"operator"`
-	// Values of the node affinity selector.
-	Values pulumi.StringArrayInput `pulumi:"values"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput)
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray{ GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs{...} }
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
-	return o
-}
-
-// Key of the node affinity selector.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) Key() pulumi.StringOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity) string {
-		return v.Key
-	}).(pulumi.StringOutput)
-}
-
-// Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) Operator() pulumi.StringOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity) string {
-		return v.Operator
-	}).(pulumi.StringOutput)
-}
-
-// Values of the node affinity selector.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) Values() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity) []string {
-		return v.Values
-	}).(pulumi.StringArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity {
-		return vs[0].([]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinity)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig struct {
-	// Spot instance price. Applicable only for AWS nodes.
-	PriceHourly *string `pulumi:"priceHourly"`
-	// Whether node should be created as spot instance.
-	Spot *bool `pulumi:"spot"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs struct {
-	// Spot instance price. Applicable only for AWS nodes.
-	PriceHourly pulumi.StringPtrInput `pulumi:"priceHourly"`
-	// Whether node should be created as spot instance.
-	Spot pulumi.BoolPtrInput `pulumi:"spot"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput)
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArray and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArray{ GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs{...} }
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArray []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigInput
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput {
-	return o
-}
-
-// Spot instance price. Applicable only for AWS nodes.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput) PriceHourly() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig) *string {
-		return v.PriceHourly
-	}).(pulumi.StringPtrOutput)
-}
-
-// Whether node should be created as spot instance.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput) Spot() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig) *bool { return v.Spot }).(pulumi.BoolPtrOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig {
-		return vs[0].([]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfig)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume struct {
-	RaidConfigs []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig `pulumi:"raidConfigs"`
-	// Volume size in GiB.
-	SizeGib *int `pulumi:"sizeGib"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArgs struct {
-	RaidConfigs GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput `pulumi:"raidConfigs"`
-	// Volume size in GiB.
-	SizeGib pulumi.IntPtrInput `pulumi:"sizeGib"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput)
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArray and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArray{ GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArgs{...} }
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArray []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeInput
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput) RaidConfigs() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume) []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig {
-		return v.RaidConfigs
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput)
-}
-
-// Volume size in GiB.
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput) SizeGib() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume) *int { return v.SizeGib }).(pulumi.IntPtrOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume {
-		return vs[0].([]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolume)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig struct {
-	// Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
-	ChunkSizeKb *int `pulumi:"chunkSizeKb"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs struct {
-	// Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
-	ChunkSizeKb pulumi.IntPtrInput `pulumi:"chunkSizeKb"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput)
-}
-
-// GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArray and GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArray{ GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs{...} }
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput
-	ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArray []GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigInput
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArray) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
-	return o
-}
-
-// Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput) ChunkSizeKb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig) *int {
-		return v.ChunkSizeKb
-	}).(pulumi.IntPtrOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput() GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput) ToGetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig {
-		return vs[0].([]GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfig)[vs[1].(int)]
-	}).(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigSchedule struct {
-	// Cron expression defining when the schedule should trigger.
-	//
-	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-	//
-	//   Example:
-	//
-	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-	//
-	//   To retrieve a list of available timezone values, you can use the following API endpoint:
-	//
-	//   GET https://api.cast.ai/v1/time-zones
-	//
-	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-	CronExpression string `pulumi:"cronExpression"`
-}
-
-// GetHibernationScheduleDataSourceResumeConfigScheduleInput is an input type that accepts GetHibernationScheduleDataSourceResumeConfigScheduleArgs and GetHibernationScheduleDataSourceResumeConfigScheduleOutput values.
-// You can construct a concrete instance of `GetHibernationScheduleDataSourceResumeConfigScheduleInput` via:
-//
-//	GetHibernationScheduleDataSourceResumeConfigScheduleArgs{...}
-type GetHibernationScheduleDataSourceResumeConfigScheduleInput interface {
-	pulumi.Input
-
-	ToGetHibernationScheduleDataSourceResumeConfigScheduleOutput() GetHibernationScheduleDataSourceResumeConfigScheduleOutput
-	ToGetHibernationScheduleDataSourceResumeConfigScheduleOutputWithContext(context.Context) GetHibernationScheduleDataSourceResumeConfigScheduleOutput
-}
-
-type GetHibernationScheduleDataSourceResumeConfigScheduleArgs struct {
-	// Cron expression defining when the schedule should trigger.
-	//
-	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-	//
-	//   Example:
-	//
-	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-	//
-	//   To retrieve a list of available timezone values, you can use the following API endpoint:
-	//
-	//   GET https://api.cast.ai/v1/time-zones
-	//
-	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-	CronExpression pulumi.StringInput `pulumi:"cronExpression"`
-}
-
-func (GetHibernationScheduleDataSourceResumeConfigScheduleArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigSchedule)(nil)).Elem()
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigScheduleArgs) ToGetHibernationScheduleDataSourceResumeConfigScheduleOutput() GetHibernationScheduleDataSourceResumeConfigScheduleOutput {
-	return i.ToGetHibernationScheduleDataSourceResumeConfigScheduleOutputWithContext(context.Background())
-}
-
-func (i GetHibernationScheduleDataSourceResumeConfigScheduleArgs) ToGetHibernationScheduleDataSourceResumeConfigScheduleOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigScheduleOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleDataSourceResumeConfigScheduleOutput)
-}
-
-type GetHibernationScheduleDataSourceResumeConfigScheduleOutput struct{ *pulumi.OutputState }
-
-func (GetHibernationScheduleDataSourceResumeConfigScheduleOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigSchedule)(nil)).Elem()
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigScheduleOutput) ToGetHibernationScheduleDataSourceResumeConfigScheduleOutput() GetHibernationScheduleDataSourceResumeConfigScheduleOutput {
-	return o
-}
-
-func (o GetHibernationScheduleDataSourceResumeConfigScheduleOutput) ToGetHibernationScheduleDataSourceResumeConfigScheduleOutputWithContext(ctx context.Context) GetHibernationScheduleDataSourceResumeConfigScheduleOutput {
-	return o
-}
-
-// Cron expression defining when the schedule should trigger.
-//
-//	The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-//
-//	Example:
-//
-//	In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-//
-//	To retrieve a list of available timezone values, you can use the following API endpoint:
-//
-//	GET https://api.cast.ai/v1/time-zones
-//
-//	When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-func (o GetHibernationScheduleDataSourceResumeConfigScheduleOutput) CronExpression() pulumi.StringOutput {
-	return o.ApplyT(func(v GetHibernationScheduleDataSourceResumeConfigSchedule) string { return v.CronExpression }).(pulumi.StringOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfiguration struct {
-	// When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
-	AggressiveMode *bool `pulumi:"aggressiveMode"`
-	// Advanced configuration for aggressive rebalancing mode.
-	AggressiveModeConfig *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig `pulumi:"aggressiveModeConfig"`
-	ExecutionConditions  *GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions  `pulumi:"executionConditions"`
-	// Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
-	KeepDrainTimeoutNodes *bool `pulumi:"keepDrainTimeoutNodes"`
-	// Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
-	NodeTtlSeconds *int `pulumi:"nodeTtlSeconds"`
-	// Maximum number of nodes that will be selected for rebalancing.
-	NumTargetedNodes *int `pulumi:"numTargetedNodes"`
-	// Minimum number of nodes that should be kept in the cluster after rebalancing.
-	RebalancingMinNodes *int `pulumi:"rebalancingMinNodes"`
-	// Node selector in JSON format.
-	Selector *string `pulumi:"selector"`
-	// Defines the algorithm used to select the target nodes for rebalancing.
-	TargetNodeSelectionAlgorithm *string `pulumi:"targetNodeSelectionAlgorithm"`
-}
-
-// GetRebalancingScheduleDataSourceLaunchConfigurationInput is an input type that accepts GetRebalancingScheduleDataSourceLaunchConfigurationArgs and GetRebalancingScheduleDataSourceLaunchConfigurationOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceLaunchConfigurationInput` via:
-//
-//	GetRebalancingScheduleDataSourceLaunchConfigurationArgs{...}
-type GetRebalancingScheduleDataSourceLaunchConfigurationInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationOutput() GetRebalancingScheduleDataSourceLaunchConfigurationOutput
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationOutputWithContext(context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationOutput
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationArgs struct {
-	// When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
-	AggressiveMode pulumi.BoolPtrInput `pulumi:"aggressiveMode"`
-	// Advanced configuration for aggressive rebalancing mode.
-	AggressiveModeConfig GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrInput `pulumi:"aggressiveModeConfig"`
-	ExecutionConditions  GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrInput  `pulumi:"executionConditions"`
-	// Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
-	KeepDrainTimeoutNodes pulumi.BoolPtrInput `pulumi:"keepDrainTimeoutNodes"`
-	// Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
-	NodeTtlSeconds pulumi.IntPtrInput `pulumi:"nodeTtlSeconds"`
-	// Maximum number of nodes that will be selected for rebalancing.
-	NumTargetedNodes pulumi.IntPtrInput `pulumi:"numTargetedNodes"`
-	// Minimum number of nodes that should be kept in the cluster after rebalancing.
-	RebalancingMinNodes pulumi.IntPtrInput `pulumi:"rebalancingMinNodes"`
-	// Node selector in JSON format.
-	Selector pulumi.StringPtrInput `pulumi:"selector"`
-	// Defines the algorithm used to select the target nodes for rebalancing.
-	TargetNodeSelectionAlgorithm pulumi.StringPtrInput `pulumi:"targetNodeSelectionAlgorithm"`
-}
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfiguration)(nil)).Elem()
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationOutput() GetRebalancingScheduleDataSourceLaunchConfigurationOutput {
-	return i.ToGetRebalancingScheduleDataSourceLaunchConfigurationOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceLaunchConfigurationOutput)
-}
-
-// GetRebalancingScheduleDataSourceLaunchConfigurationArrayInput is an input type that accepts GetRebalancingScheduleDataSourceLaunchConfigurationArray and GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceLaunchConfigurationArrayInput` via:
-//
-//	GetRebalancingScheduleDataSourceLaunchConfigurationArray{ GetRebalancingScheduleDataSourceLaunchConfigurationArgs{...} }
-type GetRebalancingScheduleDataSourceLaunchConfigurationArrayInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput() GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationArrayOutputWithContext(context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationArray []GetRebalancingScheduleDataSourceLaunchConfigurationInput
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetRebalancingScheduleDataSourceLaunchConfiguration)(nil)).Elem()
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationArray) ToGetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput() GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput {
-	return i.ToGetRebalancingScheduleDataSourceLaunchConfigurationArrayOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationArray) ToGetRebalancingScheduleDataSourceLaunchConfigurationArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfiguration)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationOutput() GetRebalancingScheduleDataSourceLaunchConfigurationOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationOutput {
-	return o
-}
-
-// When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) AggressiveMode() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *bool { return v.AggressiveMode }).(pulumi.BoolPtrOutput)
-}
-
-// Advanced configuration for aggressive rebalancing mode.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) AggressiveModeConfig() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig {
-		return v.AggressiveModeConfig
-	}).(GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput)
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) ExecutionConditions() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions {
-		return v.ExecutionConditions
-	}).(GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput)
-}
-
-// Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) KeepDrainTimeoutNodes() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *bool { return v.KeepDrainTimeoutNodes }).(pulumi.BoolPtrOutput)
-}
-
-// Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) NodeTtlSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *int { return v.NodeTtlSeconds }).(pulumi.IntPtrOutput)
-}
-
-// Maximum number of nodes that will be selected for rebalancing.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) NumTargetedNodes() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *int { return v.NumTargetedNodes }).(pulumi.IntPtrOutput)
-}
-
-// Minimum number of nodes that should be kept in the cluster after rebalancing.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) RebalancingMinNodes() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *int { return v.RebalancingMinNodes }).(pulumi.IntPtrOutput)
-}
-
-// Node selector in JSON format.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) Selector() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *string { return v.Selector }).(pulumi.StringPtrOutput)
-}
-
-// Defines the algorithm used to select the target nodes for rebalancing.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationOutput) TargetNodeSelectionAlgorithm() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfiguration) *string {
-		return v.TargetNodeSelectionAlgorithm
-	}).(pulumi.StringPtrOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetRebalancingScheduleDataSourceLaunchConfiguration)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput() GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput) Index(i pulumi.IntInput) GetRebalancingScheduleDataSourceLaunchConfigurationOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRebalancingScheduleDataSourceLaunchConfiguration {
-		return vs[0].([]GetRebalancingScheduleDataSourceLaunchConfiguration)[vs[1].(int)]
-	}).(GetRebalancingScheduleDataSourceLaunchConfigurationOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig struct {
-	// Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
-	IgnoreLocalPersistentVolumes bool `pulumi:"ignoreLocalPersistentVolumes"`
-	// Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
-	IgnoreProblemJobPods bool `pulumi:"ignoreProblemJobPods"`
-	// Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
-	IgnoreProblemPodsWithoutController bool `pulumi:"ignoreProblemPodsWithoutController"`
-	// Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
-	IgnoreProblemRemovalDisabledPods bool `pulumi:"ignoreProblemRemovalDisabledPods"`
-}
-
-// GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigInput is an input type that accepts GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs and GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigInput` via:
-//
-//	GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs{...}
-type GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutputWithContext(context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs struct {
-	// Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
-	IgnoreLocalPersistentVolumes pulumi.BoolInput `pulumi:"ignoreLocalPersistentVolumes"`
-	// Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
-	IgnoreProblemJobPods pulumi.BoolInput `pulumi:"ignoreProblemJobPods"`
-	// Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
-	IgnoreProblemPodsWithoutController pulumi.BoolInput `pulumi:"ignoreProblemPodsWithoutController"`
-	// Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
-	IgnoreProblemRemovalDisabledPods pulumi.BoolInput `pulumi:"ignoreProblemRemovalDisabledPods"`
-}
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig)(nil)).Elem()
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput {
-	return i.ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput)
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return i.ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput).ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx)
-}
-
-// GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrInput is an input type that accepts GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs, GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtr and GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrInput` via:
-//
-//	        GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs{...}
-//
-//	or:
-//
-//	        nil
-type GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput
-}
-
-type getRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrType GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs
-
-func GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtr(v *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrInput {
-	return (*getRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrType)(v)
-}
-
-func (*getRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig)(nil)).Elem()
-}
-
-func (i *getRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrType) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return i.ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(context.Background())
-}
-
-func (i *getRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrType) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return o.ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(context.Background())
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig {
-		return &v
-	}).(GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput)
-}
-
-// Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) IgnoreLocalPersistentVolumes() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) bool {
-		return v.IgnoreLocalPersistentVolumes
-	}).(pulumi.BoolOutput)
-}
-
-// Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) IgnoreProblemJobPods() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) bool {
-		return v.IgnoreProblemJobPods
-	}).(pulumi.BoolOutput)
-}
-
-// Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) IgnoreProblemPodsWithoutController() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) bool {
-		return v.IgnoreProblemPodsWithoutController
-	}).(pulumi.BoolOutput)
-}
-
-// Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput) IgnoreProblemRemovalDisabledPods() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) bool {
-		return v.IgnoreProblemRemovalDisabledPods
-	}).(pulumi.BoolOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput) Elem() GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput {
-	return o.ApplyT(func(v *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig {
-		if v != nil {
-			return *v
-		}
-		var ret GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig
-		return ret
-	}).(GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput)
-}
-
-// Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput) IgnoreLocalPersistentVolumes() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) *bool {
-		if v == nil {
-			return nil
-		}
-		return &v.IgnoreLocalPersistentVolumes
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput) IgnoreProblemJobPods() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) *bool {
-		if v == nil {
-			return nil
-		}
-		return &v.IgnoreProblemJobPods
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput) IgnoreProblemPodsWithoutController() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) *bool {
-		if v == nil {
-			return nil
-		}
-		return &v.IgnoreProblemPodsWithoutController
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput) IgnoreProblemRemovalDisabledPods() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfig) *bool {
-		if v == nil {
-			return nil
-		}
-		return &v.IgnoreProblemRemovalDisabledPods
-	}).(pulumi.BoolPtrOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions struct {
-	// The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
-	AchievedSavingsPercentage *int `pulumi:"achievedSavingsPercentage"`
-	// Enables or disables the execution conditions.
-	Enabled bool `pulumi:"enabled"`
-}
-
-// GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsInput is an input type that accepts GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs and GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsInput` via:
-//
-//	GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs{...}
-type GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutputWithContext(context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs struct {
-	// The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
-	AchievedSavingsPercentage pulumi.IntPtrInput `pulumi:"achievedSavingsPercentage"`
-	// Enables or disables the execution conditions.
-	Enabled pulumi.BoolInput `pulumi:"enabled"`
-}
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions)(nil)).Elem()
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput {
-	return i.ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput)
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return i.ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput).ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx)
-}
-
-// GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrInput is an input type that accepts GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs, GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtr and GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrInput` via:
-//
-//	        GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs{...}
-//
-//	or:
-//
-//	        nil
-type GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput
-	ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput
-}
-
-type getRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrType GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs
-
-func GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtr(v *GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrInput {
-	return (*getRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrType)(v)
-}
-
-func (*getRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions)(nil)).Elem()
-}
-
-func (i *getRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrType) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return i.ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(context.Background())
-}
-
-func (i *getRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrType) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return o.ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(context.Background())
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions) *GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions {
-		return &v
-	}).(GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput)
-}
-
-// The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput) AchievedSavingsPercentage() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions) *int {
-		return v.AchievedSavingsPercentage
-	}).(pulumi.IntPtrOutput)
-}
-
-// Enables or disables the execution conditions.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput) Enabled() pulumi.BoolOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions) bool { return v.Enabled }).(pulumi.BoolOutput)
-}
-
-type GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput) ToGetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput) Elem() GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput {
-	return o.ApplyT(func(v *GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions) GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions {
-		if v != nil {
-			return *v
-		}
-		var ret GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions
-		return ret
-	}).(GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput)
-}
-
-// The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput) AchievedSavingsPercentage() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions) *int {
-		if v == nil {
-			return nil
-		}
-		return v.AchievedSavingsPercentage
-	}).(pulumi.IntPtrOutput)
-}
-
-// Enables or disables the execution conditions.
-func (o GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditions) *bool {
-		if v == nil {
-			return nil
-		}
-		return &v.Enabled
-	}).(pulumi.BoolPtrOutput)
-}
-
-type GetRebalancingScheduleDataSourceSchedule struct {
-	// Cron expression defining when the schedule should trigger.
-	//
-	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-	//
-	//   Example:
-	//
-	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-	//
-	//   To retrieve a list of available timezone values, you can use the following API endpoint:
-	//
-	//   GET https://api.cast.ai/v1/time-zones
-	//
-	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-	Cron string `pulumi:"cron"`
-}
-
-// GetRebalancingScheduleDataSourceScheduleInput is an input type that accepts GetRebalancingScheduleDataSourceScheduleArgs and GetRebalancingScheduleDataSourceScheduleOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceScheduleInput` via:
-//
-//	GetRebalancingScheduleDataSourceScheduleArgs{...}
-type GetRebalancingScheduleDataSourceScheduleInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceScheduleOutput() GetRebalancingScheduleDataSourceScheduleOutput
-	ToGetRebalancingScheduleDataSourceScheduleOutputWithContext(context.Context) GetRebalancingScheduleDataSourceScheduleOutput
-}
-
-type GetRebalancingScheduleDataSourceScheduleArgs struct {
-	// Cron expression defining when the schedule should trigger.
-	//
-	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-	//
-	//   Example:
-	//
-	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-	//
-	//   To retrieve a list of available timezone values, you can use the following API endpoint:
-	//
-	//   GET https://api.cast.ai/v1/time-zones
-	//
-	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-	Cron pulumi.StringInput `pulumi:"cron"`
-}
-
-func (GetRebalancingScheduleDataSourceScheduleArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceSchedule)(nil)).Elem()
-}
-
-func (i GetRebalancingScheduleDataSourceScheduleArgs) ToGetRebalancingScheduleDataSourceScheduleOutput() GetRebalancingScheduleDataSourceScheduleOutput {
-	return i.ToGetRebalancingScheduleDataSourceScheduleOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceScheduleArgs) ToGetRebalancingScheduleDataSourceScheduleOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceScheduleOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceScheduleOutput)
-}
-
-// GetRebalancingScheduleDataSourceScheduleArrayInput is an input type that accepts GetRebalancingScheduleDataSourceScheduleArray and GetRebalancingScheduleDataSourceScheduleArrayOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceScheduleArrayInput` via:
-//
-//	GetRebalancingScheduleDataSourceScheduleArray{ GetRebalancingScheduleDataSourceScheduleArgs{...} }
-type GetRebalancingScheduleDataSourceScheduleArrayInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceScheduleArrayOutput() GetRebalancingScheduleDataSourceScheduleArrayOutput
-	ToGetRebalancingScheduleDataSourceScheduleArrayOutputWithContext(context.Context) GetRebalancingScheduleDataSourceScheduleArrayOutput
-}
-
-type GetRebalancingScheduleDataSourceScheduleArray []GetRebalancingScheduleDataSourceScheduleInput
-
-func (GetRebalancingScheduleDataSourceScheduleArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetRebalancingScheduleDataSourceSchedule)(nil)).Elem()
-}
-
-func (i GetRebalancingScheduleDataSourceScheduleArray) ToGetRebalancingScheduleDataSourceScheduleArrayOutput() GetRebalancingScheduleDataSourceScheduleArrayOutput {
-	return i.ToGetRebalancingScheduleDataSourceScheduleArrayOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceScheduleArray) ToGetRebalancingScheduleDataSourceScheduleArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceScheduleArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceScheduleArrayOutput)
-}
-
-type GetRebalancingScheduleDataSourceScheduleOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceScheduleOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceSchedule)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceScheduleOutput) ToGetRebalancingScheduleDataSourceScheduleOutput() GetRebalancingScheduleDataSourceScheduleOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceScheduleOutput) ToGetRebalancingScheduleDataSourceScheduleOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceScheduleOutput {
-	return o
-}
-
-// Cron expression defining when the schedule should trigger.
-//
-//	The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
-//
-//	Example:
-//
-//	In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
-//
-//	To retrieve a list of available timezone values, you can use the following API endpoint:
-//
-//	GET https://api.cast.ai/v1/time-zones
-//
-//	When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
-func (o GetRebalancingScheduleDataSourceScheduleOutput) Cron() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceSchedule) string { return v.Cron }).(pulumi.StringOutput)
-}
-
-type GetRebalancingScheduleDataSourceScheduleArrayOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceScheduleArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetRebalancingScheduleDataSourceSchedule)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceScheduleArrayOutput) ToGetRebalancingScheduleDataSourceScheduleArrayOutput() GetRebalancingScheduleDataSourceScheduleArrayOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceScheduleArrayOutput) ToGetRebalancingScheduleDataSourceScheduleArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceScheduleArrayOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceScheduleArrayOutput) Index(i pulumi.IntInput) GetRebalancingScheduleDataSourceScheduleOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRebalancingScheduleDataSourceSchedule {
-		return vs[0].([]GetRebalancingScheduleDataSourceSchedule)[vs[1].(int)]
-	}).(GetRebalancingScheduleDataSourceScheduleOutput)
-}
-
-type GetRebalancingScheduleDataSourceTriggerCondition struct {
-	// If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
-	IgnoreSavings *bool `pulumi:"ignoreSavings"`
-	// Defines the minimum percentage of savings expected.
-	SavingsPercentage float64 `pulumi:"savingsPercentage"`
-}
-
-// GetRebalancingScheduleDataSourceTriggerConditionInput is an input type that accepts GetRebalancingScheduleDataSourceTriggerConditionArgs and GetRebalancingScheduleDataSourceTriggerConditionOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceTriggerConditionInput` via:
-//
-//	GetRebalancingScheduleDataSourceTriggerConditionArgs{...}
-type GetRebalancingScheduleDataSourceTriggerConditionInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceTriggerConditionOutput() GetRebalancingScheduleDataSourceTriggerConditionOutput
-	ToGetRebalancingScheduleDataSourceTriggerConditionOutputWithContext(context.Context) GetRebalancingScheduleDataSourceTriggerConditionOutput
-}
-
-type GetRebalancingScheduleDataSourceTriggerConditionArgs struct {
-	// If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
-	IgnoreSavings pulumi.BoolPtrInput `pulumi:"ignoreSavings"`
-	// Defines the minimum percentage of savings expected.
-	SavingsPercentage pulumi.Float64Input `pulumi:"savingsPercentage"`
-}
-
-func (GetRebalancingScheduleDataSourceTriggerConditionArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceTriggerCondition)(nil)).Elem()
-}
-
-func (i GetRebalancingScheduleDataSourceTriggerConditionArgs) ToGetRebalancingScheduleDataSourceTriggerConditionOutput() GetRebalancingScheduleDataSourceTriggerConditionOutput {
-	return i.ToGetRebalancingScheduleDataSourceTriggerConditionOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceTriggerConditionArgs) ToGetRebalancingScheduleDataSourceTriggerConditionOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceTriggerConditionOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceTriggerConditionOutput)
-}
-
-// GetRebalancingScheduleDataSourceTriggerConditionArrayInput is an input type that accepts GetRebalancingScheduleDataSourceTriggerConditionArray and GetRebalancingScheduleDataSourceTriggerConditionArrayOutput values.
-// You can construct a concrete instance of `GetRebalancingScheduleDataSourceTriggerConditionArrayInput` via:
-//
-//	GetRebalancingScheduleDataSourceTriggerConditionArray{ GetRebalancingScheduleDataSourceTriggerConditionArgs{...} }
-type GetRebalancingScheduleDataSourceTriggerConditionArrayInput interface {
-	pulumi.Input
-
-	ToGetRebalancingScheduleDataSourceTriggerConditionArrayOutput() GetRebalancingScheduleDataSourceTriggerConditionArrayOutput
-	ToGetRebalancingScheduleDataSourceTriggerConditionArrayOutputWithContext(context.Context) GetRebalancingScheduleDataSourceTriggerConditionArrayOutput
-}
-
-type GetRebalancingScheduleDataSourceTriggerConditionArray []GetRebalancingScheduleDataSourceTriggerConditionInput
-
-func (GetRebalancingScheduleDataSourceTriggerConditionArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetRebalancingScheduleDataSourceTriggerCondition)(nil)).Elem()
-}
-
-func (i GetRebalancingScheduleDataSourceTriggerConditionArray) ToGetRebalancingScheduleDataSourceTriggerConditionArrayOutput() GetRebalancingScheduleDataSourceTriggerConditionArrayOutput {
-	return i.ToGetRebalancingScheduleDataSourceTriggerConditionArrayOutputWithContext(context.Background())
-}
-
-func (i GetRebalancingScheduleDataSourceTriggerConditionArray) ToGetRebalancingScheduleDataSourceTriggerConditionArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceTriggerConditionArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleDataSourceTriggerConditionArrayOutput)
-}
-
-type GetRebalancingScheduleDataSourceTriggerConditionOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceTriggerConditionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRebalancingScheduleDataSourceTriggerCondition)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceTriggerConditionOutput) ToGetRebalancingScheduleDataSourceTriggerConditionOutput() GetRebalancingScheduleDataSourceTriggerConditionOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceTriggerConditionOutput) ToGetRebalancingScheduleDataSourceTriggerConditionOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceTriggerConditionOutput {
-	return o
-}
-
-// If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
-func (o GetRebalancingScheduleDataSourceTriggerConditionOutput) IgnoreSavings() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceTriggerCondition) *bool { return v.IgnoreSavings }).(pulumi.BoolPtrOutput)
-}
-
-// Defines the minimum percentage of savings expected.
-func (o GetRebalancingScheduleDataSourceTriggerConditionOutput) SavingsPercentage() pulumi.Float64Output {
-	return o.ApplyT(func(v GetRebalancingScheduleDataSourceTriggerCondition) float64 { return v.SavingsPercentage }).(pulumi.Float64Output)
-}
-
-type GetRebalancingScheduleDataSourceTriggerConditionArrayOutput struct{ *pulumi.OutputState }
-
-func (GetRebalancingScheduleDataSourceTriggerConditionArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetRebalancingScheduleDataSourceTriggerCondition)(nil)).Elem()
-}
-
-func (o GetRebalancingScheduleDataSourceTriggerConditionArrayOutput) ToGetRebalancingScheduleDataSourceTriggerConditionArrayOutput() GetRebalancingScheduleDataSourceTriggerConditionArrayOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceTriggerConditionArrayOutput) ToGetRebalancingScheduleDataSourceTriggerConditionArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleDataSourceTriggerConditionArrayOutput {
-	return o
-}
-
-func (o GetRebalancingScheduleDataSourceTriggerConditionArrayOutput) Index(i pulumi.IntInput) GetRebalancingScheduleDataSourceTriggerConditionOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRebalancingScheduleDataSourceTriggerCondition {
-		return vs[0].([]GetRebalancingScheduleDataSourceTriggerCondition)[vs[1].(int)]
-	}).(GetRebalancingScheduleDataSourceTriggerConditionOutput)
-}
-
 type HibernationScheduleClusterAssignments struct {
 	Assignments []HibernationScheduleClusterAssignmentsAssignment `pulumi:"assignments"`
 }
@@ -4580,16 +2204,20 @@ func (o HibernationScheduleResumeConfigSchedulePtrOutput) CronExpression() pulum
 }
 
 type RebalancingScheduleLaunchConfiguration struct {
-	// When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+	// Deprecated: Use aggressiveModeConfig instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+	//
+	// Deprecated: For equivalent behaviour use aggresiveModeConfig = {ignore_local_persistent_volumes = true, ignoreProblemJobPods = true, ignoreProblemRemovalDisabledPods = true, ignoreProblemPodsWithoutController = true}
 	AggressiveMode *bool `pulumi:"aggressiveMode"`
-	// Advanced configuration for aggressive rebalancing mode.
+	// Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressiveMode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressiveMode` is set to `true`, it takes precedence over this option.
 	AggressiveModeConfig *RebalancingScheduleLaunchConfigurationAggressiveModeConfig `pulumi:"aggressiveModeConfig"`
-	ExecutionConditions  *RebalancingScheduleLaunchConfigurationExecutionConditions  `pulumi:"executionConditions"`
+	// Configures behavior when a node fails to drain during rebalancing. Relevant only when `keepDrainTimeoutNodes` is true.
+	DrainFailureConfig  *RebalancingScheduleLaunchConfigurationDrainFailureConfig  `pulumi:"drainFailureConfig"`
+	ExecutionConditions *RebalancingScheduleLaunchConfigurationExecutionConditions `pulumi:"executionConditions"`
 	// Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
 	KeepDrainTimeoutNodes *bool `pulumi:"keepDrainTimeoutNodes"`
 	// Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
 	NodeTtlSeconds *int `pulumi:"nodeTtlSeconds"`
-	// Maximum number of nodes that will be selected for rebalancing.
+	// Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
 	NumTargetedNodes *int `pulumi:"numTargetedNodes"`
 	// Minimum number of nodes that should be kept in the cluster after rebalancing.
 	RebalancingMinNodes *int `pulumi:"rebalancingMinNodes"`
@@ -4611,16 +2239,20 @@ type RebalancingScheduleLaunchConfigurationInput interface {
 }
 
 type RebalancingScheduleLaunchConfigurationArgs struct {
-	// When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+	// Deprecated: Use aggressiveModeConfig instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+	//
+	// Deprecated: For equivalent behaviour use aggresiveModeConfig = {ignore_local_persistent_volumes = true, ignoreProblemJobPods = true, ignoreProblemRemovalDisabledPods = true, ignoreProblemPodsWithoutController = true}
 	AggressiveMode pulumi.BoolPtrInput `pulumi:"aggressiveMode"`
-	// Advanced configuration for aggressive rebalancing mode.
+	// Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressiveMode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressiveMode` is set to `true`, it takes precedence over this option.
 	AggressiveModeConfig RebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrInput `pulumi:"aggressiveModeConfig"`
-	ExecutionConditions  RebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput  `pulumi:"executionConditions"`
+	// Configures behavior when a node fails to drain during rebalancing. Relevant only when `keepDrainTimeoutNodes` is true.
+	DrainFailureConfig  RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput  `pulumi:"drainFailureConfig"`
+	ExecutionConditions RebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput `pulumi:"executionConditions"`
 	// Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
 	KeepDrainTimeoutNodes pulumi.BoolPtrInput `pulumi:"keepDrainTimeoutNodes"`
 	// Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
 	NodeTtlSeconds pulumi.IntPtrInput `pulumi:"nodeTtlSeconds"`
-	// Maximum number of nodes that will be selected for rebalancing.
+	// Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
 	NumTargetedNodes pulumi.IntPtrInput `pulumi:"numTargetedNodes"`
 	// Minimum number of nodes that should be kept in the cluster after rebalancing.
 	RebalancingMinNodes pulumi.IntPtrInput `pulumi:"rebalancingMinNodes"`
@@ -4707,16 +2339,25 @@ func (o RebalancingScheduleLaunchConfigurationOutput) ToRebalancingScheduleLaunc
 	}).(RebalancingScheduleLaunchConfigurationPtrOutput)
 }
 
-// When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+// Deprecated: Use aggressiveModeConfig instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+//
+// Deprecated: For equivalent behaviour use aggresiveModeConfig = {ignore_local_persistent_volumes = true, ignoreProblemJobPods = true, ignoreProblemRemovalDisabledPods = true, ignoreProblemPodsWithoutController = true}
 func (o RebalancingScheduleLaunchConfigurationOutput) AggressiveMode() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v RebalancingScheduleLaunchConfiguration) *bool { return v.AggressiveMode }).(pulumi.BoolPtrOutput)
 }
 
-// Advanced configuration for aggressive rebalancing mode.
+// Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressiveMode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressiveMode` is set to `true`, it takes precedence over this option.
 func (o RebalancingScheduleLaunchConfigurationOutput) AggressiveModeConfig() RebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
 	return o.ApplyT(func(v RebalancingScheduleLaunchConfiguration) *RebalancingScheduleLaunchConfigurationAggressiveModeConfig {
 		return v.AggressiveModeConfig
 	}).(RebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput)
+}
+
+// Configures behavior when a node fails to drain during rebalancing. Relevant only when `keepDrainTimeoutNodes` is true.
+func (o RebalancingScheduleLaunchConfigurationOutput) DrainFailureConfig() RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o.ApplyT(func(v RebalancingScheduleLaunchConfiguration) *RebalancingScheduleLaunchConfigurationDrainFailureConfig {
+		return v.DrainFailureConfig
+	}).(RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput)
 }
 
 func (o RebalancingScheduleLaunchConfigurationOutput) ExecutionConditions() RebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
@@ -4735,7 +2376,7 @@ func (o RebalancingScheduleLaunchConfigurationOutput) NodeTtlSeconds() pulumi.In
 	return o.ApplyT(func(v RebalancingScheduleLaunchConfiguration) *int { return v.NodeTtlSeconds }).(pulumi.IntPtrOutput)
 }
 
-// Maximum number of nodes that will be selected for rebalancing.
+// Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
 func (o RebalancingScheduleLaunchConfigurationOutput) NumTargetedNodes() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v RebalancingScheduleLaunchConfiguration) *int { return v.NumTargetedNodes }).(pulumi.IntPtrOutput)
 }
@@ -4779,7 +2420,9 @@ func (o RebalancingScheduleLaunchConfigurationPtrOutput) Elem() RebalancingSched
 	}).(RebalancingScheduleLaunchConfigurationOutput)
 }
 
-// When enabled rebalancing will also consider problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+// Deprecated: Use aggressiveModeConfig instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+//
+// Deprecated: For equivalent behaviour use aggresiveModeConfig = {ignore_local_persistent_volumes = true, ignoreProblemJobPods = true, ignoreProblemRemovalDisabledPods = true, ignoreProblemPodsWithoutController = true}
 func (o RebalancingScheduleLaunchConfigurationPtrOutput) AggressiveMode() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *RebalancingScheduleLaunchConfiguration) *bool {
 		if v == nil {
@@ -4789,7 +2432,7 @@ func (o RebalancingScheduleLaunchConfigurationPtrOutput) AggressiveMode() pulumi
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Advanced configuration for aggressive rebalancing mode.
+// Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressiveMode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressiveMode` is set to `true`, it takes precedence over this option.
 func (o RebalancingScheduleLaunchConfigurationPtrOutput) AggressiveModeConfig() RebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
 	return o.ApplyT(func(v *RebalancingScheduleLaunchConfiguration) *RebalancingScheduleLaunchConfigurationAggressiveModeConfig {
 		if v == nil {
@@ -4797,6 +2440,16 @@ func (o RebalancingScheduleLaunchConfigurationPtrOutput) AggressiveModeConfig() 
 		}
 		return v.AggressiveModeConfig
 	}).(RebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput)
+}
+
+// Configures behavior when a node fails to drain during rebalancing. Relevant only when `keepDrainTimeoutNodes` is true.
+func (o RebalancingScheduleLaunchConfigurationPtrOutput) DrainFailureConfig() RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o.ApplyT(func(v *RebalancingScheduleLaunchConfiguration) *RebalancingScheduleLaunchConfigurationDrainFailureConfig {
+		if v == nil {
+			return nil
+		}
+		return v.DrainFailureConfig
+	}).(RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput)
 }
 
 func (o RebalancingScheduleLaunchConfigurationPtrOutput) ExecutionConditions() RebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
@@ -4828,7 +2481,7 @@ func (o RebalancingScheduleLaunchConfigurationPtrOutput) NodeTtlSeconds() pulumi
 	}).(pulumi.IntPtrOutput)
 }
 
-// Maximum number of nodes that will be selected for rebalancing.
+// Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
 func (o RebalancingScheduleLaunchConfigurationPtrOutput) NumTargetedNodes() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *RebalancingScheduleLaunchConfiguration) *int {
 		if v == nil {
@@ -5066,6 +2719,162 @@ func (o RebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) Ign
 		}
 		return &v.IgnoreProblemRemovalDisabledPods
 	}).(pulumi.BoolPtrOutput)
+}
+
+type RebalancingScheduleLaunchConfigurationDrainFailureConfig struct {
+	// When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+	DisableUncordon *bool `pulumi:"disableUncordon"`
+	// Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disableUncordon` is true.
+	UncordonAfterSeconds *int `pulumi:"uncordonAfterSeconds"`
+}
+
+// RebalancingScheduleLaunchConfigurationDrainFailureConfigInput is an input type that accepts RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs and RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput values.
+// You can construct a concrete instance of `RebalancingScheduleLaunchConfigurationDrainFailureConfigInput` via:
+//
+//	RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs{...}
+type RebalancingScheduleLaunchConfigurationDrainFailureConfigInput interface {
+	pulumi.Input
+
+	ToRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput() RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput
+	ToRebalancingScheduleLaunchConfigurationDrainFailureConfigOutputWithContext(context.Context) RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput
+}
+
+type RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs struct {
+	// When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+	DisableUncordon pulumi.BoolPtrInput `pulumi:"disableUncordon"`
+	// Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disableUncordon` is true.
+	UncordonAfterSeconds pulumi.IntPtrInput `pulumi:"uncordonAfterSeconds"`
+}
+
+func (RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RebalancingScheduleLaunchConfigurationDrainFailureConfig)(nil)).Elem()
+}
+
+func (i RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput() RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return i.ToRebalancingScheduleLaunchConfigurationDrainFailureConfigOutputWithContext(context.Background())
+}
+
+func (i RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigOutputWithContext(ctx context.Context) RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput)
+}
+
+func (i RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return i.ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(context.Background())
+}
+
+func (i RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx context.Context) RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput).ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx)
+}
+
+// RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput is an input type that accepts RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs, RebalancingScheduleLaunchConfigurationDrainFailureConfigPtr and RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput values.
+// You can construct a concrete instance of `RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput` via:
+//
+//	        RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput interface {
+	pulumi.Input
+
+	ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput
+	ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(context.Context) RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput
+}
+
+type rebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs
+
+func RebalancingScheduleLaunchConfigurationDrainFailureConfigPtr(v *RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput {
+	return (*rebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType)(v)
+}
+
+func (*rebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RebalancingScheduleLaunchConfigurationDrainFailureConfig)(nil)).Elem()
+}
+
+func (i *rebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return i.ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *rebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx context.Context) RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput)
+}
+
+type RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput struct{ *pulumi.OutputState }
+
+func (RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RebalancingScheduleLaunchConfigurationDrainFailureConfig)(nil)).Elem()
+}
+
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput() RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return o
+}
+
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigOutputWithContext(ctx context.Context) RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return o
+}
+
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o.ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(context.Background())
+}
+
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx context.Context) RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RebalancingScheduleLaunchConfigurationDrainFailureConfig) *RebalancingScheduleLaunchConfigurationDrainFailureConfig {
+		return &v
+	}).(RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput)
+}
+
+// When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) DisableUncordon() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v RebalancingScheduleLaunchConfigurationDrainFailureConfig) *bool { return v.DisableUncordon }).(pulumi.BoolPtrOutput)
+}
+
+// Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disableUncordon` is true.
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) UncordonAfterSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v RebalancingScheduleLaunchConfigurationDrainFailureConfig) *int { return v.UncordonAfterSeconds }).(pulumi.IntPtrOutput)
+}
+
+type RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RebalancingScheduleLaunchConfigurationDrainFailureConfig)(nil)).Elem()
+}
+
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o
+}
+
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) ToRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx context.Context) RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o
+}
+
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) Elem() RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return o.ApplyT(func(v *RebalancingScheduleLaunchConfigurationDrainFailureConfig) RebalancingScheduleLaunchConfigurationDrainFailureConfig {
+		if v != nil {
+			return *v
+		}
+		var ret RebalancingScheduleLaunchConfigurationDrainFailureConfig
+		return ret
+	}).(RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput)
+}
+
+// When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) DisableUncordon() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *RebalancingScheduleLaunchConfigurationDrainFailureConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.DisableUncordon
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disableUncordon` is true.
+func (o RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) UncordonAfterSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *RebalancingScheduleLaunchConfigurationDrainFailureConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.UncordonAfterSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 type RebalancingScheduleLaunchConfigurationExecutionConditions struct {
@@ -5567,43 +3376,2542 @@ func (o RebalancingScheduleTriggerConditionsPtrOutput) SavingsPercentage() pulum
 	}).(pulumi.Float64PtrOutput)
 }
 
+type GetHibernationScheduleClusterAssignment struct {
+	Assignments []GetHibernationScheduleClusterAssignmentAssignment `pulumi:"assignments"`
+}
+
+// GetHibernationScheduleClusterAssignmentInput is an input type that accepts GetHibernationScheduleClusterAssignmentArgs and GetHibernationScheduleClusterAssignmentOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleClusterAssignmentInput` via:
+//
+//	GetHibernationScheduleClusterAssignmentArgs{...}
+type GetHibernationScheduleClusterAssignmentInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleClusterAssignmentOutput() GetHibernationScheduleClusterAssignmentOutput
+	ToGetHibernationScheduleClusterAssignmentOutputWithContext(context.Context) GetHibernationScheduleClusterAssignmentOutput
+}
+
+type GetHibernationScheduleClusterAssignmentArgs struct {
+	Assignments GetHibernationScheduleClusterAssignmentAssignmentArrayInput `pulumi:"assignments"`
+}
+
+func (GetHibernationScheduleClusterAssignmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleClusterAssignment)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleClusterAssignmentArgs) ToGetHibernationScheduleClusterAssignmentOutput() GetHibernationScheduleClusterAssignmentOutput {
+	return i.ToGetHibernationScheduleClusterAssignmentOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleClusterAssignmentArgs) ToGetHibernationScheduleClusterAssignmentOutputWithContext(ctx context.Context) GetHibernationScheduleClusterAssignmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleClusterAssignmentOutput)
+}
+
+// GetHibernationScheduleClusterAssignmentArrayInput is an input type that accepts GetHibernationScheduleClusterAssignmentArray and GetHibernationScheduleClusterAssignmentArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleClusterAssignmentArrayInput` via:
+//
+//	GetHibernationScheduleClusterAssignmentArray{ GetHibernationScheduleClusterAssignmentArgs{...} }
+type GetHibernationScheduleClusterAssignmentArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleClusterAssignmentArrayOutput() GetHibernationScheduleClusterAssignmentArrayOutput
+	ToGetHibernationScheduleClusterAssignmentArrayOutputWithContext(context.Context) GetHibernationScheduleClusterAssignmentArrayOutput
+}
+
+type GetHibernationScheduleClusterAssignmentArray []GetHibernationScheduleClusterAssignmentInput
+
+func (GetHibernationScheduleClusterAssignmentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleClusterAssignment)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleClusterAssignmentArray) ToGetHibernationScheduleClusterAssignmentArrayOutput() GetHibernationScheduleClusterAssignmentArrayOutput {
+	return i.ToGetHibernationScheduleClusterAssignmentArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleClusterAssignmentArray) ToGetHibernationScheduleClusterAssignmentArrayOutputWithContext(ctx context.Context) GetHibernationScheduleClusterAssignmentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleClusterAssignmentArrayOutput)
+}
+
+type GetHibernationScheduleClusterAssignmentOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleClusterAssignmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleClusterAssignment)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleClusterAssignmentOutput) ToGetHibernationScheduleClusterAssignmentOutput() GetHibernationScheduleClusterAssignmentOutput {
+	return o
+}
+
+func (o GetHibernationScheduleClusterAssignmentOutput) ToGetHibernationScheduleClusterAssignmentOutputWithContext(ctx context.Context) GetHibernationScheduleClusterAssignmentOutput {
+	return o
+}
+
+func (o GetHibernationScheduleClusterAssignmentOutput) Assignments() GetHibernationScheduleClusterAssignmentAssignmentArrayOutput {
+	return o.ApplyT(func(v GetHibernationScheduleClusterAssignment) []GetHibernationScheduleClusterAssignmentAssignment {
+		return v.Assignments
+	}).(GetHibernationScheduleClusterAssignmentAssignmentArrayOutput)
+}
+
+type GetHibernationScheduleClusterAssignmentArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleClusterAssignmentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleClusterAssignment)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleClusterAssignmentArrayOutput) ToGetHibernationScheduleClusterAssignmentArrayOutput() GetHibernationScheduleClusterAssignmentArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleClusterAssignmentArrayOutput) ToGetHibernationScheduleClusterAssignmentArrayOutputWithContext(ctx context.Context) GetHibernationScheduleClusterAssignmentArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleClusterAssignmentArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleClusterAssignmentOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleClusterAssignment {
+		return vs[0].([]GetHibernationScheduleClusterAssignment)[vs[1].(int)]
+	}).(GetHibernationScheduleClusterAssignmentOutput)
+}
+
+type GetHibernationScheduleClusterAssignmentAssignment struct {
+	// ID of the cluster.
+	ClusterId string `pulumi:"clusterId"`
+}
+
+// GetHibernationScheduleClusterAssignmentAssignmentInput is an input type that accepts GetHibernationScheduleClusterAssignmentAssignmentArgs and GetHibernationScheduleClusterAssignmentAssignmentOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleClusterAssignmentAssignmentInput` via:
+//
+//	GetHibernationScheduleClusterAssignmentAssignmentArgs{...}
+type GetHibernationScheduleClusterAssignmentAssignmentInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleClusterAssignmentAssignmentOutput() GetHibernationScheduleClusterAssignmentAssignmentOutput
+	ToGetHibernationScheduleClusterAssignmentAssignmentOutputWithContext(context.Context) GetHibernationScheduleClusterAssignmentAssignmentOutput
+}
+
+type GetHibernationScheduleClusterAssignmentAssignmentArgs struct {
+	// ID of the cluster.
+	ClusterId pulumi.StringInput `pulumi:"clusterId"`
+}
+
+func (GetHibernationScheduleClusterAssignmentAssignmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleClusterAssignmentAssignment)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleClusterAssignmentAssignmentArgs) ToGetHibernationScheduleClusterAssignmentAssignmentOutput() GetHibernationScheduleClusterAssignmentAssignmentOutput {
+	return i.ToGetHibernationScheduleClusterAssignmentAssignmentOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleClusterAssignmentAssignmentArgs) ToGetHibernationScheduleClusterAssignmentAssignmentOutputWithContext(ctx context.Context) GetHibernationScheduleClusterAssignmentAssignmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleClusterAssignmentAssignmentOutput)
+}
+
+// GetHibernationScheduleClusterAssignmentAssignmentArrayInput is an input type that accepts GetHibernationScheduleClusterAssignmentAssignmentArray and GetHibernationScheduleClusterAssignmentAssignmentArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleClusterAssignmentAssignmentArrayInput` via:
+//
+//	GetHibernationScheduleClusterAssignmentAssignmentArray{ GetHibernationScheduleClusterAssignmentAssignmentArgs{...} }
+type GetHibernationScheduleClusterAssignmentAssignmentArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleClusterAssignmentAssignmentArrayOutput() GetHibernationScheduleClusterAssignmentAssignmentArrayOutput
+	ToGetHibernationScheduleClusterAssignmentAssignmentArrayOutputWithContext(context.Context) GetHibernationScheduleClusterAssignmentAssignmentArrayOutput
+}
+
+type GetHibernationScheduleClusterAssignmentAssignmentArray []GetHibernationScheduleClusterAssignmentAssignmentInput
+
+func (GetHibernationScheduleClusterAssignmentAssignmentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleClusterAssignmentAssignment)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleClusterAssignmentAssignmentArray) ToGetHibernationScheduleClusterAssignmentAssignmentArrayOutput() GetHibernationScheduleClusterAssignmentAssignmentArrayOutput {
+	return i.ToGetHibernationScheduleClusterAssignmentAssignmentArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleClusterAssignmentAssignmentArray) ToGetHibernationScheduleClusterAssignmentAssignmentArrayOutputWithContext(ctx context.Context) GetHibernationScheduleClusterAssignmentAssignmentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleClusterAssignmentAssignmentArrayOutput)
+}
+
+type GetHibernationScheduleClusterAssignmentAssignmentOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleClusterAssignmentAssignmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleClusterAssignmentAssignment)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleClusterAssignmentAssignmentOutput) ToGetHibernationScheduleClusterAssignmentAssignmentOutput() GetHibernationScheduleClusterAssignmentAssignmentOutput {
+	return o
+}
+
+func (o GetHibernationScheduleClusterAssignmentAssignmentOutput) ToGetHibernationScheduleClusterAssignmentAssignmentOutputWithContext(ctx context.Context) GetHibernationScheduleClusterAssignmentAssignmentOutput {
+	return o
+}
+
+// ID of the cluster.
+func (o GetHibernationScheduleClusterAssignmentAssignmentOutput) ClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetHibernationScheduleClusterAssignmentAssignment) string { return v.ClusterId }).(pulumi.StringOutput)
+}
+
+type GetHibernationScheduleClusterAssignmentAssignmentArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleClusterAssignmentAssignmentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleClusterAssignmentAssignment)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleClusterAssignmentAssignmentArrayOutput) ToGetHibernationScheduleClusterAssignmentAssignmentArrayOutput() GetHibernationScheduleClusterAssignmentAssignmentArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleClusterAssignmentAssignmentArrayOutput) ToGetHibernationScheduleClusterAssignmentAssignmentArrayOutputWithContext(ctx context.Context) GetHibernationScheduleClusterAssignmentAssignmentArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleClusterAssignmentAssignmentArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleClusterAssignmentAssignmentOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleClusterAssignmentAssignment {
+		return vs[0].([]GetHibernationScheduleClusterAssignmentAssignment)[vs[1].(int)]
+	}).(GetHibernationScheduleClusterAssignmentAssignmentOutput)
+}
+
+type GetHibernationSchedulePauseConfig struct {
+	// Enables or disables the pause configuration.
+	Enabled  bool                                      `pulumi:"enabled"`
+	Schedule GetHibernationSchedulePauseConfigSchedule `pulumi:"schedule"`
+}
+
+// GetHibernationSchedulePauseConfigInput is an input type that accepts GetHibernationSchedulePauseConfigArgs and GetHibernationSchedulePauseConfigOutput values.
+// You can construct a concrete instance of `GetHibernationSchedulePauseConfigInput` via:
+//
+//	GetHibernationSchedulePauseConfigArgs{...}
+type GetHibernationSchedulePauseConfigInput interface {
+	pulumi.Input
+
+	ToGetHibernationSchedulePauseConfigOutput() GetHibernationSchedulePauseConfigOutput
+	ToGetHibernationSchedulePauseConfigOutputWithContext(context.Context) GetHibernationSchedulePauseConfigOutput
+}
+
+type GetHibernationSchedulePauseConfigArgs struct {
+	// Enables or disables the pause configuration.
+	Enabled  pulumi.BoolInput                               `pulumi:"enabled"`
+	Schedule GetHibernationSchedulePauseConfigScheduleInput `pulumi:"schedule"`
+}
+
+func (GetHibernationSchedulePauseConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationSchedulePauseConfig)(nil)).Elem()
+}
+
+func (i GetHibernationSchedulePauseConfigArgs) ToGetHibernationSchedulePauseConfigOutput() GetHibernationSchedulePauseConfigOutput {
+	return i.ToGetHibernationSchedulePauseConfigOutputWithContext(context.Background())
+}
+
+func (i GetHibernationSchedulePauseConfigArgs) ToGetHibernationSchedulePauseConfigOutputWithContext(ctx context.Context) GetHibernationSchedulePauseConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationSchedulePauseConfigOutput)
+}
+
+// GetHibernationSchedulePauseConfigArrayInput is an input type that accepts GetHibernationSchedulePauseConfigArray and GetHibernationSchedulePauseConfigArrayOutput values.
+// You can construct a concrete instance of `GetHibernationSchedulePauseConfigArrayInput` via:
+//
+//	GetHibernationSchedulePauseConfigArray{ GetHibernationSchedulePauseConfigArgs{...} }
+type GetHibernationSchedulePauseConfigArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationSchedulePauseConfigArrayOutput() GetHibernationSchedulePauseConfigArrayOutput
+	ToGetHibernationSchedulePauseConfigArrayOutputWithContext(context.Context) GetHibernationSchedulePauseConfigArrayOutput
+}
+
+type GetHibernationSchedulePauseConfigArray []GetHibernationSchedulePauseConfigInput
+
+func (GetHibernationSchedulePauseConfigArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationSchedulePauseConfig)(nil)).Elem()
+}
+
+func (i GetHibernationSchedulePauseConfigArray) ToGetHibernationSchedulePauseConfigArrayOutput() GetHibernationSchedulePauseConfigArrayOutput {
+	return i.ToGetHibernationSchedulePauseConfigArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationSchedulePauseConfigArray) ToGetHibernationSchedulePauseConfigArrayOutputWithContext(ctx context.Context) GetHibernationSchedulePauseConfigArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationSchedulePauseConfigArrayOutput)
+}
+
+type GetHibernationSchedulePauseConfigOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationSchedulePauseConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationSchedulePauseConfig)(nil)).Elem()
+}
+
+func (o GetHibernationSchedulePauseConfigOutput) ToGetHibernationSchedulePauseConfigOutput() GetHibernationSchedulePauseConfigOutput {
+	return o
+}
+
+func (o GetHibernationSchedulePauseConfigOutput) ToGetHibernationSchedulePauseConfigOutputWithContext(ctx context.Context) GetHibernationSchedulePauseConfigOutput {
+	return o
+}
+
+// Enables or disables the pause configuration.
+func (o GetHibernationSchedulePauseConfigOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetHibernationSchedulePauseConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+func (o GetHibernationSchedulePauseConfigOutput) Schedule() GetHibernationSchedulePauseConfigScheduleOutput {
+	return o.ApplyT(func(v GetHibernationSchedulePauseConfig) GetHibernationSchedulePauseConfigSchedule { return v.Schedule }).(GetHibernationSchedulePauseConfigScheduleOutput)
+}
+
+type GetHibernationSchedulePauseConfigArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationSchedulePauseConfigArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationSchedulePauseConfig)(nil)).Elem()
+}
+
+func (o GetHibernationSchedulePauseConfigArrayOutput) ToGetHibernationSchedulePauseConfigArrayOutput() GetHibernationSchedulePauseConfigArrayOutput {
+	return o
+}
+
+func (o GetHibernationSchedulePauseConfigArrayOutput) ToGetHibernationSchedulePauseConfigArrayOutputWithContext(ctx context.Context) GetHibernationSchedulePauseConfigArrayOutput {
+	return o
+}
+
+func (o GetHibernationSchedulePauseConfigArrayOutput) Index(i pulumi.IntInput) GetHibernationSchedulePauseConfigOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationSchedulePauseConfig {
+		return vs[0].([]GetHibernationSchedulePauseConfig)[vs[1].(int)]
+	}).(GetHibernationSchedulePauseConfigOutput)
+}
+
+type GetHibernationSchedulePauseConfigSchedule struct {
+	// Cron expression defining when the schedule should trigger.
+	//
+	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+	//
+	//   Example:
+	//
+	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+	//
+	//   To retrieve a list of available timezone values, you can use the following API endpoint:
+	//
+	//   GET https://api.cast.ai/v1/time-zones
+	//
+	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+	CronExpression string `pulumi:"cronExpression"`
+}
+
+// GetHibernationSchedulePauseConfigScheduleInput is an input type that accepts GetHibernationSchedulePauseConfigScheduleArgs and GetHibernationSchedulePauseConfigScheduleOutput values.
+// You can construct a concrete instance of `GetHibernationSchedulePauseConfigScheduleInput` via:
+//
+//	GetHibernationSchedulePauseConfigScheduleArgs{...}
+type GetHibernationSchedulePauseConfigScheduleInput interface {
+	pulumi.Input
+
+	ToGetHibernationSchedulePauseConfigScheduleOutput() GetHibernationSchedulePauseConfigScheduleOutput
+	ToGetHibernationSchedulePauseConfigScheduleOutputWithContext(context.Context) GetHibernationSchedulePauseConfigScheduleOutput
+}
+
+type GetHibernationSchedulePauseConfigScheduleArgs struct {
+	// Cron expression defining when the schedule should trigger.
+	//
+	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+	//
+	//   Example:
+	//
+	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+	//
+	//   To retrieve a list of available timezone values, you can use the following API endpoint:
+	//
+	//   GET https://api.cast.ai/v1/time-zones
+	//
+	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+	CronExpression pulumi.StringInput `pulumi:"cronExpression"`
+}
+
+func (GetHibernationSchedulePauseConfigScheduleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationSchedulePauseConfigSchedule)(nil)).Elem()
+}
+
+func (i GetHibernationSchedulePauseConfigScheduleArgs) ToGetHibernationSchedulePauseConfigScheduleOutput() GetHibernationSchedulePauseConfigScheduleOutput {
+	return i.ToGetHibernationSchedulePauseConfigScheduleOutputWithContext(context.Background())
+}
+
+func (i GetHibernationSchedulePauseConfigScheduleArgs) ToGetHibernationSchedulePauseConfigScheduleOutputWithContext(ctx context.Context) GetHibernationSchedulePauseConfigScheduleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationSchedulePauseConfigScheduleOutput)
+}
+
+type GetHibernationSchedulePauseConfigScheduleOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationSchedulePauseConfigScheduleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationSchedulePauseConfigSchedule)(nil)).Elem()
+}
+
+func (o GetHibernationSchedulePauseConfigScheduleOutput) ToGetHibernationSchedulePauseConfigScheduleOutput() GetHibernationSchedulePauseConfigScheduleOutput {
+	return o
+}
+
+func (o GetHibernationSchedulePauseConfigScheduleOutput) ToGetHibernationSchedulePauseConfigScheduleOutputWithContext(ctx context.Context) GetHibernationSchedulePauseConfigScheduleOutput {
+	return o
+}
+
+// Cron expression defining when the schedule should trigger.
+//
+//	The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+//
+//	Example:
+//
+//	In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+//
+//	To retrieve a list of available timezone values, you can use the following API endpoint:
+//
+//	GET https://api.cast.ai/v1/time-zones
+//
+//	When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+func (o GetHibernationSchedulePauseConfigScheduleOutput) CronExpression() pulumi.StringOutput {
+	return o.ApplyT(func(v GetHibernationSchedulePauseConfigSchedule) string { return v.CronExpression }).(pulumi.StringOutput)
+}
+
+type GetHibernationScheduleResumeConfig struct {
+	// Enables or disables the pause configuration.
+	Enabled   bool                                        `pulumi:"enabled"`
+	JobConfig GetHibernationScheduleResumeConfigJobConfig `pulumi:"jobConfig"`
+	Schedule  GetHibernationScheduleResumeConfigSchedule  `pulumi:"schedule"`
+}
+
+// GetHibernationScheduleResumeConfigInput is an input type that accepts GetHibernationScheduleResumeConfigArgs and GetHibernationScheduleResumeConfigOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigInput` via:
+//
+//	GetHibernationScheduleResumeConfigArgs{...}
+type GetHibernationScheduleResumeConfigInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigOutput() GetHibernationScheduleResumeConfigOutput
+	ToGetHibernationScheduleResumeConfigOutputWithContext(context.Context) GetHibernationScheduleResumeConfigOutput
+}
+
+type GetHibernationScheduleResumeConfigArgs struct {
+	// Enables or disables the pause configuration.
+	Enabled   pulumi.BoolInput                                 `pulumi:"enabled"`
+	JobConfig GetHibernationScheduleResumeConfigJobConfigInput `pulumi:"jobConfig"`
+	Schedule  GetHibernationScheduleResumeConfigScheduleInput  `pulumi:"schedule"`
+}
+
+func (GetHibernationScheduleResumeConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigArgs) ToGetHibernationScheduleResumeConfigOutput() GetHibernationScheduleResumeConfigOutput {
+	return i.ToGetHibernationScheduleResumeConfigOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigArgs) ToGetHibernationScheduleResumeConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigOutput)
+}
+
+// GetHibernationScheduleResumeConfigArrayInput is an input type that accepts GetHibernationScheduleResumeConfigArray and GetHibernationScheduleResumeConfigArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigArrayInput` via:
+//
+//	GetHibernationScheduleResumeConfigArray{ GetHibernationScheduleResumeConfigArgs{...} }
+type GetHibernationScheduleResumeConfigArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigArrayOutput() GetHibernationScheduleResumeConfigArrayOutput
+	ToGetHibernationScheduleResumeConfigArrayOutputWithContext(context.Context) GetHibernationScheduleResumeConfigArrayOutput
+}
+
+type GetHibernationScheduleResumeConfigArray []GetHibernationScheduleResumeConfigInput
+
+func (GetHibernationScheduleResumeConfigArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigArray) ToGetHibernationScheduleResumeConfigArrayOutput() GetHibernationScheduleResumeConfigArrayOutput {
+	return i.ToGetHibernationScheduleResumeConfigArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigArray) ToGetHibernationScheduleResumeConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigArrayOutput)
+}
+
+type GetHibernationScheduleResumeConfigOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigOutput) ToGetHibernationScheduleResumeConfigOutput() GetHibernationScheduleResumeConfigOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigOutput) ToGetHibernationScheduleResumeConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigOutput {
+	return o
+}
+
+// Enables or disables the pause configuration.
+func (o GetHibernationScheduleResumeConfigOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfig) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+func (o GetHibernationScheduleResumeConfigOutput) JobConfig() GetHibernationScheduleResumeConfigJobConfigOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfig) GetHibernationScheduleResumeConfigJobConfig {
+		return v.JobConfig
+	}).(GetHibernationScheduleResumeConfigJobConfigOutput)
+}
+
+func (o GetHibernationScheduleResumeConfigOutput) Schedule() GetHibernationScheduleResumeConfigScheduleOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfig) GetHibernationScheduleResumeConfigSchedule {
+		return v.Schedule
+	}).(GetHibernationScheduleResumeConfigScheduleOutput)
+}
+
+type GetHibernationScheduleResumeConfigArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigArrayOutput) ToGetHibernationScheduleResumeConfigArrayOutput() GetHibernationScheduleResumeConfigArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigArrayOutput) ToGetHibernationScheduleResumeConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleResumeConfigOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleResumeConfig {
+		return vs[0].([]GetHibernationScheduleResumeConfig)[vs[1].(int)]
+	}).(GetHibernationScheduleResumeConfigOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfig struct {
+	NodeConfig GetHibernationScheduleResumeConfigJobConfigNodeConfig `pulumi:"nodeConfig"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigArgs and GetHibernationScheduleResumeConfigJobConfigOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigOutput() GetHibernationScheduleResumeConfigJobConfigOutput
+	ToGetHibernationScheduleResumeConfigJobConfigOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigArgs struct {
+	NodeConfig GetHibernationScheduleResumeConfigJobConfigNodeConfigInput `pulumi:"nodeConfig"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigOutput() GetHibernationScheduleResumeConfigJobConfigOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigOutput() GetHibernationScheduleResumeConfigJobConfigOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigOutput) NodeConfig() GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfig) GetHibernationScheduleResumeConfigJobConfigNodeConfig {
+		return v.NodeConfig
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfig struct {
+	// ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
+	ConfigId *string `pulumi:"configId"`
+	// Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
+	ConfigName *string                                                         `pulumi:"configName"`
+	GpuConfig  *GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig `pulumi:"gpuConfig"`
+	// Instance type.
+	InstanceType string `pulumi:"instanceType"`
+	// Custom labels to be added to the node.
+	KubernetesLabels map[string]string `pulumi:"kubernetesLabels"`
+	// Custom taints to be added to the node created from this configuration.
+	KubernetesTaints []GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint `pulumi:"kubernetesTaints"`
+	// Custom taints to be added to the node created from this configuration.
+	NodeAffinities []GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity `pulumi:"nodeAffinities"`
+	// Custom taints to be added to the node created from this configuration.
+	SpotConfigs []GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig `pulumi:"spotConfigs"`
+	// Node subnet ID.
+	SubnetId *string                                                       `pulumi:"subnetId"`
+	Volumes  []GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume `pulumi:"volumes"`
+	// Zone of the node.
+	Zone *string `pulumi:"zone"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigArgs and GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigArgs struct {
+	// ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
+	ConfigId pulumi.StringPtrInput `pulumi:"configId"`
+	// Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
+	ConfigName pulumi.StringPtrInput                                                  `pulumi:"configName"`
+	GpuConfig  GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrInput `pulumi:"gpuConfig"`
+	// Instance type.
+	InstanceType pulumi.StringInput `pulumi:"instanceType"`
+	// Custom labels to be added to the node.
+	KubernetesLabels pulumi.StringMapInput `pulumi:"kubernetesLabels"`
+	// Custom taints to be added to the node created from this configuration.
+	KubernetesTaints GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput `pulumi:"kubernetesTaints"`
+	// Custom taints to be added to the node created from this configuration.
+	NodeAffinities GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayInput `pulumi:"nodeAffinities"`
+	// Custom taints to be added to the node created from this configuration.
+	SpotConfigs GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayInput `pulumi:"spotConfigs"`
+	// Node subnet ID.
+	SubnetId pulumi.StringPtrInput                                                 `pulumi:"subnetId"`
+	Volumes  GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayInput `pulumi:"volumes"`
+	// Zone of the node.
+	Zone pulumi.StringPtrInput `pulumi:"zone"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput {
+	return o
+}
+
+// ID reference of Node Configuration to be used for node creation. Supersedes 'config_name' parameter.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) ConfigId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) *string { return v.ConfigId }).(pulumi.StringPtrOutput)
+}
+
+// Name reference of Node Configuration to be used for node creation. Superseded if 'config_id' parameter is provided.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) ConfigName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) *string { return v.ConfigName }).(pulumi.StringPtrOutput)
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) GpuConfig() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) *GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig {
+		return v.GpuConfig
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput)
+}
+
+// Instance type.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) InstanceType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) string { return v.InstanceType }).(pulumi.StringOutput)
+}
+
+// Custom labels to be added to the node.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) KubernetesLabels() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) map[string]string {
+		return v.KubernetesLabels
+	}).(pulumi.StringMapOutput)
+}
+
+// Custom taints to be added to the node created from this configuration.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) KubernetesTaints() GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) []GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint {
+		return v.KubernetesTaints
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput)
+}
+
+// Custom taints to be added to the node created from this configuration.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) NodeAffinities() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) []GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity {
+		return v.NodeAffinities
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput)
+}
+
+// Custom taints to be added to the node created from this configuration.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) SpotConfigs() GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) []GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig {
+		return v.SpotConfigs
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput)
+}
+
+// Node subnet ID.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) SubnetId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) *string { return v.SubnetId }).(pulumi.StringPtrOutput)
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) Volumes() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) []GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume {
+		return v.Volumes
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput)
+}
+
+// Zone of the node.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput) Zone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfig) *string { return v.Zone }).(pulumi.StringPtrOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig struct {
+	// Number of GPUs.
+	Count int `pulumi:"count"`
+	// GPU type.
+	Type *string `pulumi:"type"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs and GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs struct {
+	// Number of GPUs.
+	Count pulumi.IntInput `pulumi:"count"`
+	// GPU type.
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput)
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput).ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx)
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs, GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtr and GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrInput` via:
+//
+//	        GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput
+}
+
+type getHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrType GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs
+
+func GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtr(v *GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrInput {
+	return (*getHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrType)(v)
+}
+
+func (*getHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig)(nil)).Elem()
+}
+
+func (i *getHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrType) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *getHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrType) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return o.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(context.Background())
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig) *GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig {
+		return &v
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput)
+}
+
+// Number of GPUs.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput) Count() pulumi.IntOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig) int { return v.Count }).(pulumi.IntOutput)
+}
+
+// GPU type.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) Elem() GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput {
+	return o.ApplyT(func(v *GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig) GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig {
+		if v != nil {
+			return *v
+		}
+		var ret GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig
+		return ret
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput)
+}
+
+// Number of GPUs.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) Count() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Count
+	}).(pulumi.IntPtrOutput)
+}
+
+// GPU type.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint struct {
+	// Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
+	Effect *string `pulumi:"effect"`
+	// Key of a taint to be added to nodes created from this template.
+	Key string `pulumi:"key"`
+	// Value of a taint to be added to nodes created from this template.
+	Value *string `pulumi:"value"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs and GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs struct {
+	// Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	// Key of a taint to be added to nodes created from this template.
+	Key pulumi.StringInput `pulumi:"key"`
+	// Value of a taint to be added to nodes created from this template.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput)
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArray and GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArray{ GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs{...} }
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArray []GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintInput
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
+	return o
+}
+
+// Effect of a taint to be added to nodes created from this template, the default is NoSchedule. Allowed values: NoSchedule, NoExecute.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+// Key of a taint to be added to nodes created from this template.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// Value of a taint to be added to nodes created from this template.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint {
+		return vs[0].([]GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaint)[vs[1].(int)]
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity struct {
+	Affinities []GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity `pulumi:"affinities"`
+	// Key of a taint to be added to nodes created from this template.
+	DedicatedGroup string `pulumi:"dedicatedGroup"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs and GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs struct {
+	Affinities GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput `pulumi:"affinities"`
+	// Key of a taint to be added to nodes created from this template.
+	DedicatedGroup pulumi.StringInput `pulumi:"dedicatedGroup"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput)
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArray and GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArray{ GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs{...} }
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArray []GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityInput
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput) Affinities() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity) []GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity {
+		return v.Affinities
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput)
+}
+
+// Key of a taint to be added to nodes created from this template.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput) DedicatedGroup() pulumi.StringOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity) string {
+		return v.DedicatedGroup
+	}).(pulumi.StringOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity {
+		return vs[0].([]GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinity)[vs[1].(int)]
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity struct {
+	// Key of the node affinity selector.
+	Key string `pulumi:"key"`
+	// Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
+	Operator string `pulumi:"operator"`
+	// Values of the node affinity selector.
+	Values []string `pulumi:"values"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs and GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs struct {
+	// Key of the node affinity selector.
+	Key pulumi.StringInput `pulumi:"key"`
+	// Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
+	Operator pulumi.StringInput `pulumi:"operator"`
+	// Values of the node affinity selector.
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput)
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray and GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray{ GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs{...} }
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray []GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
+	return o
+}
+
+// Key of the node affinity selector.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// Operator of the node affinity selector. Allowed values: DOES_NOT_EXIST, EXISTS, GT, IN, LT, NOT_IN.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity) string {
+		return v.Operator
+	}).(pulumi.StringOutput)
+}
+
+// Values of the node affinity selector.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity) []string {
+		return v.Values
+	}).(pulumi.StringArrayOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity {
+		return vs[0].([]GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinity)[vs[1].(int)]
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig struct {
+	// Spot instance price. Applicable only for AWS nodes.
+	PriceHourly *string `pulumi:"priceHourly"`
+	// Whether node should be created as spot instance.
+	Spot *bool `pulumi:"spot"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs and GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs struct {
+	// Spot instance price. Applicable only for AWS nodes.
+	PriceHourly pulumi.StringPtrInput `pulumi:"priceHourly"`
+	// Whether node should be created as spot instance.
+	Spot pulumi.BoolPtrInput `pulumi:"spot"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput)
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArray and GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArray{ GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs{...} }
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArray []GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigInput
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput {
+	return o
+}
+
+// Spot instance price. Applicable only for AWS nodes.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput) PriceHourly() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig) *string { return v.PriceHourly }).(pulumi.StringPtrOutput)
+}
+
+// Whether node should be created as spot instance.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput) Spot() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig) *bool { return v.Spot }).(pulumi.BoolPtrOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig {
+		return vs[0].([]GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfig)[vs[1].(int)]
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume struct {
+	RaidConfigs []GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig `pulumi:"raidConfigs"`
+	// Volume size in GiB.
+	SizeGib *int `pulumi:"sizeGib"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs and GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs struct {
+	RaidConfigs GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput `pulumi:"raidConfigs"`
+	// Volume size in GiB.
+	SizeGib pulumi.IntPtrInput `pulumi:"sizeGib"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput)
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArray and GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArray{ GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs{...} }
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArray []GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeInput
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput) RaidConfigs() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume) []GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig {
+		return v.RaidConfigs
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput)
+}
+
+// Volume size in GiB.
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput) SizeGib() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume) *int { return v.SizeGib }).(pulumi.IntPtrOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume {
+		return vs[0].([]GetHibernationScheduleResumeConfigJobConfigNodeConfigVolume)[vs[1].(int)]
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig struct {
+	// Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
+	ChunkSizeKb *int `pulumi:"chunkSizeKb"`
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs and GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs{...}
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs struct {
+	// Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
+	ChunkSizeKb pulumi.IntPtrInput `pulumi:"chunkSizeKb"`
+}
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput)
+}
+
+// GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput is an input type that accepts GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArray and GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput` via:
+//
+//	GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArray{ GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs{...} }
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput
+	ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutputWithContext(context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArray []GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigInput
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
+	return i.ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArray) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
+	return o
+}
+
+// Specify the RAID0 chunk size in kilobytes, this parameter affects the read/write in the disk array and must be tailored for the type of data written by the workloads in the node. If not provided it will default to 64KB
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput) ChunkSizeKb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig) *int {
+		return v.ChunkSizeKb
+	}).(pulumi.IntPtrOutput)
+}
+
+type GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput() GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput) ToGetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput) Index(i pulumi.IntInput) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig {
+		return vs[0].([]GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfig)[vs[1].(int)]
+	}).(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput)
+}
+
+type GetHibernationScheduleResumeConfigSchedule struct {
+	// Cron expression defining when the schedule should trigger.
+	//
+	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+	//
+	//   Example:
+	//
+	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+	//
+	//   To retrieve a list of available timezone values, you can use the following API endpoint:
+	//
+	//   GET https://api.cast.ai/v1/time-zones
+	//
+	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+	CronExpression string `pulumi:"cronExpression"`
+}
+
+// GetHibernationScheduleResumeConfigScheduleInput is an input type that accepts GetHibernationScheduleResumeConfigScheduleArgs and GetHibernationScheduleResumeConfigScheduleOutput values.
+// You can construct a concrete instance of `GetHibernationScheduleResumeConfigScheduleInput` via:
+//
+//	GetHibernationScheduleResumeConfigScheduleArgs{...}
+type GetHibernationScheduleResumeConfigScheduleInput interface {
+	pulumi.Input
+
+	ToGetHibernationScheduleResumeConfigScheduleOutput() GetHibernationScheduleResumeConfigScheduleOutput
+	ToGetHibernationScheduleResumeConfigScheduleOutputWithContext(context.Context) GetHibernationScheduleResumeConfigScheduleOutput
+}
+
+type GetHibernationScheduleResumeConfigScheduleArgs struct {
+	// Cron expression defining when the schedule should trigger.
+	//
+	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+	//
+	//   Example:
+	//
+	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+	//
+	//   To retrieve a list of available timezone values, you can use the following API endpoint:
+	//
+	//   GET https://api.cast.ai/v1/time-zones
+	//
+	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+	CronExpression pulumi.StringInput `pulumi:"cronExpression"`
+}
+
+func (GetHibernationScheduleResumeConfigScheduleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigSchedule)(nil)).Elem()
+}
+
+func (i GetHibernationScheduleResumeConfigScheduleArgs) ToGetHibernationScheduleResumeConfigScheduleOutput() GetHibernationScheduleResumeConfigScheduleOutput {
+	return i.ToGetHibernationScheduleResumeConfigScheduleOutputWithContext(context.Background())
+}
+
+func (i GetHibernationScheduleResumeConfigScheduleArgs) ToGetHibernationScheduleResumeConfigScheduleOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigScheduleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetHibernationScheduleResumeConfigScheduleOutput)
+}
+
+type GetHibernationScheduleResumeConfigScheduleOutput struct{ *pulumi.OutputState }
+
+func (GetHibernationScheduleResumeConfigScheduleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetHibernationScheduleResumeConfigSchedule)(nil)).Elem()
+}
+
+func (o GetHibernationScheduleResumeConfigScheduleOutput) ToGetHibernationScheduleResumeConfigScheduleOutput() GetHibernationScheduleResumeConfigScheduleOutput {
+	return o
+}
+
+func (o GetHibernationScheduleResumeConfigScheduleOutput) ToGetHibernationScheduleResumeConfigScheduleOutputWithContext(ctx context.Context) GetHibernationScheduleResumeConfigScheduleOutput {
+	return o
+}
+
+// Cron expression defining when the schedule should trigger.
+//
+//	The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+//
+//	Example:
+//
+//	In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+//
+//	To retrieve a list of available timezone values, you can use the following API endpoint:
+//
+//	GET https://api.cast.ai/v1/time-zones
+//
+//	When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+func (o GetHibernationScheduleResumeConfigScheduleOutput) CronExpression() pulumi.StringOutput {
+	return o.ApplyT(func(v GetHibernationScheduleResumeConfigSchedule) string { return v.CronExpression }).(pulumi.StringOutput)
+}
+
+type GetRebalancingScheduleLaunchConfiguration struct {
+	// Deprecated: Use aggressiveModeConfig instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+	//
+	// Deprecated: For equivalent behaviour use aggresiveModeConfig = {ignore_local_persistent_volumes = true, ignoreProblemJobPods = true, ignoreProblemRemovalDisabledPods = true, ignoreProblemPodsWithoutController = true}
+	AggressiveMode *bool `pulumi:"aggressiveMode"`
+	// Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressiveMode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressiveMode` is set to `true`, it takes precedence over this option.
+	AggressiveModeConfig *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig `pulumi:"aggressiveModeConfig"`
+	// Configures behavior when a node fails to drain during rebalancing. Relevant only when `keepDrainTimeoutNodes` is true.
+	DrainFailureConfig  *GetRebalancingScheduleLaunchConfigurationDrainFailureConfig  `pulumi:"drainFailureConfig"`
+	ExecutionConditions *GetRebalancingScheduleLaunchConfigurationExecutionConditions `pulumi:"executionConditions"`
+	// Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
+	KeepDrainTimeoutNodes *bool `pulumi:"keepDrainTimeoutNodes"`
+	// Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
+	NodeTtlSeconds *int `pulumi:"nodeTtlSeconds"`
+	// Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
+	NumTargetedNodes *int `pulumi:"numTargetedNodes"`
+	// Minimum number of nodes that should be kept in the cluster after rebalancing.
+	RebalancingMinNodes *int `pulumi:"rebalancingMinNodes"`
+	// Node selector in JSON format.
+	Selector *string `pulumi:"selector"`
+	// Defines the algorithm used to select the target nodes for rebalancing.
+	TargetNodeSelectionAlgorithm *string `pulumi:"targetNodeSelectionAlgorithm"`
+}
+
+// GetRebalancingScheduleLaunchConfigurationInput is an input type that accepts GetRebalancingScheduleLaunchConfigurationArgs and GetRebalancingScheduleLaunchConfigurationOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleLaunchConfigurationInput` via:
+//
+//	GetRebalancingScheduleLaunchConfigurationArgs{...}
+type GetRebalancingScheduleLaunchConfigurationInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleLaunchConfigurationOutput() GetRebalancingScheduleLaunchConfigurationOutput
+	ToGetRebalancingScheduleLaunchConfigurationOutputWithContext(context.Context) GetRebalancingScheduleLaunchConfigurationOutput
+}
+
+type GetRebalancingScheduleLaunchConfigurationArgs struct {
+	// Deprecated: Use aggressiveModeConfig instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+	//
+	// Deprecated: For equivalent behaviour use aggresiveModeConfig = {ignore_local_persistent_volumes = true, ignoreProblemJobPods = true, ignoreProblemRemovalDisabledPods = true, ignoreProblemPodsWithoutController = true}
+	AggressiveMode pulumi.BoolPtrInput `pulumi:"aggressiveMode"`
+	// Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressiveMode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressiveMode` is set to `true`, it takes precedence over this option.
+	AggressiveModeConfig GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrInput `pulumi:"aggressiveModeConfig"`
+	// Configures behavior when a node fails to drain during rebalancing. Relevant only when `keepDrainTimeoutNodes` is true.
+	DrainFailureConfig  GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput  `pulumi:"drainFailureConfig"`
+	ExecutionConditions GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput `pulumi:"executionConditions"`
+	// Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
+	KeepDrainTimeoutNodes pulumi.BoolPtrInput `pulumi:"keepDrainTimeoutNodes"`
+	// Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
+	NodeTtlSeconds pulumi.IntPtrInput `pulumi:"nodeTtlSeconds"`
+	// Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
+	NumTargetedNodes pulumi.IntPtrInput `pulumi:"numTargetedNodes"`
+	// Minimum number of nodes that should be kept in the cluster after rebalancing.
+	RebalancingMinNodes pulumi.IntPtrInput `pulumi:"rebalancingMinNodes"`
+	// Node selector in JSON format.
+	Selector pulumi.StringPtrInput `pulumi:"selector"`
+	// Defines the algorithm used to select the target nodes for rebalancing.
+	TargetNodeSelectionAlgorithm pulumi.StringPtrInput `pulumi:"targetNodeSelectionAlgorithm"`
+}
+
+func (GetRebalancingScheduleLaunchConfigurationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleLaunchConfiguration)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationArgs) ToGetRebalancingScheduleLaunchConfigurationOutput() GetRebalancingScheduleLaunchConfigurationOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationArgs) ToGetRebalancingScheduleLaunchConfigurationOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationOutput)
+}
+
+// GetRebalancingScheduleLaunchConfigurationArrayInput is an input type that accepts GetRebalancingScheduleLaunchConfigurationArray and GetRebalancingScheduleLaunchConfigurationArrayOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleLaunchConfigurationArrayInput` via:
+//
+//	GetRebalancingScheduleLaunchConfigurationArray{ GetRebalancingScheduleLaunchConfigurationArgs{...} }
+type GetRebalancingScheduleLaunchConfigurationArrayInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleLaunchConfigurationArrayOutput() GetRebalancingScheduleLaunchConfigurationArrayOutput
+	ToGetRebalancingScheduleLaunchConfigurationArrayOutputWithContext(context.Context) GetRebalancingScheduleLaunchConfigurationArrayOutput
+}
+
+type GetRebalancingScheduleLaunchConfigurationArray []GetRebalancingScheduleLaunchConfigurationInput
+
+func (GetRebalancingScheduleLaunchConfigurationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRebalancingScheduleLaunchConfiguration)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationArray) ToGetRebalancingScheduleLaunchConfigurationArrayOutput() GetRebalancingScheduleLaunchConfigurationArrayOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationArrayOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationArray) ToGetRebalancingScheduleLaunchConfigurationArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationArrayOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleLaunchConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleLaunchConfiguration)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationOutput) ToGetRebalancingScheduleLaunchConfigurationOutput() GetRebalancingScheduleLaunchConfigurationOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationOutput) ToGetRebalancingScheduleLaunchConfigurationOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationOutput {
+	return o
+}
+
+// Deprecated: Use aggressiveModeConfig instead. When enabled, rebalancing considers all problematic pods (pods without controller, job pods, pods with removal-disabled annotation) as not-problematic.
+//
+// Deprecated: For equivalent behaviour use aggresiveModeConfig = {ignore_local_persistent_volumes = true, ignoreProblemJobPods = true, ignoreProblemRemovalDisabledPods = true, ignoreProblemPodsWithoutController = true}
+func (o GetRebalancingScheduleLaunchConfigurationOutput) AggressiveMode() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *bool { return v.AggressiveMode }).(pulumi.BoolPtrOutput)
+}
+
+// Advanced configuration for the aggressive rebalancing mode. This is the recommended way to configure aggressive rebalancing. Please keep the `aggressiveMode` parameter unset or set it `aggressive_mode=false` before using this config option. When the legacy `aggressiveMode` is set to `true`, it takes precedence over this option.
+func (o GetRebalancingScheduleLaunchConfigurationOutput) AggressiveModeConfig() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig {
+		return v.AggressiveModeConfig
+	}).(GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput)
+}
+
+// Configures behavior when a node fails to drain during rebalancing. Relevant only when `keepDrainTimeoutNodes` is true.
+func (o GetRebalancingScheduleLaunchConfigurationOutput) DrainFailureConfig() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *GetRebalancingScheduleLaunchConfigurationDrainFailureConfig {
+		return v.DrainFailureConfig
+	}).(GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput)
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationOutput) ExecutionConditions() GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *GetRebalancingScheduleLaunchConfigurationExecutionConditions {
+		return v.ExecutionConditions
+	}).(GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput)
+}
+
+// Defines whether the nodes that failed to get drained until a predefined timeout, will be kept with a rebalancing.cast.ai/status=drain-failed annotation instead of forcefully drained.
+func (o GetRebalancingScheduleLaunchConfigurationOutput) KeepDrainTimeoutNodes() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *bool { return v.KeepDrainTimeoutNodes }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies amount of time since node creation before the node is allowed to be considered for automated rebalancing.
+func (o GetRebalancingScheduleLaunchConfigurationOutput) NodeTtlSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *int { return v.NodeTtlSeconds }).(pulumi.IntPtrOutput)
+}
+
+// Maximum number of nodes that will be selected for rebalancing. 0 means all nodes in the cluster can be selected.
+func (o GetRebalancingScheduleLaunchConfigurationOutput) NumTargetedNodes() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *int { return v.NumTargetedNodes }).(pulumi.IntPtrOutput)
+}
+
+// Minimum number of nodes that should be kept in the cluster after rebalancing.
+func (o GetRebalancingScheduleLaunchConfigurationOutput) RebalancingMinNodes() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *int { return v.RebalancingMinNodes }).(pulumi.IntPtrOutput)
+}
+
+// Node selector in JSON format.
+func (o GetRebalancingScheduleLaunchConfigurationOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *string { return v.Selector }).(pulumi.StringPtrOutput)
+}
+
+// Defines the algorithm used to select the target nodes for rebalancing.
+func (o GetRebalancingScheduleLaunchConfigurationOutput) TargetNodeSelectionAlgorithm() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfiguration) *string { return v.TargetNodeSelectionAlgorithm }).(pulumi.StringPtrOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationArrayOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleLaunchConfigurationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRebalancingScheduleLaunchConfiguration)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationArrayOutput) ToGetRebalancingScheduleLaunchConfigurationArrayOutput() GetRebalancingScheduleLaunchConfigurationArrayOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationArrayOutput) ToGetRebalancingScheduleLaunchConfigurationArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationArrayOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationArrayOutput) Index(i pulumi.IntInput) GetRebalancingScheduleLaunchConfigurationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRebalancingScheduleLaunchConfiguration {
+		return vs[0].([]GetRebalancingScheduleLaunchConfiguration)[vs[1].(int)]
+	}).(GetRebalancingScheduleLaunchConfigurationOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig struct {
+	// Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
+	IgnoreLocalPersistentVolumes bool `pulumi:"ignoreLocalPersistentVolumes"`
+	// Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
+	IgnoreProblemJobPods bool `pulumi:"ignoreProblemJobPods"`
+	// Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
+	IgnoreProblemPodsWithoutController bool `pulumi:"ignoreProblemPodsWithoutController"`
+	// Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
+	IgnoreProblemRemovalDisabledPods bool `pulumi:"ignoreProblemRemovalDisabledPods"`
+}
+
+// GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigInput is an input type that accepts GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs and GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigInput` via:
+//
+//	GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs{...}
+type GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput
+	ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutputWithContext(context.Context) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput
+}
+
+type GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs struct {
+	// Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
+	IgnoreLocalPersistentVolumes pulumi.BoolInput `pulumi:"ignoreLocalPersistentVolumes"`
+	// Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
+	IgnoreProblemJobPods pulumi.BoolInput `pulumi:"ignoreProblemJobPods"`
+	// Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
+	IgnoreProblemPodsWithoutController pulumi.BoolInput `pulumi:"ignoreProblemPodsWithoutController"`
+	// Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
+	IgnoreProblemRemovalDisabledPods pulumi.BoolInput `pulumi:"ignoreProblemRemovalDisabledPods"`
+}
+
+func (GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput)
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput).ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx)
+}
+
+// GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrInput is an input type that accepts GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs, GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtr and GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrInput` via:
+//
+//	        GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput
+	ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(context.Context) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput
+}
+
+type getRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrType GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs
+
+func GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtr(v *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrInput {
+	return (*getRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrType)(v)
+}
+
+func (*getRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig)(nil)).Elem()
+}
+
+func (i *getRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrType) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *getRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrType) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return o.ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(context.Background())
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig {
+		return &v
+	}).(GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput)
+}
+
+// Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) IgnoreLocalPersistentVolumes() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) bool {
+		return v.IgnoreLocalPersistentVolumes
+	}).(pulumi.BoolOutput)
+}
+
+// Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) IgnoreProblemJobPods() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) bool {
+		return v.IgnoreProblemJobPods
+	}).(pulumi.BoolOutput)
+}
+
+// Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) IgnoreProblemPodsWithoutController() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) bool {
+		return v.IgnoreProblemPodsWithoutController
+	}).(pulumi.BoolOutput)
+}
+
+// Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput) IgnoreProblemRemovalDisabledPods() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) bool {
+		return v.IgnoreProblemRemovalDisabledPods
+	}).(pulumi.BoolOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) ToGetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) Elem() GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig {
+		if v != nil {
+			return *v
+		}
+		var ret GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig
+		return ret
+	}).(GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput)
+}
+
+// Rebalance workloads that use local-path Persistent Volumes. THIS WILL RESULT IN DATA LOSS.
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) IgnoreLocalPersistentVolumes() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.IgnoreLocalPersistentVolumes
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Pods spawned by Jobs or CronJobs will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, pods spawned by Jobs or CronJobs will be terminated if the Rebalancer picks a node that runs them. As such, they are likely to lose their progress.
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) IgnoreProblemJobPods() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.IgnoreProblemJobPods
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Pods that don't have a controller (bare pods) will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods might not restart, since they have no controller to do it.
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) IgnoreProblemPodsWithoutController() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.IgnoreProblemPodsWithoutController
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Pods that are marked with "removal disabled" will not prevent the Rebalancer from deleting a node on which they run. WARNING: When true, such pods will be evicted and disrupted.
+func (o GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput) IgnoreProblemRemovalDisabledPods() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationAggressiveModeConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.IgnoreProblemRemovalDisabledPods
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationDrainFailureConfig struct {
+	// When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+	DisableUncordon *bool `pulumi:"disableUncordon"`
+	// Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disableUncordon` is true.
+	UncordonAfterSeconds *int `pulumi:"uncordonAfterSeconds"`
+}
+
+// GetRebalancingScheduleLaunchConfigurationDrainFailureConfigInput is an input type that accepts GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs and GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleLaunchConfigurationDrainFailureConfigInput` via:
+//
+//	GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs{...}
+type GetRebalancingScheduleLaunchConfigurationDrainFailureConfigInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput
+	ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutputWithContext(context.Context) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput
+}
+
+type GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs struct {
+	// When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+	DisableUncordon pulumi.BoolPtrInput `pulumi:"disableUncordon"`
+	// Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disableUncordon` is true.
+	UncordonAfterSeconds pulumi.IntPtrInput `pulumi:"uncordonAfterSeconds"`
+}
+
+func (GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationDrainFailureConfig)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput)
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput).ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx)
+}
+
+// GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput is an input type that accepts GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs, GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtr and GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput` via:
+//
+//	        GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput
+	ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(context.Context) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput
+}
+
+type getRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs
+
+func GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtr(v *GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput {
+	return (*getRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType)(v)
+}
+
+func (*getRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetRebalancingScheduleLaunchConfigurationDrainFailureConfig)(nil)).Elem()
+}
+
+func (i *getRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *getRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrType) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationDrainFailureConfig)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o.ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(context.Background())
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetRebalancingScheduleLaunchConfigurationDrainFailureConfig) *GetRebalancingScheduleLaunchConfigurationDrainFailureConfig {
+		return &v
+	}).(GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput)
+}
+
+// When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) DisableUncordon() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfigurationDrainFailureConfig) *bool { return v.DisableUncordon }).(pulumi.BoolPtrOutput)
+}
+
+// Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disableUncordon` is true.
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput) UncordonAfterSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfigurationDrainFailureConfig) *int {
+		return v.UncordonAfterSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetRebalancingScheduleLaunchConfigurationDrainFailureConfig)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) ToGetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) Elem() GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationDrainFailureConfig) GetRebalancingScheduleLaunchConfigurationDrainFailureConfig {
+		if v != nil {
+			return *v
+		}
+		var ret GetRebalancingScheduleLaunchConfigurationDrainFailureConfig
+		return ret
+	}).(GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput)
+}
+
+// When true, drain-failed nodes will NOT be automatically uncordoned. Defaults to false (nodes are uncordoned after the timeout).
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) DisableUncordon() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationDrainFailureConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.DisableUncordon
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Time in seconds after which a drain-failed node is automatically uncordoned. Must be between 60 (1m) and 259200 (72h). Defaults to 1800 (30m). Ignored when `disableUncordon` is true.
+func (o GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput) UncordonAfterSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationDrainFailureConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.UncordonAfterSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationExecutionConditions struct {
+	// The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
+	AchievedSavingsPercentage *int `pulumi:"achievedSavingsPercentage"`
+	// Enables or disables the execution conditions.
+	Enabled bool `pulumi:"enabled"`
+}
+
+// GetRebalancingScheduleLaunchConfigurationExecutionConditionsInput is an input type that accepts GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs and GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleLaunchConfigurationExecutionConditionsInput` via:
+//
+//	GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs{...}
+type GetRebalancingScheduleLaunchConfigurationExecutionConditionsInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput() GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput
+	ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsOutputWithContext(context.Context) GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput
+}
+
+type GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs struct {
+	// The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
+	AchievedSavingsPercentage pulumi.IntPtrInput `pulumi:"achievedSavingsPercentage"`
+	// Enables or disables the execution conditions.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+}
+
+func (GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationExecutionConditions)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput() GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput)
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput).ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx)
+}
+
+// GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput is an input type that accepts GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs, GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtr and GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput` via:
+//
+//	        GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs{...}
+//
+//	or:
+//
+//	        nil
+type GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput
+	ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(context.Context) GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput
+}
+
+type getRebalancingScheduleLaunchConfigurationExecutionConditionsPtrType GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs
+
+func GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtr(v *GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs) GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput {
+	return (*getRebalancingScheduleLaunchConfigurationExecutionConditionsPtrType)(v)
+}
+
+func (*getRebalancingScheduleLaunchConfigurationExecutionConditionsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetRebalancingScheduleLaunchConfigurationExecutionConditions)(nil)).Elem()
+}
+
+func (i *getRebalancingScheduleLaunchConfigurationExecutionConditionsPtrType) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return i.ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(context.Background())
+}
+
+func (i *getRebalancingScheduleLaunchConfigurationExecutionConditionsPtrType) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationExecutionConditions)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput() GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return o.ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(context.Background())
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetRebalancingScheduleLaunchConfigurationExecutionConditions) *GetRebalancingScheduleLaunchConfigurationExecutionConditions {
+		return &v
+	}).(GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput)
+}
+
+// The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput) AchievedSavingsPercentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfigurationExecutionConditions) *int {
+		return v.AchievedSavingsPercentage
+	}).(pulumi.IntPtrOutput)
+}
+
+// Enables or disables the execution conditions.
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleLaunchConfigurationExecutionConditions) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+type GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetRebalancingScheduleLaunchConfigurationExecutionConditions)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput() GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput) ToGetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutputWithContext(ctx context.Context) GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput) Elem() GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationExecutionConditions) GetRebalancingScheduleLaunchConfigurationExecutionConditions {
+		if v != nil {
+			return *v
+		}
+		var ret GetRebalancingScheduleLaunchConfigurationExecutionConditions
+		return ret
+	}).(GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput)
+}
+
+// The percentage of the predicted savings that must be achieved in order to fully execute the plan.If the savings are not achieved after creating the new nodes, the plan will fail and delete the created nodes.
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput) AchievedSavingsPercentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationExecutionConditions) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AchievedSavingsPercentage
+	}).(pulumi.IntPtrOutput)
+}
+
+// Enables or disables the execution conditions.
+func (o GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GetRebalancingScheduleLaunchConfigurationExecutionConditions) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GetRebalancingScheduleSchedule struct {
+	// Cron expression defining when the schedule should trigger.
+	//
+	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+	//
+	//   Example:
+	//
+	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+	//
+	//   To retrieve a list of available timezone values, you can use the following API endpoint:
+	//
+	//   GET https://api.cast.ai/v1/time-zones
+	//
+	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+	Cron string `pulumi:"cron"`
+}
+
+// GetRebalancingScheduleScheduleInput is an input type that accepts GetRebalancingScheduleScheduleArgs and GetRebalancingScheduleScheduleOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleScheduleInput` via:
+//
+//	GetRebalancingScheduleScheduleArgs{...}
+type GetRebalancingScheduleScheduleInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleScheduleOutput() GetRebalancingScheduleScheduleOutput
+	ToGetRebalancingScheduleScheduleOutputWithContext(context.Context) GetRebalancingScheduleScheduleOutput
+}
+
+type GetRebalancingScheduleScheduleArgs struct {
+	// Cron expression defining when the schedule should trigger.
+	//
+	//   The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+	//
+	//   Example:
+	//
+	//   In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+	//
+	//   To retrieve a list of available timezone values, you can use the following API endpoint:
+	//
+	//   GET https://api.cast.ai/v1/time-zones
+	//
+	//   When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+	Cron pulumi.StringInput `pulumi:"cron"`
+}
+
+func (GetRebalancingScheduleScheduleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleSchedule)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleScheduleArgs) ToGetRebalancingScheduleScheduleOutput() GetRebalancingScheduleScheduleOutput {
+	return i.ToGetRebalancingScheduleScheduleOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleScheduleArgs) ToGetRebalancingScheduleScheduleOutputWithContext(ctx context.Context) GetRebalancingScheduleScheduleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleScheduleOutput)
+}
+
+// GetRebalancingScheduleScheduleArrayInput is an input type that accepts GetRebalancingScheduleScheduleArray and GetRebalancingScheduleScheduleArrayOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleScheduleArrayInput` via:
+//
+//	GetRebalancingScheduleScheduleArray{ GetRebalancingScheduleScheduleArgs{...} }
+type GetRebalancingScheduleScheduleArrayInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleScheduleArrayOutput() GetRebalancingScheduleScheduleArrayOutput
+	ToGetRebalancingScheduleScheduleArrayOutputWithContext(context.Context) GetRebalancingScheduleScheduleArrayOutput
+}
+
+type GetRebalancingScheduleScheduleArray []GetRebalancingScheduleScheduleInput
+
+func (GetRebalancingScheduleScheduleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRebalancingScheduleSchedule)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleScheduleArray) ToGetRebalancingScheduleScheduleArrayOutput() GetRebalancingScheduleScheduleArrayOutput {
+	return i.ToGetRebalancingScheduleScheduleArrayOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleScheduleArray) ToGetRebalancingScheduleScheduleArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleScheduleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleScheduleArrayOutput)
+}
+
+type GetRebalancingScheduleScheduleOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleScheduleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleSchedule)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleScheduleOutput) ToGetRebalancingScheduleScheduleOutput() GetRebalancingScheduleScheduleOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleScheduleOutput) ToGetRebalancingScheduleScheduleOutputWithContext(ctx context.Context) GetRebalancingScheduleScheduleOutput {
+	return o
+}
+
+// Cron expression defining when the schedule should trigger.
+//
+//	The `cron` expression can optionally include the `CRON_TZ` variable at the beginning to specify the timezone in which the schedule should be interpreted.
+//
+//	Example:
+//
+//	In the example above, the `CRON_TZ` variable is set to "America/New_York" indicating that the cron expression should be interpreted in the Eastern Time (ET) timezone.
+//
+//	To retrieve a list of available timezone values, you can use the following API endpoint:
+//
+//	GET https://api.cast.ai/v1/time-zones
+//
+//	When using the `CRON_TZ` variable, ensure that the specified timezone is valid and supported by checking the list of available timezones from the API endpoint.  If the `CRON_TZ` variable is not specified, the cron expression will be interpreted in the UTC timezone.
+func (o GetRebalancingScheduleScheduleOutput) Cron() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleSchedule) string { return v.Cron }).(pulumi.StringOutput)
+}
+
+type GetRebalancingScheduleScheduleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleScheduleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRebalancingScheduleSchedule)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleScheduleArrayOutput) ToGetRebalancingScheduleScheduleArrayOutput() GetRebalancingScheduleScheduleArrayOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleScheduleArrayOutput) ToGetRebalancingScheduleScheduleArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleScheduleArrayOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleScheduleArrayOutput) Index(i pulumi.IntInput) GetRebalancingScheduleScheduleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRebalancingScheduleSchedule {
+		return vs[0].([]GetRebalancingScheduleSchedule)[vs[1].(int)]
+	}).(GetRebalancingScheduleScheduleOutput)
+}
+
+type GetRebalancingScheduleTriggerCondition struct {
+	// If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
+	IgnoreSavings *bool `pulumi:"ignoreSavings"`
+	// Defines the minimum percentage of savings expected.
+	SavingsPercentage float64 `pulumi:"savingsPercentage"`
+}
+
+// GetRebalancingScheduleTriggerConditionInput is an input type that accepts GetRebalancingScheduleTriggerConditionArgs and GetRebalancingScheduleTriggerConditionOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleTriggerConditionInput` via:
+//
+//	GetRebalancingScheduleTriggerConditionArgs{...}
+type GetRebalancingScheduleTriggerConditionInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleTriggerConditionOutput() GetRebalancingScheduleTriggerConditionOutput
+	ToGetRebalancingScheduleTriggerConditionOutputWithContext(context.Context) GetRebalancingScheduleTriggerConditionOutput
+}
+
+type GetRebalancingScheduleTriggerConditionArgs struct {
+	// If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
+	IgnoreSavings pulumi.BoolPtrInput `pulumi:"ignoreSavings"`
+	// Defines the minimum percentage of savings expected.
+	SavingsPercentage pulumi.Float64Input `pulumi:"savingsPercentage"`
+}
+
+func (GetRebalancingScheduleTriggerConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleTriggerCondition)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleTriggerConditionArgs) ToGetRebalancingScheduleTriggerConditionOutput() GetRebalancingScheduleTriggerConditionOutput {
+	return i.ToGetRebalancingScheduleTriggerConditionOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleTriggerConditionArgs) ToGetRebalancingScheduleTriggerConditionOutputWithContext(ctx context.Context) GetRebalancingScheduleTriggerConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleTriggerConditionOutput)
+}
+
+// GetRebalancingScheduleTriggerConditionArrayInput is an input type that accepts GetRebalancingScheduleTriggerConditionArray and GetRebalancingScheduleTriggerConditionArrayOutput values.
+// You can construct a concrete instance of `GetRebalancingScheduleTriggerConditionArrayInput` via:
+//
+//	GetRebalancingScheduleTriggerConditionArray{ GetRebalancingScheduleTriggerConditionArgs{...} }
+type GetRebalancingScheduleTriggerConditionArrayInput interface {
+	pulumi.Input
+
+	ToGetRebalancingScheduleTriggerConditionArrayOutput() GetRebalancingScheduleTriggerConditionArrayOutput
+	ToGetRebalancingScheduleTriggerConditionArrayOutputWithContext(context.Context) GetRebalancingScheduleTriggerConditionArrayOutput
+}
+
+type GetRebalancingScheduleTriggerConditionArray []GetRebalancingScheduleTriggerConditionInput
+
+func (GetRebalancingScheduleTriggerConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRebalancingScheduleTriggerCondition)(nil)).Elem()
+}
+
+func (i GetRebalancingScheduleTriggerConditionArray) ToGetRebalancingScheduleTriggerConditionArrayOutput() GetRebalancingScheduleTriggerConditionArrayOutput {
+	return i.ToGetRebalancingScheduleTriggerConditionArrayOutputWithContext(context.Background())
+}
+
+func (i GetRebalancingScheduleTriggerConditionArray) ToGetRebalancingScheduleTriggerConditionArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleTriggerConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRebalancingScheduleTriggerConditionArrayOutput)
+}
+
+type GetRebalancingScheduleTriggerConditionOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleTriggerConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRebalancingScheduleTriggerCondition)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleTriggerConditionOutput) ToGetRebalancingScheduleTriggerConditionOutput() GetRebalancingScheduleTriggerConditionOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleTriggerConditionOutput) ToGetRebalancingScheduleTriggerConditionOutputWithContext(ctx context.Context) GetRebalancingScheduleTriggerConditionOutput {
+	return o
+}
+
+// If true, the savings percentage will be ignored and the rebalancing will be triggered regardless of the savings percentage.
+func (o GetRebalancingScheduleTriggerConditionOutput) IgnoreSavings() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GetRebalancingScheduleTriggerCondition) *bool { return v.IgnoreSavings }).(pulumi.BoolPtrOutput)
+}
+
+// Defines the minimum percentage of savings expected.
+func (o GetRebalancingScheduleTriggerConditionOutput) SavingsPercentage() pulumi.Float64Output {
+	return o.ApplyT(func(v GetRebalancingScheduleTriggerCondition) float64 { return v.SavingsPercentage }).(pulumi.Float64Output)
+}
+
+type GetRebalancingScheduleTriggerConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (GetRebalancingScheduleTriggerConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRebalancingScheduleTriggerCondition)(nil)).Elem()
+}
+
+func (o GetRebalancingScheduleTriggerConditionArrayOutput) ToGetRebalancingScheduleTriggerConditionArrayOutput() GetRebalancingScheduleTriggerConditionArrayOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleTriggerConditionArrayOutput) ToGetRebalancingScheduleTriggerConditionArrayOutputWithContext(ctx context.Context) GetRebalancingScheduleTriggerConditionArrayOutput {
+	return o
+}
+
+func (o GetRebalancingScheduleTriggerConditionArrayOutput) Index(i pulumi.IntInput) GetRebalancingScheduleTriggerConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRebalancingScheduleTriggerCondition {
+		return vs[0].([]GetRebalancingScheduleTriggerCondition)[vs[1].(int)]
+	}).(GetRebalancingScheduleTriggerConditionOutput)
+}
+
 func init() {
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceClusterAssignmentInput)(nil)).Elem(), GetHibernationScheduleDataSourceClusterAssignmentArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceClusterAssignmentArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceClusterAssignmentArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceClusterAssignmentAssignmentInput)(nil)).Elem(), GetHibernationScheduleDataSourceClusterAssignmentAssignmentArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceClusterAssignmentAssignmentArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourcePauseConfigInput)(nil)).Elem(), GetHibernationScheduleDataSourcePauseConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourcePauseConfigArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourcePauseConfigArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourcePauseConfigScheduleInput)(nil)).Elem(), GetHibernationScheduleDataSourcePauseConfigScheduleArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleDataSourceResumeConfigScheduleInput)(nil)).Elem(), GetHibernationScheduleDataSourceResumeConfigScheduleArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationInput)(nil)).Elem(), GetRebalancingScheduleDataSourceLaunchConfigurationArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationArrayInput)(nil)).Elem(), GetRebalancingScheduleDataSourceLaunchConfigurationArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigInput)(nil)).Elem(), GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrInput)(nil)).Elem(), GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsInput)(nil)).Elem(), GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrInput)(nil)).Elem(), GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceScheduleInput)(nil)).Elem(), GetRebalancingScheduleDataSourceScheduleArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceScheduleArrayInput)(nil)).Elem(), GetRebalancingScheduleDataSourceScheduleArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceTriggerConditionInput)(nil)).Elem(), GetRebalancingScheduleDataSourceTriggerConditionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleDataSourceTriggerConditionArrayInput)(nil)).Elem(), GetRebalancingScheduleDataSourceTriggerConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HibernationScheduleClusterAssignmentsInput)(nil)).Elem(), HibernationScheduleClusterAssignmentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HibernationScheduleClusterAssignmentsPtrInput)(nil)).Elem(), HibernationScheduleClusterAssignmentsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HibernationScheduleClusterAssignmentsAssignmentInput)(nil)).Elem(), HibernationScheduleClusterAssignmentsAssignmentArgs{})
@@ -5638,48 +5946,52 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleLaunchConfigurationPtrInput)(nil)).Elem(), RebalancingScheduleLaunchConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleLaunchConfigurationAggressiveModeConfigInput)(nil)).Elem(), RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrInput)(nil)).Elem(), RebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleLaunchConfigurationDrainFailureConfigInput)(nil)).Elem(), RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput)(nil)).Elem(), RebalancingScheduleLaunchConfigurationDrainFailureConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleLaunchConfigurationExecutionConditionsInput)(nil)).Elem(), RebalancingScheduleLaunchConfigurationExecutionConditionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput)(nil)).Elem(), RebalancingScheduleLaunchConfigurationExecutionConditionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleScheduleInput)(nil)).Elem(), RebalancingScheduleScheduleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleSchedulePtrInput)(nil)).Elem(), RebalancingScheduleScheduleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleTriggerConditionsInput)(nil)).Elem(), RebalancingScheduleTriggerConditionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RebalancingScheduleTriggerConditionsPtrInput)(nil)).Elem(), RebalancingScheduleTriggerConditionsArgs{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceClusterAssignmentOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceClusterAssignmentArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceClusterAssignmentAssignmentOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceClusterAssignmentAssignmentArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourcePauseConfigOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourcePauseConfigArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourcePauseConfigScheduleOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigGpuConfigPtrOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigSpotConfigArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput{})
-	pulumi.RegisterOutputType(GetHibernationScheduleDataSourceResumeConfigScheduleOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceLaunchConfigurationOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceLaunchConfigurationArrayOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceLaunchConfigurationAggressiveModeConfigPtrOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceLaunchConfigurationExecutionConditionsPtrOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceScheduleOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceScheduleArrayOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceTriggerConditionOutput{})
-	pulumi.RegisterOutputType(GetRebalancingScheduleDataSourceTriggerConditionArrayOutput{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleClusterAssignmentInput)(nil)).Elem(), GetHibernationScheduleClusterAssignmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleClusterAssignmentArrayInput)(nil)).Elem(), GetHibernationScheduleClusterAssignmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleClusterAssignmentAssignmentInput)(nil)).Elem(), GetHibernationScheduleClusterAssignmentAssignmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleClusterAssignmentAssignmentArrayInput)(nil)).Elem(), GetHibernationScheduleClusterAssignmentAssignmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationSchedulePauseConfigInput)(nil)).Elem(), GetHibernationSchedulePauseConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationSchedulePauseConfigArrayInput)(nil)).Elem(), GetHibernationSchedulePauseConfigArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationSchedulePauseConfigScheduleInput)(nil)).Elem(), GetHibernationSchedulePauseConfigScheduleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigInput)(nil)).Elem(), GetHibernationScheduleResumeConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigArrayInput)(nil)).Elem(), GetHibernationScheduleResumeConfigArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayInput)(nil)).Elem(), GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetHibernationScheduleResumeConfigScheduleInput)(nil)).Elem(), GetHibernationScheduleResumeConfigScheduleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationInput)(nil)).Elem(), GetRebalancingScheduleLaunchConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationArrayInput)(nil)).Elem(), GetRebalancingScheduleLaunchConfigurationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigInput)(nil)).Elem(), GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrInput)(nil)).Elem(), GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationDrainFailureConfigInput)(nil)).Elem(), GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrInput)(nil)).Elem(), GetRebalancingScheduleLaunchConfigurationDrainFailureConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationExecutionConditionsInput)(nil)).Elem(), GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrInput)(nil)).Elem(), GetRebalancingScheduleLaunchConfigurationExecutionConditionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleScheduleInput)(nil)).Elem(), GetRebalancingScheduleScheduleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleScheduleArrayInput)(nil)).Elem(), GetRebalancingScheduleScheduleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleTriggerConditionInput)(nil)).Elem(), GetRebalancingScheduleTriggerConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRebalancingScheduleTriggerConditionArrayInput)(nil)).Elem(), GetRebalancingScheduleTriggerConditionArray{})
 	pulumi.RegisterOutputType(HibernationScheduleClusterAssignmentsOutput{})
 	pulumi.RegisterOutputType(HibernationScheduleClusterAssignmentsPtrOutput{})
 	pulumi.RegisterOutputType(HibernationScheduleClusterAssignmentsAssignmentOutput{})
@@ -5714,10 +6026,50 @@ func init() {
 	pulumi.RegisterOutputType(RebalancingScheduleLaunchConfigurationPtrOutput{})
 	pulumi.RegisterOutputType(RebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput{})
 	pulumi.RegisterOutputType(RebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput{})
+	pulumi.RegisterOutputType(RebalancingScheduleLaunchConfigurationDrainFailureConfigOutput{})
+	pulumi.RegisterOutputType(RebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput{})
 	pulumi.RegisterOutputType(RebalancingScheduleLaunchConfigurationExecutionConditionsOutput{})
 	pulumi.RegisterOutputType(RebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput{})
 	pulumi.RegisterOutputType(RebalancingScheduleScheduleOutput{})
 	pulumi.RegisterOutputType(RebalancingScheduleSchedulePtrOutput{})
 	pulumi.RegisterOutputType(RebalancingScheduleTriggerConditionsOutput{})
 	pulumi.RegisterOutputType(RebalancingScheduleTriggerConditionsPtrOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleClusterAssignmentOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleClusterAssignmentArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleClusterAssignmentAssignmentOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleClusterAssignmentAssignmentArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationSchedulePauseConfigOutput{})
+	pulumi.RegisterOutputType(GetHibernationSchedulePauseConfigArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationSchedulePauseConfigScheduleOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigGpuConfigPtrOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigKubernetesTaintArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigNodeAffinityAffinityArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigSpotConfigArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigJobConfigNodeConfigVolumeRaidConfigArrayOutput{})
+	pulumi.RegisterOutputType(GetHibernationScheduleResumeConfigScheduleOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleLaunchConfigurationOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleLaunchConfigurationArrayOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleLaunchConfigurationAggressiveModeConfigPtrOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleLaunchConfigurationDrainFailureConfigOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleLaunchConfigurationDrainFailureConfigPtrOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleLaunchConfigurationExecutionConditionsOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleLaunchConfigurationExecutionConditionsPtrOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleScheduleOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleScheduleArrayOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleTriggerConditionOutput{})
+	pulumi.RegisterOutputType(GetRebalancingScheduleTriggerConditionArrayOutput{})
 }

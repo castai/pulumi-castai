@@ -16,6 +16,8 @@ type Autoscaler struct {
 	pulumi.CustomResourceState
 
 	// computed value to store full policies configuration
+	//
+	// Deprecated: This field is deprecated and will be removed in the next major version. Use autoscalerSettings to configure and manage autoscaler policies.
 	AutoscalerPolicies pulumi.StringOutput `pulumi:"autoscalerPolicies"`
 	// autoscaler policies JSON string to override current autoscaler settings
 	//
@@ -58,6 +60,8 @@ func GetAutoscaler(ctx *pulumi.Context,
 // Input properties used for looking up and filtering Autoscaler resources.
 type autoscalerState struct {
 	// computed value to store full policies configuration
+	//
+	// Deprecated: This field is deprecated and will be removed in the next major version. Use autoscalerSettings to configure and manage autoscaler policies.
 	AutoscalerPolicies *string `pulumi:"autoscalerPolicies"`
 	// autoscaler policies JSON string to override current autoscaler settings
 	//
@@ -71,6 +75,8 @@ type autoscalerState struct {
 
 type AutoscalerState struct {
 	// computed value to store full policies configuration
+	//
+	// Deprecated: This field is deprecated and will be removed in the next major version. Use autoscalerSettings to configure and manage autoscaler policies.
 	AutoscalerPolicies pulumi.StringPtrInput
 	// autoscaler policies JSON string to override current autoscaler settings
 	//
@@ -197,6 +203,8 @@ func (o AutoscalerOutput) ToAutoscalerOutputWithContext(ctx context.Context) Aut
 }
 
 // computed value to store full policies configuration
+//
+// Deprecated: This field is deprecated and will be removed in the next major version. Use autoscalerSettings to configure and manage autoscaler policies.
 func (o AutoscalerOutput) AutoscalerPolicies() pulumi.StringOutput {
 	return o.ApplyT(func(v *Autoscaler) pulumi.StringOutput { return v.AutoscalerPolicies }).(pulumi.StringOutput)
 }

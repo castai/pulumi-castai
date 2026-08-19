@@ -23,11 +23,12 @@ class HibernationScheduleArgs:
                  enabled: pulumi.Input[_builtins.bool],
                  pause_config: pulumi.Input['_rebalancing.HibernationSchedulePauseConfigArgs'],
                  resume_config: pulumi.Input['_rebalancing.HibernationScheduleResumeConfigArgs'],
-                 cluster_assignments: Optional[pulumi.Input['_rebalancing.HibernationScheduleClusterAssignmentsArgs']] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 cluster_assignments: pulumi.Input[Optional['_rebalancing.HibernationScheduleClusterAssignmentsArgs']] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a HibernationSchedule resource.
+
         :param pulumi.Input[_builtins.bool] enabled: Enables or disables the schedule.
         :param pulumi.Input[_builtins.str] name: Name of the schedule.
         :param pulumi.Input[_builtins.str] organization_id: ID of the organization. If not provided, then will attempt to infer it using CAST AI API client.
@@ -74,49 +75,50 @@ class HibernationScheduleArgs:
 
     @_builtins.property
     @pulumi.getter(name="clusterAssignments")
-    def cluster_assignments(self) -> Optional[pulumi.Input['_rebalancing.HibernationScheduleClusterAssignmentsArgs']]:
+    def cluster_assignments(self) -> pulumi.Input[Optional['_rebalancing.HibernationScheduleClusterAssignmentsArgs']]:
         return pulumi.get(self, "cluster_assignments")
 
     @cluster_assignments.setter
-    def cluster_assignments(self, value: Optional[pulumi.Input['_rebalancing.HibernationScheduleClusterAssignmentsArgs']]):
+    def cluster_assignments(self, value: pulumi.Input[Optional['_rebalancing.HibernationScheduleClusterAssignmentsArgs']]):
         pulumi.set(self, "cluster_assignments", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the schedule.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="organizationId")
-    def organization_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the organization. If not provided, then will attempt to infer it using CAST AI API client.
         """
         return pulumi.get(self, "organization_id")
 
     @organization_id.setter
-    def organization_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization_id", value)
 
 
 @pulumi.input_type
 class _HibernationScheduleState:
     def __init__(__self__, *,
-                 cluster_assignments: Optional[pulumi.Input['_rebalancing.HibernationScheduleClusterAssignmentsArgs']] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 pause_config: Optional[pulumi.Input['_rebalancing.HibernationSchedulePauseConfigArgs']] = None,
-                 resume_config: Optional[pulumi.Input['_rebalancing.HibernationScheduleResumeConfigArgs']] = None):
+                 cluster_assignments: pulumi.Input[Optional['_rebalancing.HibernationScheduleClusterAssignmentsArgs']] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 pause_config: pulumi.Input[Optional['_rebalancing.HibernationSchedulePauseConfigArgs']] = None,
+                 resume_config: pulumi.Input[Optional['_rebalancing.HibernationScheduleResumeConfigArgs']] = None):
         """
         Input properties used for looking up and filtering HibernationSchedule resources.
+
         :param pulumi.Input[_builtins.bool] enabled: Enables or disables the schedule.
         :param pulumi.Input[_builtins.str] name: Name of the schedule.
         :param pulumi.Input[_builtins.str] organization_id: ID of the organization. If not provided, then will attempt to infer it using CAST AI API client.
@@ -136,65 +138,65 @@ class _HibernationScheduleState:
 
     @_builtins.property
     @pulumi.getter(name="clusterAssignments")
-    def cluster_assignments(self) -> Optional[pulumi.Input['_rebalancing.HibernationScheduleClusterAssignmentsArgs']]:
+    def cluster_assignments(self) -> pulumi.Input[Optional['_rebalancing.HibernationScheduleClusterAssignmentsArgs']]:
         return pulumi.get(self, "cluster_assignments")
 
     @cluster_assignments.setter
-    def cluster_assignments(self, value: Optional[pulumi.Input['_rebalancing.HibernationScheduleClusterAssignmentsArgs']]):
+    def cluster_assignments(self, value: pulumi.Input[Optional['_rebalancing.HibernationScheduleClusterAssignmentsArgs']]):
         pulumi.set(self, "cluster_assignments", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables or disables the schedule.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the schedule.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="organizationId")
-    def organization_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the organization. If not provided, then will attempt to infer it using CAST AI API client.
         """
         return pulumi.get(self, "organization_id")
 
     @organization_id.setter
-    def organization_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization_id", value)
 
     @_builtins.property
     @pulumi.getter(name="pauseConfig")
-    def pause_config(self) -> Optional[pulumi.Input['_rebalancing.HibernationSchedulePauseConfigArgs']]:
+    def pause_config(self) -> pulumi.Input[Optional['_rebalancing.HibernationSchedulePauseConfigArgs']]:
         return pulumi.get(self, "pause_config")
 
     @pause_config.setter
-    def pause_config(self, value: Optional[pulumi.Input['_rebalancing.HibernationSchedulePauseConfigArgs']]):
+    def pause_config(self, value: pulumi.Input[Optional['_rebalancing.HibernationSchedulePauseConfigArgs']]):
         pulumi.set(self, "pause_config", value)
 
     @_builtins.property
     @pulumi.getter(name="resumeConfig")
-    def resume_config(self) -> Optional[pulumi.Input['_rebalancing.HibernationScheduleResumeConfigArgs']]:
+    def resume_config(self) -> pulumi.Input[Optional['_rebalancing.HibernationScheduleResumeConfigArgs']]:
         return pulumi.get(self, "resume_config")
 
     @resume_config.setter
-    def resume_config(self, value: Optional[pulumi.Input['_rebalancing.HibernationScheduleResumeConfigArgs']]):
+    def resume_config(self, value: pulumi.Input[Optional['_rebalancing.HibernationScheduleResumeConfigArgs']]):
         pulumi.set(self, "resume_config", value)
 
 
@@ -204,15 +206,16 @@ class HibernationSchedule(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_assignments: Optional[pulumi.Input[Union['_rebalancing.HibernationScheduleClusterAssignmentsArgs', '_rebalancing.HibernationScheduleClusterAssignmentsArgsDict']]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 pause_config: Optional[pulumi.Input[Union['_rebalancing.HibernationSchedulePauseConfigArgs', '_rebalancing.HibernationSchedulePauseConfigArgsDict']]] = None,
-                 resume_config: Optional[pulumi.Input[Union['_rebalancing.HibernationScheduleResumeConfigArgs', '_rebalancing.HibernationScheduleResumeConfigArgsDict']]] = None,
+                 cluster_assignments: pulumi.Input[Optional[Union['_rebalancing.HibernationScheduleClusterAssignmentsArgs', '_rebalancing.HibernationScheduleClusterAssignmentsArgsDict']]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 pause_config: pulumi.Input[Optional[Union['_rebalancing.HibernationSchedulePauseConfigArgs', '_rebalancing.HibernationSchedulePauseConfigArgsDict']]] = None,
+                 resume_config: pulumi.Input[Optional[Union['_rebalancing.HibernationScheduleResumeConfigArgs', '_rebalancing.HibernationScheduleResumeConfigArgsDict']]] = None,
                  __props__=None):
         """
         Create a HibernationSchedule resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Enables or disables the schedule.
@@ -227,6 +230,7 @@ class HibernationSchedule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a HibernationSchedule resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param HibernationScheduleArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -242,12 +246,12 @@ class HibernationSchedule(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_assignments: Optional[pulumi.Input[Union['_rebalancing.HibernationScheduleClusterAssignmentsArgs', '_rebalancing.HibernationScheduleClusterAssignmentsArgsDict']]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 pause_config: Optional[pulumi.Input[Union['_rebalancing.HibernationSchedulePauseConfigArgs', '_rebalancing.HibernationSchedulePauseConfigArgsDict']]] = None,
-                 resume_config: Optional[pulumi.Input[Union['_rebalancing.HibernationScheduleResumeConfigArgs', '_rebalancing.HibernationScheduleResumeConfigArgsDict']]] = None,
+                 cluster_assignments: pulumi.Input[Optional[Union['_rebalancing.HibernationScheduleClusterAssignmentsArgs', '_rebalancing.HibernationScheduleClusterAssignmentsArgsDict']]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 pause_config: pulumi.Input[Optional[Union['_rebalancing.HibernationSchedulePauseConfigArgs', '_rebalancing.HibernationSchedulePauseConfigArgsDict']]] = None,
+                 resume_config: pulumi.Input[Optional[Union['_rebalancing.HibernationScheduleResumeConfigArgs', '_rebalancing.HibernationScheduleResumeConfigArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -279,12 +283,12 @@ class HibernationSchedule(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cluster_assignments: Optional[pulumi.Input[Union['_rebalancing.HibernationScheduleClusterAssignmentsArgs', '_rebalancing.HibernationScheduleClusterAssignmentsArgsDict']]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            organization_id: Optional[pulumi.Input[_builtins.str]] = None,
-            pause_config: Optional[pulumi.Input[Union['_rebalancing.HibernationSchedulePauseConfigArgs', '_rebalancing.HibernationSchedulePauseConfigArgsDict']]] = None,
-            resume_config: Optional[pulumi.Input[Union['_rebalancing.HibernationScheduleResumeConfigArgs', '_rebalancing.HibernationScheduleResumeConfigArgsDict']]] = None) -> 'HibernationSchedule':
+            cluster_assignments: pulumi.Input[Optional[Union['_rebalancing.HibernationScheduleClusterAssignmentsArgs', '_rebalancing.HibernationScheduleClusterAssignmentsArgsDict']]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            organization_id: pulumi.Input[Optional[_builtins.str]] = None,
+            pause_config: pulumi.Input[Optional[Union['_rebalancing.HibernationSchedulePauseConfigArgs', '_rebalancing.HibernationSchedulePauseConfigArgsDict']]] = None,
+            resume_config: pulumi.Input[Optional[Union['_rebalancing.HibernationScheduleResumeConfigArgs', '_rebalancing.HibernationScheduleResumeConfigArgsDict']]] = None) -> 'HibernationSchedule':
         """
         Get an existing HibernationSchedule resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

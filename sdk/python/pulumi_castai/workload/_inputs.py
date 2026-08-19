@@ -15,6 +15,14 @@ else:
 from .. import _utilities
 
 __all__ = [
+    'WorkloadCustomMetricsDataSourcePrometheusArgs',
+    'WorkloadCustomMetricsDataSourcePrometheusArgsDict',
+    'WorkloadCustomMetricsDataSourcePrometheusMetricArgs',
+    'WorkloadCustomMetricsDataSourcePrometheusMetricArgsDict',
+    'WorkloadScalingPolicyAnomalyDetectionArgs',
+    'WorkloadScalingPolicyAnomalyDetectionArgsDict',
+    'WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs',
+    'WorkloadScalingPolicyAnomalyDetectionCpuPressureArgsDict',
     'WorkloadScalingPolicyAntiAffinityArgs',
     'WorkloadScalingPolicyAntiAffinityArgsDict',
     'WorkloadScalingPolicyAssignmentRuleArgs',
@@ -23,6 +31,8 @@ __all__ = [
     'WorkloadScalingPolicyAssignmentRuleRuleArgsDict',
     'WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs',
     'WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgsDict',
+    'WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs',
+    'WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgsDict',
     'WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs',
     'WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgsDict',
     'WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs',
@@ -33,14 +43,32 @@ __all__ = [
     'WorkloadScalingPolicyCpuArgsDict',
     'WorkloadScalingPolicyCpuApplyThresholdStrategyArgs',
     'WorkloadScalingPolicyCpuApplyThresholdStrategyArgsDict',
+    'WorkloadScalingPolicyCpuConstraintsArgs',
+    'WorkloadScalingPolicyCpuConstraintsArgsDict',
+    'WorkloadScalingPolicyCpuConstraintsMaxArgs',
+    'WorkloadScalingPolicyCpuConstraintsMaxArgsDict',
+    'WorkloadScalingPolicyCpuConstraintsMinArgs',
+    'WorkloadScalingPolicyCpuConstraintsMinArgsDict',
     'WorkloadScalingPolicyCpuLimitArgs',
     'WorkloadScalingPolicyCpuLimitArgsDict',
     'WorkloadScalingPolicyDownscalingArgs',
     'WorkloadScalingPolicyDownscalingArgsDict',
+    'WorkloadScalingPolicyHpaConverterArgs',
+    'WorkloadScalingPolicyHpaConverterArgsDict',
+    'WorkloadScalingPolicyJvmArgs',
+    'WorkloadScalingPolicyJvmArgsDict',
+    'WorkloadScalingPolicyJvmMemoryArgs',
+    'WorkloadScalingPolicyJvmMemoryArgsDict',
     'WorkloadScalingPolicyMemoryArgs',
     'WorkloadScalingPolicyMemoryArgsDict',
     'WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs',
     'WorkloadScalingPolicyMemoryApplyThresholdStrategyArgsDict',
+    'WorkloadScalingPolicyMemoryConstraintsArgs',
+    'WorkloadScalingPolicyMemoryConstraintsArgsDict',
+    'WorkloadScalingPolicyMemoryConstraintsMaxArgs',
+    'WorkloadScalingPolicyMemoryConstraintsMaxArgsDict',
+    'WorkloadScalingPolicyMemoryConstraintsMinArgs',
+    'WorkloadScalingPolicyMemoryConstraintsMinArgsDict',
     'WorkloadScalingPolicyMemoryEventArgs',
     'WorkloadScalingPolicyMemoryEventArgsDict',
     'WorkloadScalingPolicyMemoryLimitArgs',
@@ -53,24 +81,234 @@ __all__ = [
     'WorkloadScalingPolicyRolloutBehaviorArgsDict',
     'WorkloadScalingPolicyStartupArgs',
     'WorkloadScalingPolicyStartupArgsDict',
+    'WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs',
+    'WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgsDict',
+    'WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs',
+    'WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgsDict',
 ]
 
-MYPY = False
+class WorkloadCustomMetricsDataSourcePrometheusArgsDict(TypedDict):
+    url: pulumi.Input[_builtins.str]
+    """
+    URL of the Prometheus server.
+    """
+    metrics: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadCustomMetricsDataSourcePrometheusMetricArgsDict']]]]]
+    """
+    Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+    """
+    presets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+    """
+    timeout: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Timeout for Prometheus queries (e.g. "30s").
+    """
 
-if not MYPY:
-    class WorkloadScalingPolicyAntiAffinityArgsDict(TypedDict):
-        consider_anti_affinity: NotRequired[pulumi.Input[_builtins.bool]]
+@pulumi.input_type
+class WorkloadCustomMetricsDataSourcePrometheusArgs:
+    def __init__(__self__, *,
+                 url: pulumi.Input[_builtins.str],
+                 metrics: pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadCustomMetricsDataSourcePrometheusMetricArgs']]]] = None,
+                 presets: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 timeout: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        Defines if anti-affinity should be considered when scaling the workload.
-        	If enabled, requiring host ports, or having anti-affinity on hostname will force all recommendations to be deferred.
+        :param pulumi.Input[_builtins.str] url: URL of the Prometheus server.
+        :param pulumi.Input[Sequence[pulumi.Input['WorkloadCustomMetricsDataSourcePrometheusMetricArgs']]] metrics: Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] presets: List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+        :param pulumi.Input[_builtins.str] timeout: Timeout for Prometheus queries (e.g. "30s").
         """
-elif False:
-    WorkloadScalingPolicyAntiAffinityArgsDict: TypeAlias = Mapping[str, Any]
+        pulumi.set(__self__, "url", url)
+        if metrics is not None:
+            pulumi.set(__self__, "metrics", metrics)
+        if presets is not None:
+            pulumi.set(__self__, "presets", presets)
+        if timeout is not None:
+            pulumi.set(__self__, "timeout", timeout)
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> pulumi.Input[_builtins.str]:
+        """
+        URL of the Prometheus server.
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "url", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metrics(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadCustomMetricsDataSourcePrometheusMetricArgs']]]]:
+        """
+        Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+        """
+        return pulumi.get(self, "metrics")
+
+    @metrics.setter
+    def metrics(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadCustomMetricsDataSourcePrometheusMetricArgs']]]]):
+        pulumi.set(self, "metrics", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def presets(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+        """
+        return pulumi.get(self, "presets")
+
+    @presets.setter
+    def presets(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "presets", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Timeout for Prometheus queries (e.g. "30s").
+        """
+        return pulumi.get(self, "timeout")
+
+    @timeout.setter
+    def timeout(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "timeout", value)
+
+
+class WorkloadCustomMetricsDataSourcePrometheusMetricArgsDict(TypedDict):
+    name: pulumi.Input[_builtins.str]
+    """
+    Name of the metric.
+    """
+    query: pulumi.Input[_builtins.str]
+    """
+    PromQL query for this metric.
+    """
+
+@pulumi.input_type
+class WorkloadCustomMetricsDataSourcePrometheusMetricArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 query: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] name: Name of the metric.
+        :param pulumi.Input[_builtins.str] query: PromQL query for this metric.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "query", query)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name of the metric.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> pulumi.Input[_builtins.str]:
+        """
+        PromQL query for this metric.
+        """
+        return pulumi.get(self, "query")
+
+    @query.setter
+    def query(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "query", value)
+
+
+class WorkloadScalingPolicyAnomalyDetectionArgsDict(TypedDict):
+    cpu_pressure: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyAnomalyDetectionCpuPressureArgsDict']]]
+    """
+    Configures CPU pressure anomaly detection thresholds.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyAnomalyDetectionArgs:
+    def __init__(__self__, *,
+                 cpu_pressure: pulumi.Input[Optional['WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs']] = None):
+        """
+        :param pulumi.Input['WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs'] cpu_pressure: Configures CPU pressure anomaly detection thresholds.
+        """
+        if cpu_pressure is not None:
+            pulumi.set(__self__, "cpu_pressure", cpu_pressure)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuPressure")
+    def cpu_pressure(self) -> pulumi.Input[Optional['WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs']]:
+        """
+        Configures CPU pressure anomaly detection thresholds.
+        """
+        return pulumi.get(self, "cpu_pressure")
+
+    @cpu_pressure.setter
+    def cpu_pressure(self, value: pulumi.Input[Optional['WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs']]):
+        pulumi.set(self, "cpu_pressure", value)
+
+
+class WorkloadScalingPolicyAnomalyDetectionCpuPressureArgsDict(TypedDict):
+    cpu_stall_threshold_percentage: pulumi.Input[_builtins.float]
+    """
+    Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+    """
+    min_pressured_pod_percentage: pulumi.Input[_builtins.float]
+    """
+    Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs:
+    def __init__(__self__, *,
+                 cpu_stall_threshold_percentage: pulumi.Input[_builtins.float],
+                 min_pressured_pod_percentage: pulumi.Input[_builtins.float]):
+        """
+        :param pulumi.Input[_builtins.float] cpu_stall_threshold_percentage: Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+        :param pulumi.Input[_builtins.float] min_pressured_pod_percentage: Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+        """
+        pulumi.set(__self__, "cpu_stall_threshold_percentage", cpu_stall_threshold_percentage)
+        pulumi.set(__self__, "min_pressured_pod_percentage", min_pressured_pod_percentage)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuStallThresholdPercentage")
+    def cpu_stall_threshold_percentage(self) -> pulumi.Input[_builtins.float]:
+        """
+        Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+        """
+        return pulumi.get(self, "cpu_stall_threshold_percentage")
+
+    @cpu_stall_threshold_percentage.setter
+    def cpu_stall_threshold_percentage(self, value: pulumi.Input[_builtins.float]):
+        pulumi.set(self, "cpu_stall_threshold_percentage", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minPressuredPodPercentage")
+    def min_pressured_pod_percentage(self) -> pulumi.Input[_builtins.float]:
+        """
+        Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+        """
+        return pulumi.get(self, "min_pressured_pod_percentage")
+
+    @min_pressured_pod_percentage.setter
+    def min_pressured_pod_percentage(self, value: pulumi.Input[_builtins.float]):
+        pulumi.set(self, "min_pressured_pod_percentage", value)
+
+
+class WorkloadScalingPolicyAntiAffinityArgsDict(TypedDict):
+    consider_anti_affinity: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Defines if anti-affinity should be considered when scaling the workload.
+    	If enabled, requiring host ports, or having anti-affinity on hostname will force all recommendations to be deferred.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyAntiAffinityArgs:
     def __init__(__self__, *,
-                 consider_anti_affinity: Optional[pulumi.Input[_builtins.bool]] = None):
+                 consider_anti_affinity: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         :param pulumi.Input[_builtins.bool] consider_anti_affinity: Defines if anti-affinity should be considered when scaling the workload.
                	If enabled, requiring host ports, or having anti-affinity on hostname will force all recommendations to be deferred.
@@ -80,7 +318,7 @@ class WorkloadScalingPolicyAntiAffinityArgs:
 
     @_builtins.property
     @pulumi.getter(name="considerAntiAffinity")
-    def consider_anti_affinity(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def consider_anti_affinity(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Defines if anti-affinity should be considered when scaling the workload.
         	If enabled, requiring host ports, or having anti-affinity on hostname will force all recommendations to be deferred.
@@ -88,15 +326,12 @@ class WorkloadScalingPolicyAntiAffinityArgs:
         return pulumi.get(self, "consider_anti_affinity")
 
     @consider_anti_affinity.setter
-    def consider_anti_affinity(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def consider_anti_affinity(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "consider_anti_affinity", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyAssignmentRuleArgsDict(TypedDict):
-        rules: pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleArgsDict']]]
-elif False:
-    WorkloadScalingPolicyAssignmentRuleArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyAssignmentRuleArgsDict(TypedDict):
+    rules: pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleArgsDict']]]
 
 @pulumi.input_type
 class WorkloadScalingPolicyAssignmentRuleArgs:
@@ -114,24 +349,21 @@ class WorkloadScalingPolicyAssignmentRuleArgs:
         pulumi.set(self, "rules", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyAssignmentRuleRuleArgsDict(TypedDict):
-        namespace: NotRequired[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgsDict']]
-        """
-        Allows assigning a scaling policy based on the workload's namespace.
-        """
-        workload: NotRequired[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgsDict']]
-        """
-        Allows assigning a scaling policy based on the workload's metadata.
-        """
-elif False:
-    WorkloadScalingPolicyAssignmentRuleRuleArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyAssignmentRuleRuleArgsDict(TypedDict):
+    namespace: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgsDict']]]
+    """
+    Allows assigning a scaling policy based on the workload's namespace.
+    """
+    workload: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgsDict']]]
+    """
+    Allows assigning a scaling policy based on the workload's metadata.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyAssignmentRuleRuleArgs:
     def __init__(__self__, *,
-                 namespace: Optional[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs']] = None,
-                 workload: Optional[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs']] = None):
+                 namespace: pulumi.Input[Optional['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs']] = None,
+                 workload: pulumi.Input[Optional['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs']] = None):
         """
         :param pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs'] namespace: Allows assigning a scaling policy based on the workload's namespace.
         :param pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs'] workload: Allows assigning a scaling policy based on the workload's metadata.
@@ -143,148 +375,98 @@ class WorkloadScalingPolicyAssignmentRuleRuleArgs:
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs']]:
+    def namespace(self) -> pulumi.Input[Optional['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs']]:
         """
         Allows assigning a scaling policy based on the workload's namespace.
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs']]):
+    def namespace(self, value: pulumi.Input[Optional['WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs']]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter
-    def workload(self) -> Optional[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs']]:
+    def workload(self) -> pulumi.Input[Optional['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs']]:
         """
         Allows assigning a scaling policy based on the workload's metadata.
         """
         return pulumi.get(self, "workload")
 
     @workload.setter
-    def workload(self, value: Optional[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs']]):
+    def workload(self, value: pulumi.Input[Optional['WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs']]):
         pulumi.set(self, "workload", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgsDict(TypedDict):
-        names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Defines matching by namespace names.
-        """
-elif False:
-    WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgsDict(TypedDict):
+    labels_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgsDict']]]]]
+    """
+    Defines matching by label selector requirements.
+    """
+    names: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Defines matching by namespace names.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyAssignmentRuleRuleNamespaceArgs:
     def __init__(__self__, *,
-                 names: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 labels_expressions: pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs']]]] = None,
+                 names: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
+        :param pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs']]] labels_expressions: Defines matching by label selector requirements.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] names: Defines matching by namespace names.
         """
+        if labels_expressions is not None:
+            pulumi.set(__self__, "labels_expressions", labels_expressions)
         if names is not None:
             pulumi.set(__self__, "names", names)
 
     @_builtins.property
-    @pulumi.getter
-    def names(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        Defines matching by namespace names.
-        """
-        return pulumi.get(self, "names")
-
-    @names.setter
-    def names(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "names", value)
-
-
-if not MYPY:
-    class WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgsDict(TypedDict):
-        gvks: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Group, version, and kind for Kubernetes resources. Format: kind[.version][.group].
-        It can be either:
-         - only kind, e.g. "Deployment"
-         - group and kind: e.g."Deployment.apps"
-         - group, version and kind: e.g."Deployment.v1.apps"
-        """
-        labels_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgsDict']]]]
-        """
-        Defines matching by label selector requirements.
-        """
-elif False:
-    WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgsDict: TypeAlias = Mapping[str, Any]
-
-@pulumi.input_type
-class WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs:
-    def __init__(__self__, *,
-                 gvks: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 labels_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs']]]] = None):
-        """
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] gvks: Group, version, and kind for Kubernetes resources. Format: kind[.version][.group].
-               It can be either:
-                - only kind, e.g. "Deployment"
-                - group and kind: e.g."Deployment.apps"
-                - group, version and kind: e.g."Deployment.v1.apps"
-        :param pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs']]] labels_expressions: Defines matching by label selector requirements.
-        """
-        if gvks is not None:
-            pulumi.set(__self__, "gvks", gvks)
-        if labels_expressions is not None:
-            pulumi.set(__self__, "labels_expressions", labels_expressions)
-
-    @_builtins.property
-    @pulumi.getter
-    def gvks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        Group, version, and kind for Kubernetes resources. Format: kind[.version][.group].
-        It can be either:
-         - only kind, e.g. "Deployment"
-         - group and kind: e.g."Deployment.apps"
-         - group, version and kind: e.g."Deployment.v1.apps"
-        """
-        return pulumi.get(self, "gvks")
-
-    @gvks.setter
-    def gvks(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "gvks", value)
-
-    @_builtins.property
     @pulumi.getter(name="labelsExpressions")
-    def labels_expressions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs']]]]:
+    def labels_expressions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs']]]]:
         """
         Defines matching by label selector requirements.
         """
         return pulumi.get(self, "labels_expressions")
 
     @labels_expressions.setter
-    def labels_expressions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs']]]]):
+    def labels_expressions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs']]]]):
         pulumi.set(self, "labels_expressions", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def names(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Defines matching by namespace names.
+        """
+        return pulumi.get(self, "names")
 
-if not MYPY:
-    class WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgsDict(TypedDict):
-        operator: pulumi.Input[_builtins.str]
-        """
-        The operator to use for matching the label.
-        """
-        key: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
-        """
-        values: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
-        """
-elif False:
-    WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgsDict: TypeAlias = Mapping[str, Any]
+    @names.setter
+    def names(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "names", value)
+
+
+class WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgsDict(TypedDict):
+    operator: pulumi.Input[_builtins.str]
+    """
+    The operator to use for matching the label.
+    """
+    key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+    """
+    values: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+    """
 
 @pulumi.input_type
-class WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs:
+class WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs:
     def __init__(__self__, *,
                  operator: pulumi.Input[_builtins.str],
-                 key: Optional[pulumi.Input[_builtins.str]] = None,
-                 values: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 values: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         :param pulumi.Input[_builtins.str] operator: The operator to use for matching the label.
         :param pulumi.Input[_builtins.str] key: The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
@@ -310,42 +492,168 @@ class WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs:
 
     @_builtins.property
     @pulumi.getter
-    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
         """
         return pulumi.get(self, "key")
 
     @key.setter
-    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "key", value)
 
     @_builtins.property
     @pulumi.getter
-    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def values(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
         """
         return pulumi.get(self, "values")
 
     @values.setter
-    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def values(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "values", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyConfidenceArgsDict(TypedDict):
-        threshold: NotRequired[pulumi.Input[_builtins.float]]
+class WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgsDict(TypedDict):
+    gvks: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Group, version, and kind for Kubernetes resources. Format: kind[.version][.group].
+    It can be either:
+     - only kind, e.g. "Deployment"
+     - group and kind: e.g."Deployment.apps"
+     - group, version and kind: e.g."Deployment.v1.apps"
+    """
+    labels_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgsDict']]]]]
+    """
+    Defines matching by label selector requirements.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyAssignmentRuleRuleWorkloadArgs:
+    def __init__(__self__, *,
+                 gvks: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 labels_expressions: pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs']]]] = None):
         """
-        Defines the confidence threshold for applying recommendations. The smaller number indicates that we require fewer metrics data points to apply recommendations - changing this value can cause applying less precise recommendations. Do not change the default unless you want to optimize with fewer data points (e.g., short-lived workloads).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] gvks: Group, version, and kind for Kubernetes resources. Format: kind[.version][.group].
+               It can be either:
+                - only kind, e.g. "Deployment"
+                - group and kind: e.g."Deployment.apps"
+                - group, version and kind: e.g."Deployment.v1.apps"
+        :param pulumi.Input[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs']]] labels_expressions: Defines matching by label selector requirements.
         """
-elif False:
-    WorkloadScalingPolicyConfidenceArgsDict: TypeAlias = Mapping[str, Any]
+        if gvks is not None:
+            pulumi.set(__self__, "gvks", gvks)
+        if labels_expressions is not None:
+            pulumi.set(__self__, "labels_expressions", labels_expressions)
+
+    @_builtins.property
+    @pulumi.getter
+    def gvks(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Group, version, and kind for Kubernetes resources. Format: kind[.version][.group].
+        It can be either:
+         - only kind, e.g. "Deployment"
+         - group and kind: e.g."Deployment.apps"
+         - group, version and kind: e.g."Deployment.v1.apps"
+        """
+        return pulumi.get(self, "gvks")
+
+    @gvks.setter
+    def gvks(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "gvks", value)
+
+    @_builtins.property
+    @pulumi.getter(name="labelsExpressions")
+    def labels_expressions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs']]]]:
+        """
+        Defines matching by label selector requirements.
+        """
+        return pulumi.get(self, "labels_expressions")
+
+    @labels_expressions.setter
+    def labels_expressions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs']]]]):
+        pulumi.set(self, "labels_expressions", value)
+
+
+class WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgsDict(TypedDict):
+    operator: pulumi.Input[_builtins.str]
+    """
+    The operator to use for matching the label.
+    """
+    key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+    """
+    values: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpressionArgs:
+    def __init__(__self__, *,
+                 operator: pulumi.Input[_builtins.str],
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 values: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] operator: The operator to use for matching the label.
+        :param pulumi.Input[_builtins.str] key: The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] values: A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+        """
+        pulumi.set(__self__, "operator", operator)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[_builtins.str]:
+        """
+        The operator to use for matching the label.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "operator", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "values", value)
+
+
+class WorkloadScalingPolicyConfidenceArgsDict(TypedDict):
+    threshold: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Defines the confidence threshold for applying recommendations. The smaller number indicates that we require fewer metrics data points to apply recommendations - changing this value can cause applying less precise recommendations. Do not change the default unless you want to optimize with fewer data points (e.g., short-lived workloads).
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyConfidenceArgs:
     def __init__(__self__, *,
-                 threshold: Optional[pulumi.Input[_builtins.float]] = None):
+                 threshold: pulumi.Input[Optional[_builtins.float]] = None):
         """
         :param pulumi.Input[_builtins.float] threshold: Defines the confidence threshold for applying recommendations. The smaller number indicates that we require fewer metrics data points to apply recommendations - changing this value can cause applying less precise recommendations. Do not change the default unless you want to optimize with fewer data points (e.g., short-lived workloads).
         """
@@ -354,79 +662,82 @@ class WorkloadScalingPolicyConfidenceArgs:
 
     @_builtins.property
     @pulumi.getter
-    def threshold(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def threshold(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Defines the confidence threshold for applying recommendations. The smaller number indicates that we require fewer metrics data points to apply recommendations - changing this value can cause applying less precise recommendations. Do not change the default unless you want to optimize with fewer data points (e.g., short-lived workloads).
         """
         return pulumi.get(self, "threshold")
 
     @threshold.setter
-    def threshold(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def threshold(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "threshold", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyCpuArgsDict(TypedDict):
-        apply_threshold: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
-        """
-        apply_threshold_strategy: NotRequired[pulumi.Input['WorkloadScalingPolicyCpuApplyThresholdStrategyArgsDict']]
-        """
-        Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
-        """
-        args: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
-        """
-        function: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
-        """
-        limit: NotRequired[pulumi.Input['WorkloadScalingPolicyCpuLimitArgsDict']]
-        """
-        Resource limit settings
-        """
-        look_back_period_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The look back period in seconds for the recommendation.
-        """
-        management_option: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
-        """
-        max: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
-        """
-        min: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
-        """
-        overhead: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
-        """
-elif False:
-    WorkloadScalingPolicyCpuArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyCpuArgsDict(TypedDict):
+    apply_threshold: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
+    """
+    apply_threshold_strategy: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyCpuApplyThresholdStrategyArgsDict']]]
+    """
+    Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
+    """
+    args: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
+    """
+    constraints: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsArgsDict']]]
+    """
+    Defines min/max bounds for the recommendation using constraint strategies.
+    """
+    function: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
+    """
+    limit: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyCpuLimitArgsDict']]]
+    """
+    Resource limit settings
+    """
+    look_back_period_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The look back period in seconds for the recommendation.
+    """
+    management_option: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
+    """
+    max: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+    """
+    min: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+    """
+    overhead: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyCpuArgs:
     def __init__(__self__, *,
-                 apply_threshold: Optional[pulumi.Input[_builtins.float]] = None,
-                 apply_threshold_strategy: Optional[pulumi.Input['WorkloadScalingPolicyCpuApplyThresholdStrategyArgs']] = None,
-                 args: Optional[pulumi.Input[_builtins.str]] = None,
-                 function: Optional[pulumi.Input[_builtins.str]] = None,
-                 limit: Optional[pulumi.Input['WorkloadScalingPolicyCpuLimitArgs']] = None,
-                 look_back_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 management_option: Optional[pulumi.Input[_builtins.str]] = None,
-                 max: Optional[pulumi.Input[_builtins.float]] = None,
-                 min: Optional[pulumi.Input[_builtins.float]] = None,
-                 overhead: Optional[pulumi.Input[_builtins.float]] = None):
+                 apply_threshold: pulumi.Input[Optional[_builtins.float]] = None,
+                 apply_threshold_strategy: pulumi.Input[Optional['WorkloadScalingPolicyCpuApplyThresholdStrategyArgs']] = None,
+                 args: pulumi.Input[Optional[_builtins.str]] = None,
+                 constraints: pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsArgs']] = None,
+                 function: pulumi.Input[Optional[_builtins.str]] = None,
+                 limit: pulumi.Input[Optional['WorkloadScalingPolicyCpuLimitArgs']] = None,
+                 look_back_period_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 management_option: pulumi.Input[Optional[_builtins.str]] = None,
+                 max: pulumi.Input[Optional[_builtins.float]] = None,
+                 min: pulumi.Input[Optional[_builtins.float]] = None,
+                 overhead: pulumi.Input[Optional[_builtins.float]] = None):
         """
         :param pulumi.Input[_builtins.float] apply_threshold: The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
         :param pulumi.Input['WorkloadScalingPolicyCpuApplyThresholdStrategyArgs'] apply_threshold_strategy: Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
         :param pulumi.Input[_builtins.str] args: The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
+        :param pulumi.Input['WorkloadScalingPolicyCpuConstraintsArgs'] constraints: Defines min/max bounds for the recommendation using constraint strategies.
         :param pulumi.Input[_builtins.str] function: The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
         :param pulumi.Input['WorkloadScalingPolicyCpuLimitArgs'] limit: Resource limit settings
         :param pulumi.Input[_builtins.int] look_back_period_seconds: The look back period in seconds for the recommendation.
@@ -444,6 +755,8 @@ class WorkloadScalingPolicyCpuArgs:
             pulumi.set(__self__, "apply_threshold_strategy", apply_threshold_strategy)
         if args is not None:
             pulumi.set(__self__, "args", args)
+        if constraints is not None:
+            pulumi.set(__self__, "constraints", constraints)
         if function is not None:
             pulumi.set(__self__, "function", function)
         if limit is not None:
@@ -453,7 +766,13 @@ class WorkloadScalingPolicyCpuArgs:
         if management_option is not None:
             pulumi.set(__self__, "management_option", management_option)
         if max is not None:
+            warnings.warn("""Use constraints { max { constant = X } } instead""", DeprecationWarning)
+            pulumi.log.warn("""max is deprecated: Use constraints { max { constant = X } } instead""")
+        if max is not None:
             pulumi.set(__self__, "max", max)
+        if min is not None:
+            warnings.warn("""Use constraints { min { constant = X } } instead""", DeprecationWarning)
+            pulumi.log.warn("""min is deprecated: Use constraints { min { constant = X } } instead""")
         if min is not None:
             pulumi.set(__self__, "min", min)
         if overhead is not None:
@@ -462,164 +781,175 @@ class WorkloadScalingPolicyCpuArgs:
     @_builtins.property
     @pulumi.getter(name="applyThreshold")
     @_utilities.deprecated("""Use apply_threshold_strategy instead""")
-    def apply_threshold(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def apply_threshold(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
         """
         return pulumi.get(self, "apply_threshold")
 
     @apply_threshold.setter
-    def apply_threshold(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def apply_threshold(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "apply_threshold", value)
 
     @_builtins.property
     @pulumi.getter(name="applyThresholdStrategy")
-    def apply_threshold_strategy(self) -> Optional[pulumi.Input['WorkloadScalingPolicyCpuApplyThresholdStrategyArgs']]:
+    def apply_threshold_strategy(self) -> pulumi.Input[Optional['WorkloadScalingPolicyCpuApplyThresholdStrategyArgs']]:
         """
         Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
         """
         return pulumi.get(self, "apply_threshold_strategy")
 
     @apply_threshold_strategy.setter
-    def apply_threshold_strategy(self, value: Optional[pulumi.Input['WorkloadScalingPolicyCpuApplyThresholdStrategyArgs']]):
+    def apply_threshold_strategy(self, value: pulumi.Input[Optional['WorkloadScalingPolicyCpuApplyThresholdStrategyArgs']]):
         pulumi.set(self, "apply_threshold_strategy", value)
 
     @_builtins.property
     @pulumi.getter
-    def args(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def args(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
         """
         return pulumi.get(self, "args")
 
     @args.setter
-    def args(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def args(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "args", value)
 
     @_builtins.property
     @pulumi.getter
-    def function(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def constraints(self) -> pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsArgs']]:
+        """
+        Defines min/max bounds for the recommendation using constraint strategies.
+        """
+        return pulumi.get(self, "constraints")
+
+    @constraints.setter
+    def constraints(self, value: pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsArgs']]):
+        pulumi.set(self, "constraints", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def function(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
         """
         return pulumi.get(self, "function")
 
     @function.setter
-    def function(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def function(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "function", value)
 
     @_builtins.property
     @pulumi.getter
-    def limit(self) -> Optional[pulumi.Input['WorkloadScalingPolicyCpuLimitArgs']]:
+    def limit(self) -> pulumi.Input[Optional['WorkloadScalingPolicyCpuLimitArgs']]:
         """
         Resource limit settings
         """
         return pulumi.get(self, "limit")
 
     @limit.setter
-    def limit(self, value: Optional[pulumi.Input['WorkloadScalingPolicyCpuLimitArgs']]):
+    def limit(self, value: pulumi.Input[Optional['WorkloadScalingPolicyCpuLimitArgs']]):
         pulumi.set(self, "limit", value)
 
     @_builtins.property
     @pulumi.getter(name="lookBackPeriodSeconds")
-    def look_back_period_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def look_back_period_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The look back period in seconds for the recommendation.
         """
         return pulumi.get(self, "look_back_period_seconds")
 
     @look_back_period_seconds.setter
-    def look_back_period_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def look_back_period_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "look_back_period_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="managementOption")
-    def management_option(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def management_option(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
         """
         return pulumi.get(self, "management_option")
 
     @management_option.setter
-    def management_option(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def management_option(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "management_option", value)
 
     @_builtins.property
     @pulumi.getter
-    def max(self) -> Optional[pulumi.Input[_builtins.float]]:
+    @_utilities.deprecated("""Use constraints { max { constant = X } } instead""")
+    def max(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
         """
         return pulumi.get(self, "max")
 
     @max.setter
-    def max(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def max(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "max", value)
 
     @_builtins.property
     @pulumi.getter
-    def min(self) -> Optional[pulumi.Input[_builtins.float]]:
+    @_utilities.deprecated("""Use constraints { min { constant = X } } instead""")
+    def min(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
         """
         return pulumi.get(self, "min")
 
     @min.setter
-    def min(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def min(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "min", value)
 
     @_builtins.property
     @pulumi.getter
-    def overhead(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def overhead(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
         """
         return pulumi.get(self, "overhead")
 
     @overhead.setter
-    def overhead(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def overhead(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "overhead", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyCpuApplyThresholdStrategyArgsDict(TypedDict):
-        type: pulumi.Input[_builtins.str]
-        """
-        Defines apply theshold strategy type.
-        	- PERCENTAGE - recommendation will be applied when diff of current requests and new recommendation is greater than set value
-            - DEFAULT_ADAPTIVE - will pick larger threshold percentage for small workloads and smaller percentage for large workloads.
-            - CUSTOM_ADAPTIVE - works in same way as DEFAULT_ADAPTIVE, but it allows to tweak parameters of adaptive threshold formula: percentage = numerator/(currentRequest + denominator)^exponent. This strategy is for advance use cases, we recommend to use DEFAULT_ADAPTIVE strategy.
-        """
-        denominator: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        If denominator is close or equal to 0, the threshold will be much bigger for small values.For example when numerator, exponent is 1 and denominator is 0 the threshold for 0.5 req. CPU will be 200%.It must be defined for the CUSTOM_ADAPTIVE strategy.
-        """
-        exponent: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        The exponent changes how fast the curve is going down. The smaller value will cause that we won’t pick extremely small number for big resources, for example:
-        	- if numerator is 0, denominator is 1, and exponent is 1, for 50 CPU we will pick 2% threshold
-        	- if numerator is 0, denominator is 1, and exponent is 0.8, for 50 CPU we will pick 4.3% threshold
-        	It must be defined for the CUSTOM_ADAPTIVE strategy.
-        """
-        numerator: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        The numerator affects vertical stretch of function used in adaptive threshold - smaller number will create smaller threshold.It must be defined for the CUSTOM_ADAPTIVE strategy.
-        """
-        percentage: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Percentage of a how much difference should there be between the current pod requests and the new recommendation. It must be defined for the PERCENTAGE strategy.
-        """
-elif False:
-    WorkloadScalingPolicyCpuApplyThresholdStrategyArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyCpuApplyThresholdStrategyArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Defines apply theshold strategy type.
+    	- PERCENTAGE - recommendation will be applied when diff of current requests and new recommendation is greater than set value
+        - DEFAULT_ADAPTIVE - will pick larger threshold percentage for small workloads and smaller percentage for large workloads.
+        - CUSTOM_ADAPTIVE - works in same way as DEFAULT_ADAPTIVE, but it allows to tweak parameters of adaptive threshold formula: percentage = numerator/(currentRequest + denominator)^exponent. This strategy is for advance use cases, we recommend to use DEFAULT_ADAPTIVE strategy.
+    """
+    denominator: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    If denominator is close or equal to 0, the threshold will be much bigger for small values.For example when numerator, exponent is 1 and denominator is 0 the threshold for 0.5 req. CPU will be 200%.It must be defined for the CUSTOM_ADAPTIVE strategy.
+    """
+    exponent: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    The exponent changes how fast the curve is going down. The smaller value will cause that we won’t pick extremely small number for big resources, for example:
+    	- if numerator is 0, denominator is 1, and exponent is 1, for 50 CPU we will pick 2% threshold
+    	- if numerator is 0, denominator is 1, and exponent is 0.8, for 50 CPU we will pick 4.3% threshold
+    	It must be defined for the CUSTOM_ADAPTIVE strategy.
+    """
+    numerator: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    The numerator affects vertical stretch of function used in adaptive threshold - smaller number will create smaller threshold.It must be defined for the CUSTOM_ADAPTIVE strategy.
+    """
+    percentage: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Percentage of a how much difference should there be between the current pod requests and the new recommendation. It must be defined for the PERCENTAGE strategy.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyCpuApplyThresholdStrategyArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[_builtins.str],
-                 denominator: Optional[pulumi.Input[_builtins.str]] = None,
-                 exponent: Optional[pulumi.Input[_builtins.float]] = None,
-                 numerator: Optional[pulumi.Input[_builtins.float]] = None,
-                 percentage: Optional[pulumi.Input[_builtins.float]] = None):
+                 denominator: pulumi.Input[Optional[_builtins.str]] = None,
+                 exponent: pulumi.Input[Optional[_builtins.float]] = None,
+                 numerator: pulumi.Input[Optional[_builtins.float]] = None,
+                 percentage: pulumi.Input[Optional[_builtins.float]] = None):
         """
         :param pulumi.Input[_builtins.str] type: Defines apply theshold strategy type.
                	- PERCENTAGE - recommendation will be applied when diff of current requests and new recommendation is greater than set value
@@ -660,19 +990,19 @@ class WorkloadScalingPolicyCpuApplyThresholdStrategyArgs:
 
     @_builtins.property
     @pulumi.getter
-    def denominator(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def denominator(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         If denominator is close or equal to 0, the threshold will be much bigger for small values.For example when numerator, exponent is 1 and denominator is 0 the threshold for 0.5 req. CPU will be 200%.It must be defined for the CUSTOM_ADAPTIVE strategy.
         """
         return pulumi.get(self, "denominator")
 
     @denominator.setter
-    def denominator(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def denominator(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "denominator", value)
 
     @_builtins.property
     @pulumi.getter
-    def exponent(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def exponent(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         The exponent changes how fast the curve is going down. The smaller value will cause that we won’t pick extremely small number for big resources, for example:
         	- if numerator is 0, denominator is 1, and exponent is 1, for 50 CPU we will pick 2% threshold
@@ -682,65 +1012,231 @@ class WorkloadScalingPolicyCpuApplyThresholdStrategyArgs:
         return pulumi.get(self, "exponent")
 
     @exponent.setter
-    def exponent(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def exponent(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "exponent", value)
 
     @_builtins.property
     @pulumi.getter
-    def numerator(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def numerator(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         The numerator affects vertical stretch of function used in adaptive threshold - smaller number will create smaller threshold.It must be defined for the CUSTOM_ADAPTIVE strategy.
         """
         return pulumi.get(self, "numerator")
 
     @numerator.setter
-    def numerator(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def numerator(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "numerator", value)
 
     @_builtins.property
     @pulumi.getter
-    def percentage(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def percentage(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Percentage of a how much difference should there be between the current pod requests and the new recommendation. It must be defined for the PERCENTAGE strategy.
         """
         return pulumi.get(self, "percentage")
 
     @percentage.setter
-    def percentage(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def percentage(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "percentage", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyCpuLimitArgsDict(TypedDict):
-        type: pulumi.Input[_builtins.str]
+class WorkloadScalingPolicyCpuConstraintsArgsDict(TypedDict):
+    max: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsMaxArgsDict']]]
+    min: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsMinArgsDict']]]
+
+@pulumi.input_type
+class WorkloadScalingPolicyCpuConstraintsArgs:
+    def __init__(__self__, *,
+                 max: pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsMaxArgs']] = None,
+                 min: pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsMinArgs']] = None):
+        if max is not None:
+            pulumi.set(__self__, "max", max)
+        if min is not None:
+            pulumi.set(__self__, "min", min)
+
+    @_builtins.property
+    @pulumi.getter
+    def max(self) -> pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsMaxArgs']]:
+        return pulumi.get(self, "max")
+
+    @max.setter
+    def max(self, value: pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsMaxArgs']]):
+        pulumi.set(self, "max", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def min(self) -> pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsMinArgs']]:
+        return pulumi.get(self, "min")
+
+    @min.setter
+    def min(self, value: pulumi.Input[Optional['WorkloadScalingPolicyCpuConstraintsMinArgs']]):
+        pulumi.set(self, "min", value)
+
+
+class WorkloadScalingPolicyCpuConstraintsMaxArgsDict(TypedDict):
+    constant: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Fixed bound value. For memory - MiB, for CPU - cores.
+    """
+    percentage_of_original: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Bound as a percentage of the original pod-spec request.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyCpuConstraintsMaxArgs:
+    def __init__(__self__, *,
+                 constant: pulumi.Input[Optional[_builtins.float]] = None,
+                 percentage_of_original: pulumi.Input[Optional[_builtins.float]] = None):
         """
-        Defines limit strategy type.
-        	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
-        	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
-        	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+        :param pulumi.Input[_builtins.float] constant: Fixed bound value. For memory - MiB, for CPU - cores.
+        :param pulumi.Input[_builtins.float] percentage_of_original: Bound as a percentage of the original pod-spec request.
         """
-        multiplier: NotRequired[pulumi.Input[_builtins.float]]
+        if constant is not None:
+            pulumi.set(__self__, "constant", constant)
+        if percentage_of_original is not None:
+            pulumi.set(__self__, "percentage_of_original", percentage_of_original)
+
+    @_builtins.property
+    @pulumi.getter
+    def constant(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
-        Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
+        Fixed bound value. For memory - MiB, for CPU - cores.
         """
-elif False:
-    WorkloadScalingPolicyCpuLimitArgsDict: TypeAlias = Mapping[str, Any]
+        return pulumi.get(self, "constant")
+
+    @constant.setter
+    def constant(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "constant", value)
+
+    @_builtins.property
+    @pulumi.getter(name="percentageOfOriginal")
+    def percentage_of_original(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Bound as a percentage of the original pod-spec request.
+        """
+        return pulumi.get(self, "percentage_of_original")
+
+    @percentage_of_original.setter
+    def percentage_of_original(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "percentage_of_original", value)
+
+
+class WorkloadScalingPolicyCpuConstraintsMinArgsDict(TypedDict):
+    constant: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Fixed bound value. For memory - MiB, for CPU - cores.
+    """
+    percentage_of_original: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Bound as a percentage of the original pod-spec request.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyCpuConstraintsMinArgs:
+    def __init__(__self__, *,
+                 constant: pulumi.Input[Optional[_builtins.float]] = None,
+                 percentage_of_original: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        :param pulumi.Input[_builtins.float] constant: Fixed bound value. For memory - MiB, for CPU - cores.
+        :param pulumi.Input[_builtins.float] percentage_of_original: Bound as a percentage of the original pod-spec request.
+        """
+        if constant is not None:
+            pulumi.set(__self__, "constant", constant)
+        if percentage_of_original is not None:
+            pulumi.set(__self__, "percentage_of_original", percentage_of_original)
+
+    @_builtins.property
+    @pulumi.getter
+    def constant(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Fixed bound value. For memory - MiB, for CPU - cores.
+        """
+        return pulumi.get(self, "constant")
+
+    @constant.setter
+    def constant(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "constant", value)
+
+    @_builtins.property
+    @pulumi.getter(name="percentageOfOriginal")
+    def percentage_of_original(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Bound as a percentage of the original pod-spec request.
+        """
+        return pulumi.get(self, "percentage_of_original")
+
+    @percentage_of_original.setter
+    def percentage_of_original(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "percentage_of_original", value)
+
+
+class WorkloadScalingPolicyCpuLimitArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Defines limit strategy type.
+    	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
+    	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
+    	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+    	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
+    """
+    multiplier: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
+    """
+    only_if_original_exist: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+    	If the original workload has no limits specified, no limits will be added.
+
+        This flag allows conditional limit management based on the original workload configuration.
+        
+        Only applicable when the type is set to multiplier.
+    """
+    only_if_original_lower: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+    	If the original limits are already higher than the calculated value, they remain unchanged.
+
+        This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+        
+        Only applicable when the type is set to multiplier.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyCpuLimitArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[_builtins.str],
-                 multiplier: Optional[pulumi.Input[_builtins.float]] = None):
+                 multiplier: pulumi.Input[Optional[_builtins.float]] = None,
+                 only_if_original_exist: pulumi.Input[Optional[_builtins.bool]] = None,
+                 only_if_original_lower: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         :param pulumi.Input[_builtins.str] type: Defines limit strategy type.
                	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
                	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
                	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+               	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
         :param pulumi.Input[_builtins.float] multiplier: Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
+        :param pulumi.Input[_builtins.bool] only_if_original_exist: When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+               	If the original workload has no limits specified, no limits will be added.
+               
+                   This flag allows conditional limit management based on the original workload configuration.
+                   
+                   Only applicable when the type is set to multiplier.
+        :param pulumi.Input[_builtins.bool] only_if_original_lower: When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+               	If the original limits are already higher than the calculated value, they remain unchanged.
+               
+                   This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+                   
+                   Only applicable when the type is set to multiplier.
         """
         pulumi.set(__self__, "type", type)
         if multiplier is not None:
             pulumi.set(__self__, "multiplier", multiplier)
+        if only_if_original_exist is not None:
+            pulumi.set(__self__, "only_if_original_exist", only_if_original_exist)
+        if only_if_original_lower is not None:
+            pulumi.set(__self__, "only_if_original_lower", only_if_original_lower)
 
     @_builtins.property
     @pulumi.getter
@@ -750,6 +1246,7 @@ class WorkloadScalingPolicyCpuLimitArgs:
         	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
         	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
         	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+        	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
         """
         return pulumi.get(self, "type")
 
@@ -759,32 +1256,63 @@ class WorkloadScalingPolicyCpuLimitArgs:
 
     @_builtins.property
     @pulumi.getter
-    def multiplier(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def multiplier(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
         """
         return pulumi.get(self, "multiplier")
 
     @multiplier.setter
-    def multiplier(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def multiplier(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "multiplier", value)
 
+    @_builtins.property
+    @pulumi.getter(name="onlyIfOriginalExist")
+    def only_if_original_exist(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+        	If the original workload has no limits specified, no limits will be added.
 
-if not MYPY:
-    class WorkloadScalingPolicyDownscalingArgsDict(TypedDict):
-        apply_type: NotRequired[pulumi.Input[_builtins.str]]
+            This flag allows conditional limit management based on the original workload configuration.
+            
+            Only applicable when the type is set to multiplier.
         """
-        Defines the apply type to be used when downscaling.
-        	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
-        	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
+        return pulumi.get(self, "only_if_original_exist")
+
+    @only_if_original_exist.setter
+    def only_if_original_exist(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "only_if_original_exist", value)
+
+    @_builtins.property
+    @pulumi.getter(name="onlyIfOriginalLower")
+    def only_if_original_lower(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-elif False:
-    WorkloadScalingPolicyDownscalingArgsDict: TypeAlias = Mapping[str, Any]
+        When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+        	If the original limits are already higher than the calculated value, they remain unchanged.
+
+            This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+            
+            Only applicable when the type is set to multiplier.
+        """
+        return pulumi.get(self, "only_if_original_lower")
+
+    @only_if_original_lower.setter
+    def only_if_original_lower(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "only_if_original_lower", value)
+
+
+class WorkloadScalingPolicyDownscalingArgsDict(TypedDict):
+    apply_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Defines the apply type to be used when downscaling.
+    	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
+    	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyDownscalingArgs:
     def __init__(__self__, *,
-                 apply_type: Optional[pulumi.Input[_builtins.str]] = None):
+                 apply_type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] apply_type: Defines the apply type to be used when downscaling.
                	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
@@ -795,7 +1323,7 @@ class WorkloadScalingPolicyDownscalingArgs:
 
     @_builtins.property
     @pulumi.getter(name="applyType")
-    def apply_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def apply_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Defines the apply type to be used when downscaling.
         	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
@@ -804,72 +1332,181 @@ class WorkloadScalingPolicyDownscalingArgs:
         return pulumi.get(self, "apply_type")
 
     @apply_type.setter
-    def apply_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def apply_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "apply_type", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyMemoryArgsDict(TypedDict):
-        apply_threshold: NotRequired[pulumi.Input[_builtins.float]]
+class WorkloadScalingPolicyHpaConverterArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    HPA converter type. AVERAGE_VALUE_FROM_ORIGINAL_REQUESTS converts HPA utilization (%) targets to AverageValue using workload container requests.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyHpaConverterArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str]):
         """
-        The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
+        :param pulumi.Input[_builtins.str] type: HPA converter type. AVERAGE_VALUE_FROM_ORIGINAL_REQUESTS converts HPA utilization (%) targets to AverageValue using workload container requests.
         """
-        apply_threshold_strategy: NotRequired[pulumi.Input['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgsDict']]
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
         """
-        Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
+        HPA converter type. AVERAGE_VALUE_FROM_ORIGINAL_REQUESTS converts HPA utilization (%) targets to AverageValue using workload container requests.
         """
-        args: NotRequired[pulumi.Input[_builtins.str]]
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+
+class WorkloadScalingPolicyJvmArgsDict(TypedDict):
+    auto_instrument: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
+    """
+    memory: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyJvmMemoryArgsDict']]]
+    """
+    JVM memory optimization settings.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyJvmArgs:
+    def __init__(__self__, *,
+                 auto_instrument: pulumi.Input[Optional[_builtins.bool]] = None,
+                 memory: pulumi.Input[Optional['WorkloadScalingPolicyJvmMemoryArgs']] = None):
         """
-        The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
+        :param pulumi.Input[_builtins.bool] auto_instrument: When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
+        :param pulumi.Input['WorkloadScalingPolicyJvmMemoryArgs'] memory: JVM memory optimization settings.
         """
-        function: NotRequired[pulumi.Input[_builtins.str]]
+        if auto_instrument is not None:
+            pulumi.set(__self__, "auto_instrument", auto_instrument)
+        if memory is not None:
+            pulumi.set(__self__, "memory", memory)
+
+    @_builtins.property
+    @pulumi.getter(name="autoInstrument")
+    def auto_instrument(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
+        When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
         """
-        limit: NotRequired[pulumi.Input['WorkloadScalingPolicyMemoryLimitArgsDict']]
+        return pulumi.get(self, "auto_instrument")
+
+    @auto_instrument.setter
+    def auto_instrument(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "auto_instrument", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def memory(self) -> pulumi.Input[Optional['WorkloadScalingPolicyJvmMemoryArgs']]:
         """
-        Resource limit settings
+        JVM memory optimization settings.
         """
-        look_back_period_seconds: NotRequired[pulumi.Input[_builtins.int]]
+        return pulumi.get(self, "memory")
+
+    @memory.setter
+    def memory(self, value: pulumi.Input[Optional['WorkloadScalingPolicyJvmMemoryArgs']]):
+        pulumi.set(self, "memory", value)
+
+
+class WorkloadScalingPolicyJvmMemoryArgsDict(TypedDict):
+    optimization: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyJvmMemoryArgs:
+    def __init__(__self__, *,
+                 optimization: pulumi.Input[Optional[_builtins.bool]] = None):
         """
-        The look back period in seconds for the recommendation.
+        :param pulumi.Input[_builtins.bool] optimization: Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
         """
-        management_option: NotRequired[pulumi.Input[_builtins.str]]
+        if optimization is not None:
+            pulumi.set(__self__, "optimization", optimization)
+
+    @_builtins.property
+    @pulumi.getter
+    def optimization(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
+        Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
         """
-        max: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
-        """
-        min: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
-        """
-        overhead: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
-        """
-elif False:
-    WorkloadScalingPolicyMemoryArgsDict: TypeAlias = Mapping[str, Any]
+        return pulumi.get(self, "optimization")
+
+    @optimization.setter
+    def optimization(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "optimization", value)
+
+
+class WorkloadScalingPolicyMemoryArgsDict(TypedDict):
+    apply_threshold: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
+    """
+    apply_threshold_strategy: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgsDict']]]
+    """
+    Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
+    """
+    args: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
+    """
+    constraints: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsArgsDict']]]
+    """
+    Defines min/max bounds for the recommendation using constraint strategies.
+    """
+    function: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
+    """
+    limit: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyMemoryLimitArgsDict']]]
+    """
+    Resource limit settings
+    """
+    look_back_period_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The look back period in seconds for the recommendation.
+    """
+    management_option: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
+    """
+    max: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+    """
+    min: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
+    """
+    overhead: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyMemoryArgs:
     def __init__(__self__, *,
-                 apply_threshold: Optional[pulumi.Input[_builtins.float]] = None,
-                 apply_threshold_strategy: Optional[pulumi.Input['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs']] = None,
-                 args: Optional[pulumi.Input[_builtins.str]] = None,
-                 function: Optional[pulumi.Input[_builtins.str]] = None,
-                 limit: Optional[pulumi.Input['WorkloadScalingPolicyMemoryLimitArgs']] = None,
-                 look_back_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 management_option: Optional[pulumi.Input[_builtins.str]] = None,
-                 max: Optional[pulumi.Input[_builtins.float]] = None,
-                 min: Optional[pulumi.Input[_builtins.float]] = None,
-                 overhead: Optional[pulumi.Input[_builtins.float]] = None):
+                 apply_threshold: pulumi.Input[Optional[_builtins.float]] = None,
+                 apply_threshold_strategy: pulumi.Input[Optional['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs']] = None,
+                 args: pulumi.Input[Optional[_builtins.str]] = None,
+                 constraints: pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsArgs']] = None,
+                 function: pulumi.Input[Optional[_builtins.str]] = None,
+                 limit: pulumi.Input[Optional['WorkloadScalingPolicyMemoryLimitArgs']] = None,
+                 look_back_period_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 management_option: pulumi.Input[Optional[_builtins.str]] = None,
+                 max: pulumi.Input[Optional[_builtins.float]] = None,
+                 min: pulumi.Input[Optional[_builtins.float]] = None,
+                 overhead: pulumi.Input[Optional[_builtins.float]] = None):
         """
         :param pulumi.Input[_builtins.float] apply_threshold: The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
         :param pulumi.Input['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs'] apply_threshold_strategy: Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
         :param pulumi.Input[_builtins.str] args: The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
+        :param pulumi.Input['WorkloadScalingPolicyMemoryConstraintsArgs'] constraints: Defines min/max bounds for the recommendation using constraint strategies.
         :param pulumi.Input[_builtins.str] function: The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
         :param pulumi.Input['WorkloadScalingPolicyMemoryLimitArgs'] limit: Resource limit settings
         :param pulumi.Input[_builtins.int] look_back_period_seconds: The look back period in seconds for the recommendation.
@@ -887,6 +1524,8 @@ class WorkloadScalingPolicyMemoryArgs:
             pulumi.set(__self__, "apply_threshold_strategy", apply_threshold_strategy)
         if args is not None:
             pulumi.set(__self__, "args", args)
+        if constraints is not None:
+            pulumi.set(__self__, "constraints", constraints)
         if function is not None:
             pulumi.set(__self__, "function", function)
         if limit is not None:
@@ -896,7 +1535,13 @@ class WorkloadScalingPolicyMemoryArgs:
         if management_option is not None:
             pulumi.set(__self__, "management_option", management_option)
         if max is not None:
+            warnings.warn("""Use constraints { max { constant = X } } instead""", DeprecationWarning)
+            pulumi.log.warn("""max is deprecated: Use constraints { max { constant = X } } instead""")
+        if max is not None:
             pulumi.set(__self__, "max", max)
+        if min is not None:
+            warnings.warn("""Use constraints { min { constant = X } } instead""", DeprecationWarning)
+            pulumi.log.warn("""min is deprecated: Use constraints { min { constant = X } } instead""")
         if min is not None:
             pulumi.set(__self__, "min", min)
         if overhead is not None:
@@ -905,164 +1550,175 @@ class WorkloadScalingPolicyMemoryArgs:
     @_builtins.property
     @pulumi.getter(name="applyThreshold")
     @_utilities.deprecated("""Use apply_threshold_strategy instead""")
-    def apply_threshold(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def apply_threshold(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
         """
         return pulumi.get(self, "apply_threshold")
 
     @apply_threshold.setter
-    def apply_threshold(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def apply_threshold(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "apply_threshold", value)
 
     @_builtins.property
     @pulumi.getter(name="applyThresholdStrategy")
-    def apply_threshold_strategy(self) -> Optional[pulumi.Input['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs']]:
+    def apply_threshold_strategy(self) -> pulumi.Input[Optional['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs']]:
         """
         Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
         """
         return pulumi.get(self, "apply_threshold_strategy")
 
     @apply_threshold_strategy.setter
-    def apply_threshold_strategy(self, value: Optional[pulumi.Input['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs']]):
+    def apply_threshold_strategy(self, value: pulumi.Input[Optional['WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs']]):
         pulumi.set(self, "apply_threshold_strategy", value)
 
     @_builtins.property
     @pulumi.getter
-    def args(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def args(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
         """
         return pulumi.get(self, "args")
 
     @args.setter
-    def args(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def args(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "args", value)
 
     @_builtins.property
     @pulumi.getter
-    def function(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def constraints(self) -> pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsArgs']]:
+        """
+        Defines min/max bounds for the recommendation using constraint strategies.
+        """
+        return pulumi.get(self, "constraints")
+
+    @constraints.setter
+    def constraints(self, value: pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsArgs']]):
+        pulumi.set(self, "constraints", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def function(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
         """
         return pulumi.get(self, "function")
 
     @function.setter
-    def function(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def function(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "function", value)
 
     @_builtins.property
     @pulumi.getter
-    def limit(self) -> Optional[pulumi.Input['WorkloadScalingPolicyMemoryLimitArgs']]:
+    def limit(self) -> pulumi.Input[Optional['WorkloadScalingPolicyMemoryLimitArgs']]:
         """
         Resource limit settings
         """
         return pulumi.get(self, "limit")
 
     @limit.setter
-    def limit(self, value: Optional[pulumi.Input['WorkloadScalingPolicyMemoryLimitArgs']]):
+    def limit(self, value: pulumi.Input[Optional['WorkloadScalingPolicyMemoryLimitArgs']]):
         pulumi.set(self, "limit", value)
 
     @_builtins.property
     @pulumi.getter(name="lookBackPeriodSeconds")
-    def look_back_period_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def look_back_period_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The look back period in seconds for the recommendation.
         """
         return pulumi.get(self, "look_back_period_seconds")
 
     @look_back_period_seconds.setter
-    def look_back_period_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def look_back_period_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "look_back_period_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="managementOption")
-    def management_option(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def management_option(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Disables management for a single resource when set to `READ_ONLY`. The resource will use its original workload template requests and limits. Supported value: `READ_ONLY`. Minimum required workload-autoscaler version: `v0.23.1`.
         """
         return pulumi.get(self, "management_option")
 
     @management_option.setter
-    def management_option(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def management_option(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "management_option", value)
 
     @_builtins.property
     @pulumi.getter
-    def max(self) -> Optional[pulumi.Input[_builtins.float]]:
+    @_utilities.deprecated("""Use constraints { max { constant = X } } instead""")
+    def max(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
         """
         return pulumi.get(self, "max")
 
     @max.setter
-    def max(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def max(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "max", value)
 
     @_builtins.property
     @pulumi.getter
-    def min(self) -> Optional[pulumi.Input[_builtins.float]]:
+    @_utilities.deprecated("""Use constraints { min { constant = X } } instead""")
+    def min(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
         """
         return pulumi.get(self, "min")
 
     @min.setter
-    def min(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def min(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "min", value)
 
     @_builtins.property
     @pulumi.getter
-    def overhead(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def overhead(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Overhead for the recommendation, e.g. `0.1` will result in 10% higher recommendation
         """
         return pulumi.get(self, "overhead")
 
     @overhead.setter
-    def overhead(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def overhead(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "overhead", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyMemoryApplyThresholdStrategyArgsDict(TypedDict):
-        type: pulumi.Input[_builtins.str]
-        """
-        Defines apply theshold strategy type.
-        	- PERCENTAGE - recommendation will be applied when diff of current requests and new recommendation is greater than set value
-            - DEFAULT_ADAPTIVE - will pick larger threshold percentage for small workloads and smaller percentage for large workloads.
-            - CUSTOM_ADAPTIVE - works in same way as DEFAULT_ADAPTIVE, but it allows to tweak parameters of adaptive threshold formula: percentage = numerator/(currentRequest + denominator)^exponent. This strategy is for advance use cases, we recommend to use DEFAULT_ADAPTIVE strategy.
-        """
-        denominator: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        If denominator is close or equal to 0, the threshold will be much bigger for small values.For example when numerator, exponent is 1 and denominator is 0 the threshold for 0.5 req. CPU will be 200%.It must be defined for the CUSTOM_ADAPTIVE strategy.
-        """
-        exponent: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        The exponent changes how fast the curve is going down. The smaller value will cause that we won’t pick extremely small number for big resources, for example:
-        	- if numerator is 0, denominator is 1, and exponent is 1, for 50 CPU we will pick 2% threshold
-        	- if numerator is 0, denominator is 1, and exponent is 0.8, for 50 CPU we will pick 4.3% threshold
-        	It must be defined for the CUSTOM_ADAPTIVE strategy.
-        """
-        numerator: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        The numerator affects vertical stretch of function used in adaptive threshold - smaller number will create smaller threshold.It must be defined for the CUSTOM_ADAPTIVE strategy.
-        """
-        percentage: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Percentage of a how much difference should there be between the current pod requests and the new recommendation. It must be defined for the PERCENTAGE strategy.
-        """
-elif False:
-    WorkloadScalingPolicyMemoryApplyThresholdStrategyArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyMemoryApplyThresholdStrategyArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Defines apply theshold strategy type.
+    	- PERCENTAGE - recommendation will be applied when diff of current requests and new recommendation is greater than set value
+        - DEFAULT_ADAPTIVE - will pick larger threshold percentage for small workloads and smaller percentage for large workloads.
+        - CUSTOM_ADAPTIVE - works in same way as DEFAULT_ADAPTIVE, but it allows to tweak parameters of adaptive threshold formula: percentage = numerator/(currentRequest + denominator)^exponent. This strategy is for advance use cases, we recommend to use DEFAULT_ADAPTIVE strategy.
+    """
+    denominator: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    If denominator is close or equal to 0, the threshold will be much bigger for small values.For example when numerator, exponent is 1 and denominator is 0 the threshold for 0.5 req. CPU will be 200%.It must be defined for the CUSTOM_ADAPTIVE strategy.
+    """
+    exponent: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    The exponent changes how fast the curve is going down. The smaller value will cause that we won’t pick extremely small number for big resources, for example:
+    	- if numerator is 0, denominator is 1, and exponent is 1, for 50 CPU we will pick 2% threshold
+    	- if numerator is 0, denominator is 1, and exponent is 0.8, for 50 CPU we will pick 4.3% threshold
+    	It must be defined for the CUSTOM_ADAPTIVE strategy.
+    """
+    numerator: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    The numerator affects vertical stretch of function used in adaptive threshold - smaller number will create smaller threshold.It must be defined for the CUSTOM_ADAPTIVE strategy.
+    """
+    percentage: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Percentage of a how much difference should there be between the current pod requests and the new recommendation. It must be defined for the PERCENTAGE strategy.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[_builtins.str],
-                 denominator: Optional[pulumi.Input[_builtins.str]] = None,
-                 exponent: Optional[pulumi.Input[_builtins.float]] = None,
-                 numerator: Optional[pulumi.Input[_builtins.float]] = None,
-                 percentage: Optional[pulumi.Input[_builtins.float]] = None):
+                 denominator: pulumi.Input[Optional[_builtins.str]] = None,
+                 exponent: pulumi.Input[Optional[_builtins.float]] = None,
+                 numerator: pulumi.Input[Optional[_builtins.float]] = None,
+                 percentage: pulumi.Input[Optional[_builtins.float]] = None):
         """
         :param pulumi.Input[_builtins.str] type: Defines apply theshold strategy type.
                	- PERCENTAGE - recommendation will be applied when diff of current requests and new recommendation is greater than set value
@@ -1103,19 +1759,19 @@ class WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs:
 
     @_builtins.property
     @pulumi.getter
-    def denominator(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def denominator(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         If denominator is close or equal to 0, the threshold will be much bigger for small values.For example when numerator, exponent is 1 and denominator is 0 the threshold for 0.5 req. CPU will be 200%.It must be defined for the CUSTOM_ADAPTIVE strategy.
         """
         return pulumi.get(self, "denominator")
 
     @denominator.setter
-    def denominator(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def denominator(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "denominator", value)
 
     @_builtins.property
     @pulumi.getter
-    def exponent(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def exponent(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         The exponent changes how fast the curve is going down. The smaller value will cause that we won’t pick extremely small number for big resources, for example:
         	- if numerator is 0, denominator is 1, and exponent is 1, for 50 CPU we will pick 2% threshold
@@ -1125,49 +1781,177 @@ class WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs:
         return pulumi.get(self, "exponent")
 
     @exponent.setter
-    def exponent(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def exponent(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "exponent", value)
 
     @_builtins.property
     @pulumi.getter
-    def numerator(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def numerator(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         The numerator affects vertical stretch of function used in adaptive threshold - smaller number will create smaller threshold.It must be defined for the CUSTOM_ADAPTIVE strategy.
         """
         return pulumi.get(self, "numerator")
 
     @numerator.setter
-    def numerator(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def numerator(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "numerator", value)
 
     @_builtins.property
     @pulumi.getter
-    def percentage(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def percentage(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Percentage of a how much difference should there be between the current pod requests and the new recommendation. It must be defined for the PERCENTAGE strategy.
         """
         return pulumi.get(self, "percentage")
 
     @percentage.setter
-    def percentage(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def percentage(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "percentage", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyMemoryEventArgsDict(TypedDict):
-        apply_type: NotRequired[pulumi.Input[_builtins.str]]
+class WorkloadScalingPolicyMemoryConstraintsArgsDict(TypedDict):
+    max: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsMaxArgsDict']]]
+    min: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsMinArgsDict']]]
+
+@pulumi.input_type
+class WorkloadScalingPolicyMemoryConstraintsArgs:
+    def __init__(__self__, *,
+                 max: pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsMaxArgs']] = None,
+                 min: pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsMinArgs']] = None):
+        if max is not None:
+            pulumi.set(__self__, "max", max)
+        if min is not None:
+            pulumi.set(__self__, "min", min)
+
+    @_builtins.property
+    @pulumi.getter
+    def max(self) -> pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsMaxArgs']]:
+        return pulumi.get(self, "max")
+
+    @max.setter
+    def max(self, value: pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsMaxArgs']]):
+        pulumi.set(self, "max", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def min(self) -> pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsMinArgs']]:
+        return pulumi.get(self, "min")
+
+    @min.setter
+    def min(self, value: pulumi.Input[Optional['WorkloadScalingPolicyMemoryConstraintsMinArgs']]):
+        pulumi.set(self, "min", value)
+
+
+class WorkloadScalingPolicyMemoryConstraintsMaxArgsDict(TypedDict):
+    constant: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Fixed bound value. For memory - MiB, for CPU - cores.
+    """
+    percentage_of_original: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Bound as a percentage of the original pod-spec request.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyMemoryConstraintsMaxArgs:
+    def __init__(__self__, *,
+                 constant: pulumi.Input[Optional[_builtins.float]] = None,
+                 percentage_of_original: pulumi.Input[Optional[_builtins.float]] = None):
         """
-        Defines the apply type to be used when applying recommendation for memory related event.
-        	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
-        	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
+        :param pulumi.Input[_builtins.float] constant: Fixed bound value. For memory - MiB, for CPU - cores.
+        :param pulumi.Input[_builtins.float] percentage_of_original: Bound as a percentage of the original pod-spec request.
         """
-elif False:
-    WorkloadScalingPolicyMemoryEventArgsDict: TypeAlias = Mapping[str, Any]
+        if constant is not None:
+            pulumi.set(__self__, "constant", constant)
+        if percentage_of_original is not None:
+            pulumi.set(__self__, "percentage_of_original", percentage_of_original)
+
+    @_builtins.property
+    @pulumi.getter
+    def constant(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Fixed bound value. For memory - MiB, for CPU - cores.
+        """
+        return pulumi.get(self, "constant")
+
+    @constant.setter
+    def constant(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "constant", value)
+
+    @_builtins.property
+    @pulumi.getter(name="percentageOfOriginal")
+    def percentage_of_original(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Bound as a percentage of the original pod-spec request.
+        """
+        return pulumi.get(self, "percentage_of_original")
+
+    @percentage_of_original.setter
+    def percentage_of_original(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "percentage_of_original", value)
+
+
+class WorkloadScalingPolicyMemoryConstraintsMinArgsDict(TypedDict):
+    constant: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Fixed bound value. For memory - MiB, for CPU - cores.
+    """
+    percentage_of_original: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Bound as a percentage of the original pod-spec request.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyMemoryConstraintsMinArgs:
+    def __init__(__self__, *,
+                 constant: pulumi.Input[Optional[_builtins.float]] = None,
+                 percentage_of_original: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        :param pulumi.Input[_builtins.float] constant: Fixed bound value. For memory - MiB, for CPU - cores.
+        :param pulumi.Input[_builtins.float] percentage_of_original: Bound as a percentage of the original pod-spec request.
+        """
+        if constant is not None:
+            pulumi.set(__self__, "constant", constant)
+        if percentage_of_original is not None:
+            pulumi.set(__self__, "percentage_of_original", percentage_of_original)
+
+    @_builtins.property
+    @pulumi.getter
+    def constant(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Fixed bound value. For memory - MiB, for CPU - cores.
+        """
+        return pulumi.get(self, "constant")
+
+    @constant.setter
+    def constant(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "constant", value)
+
+    @_builtins.property
+    @pulumi.getter(name="percentageOfOriginal")
+    def percentage_of_original(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Bound as a percentage of the original pod-spec request.
+        """
+        return pulumi.get(self, "percentage_of_original")
+
+    @percentage_of_original.setter
+    def percentage_of_original(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "percentage_of_original", value)
+
+
+class WorkloadScalingPolicyMemoryEventArgsDict(TypedDict):
+    apply_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Defines the apply type to be used when applying recommendation for memory related event.
+    	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
+    	- DEFERRED - pods are not restarted and recommendation values are applied during natural restarts only (new deployment, etc.)
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyMemoryEventArgs:
     def __init__(__self__, *,
-                 apply_type: Optional[pulumi.Input[_builtins.str]] = None):
+                 apply_type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] apply_type: Defines the apply type to be used when applying recommendation for memory related event.
                	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
@@ -1178,7 +1962,7 @@ class WorkloadScalingPolicyMemoryEventArgs:
 
     @_builtins.property
     @pulumi.getter(name="applyType")
-    def apply_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def apply_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Defines the apply type to be used when applying recommendation for memory related event.
         	- IMMEDIATE - pods are restarted immediately when new recommendation is generated.
@@ -1187,41 +1971,76 @@ class WorkloadScalingPolicyMemoryEventArgs:
         return pulumi.get(self, "apply_type")
 
     @apply_type.setter
-    def apply_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def apply_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "apply_type", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyMemoryLimitArgsDict(TypedDict):
-        type: pulumi.Input[_builtins.str]
-        """
-        Defines limit strategy type.
-        	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
-        	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
-        	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
-        """
-        multiplier: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
-        """
-elif False:
-    WorkloadScalingPolicyMemoryLimitArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyMemoryLimitArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    Defines limit strategy type.
+    	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
+    	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
+    	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+    	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
+    """
+    multiplier: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
+    """
+    only_if_original_exist: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+    	If the original workload has no limits specified, no limits will be added.
+
+        This flag allows conditional limit management based on the original workload configuration.
+        
+        Only applicable when the type is set to multiplier.
+    """
+    only_if_original_lower: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+    	If the original limits are already higher than the calculated value, they remain unchanged.
+
+        This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+        
+        Only applicable when the type is set to multiplier.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyMemoryLimitArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[_builtins.str],
-                 multiplier: Optional[pulumi.Input[_builtins.float]] = None):
+                 multiplier: pulumi.Input[Optional[_builtins.float]] = None,
+                 only_if_original_exist: pulumi.Input[Optional[_builtins.bool]] = None,
+                 only_if_original_lower: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         :param pulumi.Input[_builtins.str] type: Defines limit strategy type.
                	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
                	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
                	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+               	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
         :param pulumi.Input[_builtins.float] multiplier: Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
+        :param pulumi.Input[_builtins.bool] only_if_original_exist: When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+               	If the original workload has no limits specified, no limits will be added.
+               
+                   This flag allows conditional limit management based on the original workload configuration.
+                   
+                   Only applicable when the type is set to multiplier.
+        :param pulumi.Input[_builtins.bool] only_if_original_lower: When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+               	If the original limits are already higher than the calculated value, they remain unchanged.
+               
+                   This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+                   
+                   Only applicable when the type is set to multiplier.
         """
         pulumi.set(__self__, "type", type)
         if multiplier is not None:
             pulumi.set(__self__, "multiplier", multiplier)
+        if only_if_original_exist is not None:
+            pulumi.set(__self__, "only_if_original_exist", only_if_original_exist)
+        if only_if_original_lower is not None:
+            pulumi.set(__self__, "only_if_original_lower", only_if_original_lower)
 
     @_builtins.property
     @pulumi.getter
@@ -1231,6 +2050,7 @@ class WorkloadScalingPolicyMemoryLimitArgs:
         	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
         	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
         	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+        	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
         """
         return pulumi.get(self, "type")
 
@@ -1240,30 +2060,61 @@ class WorkloadScalingPolicyMemoryLimitArgs:
 
     @_builtins.property
     @pulumi.getter
-    def multiplier(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def multiplier(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
         """
         return pulumi.get(self, "multiplier")
 
     @multiplier.setter
-    def multiplier(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def multiplier(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "multiplier", value)
 
+    @_builtins.property
+    @pulumi.getter(name="onlyIfOriginalExist")
+    def only_if_original_exist(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+        	If the original workload has no limits specified, no limits will be added.
 
-if not MYPY:
-    class WorkloadScalingPolicyPredictiveScalingArgsDict(TypedDict):
-        cpu: NotRequired[pulumi.Input['WorkloadScalingPolicyPredictiveScalingCpuArgsDict']]
+            This flag allows conditional limit management based on the original workload configuration.
+            
+            Only applicable when the type is set to multiplier.
         """
-        Defines predictive scaling resource configuration.
+        return pulumi.get(self, "only_if_original_exist")
+
+    @only_if_original_exist.setter
+    def only_if_original_exist(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "only_if_original_exist", value)
+
+    @_builtins.property
+    @pulumi.getter(name="onlyIfOriginalLower")
+    def only_if_original_lower(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-elif False:
-    WorkloadScalingPolicyPredictiveScalingArgsDict: TypeAlias = Mapping[str, Any]
+        When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+        	If the original limits are already higher than the calculated value, they remain unchanged.
+
+            This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+            
+            Only applicable when the type is set to multiplier.
+        """
+        return pulumi.get(self, "only_if_original_lower")
+
+    @only_if_original_lower.setter
+    def only_if_original_lower(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "only_if_original_lower", value)
+
+
+class WorkloadScalingPolicyPredictiveScalingArgsDict(TypedDict):
+    cpu: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyPredictiveScalingCpuArgsDict']]]
+    """
+    Defines predictive scaling resource configuration.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyPredictiveScalingArgs:
     def __init__(__self__, *,
-                 cpu: Optional[pulumi.Input['WorkloadScalingPolicyPredictiveScalingCpuArgs']] = None):
+                 cpu: pulumi.Input[Optional['WorkloadScalingPolicyPredictiveScalingCpuArgs']] = None):
         """
         :param pulumi.Input['WorkloadScalingPolicyPredictiveScalingCpuArgs'] cpu: Defines predictive scaling resource configuration.
         """
@@ -1272,25 +2123,22 @@ class WorkloadScalingPolicyPredictiveScalingArgs:
 
     @_builtins.property
     @pulumi.getter
-    def cpu(self) -> Optional[pulumi.Input['WorkloadScalingPolicyPredictiveScalingCpuArgs']]:
+    def cpu(self) -> pulumi.Input[Optional['WorkloadScalingPolicyPredictiveScalingCpuArgs']]:
         """
         Defines predictive scaling resource configuration.
         """
         return pulumi.get(self, "cpu")
 
     @cpu.setter
-    def cpu(self, value: Optional[pulumi.Input['WorkloadScalingPolicyPredictiveScalingCpuArgs']]):
+    def cpu(self, value: pulumi.Input[Optional['WorkloadScalingPolicyPredictiveScalingCpuArgs']]):
         pulumi.set(self, "cpu", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyPredictiveScalingCpuArgsDict(TypedDict):
-        enabled: pulumi.Input[_builtins.bool]
-        """
-        Defines if predictive scaling is enabled for resource.
-        """
-elif False:
-    WorkloadScalingPolicyPredictiveScalingCpuArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyPredictiveScalingCpuArgsDict(TypedDict):
+    enabled: pulumi.Input[_builtins.bool]
+    """
+    Defines if predictive scaling is enabled for resource.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyPredictiveScalingCpuArgs:
@@ -1314,87 +2162,112 @@ class WorkloadScalingPolicyPredictiveScalingCpuArgs:
         pulumi.set(self, "enabled", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyRolloutBehaviorArgsDict(TypedDict):
-        prefer_one_by_one: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Defines if pods should be restarted one by one to avoid service disruption.
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Defines the rollout type to be used when applying recommendations.
-        	- NO_DISRUPTION - pods are restarted without causing service disruption.
-        """
-elif False:
-    WorkloadScalingPolicyRolloutBehaviorArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyRolloutBehaviorArgsDict(TypedDict):
+    delay_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
+    """
+    prefer_one_by_one: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Defines if pods should be restarted one by one to avoid service disruption.
+    """
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Defines the rollout type to be used when applying recommendations.
+    	- NO_DISRUPTION - pods are restarted without causing service disruption.
+    	- UNSPECIFIED - rollout type is not specified.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyRolloutBehaviorArgs:
     def __init__(__self__, *,
-                 prefer_one_by_one: Optional[pulumi.Input[_builtins.bool]] = None,
-                 type: Optional[pulumi.Input[_builtins.str]] = None):
+                 delay_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 prefer_one_by_one: pulumi.Input[Optional[_builtins.bool]] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
         """
+        :param pulumi.Input[_builtins.int] delay_seconds: Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
         :param pulumi.Input[_builtins.bool] prefer_one_by_one: Defines if pods should be restarted one by one to avoid service disruption.
         :param pulumi.Input[_builtins.str] type: Defines the rollout type to be used when applying recommendations.
                	- NO_DISRUPTION - pods are restarted without causing service disruption.
+               	- UNSPECIFIED - rollout type is not specified.
         """
+        if delay_seconds is not None:
+            pulumi.set(__self__, "delay_seconds", delay_seconds)
         if prefer_one_by_one is not None:
             pulumi.set(__self__, "prefer_one_by_one", prefer_one_by_one)
         if type is not None:
             pulumi.set(__self__, "type", type)
 
     @_builtins.property
+    @pulumi.getter(name="delaySeconds")
+    def delay_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
+        """
+        return pulumi.get(self, "delay_seconds")
+
+    @delay_seconds.setter
+    def delay_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "delay_seconds", value)
+
+    @_builtins.property
     @pulumi.getter(name="preferOneByOne")
-    def prefer_one_by_one(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def prefer_one_by_one(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Defines if pods should be restarted one by one to avoid service disruption.
         """
         return pulumi.get(self, "prefer_one_by_one")
 
     @prefer_one_by_one.setter
-    def prefer_one_by_one(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def prefer_one_by_one(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "prefer_one_by_one", value)
 
     @_builtins.property
     @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Defines the rollout type to be used when applying recommendations.
         	- NO_DISRUPTION - pods are restarted without causing service disruption.
+        	- UNSPECIFIED - rollout type is not specified.
         """
         return pulumi.get(self, "type")
 
     @type.setter
-    def type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class WorkloadScalingPolicyStartupArgsDict(TypedDict):
-        period_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Defines the duration (in seconds) during which elevated resource usage is expected at startup.
-        When set, recommendations will be adjusted to disregard resource spikes within this period.
-        If not specified, the workload will receive standard recommendations without startup considerations.
-        """
-elif False:
-    WorkloadScalingPolicyStartupArgsDict: TypeAlias = Mapping[str, Any]
+class WorkloadScalingPolicyStartupArgsDict(TypedDict):
+    period_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Defines the duration (in seconds) during which elevated resource usage is expected at startup.
+    When set, recommendations will be adjusted to disregard resource spikes within this period.
+    If not specified, the workload will receive standard recommendations without startup considerations.
+    """
+    two_phase_recommendations: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgsDict']]]
+    """
+    Defines two-phase recommendations settings for the startup period.
+    """
 
 @pulumi.input_type
 class WorkloadScalingPolicyStartupArgs:
     def __init__(__self__, *,
-                 period_seconds: Optional[pulumi.Input[_builtins.int]] = None):
+                 period_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 two_phase_recommendations: pulumi.Input[Optional['WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs']] = None):
         """
         :param pulumi.Input[_builtins.int] period_seconds: Defines the duration (in seconds) during which elevated resource usage is expected at startup.
                When set, recommendations will be adjusted to disregard resource spikes within this period.
                If not specified, the workload will receive standard recommendations without startup considerations.
+        :param pulumi.Input['WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs'] two_phase_recommendations: Defines two-phase recommendations settings for the startup period.
         """
         if period_seconds is not None:
             pulumi.set(__self__, "period_seconds", period_seconds)
+        if two_phase_recommendations is not None:
+            pulumi.set(__self__, "two_phase_recommendations", two_phase_recommendations)
 
     @_builtins.property
     @pulumi.getter(name="periodSeconds")
-    def period_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def period_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Defines the duration (in seconds) during which elevated resource usage is expected at startup.
         When set, recommendations will be adjusted to disregard resource spikes within this period.
@@ -1403,7 +2276,116 @@ class WorkloadScalingPolicyStartupArgs:
         return pulumi.get(self, "period_seconds")
 
     @period_seconds.setter
-    def period_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def period_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "period_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="twoPhaseRecommendations")
+    def two_phase_recommendations(self) -> pulumi.Input[Optional['WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs']]:
+        """
+        Defines two-phase recommendations settings for the startup period.
+        """
+        return pulumi.get(self, "two_phase_recommendations")
+
+    @two_phase_recommendations.setter
+    def two_phase_recommendations(self, value: pulumi.Input[Optional['WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs']]):
+        pulumi.set(self, "two_phase_recommendations", value)
+
+
+class WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgsDict(TypedDict):
+    enabled: pulumi.Input[_builtins.bool]
+    """
+    Defines whether two-phase recommendations are enabled during startup.
+    """
+    requests_on_startup: NotRequired[pulumi.Input[Optional['WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgsDict']]]
+    """
+    Defines the resource requests to use during startup.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs:
+    def __init__(__self__, *,
+                 enabled: pulumi.Input[_builtins.bool],
+                 requests_on_startup: pulumi.Input[Optional['WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs']] = None):
+        """
+        :param pulumi.Input[_builtins.bool] enabled: Defines whether two-phase recommendations are enabled during startup.
+        :param pulumi.Input['WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs'] requests_on_startup: Defines the resource requests to use during startup.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        if requests_on_startup is not None:
+            pulumi.set(__self__, "requests_on_startup", requests_on_startup)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Defines whether two-phase recommendations are enabled during startup.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requestsOnStartup")
+    def requests_on_startup(self) -> pulumi.Input[Optional['WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs']]:
+        """
+        Defines the resource requests to use during startup.
+        """
+        return pulumi.get(self, "requests_on_startup")
+
+    @requests_on_startup.setter
+    def requests_on_startup(self, value: pulumi.Input[Optional['WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs']]):
+        pulumi.set(self, "requests_on_startup", value)
+
+
+class WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgsDict(TypedDict):
+    cpu_cores: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    CPU cores to request during startup.
+    """
+    memory_gib: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Memory in GiB to request during startup.
+    """
+
+@pulumi.input_type
+class WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs:
+    def __init__(__self__, *,
+                 cpu_cores: pulumi.Input[Optional[_builtins.float]] = None,
+                 memory_gib: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        :param pulumi.Input[_builtins.float] cpu_cores: CPU cores to request during startup.
+        :param pulumi.Input[_builtins.float] memory_gib: Memory in GiB to request during startup.
+        """
+        if cpu_cores is not None:
+            pulumi.set(__self__, "cpu_cores", cpu_cores)
+        if memory_gib is not None:
+            pulumi.set(__self__, "memory_gib", memory_gib)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuCores")
+    def cpu_cores(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        CPU cores to request during startup.
+        """
+        return pulumi.get(self, "cpu_cores")
+
+    @cpu_cores.setter
+    def cpu_cores(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "cpu_cores", value)
+
+    @_builtins.property
+    @pulumi.getter(name="memoryGib")
+    def memory_gib(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Memory in GiB to request during startup.
+        """
+        return pulumi.get(self, "memory_gib")
+
+    @memory_gib.setter
+    def memory_gib(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "memory_gib", value)
 
 

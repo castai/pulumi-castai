@@ -37,26 +37,21 @@ __all__ = [
     'RoleBindingsSubjectSubjectArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class EnterpriseRoleBindingScopesArgsDict(TypedDict):
-        clusters: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgsDict']]]]
-        """
-        Cluster scopes.
-        """
-        organizations: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgsDict']]]]
-        """
-        Organization scopes.
-        """
-elif False:
-    EnterpriseRoleBindingScopesArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseRoleBindingScopesArgsDict(TypedDict):
+    clusters: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgsDict']]]]]
+    """
+    Cluster scopes.
+    """
+    organizations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgsDict']]]]]
+    """
+    Organization scopes.
+    """
 
 @pulumi.input_type
 class EnterpriseRoleBindingScopesArgs:
     def __init__(__self__, *,
-                 clusters: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgs']]]] = None,
-                 organizations: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgs']]]] = None):
+                 clusters: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgs']]]] = None,
+                 organizations: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgs']]]] = None):
         """
         :param pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgs']]] clusters: Cluster scopes.
         :param pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgs']]] organizations: Organization scopes.
@@ -68,37 +63,34 @@ class EnterpriseRoleBindingScopesArgs:
 
     @_builtins.property
     @pulumi.getter
-    def clusters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgs']]]]:
+    def clusters(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgs']]]]:
         """
         Cluster scopes.
         """
         return pulumi.get(self, "clusters")
 
     @clusters.setter
-    def clusters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgs']]]]):
+    def clusters(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingScopesClusterArgs']]]]):
         pulumi.set(self, "clusters", value)
 
     @_builtins.property
     @pulumi.getter
-    def organizations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgs']]]]:
+    def organizations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgs']]]]:
         """
         Organization scopes.
         """
         return pulumi.get(self, "organizations")
 
     @organizations.setter
-    def organizations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgs']]]]):
+    def organizations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingScopesOrganizationArgs']]]]):
         pulumi.set(self, "organizations", value)
 
 
-if not MYPY:
-    class EnterpriseRoleBindingScopesClusterArgsDict(TypedDict):
-        id: pulumi.Input[_builtins.str]
-        """
-        Cluster ID.
-        """
-elif False:
-    EnterpriseRoleBindingScopesClusterArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseRoleBindingScopesClusterArgsDict(TypedDict):
+    id: pulumi.Input[_builtins.str]
+    """
+    Cluster ID.
+    """
 
 @pulumi.input_type
 class EnterpriseRoleBindingScopesClusterArgs:
@@ -122,14 +114,11 @@ class EnterpriseRoleBindingScopesClusterArgs:
         pulumi.set(self, "id", value)
 
 
-if not MYPY:
-    class EnterpriseRoleBindingScopesOrganizationArgsDict(TypedDict):
-        id: pulumi.Input[_builtins.str]
-        """
-        Organization ID.
-        """
-elif False:
-    EnterpriseRoleBindingScopesOrganizationArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseRoleBindingScopesOrganizationArgsDict(TypedDict):
+    id: pulumi.Input[_builtins.str]
+    """
+    Organization ID.
+    """
 
 @pulumi.input_type
 class EnterpriseRoleBindingScopesOrganizationArgs:
@@ -153,29 +142,26 @@ class EnterpriseRoleBindingScopesOrganizationArgs:
         pulumi.set(self, "id", value)
 
 
-if not MYPY:
-    class EnterpriseRoleBindingSubjectsArgsDict(TypedDict):
-        groups: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgsDict']]]]
-        """
-        Group subjects.
-        """
-        service_accounts: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgsDict']]]]
-        """
-        Service account subjects.
-        """
-        users: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsUserArgsDict']]]]
-        """
-        User subjects.
-        """
-elif False:
-    EnterpriseRoleBindingSubjectsArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseRoleBindingSubjectsArgsDict(TypedDict):
+    groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgsDict']]]]]
+    """
+    Group subjects.
+    """
+    service_accounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgsDict']]]]]
+    """
+    Service account subjects.
+    """
+    users: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsUserArgsDict']]]]]
+    """
+    User subjects.
+    """
 
 @pulumi.input_type
 class EnterpriseRoleBindingSubjectsArgs:
     def __init__(__self__, *,
-                 groups: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgs']]]] = None,
-                 service_accounts: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgs']]]] = None,
-                 users: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsUserArgs']]]] = None):
+                 groups: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgs']]]] = None,
+                 service_accounts: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgs']]]] = None,
+                 users: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsUserArgs']]]] = None):
         """
         :param pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgs']]] groups: Group subjects.
         :param pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgs']]] service_accounts: Service account subjects.
@@ -190,49 +176,46 @@ class EnterpriseRoleBindingSubjectsArgs:
 
     @_builtins.property
     @pulumi.getter
-    def groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgs']]]]:
+    def groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgs']]]]:
         """
         Group subjects.
         """
         return pulumi.get(self, "groups")
 
     @groups.setter
-    def groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgs']]]]):
+    def groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsGroupArgs']]]]):
         pulumi.set(self, "groups", value)
 
     @_builtins.property
     @pulumi.getter(name="serviceAccounts")
-    def service_accounts(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgs']]]]:
+    def service_accounts(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgs']]]]:
         """
         Service account subjects.
         """
         return pulumi.get(self, "service_accounts")
 
     @service_accounts.setter
-    def service_accounts(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgs']]]]):
+    def service_accounts(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsServiceAccountArgs']]]]):
         pulumi.set(self, "service_accounts", value)
 
     @_builtins.property
     @pulumi.getter
-    def users(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsUserArgs']]]]:
+    def users(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsUserArgs']]]]:
         """
         User subjects.
         """
         return pulumi.get(self, "users")
 
     @users.setter
-    def users(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsUserArgs']]]]):
+    def users(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseRoleBindingSubjectsUserArgs']]]]):
         pulumi.set(self, "users", value)
 
 
-if not MYPY:
-    class EnterpriseRoleBindingSubjectsGroupArgsDict(TypedDict):
-        id: pulumi.Input[_builtins.str]
-        """
-        Group ID.
-        """
-elif False:
-    EnterpriseRoleBindingSubjectsGroupArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseRoleBindingSubjectsGroupArgsDict(TypedDict):
+    id: pulumi.Input[_builtins.str]
+    """
+    Group ID.
+    """
 
 @pulumi.input_type
 class EnterpriseRoleBindingSubjectsGroupArgs:
@@ -256,14 +239,11 @@ class EnterpriseRoleBindingSubjectsGroupArgs:
         pulumi.set(self, "id", value)
 
 
-if not MYPY:
-    class EnterpriseRoleBindingSubjectsServiceAccountArgsDict(TypedDict):
-        id: pulumi.Input[_builtins.str]
-        """
-        Service account ID.
-        """
-elif False:
-    EnterpriseRoleBindingSubjectsServiceAccountArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseRoleBindingSubjectsServiceAccountArgsDict(TypedDict):
+    id: pulumi.Input[_builtins.str]
+    """
+    Service account ID.
+    """
 
 @pulumi.input_type
 class EnterpriseRoleBindingSubjectsServiceAccountArgs:
@@ -287,14 +267,11 @@ class EnterpriseRoleBindingSubjectsServiceAccountArgs:
         pulumi.set(self, "id", value)
 
 
-if not MYPY:
-    class EnterpriseRoleBindingSubjectsUserArgsDict(TypedDict):
-        id: pulumi.Input[_builtins.str]
-        """
-        User ID.
-        """
-elif False:
-    EnterpriseRoleBindingSubjectsUserArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseRoleBindingSubjectsUserArgsDict(TypedDict):
+    id: pulumi.Input[_builtins.str]
+    """
+    User ID.
+    """
 
 @pulumi.input_type
 class EnterpriseRoleBindingSubjectsUserArgs:
@@ -318,18 +295,15 @@ class EnterpriseRoleBindingSubjectsUserArgs:
         pulumi.set(self, "id", value)
 
 
-if not MYPY:
-    class RoleBindingsScopeArgsDict(TypedDict):
-        kind: pulumi.Input[_builtins.str]
-        """
-        Scope of the role binding Supported values include: organization, cluster.
-        """
-        resource_id: pulumi.Input[_builtins.str]
-        """
-        ID of the scope resource.
-        """
-elif False:
-    RoleBindingsScopeArgsDict: TypeAlias = Mapping[str, Any]
+class RoleBindingsScopeArgsDict(TypedDict):
+    kind: pulumi.Input[_builtins.str]
+    """
+    Scope of the role binding Supported values include: organization, cluster.
+    """
+    resource_id: pulumi.Input[_builtins.str]
+    """
+    ID of the scope resource.
+    """
 
 @pulumi.input_type
 class RoleBindingsScopeArgs:
@@ -368,57 +342,51 @@ class RoleBindingsScopeArgs:
         pulumi.set(self, "resource_id", value)
 
 
-if not MYPY:
-    class RoleBindingsSubjectArgsDict(TypedDict):
-        subjects: NotRequired[pulumi.Input[Sequence[pulumi.Input['RoleBindingsSubjectSubjectArgsDict']]]]
-elif False:
-    RoleBindingsSubjectArgsDict: TypeAlias = Mapping[str, Any]
+class RoleBindingsSubjectArgsDict(TypedDict):
+    subjects: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['RoleBindingsSubjectSubjectArgsDict']]]]]
 
 @pulumi.input_type
 class RoleBindingsSubjectArgs:
     def __init__(__self__, *,
-                 subjects: Optional[pulumi.Input[Sequence[pulumi.Input['RoleBindingsSubjectSubjectArgs']]]] = None):
+                 subjects: pulumi.Input[Optional[Sequence[pulumi.Input['RoleBindingsSubjectSubjectArgs']]]] = None):
         if subjects is not None:
             pulumi.set(__self__, "subjects", subjects)
 
     @_builtins.property
     @pulumi.getter
-    def subjects(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RoleBindingsSubjectSubjectArgs']]]]:
+    def subjects(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['RoleBindingsSubjectSubjectArgs']]]]:
         return pulumi.get(self, "subjects")
 
     @subjects.setter
-    def subjects(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RoleBindingsSubjectSubjectArgs']]]]):
+    def subjects(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['RoleBindingsSubjectSubjectArgs']]]]):
         pulumi.set(self, "subjects", value)
 
 
-if not MYPY:
-    class RoleBindingsSubjectSubjectArgsDict(TypedDict):
-        kind: pulumi.Input[_builtins.str]
-        """
-        Kind of the subject. Supported values include: user, service_account, group.
-        """
-        group_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Optional, required only if `kind` is `group`.
-        """
-        service_account_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Optional, required only if `kind` is `service_account`.
-        """
-        user_id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Optional, required only if `kind` is `user`.
-        """
-elif False:
-    RoleBindingsSubjectSubjectArgsDict: TypeAlias = Mapping[str, Any]
+class RoleBindingsSubjectSubjectArgsDict(TypedDict):
+    kind: pulumi.Input[_builtins.str]
+    """
+    Kind of the subject. Supported values include: user, service_account, group.
+    """
+    group_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Optional, required only if `kind` is `group`.
+    """
+    service_account_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Optional, required only if `kind` is `service_account`.
+    """
+    user_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Optional, required only if `kind` is `user`.
+    """
 
 @pulumi.input_type
 class RoleBindingsSubjectSubjectArgs:
     def __init__(__self__, *,
                  kind: pulumi.Input[_builtins.str],
-                 group_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 service_account_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 group_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 service_account_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] kind: Kind of the subject. Supported values include: user, service_account, group.
         :param pulumi.Input[_builtins.str] group_id: Optional, required only if `kind` is `group`.
@@ -447,38 +415,38 @@ class RoleBindingsSubjectSubjectArgs:
 
     @_builtins.property
     @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def group_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional, required only if `kind` is `group`.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="serviceAccountId")
-    def service_account_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def service_account_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional, required only if `kind` is `service_account`.
         """
         return pulumi.get(self, "service_account_id")
 
     @service_account_id.setter
-    def service_account_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def service_account_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "service_account_id", value)
 
     @_builtins.property
     @pulumi.getter(name="userId")
-    def user_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def user_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional, required only if `kind` is `user`.
         """
         return pulumi.get(self, "user_id")
 
     @user_id.setter
-    def user_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def user_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "user_id", value)
 
 

@@ -39,11 +39,11 @@ export interface NodeConfigurationDefaultState {
     /**
      * CAST AI cluster id
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * Id of the node configuration
      */
-    configurationId?: pulumi.Input<string>;
+    configurationId?: pulumi.Input<string | undefined>;
 }
 /**
  * The set of arguments for constructing a NodeConfigurationDefault resource.
@@ -58,3 +58,4 @@ export interface NodeConfigurationDefaultArgs {
      */
     configurationId: pulumi.Input<string>;
 }
+//# sourceMappingURL=nodeConfigurationDefault.d.ts.map

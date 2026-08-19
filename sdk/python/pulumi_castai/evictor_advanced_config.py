@@ -24,6 +24,7 @@ class EvictorAdvancedConfigArgs:
                  evictor_advanced_configs: pulumi.Input[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]]):
         """
         The set of arguments for constructing a EvictorAdvancedConfig resource.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
         :param pulumi.Input[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]] evictor_advanced_configs: evictor advanced configuration to target specific node/pod
         """
@@ -58,10 +59,11 @@ class EvictorAdvancedConfigArgs:
 @pulumi.input_type
 class _EvictorAdvancedConfigState:
     def __init__(__self__, *,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 evictor_advanced_configs: Optional[pulumi.Input[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]]] = None):
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 evictor_advanced_configs: pulumi.Input[Optional[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]]] = None):
         """
         Input properties used for looking up and filtering EvictorAdvancedConfig resources.
+
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
         :param pulumi.Input[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]] evictor_advanced_configs: evictor advanced configuration to target specific node/pod
         """
@@ -72,26 +74,26 @@ class _EvictorAdvancedConfigState:
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CAST AI cluster id.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter(name="evictorAdvancedConfigs")
-    def evictor_advanced_configs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]]]:
+    def evictor_advanced_configs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]]]:
         """
         evictor advanced configuration to target specific node/pod
         """
         return pulumi.get(self, "evictor_advanced_configs")
 
     @evictor_advanced_configs.setter
-    def evictor_advanced_configs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]]]):
+    def evictor_advanced_configs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs']]]]):
         pulumi.set(self, "evictor_advanced_configs", value)
 
 
@@ -101,11 +103,12 @@ class EvictorAdvancedConfig(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 evictor_advanced_configs: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs', '_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgsDict']]]]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 evictor_advanced_configs: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs', '_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgsDict']]]]] = None,
                  __props__=None):
         """
         Create a EvictorAdvancedConfig resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cluster_id: CAST AI cluster id.
@@ -119,6 +122,7 @@ class EvictorAdvancedConfig(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Create a EvictorAdvancedConfig resource with the given unique name, props, and options.
+
         :param str resource_name: The name of the resource.
         :param EvictorAdvancedConfigArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -134,8 +138,8 @@ class EvictorAdvancedConfig(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 evictor_advanced_configs: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs', '_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgsDict']]]]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 evictor_advanced_configs: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs', '_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -161,8 +165,8 @@ class EvictorAdvancedConfig(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            evictor_advanced_configs: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs', '_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgsDict']]]]] = None) -> 'EvictorAdvancedConfig':
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            evictor_advanced_configs: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgs', '_autoscaling.EvictorAdvancedConfigEvictorAdvancedConfigArgsDict']]]]] = None) -> 'EvictorAdvancedConfig':
         """
         Get an existing EvictorAdvancedConfig resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

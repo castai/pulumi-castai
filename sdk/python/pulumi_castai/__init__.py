@@ -6,28 +6,38 @@ import builtins as _builtins
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .ai_optimizer_hosted_model import *
+from .ai_optimizer_model_registry import *
+from .ai_optimizer_model_specs import *
 from .aks_cluster import *
 from .allocation_group import *
 from .autoscaler import *
+from .cache_configuration import *
+from .cache_group import *
+from .cache_rule import *
 from .commitments import *
 from .eks_cluster import *
 from .eks_cluster_id import *
 from .eks_user_arn import *
 from .enterprise_group import *
 from .enterprise_role_binding import *
+from .enterprise_service_account import *
 from .evictor_advanced_config import *
-from .get_eks_settings_data_source import *
-from .get_eks_user_arn_data_source import *
-from .get_gke_policies_data_source import *
-from .get_hibernation_schedule_data_source import *
-from .get_organization_data_source import *
-from .get_rebalancing_schedule_data_source import *
-from .get_workload_scaling_policy_order_data_source import *
+from .get_cache_group import *
+from .get_eks_settings import *
+from .get_gke_policies import *
+from .get_hibernation_schedule import *
+from .get_impersonation_service_account import *
+from .get_organization import *
+from .get_rebalancing_schedule import *
+from .get_workload_scaling_policies import *
+from .get_workload_scaling_policy_order import *
 from .gke_cluster import *
 from .gke_cluster_id import *
 from .hibernation_schedule import *
 from .organization_group import *
 from .organization_members import *
+from .pod_mutation import *
 from .provider import *
 from .rebalancing_job import *
 from .rebalancing_schedule import *
@@ -37,6 +47,7 @@ from .security_runtime_rule import *
 from .service_account import *
 from .service_account_key import *
 from .sso_connection import *
+from .workload_custom_metrics_data_source import *
 from .workload_scaling_policy import *
 from .workload_scaling_policy_order import *
 from ._inputs import *
@@ -48,6 +59,8 @@ if typing.TYPE_CHECKING:
     autoscaling = __autoscaling
     import pulumi_castai.azure as __azure
     azure = __azure
+    import pulumi_castai.cache as __cache
+    cache = __cache
     import pulumi_castai.config as __config
     config = __config
     import pulumi_castai.iam as __iam
@@ -61,6 +74,7 @@ if typing.TYPE_CHECKING:
 else:
     autoscaling = _utilities.lazy_import('pulumi_castai.autoscaling')
     azure = _utilities.lazy_import('pulumi_castai.azure')
+    cache = _utilities.lazy_import('pulumi_castai.cache')
     config = _utilities.lazy_import('pulumi_castai.config')
     iam = _utilities.lazy_import('pulumi_castai.iam')
     organization = _utilities.lazy_import('pulumi_castai.organization')
@@ -99,6 +113,16 @@ _utilities.register(
  },
  {
   "pkg": "castai",
+  "mod": "cache",
+  "fqn": "pulumi_castai",
+  "classes": {
+   "castai:cache:CacheConfiguration": "CacheConfiguration",
+   "castai:cache:CacheGroup": "CacheGroup",
+   "castai:cache:CacheRule": "CacheRule"
+  }
+ },
+ {
+  "pkg": "castai",
   "mod": "config/node",
   "fqn": "pulumi_castai.config",
   "classes": {
@@ -132,8 +156,19 @@ _utilities.register(
   "classes": {
    "castai:index:AllocationGroup": "AllocationGroup",
    "castai:index:Commitments": "Commitments",
+   "castai:index:PodMutation": "PodMutation",
    "castai:index:Reservations": "Reservations",
    "castai:index:SecurityRuntimeRule": "SecurityRuntimeRule"
+  }
+ },
+ {
+  "pkg": "castai",
+  "mod": "index/aiOptimizer",
+  "fqn": "pulumi_castai",
+  "classes": {
+   "castai:index/aiOptimizer:AiOptimizerHostedModel": "AiOptimizerHostedModel",
+   "castai:index/aiOptimizer:AiOptimizerModelRegistry": "AiOptimizerModelRegistry",
+   "castai:index/aiOptimizer:AiOptimizerModelSpecs": "AiOptimizerModelSpecs"
   }
  },
  {
@@ -142,6 +177,7 @@ _utilities.register(
   "fqn": "pulumi_castai",
   "classes": {
    "castai:organization:EnterpriseGroup": "EnterpriseGroup",
+   "castai:organization:EnterpriseServiceAccount": "EnterpriseServiceAccount",
    "castai:organization:OrganizationGroup": "OrganizationGroup",
    "castai:organization:OrganizationMembers": "OrganizationMembers",
    "castai:organization:SSOConnection": "SSOConnection",
@@ -164,6 +200,7 @@ _utilities.register(
   "mod": "workload",
   "fqn": "pulumi_castai",
   "classes": {
+   "castai:workload:WorkloadCustomMetricsDataSource": "WorkloadCustomMetricsDataSource",
    "castai:workload:WorkloadScalingPolicy": "WorkloadScalingPolicy",
    "castai:workload:WorkloadScalingPolicyOrder": "WorkloadScalingPolicyOrder"
   }

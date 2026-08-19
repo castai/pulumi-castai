@@ -16,26 +16,210 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
+    'WorkloadCustomMetricsDataSourcePrometheus',
+    'WorkloadCustomMetricsDataSourcePrometheusMetric',
+    'WorkloadScalingPolicyAnomalyDetection',
+    'WorkloadScalingPolicyAnomalyDetectionCpuPressure',
     'WorkloadScalingPolicyAntiAffinity',
     'WorkloadScalingPolicyAssignmentRule',
     'WorkloadScalingPolicyAssignmentRuleRule',
     'WorkloadScalingPolicyAssignmentRuleRuleNamespace',
+    'WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression',
     'WorkloadScalingPolicyAssignmentRuleRuleWorkload',
     'WorkloadScalingPolicyAssignmentRuleRuleWorkloadLabelsExpression',
     'WorkloadScalingPolicyConfidence',
     'WorkloadScalingPolicyCpu',
     'WorkloadScalingPolicyCpuApplyThresholdStrategy',
+    'WorkloadScalingPolicyCpuConstraints',
+    'WorkloadScalingPolicyCpuConstraintsMax',
+    'WorkloadScalingPolicyCpuConstraintsMin',
     'WorkloadScalingPolicyCpuLimit',
     'WorkloadScalingPolicyDownscaling',
+    'WorkloadScalingPolicyHpaConverter',
+    'WorkloadScalingPolicyJvm',
+    'WorkloadScalingPolicyJvmMemory',
     'WorkloadScalingPolicyMemory',
     'WorkloadScalingPolicyMemoryApplyThresholdStrategy',
+    'WorkloadScalingPolicyMemoryConstraints',
+    'WorkloadScalingPolicyMemoryConstraintsMax',
+    'WorkloadScalingPolicyMemoryConstraintsMin',
     'WorkloadScalingPolicyMemoryEvent',
     'WorkloadScalingPolicyMemoryLimit',
     'WorkloadScalingPolicyPredictiveScaling',
     'WorkloadScalingPolicyPredictiveScalingCpu',
     'WorkloadScalingPolicyRolloutBehavior',
     'WorkloadScalingPolicyStartup',
+    'WorkloadScalingPolicyStartupTwoPhaseRecommendations',
+    'WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup',
+    'GetWorkloadScalingPoliciesPolicyResult',
 ]
+
+@pulumi.output_type
+class WorkloadCustomMetricsDataSourcePrometheus(dict):
+    def __init__(__self__, *,
+                 url: _builtins.str,
+                 metrics: Optional[Sequence['outputs.WorkloadCustomMetricsDataSourcePrometheusMetric']] = None,
+                 presets: Optional[Sequence[_builtins.str]] = None,
+                 timeout: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str url: URL of the Prometheus server.
+        :param Sequence['WorkloadCustomMetricsDataSourcePrometheusMetricArgs'] metrics: Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+        :param Sequence[_builtins.str] presets: List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+        :param _builtins.str timeout: Timeout for Prometheus queries (e.g. "30s").
+        """
+        pulumi.set(__self__, "url", url)
+        if metrics is not None:
+            pulumi.set(__self__, "metrics", metrics)
+        if presets is not None:
+            pulumi.set(__self__, "presets", presets)
+        if timeout is not None:
+            pulumi.set(__self__, "timeout", timeout)
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> _builtins.str:
+        """
+        URL of the Prometheus server.
+        """
+        return pulumi.get(self, "url")
+
+    @_builtins.property
+    @pulumi.getter
+    def metrics(self) -> Optional[Sequence['outputs.WorkloadCustomMetricsDataSourcePrometheusMetric']]:
+        """
+        Manually defined metrics. Use this for advanced use cases where presets don't cover your needs. Each entry defines a single metric name and PromQL query. To specify multiple queries for the same metric, use multiple entries with the same name.
+        """
+        return pulumi.get(self, "metrics")
+
+    @_builtins.property
+    @pulumi.getter
+    def presets(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        List of metric presets managed by CAST AI. Presets provide curated metric definitions that are kept up to date automatically. This is the recommended approach for most users. Currently available: "jvm".
+        """
+        return pulumi.get(self, "presets")
+
+    @_builtins.property
+    @pulumi.getter
+    def timeout(self) -> Optional[_builtins.str]:
+        """
+        Timeout for Prometheus queries (e.g. "30s").
+        """
+        return pulumi.get(self, "timeout")
+
+
+@pulumi.output_type
+class WorkloadCustomMetricsDataSourcePrometheusMetric(dict):
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 query: _builtins.str):
+        """
+        :param _builtins.str name: Name of the metric.
+        :param _builtins.str query: PromQL query for this metric.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "query", query)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        Name of the metric.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> _builtins.str:
+        """
+        PromQL query for this metric.
+        """
+        return pulumi.get(self, "query")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyAnomalyDetection(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cpuPressure":
+            suggest = "cpu_pressure"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyAnomalyDetection. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyAnomalyDetection.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyAnomalyDetection.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cpu_pressure: Optional['outputs.WorkloadScalingPolicyAnomalyDetectionCpuPressure'] = None):
+        """
+        :param 'WorkloadScalingPolicyAnomalyDetectionCpuPressureArgs' cpu_pressure: Configures CPU pressure anomaly detection thresholds.
+        """
+        if cpu_pressure is not None:
+            pulumi.set(__self__, "cpu_pressure", cpu_pressure)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuPressure")
+    def cpu_pressure(self) -> Optional['outputs.WorkloadScalingPolicyAnomalyDetectionCpuPressure']:
+        """
+        Configures CPU pressure anomaly detection thresholds.
+        """
+        return pulumi.get(self, "cpu_pressure")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyAnomalyDetectionCpuPressure(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cpuStallThresholdPercentage":
+            suggest = "cpu_stall_threshold_percentage"
+        elif key == "minPressuredPodPercentage":
+            suggest = "min_pressured_pod_percentage"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyAnomalyDetectionCpuPressure. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyAnomalyDetectionCpuPressure.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyAnomalyDetectionCpuPressure.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cpu_stall_threshold_percentage: _builtins.float,
+                 min_pressured_pod_percentage: _builtins.float):
+        """
+        :param _builtins.float cpu_stall_threshold_percentage: Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+        :param _builtins.float min_pressured_pod_percentage: Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+        """
+        pulumi.set(__self__, "cpu_stall_threshold_percentage", cpu_stall_threshold_percentage)
+        pulumi.set(__self__, "min_pressured_pod_percentage", min_pressured_pod_percentage)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuStallThresholdPercentage")
+    def cpu_stall_threshold_percentage(self) -> _builtins.float:
+        """
+        Percentage of time (0-100) that a pod must experience CPU pressure to be considered under pressure.
+        """
+        return pulumi.get(self, "cpu_stall_threshold_percentage")
+
+    @_builtins.property
+    @pulumi.getter(name="minPressuredPodPercentage")
+    def min_pressured_pod_percentage(self) -> _builtins.float:
+        """
+        Percentage (0-100) of pods that must be experiencing pressure for the detector to trigger.
+        """
+        return pulumi.get(self, "min_pressured_pod_percentage")
+
 
 @pulumi.output_type
 class WorkloadScalingPolicyAntiAffinity(dict):
@@ -120,13 +304,42 @@ class WorkloadScalingPolicyAssignmentRuleRule(dict):
 
 @pulumi.output_type
 class WorkloadScalingPolicyAssignmentRuleRuleNamespace(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "labelsExpressions":
+            suggest = "labels_expressions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyAssignmentRuleRuleNamespace. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyAssignmentRuleRuleNamespace.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyAssignmentRuleRuleNamespace.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
+                 labels_expressions: Optional[Sequence['outputs.WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression']] = None,
                  names: Optional[Sequence[_builtins.str]] = None):
         """
+        :param Sequence['WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpressionArgs'] labels_expressions: Defines matching by label selector requirements.
         :param Sequence[_builtins.str] names: Defines matching by namespace names.
         """
+        if labels_expressions is not None:
+            pulumi.set(__self__, "labels_expressions", labels_expressions)
         if names is not None:
             pulumi.set(__self__, "names", names)
+
+    @_builtins.property
+    @pulumi.getter(name="labelsExpressions")
+    def labels_expressions(self) -> Optional[Sequence['outputs.WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression']]:
+        """
+        Defines matching by label selector requirements.
+        """
+        return pulumi.get(self, "labels_expressions")
 
     @_builtins.property
     @pulumi.getter
@@ -135,6 +348,48 @@ class WorkloadScalingPolicyAssignmentRuleRuleNamespace(dict):
         Defines matching by namespace names.
         """
         return pulumi.get(self, "names")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyAssignmentRuleRuleNamespaceLabelsExpression(dict):
+    def __init__(__self__, *,
+                 operator: _builtins.str,
+                 key: Optional[_builtins.str] = None,
+                 values: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param _builtins.str operator: The operator to use for matching the label.
+        :param _builtins.str key: The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+        :param Sequence[_builtins.str] values: A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+        """
+        pulumi.set(__self__, "operator", operator)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> _builtins.str:
+        """
+        The operator to use for matching the label.
+        """
+        return pulumi.get(self, "operator")
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[_builtins.str]:
+        """
+        The label key to match. Required for all operators except `Regex` and `Contains`. If not specified, it will search through all labels.
+        """
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        A list of values to match against the label key. It is required for `In`, `NotIn`, `Regex`, and `Contains` operators.
+        """
+        return pulumi.get(self, "values")
 
 
 @pulumi.output_type
@@ -283,6 +538,7 @@ class WorkloadScalingPolicyCpu(dict):
                  apply_threshold: Optional[_builtins.float] = None,
                  apply_threshold_strategy: Optional['outputs.WorkloadScalingPolicyCpuApplyThresholdStrategy'] = None,
                  args: Optional[_builtins.str] = None,
+                 constraints: Optional['outputs.WorkloadScalingPolicyCpuConstraints'] = None,
                  function: Optional[_builtins.str] = None,
                  limit: Optional['outputs.WorkloadScalingPolicyCpuLimit'] = None,
                  look_back_period_seconds: Optional[_builtins.int] = None,
@@ -294,6 +550,7 @@ class WorkloadScalingPolicyCpu(dict):
         :param _builtins.float apply_threshold: The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
         :param 'WorkloadScalingPolicyCpuApplyThresholdStrategyArgs' apply_threshold_strategy: Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
         :param _builtins.str args: The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
+        :param 'WorkloadScalingPolicyCpuConstraintsArgs' constraints: Defines min/max bounds for the recommendation using constraint strategies.
         :param _builtins.str function: The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
         :param 'WorkloadScalingPolicyCpuLimitArgs' limit: Resource limit settings
         :param _builtins.int look_back_period_seconds: The look back period in seconds for the recommendation.
@@ -308,6 +565,8 @@ class WorkloadScalingPolicyCpu(dict):
             pulumi.set(__self__, "apply_threshold_strategy", apply_threshold_strategy)
         if args is not None:
             pulumi.set(__self__, "args", args)
+        if constraints is not None:
+            pulumi.set(__self__, "constraints", constraints)
         if function is not None:
             pulumi.set(__self__, "function", function)
         if limit is not None:
@@ -350,6 +609,14 @@ class WorkloadScalingPolicyCpu(dict):
 
     @_builtins.property
     @pulumi.getter
+    def constraints(self) -> Optional['outputs.WorkloadScalingPolicyCpuConstraints']:
+        """
+        Defines min/max bounds for the recommendation using constraint strategies.
+        """
+        return pulumi.get(self, "constraints")
+
+    @_builtins.property
+    @pulumi.getter
     def function(self) -> Optional[_builtins.str]:
         """
         The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
@@ -382,6 +649,7 @@ class WorkloadScalingPolicyCpu(dict):
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""Use constraints { max { constant = X } } instead""")
     def max(self) -> Optional[_builtins.float]:
         """
         Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
@@ -390,6 +658,7 @@ class WorkloadScalingPolicyCpu(dict):
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""Use constraints { min { constant = X } } instead""")
     def min(self) -> Optional[_builtins.float]:
         """
         Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
@@ -484,20 +753,175 @@ class WorkloadScalingPolicyCpuApplyThresholdStrategy(dict):
 
 
 @pulumi.output_type
+class WorkloadScalingPolicyCpuConstraints(dict):
+    def __init__(__self__, *,
+                 max: Optional['outputs.WorkloadScalingPolicyCpuConstraintsMax'] = None,
+                 min: Optional['outputs.WorkloadScalingPolicyCpuConstraintsMin'] = None):
+        if max is not None:
+            pulumi.set(__self__, "max", max)
+        if min is not None:
+            pulumi.set(__self__, "min", min)
+
+    @_builtins.property
+    @pulumi.getter
+    def max(self) -> Optional['outputs.WorkloadScalingPolicyCpuConstraintsMax']:
+        return pulumi.get(self, "max")
+
+    @_builtins.property
+    @pulumi.getter
+    def min(self) -> Optional['outputs.WorkloadScalingPolicyCpuConstraintsMin']:
+        return pulumi.get(self, "min")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyCpuConstraintsMax(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "percentageOfOriginal":
+            suggest = "percentage_of_original"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyCpuConstraintsMax. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyCpuConstraintsMax.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyCpuConstraintsMax.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 constant: Optional[_builtins.float] = None,
+                 percentage_of_original: Optional[_builtins.float] = None):
+        """
+        :param _builtins.float constant: Fixed bound value. For memory - MiB, for CPU - cores.
+        :param _builtins.float percentage_of_original: Bound as a percentage of the original pod-spec request.
+        """
+        if constant is not None:
+            pulumi.set(__self__, "constant", constant)
+        if percentage_of_original is not None:
+            pulumi.set(__self__, "percentage_of_original", percentage_of_original)
+
+    @_builtins.property
+    @pulumi.getter
+    def constant(self) -> Optional[_builtins.float]:
+        """
+        Fixed bound value. For memory - MiB, for CPU - cores.
+        """
+        return pulumi.get(self, "constant")
+
+    @_builtins.property
+    @pulumi.getter(name="percentageOfOriginal")
+    def percentage_of_original(self) -> Optional[_builtins.float]:
+        """
+        Bound as a percentage of the original pod-spec request.
+        """
+        return pulumi.get(self, "percentage_of_original")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyCpuConstraintsMin(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "percentageOfOriginal":
+            suggest = "percentage_of_original"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyCpuConstraintsMin. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyCpuConstraintsMin.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyCpuConstraintsMin.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 constant: Optional[_builtins.float] = None,
+                 percentage_of_original: Optional[_builtins.float] = None):
+        """
+        :param _builtins.float constant: Fixed bound value. For memory - MiB, for CPU - cores.
+        :param _builtins.float percentage_of_original: Bound as a percentage of the original pod-spec request.
+        """
+        if constant is not None:
+            pulumi.set(__self__, "constant", constant)
+        if percentage_of_original is not None:
+            pulumi.set(__self__, "percentage_of_original", percentage_of_original)
+
+    @_builtins.property
+    @pulumi.getter
+    def constant(self) -> Optional[_builtins.float]:
+        """
+        Fixed bound value. For memory - MiB, for CPU - cores.
+        """
+        return pulumi.get(self, "constant")
+
+    @_builtins.property
+    @pulumi.getter(name="percentageOfOriginal")
+    def percentage_of_original(self) -> Optional[_builtins.float]:
+        """
+        Bound as a percentage of the original pod-spec request.
+        """
+        return pulumi.get(self, "percentage_of_original")
+
+
+@pulumi.output_type
 class WorkloadScalingPolicyCpuLimit(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "onlyIfOriginalExist":
+            suggest = "only_if_original_exist"
+        elif key == "onlyIfOriginalLower":
+            suggest = "only_if_original_lower"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyCpuLimit. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyCpuLimit.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyCpuLimit.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  type: _builtins.str,
-                 multiplier: Optional[_builtins.float] = None):
+                 multiplier: Optional[_builtins.float] = None,
+                 only_if_original_exist: Optional[_builtins.bool] = None,
+                 only_if_original_lower: Optional[_builtins.bool] = None):
         """
         :param _builtins.str type: Defines limit strategy type.
                	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
                	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
                	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+               	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
         :param _builtins.float multiplier: Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
+        :param _builtins.bool only_if_original_exist: When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+               	If the original workload has no limits specified, no limits will be added.
+               
+                   This flag allows conditional limit management based on the original workload configuration.
+                   
+                   Only applicable when the type is set to multiplier.
+        :param _builtins.bool only_if_original_lower: When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+               	If the original limits are already higher than the calculated value, they remain unchanged.
+               
+                   This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+                   
+                   Only applicable when the type is set to multiplier.
         """
         pulumi.set(__self__, "type", type)
         if multiplier is not None:
             pulumi.set(__self__, "multiplier", multiplier)
+        if only_if_original_exist is not None:
+            pulumi.set(__self__, "only_if_original_exist", only_if_original_exist)
+        if only_if_original_lower is not None:
+            pulumi.set(__self__, "only_if_original_lower", only_if_original_lower)
 
     @_builtins.property
     @pulumi.getter
@@ -507,6 +931,7 @@ class WorkloadScalingPolicyCpuLimit(dict):
         	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
         	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
         	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+        	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
         """
         return pulumi.get(self, "type")
 
@@ -517,6 +942,32 @@ class WorkloadScalingPolicyCpuLimit(dict):
         Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
         """
         return pulumi.get(self, "multiplier")
+
+    @_builtins.property
+    @pulumi.getter(name="onlyIfOriginalExist")
+    def only_if_original_exist(self) -> Optional[_builtins.bool]:
+        """
+        When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+        	If the original workload has no limits specified, no limits will be added.
+
+            This flag allows conditional limit management based on the original workload configuration.
+            
+            Only applicable when the type is set to multiplier.
+        """
+        return pulumi.get(self, "only_if_original_exist")
+
+    @_builtins.property
+    @pulumi.getter(name="onlyIfOriginalLower")
+    def only_if_original_lower(self) -> Optional[_builtins.bool]:
+        """
+        When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+        	If the original limits are already higher than the calculated value, they remain unchanged.
+
+            This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+            
+            Only applicable when the type is set to multiplier.
+        """
+        return pulumi.get(self, "only_if_original_lower")
 
 
 @pulumi.output_type
@@ -560,6 +1011,91 @@ class WorkloadScalingPolicyDownscaling(dict):
 
 
 @pulumi.output_type
+class WorkloadScalingPolicyHpaConverter(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str):
+        """
+        :param _builtins.str type: HPA converter type. AVERAGE_VALUE_FROM_ORIGINAL_REQUESTS converts HPA utilization (%) targets to AverageValue using workload container requests.
+        """
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        HPA converter type. AVERAGE_VALUE_FROM_ORIGINAL_REQUESTS converts HPA utilization (%) targets to AverageValue using workload container requests.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyJvm(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "autoInstrument":
+            suggest = "auto_instrument"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyJvm. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyJvm.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyJvm.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 auto_instrument: Optional[_builtins.bool] = None,
+                 memory: Optional['outputs.WorkloadScalingPolicyJvmMemory'] = None):
+        """
+        :param _builtins.bool auto_instrument: When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
+        :param 'WorkloadScalingPolicyJvmMemoryArgs' memory: JVM memory optimization settings.
+        """
+        if auto_instrument is not None:
+            pulumi.set(__self__, "auto_instrument", auto_instrument)
+        if memory is not None:
+            pulumi.set(__self__, "memory", memory)
+
+    @_builtins.property
+    @pulumi.getter(name="autoInstrument")
+    def auto_instrument(self) -> Optional[_builtins.bool]:
+        """
+        When true, JMX exporter will be automatically injected into pods where JVM runtime is detected.
+        """
+        return pulumi.get(self, "auto_instrument")
+
+    @_builtins.property
+    @pulumi.getter
+    def memory(self) -> Optional['outputs.WorkloadScalingPolicyJvmMemory']:
+        """
+        JVM memory optimization settings.
+        """
+        return pulumi.get(self, "memory")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyJvmMemory(dict):
+    def __init__(__self__, *,
+                 optimization: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.bool optimization: Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
+        """
+        if optimization is not None:
+            pulumi.set(__self__, "optimization", optimization)
+
+    @_builtins.property
+    @pulumi.getter
+    def optimization(self) -> Optional[_builtins.bool]:
+        """
+        Defines whether JVM memory optimization is enabled. When enabled, JVM heap size will be adjusted based on JVM metrics, if available.
+        """
+        return pulumi.get(self, "optimization")
+
+
+@pulumi.output_type
 class WorkloadScalingPolicyMemory(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -588,6 +1124,7 @@ class WorkloadScalingPolicyMemory(dict):
                  apply_threshold: Optional[_builtins.float] = None,
                  apply_threshold_strategy: Optional['outputs.WorkloadScalingPolicyMemoryApplyThresholdStrategy'] = None,
                  args: Optional[_builtins.str] = None,
+                 constraints: Optional['outputs.WorkloadScalingPolicyMemoryConstraints'] = None,
                  function: Optional[_builtins.str] = None,
                  limit: Optional['outputs.WorkloadScalingPolicyMemoryLimit'] = None,
                  look_back_period_seconds: Optional[_builtins.int] = None,
@@ -599,6 +1136,7 @@ class WorkloadScalingPolicyMemory(dict):
         :param _builtins.float apply_threshold: The threshold of when to apply the recommendation. Recommendation will be applied when diff of current requests and new recommendation is greater than set value
         :param 'WorkloadScalingPolicyMemoryApplyThresholdStrategyArgs' apply_threshold_strategy: Resource apply threshold strategy settings. The default strategy is `PERCENTAGE` with percentage value set to 0.1.
         :param _builtins.str args: The arguments for the function - i.e. for `QUANTILE` this should be a [0, 1] float. `MAX` doesn't accept any args
+        :param 'WorkloadScalingPolicyMemoryConstraintsArgs' constraints: Defines min/max bounds for the recommendation using constraint strategies.
         :param _builtins.str function: The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
         :param 'WorkloadScalingPolicyMemoryLimitArgs' limit: Resource limit settings
         :param _builtins.int look_back_period_seconds: The look back period in seconds for the recommendation.
@@ -613,6 +1151,8 @@ class WorkloadScalingPolicyMemory(dict):
             pulumi.set(__self__, "apply_threshold_strategy", apply_threshold_strategy)
         if args is not None:
             pulumi.set(__self__, "args", args)
+        if constraints is not None:
+            pulumi.set(__self__, "constraints", constraints)
         if function is not None:
             pulumi.set(__self__, "function", function)
         if limit is not None:
@@ -655,6 +1195,14 @@ class WorkloadScalingPolicyMemory(dict):
 
     @_builtins.property
     @pulumi.getter
+    def constraints(self) -> Optional['outputs.WorkloadScalingPolicyMemoryConstraints']:
+        """
+        Defines min/max bounds for the recommendation using constraint strategies.
+        """
+        return pulumi.get(self, "constraints")
+
+    @_builtins.property
+    @pulumi.getter
     def function(self) -> Optional[_builtins.str]:
         """
         The function used to calculate the resource recommendation. Supported values: `QUANTILE`, `MAX`
@@ -687,6 +1235,7 @@ class WorkloadScalingPolicyMemory(dict):
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""Use constraints { max { constant = X } } instead""")
     def max(self) -> Optional[_builtins.float]:
         """
         Max values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
@@ -695,6 +1244,7 @@ class WorkloadScalingPolicyMemory(dict):
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""Use constraints { min { constant = X } } instead""")
     def min(self) -> Optional[_builtins.float]:
         """
         Min values for the recommendation, applies to every container. For memory - this is in MiB, for CPU - this is in cores.
@@ -789,6 +1339,123 @@ class WorkloadScalingPolicyMemoryApplyThresholdStrategy(dict):
 
 
 @pulumi.output_type
+class WorkloadScalingPolicyMemoryConstraints(dict):
+    def __init__(__self__, *,
+                 max: Optional['outputs.WorkloadScalingPolicyMemoryConstraintsMax'] = None,
+                 min: Optional['outputs.WorkloadScalingPolicyMemoryConstraintsMin'] = None):
+        if max is not None:
+            pulumi.set(__self__, "max", max)
+        if min is not None:
+            pulumi.set(__self__, "min", min)
+
+    @_builtins.property
+    @pulumi.getter
+    def max(self) -> Optional['outputs.WorkloadScalingPolicyMemoryConstraintsMax']:
+        return pulumi.get(self, "max")
+
+    @_builtins.property
+    @pulumi.getter
+    def min(self) -> Optional['outputs.WorkloadScalingPolicyMemoryConstraintsMin']:
+        return pulumi.get(self, "min")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyMemoryConstraintsMax(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "percentageOfOriginal":
+            suggest = "percentage_of_original"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyMemoryConstraintsMax. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyMemoryConstraintsMax.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyMemoryConstraintsMax.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 constant: Optional[_builtins.float] = None,
+                 percentage_of_original: Optional[_builtins.float] = None):
+        """
+        :param _builtins.float constant: Fixed bound value. For memory - MiB, for CPU - cores.
+        :param _builtins.float percentage_of_original: Bound as a percentage of the original pod-spec request.
+        """
+        if constant is not None:
+            pulumi.set(__self__, "constant", constant)
+        if percentage_of_original is not None:
+            pulumi.set(__self__, "percentage_of_original", percentage_of_original)
+
+    @_builtins.property
+    @pulumi.getter
+    def constant(self) -> Optional[_builtins.float]:
+        """
+        Fixed bound value. For memory - MiB, for CPU - cores.
+        """
+        return pulumi.get(self, "constant")
+
+    @_builtins.property
+    @pulumi.getter(name="percentageOfOriginal")
+    def percentage_of_original(self) -> Optional[_builtins.float]:
+        """
+        Bound as a percentage of the original pod-spec request.
+        """
+        return pulumi.get(self, "percentage_of_original")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyMemoryConstraintsMin(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "percentageOfOriginal":
+            suggest = "percentage_of_original"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyMemoryConstraintsMin. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyMemoryConstraintsMin.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyMemoryConstraintsMin.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 constant: Optional[_builtins.float] = None,
+                 percentage_of_original: Optional[_builtins.float] = None):
+        """
+        :param _builtins.float constant: Fixed bound value. For memory - MiB, for CPU - cores.
+        :param _builtins.float percentage_of_original: Bound as a percentage of the original pod-spec request.
+        """
+        if constant is not None:
+            pulumi.set(__self__, "constant", constant)
+        if percentage_of_original is not None:
+            pulumi.set(__self__, "percentage_of_original", percentage_of_original)
+
+    @_builtins.property
+    @pulumi.getter
+    def constant(self) -> Optional[_builtins.float]:
+        """
+        Fixed bound value. For memory - MiB, for CPU - cores.
+        """
+        return pulumi.get(self, "constant")
+
+    @_builtins.property
+    @pulumi.getter(name="percentageOfOriginal")
+    def percentage_of_original(self) -> Optional[_builtins.float]:
+        """
+        Bound as a percentage of the original pod-spec request.
+        """
+        return pulumi.get(self, "percentage_of_original")
+
+
+@pulumi.output_type
 class WorkloadScalingPolicyMemoryEvent(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -830,19 +1497,57 @@ class WorkloadScalingPolicyMemoryEvent(dict):
 
 @pulumi.output_type
 class WorkloadScalingPolicyMemoryLimit(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "onlyIfOriginalExist":
+            suggest = "only_if_original_exist"
+        elif key == "onlyIfOriginalLower":
+            suggest = "only_if_original_lower"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyMemoryLimit. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyMemoryLimit.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyMemoryLimit.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  type: _builtins.str,
-                 multiplier: Optional[_builtins.float] = None):
+                 multiplier: Optional[_builtins.float] = None,
+                 only_if_original_exist: Optional[_builtins.bool] = None,
+                 only_if_original_lower: Optional[_builtins.bool] = None):
         """
         :param _builtins.str type: Defines limit strategy type.
                	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
                	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
                	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+               	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
         :param _builtins.float multiplier: Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
+        :param _builtins.bool only_if_original_exist: When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+               	If the original workload has no limits specified, no limits will be added.
+               
+                   This flag allows conditional limit management based on the original workload configuration.
+                   
+                   Only applicable when the type is set to multiplier.
+        :param _builtins.bool only_if_original_lower: When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+               	If the original limits are already higher than the calculated value, they remain unchanged.
+               
+                   This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+                   
+                   Only applicable when the type is set to multiplier.
         """
         pulumi.set(__self__, "type", type)
         if multiplier is not None:
             pulumi.set(__self__, "multiplier", multiplier)
+        if only_if_original_exist is not None:
+            pulumi.set(__self__, "only_if_original_exist", only_if_original_exist)
+        if only_if_original_lower is not None:
+            pulumi.set(__self__, "only_if_original_lower", only_if_original_lower)
 
     @_builtins.property
     @pulumi.getter
@@ -852,6 +1557,7 @@ class WorkloadScalingPolicyMemoryLimit(dict):
         	- NO_LIMIT - removes the resource limit even if it was specified in the workload spec.
         	- KEEP_LIMITS - keep existing resource limits. While limits provide stability predictability, they may restrict workloads that need to temporarily burst beyond their allocation.
         	- MULTIPLIER - used to calculate the resource limit. The final value is determined by multiplying the resource request by the specified factor.
+        	- MAINTAIN_RATIO - maintains the original ratio between requests and limits.
         """
         return pulumi.get(self, "type")
 
@@ -862,6 +1568,32 @@ class WorkloadScalingPolicyMemoryLimit(dict):
         Multiplier used to calculate the resource limit. It must be defined for the MULTIPLIER strategy.
         """
         return pulumi.get(self, "multiplier")
+
+    @_builtins.property
+    @pulumi.getter(name="onlyIfOriginalExist")
+    def only_if_original_exist(self) -> Optional[_builtins.bool]:
+        """
+        When set to true, limits will only be set if the workload originally had limits defined in its manifest.
+        	If the original workload has no limits specified, no limits will be added.
+
+            This flag allows conditional limit management based on the original workload configuration.
+            
+            Only applicable when the type is set to multiplier.
+        """
+        return pulumi.get(self, "only_if_original_exist")
+
+    @_builtins.property
+    @pulumi.getter(name="onlyIfOriginalLower")
+    def only_if_original_lower(self) -> Optional[_builtins.bool]:
+        """
+        When set to true, limits will only be updated if the original limits are lower than the calculated value (requests × multiplier).
+        	If the original limits are already higher than the calculated value, they remain unchanged.
+
+            This flag prevents reducing existing limits and ensures limits only increase when beneficial.
+            
+            Only applicable when the type is set to multiplier.
+        """
+        return pulumi.get(self, "only_if_original_lower")
 
 
 @pulumi.output_type
@@ -906,7 +1638,9 @@ class WorkloadScalingPolicyRolloutBehavior(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "preferOneByOne":
+        if key == "delaySeconds":
+            suggest = "delay_seconds"
+        elif key == "preferOneByOne":
             suggest = "prefer_one_by_one"
 
         if suggest:
@@ -921,17 +1655,30 @@ class WorkloadScalingPolicyRolloutBehavior(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 delay_seconds: Optional[_builtins.int] = None,
                  prefer_one_by_one: Optional[_builtins.bool] = None,
                  type: Optional[_builtins.str] = None):
         """
+        :param _builtins.int delay_seconds: Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
         :param _builtins.bool prefer_one_by_one: Defines if pods should be restarted one by one to avoid service disruption.
         :param _builtins.str type: Defines the rollout type to be used when applying recommendations.
                	- NO_DISRUPTION - pods are restarted without causing service disruption.
+               	- UNSPECIFIED - rollout type is not specified.
         """
+        if delay_seconds is not None:
+            pulumi.set(__self__, "delay_seconds", delay_seconds)
         if prefer_one_by_one is not None:
             pulumi.set(__self__, "prefer_one_by_one", prefer_one_by_one)
         if type is not None:
             pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="delaySeconds")
+    def delay_seconds(self) -> Optional[_builtins.int]:
+        """
+        Number of seconds to delay before applying the recommendation rollout. Must be between 0 and 3600.
+        """
+        return pulumi.get(self, "delay_seconds")
 
     @_builtins.property
     @pulumi.getter(name="preferOneByOne")
@@ -947,6 +1694,7 @@ class WorkloadScalingPolicyRolloutBehavior(dict):
         """
         Defines the rollout type to be used when applying recommendations.
         	- NO_DISRUPTION - pods are restarted without causing service disruption.
+        	- UNSPECIFIED - rollout type is not specified.
         """
         return pulumi.get(self, "type")
 
@@ -958,6 +1706,8 @@ class WorkloadScalingPolicyStartup(dict):
         suggest = None
         if key == "periodSeconds":
             suggest = "period_seconds"
+        elif key == "twoPhaseRecommendations":
+            suggest = "two_phase_recommendations"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyStartup. Access the value via the '{suggest}' property getter instead.")
@@ -971,14 +1721,18 @@ class WorkloadScalingPolicyStartup(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 period_seconds: Optional[_builtins.int] = None):
+                 period_seconds: Optional[_builtins.int] = None,
+                 two_phase_recommendations: Optional['outputs.WorkloadScalingPolicyStartupTwoPhaseRecommendations'] = None):
         """
         :param _builtins.int period_seconds: Defines the duration (in seconds) during which elevated resource usage is expected at startup.
                When set, recommendations will be adjusted to disregard resource spikes within this period.
                If not specified, the workload will receive standard recommendations without startup considerations.
+        :param 'WorkloadScalingPolicyStartupTwoPhaseRecommendationsArgs' two_phase_recommendations: Defines two-phase recommendations settings for the startup period.
         """
         if period_seconds is not None:
             pulumi.set(__self__, "period_seconds", period_seconds)
+        if two_phase_recommendations is not None:
+            pulumi.set(__self__, "two_phase_recommendations", two_phase_recommendations)
 
     @_builtins.property
     @pulumi.getter(name="periodSeconds")
@@ -989,5 +1743,172 @@ class WorkloadScalingPolicyStartup(dict):
         If not specified, the workload will receive standard recommendations without startup considerations.
         """
         return pulumi.get(self, "period_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="twoPhaseRecommendations")
+    def two_phase_recommendations(self) -> Optional['outputs.WorkloadScalingPolicyStartupTwoPhaseRecommendations']:
+        """
+        Defines two-phase recommendations settings for the startup period.
+        """
+        return pulumi.get(self, "two_phase_recommendations")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyStartupTwoPhaseRecommendations(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "requestsOnStartup":
+            suggest = "requests_on_startup"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyStartupTwoPhaseRecommendations. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyStartupTwoPhaseRecommendations.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyStartupTwoPhaseRecommendations.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 requests_on_startup: Optional['outputs.WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup'] = None):
+        """
+        :param _builtins.bool enabled: Defines whether two-phase recommendations are enabled during startup.
+        :param 'WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartupArgs' requests_on_startup: Defines the resource requests to use during startup.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        if requests_on_startup is not None:
+            pulumi.set(__self__, "requests_on_startup", requests_on_startup)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Defines whether two-phase recommendations are enabled during startup.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="requestsOnStartup")
+    def requests_on_startup(self) -> Optional['outputs.WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup']:
+        """
+        Defines the resource requests to use during startup.
+        """
+        return pulumi.get(self, "requests_on_startup")
+
+
+@pulumi.output_type
+class WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cpuCores":
+            suggest = "cpu_cores"
+        elif key == "memoryGib":
+            suggest = "memory_gib"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WorkloadScalingPolicyStartupTwoPhaseRecommendationsRequestsOnStartup.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cpu_cores: Optional[_builtins.float] = None,
+                 memory_gib: Optional[_builtins.float] = None):
+        """
+        :param _builtins.float cpu_cores: CPU cores to request during startup.
+        :param _builtins.float memory_gib: Memory in GiB to request during startup.
+        """
+        if cpu_cores is not None:
+            pulumi.set(__self__, "cpu_cores", cpu_cores)
+        if memory_gib is not None:
+            pulumi.set(__self__, "memory_gib", memory_gib)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuCores")
+    def cpu_cores(self) -> Optional[_builtins.float]:
+        """
+        CPU cores to request during startup.
+        """
+        return pulumi.get(self, "cpu_cores")
+
+    @_builtins.property
+    @pulumi.getter(name="memoryGib")
+    def memory_gib(self) -> Optional[_builtins.float]:
+        """
+        Memory in GiB to request during startup.
+        """
+        return pulumi.get(self, "memory_gib")
+
+
+@pulumi.output_type
+class GetWorkloadScalingPoliciesPolicyResult(dict):
+    def __init__(__self__, *,
+                 id: _builtins.str,
+                 is_castware: _builtins.bool,
+                 is_default: _builtins.bool,
+                 is_readonly: _builtins.bool,
+                 name: _builtins.str):
+        """
+        :param _builtins.str id: Policy UUID.
+        :param _builtins.bool is_castware: Whether this policy is managed by CAST AI and only applies to castware workloads.
+        :param _builtins.bool is_default: Whether this is the default scaling policy for the cluster.
+        :param _builtins.bool is_readonly: Whether this policy is read-only (cannot be updated or deleted).
+        :param _builtins.str name: Policy name.
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "is_castware", is_castware)
+        pulumi.set(__self__, "is_default", is_default)
+        pulumi.set(__self__, "is_readonly", is_readonly)
+        pulumi.set(__self__, "name", name)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        Policy UUID.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter(name="isCastware")
+    def is_castware(self) -> _builtins.bool:
+        """
+        Whether this policy is managed by CAST AI and only applies to castware workloads.
+        """
+        return pulumi.get(self, "is_castware")
+
+    @_builtins.property
+    @pulumi.getter(name="isDefault")
+    def is_default(self) -> _builtins.bool:
+        """
+        Whether this is the default scaling policy for the cluster.
+        """
+        return pulumi.get(self, "is_default")
+
+    @_builtins.property
+    @pulumi.getter(name="isReadonly")
+    def is_readonly(self) -> _builtins.bool:
+        """
+        Whether this policy is read-only (cannot be updated or deleted).
+        """
+        return pulumi.get(self, "is_readonly")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        Policy name.
+        """
+        return pulumi.get(self, "name")
 
 

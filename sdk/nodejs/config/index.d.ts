@@ -8,3 +8,4 @@ export { NodeTemplateArgs, NodeTemplateState } from "./nodeTemplate";
 export type NodeTemplate = import("./nodeTemplate").NodeTemplate;
 export declare const NodeTemplate: typeof import("./nodeTemplate").NodeTemplate;
 export * from "./vars";
+//# sourceMappingURL=index.d.ts.map

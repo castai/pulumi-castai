@@ -33,27 +33,24 @@ __all__ = [
     'OrganizationGroupMemberMemberArgsDict',
     'SSOConnectionAadArgs',
     'SSOConnectionAadArgsDict',
+    'SSOConnectionOidcArgs',
+    'SSOConnectionOidcArgsDict',
     'SSOConnectionOktaArgs',
     'SSOConnectionOktaArgsDict',
     'ServiceAccountAuthorArgs',
     'ServiceAccountAuthorArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class EnterpriseGroupMemberArgsDict(TypedDict):
-        members: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgsDict']]]]
-        """
-        Group member configuration.
-        """
-elif False:
-    EnterpriseGroupMemberArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseGroupMemberArgsDict(TypedDict):
+    members: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgsDict']]]]]
+    """
+    Group member configuration.
+    """
 
 @pulumi.input_type
 class EnterpriseGroupMemberArgs:
     def __init__(__self__, *,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgs']]]] = None):
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgs']]]] = None):
         """
         :param pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgs']]] members: Group member configuration.
         """
@@ -62,29 +59,26 @@ class EnterpriseGroupMemberArgs:
 
     @_builtins.property
     @pulumi.getter
-    def members(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgs']]]]:
+    def members(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgs']]]]:
         """
         Group member configuration.
         """
         return pulumi.get(self, "members")
 
     @members.setter
-    def members(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgs']]]]):
+    def members(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupMemberMemberArgs']]]]):
         pulumi.set(self, "members", value)
 
 
-if not MYPY:
-    class EnterpriseGroupMemberMemberArgsDict(TypedDict):
-        id: pulumi.Input[_builtins.str]
-        """
-        Member UUID.
-        """
-        kind: pulumi.Input[_builtins.str]
-        """
-        Kind of the member. Supported values: user, service_account.
-        """
-elif False:
-    EnterpriseGroupMemberMemberArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseGroupMemberMemberArgsDict(TypedDict):
+    id: pulumi.Input[_builtins.str]
+    """
+    Member UUID.
+    """
+    kind: pulumi.Input[_builtins.str]
+    """
+    Kind of the member. Supported values: user, service_account.
+    """
 
 @pulumi.input_type
 class EnterpriseGroupMemberMemberArgs:
@@ -123,19 +117,16 @@ class EnterpriseGroupMemberMemberArgs:
         pulumi.set(self, "kind", value)
 
 
-if not MYPY:
-    class EnterpriseGroupRoleBindingArgsDict(TypedDict):
-        role_bindings: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgsDict']]]]
-        """
-        Role binding configuration.
-        """
-elif False:
-    EnterpriseGroupRoleBindingArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseGroupRoleBindingArgsDict(TypedDict):
+    role_bindings: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgsDict']]]]]
+    """
+    Role binding configuration.
+    """
 
 @pulumi.input_type
 class EnterpriseGroupRoleBindingArgs:
     def __init__(__self__, *,
-                 role_bindings: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgs']]]] = None):
+                 role_bindings: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgs']]]] = None):
         """
         :param pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgs']]] role_bindings: Role binding configuration.
         """
@@ -144,37 +135,34 @@ class EnterpriseGroupRoleBindingArgs:
 
     @_builtins.property
     @pulumi.getter(name="roleBindings")
-    def role_bindings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgs']]]]:
+    def role_bindings(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgs']]]]:
         """
         Role binding configuration.
         """
         return pulumi.get(self, "role_bindings")
 
     @role_bindings.setter
-    def role_bindings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgs']]]]):
+    def role_bindings(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingArgs']]]]):
         pulumi.set(self, "role_bindings", value)
 
 
-if not MYPY:
-    class EnterpriseGroupRoleBindingRoleBindingArgsDict(TypedDict):
-        name: pulumi.Input[_builtins.str]
-        """
-        Role binding name.
-        """
-        role_id: pulumi.Input[_builtins.str]
-        """
-        Role UUID.
-        """
-        scopes: pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeArgsDict']]]
-        """
-        List of scopes for the role binding.
-        """
-        id: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Role binding ID assigned by the API.
-        """
-elif False:
-    EnterpriseGroupRoleBindingRoleBindingArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseGroupRoleBindingRoleBindingArgsDict(TypedDict):
+    name: pulumi.Input[_builtins.str]
+    """
+    Role binding name.
+    """
+    role_id: pulumi.Input[_builtins.str]
+    """
+    Role UUID.
+    """
+    scopes: pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeArgsDict']]]
+    """
+    List of scopes for the role binding.
+    """
+    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Role binding ID assigned by the API.
+    """
 
 @pulumi.input_type
 class EnterpriseGroupRoleBindingRoleBindingArgs:
@@ -182,7 +170,7 @@ class EnterpriseGroupRoleBindingRoleBindingArgs:
                  name: pulumi.Input[_builtins.str],
                  role_id: pulumi.Input[_builtins.str],
                  scopes: pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeArgs']]],
-                 id: Optional[pulumi.Input[_builtins.str]] = None):
+                 id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] name: Role binding name.
         :param pulumi.Input[_builtins.str] role_id: Role UUID.
@@ -233,30 +221,27 @@ class EnterpriseGroupRoleBindingRoleBindingArgs:
 
     @_builtins.property
     @pulumi.getter
-    def id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Role binding ID assigned by the API.
         """
         return pulumi.get(self, "id")
 
     @id.setter
-    def id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "id", value)
 
 
-if not MYPY:
-    class EnterpriseGroupRoleBindingRoleBindingScopeArgsDict(TypedDict):
-        scopes: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgsDict']]]]
-        """
-        Scope configuration.
-        """
-elif False:
-    EnterpriseGroupRoleBindingRoleBindingScopeArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseGroupRoleBindingRoleBindingScopeArgsDict(TypedDict):
+    scopes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgsDict']]]]]
+    """
+    Scope configuration.
+    """
 
 @pulumi.input_type
 class EnterpriseGroupRoleBindingRoleBindingScopeArgs:
     def __init__(__self__, *,
-                 scopes: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs']]]] = None):
+                 scopes: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs']]]] = None):
         """
         :param pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs']]] scopes: Scope configuration.
         """
@@ -265,35 +250,32 @@ class EnterpriseGroupRoleBindingRoleBindingScopeArgs:
 
     @_builtins.property
     @pulumi.getter
-    def scopes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs']]]]:
+    def scopes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs']]]]:
         """
         Scope configuration.
         """
         return pulumi.get(self, "scopes")
 
     @scopes.setter
-    def scopes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs']]]]):
+    def scopes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs']]]]):
         pulumi.set(self, "scopes", value)
 
 
-if not MYPY:
-    class EnterpriseGroupRoleBindingRoleBindingScopeScopeArgsDict(TypedDict):
-        cluster: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Cluster ID scope.
-        """
-        organization: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Organization ID scope.
-        """
-elif False:
-    EnterpriseGroupRoleBindingRoleBindingScopeScopeArgsDict: TypeAlias = Mapping[str, Any]
+class EnterpriseGroupRoleBindingRoleBindingScopeScopeArgsDict(TypedDict):
+    cluster: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Cluster ID scope.
+    """
+    organization: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Organization ID scope.
+    """
 
 @pulumi.input_type
 class EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs:
     def __init__(__self__, *,
-                 cluster: Optional[pulumi.Input[_builtins.str]] = None,
-                 organization: Optional[pulumi.Input[_builtins.str]] = None):
+                 cluster: pulumi.Input[Optional[_builtins.str]] = None,
+                 organization: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] cluster: Cluster ID scope.
         :param pulumi.Input[_builtins.str] organization: Organization ID scope.
@@ -305,62 +287,56 @@ class EnterpriseGroupRoleBindingRoleBindingScopeScopeArgs:
 
     @_builtins.property
     @pulumi.getter
-    def cluster(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Cluster ID scope.
         """
         return pulumi.get(self, "cluster")
 
     @cluster.setter
-    def cluster(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster", value)
 
     @_builtins.property
     @pulumi.getter
-    def organization(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Organization ID scope.
         """
         return pulumi.get(self, "organization")
 
     @organization.setter
-    def organization(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization", value)
 
 
-if not MYPY:
-    class OrganizationGroupMemberArgsDict(TypedDict):
-        members: NotRequired[pulumi.Input[Sequence[pulumi.Input['OrganizationGroupMemberMemberArgsDict']]]]
-elif False:
-    OrganizationGroupMemberArgsDict: TypeAlias = Mapping[str, Any]
+class OrganizationGroupMemberArgsDict(TypedDict):
+    members: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['OrganizationGroupMemberMemberArgsDict']]]]]
 
 @pulumi.input_type
 class OrganizationGroupMemberArgs:
     def __init__(__self__, *,
-                 members: Optional[pulumi.Input[Sequence[pulumi.Input['OrganizationGroupMemberMemberArgs']]]] = None):
+                 members: pulumi.Input[Optional[Sequence[pulumi.Input['OrganizationGroupMemberMemberArgs']]]] = None):
         if members is not None:
             pulumi.set(__self__, "members", members)
 
     @_builtins.property
     @pulumi.getter
-    def members(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OrganizationGroupMemberMemberArgs']]]]:
+    def members(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['OrganizationGroupMemberMemberArgs']]]]:
         return pulumi.get(self, "members")
 
     @members.setter
-    def members(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OrganizationGroupMemberMemberArgs']]]]):
+    def members(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['OrganizationGroupMemberMemberArgs']]]]):
         pulumi.set(self, "members", value)
 
 
-if not MYPY:
-    class OrganizationGroupMemberMemberArgsDict(TypedDict):
-        email: pulumi.Input[_builtins.str]
-        id: pulumi.Input[_builtins.str]
-        kind: pulumi.Input[_builtins.str]
-        """
-        Kind of the member. Supported values include: user, service_account.
-        """
-elif False:
-    OrganizationGroupMemberMemberArgsDict: TypeAlias = Mapping[str, Any]
+class OrganizationGroupMemberMemberArgsDict(TypedDict):
+    email: pulumi.Input[_builtins.str]
+    id: pulumi.Input[_builtins.str]
+    kind: pulumi.Input[_builtins.str]
+    """
+    Kind of the member. Supported values include: user, service_account.
+    """
 
 @pulumi.input_type
 class OrganizationGroupMemberMemberArgs:
@@ -406,22 +382,19 @@ class OrganizationGroupMemberMemberArgs:
         pulumi.set(self, "kind", value)
 
 
-if not MYPY:
-    class SSOConnectionAadArgsDict(TypedDict):
-        ad_domain: pulumi.Input[_builtins.str]
-        """
-        Azure AD domain
-        """
-        client_id: pulumi.Input[_builtins.str]
-        """
-        Azure AD client ID
-        """
-        client_secret: pulumi.Input[_builtins.str]
-        """
-        Azure AD client secret
-        """
-elif False:
-    SSOConnectionAadArgsDict: TypeAlias = Mapping[str, Any]
+class SSOConnectionAadArgsDict(TypedDict):
+    ad_domain: pulumi.Input[_builtins.str]
+    """
+    Azure AD domain
+    """
+    client_id: pulumi.Input[_builtins.str]
+    """
+    Azure AD client ID
+    """
+    client_secret: pulumi.Input[_builtins.str]
+    """
+    Azure AD client secret
+    """
 
 @pulumi.input_type
 class SSOConnectionAadArgs:
@@ -475,22 +448,105 @@ class SSOConnectionAadArgs:
         pulumi.set(self, "client_secret", value)
 
 
-if not MYPY:
-    class SSOConnectionOktaArgsDict(TypedDict):
-        client_id: pulumi.Input[_builtins.str]
+class SSOConnectionOidcArgsDict(TypedDict):
+    client_id: pulumi.Input[_builtins.str]
+    """
+    OIDC client ID
+    """
+    client_secret: pulumi.Input[_builtins.str]
+    """
+    OIDC client secret
+    """
+    issuer_url: pulumi.Input[_builtins.str]
+    """
+    Issuer URL of the OpenID Connect provider
+    """
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
+    """
+
+@pulumi.input_type
+class SSOConnectionOidcArgs:
+    def __init__(__self__, *,
+                 client_id: pulumi.Input[_builtins.str],
+                 client_secret: pulumi.Input[_builtins.str],
+                 issuer_url: pulumi.Input[_builtins.str],
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        Okta client ID
+        :param pulumi.Input[_builtins.str] client_id: OIDC client ID
+        :param pulumi.Input[_builtins.str] client_secret: OIDC client secret
+        :param pulumi.Input[_builtins.str] issuer_url: Issuer URL of the OpenID Connect provider
+        :param pulumi.Input[_builtins.str] type: OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
         """
-        client_secret: pulumi.Input[_builtins.str]
+        pulumi.set(__self__, "client_id", client_id)
+        pulumi.set(__self__, "client_secret", client_secret)
+        pulumi.set(__self__, "issuer_url", issuer_url)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="clientId")
+    def client_id(self) -> pulumi.Input[_builtins.str]:
         """
-        Okta client secret
+        OIDC client ID
         """
-        okta_domain: pulumi.Input[_builtins.str]
+        return pulumi.get(self, "client_id")
+
+    @client_id.setter
+    def client_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "client_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="clientSecret")
+    def client_secret(self) -> pulumi.Input[_builtins.str]:
         """
-        Okta domain
+        OIDC client secret
         """
-elif False:
-    SSOConnectionOktaArgsDict: TypeAlias = Mapping[str, Any]
+        return pulumi.get(self, "client_secret")
+
+    @client_secret.setter
+    def client_secret(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "client_secret", value)
+
+    @_builtins.property
+    @pulumi.getter(name="issuerUrl")
+    def issuer_url(self) -> pulumi.Input[_builtins.str]:
+        """
+        Issuer URL of the OpenID Connect provider
+        """
+        return pulumi.get(self, "issuer_url")
+
+    @issuer_url.setter
+    def issuer_url(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "issuer_url", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        OIDC connection type (TYPE_BACK_CHANNEL or TYPE_FRONT_CHANNEL)
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "type", value)
+
+
+class SSOConnectionOktaArgsDict(TypedDict):
+    client_id: pulumi.Input[_builtins.str]
+    """
+    Okta client ID
+    """
+    client_secret: pulumi.Input[_builtins.str]
+    """
+    Okta client secret
+    """
+    okta_domain: pulumi.Input[_builtins.str]
+    """
+    Okta domain
+    """
 
 @pulumi.input_type
 class SSOConnectionOktaArgs:
@@ -544,20 +600,17 @@ class SSOConnectionOktaArgs:
         pulumi.set(self, "okta_domain", value)
 
 
-if not MYPY:
-    class ServiceAccountAuthorArgsDict(TypedDict):
-        email: NotRequired[pulumi.Input[_builtins.str]]
-        id: NotRequired[pulumi.Input[_builtins.str]]
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-elif False:
-    ServiceAccountAuthorArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceAccountAuthorArgsDict(TypedDict):
+    email: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
 
 @pulumi.input_type
 class ServiceAccountAuthorArgs:
     def __init__(__self__, *,
-                 email: Optional[pulumi.Input[_builtins.str]] = None,
-                 id: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None):
+                 email: pulumi.Input[Optional[_builtins.str]] = None,
+                 id: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None):
         if email is not None:
             pulumi.set(__self__, "email", email)
         if id is not None:
@@ -567,29 +620,29 @@ class ServiceAccountAuthorArgs:
 
     @_builtins.property
     @pulumi.getter
-    def email(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def email(self) -> pulumi.Input[Optional[_builtins.str]]:
         return pulumi.get(self, "email")
 
     @email.setter
-    def email(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def email(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "email", value)
 
     @_builtins.property
     @pulumi.getter
-    def id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
         return pulumi.get(self, "id")
 
     @id.setter
-    def id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "id", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
 

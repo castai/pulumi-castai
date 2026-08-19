@@ -37,13 +37,13 @@ export declare class RebalancingSchedule extends pulumi.CustomResource {
  * Input properties used for looking up and filtering RebalancingSchedule resources.
  */
 export interface RebalancingScheduleState {
-    launchConfiguration?: pulumi.Input<inputs.rebalancing.RebalancingScheduleLaunchConfiguration>;
+    launchConfiguration?: pulumi.Input<inputs.rebalancing.RebalancingScheduleLaunchConfiguration | undefined>;
     /**
      * Name of the schedule.
      */
-    name?: pulumi.Input<string>;
-    schedule?: pulumi.Input<inputs.rebalancing.RebalancingScheduleSchedule>;
-    triggerConditions?: pulumi.Input<inputs.rebalancing.RebalancingScheduleTriggerConditions>;
+    name?: pulumi.Input<string | undefined>;
+    schedule?: pulumi.Input<inputs.rebalancing.RebalancingScheduleSchedule | undefined>;
+    triggerConditions?: pulumi.Input<inputs.rebalancing.RebalancingScheduleTriggerConditions | undefined>;
 }
 /**
  * The set of arguments for constructing a RebalancingSchedule resource.
@@ -53,7 +53,8 @@ export interface RebalancingScheduleArgs {
     /**
      * Name of the schedule.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     schedule: pulumi.Input<inputs.rebalancing.RebalancingScheduleSchedule>;
     triggerConditions: pulumi.Input<inputs.rebalancing.RebalancingScheduleTriggerConditions>;
 }
+//# sourceMappingURL=rebalancingSchedule.d.ts.map
