@@ -70,42 +70,31 @@ func TestMakeMemberToken(t *testing.T) {
 		name     string
 		mod      string
 		resName  string
-		suffix   string
 		expected string
 	}{
 		{
 			name:     "index module resource",
 			mod:      "index",
 			resName:  "Cluster",
-			suffix:   "",
 			expected: "castai:index:Cluster",
 		},
 		{
 			name:     "aws module resource",
 			mod:      "aws",
 			resName:  "EksCluster",
-			suffix:   "",
 			expected: "castai:aws:EksCluster",
-		},
-		{
-			name:     "data source with suffix",
-			mod:      "gcp",
-			resName:  "getGkePolicies",
-			suffix:   "DataSource",
-			expected: "castai:gcp:GetGkePoliciesDataSource",
 		},
 		{
 			name:     "autoscaling module",
 			mod:      "autoscaling",
 			resName:  "Autoscaler",
-			suffix:   "",
 			expected: "castai:autoscaling:Autoscaler",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := makeMemberToken(tt.mod, tt.resName, tt.suffix)
+			result := makeMemberToken(tt.mod, tt.resName)
 			assert.Equal(t, tt.expected, result)
 		})
 	}
@@ -176,21 +165,21 @@ func TestDataSourceTokens(t *testing.T) {
 			fn:       castaiDataSource,
 			mod:      mainMod,
 			dsName:   "getCluster",
-			expected: tokens.Type("castai:index:GetClusterDataSource"),
+			expected: tokens.Type("castai:index:getCluster"),
 		},
 		{
 			name:     "aws data source",
 			fn:       awsDataSource,
 			mod:      awsMod,
 			dsName:   "getEksSettings",
-			expected: tokens.Type("castai:aws:GetEksSettingsDataSource"),
+			expected: tokens.Type("castai:aws:getEksSettings"),
 		},
 		{
 			name:     "gcp data source",
 			fn:       gcpDataSource,
 			mod:      gcpMod,
 			dsName:   "getGkePolicies",
-			expected: tokens.Type("castai:gcp:GetGkePoliciesDataSource"),
+			expected: tokens.Type("castai:gcp:getGkePolicies"),
 		},
 	}
 
@@ -273,14 +262,16 @@ func TestProviderResources(t *testing.T) {
 		"castai_commitments":           "castai:index:Commitments",
 		"castai_reservations":          "castai:index:Reservations",
 		"castai_security_runtime_rule": "castai:index:SecurityRuntimeRule",
+		"castai_pod_mutation":          "castai:index:PodMutation",
 
 		// Organization resources
-		"castai_enterprise_group":      "castai:organization:EnterpriseGroup",
-		"castai_organization_group":    "castai:organization:OrganizationGroup",
-		"castai_organization_members":  "castai:organization:OrganizationMembers",
-		"castai_service_account":       "castai:organization:ServiceAccount",
-		"castai_service_account_key":   "castai:organization:ServiceAccountKey",
-		"castai_sso_connection":        "castai:organization:SSOConnection",
+		"castai_enterprise_group":           "castai:organization:EnterpriseGroup",
+		"castai_enterprise_service_account": "castai:organization:EnterpriseServiceAccount",
+		"castai_organization_group":         "castai:organization:OrganizationGroup",
+		"castai_organization_members":       "castai:organization:OrganizationMembers",
+		"castai_service_account":            "castai:organization:ServiceAccount",
+		"castai_service_account_key":        "castai:organization:ServiceAccountKey",
+		"castai_sso_connection":             "castai:organization:SSOConnection",
 
 		// Rebalancing resources
 		"castai_hibernation_schedule":  "castai:rebalancing:HibernationSchedule",
@@ -288,8 +279,19 @@ func TestProviderResources(t *testing.T) {
 		"castai_rebalancing_schedule":  "castai:rebalancing:RebalancingSchedule",
 
 		// Workload resources
-		"castai_workload_scaling_policy":       "castai:workload:WorkloadScalingPolicy",
-		"castai_workload_scaling_policy_order": "castai:workload:WorkloadScalingPolicyOrder",
+		"castai_workload_scaling_policy":             "castai:workload:WorkloadScalingPolicy",
+		"castai_workload_scaling_policy_order":       "castai:workload:WorkloadScalingPolicyOrder",
+		"castai_workload_custom_metrics_data_source": "castai:workload:WorkloadCustomMetricsDataSource",
+
+		// Cache resources
+		"castai_cache_group":         "castai:cache:CacheGroup",
+		"castai_cache_configuration": "castai:cache:CacheConfiguration",
+		"castai_cache_rule":          "castai:cache:CacheRule",
+
+		// AI Optimizer resources
+		"castai_ai_optimizer_model_registry": "castai:index/aiOptimizer:AiOptimizerModelRegistry",
+		"castai_ai_optimizer_model_specs":    "castai:index/aiOptimizer:AiOptimizerModelSpecs",
+		"castai_ai_optimizer_hosted_model":   "castai:index/aiOptimizer:AiOptimizerHostedModel",
 	}
 
 	// Verify all expected resources are present
@@ -301,7 +303,7 @@ func TestProviderResources(t *testing.T) {
 		})
 	}
 
-	// Verify exact count matches (all 28 resources from v7.73.0)
+	// Verify exact count matches (all 37 resources from v7.73.0 parity)
 	assert.Equal(t, len(expectedResources), len(prov.Resources),
 		"Expected exactly %d resources, got %d", len(expectedResources), len(prov.Resources))
 }
@@ -312,21 +314,25 @@ func TestProviderDataSources(t *testing.T) {
 
 	expectedDataSources := map[string]string{
 		// AWS data sources
-		"castai_eks_settings": "castai:aws:GetEksSettingsDataSource",
-		"castai_eks_user_arn": "castai:aws:GetEksUserArnDataSource",
+		"castai_eks_settings": "castai:aws:getEksSettings",
 
 		// GCP data sources
-		"castai_gke_user_policies": "castai:gcp:GetGkePoliciesDataSource",
+		"castai_gke_user_policies": "castai:gcp:getGkePolicies",
 
 		// Organization data sources
-		"castai_organization": "castai:organization:GetOrganizationDataSource",
+		"castai_organization":                  "castai:organization:getOrganization",
+		"castai_impersonation_service_account": "castai:organization:getImpersonationServiceAccount",
 
 		// Rebalancing data sources
-		"castai_rebalancing_schedule": "castai:rebalancing:GetRebalancingScheduleDataSource",
-		"castai_hibernation_schedule": "castai:rebalancing:GetHibernationScheduleDataSource",
+		"castai_rebalancing_schedule": "castai:rebalancing:getRebalancingSchedule",
+		"castai_hibernation_schedule": "castai:rebalancing:getHibernationSchedule",
 
 		// Workload data sources
-		"castai_workload_scaling_policy_order": "castai:workload:GetWorkloadScalingPolicyOrderDataSource",
+		"castai_workload_scaling_policies":     "castai:workload:getWorkloadScalingPolicies",
+		"castai_workload_scaling_policy_order": "castai:workload:getWorkloadScalingPolicyOrder",
+
+		// Cache data sources
+		"castai_cache_group": "castai:cache:getCacheGroup",
 	}
 
 	// Verify all expected data sources are present
@@ -338,7 +344,7 @@ func TestProviderDataSources(t *testing.T) {
 		})
 	}
 
-	// Verify count matches (should have exactly 7 data sources from v7.73.0)
+	// Verify count matches (should have exactly 9 data sources from v7.73.0 parity)
 	assert.Equal(t, len(expectedDataSources), len(prov.DataSources),
 		"Expected %d data sources, got %d", len(expectedDataSources), len(prov.DataSources))
 }
@@ -356,6 +362,8 @@ func TestModuleConstants(t *testing.T) {
 	assert.Equal(t, "config/node", nodeConfigMod) // Changed from "nodeconfig" to hierarchical for QName compatibility
 	assert.Equal(t, "rebalancing", rebalancingMod)
 	assert.Equal(t, "workload", workloadMod)
+	assert.Equal(t, "cache", cacheMod)
+	assert.Equal(t, "index/aiOptimizer", aiOptimizerMod)
 }
 
 // TestAutoscalerResourceFieldMapping tests the autoscaler resource field mapping
@@ -442,9 +450,11 @@ func TestResourceModuleAssignment(t *testing.T) {
 		{"castai_commitments", "index"},
 		{"castai_reservations", "index"},
 		{"castai_security_runtime_rule", "index"},
+		{"castai_pod_mutation", "index"},
 
 		// Organization resources
 		{"castai_enterprise_group", "organization"},
+		{"castai_enterprise_service_account", "organization"},
 		{"castai_organization_group", "organization"},
 		{"castai_organization_members", "organization"},
 		{"castai_service_account", "organization"},
@@ -459,6 +469,17 @@ func TestResourceModuleAssignment(t *testing.T) {
 		// Workload resources
 		{"castai_workload_scaling_policy", "workload"},
 		{"castai_workload_scaling_policy_order", "workload"},
+		{"castai_workload_custom_metrics_data_source", "workload"},
+
+		// Cache resources
+		{"castai_cache_group", "cache"},
+		{"castai_cache_configuration", "cache"},
+		{"castai_cache_rule", "cache"},
+
+		// AI Optimizer resources
+		{"castai_ai_optimizer_model_registry", "index/aiOptimizer"},
+		{"castai_ai_optimizer_model_specs", "index/aiOptimizer"},
+		{"castai_ai_optimizer_hosted_model", "index/aiOptimizer"},
 	}
 
 	for _, tt := range tests {
@@ -480,12 +501,14 @@ func TestDataSourceModuleAssignment(t *testing.T) {
 		expectedModule string
 	}{
 		{"castai_eks_settings", "aws"},
-		{"castai_eks_user_arn", "aws"},
 		{"castai_gke_user_policies", "gcp"},
 		{"castai_organization", "organization"},
+		{"castai_impersonation_service_account", "organization"},
 		{"castai_rebalancing_schedule", "rebalancing"},
 		{"castai_hibernation_schedule", "rebalancing"},
+		{"castai_workload_scaling_policies", "workload"},
 		{"castai_workload_scaling_policy_order", "workload"},
+		{"castai_cache_group", "cache"},
 	}
 
 	for _, tt := range tests {

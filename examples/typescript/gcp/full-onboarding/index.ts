@@ -89,10 +89,6 @@ const cluster = new CastAiGkeCluster("castai-cluster", {
         "managed-by": "castai",
         "environment": "production",
     },
-
-    // Optional: Enable additional features
-    installWorkloadAutoscaler: false,
-    installSecurityAgent: false,
 });
 
 // ============================================================================
@@ -255,7 +251,7 @@ const autoscaler = new castai.Autoscaler("autoscaler", {
 // - diskCpuRatio: GiB per CPU ratio
 // - drainTimeoutSec: Node drain timeout
 //
-// See: /Users/leonkuperman/LKDev/CAST/pulumi-castai/sdk/nodejs/config/nodeConfiguration.d.ts
+// See: sdk/nodejs/config/nodeConfiguration.d.ts
 */
 
 // ============================================================================
@@ -263,7 +259,7 @@ const autoscaler = new castai.Autoscaler("autoscaler", {
 // ============================================================================
 
 export const clusterId = cluster.clusterId;
-export const clusterToken = pulumi.secret(cluster.clusterToken);
+export const clusterToken = cluster.clusterToken;
 export const serviceAccountEmail = cluster.serviceAccountEmail;
 export const customNodeConfigId = customNodeConfig.id;
 export const customNodeConfigName = customNodeConfig.name;

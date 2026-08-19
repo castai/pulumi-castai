@@ -54,8 +54,6 @@ export interface CastAiGkeClusterArgs {
 
     // Optional configuration
     deleteNodesOnDisconnect?: pulumi.Input<boolean>;
-    installWorkloadAutoscaler?: pulumi.Input<boolean>;
-    installSecurityAgent?: pulumi.Input<boolean>;
     tags?: pulumi.Input<{ [key: string]: pulumi.Input<string> }>;
 
     // Provider overrides

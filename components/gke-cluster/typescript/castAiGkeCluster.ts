@@ -34,13 +34,13 @@ export interface CastAiGkeClusterArgs {
     /**
      * Name of the GKE cluster to connect to CAST AI
      */
-    clusterName: string;
+    clusterName: pulumi.Input<string>;
 
     /**
      * GCP location (zone for zonal clusters, region for regional clusters)
      * Examples: "us-central1-a" (zonal), "us-central1" (regional)
      */
-    location: string;
+    location: pulumi.Input<string>;
 
     /**
      * GCP project ID
@@ -48,9 +48,20 @@ export interface CastAiGkeClusterArgs {
     projectId: pulumi.Input<string>;
 
     /**
-     * CAST AI API URL (optional, defaults to https://api.cast.ai)
+     * CAST AI API URL. When omitted, the CAST AI provider falls back to its
+     * built-in default of `https://api.cast.ai`.
      */
     apiUrl?: pulumi.Input<string>;
+
+    /**
+     * Helm chart version for all CAST AI charts. Defaults to the latest available version.
+     */
+    helmChartVersion?: pulumi.Input<string>;
+
+    /**
+     * Purge Helm releases on delete (default: true).
+     */
+    purgeOnDelete?: pulumi.Input<boolean>;
 
     /**
      * CAST AI API token (required)
@@ -81,16 +92,6 @@ export interface CastAiGkeClusterArgs {
     deleteNodesOnDisconnect?: pulumi.Input<boolean>;
 
     /**
-     * Install workload autoscaler (default: false)
-     */
-    installWorkloadAutoscaler?: pulumi.Input<boolean>;
-
-    /**
-     * Install security agent (default: false)
-     */
-    installSecurityAgent?: pulumi.Input<boolean>;
-
-    /**
      * Kubernetes provider (optional, will be created if not provided)
      */
     k8sProvider?: k8s.Provider;
@@ -99,6 +100,38 @@ export interface CastAiGkeClusterArgs {
      * Additional labels to apply to CAST AI provisioned nodes
      */
     tags?: pulumi.Input<{ [key: string]: pulumi.Input<string> }>;
+
+    /**
+     * Disk type for CAST AI provisioned GKE nodes.
+     * Defaults to "pd-standard" for backward compatibility.
+     */
+    nodeDiskType?: pulumi.Input<string>;
+
+    /**
+     * Maximum number of pods per node for CAST AI provisioned GKE nodes.
+     * Defaults to 110 for backward compatibility.
+     */
+    nodeMaxPodsPerNode?: pulumi.Input<number>;
+
+    /**
+     * Opt in to CAST AI service-account impersonation. Currently a no-op for GKE
+     * because the upstream impersonation data source only supports AKS; the
+     * component keeps using a GCP JSON service-account key.
+     */
+    useImpersonation?: boolean;
+
+    /**
+     * Rotate the JSON service account key every N days by including a rotation
+     * boundary in the key resource name, forcing Pulumi to replace it.
+     */
+    keyRotationDays?: number;
+
+    /**
+     * Optional explicit rotation boundary for the GCP service-account key.
+     * When set, takes precedence over the wall-clock boundary computed from
+     * keyRotationDays. Must be known at component construction time.
+     */
+    rotationBoundary?: number;
 }
 
 export class CastAiGkeCluster extends pulumi.ComponentResource {
@@ -107,15 +140,85 @@ export class CastAiGkeCluster extends pulumi.ComponentResource {
     public readonly credentialsId: pulumi.Output<string>;
     public readonly serviceAccountEmail?: pulumi.Output<string>;
     public readonly serviceAccountKey?: pulumi.Output<string>;
+    public readonly serviceAccountKeyName?: pulumi.Output<string>;
+    public readonly k8sProviderArgs?: {
+        kubeconfig: pulumi.Output<string>;
+        clusterIdentifier: pulumi.Input<string>;
+        deleteUnreachable: pulumi.Input<boolean>;
+    };
+    public readonly defaultNodeConfigArgs?: castai.config.NodeConfigurationArgs;
+    public readonly helmReleaseArgs?: Array<{
+        name: string;
+        chart: string;
+        version?: pulumi.Input<string>;
+        purgeOnDelete: pulumi.Input<boolean>;
+        values: any;
+    }>;
 
     constructor(name: string, args: CastAiGkeClusterArgs, opts?: pulumi.ComponentResourceOptions) {
-        super("castai:gke:CastAiGkeCluster", name, {}, opts);
+        super("castai:index:CastAiGkeCluster", name, {}, {
+            ...opts,
+            aliases: [...(opts?.aliases ?? []), { type: "castai:gke:CastAiGkeCluster" }],
+            additionalSecretOutputs: [...((opts as pulumi.CustomResourceOptions | undefined)?.additionalSecretOutputs ?? []), "serviceAccountKey", "clusterToken"],
+        } as pulumi.CustomResourceOptions);
 
         const componentOpts = { parent: this };
-        const apiUrl = args.apiUrl || "https://api.cast.ai";
+        const apiUrl = args.apiUrl;
         const readOnlyMode = args.readOnlyMode || false;
+        // Resolve `helmChartVersion` to a trimmed non-empty string or `undefined`.
+        // Checking truthiness on the raw `pulumi.Input<string>` wrapper is wrong
+        // because the wrapper is always truthy; we must look at the resolved value
+        // before deciding whether to pin a Helm chart version. The Output's apply
+        // callback collapses `undefined`, `""`, and whitespace-only strings into
+        // `undefined` so the downstream conditional behaves predictably.
+        const helmChartVersionOutput = pulumi.output(args.helmChartVersion).apply(v =>
+            v && v.trim() ? v.trim() : undefined
+        );
+        const purgeOnDelete = args.purgeOnDelete ?? true;
 
-        // Validate required arguments for full management mode
+        // `purgeOnDelete` is supported by the underlying helm provider but is
+        // missing from @pulumi/kubernetes' v3 ReleaseArgs type. Cast through
+        // an extended type so the extra field flows through typed.
+        type ExtendedReleaseArgs = k8s.helm.v3.ReleaseArgs & {
+            purgeOnDelete?: pulumi.Input<boolean>;
+        };
+        const asHelmArgs = (a: ExtendedReleaseArgs) => a as unknown as k8s.helm.v3.ReleaseArgs;
+
+        // Capture each Helm release's effective args synchronously so callers
+        // can inspect them without depending on Pulumi's mock monitor timing.
+        // The runtime strips fields not declared on `k8s.helm.v3.ReleaseArgs`
+        // (e.g. `purgeOnDelete`) from the inputs passed to mocks, so the
+        // recorded mock state cannot be used as a source of truth for them.
+        const helmReleaseArgs: Array<{
+            name: string;
+            chart: string;
+            version?: pulumi.Input<string>;
+            purgeOnDelete: pulumi.Input<boolean>;
+            values: any;
+        }> = [];
+
+        // Build Helm release args, omitting the version field when no explicit
+        // chart version is supplied so the Helm provider pulls the latest chart.
+        // We assign the resolved `Output<string | undefined>` directly: when the
+        // apply callback resolves to `undefined`, Pulumi treats the property as
+        // unset (equivalent to omitting it). This avoids the previous bug where
+        // the bare `pulumi.Input<string>` wrapper was always truthy and would
+        // pin a Helm chart version even when the underlying value was empty.
+        const buildHelmArgs = (args: Omit<ExtendedReleaseArgs, "version"> & { version?: pulumi.Input<string> }): ExtendedReleaseArgs => {
+            const result: ExtendedReleaseArgs = { ...args };
+            result.version = helmChartVersionOutput as pulumi.Input<string>;
+            return result;
+        };
+
+        // Validate required arguments for full management mode.
+        //
+        // NOTE: This validation runs synchronously at constructor time only.
+        // It inspects the raw `pulumi.Input` wrappers and cannot observe
+        // values that resolve from `Output<T>` later in the lifecycle. If a
+        // caller passes `pulumi.output(undefined)` or a lazy `Output` that
+        // ultimately resolves to nothing, the `pulumi.Input<pulumi.Input<string>[]>`
+        // wrapper may still be defined at this point and these checks will
+        // pass even though no usable values will be available at apply-time.
         if (!readOnlyMode) {
             if (!args.subnets) {
                 throw new Error("subnets is required when readOnlyMode is false");
@@ -132,10 +235,10 @@ export class CastAiGkeCluster extends pulumi.ComponentResource {
         }, componentOpts);
 
         // Get GKE cluster information
-        const gkeCluster = pulumi.output(args.projectId).apply(projectId =>
+        const gkeCluster = pulumi.all([args.clusterName, args.location, args.projectId]).apply(([clusterName, location, projectId]) =>
             gcp.container.getCluster({
-                name: args.clusterName,
-                location: args.location,
+                name: clusterName,
+                location: location,
                 project: projectId,
             })
         );
@@ -150,23 +253,44 @@ export class CastAiGkeCluster extends pulumi.ComponentResource {
             name: args.clusterName,
         }, { provider: castaiProvider, ...componentOpts });
 
-        this.clusterId = castaiClusterPhase1.id;
-        this.clusterToken = castaiClusterPhase1.clusterToken;
+        this.clusterId = (castaiClusterPhase1 as unknown as pulumi.CustomResource).id;
+        this.clusterToken = pulumi.secret(castaiClusterPhase1.clusterToken);
         this.credentialsId = castaiClusterPhase1.credentialsId;
 
         // =================================================================
         // Kubernetes Provider
         // =================================================================
 
-        const k8sProvider = args.k8sProvider || new k8s.Provider(`${name}-k8s`, {
-            kubeconfig: gkeCluster.apply(cluster => {
-                const context = pulumi.interpolate`gke_${args.projectId}_${args.location}_${args.clusterName}`;
+        let k8sProviderArgs: {
+            kubeconfig: pulumi.Output<string>;
+            clusterIdentifier: pulumi.Input<string>;
+            deleteUnreachable: pulumi.Input<boolean>;
+        } | undefined;
+        const k8sProvider = args.k8sProvider || (() => {
+            // Inputs to k8s.Provider must only contain fields declared on
+            // `k8s.ProviderArgs`. `clusterIdentifier` and `deleteUnreachable`
+            // are surfaced in the public `k8sProviderArgs` for inspection but
+            // are intentionally NOT passed to the Provider to avoid type
+            // errors and unwanted side effects.
+            const providerInputs: k8s.ProviderArgs = {
+                kubeconfig: gkeCluster.apply(cluster => {
+                    const context = pulumi.interpolate`gke_${args.projectId}_${args.location}_${args.clusterName}`;
+                    const masterAuths = (cluster as any).masterAuths;
+                    const caCert = Array.isArray(masterAuths) && masterAuths.length > 0
+                        ? masterAuths[0].clusterCaCertificate
+                        : (cluster as any).masterAuth?.clusterCaCertificate;
 
-                return pulumi.interpolate`apiVersion: v1
+                    if (!caCert) {
+                        throw new Error(
+                            `Unable to obtain cluster CA certificate for GKE cluster ${args.clusterName}.`
+                        );
+                    }
+
+                    return pulumi.interpolate`apiVersion: v1
 kind: Config
 clusters:
 - cluster:
-    certificate-authority-data: ${cluster.masterAuths[0].clusterCaCertificate}
+    certificate-authority-data: ${caCert}
     server: https://${cluster.endpoint}
   name: ${context}
 contexts:
@@ -183,17 +307,43 @@ users:
       command: gke-gcloud-auth-plugin
       installHint: Install gke-gcloud-auth-plugin for kubectl by following https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin
       provideClusterInfo: true
+      interactiveMode: Never
 `;
-            }),
-        }, componentOpts);
+                }),
+            };
+            // The public output retains the contextual fields (cluster identifier
+            // and the deleteUnreachable flag) so users can inspect them, even
+            // though they are no longer passed to the Provider itself.
+            const providerArgs = {
+                kubeconfig: providerInputs.kubeconfig as pulumi.Output<string>,
+                clusterIdentifier: this.clusterId,
+                deleteUnreachable: true,
+            };
+            k8sProviderArgs = providerArgs;
+            return new k8s.Provider(`${name}-k8s`, providerInputs, componentOpts);
+        })();
+        this.k8sProviderArgs = k8sProviderArgs;
 
         // =================================================================
         // Install Agent (Phase 1)
         // =================================================================
 
-        new k8s.helm.v3.Release(`${name}-agent`, {
+        helmReleaseArgs.push({
             name: "castai-agent",
             chart: "castai-agent",
+            version: helmChartVersionOutput as pulumi.Input<string>,
+            purgeOnDelete,
+            values: {
+                provider: "gke",
+                createNamespace: false,
+                apiURL: apiUrl,
+                apiKey: this.clusterToken,
+            },
+        });
+        new k8s.helm.v3.Release(`${name}-agent`, asHelmArgs(buildHelmArgs({
+            name: "castai-agent",
+            chart: "castai-agent",
+            purgeOnDelete,
             repositoryOpts: {
                 repo: "https://castai.github.io/helm-charts",
             },
@@ -208,9 +358,9 @@ users:
                 apiURL: apiUrl,
                 apiKey: this.clusterToken,
             },
-        }, {
+        })), {
             provider: k8sProvider,
-            dependsOn: [castaiClusterPhase1],
+            dependsOn: [castaiClusterPhase1 as unknown as pulumi.Resource],
             ...componentOpts,
         });
 
@@ -225,10 +375,14 @@ users:
                 projectId: args.projectId,
                 location: args.location,
                 clusterId: this.clusterId,
+                useImpersonation: args.useImpersonation,
+                keyRotationDays: args.keyRotationDays,
+                rotationBoundary: args.rotationBoundary,
             }, componentOpts);
 
             this.serviceAccountEmail = iamResources.serviceAccountEmail;
-            this.serviceAccountKey = iamResources.serviceAccountKey;
+            this.serviceAccountKey = pulumi.secret(iamResources.serviceAccountKey);
+            this.serviceAccountKeyName = iamResources.serviceAccountKeyName;
 
             // Update cluster with IAM credentials (Phase 2)
             const gkeClusterConnection = new castai.GkeCluster(`${name}-connection`, {
@@ -239,41 +393,57 @@ users:
                 deleteNodesOnDisconnect: args.deleteNodesOnDisconnect || false,
             }, {
                 provider: castaiProvider,
-                dependsOn: [castaiClusterPhase1, iamResources],
+                dependsOn: [castaiClusterPhase1 as unknown as pulumi.Resource, iamResources],
                 ...componentOpts,
             });
 
             // Create default node configuration with network tags and subnets
-            const defaultNodeConfig = new castai.config.NodeConfiguration(`${name}-node-config-default`, {
+            const defaultNodeConfigArgs: castai.config.NodeConfigurationArgs = {
                 clusterId: this.clusterId,
                 name: "default",
                 subnets: args.subnets!,
                 tags: args.tags,
                 gke: {
-                    diskType: "pd-standard",
+                    diskType: args.nodeDiskType ?? "pd-standard",
                     networkTags: args.networkTags,
-                    maxPodsPerNode: 110,
+                    maxPodsPerNode: args.nodeMaxPodsPerNode ?? 110,
                 },
-            }, {
+            };
+            const defaultNodeConfig = new castai.config.NodeConfiguration(`${name}-node-config-default`, defaultNodeConfigArgs, {
                 provider: castaiProvider,
-                dependsOn: [gkeClusterConnection, iamResources],
+                dependsOn: [gkeClusterConnection as unknown as pulumi.Resource, iamResources],
                 ...componentOpts,
             });
+            this.defaultNodeConfigArgs = defaultNodeConfigArgs;
 
             // Set as default node configuration
             new castai.config.NodeConfigurationDefault(`${name}-node-config-default-ref`, {
                 clusterId: this.clusterId,
-                configurationId: defaultNodeConfig.id,
+                configurationId: (defaultNodeConfig as unknown as pulumi.CustomResource).id,
             }, {
                 provider: castaiProvider,
-                dependsOn: [defaultNodeConfig],
+                dependsOn: [defaultNodeConfig as unknown as pulumi.Resource],
                 ...componentOpts,
             });
 
             // Install cluster controller (Phase 2)
-            new k8s.helm.v3.Release(`${name}-controller`, {
+            helmReleaseArgs.push({
                 name: "cluster-controller",
                 chart: "castai-cluster-controller",
+                version: helmChartVersionOutput as pulumi.Input<string>,
+                purgeOnDelete,
+                values: {
+                    castai: {
+                        clusterID: this.clusterId,
+                        apiURL: apiUrl,
+                        apiKey: pulumi.secret(args.apiToken),
+                    },
+                },
+            });
+            new k8s.helm.v3.Release(`${name}-controller`, asHelmArgs(buildHelmArgs({
+                name: "cluster-controller",
+                chart: "castai-cluster-controller",
+                purgeOnDelete,
                 repositoryOpts: {
                     repo: "https://castai.github.io/helm-charts",
                 },
@@ -286,19 +456,32 @@ users:
                     castai: {
                         clusterID: this.clusterId,
                         apiURL: apiUrl,
-                        apiKey: args.apiToken,
+                        apiKey: pulumi.secret(args.apiToken),
                     },
                 },
-            }, {
+            })), {
                 provider: k8sProvider,
-                dependsOn: [gkeClusterConnection],
+                dependsOn: [gkeClusterConnection as unknown as pulumi.Resource],
                 ...componentOpts,
             });
 
             // Install spot handler
-            new k8s.helm.v3.Release(`${name}-spot-handler`, {
+            helmReleaseArgs.push({
                 name: "castai-spot-handler",
                 chart: "castai-spot-handler",
+                version: helmChartVersionOutput as pulumi.Input<string>,
+                purgeOnDelete,
+                values: {
+                    castai: {
+                        clusterID: this.clusterId,
+                        provider: "gke",
+                    },
+                },
+            });
+            new k8s.helm.v3.Release(`${name}-spot-handler`, asHelmArgs(buildHelmArgs({
+                name: "castai-spot-handler",
+                chart: "castai-spot-handler",
+                purgeOnDelete,
                 repositoryOpts: {
                     repo: "https://castai.github.io/helm-charts",
                 },
@@ -313,16 +496,26 @@ users:
                         provider: "gke",
                     },
                 },
-            }, {
+            })), {
                 provider: k8sProvider,
-                dependsOn: [gkeClusterConnection],
+                dependsOn: [gkeClusterConnection as unknown as pulumi.Resource],
                 ...componentOpts,
             });
 
             // Install evictor
-            new k8s.helm.v3.Release(`${name}-evictor`, {
+            helmReleaseArgs.push({
                 name: "castai-evictor",
                 chart: "castai-evictor",
+                version: helmChartVersionOutput as pulumi.Input<string>,
+                purgeOnDelete,
+                values: {
+                    replicaCount: 0,
+                },
+            });
+            new k8s.helm.v3.Release(`${name}-evictor`, asHelmArgs(buildHelmArgs({
+                name: "castai-evictor",
+                chart: "castai-evictor",
+                purgeOnDelete,
                 repositoryOpts: {
                     repo: "https://castai.github.io/helm-charts",
                 },
@@ -334,16 +527,30 @@ users:
                 values: {
                     replicaCount: 0,
                 },
-            }, {
+            })), {
                 provider: k8sProvider,
-                dependsOn: [gkeClusterConnection],
+                dependsOn: [gkeClusterConnection as unknown as pulumi.Resource],
                 ...componentOpts,
             });
 
             // Install pod pinner
-            new k8s.helm.v3.Release(`${name}-pod-pinner`, {
+            helmReleaseArgs.push({
                 name: "castai-pod-pinner",
                 chart: "castai-pod-pinner",
+                version: helmChartVersionOutput as pulumi.Input<string>,
+                purgeOnDelete,
+                values: {
+                    castai: {
+                        apiKey: pulumi.secret(args.apiToken),
+                        clusterID: this.clusterId,
+                    },
+                    replicaCount: 0,
+                },
+            });
+            new k8s.helm.v3.Release(`${name}-pod-pinner`, asHelmArgs(buildHelmArgs({
+                name: "castai-pod-pinner",
+                chart: "castai-pod-pinner",
+                purgeOnDelete,
                 repositoryOpts: {
                     repo: "https://castai.github.io/helm-charts",
                 },
@@ -354,24 +561,26 @@ users:
                 skipAwait: true,
                 values: {
                     castai: {
-                        apiKey: args.apiToken,
+                        apiKey: pulumi.secret(args.apiToken),
                         clusterID: this.clusterId,
                     },
                     replicaCount: 0,
                 },
-            }, {
+            })), {
                 provider: k8sProvider,
-                dependsOn: [gkeClusterConnection],
+                dependsOn: [gkeClusterConnection as unknown as pulumi.Resource],
                 ...componentOpts,
             });
         }
 
+        this.helmReleaseArgs = helmReleaseArgs;
         this.registerOutputs({
             clusterId: this.clusterId,
             clusterToken: this.clusterToken,
             credentialsId: this.credentialsId,
             serviceAccountEmail: this.serviceAccountEmail,
             serviceAccountKey: this.serviceAccountKey,
+            serviceAccountKeyName: this.serviceAccountKeyName,
         });
     }
 }

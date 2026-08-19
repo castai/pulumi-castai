@@ -22,7 +22,6 @@ import (
 	"github.com/castai/terraform-provider-castai/castai"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 
 	"github.com/castai/pulumi-castai/provider/pkg/version"
@@ -34,23 +33,19 @@ const (
 	// registries for nodejs and python:
 	mainPkg = "castai"
 	// modules:
-	mainMod         = "index" // the castai module
-	awsMod          = "aws"   // AWS specific resources
-	gcpMod          = "gcp"   // GCP specific resources
-	azureMod        = "azure" // Azure specific resources
-	iamMod          = "iam"   // IAM related resources
+	mainMod         = "index"             // the castai module
+	awsMod          = "aws"               // AWS specific resources
+	gcpMod          = "gcp"               // GCP specific resources
+	azureMod        = "azure"             // Azure specific resources
+	iamMod          = "iam"               // IAM related resources
 	autoscalingMod  = "autoscaling"
 	organizationMod = "organization"
 	nodeConfigMod   = "config/node"
 	rebalancingMod  = "rebalancing"
 	workloadMod     = "workload"
+	cacheMod        = "cache"
+	aiOptimizerMod  = "index/aiOptimizer"
 )
-
-// preConfigureCallback is called before the provider is configured with
-// the configured provider resource.
-func preConfigureCallback(vars resource.PropertyMap, c interface{}) error {
-	return nil
-}
 
 // Provider returns additional overlaid schema and metadata associated with the provider.
 func Provider() tfbridge.ProviderInfo {
@@ -86,7 +81,6 @@ func Provider() tfbridge.ProviderInfo {
 				},
 			},
 		},
-		PreConfigureCallback: nil,
 		Resources: map[string]*tfbridge.ResourceInfo{
 			// Core Resources
 			"castai_eks_cluster":    {Tok: awsResource(awsMod, "EksCluster")},
@@ -116,8 +110,10 @@ func Provider() tfbridge.ProviderInfo {
 			"castai_node_template":              {Tok: castaiResource(nodeConfigMod, "NodeTemplate")},
 
 			// Workload Management resources
-			"castai_workload_scaling_policy":       {Tok: castaiResource(workloadMod, "WorkloadScalingPolicy")},
-			"castai_workload_scaling_policy_order": {Tok: castaiResource(workloadMod, "WorkloadScalingPolicyOrder")},
+			"castai_workload_scaling_policy":             {Tok: castaiResource(workloadMod, "WorkloadScalingPolicy")},
+			"castai_workload_scaling_policy_order":       {Tok: castaiResource(workloadMod, "WorkloadScalingPolicyOrder")},
+			"castai_workload_custom_metrics_data_source": {Tok: castaiResource(workloadMod, "WorkloadCustomMetricsDataSource")},
+			"castai_pod_mutation":                        {Tok: castaiResource(mainMod, "PodMutation")},
 
 			// Rebalancing resources
 			"castai_rebalancing_schedule": {Tok: castaiResource(rebalancingMod, "RebalancingSchedule")},
@@ -125,40 +121,55 @@ func Provider() tfbridge.ProviderInfo {
 			"castai_hibernation_schedule": {Tok: castaiResource(rebalancingMod, "HibernationSchedule")},
 
 			// Organization resources
-			"castai_organization_members": {Tok: castaiResource(organizationMod, "OrganizationMembers")},
-			"castai_organization_group":   {Tok: castaiResource(organizationMod, "OrganizationGroup")},
-			"castai_service_account":      {Tok: castaiResource(organizationMod, "ServiceAccount")},
-			"castai_service_account_key":  {Tok: castaiResource(organizationMod, "ServiceAccountKey")},
-			"castai_sso_connection":       {Tok: castaiResource(organizationMod, "SSOConnection")},
-			"castai_role_bindings":        {Tok: castaiResource(iamMod, "RoleBindings")},
-			"castai_enterprise_group":     {Tok: castaiResource(organizationMod, "EnterpriseGroup")},
-			"castai_enterprise_role_binding": {Tok: castaiResource(iamMod, "EnterpriseRoleBinding")},
+			"castai_organization_members":     {Tok: castaiResource(organizationMod, "OrganizationMembers")},
+			"castai_organization_group":       {Tok: castaiResource(organizationMod, "OrganizationGroup")},
+			"castai_service_account":          {Tok: castaiResource(organizationMod, "ServiceAccount")},
+			"castai_service_account_key":      {Tok: castaiResource(organizationMod, "ServiceAccountKey")},
+			"castai_sso_connection":           {Tok: castaiResource(organizationMod, "SSOConnection")},
+			"castai_role_bindings":            {Tok: castaiResource(iamMod, "RoleBindings")},
+			"castai_enterprise_group":         {Tok: castaiResource(organizationMod, "EnterpriseGroup")},
+			"castai_enterprise_role_binding":  {Tok: castaiResource(iamMod, "EnterpriseRoleBinding")},
+			"castai_enterprise_service_account": {Tok: castaiResource(organizationMod, "EnterpriseServiceAccount")},
 
 			// Cost Management resources
-			"castai_reservations":   {Tok: castaiResource(mainMod, "Reservations")},
-			"castai_commitments":    {Tok: castaiResource(mainMod, "Commitments")},
-			"castai_allocation_group": {Tok: castaiResource(mainMod, "AllocationGroup")},
+			"castai_reservations":       {Tok: castaiResource(mainMod, "Reservations")},
+			"castai_commitments":        {Tok: castaiResource(mainMod, "Commitments")},
+			"castai_allocation_group":   {Tok: castaiResource(mainMod, "AllocationGroup")},
 
 			// Security resources
 			"castai_security_runtime_rule": {Tok: castaiResource(mainMod, "SecurityRuntimeRule")},
+
+			// Cache resources
+			"castai_cache_group":         {Tok: castaiResource(cacheMod, "CacheGroup")},
+			"castai_cache_configuration": {Tok: castaiResource(cacheMod, "CacheConfiguration")},
+			"castai_cache_rule":          {Tok: castaiResource(cacheMod, "CacheRule")},
+
+			// AI Optimizer resources
+			"castai_ai_optimizer_model_registry": {Tok: castaiResource(aiOptimizerMod, "AiOptimizerModelRegistry")},
+			"castai_ai_optimizer_model_specs":    {Tok: castaiResource(aiOptimizerMod, "AiOptimizerModelSpecs")},
+			"castai_ai_optimizer_hosted_model":   {Tok: castaiResource(aiOptimizerMod, "AiOptimizerHostedModel")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// AWS Data Sources
 			"castai_eks_settings": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksSettings"))},
-			"castai_eks_user_arn": {Tok: tokens.ModuleMember(awsDataSource(awsMod, "getEksUserArn"))}, // Deprecated but still exists in v7.73.0
 
 			// GCP Data Sources
 			"castai_gke_user_policies": {Tok: tokens.ModuleMember(gcpDataSource(gcpMod, "getGkePolicies"))},
 
 			// Organization Data Sources
-			"castai_organization": {Tok: tokens.ModuleMember(castaiDataSource(organizationMod, "getOrganization"))},
+			"castai_organization":                  {Tok: tokens.ModuleMember(castaiDataSource(organizationMod, "getOrganization"))},
+			"castai_impersonation_service_account": {Tok: tokens.ModuleMember(castaiDataSource(organizationMod, "getImpersonationServiceAccount"))},
 
 			// Rebalancing Data Sources
 			"castai_rebalancing_schedule": {Tok: tokens.ModuleMember(castaiDataSource(rebalancingMod, "getRebalancingSchedule"))},
 			"castai_hibernation_schedule": {Tok: tokens.ModuleMember(castaiDataSource(rebalancingMod, "getHibernationSchedule"))},
 
 			// Workload Data Sources
-			"castai_workload_scaling_policy_order": {Tok: tokens.ModuleMember(castaiDataSource(workloadMod, "getWorkloadScalingPolicyOrder"))},
+			"castai_workload_scaling_policies":       {Tok: tokens.ModuleMember(castaiDataSource(workloadMod, "getWorkloadScalingPolicies"))},
+			"castai_workload_scaling_policy_order":   {Tok: tokens.ModuleMember(castaiDataSource(workloadMod, "getWorkloadScalingPolicyOrder"))},
+
+			// Cache Data Sources
+			"castai_cache_group": {Tok: tokens.ModuleMember(castaiDataSource(cacheMod, "getCacheGroup"))},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: "@castai/pulumi",
@@ -204,51 +215,45 @@ func Provider() tfbridge.ProviderInfo {
 
 // castaiResource creates a Pulumi token for a CAST AI resource from its module and name
 func castaiResource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(mod, name, ""))
+	return tokens.Type(makeMemberToken(mod, name))
 }
 
 // awsResource creates tokens for AWS-specific resources
 func awsResource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(mod, name, ""))
+	return tokens.Type(makeMemberToken(mod, name))
 }
 
 // gcpResource creates tokens for GCP-specific resources
 func gcpResource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(mod, name, ""))
+	return tokens.Type(makeMemberToken(mod, name))
 }
 
 // azureResource creates tokens for Azure-specific resources
 func azureResource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(mod, name, ""))
+	return tokens.Type(makeMemberToken(mod, name))
 }
 
-// castaiDataSource creates a Pulumi token for a CAST AI data source from its module and name
+// castaiDataSource creates a Pulumi token for a CAST AI data source from its module and name.
+// Data-source tokens are lowercase and do NOT carry a "DataSource" suffix,
+// matching Pulumi SDK conventions (e.g. `castai:organization:getOrganization`).
 func castaiDataSource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(mod, name, "DataSource"))
+	return tokens.Type(fmt.Sprintf("castai:%s:%s", mod, name))
 }
 
-// awsDataSource creates tokens for AWS-specific data sources
+// awsDataSource creates tokens for AWS-specific data sources.
+// Data-source tokens are lowercase and do NOT carry a "DataSource" suffix.
 func awsDataSource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(mod, name, "DataSource"))
+	return tokens.Type(fmt.Sprintf("castai:%s:%s", mod, name))
 }
 
-// gcpDataSource creates tokens for GCP-specific data sources
+// gcpDataSource creates tokens for GCP-specific data sources.
+// Data-source tokens are lowercase and do NOT carry a "DataSource" suffix.
 func gcpDataSource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(mod, name, "DataSource"))
+	return tokens.Type(fmt.Sprintf("castai:%s:%s", mod, name))
 }
 
-// iamResource creates tokens for IAM-specific resources
-func iamResource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(iamMod, name, ""))
-}
-
-// azureDataSource creates tokens for Azure-specific data sources
-func azureDataSource(mod string, name string) tokens.Type {
-	return tokens.Type(makeMemberToken(mod, name, "DataSource"))
-}
-
-func makeMemberToken(mod string, name string, suffix string) string {
-	return fmt.Sprintf("castai:%s:%s%s", mod, title(name), suffix)
+func makeMemberToken(mod string, name string) string {
+	return fmt.Sprintf("castai:%s:%s", mod, title(name))
 }
 
 // title capitalizes the first letter of a string

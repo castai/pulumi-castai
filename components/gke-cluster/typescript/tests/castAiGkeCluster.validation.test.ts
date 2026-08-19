@@ -17,11 +17,11 @@ class ValidationMocks implements pulumi.runtime.Mocks {
     newResource(args: pulumi.runtime.MockResourceArgs): { id: string; state: any } {
         const outputs = { ...args.inputs };
 
-        if (args.type === "castai:gke:CastAiGkeCluster") {
+        if (args.type === "castai:index:CastAiGkeCluster") {
             return { id: `${args.name}`, state: outputs };
         }
 
-        if (args.type === "castai:gke:GkeIamResources") {
+        if (args.type === "castai:index:GkeIamResources") {
             return { id: `${args.name}`, state: outputs };
         }
 
@@ -99,7 +99,7 @@ class ValidationMocks implements pulumi.runtime.Mocks {
                 name: args.inputs.name,
                 location: args.inputs.location,
                 endpoint: "35.123.45.67",
-                masterAuths: [{ clusterCaCertificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0t" }],
+                masterAuth: { clusterCaCertificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0t" },
             };
         }
         return {};
