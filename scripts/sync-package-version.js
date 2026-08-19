@@ -4,11 +4,12 @@ const fs = require('fs');
 const path = require('path');
 
 // Read version from version.txt
-const version = fs.readFileSync(path.join(__dirname, 'version.txt'), 'utf8').trim();
+const repoRoot = path.join(__dirname, '..');
+const version = fs.readFileSync(path.join(repoRoot, 'version.txt'), 'utf8').trim();
 console.log(`Using version ${version} from version.txt`);
 
 // Update package.json
-const packageJsonPath = path.join(__dirname, 'package.json');
+const packageJsonPath = path.join(repoRoot, 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const oldVersion = packageJson.version;
 packageJson.version = version;
@@ -17,7 +18,7 @@ fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 console.log(`Updated package.json version from ${oldVersion} to ${version}`);
 
 // Also update SDK package.json if it exists
-const sdkPackageJsonPath = path.join(__dirname, 'sdk', 'nodejs', 'package.json');
+const sdkPackageJsonPath = path.join(repoRoot, 'sdk', 'nodejs', 'package.json');
 if (fs.existsSync(sdkPackageJsonPath)) {
   const sdkPackageJson = JSON.parse(fs.readFileSync(sdkPackageJsonPath, 'utf8'));
   const oldSdkVersion = sdkPackageJson.version;
