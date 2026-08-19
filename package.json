@@ -1,6 +1,6 @@
 {
   "name": "@castai/pulumi-castai-repo",
-  "version": "0.1.2",
+  "version": "8.60.0",
   "description": "Pulumi provider for CAST AI",
   "private": true,
   "scripts": {
